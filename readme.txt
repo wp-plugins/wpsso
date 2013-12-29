@@ -44,7 +44,7 @@ WPSSO (Pro version) also supports [WooCommerce v1.x and v2.x](http://wordpress.o
 
 **Forums and Social**
 
-WPSSO (Pro version) supports [bbPress](http://wordpress.org/plugins/bbpress/) and [BuddyPress](http://wordpress.org/plugins/buddypress/) (see the [BuddyPress Integration Notes](http://surniaulula.com/codex/plugins/wpsso/notes/buddypress-integration/)), making sure your meta tags reflect the page content, including appropriate titles, descriptions, images, etc. Social sharing buttons can also be added to [bbPress](http://wordpress.org/plugins/bbpress/) single template pages and [BuddyPress](http://wordpress.org/plugins/buddypress/) activities.
+WPSSO (Pro version) supports [bbPress](http://wordpress.org/plugins/bbpress/) and [BuddyPress](http://wordpress.org/plugins/buddypress/) (see the [BuddyPress Integration Notes](http://surniaulula.com/codex/plugins/wpsso/notes/buddypress-integration/)), making sure your meta tags reflect the page content, including appropriate titles, descriptions, images, etc.
 
 = Custom Contacts =
 
