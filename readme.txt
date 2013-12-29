@@ -12,7 +12,7 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 == Description ==
 
-**WordPress Social Sharing Optimization (WPSSO) is a fork of the [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features, but strives to be a little smaller and faster by removing the social sharing features (buttons, shortcode, widget)**.
+**WordPress Social Sharing Optimization (WPSSO) is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features, but strives to be a little smaller and faster by removing the social sharing features (buttons, shortcode, widget)**.
 
 = Meta Tags =
 
