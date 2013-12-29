@@ -1,4 +1,4 @@
-=== WordPress Social Sharing Optimization (WPSSO) ===
+=== WordPress Social Sharing Optimization ===
 Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
 Tags: nextgen, featured, attached, open graph, meta, facebook, google, google plus, g+, twitter, linkedin, social, seo, pinterest, rich pins, tumblr, stumbleupon, widget, language, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, nextgen gallery, gallery, twitter cards, photo card, gallery card, player card, large image summary card, summary card, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress
@@ -12,7 +12,9 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 == Description ==
 
-**WordPress Social Sharing Optimization (WPSSO) is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features, but strives to be a little smaller and faster by removing the social sharing features (buttons, shortcode, widget)**.
+**WordPress Social Sharing Optimization (WPSSO) is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features, but strives to be a little smaller and lighter by removing the social sharing features (buttons, shortcode, widget)**.
+
+WPSSO adds HTML meta tags (Open Graph, Pinterest Rich Pins, Twitter Cards) to the head section of WordPress webpages for improved Google Search results and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more -- An absolute essential plugin for every WordPress website!
 
 = Meta Tags =
 
