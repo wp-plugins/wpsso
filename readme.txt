@@ -32,7 +32,7 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 
 **Images and Videos**
 
-WPSSO detects and uses all images, associated or included in your Post / Page content, embedded videos from YouTube, Vimeo, and Wistia (including video preview images). WPSSO supports WordPress Media Library galleries and [NextGEN Gallery v1.x and v2.x](http://wordpress.org/plugins/nextgen-gallery/) albums, galleries, shortcodes, image tags, preview images, etc. WordPress Media Library and NextGEN Gallery images are resized for optimal presentation in Open Graph meta tags (Facebook), the many Twitter Card formats, and sharing on Pinterest.
+WPSSO detects and uses all images, associated or included in your Post / Page content, embedded videos from YouTube, Vimeo, and Wistia (including video preview images). WPSSO supports WordPress Media Library galleries and [NextGEN Gallery v1.x and v2.x](http://wordpress.org/plugins/nextgen-gallery/) albums, galleries, shortcodes, image tags, preview images, etc. WordPress Media Library and NextGEN Gallery images are resized for optimal presentation in Open Graph (Facebook) meta tags, the many Twitter Card formats, and sharing on Pinterest.
 
 **Enhanced SEO**
 
