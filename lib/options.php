@@ -35,6 +35,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			'link_publisher_url' => '',
 			'fb_admins' => '',
 			'fb_app_id' => '',
+			'fb_lang' => 'en_US',
 			'og_site_name' => '',
 			'og_site_description' => '',
 			'og_publisher_url' => '',
@@ -65,29 +66,6 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			'og_desc_hashtags' => 0,
 			'og_desc_strip' => 0,
 			'og_empty_tags' => 0,
-			'fb_on_the_excerpt' => 0,
-			'fb_on_the_content' => 0,
-			'fb_on_admin_sharing' => 1,
-			'fb_order' => 1,
-			'fb_lang' => 'en_US',
-			'fb_button' => 'like',
-			'fb_markup' => 'xfbml',
-			'fb_send' => 1,
-			'fb_layout' => 'button_count',
-			'fb_font' => 'arial',
-			'fb_show_faces' => 0,
-			'fb_colorscheme' => 'light',
-			'fb_action' => 'like',
-			'fb_type' => 'button_count',
-			'gp_on_the_excerpt' => 0,
-			'gp_on_the_content' => 0,
-			'gp_on_admin_sharing' => 1,
-			'gp_order' => 2,
-			'gp_lang' => 'en-US',
-			'gp_action' => 'plusone',
-			'gp_size' => 'medium',
-			'gp_annotation' => 'bubble',
-			'gp_expandto' => '',
 			'tc_enable' => 0,
 			'tc_site' => '',
 			'tc_desc_len' => 200,
@@ -99,15 +77,6 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			'tc_prod_size' => 'wpsso-medium',
 			'tc_prod_def_l2' => 'Location',
 			'tc_prod_def_d2' => 'Unknown',
-			'pin_on_the_excerpt' => 0,
-			'pin_on_the_content' => 0,
-			'pin_on_admin_sharing' => 1,
-			'pin_order' => 7,
-			'pin_count_layout' => 'horizontal',
-			'pin_img_size' => 'wpsso-large',
-			'pin_caption' => 'both',
-			'pin_cap_len' => 500,
-			'pin_img_url' => 'http://assets.pinterest.com/images/PinExt.png',
 			'inc_description' => 0,
 			'inc_fb:admins' => 1,
 			'inc_fb:app_id' => 1,
@@ -480,7 +449,6 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					 */
 					case 'og_art_section':
 					case 'fb_app_id':
-					case 'gp_expandto':
 					case 'og_title':
 					case 'og_desc':
 					case 'og_site_name':
@@ -498,11 +466,6 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					case 'og_def_img_id_pre': 
 					case 'og_author_field':
 					case 'fb_lang': 
-					case 'fb_markup': 
-					case 'gp_lang': 
-					case 'gp_action': 
-					case 'gp_size': 
-					case 'gp_annotation': 
 					case 'plugin_tid:use':
 						if ( empty( $opts[$key] ) ) {
 							$this->p->notice->inf( 'The value of option \''.$key.'\' cannot be empty'.
