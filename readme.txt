@@ -6,13 +6,13 @@ License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.8
-Stable Tag: 0.20dev2
+Stable Tag: 0.20.0
 
 Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
 
 == Description ==
 
-**WordPress Social Sharing Optimization (WPSSO) is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features, but strives to be a little smaller and lighter by removing the social sharing features (buttons, shortcode, widget)**.
+**WordPress Social Sharing Optimization (WPSSO) is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features, but strives to be a little smaller and lighter by removing the social sharing features (buttons, shortcodes, widgets, url shortening and rewriting)**.
 
 WPSSO adds HTML meta tags (Open Graph, Pinterest Rich Pins, Twitter Cards) to the head section of WordPress webpages for improved Google Search results and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more -- An absolute essential plugin for every WordPress website!
 
@@ -102,7 +102,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 0.20dev2 =
+= Version 0.20.0 =
 
 Initial release.
 

@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 	class WpssoPluginConfig {
 
 		private static $cf = array(
-			'version' => '0.20dev2',	// plugin version
+			'version' => '0.20.0',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -300,7 +300,7 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 			}
 
 			if ( file_exists( $plugin_dir.'lib/opengraph.php' ) &&
-				( ! defined( $cf['uca'].'_OPEN_GRAPH_DISABLE' ) || ! constant( $cf['uca'].'_OPEN_GRAPH_DISABLE' ) ) &&
+				( ! defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) || ! WPSSO_OPEN_GRAPH_DISABLE ) &&
 				empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) )
 					require_once( $plugin_dir.'lib/opengraph.php' );	// extends lib/com/opengraph.php
 

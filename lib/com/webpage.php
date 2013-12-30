@@ -254,10 +254,17 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					if ( has_excerpt( $post_id ) ) {
 						$desc = $obj->post_excerpt;
 						if ( ! empty( $this->p->options['plugin_filter_excerpt'] ) ) {
-							$filter_removed = $this->p->social->remove_filter( 'get_the_excerpt' );
+
+							// remove the social buttons filter to avoid recursive loops
+							if ( ! empty( $this->p->social ) && 
+								is_object( $this->p->social ) )
+									$filter_removed = $this->p->social->remove_filter( 'get_the_excerpt' );
+							else $filter_removed = false;
+
 							$this->p->debug->log( 'calling apply_filters(\'get_the_excerpt\')' );
 							$desc = apply_filters( 'get_the_excerpt', $desc );
-							if ( ! empty( $filter_removed ) )
+
+							if ( $filter_removed )
 								$this->p->social->add_filter( 'get_the_excerpt' );
 						}
 					} 
@@ -366,15 +373,19 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			if ( $filter_content == true ) {
 
-				// remove the social buttons filter, which would create a loop with this method
-				if ( is_object( $this->p->social ) )
-					$filter_removed = $this->p->social->remove_filter( 'the_content' );
+				// remove the social buttons filter to avoid recursive loops
+				if ( ! empty( $this->p->social ) && 
+					is_object( $this->p->social ) )
+						$filter_removed = $this->p->social->remove_filter( 'the_content' );
+				else $filter_removed = false;
 
 				// remove all of our shortcodes
-				foreach ( $this->p->cf['lib']['shortcode'] as $id => $name )
-					if ( array_key_exists( $id, $this->shortcode ) && 
-						is_object( $this->shortcode[$id] ) )
-							$this->shortcode[$id]->remove();
+				if ( ! empty( $this->p->cf['lib']['shortcode'] ) && 
+					is_array( $this->p->cf['lib']['shortcode'] ) )
+						foreach ( $this->p->cf['lib']['shortcode'] as $id => $name )
+							if ( array_key_exists( $id, $this->shortcode ) && 
+								is_object( $this->shortcode[$id] ) )
+									$this->shortcode[$id]->remove();
 
 				$this->p->debug->log( 'saving $post and calling apply_filters()' );
 				global $post;
@@ -387,14 +398,16 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				unset ( $GLOBALS['nggShowGallery'] );
 
 				// add the social buttons filter back, if it was removed
-				if ( is_object( $this->p->social ) && ! empty( $filter_removed ) )
+				if ( $filter_removed )
 					$this->p->social->add_filter( 'the_content' );
 
 				// add our shortcodes back
-				foreach ( $this->p->cf['lib']['shortcode'] as $id => $name )
-					if ( array_key_exists( $id, $this->shortcode ) && 
-						is_object( $this->shortcode[$id] ) )
-							$this->shortcode[$id]->add();
+				if ( ! empty( $this->p->cf['lib']['shortcode'] ) && 
+					is_array( $this->p->cf['lib']['shortcode'] ) )
+						foreach ( $this->p->cf['lib']['shortcode'] as $id => $name )
+							if ( array_key_exists( $id, $this->shortcode ) && 
+								is_object( $this->shortcode[$id] ) )
+									$this->shortcode[$id]->add();
 			}
 
 			$content = preg_replace( '/[\r\n\t ]+/s', ' ', $content );	// put everything on one line

@@ -147,7 +147,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			if ( $this->p->is_avail['ngfb'] == true ) {
                                 $this->p->debug->log( $conflict_log_prefix.'ngfb plugin is active' );
                                 $this->p->notice->err( $conflict_err_prefix. 
-					sprintf( __( 'Please <a href="%s">deactivate the NGFB Open Graph+ plugin</a> to prevent duplicate Open Graph meta tags in your webpage headers.', WPSSO_TEXTDOM ), 
+					sprintf( __( 'Please <a href="%s">deactivate the NGFB Open Graph+ plugin</a> to prevent conflicting and duplicate features.', WPSSO_TEXTDOM ), 
 						get_admin_url( null, 'plugins.php' ) ) );
                         }
 
