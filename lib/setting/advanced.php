@@ -71,28 +71,6 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		}
 
-		protected function get_more_taglist() {
-			$og_cols = 4;
-			$cells = array();
-			$rows = array();
-			foreach ( $this->p->opt->get_defaults() as $opt => $val ) {
-				if ( preg_match( '/^inc_(.*)$/', $opt, $match ) ) {
-					$cells[] = '<td class="taglist blank checkbox">'.
-					$this->form->get_fake_checkbox( $opt ).'</td>'.
-					'<th class="taglist">'.$match[1].'</th>'."\n";
-				}
-			}
-			unset( $opt, $val );
-			$per_col = ceil( count( $cells ) / $og_cols );
-			foreach ( $cells as $num => $cell ) {
-				if ( empty( $rows[ $num % $per_col ] ) )
-					$rows[ $num % $per_col ] = '';	// initialize the array
-				$rows[ $num % $per_col ] .= $cell;	// create the html for each row
-			}
-			unset( $num, $cell );
-			return array_merge( array( '<td colspan="'.($og_cols * 2).'" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>' ), $rows );
-		}
-
 		protected function get_rows( $id ) {
 			$ret = array();
 			switch ( $id ) {
@@ -199,6 +177,10 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 					$ret[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_filter_excerpt' ).'</td>';
 
+					if ( $this->p->is_avail['ssb'] )
+						$ret[] = $this->p->util->th( 'Enable Shortcode(s)', 'highlight', 'plugin_shortcode_wpsso' ).
+						'<td>'.$this->form->get_checkbox( 'plugin_shortcode_wpsso' ).'</td>';
+
 					$ret[] =  $this->p->util->th( 'Ignore Small Images', null, 'plugin_ignore_small_img' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_ignore_small_img' ).'</td>';
 
@@ -211,15 +193,8 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 					$ret[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
 					'<td nowrap>'.$this->form->get_input( 'plugin_object_cache_exp', 'short' ).' seconds</td>';
 
-					$ret = array_merge( $ret, $this->get_more_cache() );
-
 					break;
 
-				case 'rewrite':
-
-					$ret = array_merge( $ret, $this->get_more_rewrite() );
-
-					break;
 			}
 			return $ret;
 		}
@@ -243,17 +218,26 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 			);
 		}
 
-		protected function get_more_cache() {
-			return array(
-				'<td colspan="2" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>',
-
-				$this->p->util->th( 'File Cache Expiry', 'highlight', 'plugin_file_cache_hrs' ).
-				'<td class="blank">'.$this->form->get_hidden( 'plugin_file_cache_hrs' ). 
-				$this->p->options['plugin_file_cache_hrs'].' hours</td>',
-
-				$this->p->util->th( 'Verify SSL Certificates', null, 'plugin_verify_certs' ).
-				'<td class="blank">'.$this->form->get_fake_checkbox( 'plugin_verify_certs' ).'</td>',
-			);
+		protected function get_more_taglist() {
+			$og_cols = 4;
+			$cells = array();
+			$rows = array();
+			foreach ( $this->p->opt->get_defaults() as $opt => $val ) {
+				if ( preg_match( '/^inc_(.*)$/', $opt, $match ) ) {
+					$cells[] = '<td class="taglist blank checkbox">'.
+					$this->form->get_fake_checkbox( $opt ).'</td>'.
+					'<th class="taglist">'.$match[1].'</th>'."\n";
+				}
+			}
+			unset( $opt, $val );
+			$per_col = ceil( count( $cells ) / $og_cols );
+			foreach ( $cells as $num => $cell ) {
+				if ( empty( $rows[ $num % $per_col ] ) )
+					$rows[ $num % $per_col ] = '';	// initialize the array
+				$rows[ $num % $per_col ] .= $cell;	// create the html for each row
+			}
+			unset( $num, $cell );
+			return array_merge( array( '<td colspan="'.($og_cols * 2).'" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>' ), $rows );
 		}
 	}
 }

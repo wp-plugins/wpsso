@@ -170,6 +170,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$opts = $this->p->util->restore_checkboxes( $opts );
 			$opts = array_merge( $this->p->options, $opts );
 			$opts = $this->p->opt->sanitize( $opts, $def_opts );	// cleanup excess options and sanitize
+
+			if ( $this->p->is_avail['ssb'] ) 
+				$this->p->style->update_social( $opts );
+
 			$opts = apply_filters( $this->p->cf['lca'].'_save_options', $opts );
 
 			$this->p->notice->inf( __( 'Plugin settings have been updated.', WPSSO_TEXTDOM ).' '.
@@ -220,7 +224,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		public function load_page() {
 			wp_enqueue_script( 'postbox' );
 			$upload_dir = wp_upload_dir();	// returns assoc array with path info
-			$old_css_file = trailingslashit( $upload_dir['basedir'] ).'wpsso-social-buttons.css';
 			$user_opts = $this->p->user->get_options();
 
 			if ( ! empty( $this->p->update_error ) && empty( $this->p->options['plugin_tid'] ) ) {
@@ -245,18 +248,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					$this->p->notice->err( __( 'Nonce token validation failed for plugin action (action ignored).', WPSSO_TEXTDOM ) );
 				else {
 					switch ( $_GET['action'] ) {
-						case 'remove_old_css' : 
-							if ( file_exists( $old_css_file ) )
-								if ( @unlink( $old_css_file ) )
-									add_settings_error( WPSSO_OPTIONS_NAME, 'cssnotrm', 
-										'<b>'.$this->p->cf['uca'].' Info</b> : The old <u>'.$old_css_file.'</u> 
-											stylesheet has been removed.', 'updated' );
-								else
-									add_settings_error( WPSSO_OPTIONS_NAME, 'cssnotrm', '<b>'.$this->p->cf['uca'].' Error</b> : '.
-										sprintf( __( 'Error removing the old <u>%s</u> stylesheet.', WPSSO_TEXTDOM ), $old_css_file ).
-										__( 'Does the web server have sufficient privileges?', WPSSO_TEXTDOM ), 'error' );
-	
-							break;
 						case 'check_for_updates' : 
 							if ( ! empty( $this->p->options['plugin_tid'] ) ) {
 								$this->p->admin->set_readme( 0 );
@@ -281,17 +272,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				}
 			}
 
-			if ( file_exists( $old_css_file ) ) {
-				$this->p->notice->inf( 
-					sprintf( __( 'The <u>%s</u> stylesheet is no longer used.', 
-						WPSSO_TEXTDOM ), $old_css_file ).' '.
-					sprintf( __( 'Styling for social buttons is now managed on the <a href="%s">Social Style settings page</a>.', 
-						WPSSO_TEXTDOM ), $this->p->util->get_admin_url( 'style' ) ).' '.
-					sprintf( __( 'When you are ready, you can <a href="%s">click here to remove the old stylesheet</a>.', 
-						WPSSO_TEXTDOM ), wp_nonce_url( $this->p->util->get_admin_url( '?action=remove_old_css' ),
-							$this->get_nonce(), WPSSO_NONCE ) ) 
-				);
-			}
 			// the plugin information metabox on all settings pages needs this
 			$this->p->admin->set_readme( $this->p->cf['update_hours'] * 3600 );
 
@@ -441,9 +421,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				'Non-Persistant Cache' => array( 'status' => $this->p->is_avail['cache']['object'] ? 'on' : 'rec' ),
 				'Open Graph / Rich Pin' => array( 'status' => class_exists( $cca.'Opengraph' ) ? 'on' : 'rec' ),
 				'Pro Update Check' => array( 'class' => 'SucomUpdate' ),
-				'Social Sharing Buttons' => array( 'class' => $cca.'Social' ),
-				'Social Sharing Shortcode' => array( 'class' => $cca.'ShortcodeWpsso' ),
-				'Social Sharing Widget' => array( 'class' => $cca.'WidgetSocialSharing' ),
 				'Transient Cache' => array( 'status' => $this->p->is_avail['cache']['transient'] ? 'on' : 'rec' ),
 			);
 			echo '<tr><td><h4 style="margin-top:0;">Standard</h4></td></tr>';
@@ -453,15 +430,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			 * Pro version features
 			 */
 			$features = array(
-				'Social File Cache' => array( 'status' => $this->p->is_avail['cache']['file'] ? 'on' : 'off' ),
 				'Custom Post Meta' => array( 'status' => class_exists( $cca.'PostMetaPro' ) ? 'on' : 'rec' ),
 				'WP Locale Language' => array( 'status' => class_exists( $cca.'Language' ) ? 'on' : 'rec' ),
 				'Twitter Cards' => array( 'status' => class_exists( $cca.'Opengraph' ) && 
 					class_exists( $cca.'TwitterCard' ) ? 'on' : 'rec' ),
-				'URL Rewriter' => array( 'status' => class_exists( $cca.'RewritePro' ) ? 'on' : 
-					( empty( $this->p->options['plugin_cdn_urls'] ) ? 'off' : 'rec' ) ),
-				'URL Shortener' => array( 'status' => class_exists( $cca.'ShortenPro' ) ? 'on' : 
-					( empty( $this->p->options['twitter_shortener'] ) ? 'off' : 'rec' ) ),
 			);
 			foreach ( $this->p->cf['lib']['pro'] as $sub => $libs ) {
 				foreach ( $libs as $id => $name ) {
