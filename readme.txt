@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.8
-Stable Tag: 0.20dev1
+Stable Tag: 0.20dev2
 
 Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
 
@@ -102,13 +102,13 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 0.20dev1 =
+= Version 0.20dev2 =
 
 Initial release.
 
 == Upgrade Notice ==
 
-= 0.20dev1 =
+= 0.20dev2 =
 
 Initial release.
 

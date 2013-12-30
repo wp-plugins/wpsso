@@ -19,10 +19,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 			$this->p->debug->mark();
 		}
 
-		public function get( $idx = '', $text = '', $tooltip_class = '' ) {
+		public function get( $idx = '', $atts = null, $class = '' ) {
+
+			$text = is_array( $atts ) || is_object( $atts ) ? '' : $atts;
 			$idx = sanitize_title_with_dashes( $idx );
-			if ( empty( $tooltip_class ) )
-				$tooltip_class = $this->p->cf['form']['tooltip_class'];
+			if ( strpos( $idx, 'tooltip-' ) !== false && empty( $class ) )
+				$class = $this->p->cf['form']['tooltip_class'];	// default tooltip class
+
 			switch ( $idx ) {
 				case 'pro-feature-msg':
 					if ( $this->p->is_avail['aop'] == true )
@@ -109,6 +112,92 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					get_admin_url( null, 'widgets.php' ).'">see the widgets admin webpage</a>).</p>';
 					break;
 
+				/*
+				 * Post Meta settings
+				 */
+				case ( strpos( $idx, 'tooltip-postmeta-' ) !== false ? true : false ):
+					$ptn = empty( $atts['ptn'] ) ? 'Post' : $atts['ptn'];
+					switch ( $idx ) {
+						/*
+						 * 'Webpage Header' settings
+						 */
+						 case 'tooltip-postmeta-og_art_section':
+							$text = 'A custom topic for this '.$ptn.', different from the default 
+							Website Topic chosen in the General Settings.';
+						 	break;
+						 case 'tooltip-postmeta-og_title':
+							$text = 'A custom title for the Open Graph, Rich Pin, Twitter Card meta tags (all Twitter Card formats), 
+							and possibly the Pinterest, Tumblr, and Twitter sharing caption / text, depending on some option 
+							settings. The default title value is refreshed when the (draft or published) '.$ptn.' is saved.';
+						 	break;
+						 case 'tooltip-postmeta-og_desc':
+							$text = 'A custom description for the Open Graph, Rich Pin meta tags, and the fallback description 
+							for all other meta tags and social sharing buttons.
+							The default description value is based on the content, or excerpt if one is available, 
+							and is refreshed when the (draft or published) '.$ptn.' is saved.
+							Update and save this description to change the default value of all other meta tag and 
+							social sharing button descriptions.';
+						 	break;
+						 case 'tooltip-postmeta-meta_desc':
+							$text = 'A custom description for the Google Search description meta tag.
+							The default description value is refreshed when the '.$ptn.' is saved.';
+						 	break;
+						 case 'tooltip-postmeta-tc_desc':
+							$text = 'A custom description for the Twitter Card description meta tag (all Twitter Card formats).
+							The default description value is refreshed when the '.$ptn.' is saved.';
+						 	break;
+						 case 'tooltip-postmeta-og_img_id':
+							$text = 'A custom Image ID to include (first) in the Open Graph, Rich Pin, 
+							and \'Large Image Summary\' Twitter Card meta tags, along with the Pinterest 
+							and Tumblr social sharing buttons.';
+						 	break;
+						 case 'tooltip-postmeta-og_img_url':
+							$text = 'A custom image URL, instead of an Image ID, to include (first) in the Open Graph, Rich Pin, 
+							and \'Large Image Summary\' Twitter Card meta tags. Please make sure your custom image
+							is large enough, or it may be ignored by the social website(s). <strong>Facebook recommends 
+							an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200</strong>.';
+						 	break;
+						 case 'tooltip-postmeta-og_vid_url':
+							$text = 'A custom video URL to include (first) in the Open Graph, Rich Pin, 
+							and \'Player\' Twitter Card meta tags, along with the Tumblr social sharing button.
+							If the URL is from Youtube, Vimeo, or Wistia, an API connection will be made to 
+							retrieve the preferred video URL, dimensions, and preview image.';
+						 	break;
+						 case 'tooltip-postmeta-og_img_max':
+							$text = 'The maximum number of images to include in the Open Graph meta tags for this '.$ptn.'.';
+						 	break;
+						 case 'tooltip-postmeta-og_vid_max':
+							$text = 'The maximum number of embedded videos to include in the Open Graph meta tags for this '.$ptn.'.';
+						 	break;
+						 case 'tooltip-postmeta-sharing_url':
+							$text = 'A custom sharing URL used in the Open Graph, Rich Pin meta tags and social sharing buttons.
+							The default sharing URL may be influenced by settings from supported SEO plugins.
+							Please make sure any custom URL you enter here is functional and redirects correctly.';
+						 	break;
+						 case 'tooltip-postmeta-buttons_disabled':
+							$text = 'Disable all social sharing buttons (content, excerpt, widget, shortcode) for this '.$ptn.'.';
+						 	break;
+						/*
+						 * 'Social Sharing' settings
+						 */
+						 case 'tooltip-postmeta-pin_desc':
+							$text = 'A custom caption text, used by the Pinterest social sharing button, 
+							for the custom Image ID, attached or featured image.';
+						 	break;
+						 case 'tooltip-postmeta-tumblr_img_desc':
+						 	$text = 'A custom caption, used by the Tumblr social sharing button, 
+							for the custom Image ID, attached or featured image.';
+						 	break;
+						 case 'tooltip-postmeta-tumblr_vid_desc':
+							$text = 'A custom caption, used by the Tumblr social sharing button, 
+							for the custom Video URL or embedded video.';
+						 	break;
+						 case 'tooltip-postmeta-twitter_desc':
+						 	$text = 'A custom Tweet text for the Twitter social sharing button. 
+							This text is in addition to any Twitter Card description.';
+						 	break;
+					}
+					break;
 				/*
 				 * Open Graph settings
 				 */
@@ -680,9 +769,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					The stylesheet is created or removed, depending on whether this option is checked or unchecked.';
 					break;
 			}
-			if ( strpos( $idx, 'tooltip' ) !== false && ! empty( $text ) )
+			if ( strpos( $idx, 'tooltip-' ) !== false && ! empty( $text ) )
 				return '<img src="'.WPSSO_URLPATH.'images/question-mark.png" width="14" height="14" class="'.
-					$tooltip_class.'" alt="'.esc_attr( $text ).'" />';
+					$class.'" alt="'.esc_attr( $text ).'" />';
 			else return $text;
 		}
 	}

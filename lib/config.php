@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 	class WpssoPluginConfig {
 
 		private static $cf = array(
-			'version' => '0.20dev1',	// plugin version
+			'version' => '0.20dev2',	// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym

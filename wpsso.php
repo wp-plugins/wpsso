@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
-Version: 0.20dev1
+Version: 0.20dev2
 
 Copyright 2012-2013 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -22,7 +22,7 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 		// class object variables
 		public $debug, $util, $notice, $opt, $user, $media, $meta,
 			$style, $script, $cache, $admin, $head, $og, $webpage,
-			$seo, $pro, $update, $reg;
+			$social, $seo, $pro, $update, $reg;
 
 		public $cf = array();		// config array defined in construct method
 		public $is_avail = array();	// assoc array for other plugin checks

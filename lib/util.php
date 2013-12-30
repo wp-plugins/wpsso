@@ -16,6 +16,9 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 		protected $p;
 
+		public $shortener;	// defined by the AddonPro class
+		public $rewriter;	// defined by the AddonPro class
+
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
@@ -100,10 +103,14 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 		public function get_the_object( $use_post = false ) {
 			$obj = false;
-			if ( $use_post === false ) 
+			if ( $use_post === false ) {
 				$obj = get_queried_object();
-
-			if ( $use_post === true || ! isset( $obj->ID ) ) {	// fallback to $post if object is empty
+				// fallback to $post if object is empty
+				if ( ! isset( $obj->ID ) ) {
+					global $post; 
+					return $post;
+				}
+			} elseif ( $use_post === true ) {
 				global $post; 
 				return $post;
 			} elseif ( is_numeric( $use_post ) ) 
@@ -111,7 +118,6 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			if ( $obj === false )
 				$this->p->debug->log( 'cannot determine object type' );
-
 			return $obj;
 		}
 
@@ -235,7 +241,16 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			// facebook javascript does not work when hosted locally
 			if ( preg_match( '/:\/\/connect.facebook.net/', $url ) ) 
 				return $url;
-			return ( $this->p->cache->get( $url ) );
+			return ( $this->p->util->rewrite_url( $this->p->cache->get( $url ) ) );
+		}
+
+		/* Purpose: Used by Twitter related methods to shorten URLs. $this->shortener is defined by the AddonPro class */
+		public function shorten_url( $long_url, $service = '' ) {
+			if ( is_object( $this->shortener ) ) {
+				if ( ( $short_url = $this->shortener->short( $long_url, $service ) ) === false )
+					$short_url = $long_url;
+			} else $short_url = $long_url;
+			return apply_filters( $this->p->cf['lca'].'_shorten_url', $short_url, $long_url );
 		}
 
 		public function fix_relative_url( $url = '' ) {
@@ -320,6 +335,15 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				$text = strip_tags( $text );							// remove remaining html tags
 			$text = preg_replace( '/  +/s', ' ', $text );						// truncate multiple spaces
 			return trim( $text );
+		}
+
+		/* Purpose: Rewrite image URLs for the meta tags and buttons (pinterest and tumblr). */
+		public function rewrite_url( $url = '' ) {
+			if ( ! empty( $this->p->options['plugin_cdn_urls'] ) && is_object( $this->rewriter ) ) {
+				$url = '"'.$url.'"';	// rewrite method uses reference
+				$url = trim( $this->rewriter->html( $url ), '"' );
+			}
+			return apply_filters( $this->p->cf['lca'].'_rewrite_url', $url );
 		}
 
 		public function get_topics() {
@@ -490,11 +514,12 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 		}
 
 		// table header with optional tooltip text
-		public function th( $title = '', $class = '', $id = '', $tooltip_text = '' ) {
+		public function th( $title = '', $class = '', $id = '', $atts = null ) {
 			if ( is_object( $this->p->msg ) ) {
-				if ( empty( $id ) ) $lookup_tooltip = 'tooltip-'.$title;
-				else $lookup_tooltip = 'tooltip-'.$id;
-				$tooltip_text = $this->p->msg->get( $lookup_tooltip, $tooltip_text );	// text is esc_attr()
+				if ( empty( $id ) ) 
+					$tooltip_idx = 'tooltip-'.$title;
+				else $tooltip_idx = 'tooltip-'.$id;
+				$tooltip_text = $this->p->msg->get( $tooltip_idx, $atts );	// text is esc_attr()
 			}
 			return '<th'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
