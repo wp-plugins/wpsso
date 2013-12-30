@@ -148,7 +148,7 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 			}
 
 			// create pro class object last - it extends several previous classes
-			if ( $this->is_avail['aop'] == true )
+			if ( $this->is_avail['aop'] )
 				$this->pro = new WpssoAddonPro( $this );
 
 			/*
@@ -200,7 +200,7 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 		}
 
 		public function filter_installed_version( $version ) {
-			if ( $this->is_avail['aop'] == true )
+			if ( $this->is_avail['aop'] )
 				return $version;
 			else return '0.'.$version;
 		}
