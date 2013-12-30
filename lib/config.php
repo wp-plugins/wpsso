@@ -213,8 +213,6 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 
 			define( $cp.'NONCE', md5( constant( $cp.'PLUGINDIR' ).'-'.$cf['version'] ) );
 
-			define( 'AUTOMATTIC_README_MARKDOWN', constant( $cp.'PLUGINDIR' ).'lib/ext/markdown.php' );
-
 			/*
 			 * Allow some constants to be pre-defined in wp-config.php
 			 */

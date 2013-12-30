@@ -78,14 +78,15 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 		}
 
 		public function show_sharing( $post ) {
-			if ( ! $this->p->is_avail['ssb'] ) 
+			if ( empty( $this->p->is_avail['ssb'] ) )
 				return;
 			$post_type = get_post_type_object( $post->post_type );	// since 3.0
 			$post_type_name = ucfirst( $post_type->name );
 			echo '<table class="sucom-setting side"><tr><td>';
 			if ( get_post_status( $post->ID ) == 'publish' ) {
 				$content = '';
-				$opts = array_merge( $this->p->options, $this->p->opt->admin_sharing );
+				if ( ! empty( $this->p->opt->admin_sharing ) )
+					$opts = array_merge( $this->p->options, $this->p->opt->admin_sharing );
 				$this->p->social->add_header();
 				echo $this->p->social->filter( $content, 'admin_sharing', $opts );
 				$this->p->social->add_footer();

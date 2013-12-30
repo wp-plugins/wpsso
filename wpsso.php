@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WPSSO
+Plugin Name: WordPress Social Sharing Optimization (WPSSO)
 Plugin URI: http://surniaulula.com/extend/plugins/wpsso/
 Author: Jean-Sebastien Morisset
 Author URI: http://surniaulula.com/
@@ -71,13 +71,16 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 			$this->update_error = get_option( $this->cf['lca'].'_update_error' );
 			$this->check = new WpssoCheck( $this );
 			$this->is_avail = $this->check->get_avail();	// uses options
-			if ( $this->is_avail['aop'] == true ) 
+			if ( $this->is_avail['aop'] ) 
 				$this->cf['full'] = $this->cf['full_pro'];
-			if ( $this->is_avail['ngg'] == true ) {
+			if ( $this->is_avail['ngg'] ) {
 				$this->ngg_options = get_option( 'ngg_options' );
 				if ( defined( 'NEXTGEN_GALLERY_PLUGIN_VERSION' ) && NEXTGEN_GALLERY_PLUGIN_VERSION )
 					$this->ngg_version = NEXTGEN_GALLERY_PLUGIN_VERSION;
 			}
+			if ( $this->is_avail['ngfb'] )
+				if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
+					define( 'NGFB_META_TAGS_DISABLE', true );
 	
 			/*
 			 * essential class objects
