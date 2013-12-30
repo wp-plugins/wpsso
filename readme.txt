@@ -108,7 +108,7 @@ Initial release.
 
 == Upgrade Notice ==
 
-= 0.20dev2 =
+= 0.20.0 =
 
 Initial release.
 
