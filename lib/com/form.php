@@ -110,24 +110,26 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
-		public function get_select_img_size( $name ) {
-			if ( empty( $name ) ) return;	// just in case
-			global $_wp_additional_image_sizes;
-			$size_names = get_intermediate_image_sizes();
+		public function get_select_img_size( $name, $name_preg = '//', $invert = false ) {
+			if ( empty( $name ) ) 
+				return;	// just in case
+			$invert = $invert == false ? 
+				null : PREG_GREP_INVERT;
+			$size_names = preg_grep( $name_preg, get_intermediate_image_sizes(), $invert );
 			natsort( $size_names );
 			$html = '<select name="'.$this->options_name.'['.$name.']">';
 			foreach ( $size_names as $size_name ) {
-				if ( is_integer( $size_name ) ) continue;
+				if ( ! is_string( $size_name ) ) 
+					continue;
 				$size = $this->p->media->get_size_info( $size_name );
 				$html .= '<option value="'.$size_name.'" ';
 				if ( $this->in_options( $name ) )
 					$html .= selected( $this->options[$name], $size_name, false );
-				$html .= '>'.$size_name.' [ '.$size['width'].'x'.$size['height'].( $size['crop'] ? " cropped" : "" ).' ]';
+				$html .= '>'.$size_name.' [ '.$size['width'].'x'.$size['height'].( $size['crop'] ? ' cropped' : '' ).' ]';
 				if ( $this->in_defaults( $name ) && $size_name == $this->defaults[$name] ) 
 					$html .= ' (default)';
 				$html .= '</option>';
 			}
-			unset ( $size_name );
 			$html .= '</select>';
 			return $html;
 		}
