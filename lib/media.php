@@ -47,8 +47,9 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 		public function editor_max_image_size( $max_sizes = array(), $size_name = '', $context = '' ) {
 			// allow our sizes to exceed the editor width
-			if ( strpos( $size_name, $this->p->cf['lca'].'-' ) !== false )
-				$max_sizes = array( 0, 0 );
+			if ( is_string( $size_name ) && 
+				strpos( $size_name, $this->p->cf['lca'].'-' ) !== false )
+					$max_sizes = array( 0, 0 );
 			return $max_sizes;
 		}
 
@@ -284,7 +285,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				}
 			}
 			if ( $check_dupes == false || $this->p->util->is_uniq_url( $img_url ) )
-				return array( $img_url, $img_width, $img_height, $img_cropped );
+				return array( $this->p->util->rewrite_url( $img_url ), $img_width, $img_height, $img_cropped );
 
 			return $ret_empty;
 		}
