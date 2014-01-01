@@ -77,6 +77,8 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Frequently Asked Questions ==
 
+= Coming Soon =
+
 == Other / Additional Notes ==
 
 == Screenshots ==
@@ -102,13 +104,13 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 0.20.0 =
+= Version 6.20.1 =
 
-Initial release.
+* Fixed a possible error condition in lib/media.php by added an extra check to make sure the image size name provided to the WordPress `image_constrain_size_for_editor()` filter is a string.
 
 == Upgrade Notice ==
 
-= 0.20.0 =
+= 0.20.1 =
 
-Initial release.
+* Fixed a possible error condition in lib/media.php by added an extra check to make sure the image size name provided to the WordPress image_constrain_size_for_editor() filter is a string.
 
