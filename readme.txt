@@ -12,7 +12,7 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 == Description ==
 
-**WordPress Social Sharing Optimization (WPSSO) is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features, but strives to be a little smaller and lighter by removing the social sharing features (buttons, shortcodes, widgets, url shortening and rewriting)**.
+**WordPress Social Sharing Optimization (WPSSO) is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features (open graph, twitter cards, 3rd party integration, etc.), but strives to be a little lighter and smaller by removing the social sharing buttons and their related features (shortcodes, widgets, stylesheets, file caching, url shortening, and url rewriting)**.
 
 WPSSO adds HTML meta tags (Open Graph, Pinterest Rich Pins, Twitter Cards) to the head section of WordPress webpages for improved Google Search results and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more -- An absolute essential plugin for every WordPress website!
 
@@ -76,6 +76,8 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 * [Uninstall Methods](http://surniaulula.com/codex/plugins/wpsso/how-to/uninstall-the-plugin/)
 
 == Frequently Asked Questions ==
+
+= Frequently Asked Questions =
 
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/can-i-use-the-pro-version-on-multiple-websites/">Can I use the Pro version on multiple websites?</a></li>
