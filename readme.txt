@@ -106,11 +106,11 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Version 0.20.1 =
 
-* Fixed a possible error condition in lib/media.php by adding an extra check to make sure the image size name provided to the WordPress `image_constrain_size_for_editor()` filter is a string.
+* Fixed a possible error condition in lib/media.php by adding an extra check, to make sure the size provided to the `image_constrain_size_for_editor()` filter is a string and not an array().
 
 == Upgrade Notice ==
 
 = 0.20.1 =
 
-* Fixed a possible error condition in lib/media.php by adding an extra check to make sure the image size name provided to the WordPress image_constrain_size_for_editor() filter is a string.
+* Fixed a possible error condition in lib/media.php by adding an extra check, to make sure the size provided to the image_constrain_size_for_editor() filter is a string and not an array().
 
