@@ -81,6 +81,8 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Other / Additional Notes ==
 
+= Coming Soon =
+
 == Screenshots ==
 
 1. Screenshot 1 : General Settings Page
