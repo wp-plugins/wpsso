@@ -506,8 +506,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-plugin_verify_certs':
 							$text = 'Enable verification of peer SSL certificates when fetching content to be cached using HTTPS. 
 							The PHP \'curl\' function will use the '.WPSSO_CURL_CAINFO.' certificate file by default. 
-							You may want define the WPSSO_CURL_CAINFO constant in your wp-config.php file to use an 
-							alternate certificate file (see the constants.txt file in the plugin folder for additional information).';
+							You can define a WPSSO_CURL_CAINFO constant in your wp-config.php file to use an alternate certificate file.';
 							break;
 						/*
 						 * 'URL Rewrite' settings
@@ -528,7 +527,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-plugin_cdn_excl':
 							$text = 'A comma delimited list of patterns to match. If these patterns are found in the URL, the rewrite will be skipped (the default value is blank).
-							If you are caching social website images and JavaScript (see <em>File Cache Expiry</em> option), 
+							If you are caching social website images and JavaScript (see the <em>Social File Cache Expiry</em> option), 
 							the URLs to this cached content will be rewritten as well (that\'s a good thing).
 							To exclude the '.$this->p->cf['full'].' cache folder URLs from being rewritten, enter \'/wpsso/cache/\' as a value here.';
 							break;
