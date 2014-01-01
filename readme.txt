@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.8
-Stable Tag: 0.20.0
+Stable Tag: 0.20.1
 
 Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
 
@@ -104,13 +104,13 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 6.20.1 =
+= Version 0.20.1 =
 
-* Fixed a possible error condition in lib/media.php by added an extra check to make sure the image size name provided to the WordPress `image_constrain_size_for_editor()` filter is a string.
+* Fixed a possible error condition in lib/media.php by adding an extra check to make sure the image size name provided to the WordPress `image_constrain_size_for_editor()` filter is a string.
 
 == Upgrade Notice ==
 
 = 0.20.1 =
 
-* Fixed a possible error condition in lib/media.php by added an extra check to make sure the image size name provided to the WordPress image_constrain_size_for_editor() filter is a string.
+* Fixed a possible error condition in lib/media.php by adding an extra check to make sure the image size name provided to the WordPress image_constrain_size_for_editor() filter is a string.
 
