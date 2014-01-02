@@ -455,7 +455,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			$deleted = 0;
 			$time = isset ( $_SERVER['REQUEST_TIME'] ) ? (int) $_SERVER['REQUEST_TIME'] : time() ; 
 			$time = empty( $this->p->options['plugin_file_cache_hrs'] ) ? 
-				$time : $time - ( $this->options['plugin_file_cache_hrs'] * 60 * 60 );
+				$time : $time - ( $this->p->options['plugin_file_cache_hrs'] * 60 * 60 );
 			$cachedir = constant( $this->p->cf['uca'].'_CACHEDIR' );
 			if ( $dh = opendir( $cachedir ) ) {
 				while ( $fn = readdir( $dh ) ) {
