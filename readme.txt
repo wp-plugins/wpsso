@@ -70,6 +70,10 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 **Try the WPSSO plugin with complete confidence** - when uninstalled, WPSSO removes *all* traces of itself from the database (options, site options, user and post meta, transients, etc.).
 
+= Great Support =
+
+**WPSSO is actively being developed and supported**. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
+
 == Installation ==
 
 = Install and Uninstall =
