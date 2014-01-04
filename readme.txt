@@ -1,7 +1,7 @@
 === WordPress Social Sharing Optimization ===
 Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
-Tags: nextgen, featured, attached, open graph, meta, facebook, google, google plus, g+, twitter, linkedin, social, seo, pinterest, rich pins, tumblr, stumbleupon, widget, language, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, nextgen gallery, gallery, twitter cards, photo card, gallery card, player card, large image summary card, summary card, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress
+Tags: nextgen, featured, attached, open graph, meta, facebook, google, google plus, g+, twitter, linkedin, social, seo, pinterest, rich pins, tumblr, stumbleupon, widget, language, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, nextgen gallery, gallery, twitter cards, photo card, gallery card, player card, large image summary card, summary card, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon
 License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
@@ -36,7 +36,7 @@ Aside from the additional support for Twitter Cards, the main difference between
 
 WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress Media Library image galleries and embedded videos from YouTube, Vimeo, and Wistia (including their preview images). WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized and provided according to their intended audience (Facebook, Twitter, Pinterest, etc). 
 
-WPSSO (Pro version) includes support for [NextGEN Gallery v1 and v2](http://wordpress.org/plugins/nextgen-gallery/) albums, galleries and images (shortcodes, image tags, album / gallery preview images, etc.).
+WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me/support/photon/) and [NextGEN Gallery v1 and v2](http://wordpress.org/plugins/nextgen-gallery/) albums, galleries and images (shortcodes, image tags, album / gallery preview images, etc.).
 
 **Enhanced SEO**
 
