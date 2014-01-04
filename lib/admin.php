@@ -37,7 +37,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
-			$this->p->check->conflicts();
+			$this->p->check->conflict_warnings();
 
 			$this->set_objects();
 
@@ -417,7 +417,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$cca = $this->p->cf['cca'];
 			$features = array(
 				'Debug Messages' => array( 'class' => 'SucomDebug' ),
-				'NextGEN Gallery' => array( 'class' => $cca.'Ngg' ),
 				'Non-Persistant Cache' => array( 'status' => $this->p->is_avail['cache']['object'] ? 'on' : 'rec' ),
 				'Open Graph / Rich Pin' => array( 'status' => class_exists( $cca.'Opengraph' ) ? 'on' : 'rec' ),
 				'Pro Update Check' => array( 'class' => 'SucomUpdate' ),

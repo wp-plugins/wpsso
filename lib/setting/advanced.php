@@ -229,14 +229,12 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<th class="taglist">'.$match[1].'</th>'."\n";
 				}
 			}
-			unset( $opt, $val );
 			$per_col = ceil( count( $cells ) / $og_cols );
 			foreach ( $cells as $num => $cell ) {
 				if ( empty( $rows[ $num % $per_col ] ) )
 					$rows[ $num % $per_col ] = '';	// initialize the array
 				$rows[ $num % $per_col ] .= $cell;	// create the html for each row
 			}
-			unset( $num, $cell );
 			return array_merge( array( '<td colspan="'.($og_cols * 2).'" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>' ), $rows );
 		}
 	}

@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 	class WpssoPluginConfig {
 
 		private static $cf = array(
-			'version' => '0.20.1',		// plugin version
+			'version' => '0.21rc1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -55,6 +55,8 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 						'buddypress' => 'BuddyPress',
 					),
 					'media' => array(
+						'ngg' => 'NextGEN Gallery',
+						'photon' => 'Jetpack Photon',
 						'wistia' => 'Wistia Video API',
 					),
 				),

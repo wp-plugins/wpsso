@@ -412,8 +412,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'The <em>Product</em> Twitter Card needs a minimum of two product attributes.
 							The first attribute will be the product price, and if your product has additional attribute fields associated with it 
 							(weight, size, color, etc), these will be included in the <em>Product</em> Card as well (maximum of 4 attributes). 
-							<strong>If your product does not have additional attributes beyond just a price</strong>, then this default second attribute label and value will be used. 
-							You may modify both the Label <em>and</em> Value for whatever is most appropriate for your website and/or products.';
+							<strong>If your product does not have additional attributes beyond just a price</strong>, then this default second 
+							attribute label and value will be used. 
+							You may modify both the Label <em>and</em> Value for whatever is most appropriate for your website and/or products.
+							Some examples: Location - City State, Shipped from - Country, Made in - Country, etc.';
 							break;
 					}
 					break;

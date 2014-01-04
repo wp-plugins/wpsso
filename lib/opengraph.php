@@ -50,7 +50,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			$post_type = '';
 			$has_video_image = false;
 			$og_max = $this->p->util->get_max_nums( $post_id );
-			$og = apply_filters( $this->p->cf['lca'].'_og_seed', array() );
+			$og = apply_filters( $this->p->cf['lca'].'_og_seed', array(), $use_post );
 			$lang = empty( $this->p->options['fb_lang'] ) ? 'en-US' : $this->p->options['fb_lang'];
 			$lang = apply_filters( $this->p->cf['lca'].'_lang', $lang, sucom_get_lang( 'facebook' ) );
 
@@ -191,7 +191,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			}
 
 			// run filter before saving to transient cache
-			$og = apply_filters( $this->p->cf['lca'].'_og', $og );
+			$og = apply_filters( $this->p->cf['lca'].'_og', $og, $use_post );
 
 			if ( ! empty( $cache_id ) ) {
 				set_transient( $cache_id, $og, $this->p->cache->object_expire );
@@ -262,28 +262,28 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			}
 
 			// check for ngg shortcodes and query vars
-			if ( $this->p->is_avail['ngg'] === true && 
+			if ( $this->p->is_avail['media']['ngg'] === true && 
+				! empty( $this->p->addons['ngg'] ) &&
 				! $this->p->util->is_maxed( $og_ret, $num ) ) {
 
+				// ngg pre-v2 used query arguments
 				$ngg_query_og_ret = array();
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				if ( version_compare( $this->p->ngg_version, '2.0.0', '<' ) )
-					$ngg_query_og_ret = $this->p->media->ngg->get_query_images( $num_remains, $size_name, $check_dupes );
+				if ( version_compare( $this->p->addons['ngg']->ngg_version, '2.0.0', '<' ) )
+					$ngg_query_og_ret = $this->p->addons['ngg']->get_query_images( $num_remains, $size_name, $check_dupes );
 
 				// if we found images in the query, skip content shortcodes
 				if ( count( $ngg_query_og_ret ) > 0 ) {
-
 					$this->p->debug->log( count( $ngg_query_og_ret ).' image(s) returned - skipping additional shortcode images' );
 					$og_ret = array_merge( $og_ret, $ngg_query_og_ret );
 
 				// if no query images were found, continue with ngg shortcodes in content
 				} elseif ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
-
 					$num_remains = $this->p->media->num_remains( $og_ret, $num );
 					$og_ret = array_merge( $og_ret, 
-						$this->p->media->ngg->get_shortcode_images( $num_remains, $size_name, $check_dupes ) );
+						$this->p->addons['ngg']->get_shortcode_images( $num_remains, $size_name, $check_dupes ) );
 				}
-			}
+			} // end of check for ngg shortcodes and query vars
 
 			// if we haven't reached the limit of images yet, keep going and check the content text
 			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {

@@ -144,7 +144,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			'plugin_add_to_attachment' => 1,
 			'plugin_verify_certs' => 0,
 			'plugin_file_cache_hrs' => 0,
-			'plugin_object_cache_exp' => 1800,
+			'plugin_object_cache_exp' => 3600,
 			'plugin_cm_fb_name' => 'facebook', 
 			'plugin_cm_fb_label' => 'Facebook URL', 
 			'plugin_cm_fb_enabled' => 1,

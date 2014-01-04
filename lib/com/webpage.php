@@ -470,7 +470,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				if ( is_singular() || ! empty( $post_id ) ) {
 					$tags = $this->get_wp_tags( $post_id );
 
-					if ( $this->p->is_avail['ngg'] === true && 
+					if ( $this->p->is_avail['media']['ngg'] === true && 
 						$this->p->options['og_ngg_tags'] && 
 						$this->p->is_avail['postthumb'] == true && 
 						has_post_thumbnail( $post_id ) ) {
@@ -479,7 +479,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 						// featured images from ngg pre-v2 had 'ngg-' prefix
 						if ( is_string( $pid ) && substr( $pid, 0, 4 ) == 'ngg-' )
-							$tags = array_merge( $tags, $this->p->media->ngg->get_tags( $pid ) );
+							$tags = array_merge( $tags, $this->p->addons['ngg']->get_tags( $pid ) );
 					}
 				} elseif ( is_search() )
 					$tags = preg_split( '/ *, */', get_search_query( false ) );

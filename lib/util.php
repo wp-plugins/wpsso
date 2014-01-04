@@ -16,9 +16,6 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 		protected $p;
 
-		public $shortener;	// defined by the AddonPro class
-		public $rewriter;	// defined by the AddonPro class
-
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
@@ -86,6 +83,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			if ( empty( $url ) ) 
 				return false;
 
+			// complete the url with a protocol name
 			if ( strpos( $url, '//' ) === 0 )
 				$url = empty( $_SERVER['HTTPS'] ) ? 'http:'.$url : 'https:'.$url;
 
@@ -214,18 +212,13 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				}
 			}
 
-			// fallback for themes/plugins that don't use the standard wordpress functions/variables
+			// fallback for themes and plugins that don't use the standard wordpress functions/variables
 			if ( empty ( $url ) ) {
 				$url = empty( $_SERVER['HTTPS'] ) ? 'http://' : 'https://';
 				$url .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
 				// strip out tracking query arguments by facebook, google, etc.
 				$url = preg_replace( '/([\?&])(fb_action_ids|fb_action_types|fb_source|fb_aggregation_id|utm_source|utm_medium|utm_campaign|utm_term|gclid|pk_campaign|pk_kwd)=[^&]*&?/i', '$1', $url );
 			}
-
-			if ( ! empty( $url ) && 
-				isset( $this->options['force_transport'] ) && 
-				'default' != $this->options['force_transport'] )
-					$url = preg_replace( '`^http[s]?`', $this->options['force_transport'], $url );
 
 			return apply_filters( $this->p->cf['lca'].'_sharing_url', $url, $use_post, $add_page, $source_id );
 		}
@@ -241,16 +234,8 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			// facebook javascript does not work when hosted locally
 			if ( preg_match( '/:\/\/connect.facebook.net/', $url ) ) 
 				return $url;
-			return ( $this->p->util->rewrite_url( $this->p->cache->get( $url ) ) );
-		}
-
-		/* Purpose: Used by Twitter related methods to shorten URLs. $this->shortener is defined by the AddonPro class */
-		public function shorten_url( $long_url, $service = '' ) {
-			if ( is_object( $this->shortener ) ) {
-				if ( ( $short_url = $this->shortener->short( $long_url, $service ) ) === false )
-					$short_url = $long_url;
-			} else $short_url = $long_url;
-			return apply_filters( $this->p->cf['lca'].'_shorten_url', $short_url, $long_url );
+			return ( apply_filters( $this->p->cf['lca'].'_rewrite_url',
+				$this->p->cache->get( $url ) ) );
 		}
 
 		public function fix_relative_url( $url = '' ) {
@@ -335,15 +320,6 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				$text = strip_tags( $text );							// remove remaining html tags
 			$text = preg_replace( '/  +/s', ' ', $text );						// truncate multiple spaces
 			return trim( $text );
-		}
-
-		/* Purpose: Rewrite image URLs for the meta tags and buttons (pinterest and tumblr). */
-		public function rewrite_url( $url = '' ) {
-			if ( ! empty( $this->p->options['plugin_cdn_urls'] ) && is_object( $this->rewriter ) ) {
-				$url = '"'.$url.'"';	// rewrite method uses reference
-				$url = trim( $this->rewriter->html( $url ), '"' );
-			}
-			return apply_filters( $this->p->cf['lca'].'_rewrite_url', $url );
 		}
 
 		public function get_topics() {
@@ -455,7 +431,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			$deleted = 0;
 			$time = isset ( $_SERVER['REQUEST_TIME'] ) ? (int) $_SERVER['REQUEST_TIME'] : time() ; 
 			$time = empty( $this->p->options['plugin_file_cache_hrs'] ) ? 
-				$time : $time - ( $this->options['plugin_file_cache_hrs'] * 60 * 60 );
+				$time : $time - ( $this->p->options['plugin_file_cache_hrs'] * 60 * 60 );
 			$cachedir = constant( $this->p->cf['uca'].'_CACHEDIR' );
 			if ( $dh = opendir( $cachedir ) ) {
 				while ( $fn = readdir( $dh ) ) {
@@ -560,8 +536,8 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 		}
 
 		public function tweet_max_len( $long_url ) {
-			$short_url = $this->shorten_url( $long_url, $this->p->options['twitter_shortener'] );
-			if ( empty( $short_url ) ) $short_url = $long_url;	// fallback to long url in case of error
+			$short_url = apply_filters( $this->p->cf['lca'].'_shorten_url', 
+				$long_url, $this->p->options['twitter_shortener'] );
 			$twitter_cap_len = $this->p->options['twitter_cap_len'] - strlen( $short_url ) - 1;
 			if ( ! empty( $this->p->options['tc_site'] ) && ! empty( $this->p->options['twitter_via'] ) )
 				$twitter_cap_len = $twitter_cap_len - strlen( preg_replace( '/^@/', '', 

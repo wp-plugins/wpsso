@@ -14,17 +14,13 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 		private $p;
 
-		public $ngg;
+		public $data_tags_preg = '(img)';
+		public $data_attr_preg = '(data-wp-pid)';
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
 			$this->add_image_sizes();
-
-			if ( $this->p->is_avail['ngg'] === true ) {
-				require_once ( constant( $this->p->cf['uca'].'_PLUGINDIR' ).'lib/ngg.php' );
-				$this->ngg = new WpssoNgg( $plugin );
-			}
 
 			// prevent image_downsize() from lying about image width and height
 			if ( is_admin() )
@@ -45,6 +41,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				( empty( $this->p->options['og_img_crop'] ) ? false : true ) );
 		}
 
+		// note that $size_name can be a string or an array()
 		public function editor_max_image_size( $max_sizes = array(), $size_name = '', $context = '' ) {
 			// allow only our sizes to exceed the editor width
 			if ( is_string( $size_name ) &&
@@ -180,20 +177,26 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$img_url = '';
 			$img_width = -1;
 			$img_height = -1;
-			$img_inter = true;
 			$img_cropped = empty( $size_info['crop'] ) ? 0 : 1;
 			$ret_empty = array( null, null, null, null );
 
-			if ( $this->p->is_avail['ngg'] === true && strpos( $pid, 'ngg-' ) === 0 )
-				return $this->ngg->get_image_src( $pid, $size_name, $check_dupes );
-
-			else {
+			if ( $this->p->is_avail['media']['ngg'] === true && strpos( $pid, 'ngg-' ) === 0 ) {
+				if ( ! empty( $this->p->addons['ngg'] ) )
+					return $this->p->addons['ngg']->get_image_src( $pid, $size_name, $check_dupes );
+				else {
+					if ( is_admin() )
+						$this->p->notice->err( 'NextGEN Gallery support is not available - image id '.$pid.' ignored.' ); 
+					else $this->p->debug->log( 'ngg support is not available - image id '.$attr_value.' ignored' ); 
+					return $ret_empty; 
+				}
+			} else {
 				if ( ! wp_attachment_is_image( $pid ) ) {
 					$this->p->debug->log( 'exiting early: attachment '.$pid.' is not an image' ); 
 					return $ret_empty; 
 				}
-	
-				list( $img_url, $img_width, $img_height, $img_inter ) = image_downsize( $pid, $size_name );
+
+				list( $img_url, $img_width, $img_height ) = apply_filters( $this->p->cf['lca'].'_image_downsize', 
+					image_downsize( $pid, $size_name ), $pid, $size_name );
 				$this->p->debug->log( 'image_downsize() = '.$img_url.' ('.$img_width.'x'.$img_height.')' );
 	
 				// make sure the returned image size matches the size we requested, if not then possibly resize the image
@@ -215,18 +218,20 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 						$is_accurate_height = ! empty( $img_meta['sizes'][$size_name]['height'] ) &&
 							$img_meta['sizes'][$size_name]['height'] == $size_info['height'] ? true : false;
 					}
-	
+
+					// just in case
 					if ( empty( $img_meta['width'] ) || empty( $img_meta['height'] ) ) {
 						$this->p->debug->log( 'wp_get_attachment_metadata() returned empty original image sizes' );
 	
-					// if the original image size is too small, get the full size image URL instead
+					// if the original (full size) image is too small, get the full size image URL instead
 					} elseif ( $img_meta['width'] < $size_info['width'] && $img_meta['height'] < $size_info['height'] ) {
 	
-						$this->p->debug->log( 'original meta sizes '.$img_meta['width'].'x'.$img_meta['height'].
-							' smaller than '.$size_name.' ('.$size_info['width'].'x'.$size_info['height'].
-							( empty( $size_info['crop'] ) ? '' : ' cropped' ).') - fetching "full" image instead' );
+						$this->p->debug->log( 'original image ('.$img_meta['width'].'x'.$img_meta['height'].
+							') smaller than '.$size_name.' ('.$size_info['width'].'x'.$size_info['height'].
+							( empty( $size_info['crop'] ) ? '' : ' cropped' ).') - fetching "full" image size url' );
 	
-						list( $img_url, $img_width, $img_height, $img_inter ) = image_downsize( $pid, 'full' );
+						list( $img_url, $img_width, $img_height ) = apply_filters( $this->p->cf['lca'].'_image_downsize',
+							image_downsize( $pid, 'full' ), $pid, 'full' );
 						$this->p->debug->log( 'image_downsize() = '.$img_url.' ('.$img_width.'x'.$img_height.')' );
 	
 					// wordpress returns image sizes based on the information in the metadata array
@@ -236,12 +241,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 	
 						$this->p->debug->log( 'image metadata ('.
 							( empty( $img_meta['sizes'][$size_name]['width'] ) ? 0 : $img_meta['sizes'][$size_name]['width'] ).'x'.
-							( empty( $img_meta['sizes'][$size_name]['height'] ) ? 0 : $img_meta['sizes'][$size_name]['height'] ).
-							') does not match '.$size_name.' ('.
-							$size_info['width'].'x'.
-							$size_info['height'].
-							( empty( $size_info['crop'] ) ? '' : ' cropped' )
-							.')' );
+							( empty( $img_meta['sizes'][$size_name]['height'] ) ? 0 : $img_meta['sizes'][$size_name]['height'] ).') does not match '.
+							$size_name.' ('.$size_info['width'].'x'.$size_info['height'].( empty( $size_info['crop'] ) ? '' : ' cropped' ).')' );
 	
 						$fullsizepath = get_attached_file( $pid );
 						$this->p->debug->log( 'calling image_make_intermediate_size()' );
@@ -253,7 +254,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 							$img_meta['sizes'][$size_name] = $resized;
 							wp_update_attachment_metadata( $pid, $img_meta );
 							// request the image size again to validate
-							list( $img_url, $img_width, $img_height, $img_inter ) = image_downsize( $pid, $size_name );
+							list( $img_url, $img_width, $img_height ) = apply_filters( $this->p->cf['lca'].'_image_downsize',
+								image_downsize( $pid, $size_name ), $pid, $size_name );
 							$this->p->debug->log( 'image_downsize() = '.$img_url.' ('.$img_width.'x'.$img_height.')' );
 						}
 					}
@@ -272,7 +274,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					( ! empty( $size_info['crop'] ) && ( ! $is_sufficient_width || ! $is_sufficient_height ) ) ) {
 
 					if ( is_admin() )
-						$this->p->notice->err( 'Image ID '.$pid.' rejected - '.$img_url.
+						$this->p->notice->err( 'Image id '.$pid.' rejected - '.$img_url.
 							' ('.$img_width.'x'.$img_height.') too small for '.$size_name.
 							' ('.$size_info['width'].'x'.$size_info['height'].
 							( empty( $size_info['crop'] ) ? '' : ' cropped' ).').' );
@@ -284,8 +286,10 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					return $ret_empty;
 				}
 			}
-			if ( $check_dupes == false || $this->p->util->is_uniq_url( $img_url ) )
-				return array( $this->p->util->rewrite_url( $img_url ), $img_width, $img_height, $img_cropped );
+
+			if ( ! empty( $img_url ) && 
+				( $check_dupes == false || $this->p->util->is_uniq_url( $img_url ) ) )
+					return array( apply_filters( $this->p->cf['lca'].'_rewrite_url', $img_url ), $img_width, $img_height, $img_cropped );
 
 			return $ret_empty;
 		}
@@ -366,15 +370,18 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				return $og_ret; 
 			}
 
-			// check html tags for ngg images
-			if ( $this->p->is_avail['ngg'] === true ) {
-				$og_ret = $this->ngg->get_content_images( $num, $size_name, $use_post, $check_dupes, $content );
-				if ( $this->p->util->is_maxed( $og_ret, $num ) )
-					return $og_ret;
+			// check div|a|img html tags for ngg images
+			if ( $this->p->is_avail['media']['ngg'] === true ) {
+				if ( ! empty( $this->p->addons['ngg'] ) ) {
+					$og_ret = $this->p->addons['ngg']->get_content_images( $num, $size_name, $use_post, $check_dupes, $content );
+					if ( $this->p->util->is_maxed( $og_ret, $num ) )
+						return $og_ret;
+				}
 			}
 
 			// img attributes in order of preference
-			if ( preg_match_all( '/<((img)[^>]*? (data-wp-pid)=[\'"]([^\'"]+)[\'"]|(img)[^>]*? (data-share-src|src)=[\'"]([^\'"]+)[\'"])[^>]*>/s', 
+			if ( preg_match_all( '/<('.$this->data_tags_preg.'[^>]*? '.$this->data_attr_preg.'=[\'"]([0-9]+)[\'"]|'.
+				'(img)[^>]*? (data-share-src|src)=[\'"]([^\'"]+)[\'"])[^>]*>/s', 
 				$content, $match, PREG_SET_ORDER ) ) {
 				$this->p->debug->log( count( $match ).' x matching <img/> html tag(s) found' );
 				foreach ( $match as $img_num => $img_arr ) {
@@ -382,7 +389,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					if ( empty( $img_arr[5] ) ) {
 						$tag_name = $img_arr[2];	// img
 						$attr_name = $img_arr[3];	// data-wp-pid
-						$attr_value = $img_arr[4];	// pid
+						$attr_value = $img_arr[4];	// id
 					} else {
 						$tag_name = $img_arr[5];	// img
 						$attr_name = $img_arr[6];	// data-share-src|src
@@ -393,32 +400,29 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					switch ( $attr_name ) {
 						case 'data-wp-pid' :
 							list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
-								$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $attr_value, $size_name, $check_dupes );
+								$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $attr_value, $size_name, false );
 							break;
 						default :
-							$og_image = array(
-								'og:image' => $attr_value,
-								'og:image:width' => -1,
-								'og:image:height' => -1,
-							);
-
-							// silently ignore ngg images (which have already been processed)
-							if ( $this->p->is_avail['ngg'] === true && ( 
-								preg_match( '/^'.$this->ngg->img_src_preg.'$/', $og_image['og:image'] ) || 
-								strpos( $tag_value, ' class=\'ngg-' ) !== false ) ) {
-
-								$this->p->debug->log( 'ignoring ngg image: '.$og_image['og:image'] );
-								unset( $og_image['og:image'] );
+							// prevent duplicates by silently ignoring ngg images (already processed by the ngg addon)
+							if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->addons['ngg'] ) &&
+								( strpos( $tag_value, " class='ngg-" ) !== false || 
+									preg_match( '/^'.$this->p->addons['ngg']->img_src_preg.'$/', $attr_value ) ) ) {
 								break;
 							}
 	
 							// recognize gravatar images in the content
-							if ( preg_match( '/^https?:\/\/([^\.]+\.)?gravatar\.com\/avatar\/[a-zA-Z0-9]+/', $og_image['og:image'], $match) ) {
+							if ( preg_match( '/^https?:\/\/([^\.]+\.)?gravatar\.com\/avatar\/[a-zA-Z0-9]+/', $attr_value, $match) ) {
 								$og_image['og:image'] = $match[0].'?s='.$size_info['width'].'&d=404&r=G';
 								$og_image['og:image:width'] = $size_info['width'];
 								$og_image['og:image:height'] = $size_info['width'];
 								break;
 							}
+
+							$og_image = array(
+								'og:image' => $attr_value,
+								'og:image:width' => -1,
+								'og:image:height' => -1,
+							);
 
 							// try and get the width and height from the image attributes
 							if ( ! empty( $og_image['og:image'] ) ) {
@@ -442,14 +446,15 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 								$og_image['og:image'] = $this->p->util->fix_relative_url( $og_image['og:image'] );
 
 							} else {
-								$this->p->debug->log( 'image rejected: width / height attributes missing or too small for for '.$size_name.' size.' );
+								if ( is_admin() && $this->p->debug->is_on() === true )
+									$this->p->notice->err( 'Image '.$og_image['og:image'].' rejected: width / height missing or too small for '.$size_name.'.' );
+								$this->p->debug->log( 'image rejected: width / height attributes missing or too small for '.$size_name.' size.' );
 								$og_image = array();
 							}
 							break;
 					}
-
-					if ( ! empty( $og_image['og:image'] ) )
-						if ( $check_dupes === false || $this->p->util->is_uniq_url( $og_image['og:image'] ) )
+					if ( ! empty( $og_image['og:image'] ) && 
+						( $check_dupes === false || $this->p->util->is_uniq_url( $og_image['og:image'] ) ) )
 							if ( $this->p->util->push_max( $og_ret, $og_image, $num ) )
 								return $og_ret;
 				}
@@ -489,8 +494,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				} else $this->p->debug->log( '[gallery] shortcode not found' );
 			}
 			// check for ngg gallery
-			if ( $this->p->is_avail['ngg'] === true ) {
-				$og_ret = $this->ngg->get_gallery_images( $num , $size_name, $want_this, $check_dupes );
+			if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->addons['ngg'] ) ) {
+				$og_ret = $this->p->addons['ngg']->get_gallery_images( $num , $size_name, $want_this, $check_dupes );
 				if ( $this->p->util->is_maxed( $og_ret, $num ) )
 					return $og_ret;
 			}
@@ -506,7 +511,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 			$video_url = $this->p->meta->get_options( $post_id, 'og_vid_url' );
 
-			if ( ( $check_dupes == false && ! empty( $video_url ) ) || $this->p->util->is_uniq_url( $video_url ) ) {
+			if ( ! empty( $video_url ) && 
+				( $check_dupes == false || $this->p->util->is_uniq_url( $video_url ) ) ) {
 				$this->p->debug->log( 'found custom meta video url = "'.$video_url.'"' );
 				$og_video = $this->get_video_info( $video_url );
 				if ( empty( $og_video ) )	// fallback to custom video URL
@@ -532,7 +538,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				foreach ( $match_all as $media ) {
 					$this->p->debug->log( '<'.$media[1].'/> html tag found = '.$media[2] );
 					$embed_url = $media[2];
-					if ( ( $check_dupes == false && ! empty( $embed_url ) ) || $this->p->util->is_uniq_url( $embed_url ) ) {
+					if ( ! empty( $embed_url ) &&
+						( $check_dupes == false || $this->p->util->is_uniq_url( $embed_url ) ) ) {
 						$embed_width = preg_match( '/ width=[\'"]?([0-9]+)[\'"]?/i', $media[0], $match) ? $match[1] : -1;
 						$embed_height = preg_match( '/ height=[\'"]?([0-9]+)[\'"]?/i', $media[0], $match) ? $match[1] : -1;
 						$og_video = $this->get_video_info( $embed_url, $embed_width, $embed_height );
@@ -551,7 +558,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					if ( is_array( $match_all ) ) {
 						$this->p->debug->log( count( $match_all ).' x videos returned by '.$filter_name.' filter' );
 						foreach ( $match_all as $media ) {
-							if ( ( $check_dupes == false && ! empty( $media[0] ) ) || $this->p->util->is_uniq_url( $media[0] ) ) {
+							if ( ! empty( $media[0] ) && 
+								( $check_dupes == false || $this->p->util->is_uniq_url( $media[0] ) ) ) {
 								$og_video = $this->get_video_info( $media[0], $media[1], $media[2] );	// url, width, height
 								if ( ! empty( $og_video ) && 
 									$this->p->util->push_max( $og_ret, $og_video, $num ) ) 
@@ -702,4 +710,5 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 		}
 	}
 }
+
 ?>

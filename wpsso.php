@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
-Version: 0.20.1
+Version: 0.21rc1
 
 Copyright 2012-2013 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -30,6 +30,7 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 		public $site_options = array();	// multisite options
 		public $ngg_options = array();	// nextgen gallery options
 		public $ngg_version = 0;	// nextgen gallery version
+		public $addons = array();	// pro addons
 
 		public function __construct() {
 
@@ -52,7 +53,7 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 
 			load_plugin_textdomain( WPSSO_TEXTDOM, false, dirname( WPSSO_PLUGINBASE ).'/languages/' );
 			$this->set_objects();
-			if ( $this->debug->is_on() == true ) {
+			if ( $this->debug->is_on() === true ) {
 				foreach ( array( 'wp_head', 'wp_footer' ) as $action ) {
 					foreach ( array( 1, 9999 ) as $prio )
 						add_action( $action, create_function( '', 
@@ -73,14 +74,6 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 			$this->is_avail = $this->check->get_avail();	// uses options
 			if ( $this->is_avail['aop'] ) 
 				$this->cf['full'] = $this->cf['full_pro'];
-			if ( $this->is_avail['ngg'] ) {
-				$this->ngg_options = get_option( 'ngg_options' );
-				if ( defined( 'NEXTGEN_GALLERY_PLUGIN_VERSION' ) && NEXTGEN_GALLERY_PLUGIN_VERSION )
-					$this->ngg_version = NEXTGEN_GALLERY_PLUGIN_VERSION;
-			}
-			if ( $this->is_avail['ngfb'] )
-				if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
-					define( 'NGFB_META_TAGS_DISABLE', true );
 	
 			/*
 			 * essential class objects
@@ -163,14 +156,14 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 			 */
 			$this->cache->object_expire = $this->options['plugin_object_cache_exp'];
 			if ( $this->check->is_aop() ) {
-				if ( $this->debug->is_on( 'wp' ) == true ) 
+				if ( $this->debug->is_on( 'wp' ) === true ) 
 					$this->cache->file_expire = WPSSO_DEBUG_FILE_EXP;
 				else $this->cache->file_expire = $this->options['plugin_file_cache_hrs'] * 60 * 60;
 			} else $this->cache->file_expire = 0;
 			$this->is_avail['cache']['file'] = $this->cache->file_expire > 0 ? true : false;
 
 			// set the object cache expiration value
-			if ( $this->debug->is_on( 'html' ) == true ) {
+			if ( $this->debug->is_on( 'html' ) === true ) {
 				foreach ( array( 'object', 'transient' ) as $name ) {
 					$constant_name = 'WPSSO_'.strtoupper( $name ).'_CACHE_DISABLE';
 					$this->is_avail['cache'][$name] = defined( $constant_name ) && ! constant( $constant_name ) ? true : false;

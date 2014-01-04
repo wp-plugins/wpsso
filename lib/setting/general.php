@@ -67,7 +67,7 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					 $this->form->get_checkbox( 'og_img_resize' ).'</td>';
 	
 					$id_pre = array( 'wp' => 'Media Library' );
-					if ( $this->p->is_avail['ngg'] == true ) 
+					if ( $this->p->is_avail['media']['ngg'] == true ) 
 						$id_pre['ngg'] = 'NextGEN Gallery';
 					$ret[] = $this->p->util->th( 'Default Image ID', 'highlight', 'og_def_img_id' ).
 					'<td>'.$this->form->get_input( 'og_def_img_id', 'short' ).' in the '.
@@ -82,7 +82,7 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$ret[] = $this->p->util->th( 'Default Image on Search Results', null, 'og_def_img_on_search' ).
 					'<td>'.$this->form->get_checkbox( 'og_def_img_on_search' ).'</td>';
 	
-					if ( $this->p->is_avail['ngg'] == true ) {
+					if ( $this->p->is_avail['media']['ngg'] == true ) {
 						$ret[] = $this->p->util->th( 'Add Featured Image Tags', null, 'og_ngg_tags' ).
 						'<td>'.$this->form->get_checkbox( 'og_ngg_tags' ).'</td>';
 					} else $ret[] = $this->form->get_hidden( 'og_ngg_tags' );
@@ -257,4 +257,5 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 		}
 	}
 }
+
 ?>

@@ -28,6 +28,19 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				if ( $this->network_plugins )
 					$this->active_plugins = array_merge( $this->active_plugins, $this->network_plugins );
 			}
+
+			// Disable JetPack Open Graph Meta Tags
+			if ( class_exists( 'JetPack' ) ||
+				in_array( 'jetpack/jetpack.php', $this->active_plugins ) ) {
+				add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );	//deprecated, but correct filter name is broken
+				add_filter( 'jetpack_disable_twitter_cards', '__return_true', 99 );
+			}
+
+			// Disable the NGFB Open Graph+ Meta Tags
+			if ( class_exists( 'NgfbPlugin' ) ||
+				in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) )
+					if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
+						define( 'NGFB_META_TAGS_DISABLE', true );
 		}
 
 		public function get_active() {
@@ -42,12 +55,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			$ret['mbdecnum'] = function_exists( 'mb_decode_numericentity' ) ? true : false;
 
 			$ret['postthumb'] = function_exists( 'has_post_thumbnail' ) ? true : false;
-
-			$ret['ngg'] = class_exists( 'nggdb' ) || class_exists( 'C_NextGEN_Bootstrap' ) ||
-				in_array( 'nextgen-gallery/nggallery.php', $this->active_plugins ) ? true : false; 
-
-			$ret['ngfb'] = class_exists( 'NgfbPlugin' ) ||
-				in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) ? true : false; 
 
 			$ret['metatags'] = ( ! defined( 'WPSSO_META_TAGS_DISABLE' ) || ! WPSSO_META_TAGS_DISABLE ) &&
 				empty( $_SERVER['WPSSO_META_TAGS_DISABLE'] ) ? true : false;
@@ -72,63 +79,76 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				$ret[$sub] = array();
 				$ret[$sub]['*'] = false;
 				foreach ( $libs as $id => $name ) {
-					$opt_enabled = false;
-					$func_name = false;
-					$class_name = false;
-					$pluginbase = false;
+					$chk = array();
+					$ret[$sub][$id] = false;	// default value
 					switch ( $id ) {
 						case 'aioseop':
-							$class_name = 'All_in_One_SEO_Pack';
-							$pluginbase = 'all-in-one-seo-pack/all-in-one-seo-pack.php';
+							$chk['class'] = 'All_in_One_SEO_Pack';
+							$chk['plugin'] = 'all-in-one-seo-pack/all-in-one-seo-pack.php';
 							break;
 						case 'seou':
-							$class_name = 'SEO_Ultimate'; 
-							$pluginbase = 'seo-ultimate/seo-ultimate.php';
+							$chk['class'] = 'SEO_Ultimate'; 
+							$chk['plugin'] = 'seo-ultimate/seo-ultimate.php';
 							break;
 						case 'wpseo':
-							$func_name = 'wpseo_init'; 
-							$pluginbase = 'wordpress-seo/wp-seo.php';
+							$chk['function'] = 'wpseo_init'; 
+							$chk['plugin'] = 'wordpress-seo/wp-seo.php';
 							break;
 						case 'woocommerce':
-							$class_name = 'Woocommerce';
-							$pluginbase = 'woocommerce/woocommerce.php';
+							$chk['class'] = 'Woocommerce';
+							$chk['plugin'] = 'woocommerce/woocommerce.php';
 							break;
 						case 'marketpress':
-							$class_name = 'MarketPress'; 
-							$pluginbase = 'wordpress-ecommerce/marketpress.php';
+							$chk['class'] = 'MarketPress'; 
+							$chk['plugin'] = 'wordpress-ecommerce/marketpress.php';
 							break;
 						case 'wpecommerce':
-							$class_name = 'WP_eCommerce';
-							$pluginbase = 'wp-e-commerce/wp-shopping-cart.php';
+							$chk['class'] = 'WP_eCommerce';
+							$chk['plugin'] = 'wp-e-commerce/wp-shopping-cart.php';
 							break;
 						case 'bbpress':
-							$class_name = 'bbPress'; 
-							$pluginbase = 'bbpress/bbpress.php';
+							$chk['class'] = 'bbPress'; 
+							$chk['plugin'] = 'bbpress/bbpress.php';
 							break;
 						case 'buddypress':
-							$class_name = 'BuddyPress'; 
-							$pluginbase = 'buddypress/bp-loader.php';
+							$chk['class'] = 'BuddyPress'; 
+							$chk['plugin'] = 'buddypress/bp-loader.php';
+							break;
+						case 'ngg':
+							$chk['class'] = 'nggdb';	// C_NextGEN_Bootstrap
+							$chk['plugin'] = 'nextgen-gallery/nggallery.php';
+							break;
+						case 'photon':
+							if ( class_exists( 'Jetpack' ) && 
+								method_exists( 'Jetpack', 'get_active_modules' ) && 
+								in_array( 'photon', Jetpack::get_active_modules() ) )
+									$ret[$sub]['*'] = $ret[$sub][$id] = true;
 							break;
 						case 'wistia':
-							$opt_enabled = 'plugin_wistia_api';
+							$chk['optval'] = 'plugin_wistia_api';
+							break;
+						case 'rewrite':
+							$chk['optval'] = 'plugin_cdn_urls';
+							break;
+						case 'shorten':
+							$chk['optval'] = 'twitter_shortener';
 							break;
 					}
-					if ( ( $func_name && function_exists( $func_name ) ) || 
-						( $class_name && class_exists( $class_name ) ) ||
-						( $pluginbase && in_array( $pluginbase, $this->active_plugins ) ) ||
-						( $opt_enabled && ! empty( $this->p->options[$opt_enabled] ) ) )
+					if ( ( ! empty( $chk['function'] ) && function_exists( $chk['function'] ) ) || 
+						( ! empty( $chk['class'] ) && class_exists( $chk['class'] ) ) ||
+						( ! empty( $chk['plugin'] ) && in_array( $chk['plugin'], $this->active_plugins ) ) ||
+						( ! empty( $chk['optval'] ) && ! empty( $this->p->options[$chk['optval']] ) ) )
 							$ret[$sub]['*'] = $ret[$sub][$id] = true;
-					else $ret[$sub][$id] = false;
 				}
 			}
 			return $ret;
 		}
 
 		// called from WpssoAdmin
-		public function conflicts() {
+		public function conflict_warnings() {
 
 			if ( ! is_admin() ) 
-				return;	// warnings are only shown on admin pages anyway
+				return;
 
 			$conflict_log_prefix =  __( 'plugin conflict detected', WPSSO_TEXTDOM ) . ' - ';
 			$conflict_err_prefix =  __( 'Plugin conflict detected', WPSSO_TEXTDOM ) . ' -- ';
@@ -142,14 +162,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 					__( 'This function is required to decode UTF8 entities.', WPSSO_TEXTDOM ).' '.
 					__( 'Please update your PHP installation (install \'php-mbstring\' on most Linux distros).', WPSSO_TEXTDOM ) );
 			}
-
-			// NGFB Open Graph+
-			if ( $this->p->is_avail['ngfb'] == true ) {
-                                $this->p->debug->log( $conflict_log_prefix.'ngfb plugin is active' );
-                                $this->p->notice->err( $conflict_err_prefix. 
-					sprintf( __( 'Please <a href="%s">deactivate the NGFB Open Graph+ plugin</a> to prevent conflicting and duplicate features.', WPSSO_TEXTDOM ), 
-						get_admin_url( null, 'plugins.php' ) ) );
-                        }
 
 			// Yoast WordPress SEO
 			if ( $this->p->is_avail['seo']['wpseo'] == true ) {
@@ -203,6 +215,15 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			 * Other Conflicting Plugins
 			 */
 
+			// NGFB Open Graph+
+			if ( class_exists( 'NgfbPlugin' ) || 
+				in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) ) {
+                                $this->p->debug->log( $conflict_log_prefix.'ngfb plugin is active' );
+                                $this->p->notice->err( $conflict_err_prefix. 
+					sprintf( __( 'Please <a href="%s">deactivate the NGFB Open Graph+ plugin</a> to prevent conflicting and duplicate features.', WPSSO_TEXTDOM ), 
+						get_admin_url( null, 'plugins.php' ) ) );
+                        }
+
 			// WooCommerce ShareYourCart Extension
 			if ( class_exists( 'ShareYourCartWooCommerce' ) ) {
 				$opts = get_option( 'woocommerce_shareyourcart_settings' );
@@ -237,7 +258,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			// AddThis Social Bookmarking Widget
 			if ( defined( 'ADDTHIS_INIT' ) && ADDTHIS_INIT && 
 				( ! empty( $this->p->options['plugin_filter_content'] ) || ! empty( $this->p->options['plugin_filter_excerpt'] ) ) ) {
-
 				$this->p->debug->log( $conflict_log_prefix.'addthis has broken excerpt / content filters' );
 				$this->p->notice->err( $conflict_err_prefix. 
 					__( 'The AddThis Social Bookmarking Widget has incorrectly coded content and excerpt filters.', WPSSO_TEXTDOM ).' '.
@@ -262,8 +282,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			if ( $this->p->is_avail['aop'] == true && 
 				! empty( $this->p->options['plugin_tid'] ) && 
 					empty( $this->p->update_error ) )
-						return true;
-			return false;
+						return true; return false;
 		}
 	}
 }
