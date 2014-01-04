@@ -32,7 +32,7 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 
 **Images and Videos**
 
-WPSSO detects and uses all images, associated or included in your Post / Page content, embedded videos from YouTube, Vimeo, and Wistia (including video preview images). WPSSO supports WordPress Media Library galleries and [NextGEN Gallery v1.x and v2.x](http://wordpress.org/plugins/nextgen-gallery/) albums, galleries, shortcodes, image tags, preview images, etc. WordPress Media Library and NextGEN Gallery images are resized for optimal presentation in Open Graph (Facebook) meta tags, the many Twitter Card formats, and sharing on Pinterest.
+WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress Media Library image galleries and embedded videos from YouTube, Vimeo, and Wistia (including their preview images). WordPress Media Library and NextGEN Gallery images are sized according to their intended audience (Facebook, Twitter, Pinterest, etc). WPSSO (Pro version) also supports albums, galleries and images from [NextGEN Gallery v1 and v2](http://wordpress.org/plugins/nextgen-gallery/) (shortcodes, image tags, album/gallery preview images, etc.).
 
 **Enhanced SEO**
 
@@ -129,11 +129,25 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
+= Version 0.21rc1 =
+
+* **Moved the NextGEN Gallery support to a Pro version addon**.
+* Added a 'wpsso_image_downsize' hook (for the Jetpack Photon Pro addon).
+* Added support for JetPack Photon to retrieve correct image sizes (Pro version).
+* Added hooks to disable JetPack Open Graph and Twitter Card meta tags.
+* Added a hook for the 'wpsso_sharing_url' filter to support WordPress SEO's "Force Transport" option (Pro version).
+* Moved the URL rewriting and shortening methods into hooks for the 'wpsso_rewrite_url' and 'wpsso_shorten_url' filters (Pro version).
+* Changed the default object expiration time from 1800 to 3600 seconds (1 hour).
+
 = Version 0.20.1 =
 
 * Fixed a possible error condition in lib/media.php by adding an extra check, to make sure the size provided to the `image_constrain_size_for_editor()` filter is a string and not an array().
 
 == Upgrade Notice ==
+
+= 0.21rc1 =
+
+Moved NextGEN Gallery support to Pro version, added support for JetPack Photon, added support for WordPress SEO "Force Transport" option.
 
 = 0.20.1 =
 
