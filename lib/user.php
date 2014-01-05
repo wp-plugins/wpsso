@@ -182,9 +182,9 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		static function delete_metabox_prefs( $user_id = false ) {
 			$cf = WpssoPluginConfig::get_config();
 			foreach ( array( 'meta-box-order', 'metaboxhidden', 'closedpostboxes' ) as $state ) {
-				$menu_ids = array( key( $cf['lib']['setting'] ) );
+				$menu_ids = array( key( $cf['lib']['submenu'] ) );
 				foreach ( $menu_ids as $menu ) {
-					$setting_ids = array_keys( $cf['lib']['setting'] );
+					$setting_ids = array_keys( $cf['lib']['submenu'] );
 					foreach ( $setting_ids as $submenu ) {
 						if ( $submenu == 'contact' )
 							$parent_slug = 'options-general.php';

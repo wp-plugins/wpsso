@@ -444,12 +444,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'Check this option if you would like to preserve all '.$this->p->cf['full'].
 							' settings when you <em>uninstall</em> the plugin (default is unchecked).';
 							break;
-						case 'tooltip-plugin_reset':
-							$text = 'Check this option if you would like to reset the '.$this->p->cf['full'].
-							' settings to their default values when you <em>deactivate</em>, and then 
-							<em>re-activate</em> the plugin (default is unchecked). This option will
-							be disabled if the \'Preserve Settings on Uninstall\' option is checked.';
-							break;
 						case 'tooltip-plugin_debug':
 							$text = 'Include hidden debug information with the Open Graph meta tags (default is unchecked).';
 							break;
@@ -574,34 +568,30 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case ( strpos( $idx, 'tooltip-side-' ) !== false ? true : false ):
 					switch ( $idx ) {
 						case 'tooltip-side-debug-messages':
-							$text = 'Debug code is loaded when the \'Add Hidden Debug Info\' option is checked or one of the available 
+							$text = 'Debug code is loaded when the \'Add Hidden Debug Info\' option is checked, or one of the available 
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">debugging 
 							constants</a> is defined.';
-							break;
-						case 'tooltip-side-nextgen-gallery':
-							$text = 'The NextGEN Gallery integration addon is loaded only when the NextGEN Gallery plugin is detected.';
 							break;
 						case 'tooltip-side-non-persistant-cache':
 							$text = $this->p->cf['full'].' saves filtered / rendered content to a non-persistant cache
 							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>) 
-							for re-use within the same page load. You can adjust the \'Object Cache Expiry\' value on the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page, and disable the non-persistant cache feature 
+							for re-use within the same page load. You can disable the use of non-persistant cache (not recommended)
 							using one of the available <a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" 
-							target="_blank">constant</a>.';
+							target="_blank">constants</a>.';
 							break;
 						case 'tooltip-side-open-graph-rich-pin':
 							$text = 'Open Graph and Rich Pin meta tags are added to the head section of all webpages. 
-							You must have a compatible eCommerce plugin installed to include <em>Product</em> Rich Pins, 
-							including their prices, images, and other attributes.';
+							You must have a compatible eCommerce plugin installed to add <em>Product</em> Rich Pins, 
+							including product prices, images, and other attributes.';
 							break;
 						case 'tooltip-side-pro-update-check':
 							$text = 'When a \'Pro Version Authentication ID\' is entered on the '.$this->p->util->get_admin_url( 'advanced', 
-							'Advanced settings' ).' page, an update check is scheduled every 12 hours to see if a new Pro version is available.';
+							'Advanced settings' ).' page, a check is scheduled every 12 hours to see if a Pro version update is available.';
 							break;
 						case 'tooltip-side-social-sharing-buttons':
 							$text = 'Social sharing features include the SSO '.$this->p->util->get_admin_url( 'social', 'Social Sharing' ).
 							' and '.$this->p->util->get_admin_url( 'style', 'Social Style' ).' settings pages (aka social sharing buttons), 
-							the Custom Settings - Social Sharing tab on Post and Page editing pages, along with the social sharing shortcode 
+							the Custom Settings - Social Sharing tab on admin editing pages, along with the social sharing shortcode 
 							and widget. All social sharing features can be disabled using an available
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
 							break;

@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 	class WpssoPluginConfig {
 
 		private static $cf = array(
-			'version' => '0.21rc1',		// plugin version
+			'version' => '0.21rc2',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -29,12 +29,14 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 			),
 			'lib' => array(			// libraries
 				'setting' => array (
+					'contact' => 'Contact Methods',
+				),
+				'submenu' => array (
 					'general' => 'General',
 					'advanced' => 'Advanced',
-					'contact' => 'Contact Methods',
 					'about' => 'About',
 				),
-				'site_setting' => array(
+				'site_submenu' => array(
 					'network' => 'Network',
 				),
 				'pro' => array(
@@ -247,9 +249,6 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 			if ( ! defined( $cp.'HEAD_PRIORITY' ) )
 				define( $cp.'HEAD_PRIORITY', 10 );
 
-			if ( ! defined( $cp.'FOOTER_PRIORITY' ) )
-				define( $cp.'FOOTER_PRIORITY', 100 );
-			
 			if ( ! defined( $cp.'DEBUG_FILE_EXP' ) )
 				define( $cp.'DEBUG_FILE_EXP', 300 );
 
@@ -287,15 +286,17 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 				require_once( $plugin_dir.'lib/messages.php' );
 				require_once( $plugin_dir.'lib/admin.php' );
 
-				// settings classes extend lib/admin.php, and settings objects are created by lib/admin.php
-				foreach ( $cf['lib']['setting'] as $id => $name )
-					if ( file_exists( $plugin_dir.'lib/setting/'.$id.'.php' ) )
-						require_once( $plugin_dir.'lib/setting/'.$id.'.php' );
+				// setting and submenu classes extend lib/admin.php, and objects are created by lib/admin.php
+				// some setting classes extend submenu classes, so load the submenu array first
+				foreach ( array( 'submenu', 'setting' ) as $sub )
+					foreach ( $cf['lib'][$sub] as $id => $name )
+						if ( file_exists( $plugin_dir.'lib/'.$sub.'/'.$id.'.php' ) )
+							require_once( $plugin_dir.'lib/'.$sub.'/'.$id.'.php' );
 
 				// load the network settings if we're a multisite
 				if ( is_multisite() )
-					foreach ( $cf['lib']['site_setting'] as $id => $name )
-						require_once( $plugin_dir.'lib/site_setting/'.$id.'.php' );
+					foreach ( $cf['lib']['site_submenu'] as $id => $name )
+						require_once( $plugin_dir.'lib/site_submenu/'.$id.'.php' );
 
 				require_once( $plugin_dir.'lib/com/form.php' );
 				require_once( $plugin_dir.'lib/ext/parse-readme.php' );
@@ -312,4 +313,5 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 		}
 	}
 }
+
 ?>

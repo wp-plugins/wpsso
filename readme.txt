@@ -72,7 +72,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Great Support =
 
-**WPSSO is actively being developed and supported**. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
+**WPSSO support and development is on-going**. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
 
 == Installation ==
 
@@ -104,7 +104,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-do-my-facebook-shares-have-small-images/">Why do my Facebook shares have small images?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-does-facebook-play-videos-instead-of-linking-them/">Why does Facebook play videos instead of linking them?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-does-google-structured-data-testing-tool-show-errors/">Why does Google Structured Data Testing Tool show errors?</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-does-wpsso-ignore-html-tags/">Why does WPSSO ignore HTML tags?</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-does-wpsso-ignore-some-img-html-tags/">Why does WPSSO ignore some &lt;img/&gt; HTML tags?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-doesnt-facebook-show-the-correct-image/">Why doesn’t Facebook show the correct image?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-dont-my-twitter-cards-show-on-twitter/">Why don’t my Twitter Cards show on Twitter?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-is-the-open-graph-title-the-same-for-every-webpage/">Why is the Open Graph title the same for every webpage?</a></li>
@@ -112,7 +112,9 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Other / Additional Notes ==
 
-= Coming Soon =
+<ul>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a> <div>A list of available PHP constants for the WPSSO plugin.</div></li>
+</ul>
 
 == Screenshots ==
 
@@ -137,7 +139,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 0.21rc1 =
+= Version 0.21rc2 =
 
 * **Moved the NextGEN Gallery support to a Pro version addon**.
 * Added a 'wpsso_image_downsize' hook (for the Jetpack Photon Pro addon).
@@ -146,6 +148,8 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 * Added a hook for the 'wpsso_sharing_url' filter to support WordPress SEO's "Force Transport" option (Pro version).
 * Moved the URL rewriting and shortening methods into hooks for the 'wpsso_rewrite_url' and 'wpsso_shorten_url' filters (Pro version).
 * Changed the default object expiration time from 1800 to 3600 seconds (1 hour).
+* Removed the "Reset Settings on Activate" Advanced option.
+* Renamed the WPSSO_RESET constant to WPSSO_RESET_ON_ACTIVATE.
 
 = Version 0.20.1 =
 
@@ -153,7 +157,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Upgrade Notice ==
 
-= 0.21rc1 =
+= 0.21rc2 =
 
 Moved NextGEN Gallery support to Pro version, added support for JetPack Photon, added support for WordPress SEO "Force Transport" option.
 

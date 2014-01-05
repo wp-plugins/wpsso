@@ -391,12 +391,12 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				$current = $_SERVER['REQUEST_URI'];
 				if ( preg_match( '/^.*\?page='.$this->p->cf['lca'].'-([^&]*).*$/', $current, $match ) )
 					$submenu = $match[1];
-				else $submenu = key( $this->p->cf['lib']['setting'] );
+				else $submenu = key( $this->p->cf['lib']['submenu'] );
 			}
 			$page = 'admin.php?page='.$this->p->cf['lca'].'-'.$submenu;
-			if ( array_key_exists( $submenu, $this->p->cf['lib']['setting'] ) )
+			if ( array_key_exists( $submenu, $this->p->cf['lib']['submenu'] ) )
 				$url = admin_url( $page );
-			elseif ( array_key_exists( $submenu, $this->p->cf['lib']['site_setting'] ) )
+			elseif ( array_key_exists( $submenu, $this->p->cf['lib']['site_submenu'] ) )
 				$url = network_admin_url( $page );
 
 			if ( ! empty( $query ) ) 

@@ -17,7 +17,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 		protected $p;
 
 		// increment when changing default options
-		public $options_version = '218';
+		public $options_version = '219';
 
 		public $site_defaults = array(
 			'options_version' => '',
@@ -131,7 +131,6 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			'plugin_version' => '',
 			'plugin_tid' => '',
 			'plugin_preserve' => 0,
-			'plugin_reset' => 0,
 			'plugin_debug' => 0,
 			'plugin_filter_content' => 1,
 			'plugin_filter_excerpt' => 0,
@@ -228,7 +227,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 		}
 
 		public function add_post_type_options( &$opts = array() ) {
-			foreach ( array( 'buttons', 'plugin' ) as $prefix ) {
+			foreach ( array( 'plugin' ) as $prefix ) {
 				foreach ( $this->p->util->get_post_types( $prefix ) as $post_type ) {
 					$option_name = $prefix.'_add_to_'.$post_type->name;
 					if ( ! array_key_exists( $option_name, $opts ) ) {
@@ -487,13 +486,6 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			/*
 			 * Adjust dependent options
 			 */
-
-			// preserve and reset options are not compatible, disable reset if preserve option is checked
-			if ( ! empty( $opts['plugin_preserve'] ) ) {
-				$opts['plugin_reset'] = 0;
-				$opts['plugin_reset:is'] = 'disabled';
-			}
-
 			if ( empty( $opts['plugin_file_cache_hrs'] ) || empty( $opts['plugin_ignore_small_img'] ) ) {
 				$opts['plugin_get_img_size'] = 0;
 				$opts['plugin_get_img_size:is'] = 'disabled';

@@ -32,7 +32,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		public $form;
 		public $lang = array();
-		public $setting = array();
+		public $submenu = array();
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
@@ -42,24 +42,29 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$this->set_objects();
 
 			add_action( 'admin_init', array( &$this, 'register_setting' ) );
-			add_action( 'admin_menu', array( &$this, 'add_admin_menus' ), -1 );
+			add_action( 'admin_menu', array( &$this, 'add_admin_menus' ), -20 );
+			add_action( 'admin_menu', array( &$this, 'add_admin_settings' ), -10 );
 			add_filter( 'plugin_action_links', array( &$this, 'add_plugin_action_links' ), 10, 2 );
 
 			if ( is_multisite() ) {
-				add_action( 'network_admin_menu', array( &$this, 'add_network_admin_menus' ), -1 );
+				add_action( 'network_admin_menu', array( &$this, 'add_network_admin_menus' ), -20 );
 				add_action( 'network_admin_edit_'.WPSSO_SITE_OPTIONS_NAME, array( &$this, 'save_site_options' ) );
 				add_filter( 'network_admin_plugin_action_links', array( &$this, 'add_plugin_action_links' ), 10, 2 );
 			}
 		}
 
 		private function set_objects() {
-			$libs = $this->p->cf['lib']['setting'];
+			$libs = array_merge( 
+				$this->p->cf['lib']['setting'],
+				$this->p->cf['lib']['submenu']
+			);
 			if ( is_multisite() )
-				$libs = array_merge( $libs, $this->p->cf['lib']['site_setting'] );
+				$libs = array_merge( $libs, 
+					$this->p->cf['lib']['site_submenu'] );
 			foreach ( $libs as $id => $name ) {
 				$classname = __CLASS__.ucfirst( $id );
 				if ( class_exists( $classname ) )
-					$this->setting[$id] = new $classname( $this->p, $id, $name );
+					$this->submenu[$id] = new $classname( $this->p, $id, $name );
 			}
 		}
 
@@ -81,30 +86,44 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$this->readme = $this->p->util->parse_readme( $expire_secs );
 		}
 
-		public function add_admin_menus( $libs = array() ) {
-			if ( empty( $libs ) ) 
-				$libs = $this->p->cf['lib']['setting'];
-			$this->menu_id = key( $libs );
-			$this->menu_name = $libs[$this->menu_id];
-			if ( array_key_exists( $this->menu_id, $this->setting ) )
-				$this->setting[$this->menu_id]->add_menu_page( $this->menu_id );
-			foreach ( $libs as $id => $name )
-				if ( array_key_exists( $id, $this->setting ) )
-					$this->setting[$id]->add_submenu_page( $this->menu_id );
+		public function add_admin_settings() {
+			foreach ( $this->p->cf['lib']['setting'] as $id => $name ) {
+				if ( array_key_exists( $id, $this->submenu ) ) {
+					$parent_slug = 'options-general.php';
+					$this->submenu[$id]->add_submenu_page( $parent_slug );
+				}
+			}
 		}
 
 		public function add_network_admin_menus() {
-			$this->add_admin_menus( $this->p->cf['lib']['site_setting'] );
+			$this->add_admin_menus( $this->p->cf['lib']['site_submenu'] );
 		}
 
-		protected function add_menu_page( $parent_id ) {
+		public function add_admin_menus( $libs = array() ) {
+			if ( empty( $libs ) ) 
+				$libs = $this->p->cf['lib']['submenu'];
+			$this->menu_id = key( $libs );
+			$this->menu_name = $libs[$this->menu_id];
+			if ( array_key_exists( $this->menu_id, $this->submenu ) ) {
+				$menu_slug = $this->p->cf['lca'].'-'.$this->menu_id;
+				$this->submenu[$this->menu_id]->add_menu_page( $menu_slug );
+			}
+			foreach ( $libs as $id => $name ) {
+				if ( array_key_exists( $id, $this->submenu ) ) {
+					$parent_slug = $this->p->cf['lca'].'-'.$this->menu_id;
+					$this->submenu[$id]->add_submenu_page( $parent_slug );
+				}
+			}
+		}
+
+		protected function add_menu_page( $menu_slug ) {
 			global $wp_version;
 			// add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
 			$this->pagehook = add_menu_page( 
 				$this->p->cf['full'].' : '.$this->menu_name, 
 				$this->p->cf['menu'], 
 				'manage_options', 
-				$this->p->cf['lca'].'-'.$parent_id, 
+				$menu_slug, 
 				array( &$this, 'show_page' ), 
 				( version_compare( $wp_version, 3.8, '<' ) ? null : 'dashicons-share' ),
 				WPSSO_MENU_PRIORITY
@@ -112,12 +131,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			add_action( 'load-'.$this->pagehook, array( &$this, 'load_page' ) );
 		}
 
-		protected function add_submenu_page( $parent_id ) {
-			if ( $this->menu_id == 'contact' )
-				$parent_slug = 'options-general.php';
-			else
-				$parent_slug = $this->p->cf['lca'].'-'.$parent_id;
-
+		protected function add_submenu_page( $parent_slug ) {
 			// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
 			$this->pagehook = add_submenu_page( 
 				$parent_slug, 
@@ -132,10 +146,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		// display a settings link on the main plugins page
 		public function add_plugin_action_links( $links, $file ) {
-
 			// only add links when filter is called for this plugin
 			if ( $file == WPSSO_PLUGINBASE ) {
-
 				// remove the Edit link
 				foreach ( $links as $num => $val ) {
 					if ( preg_match( '/>Edit</', $val ) )
@@ -161,8 +173,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		// wordpress handles the actual saving of the options
 		public function sanitize_options( $opts ) {
 			if ( ! is_array( $opts ) ) {
-				add_settings_error( WPSSO_OPTIONS_NAME, 'notarray', '<b>'.$this->p->cf['uca'].' Error</b> : 
-					Submitted settings are not an array.', 'error' );
+				add_settings_error( WPSSO_OPTIONS_NAME, 'notarray', '<b>'.$this->p->cf['uca'].' Error</b> : '.
+					__( 'Submitted settings are not an array.', WPSSO_TEXTDOM ), 'error' );
 				return $opts;
 			}
 			// get default values, including css from default stylesheets
@@ -170,23 +182,17 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$opts = $this->p->util->restore_checkboxes( $opts );
 			$opts = array_merge( $this->p->options, $opts );
 			$opts = $this->p->opt->sanitize( $opts, $def_opts );	// cleanup excess options and sanitize
-
-			if ( $this->p->is_avail['ssb'] ) 
-				$this->p->style->update_social( $opts );
-
 			$opts = apply_filters( $this->p->cf['lca'].'_save_options', $opts );
-
 			$this->p->notice->inf( __( 'Plugin settings have been updated.', WPSSO_TEXTDOM ).' '.
 				sprintf( __( 'Wait %d seconds for cache objects to expire (default) or use the \'Clear All Cache\' button.', WPSSO_TEXTDOM ), 
 					$this->p->options['plugin_object_cache_exp'] ), true );
-
 			return $opts;
 		}
 
 		public function save_site_options() {
 
 			$page = empty( $_POST['page'] ) ? 
-				key( $this->p->cf['lib']['site_setting'] ) : $_POST['page'];
+				key( $this->p->cf['lib']['site_submenu'] ) : $_POST['page'];
 
 			if ( empty( $_POST[ WPSSO_NONCE ] ) ) {
 				$this->p->debug->log( 'Nonce token validation post field missing.' );
@@ -276,7 +282,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$this->p->admin->set_readme( $this->p->cf['update_hours'] * 3600 );
 
 			// add child metaboxes first, since they contain the default reset_metabox_prefs()
-			$this->p->admin->setting[$this->menu_id]->add_meta_boxes();
+			$this->p->admin->submenu[$this->menu_id]->add_meta_boxes();
 
 			if ( ! $this->p->check->is_aop() && ( empty( $this->p->options['plugin_tid'] ) || ! empty( $this->p->update_error ) ) ) {
 				add_meta_box( $this->pagehook.'_purchase', __( 'Pro Version', WPSSO_TEXTDOM ), array( &$this, 'show_metabox_purchase' ), $this->pagehook, 'side' );
@@ -336,13 +342,13 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		protected function show_form() {
-			if ( ! empty( $this->p->cf['lib']['setting'][$this->menu_id] ) ) {
+			if ( ! empty( $this->p->cf['lib']['submenu'][$this->menu_id] ) ) {
 				echo '<form name="wpsso" id="setting" method="post" action="options.php">';
 				echo $this->form->get_hidden( 'options_version', $this->p->opt->options_version );
 				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['version'] );
 				settings_fields( $this->p->cf['lca'].'_setting' ); 
 
-			} elseif ( ! empty( $this->p->cf['lib']['site_setting'][$this->menu_id] ) ) {
+			} elseif ( ! empty( $this->p->cf['lib']['site_submenu'][$this->menu_id] ) ) {
 				echo '<form name="wpsso" id="setting" method="post" action="edit.php?action='.WPSSO_SITE_OPTIONS_NAME.'">';
 				echo '<input type="hidden" name="page" value="'.$this->menu_id.'">';
 				echo $this->form->get_hidden( 'options_version', $this->p->opt->options_version );
@@ -356,7 +362,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			// if we're displaying the "social" page, then do the social website metaboxes
 			if ( $this->menu_id == 'social' ) {
-				foreach ( range( 1, ceil( count( $this->p->admin->setting[$this->menu_id]->website ) / 2 ) ) as $row ) {
+				foreach ( range( 1, ceil( count( $this->p->admin->submenu[$this->menu_id]->website ) / 2 ) ) as $row ) {
 					echo '<div class="website-row">', "\n";
 					foreach ( range( 1, 2 ) as $col ) {
 						$pos_id = 'website-row-'.$row.'-col-'.$col;
@@ -444,15 +450,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						$this->p->cf['full_pro'].' will load a specific integration addon
 						for '.$name.' to improve the accuracy of Open Graph, Rich Pin, 
 						and Twitter Card meta tag values.';
-
-					switch ( $id ) {
-						case 'bbpress':
-						case 'buddypress':
-							$features[$name]['tooltip'] .= ' '.$name.' support also provides social sharing buttons 
-							that can be enabled from the SSO '.$this->p->util->get_admin_url( 'social',
-							'Social Sharing settings' ).' page.';
-							break;
-					}
 				}
 			}
 			echo '<tr><td><h4>Pro Addons</h4></td></tr>';
@@ -465,7 +462,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';
 
 			// don't offer the 'Clear All Cache' and 'Reset Metaboxes' buttons on network admin pages
-			if ( empty( $this->p->cf['lib']['site_setting'][$this->menu_id] ) ) {
+			if ( empty( $this->p->cf['lib']['site_submenu'][$this->menu_id] ) ) {
 				$action_buttons .= $this->form->get_button( __( 'Clear All Cache', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_all_cache' ),
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';
