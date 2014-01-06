@@ -35,9 +35,8 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 		public function __construct() {
 
 			require_once ( dirname( __FILE__ ).'/lib/config.php' );
-			$this->cf = WpssoPluginConfig::get_config();
 			WpssoPluginConfig::set_constants( __FILE__ );
-			WpssoPluginConfig::require_libs( __FILE__ );	// keep in construct for widgets
+			WpssoPluginConfig::require_libs( __FILE__ );
 
 			require_once ( dirname( __FILE__ ).'/lib/register.php' );
 			$classname = __CLASS__.'Register';
@@ -52,7 +51,10 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 			if ( ! empty( $_SERVER['WPSSO_DISABLE'] ) ) return;
 
 			load_plugin_textdomain( WPSSO_TEXTDOM, false, dirname( WPSSO_PLUGINBASE ).'/languages/' );
+
+			$this->cf = WpssoPluginConfig::get_config();
 			$this->set_objects();
+
 			if ( $this->debug->is_on() === true ) {
 				foreach ( array( 'wp_head', 'wp_footer' ) as $action ) {
 					foreach ( array( 1, 9999 ) as $prio )
