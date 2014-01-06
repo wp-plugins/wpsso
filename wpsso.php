@@ -40,8 +40,8 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 			WpssoPluginConfig::require_libs( __FILE__ );	// keep in construct for widgets
 
 			require_once ( dirname( __FILE__ ).'/lib/register.php' );
-			$reg_class = __CLASS__.'Register';
-			$this->reg = new $reg_class( $this );
+			$classname = __CLASS__.'Register';
+			$this->reg = new $classname( $this );
 
 			add_action( 'init', array( &$this, 'init_plugin' ), WPSSO_INIT_PRIORITY );
 		}

@@ -198,73 +198,61 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 		public static function set_constants( $plugin_filepath ) { 
 
 			$cf = self::get_config();
-			$cp = $cf['uca'].'_';	// constant prefix
 
-			// .../wordpress/wp-content/plugins/wpsso/wpsso.php
-			define( $cp.'FILEPATH', $plugin_filepath );						
-
-			// .../wordpress/wp-content/plugins/wpsso/
-			define( $cp.'PLUGINDIR', trailingslashit( plugin_dir_path( $plugin_filepath ) ) );
-
-			// wpsso/wpsso.php
-			define( $cp.'PLUGINBASE', plugin_basename( $plugin_filepath ) );
-
-			// wpsso
-			define( $cp.'TEXTDOM', $cf['slug'] );
-
-			// http://.../wp-content/plugins/wpsso/
-			define( $cp.'URLPATH', trailingslashit( plugins_url( '', $plugin_filepath ) ) );
-
-			define( $cp.'NONCE', md5( constant( $cp.'PLUGINDIR' ).'-'.$cf['version'] ) );
+			define( 'WPSSO_FILEPATH', $plugin_filepath );						
+			define( 'WPSSO_PLUGINDIR', trailingslashit( plugin_dir_path( $plugin_filepath ) ) );
+			define( 'WPSSO_PLUGINBASE', plugin_basename( $plugin_filepath ) );
+			define( 'WPSSO_TEXTDOM', $cf['slug'] );
+			define( 'WPSSO_URLPATH', trailingslashit( plugins_url( '', $plugin_filepath ) ) );
+			define( 'WPSSO_NONCE', md5( WPSSO_PLUGINDIR.'-'.$cf['version'] ) );
 
 			/*
 			 * Allow some constants to be pre-defined in wp-config.php
 			 */
 
-			if ( defined( $cp.'DEBUG' ) && 
-				! defined( $cp.'HTML_DEBUG' ) )
-					define( $cp.'HTML_DEBUG', constant( $cp.'DEBUG' ) );
+			if ( defined( 'WPSSO_DEBUG' ) && 
+				! defined( 'WPSSO_HTML_DEBUG' ) )
+					define( 'WPSSO_HTML_DEBUG', WPSSO_DEBUG );
 
-			if ( ! defined( $cp.'CACHEDIR' ) )
-				define( $cp.'CACHEDIR', constant( $cp.'PLUGINDIR' ).'cache/' );
+			if ( ! defined( 'WPSSO_CACHEDIR' ) )
+				define( 'WPSSO_CACHEDIR', WPSSO_PLUGINDIR.'cache/' );
 
-			if ( ! defined( $cp.'CACHEURL' ) )
-				define( $cp.'CACHEURL', constant( $cp.'URLPATH' ).'cache/' );
+			if ( ! defined( 'WPSSO_CACHEURL' ) )
+				define( 'WPSSO_CACHEURL', WPSSO_URLPATH.'cache/' );
 
-			if ( ! defined( $cp.'OPTIONS_NAME' ) )
-				define( $cp.'OPTIONS_NAME', $cf['lca'].'_options' );
+			if ( ! defined( 'WPSSO_OPTIONS_NAME' ) )
+				define( 'WPSSO_OPTIONS_NAME', $cf['lca'].'_options' );
 
-			if ( ! defined( $cp.'SITE_OPTIONS_NAME' ) )
-				define( $cp.'SITE_OPTIONS_NAME', $cf['lca'].'_site_options' );
+			if ( ! defined( 'WPSSO_SITE_OPTIONS_NAME' ) )
+				define( 'WPSSO_SITE_OPTIONS_NAME', $cf['lca'].'_site_options' );
 
-			if ( ! defined( $cp.'META_NAME' ) )
-				define( $cp.'META_NAME', '_'.$cf['lca'].'_meta' );
+			if ( ! defined( 'WPSSO_META_NAME' ) )
+				define( 'WPSSO_META_NAME', '_'.$cf['lca'].'_meta' );
 
-			if ( ! defined( $cp.'MENU_PRIORITY' ) )
-				define( $cp.'MENU_PRIORITY', '99.10' );
+			if ( ! defined( 'WPSSO_MENU_PRIORITY' ) )
+				define( 'WPSSO_MENU_PRIORITY', '99.10' );
 
-			if ( ! defined( $cp.'INIT_PRIORITY' ) )
-				define( $cp.'INIT_PRIORITY', 12 );
+			if ( ! defined( 'WPSSO_INIT_PRIORITY' ) )
+				define( 'WPSSO_INIT_PRIORITY', 12 );
 
-			if ( ! defined( $cp.'HEAD_PRIORITY' ) )
-				define( $cp.'HEAD_PRIORITY', 10 );
+			if ( ! defined( 'WPSSO_HEAD_PRIORITY' ) )
+				define( 'WPSSO_HEAD_PRIORITY', 10 );
 
-			if ( ! defined( $cp.'DEBUG_FILE_EXP' ) )
-				define( $cp.'DEBUG_FILE_EXP', 300 );
+			if ( ! defined( 'WPSSO_DEBUG_FILE_EXP' ) )
+				define( 'WPSSO_DEBUG_FILE_EXP', 300 );
 
-			if ( ! defined( $cp.'CURL_USERAGENT' ) )
-				define( $cp.'CURL_USERAGENT', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:18.0) Gecko/20100101 Firefox/18.0' );
+			if ( ! defined( 'WPSSO_CURL_USERAGENT' ) )
+				define( 'WPSSO_CURL_USERAGENT', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:18.0) Gecko/20100101 Firefox/18.0' );
 
-			if ( ! defined( $cp.'CURL_CAINFO' ) )
-				define( $cp.'CURL_CAINFO', constant( $cp.'PLUGINDIR' ).'share/curl/cacert.pem' );
+			if ( ! defined( 'WPSSO_CURL_CAINFO' ) )
+				define( 'WPSSO_CURL_CAINFO', WPSSO_PLUGINDIR.'share/curl/cacert.pem' );
 
 		}
 
 		public static function require_libs( $plugin_filepath ) {
 			
 			$cf = self::get_config();
-
-			$plugin_dir = constant( $cf['uca'].'_'.'PLUGINDIR' );
+			$plugin_dir = WPSSO_PLUGINDIR;
 
 			require_once( $plugin_dir.'lib/com/functions.php' );
 			require_once( $plugin_dir.'lib/com/cache.php' );
