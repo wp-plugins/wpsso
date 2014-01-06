@@ -107,9 +107,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					target="_blank">get_the_author_meta()</a> for examples).</p>';
 					break;
 				case 'social-buttons-info':
-					$text = '<p>The following social buttons can be added to the content, excerpt, and / or enabled within the '.
-					WpssoWidgetSocialSharing::$fullname.' widget as well (<a href="'.
-					get_admin_url( null, 'widgets.php' ).'">see the widgets admin webpage</a>).</p>';
+					$text = '<p>The following social buttons can be added to the content, excerpt, and/or enabled within the '.
+					$wpsso->cf['menu'].' Social Sharing widget as well (see the <a href="'.
+					get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
 					break;
 
 				/*
