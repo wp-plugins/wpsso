@@ -57,7 +57,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 		public function get_radio( $name, $values = array(), $class = '', $id = '', $is_assoc = false, $disabled = false ) {
 			if ( empty( $name ) || ! is_array( $values ) ) return;
 			if ( $is_assoc == false ) 
-				$is_assoc = $this->p->util->is_assoc( $values );
+				$is_assoc = SucomUtil::is_assoc( $values );
 			if ( $this->in_options( $name.':is' ) && 
 				$this->options[$name.':is'] == 'disabled' )
 					$disabled = true;
@@ -83,7 +83,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 
 		public function get_select( $name, $values = array(), $class = '', $id = '', $is_assoc = false ) {
 			if ( empty( $name ) || ! is_array( $values ) ) return;
-			if ( $is_assoc == false ) $is_assoc = $this->p->util->is_assoc( $values );
+			if ( $is_assoc == false ) $is_assoc = SucomUtil::is_assoc( $values );
 			$html = '<select name="'.$this->options_name.'['.$name.']"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
 				( empty( $id ) ? '' : ' id="'.$id.'"' ).'>';

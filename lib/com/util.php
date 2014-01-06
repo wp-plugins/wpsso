@@ -21,13 +21,13 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			$this->p->debug->mark();
 		}
 
-		public function is_assoc( $arr ) {
+		public static function is_assoc( $arr ) {
 			if ( ! is_array( $arr ) ) 
 				return false;
 			return is_numeric( implode( array_keys( $arr ) ) ) ? false : true;
 		}
 
-		public function preg_grep_keys( $preg, $arr, $invert = false, $replace = false ) {
+		public static function preg_grep_keys( $preg, $arr, $invert = false, $replace = false ) {
 			if ( ! is_array( $arr ) ) 
 				return false;
 			$invert = $invert == false ? 
@@ -43,7 +43,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $found;
 		}
 
-		public function rename_keys( &$opts = array(), &$keys = array() ) {
+		public static function rename_keys( &$opts = array(), &$keys = array() ) {
 			// move old option values to new option names
 			foreach ( $keys as $old => $new )
 				// rename if the old array key exists, but not the new one (we don't want to overwrite current values)
@@ -57,9 +57,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $opts;
 		}
 
-		public function restore_checkboxes( &$opts ) {
+		public static function restore_checkboxes( &$opts ) {
 			// unchecked checkboxes are not provided, so re-create them here based on hidden values
-			$checkbox = $this->preg_grep_keys( '/^is_checkbox_/', $opts, false, '' );
+			$checkbox = self::preg_grep_keys( '/^is_checkbox_/', $opts, false, '' );
 			foreach ( $checkbox as $key => $val ) {
 				if ( ! array_key_exists( $key, $opts ) )
 					$opts[$key] = 0;	// add missing checkbox as empty
@@ -258,14 +258,14 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $url;
 		}
 	
-		public function encode_utf8( $decoded ) {
+		public static function encode_utf8( $decoded ) {
 			if ( ! mb_detect_encoding( $decoded, 'UTF-8') == 'UTF-8' )
 				$encoded = utf8_encode( $decoded );
 			else $encoded = $decoded;
 			return $encoded;
 		}
 
-		public function decode_utf8( $encoded ) {
+		public static function decode_utf8( $encoded ) {
 			// if we don't have something to decode, return immediately
 			if ( strpos( $encoded, '&#' ) === false )
 				return $encoded;
@@ -274,11 +274,11 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			$encoded = preg_replace( '/&#8230;/', '...', $encoded );
 
 			// if mb_decode_numericentity is not available, return the string un-converted
-			if ( $this->p->is_avail['mbdecnum'] !== true )
+			if ( ! function_exists( 'mb_decode_numericentity' ) )
 				return $encoded;
 
 			$decoded = preg_replace( '/&#\d{2,5};/ue', 
-				'SucomUtil::decode_utf8_entity( \'$0\' )', $encoded );
+				'self::decode_utf8_entity( \'$0\' )', $encoded );
 
 			return $decoded;
 		}
@@ -290,7 +290,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		public function limit_text_length( $text, $textlen = 300, $trailing = '' ) {
 			$charset = get_bloginfo( 'charset' );
-			$text = html_entity_decode( $this->decode_utf8( $text ), ENT_QUOTES, $charset );
+			$text = html_entity_decode( self::decode_utf8( $text ), ENT_QUOTES, $charset );
 			$text = preg_replace( '/<\/p>/i', ' ', $text);					// replace end of paragraph with a space
 			$text = $this->cleanup_html_tags( $text );					// remove any remaining html tags
 			if ( $textlen > 0 ) {
@@ -561,6 +561,16 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			if ( $use_post == true && ! empty( $post ) ) 
 				$source_id = $source_id.'-post-'.$post->ID;
 			return $source_id;
+		}
+
+		public static function array_merge_recursive_distinct( array &$array1, array &$array2 ) {
+			$merged = $array1; 
+			foreach ( $array2 as $key => &$value ) {
+				if ( is_array( $value ) && isset( $merged[$key] ) && is_array( $merged[$key] ) )
+					$merged[$key] = self::array_merge_recursive_distinct( $merged[$key], $value ); 
+				else $merged[$key] = $value;
+			} 
+			return $merged;
 		}
 	}
 }

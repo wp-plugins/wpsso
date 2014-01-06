@@ -182,6 +182,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
+			do_action( $this->p->cf['lca'].'_options_mark' );
 		}
 
 		public function get_site_defaults( $idx = '' ) {
@@ -250,11 +251,12 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			if ( ! empty( $opts ) && is_array( $opts ) ) {
 
 				// check version in saved options, upgrade if they don't match
+				$options_version = apply_filters( $this->p->cf['lca'].'_options_version', $this->options_version );
 				if ( ( empty( $opts['plugin_version'] ) || $opts['plugin_version'] !== $this->p->cf['version'] ) ||
-					( empty( $opts['options_version'] ) || $opts['options_version'] !== $this->options_version ) ) {
+					( empty( $opts['options_version'] ) || $opts['options_version'] !== $options_version ) ) {
 
 					// upgrade the options if options version mismatch
-					if ( empty( $opts['options_version'] ) || $opts['options_version'] !== $this->options_version ) {
+					if ( empty( $opts['options_version'] ) || $opts['options_version'] !== $options_version ) {
 						$this->p->debug->log( $options_name.' version different than saved' );
 						// only load upgrade class when needed to save a few Kb
 						if ( ! is_object( $this->upg ) ) {
@@ -507,7 +509,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			}
 			// mark the new options as current
 			$previous_opts_version = $opts['options_version'];
-			$opts['options_version'] = $this->options_version;
+			$opts['options_version'] = apply_filters( $this->p->cf['lca'].'_options_version', $this->options_version );
 			$opts['plugin_version'] = $this->p->cf['version'];
 
 			// update_option() returns false if options are the same or there was an error, 
@@ -523,7 +525,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 				if ( $saved === true ) {
 					// if we're just saving a new plugin version string, don't bother showing the upgrade message
-					if ( $previous_opts_version !== $this->options_version ) {
+					if ( $previous_opts_version !== $opts['options_version'] ) {
 						$this->p->debug->log( 'upgraded '.$options_name.' settings have been saved' );
 						$this->p->notice->inf( 'Plugin settings ('.$options_name.') have been upgraded and saved.', true );
 					}

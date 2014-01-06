@@ -139,7 +139,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 0.21rc3 =
+= Version 0.21rc4 =
 
 * **Moved the NextGEN Gallery support to a Pro version addon**.
 * Added a 'wpsso_image_downsize' hook (for the Jetpack Photon Pro addon).
@@ -150,7 +150,8 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 * Changed the default object expiration time from 1800 to 3600 seconds (1 hour).
 * Removed the "Reset Settings on Activate" Advanced option.
 * Renamed the WPSSO_RESET constant to WPSSO_RESET_ON_ACTIVATE.
-* Added a 'wpsso_load_lib' action to allow 3rd party plugins to provide library files.
+* Added an 'wpsso_load_lib' action to allow 3rd party plugins to provide library files.
+* Moved several methods from lib/util.php to lib/com/util.php.
 * Renamed the 'WpssoPlugin' class to 'Wpsso'.
 
 = Version 0.20.1 =
@@ -159,7 +160,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Upgrade Notice ==
 
-= 0.21rc3 =
+= 0.21rc4 =
 
 Moved NextGEN Gallery support to Pro version, added support for JetPack Photon, added support for WordPress SEO "Force Transport" option.
 

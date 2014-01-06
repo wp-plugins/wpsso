@@ -108,7 +108,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 				case 'social-buttons-info':
 					$text = '<p>The following social buttons can be added to the content, excerpt, and/or enabled within the '.
-					$wpsso->cf['menu'].' Social Sharing widget as well (see the <a href="'.
+					$this->p->cf['menu'].' Social Sharing widget as well (see the <a href="'.
 					get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
 					break;
 

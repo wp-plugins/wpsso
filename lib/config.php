@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '0.21rc3',		// plugin version
+			'version' => '0.21rc4',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -250,6 +250,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			$plugin_dir = WPSSO_PLUGINDIR;
 
 			require_once( $plugin_dir.'lib/com/functions.php' );
+			require_once( $plugin_dir.'lib/com/util.php' );
 			require_once( $plugin_dir.'lib/com/cache.php' );
 			require_once( $plugin_dir.'lib/com/notice.php' );
 			require_once( $plugin_dir.'lib/com/script.php' );

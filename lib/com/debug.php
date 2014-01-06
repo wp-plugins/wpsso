@@ -88,7 +88,7 @@ if ( ! class_exists( 'SucomDebug' ) ) {
 				$html .= ' : ';
 				if ( is_array( $data ) ) {
 					$html .= "\n";
-					$is_assoc = $this->is_assoc( $data );
+					$is_assoc = SucomUtil::is_assoc( $data );
 					if ( $is_assoc ) ksort( $data );
 					foreach ( $data as $key => $val ) 
 						$html .= $is_assoc ? "\t$key = $val\n" : "\t$val\n";
@@ -121,11 +121,6 @@ if ( ! class_exists( 'SucomDebug' ) ) {
 			else 
 				$this->active = in_array( true, $this->subsys, true ) ? true : false;
 			return $this->active;
-		}
-
-		private function is_assoc( $arr ) {
-			if ( ! is_array( $arr ) ) return false;
-			return is_numeric( implode( array_keys( $arr ) ) ) ? false : true;
 		}
 
 		private function fmt_array( $input ) {

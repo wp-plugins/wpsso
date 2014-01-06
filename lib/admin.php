@@ -40,6 +40,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$this->p->check->conflict_warnings();
 
 			$this->set_objects();
+
 			add_action( 'admin_init', array( &$this, 'register_setting' ) );
 			add_action( 'admin_menu', array( &$this, 'add_admin_menus' ), -20 );
 			add_action( 'admin_menu', array( &$this, 'add_admin_settings' ), -10 );
@@ -54,10 +55,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		private function set_objects() {
 			$libs = array( 'setting', 'submenu' );
-
 			if ( is_multisite() )
 				$libs[] = ['site_submenu'];
-
 			foreach ( $libs as $sub ) {
 				foreach ( $this->p->cf['lib'][$sub] as $id => $name ) {
 					do_action( $this->p->cf['lca'].'_load_lib', $sub, $id );
@@ -179,7 +178,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 			// get default values, including css from default stylesheets
 			$def_opts = $this->p->opt->get_defaults();
-			$opts = $this->p->util->restore_checkboxes( $opts );
+			$opts = SucomUtil::restore_checkboxes( $opts );
 			$opts = array_merge( $this->p->options, $opts );
 			$opts = $this->p->opt->sanitize( $opts, $def_opts );	// cleanup excess options and sanitize
 			$opts = apply_filters( $this->p->cf['lca'].'_save_options', $opts );
@@ -210,7 +209,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			$def_opts = $this->p->opt->get_site_defaults();
 			$opts = empty( $_POST[WPSSO_SITE_OPTIONS_NAME] ) ?  $def_opts : 
-				$this->p->util->restore_checkboxes( $_POST[WPSSO_SITE_OPTIONS_NAME] );
+				SucomUtil::restore_checkboxes( $_POST[WPSSO_SITE_OPTIONS_NAME] );
 			$opts = array_merge( $this->p->site_options, $opts );
 			$opts = $this->p->opt->sanitize( $opts, $def_opts );	// cleanup excess options and sanitize
 
