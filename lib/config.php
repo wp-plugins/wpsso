@@ -8,12 +8,12 @@ Copyright 2013 - Jean-Sebastien Morisset - http://surniaulula.com/
 if ( ! defined( 'ABSPATH' ) ) 
 	die( 'These aren\'t the droids you\'re looking for...' );
 
-if ( ! class_exists( 'WpssoPluginConfig' ) ) {
+if ( ! class_exists( 'WpssoConfig' ) ) {
 
-	class WpssoPluginConfig {
+	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '0.21rc2',		// plugin version
+			'version' => '0.21rc3',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -181,13 +181,8 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 				'Women\'s',
 			),
 		);
-		private static $cf_filtered = false;
 
 		public static function get_config( $idx = '' ) { 
-			if ( self::$cf_filtered === false ) {
-				self::$cf = apply_filters( self::$cf['lca'].'_get_config', self::$cf );
-				self::$cf_filtered = true;
-			}
 			if ( ! empty( $idx ) ) {
 				if ( array_key_exists( $idx, self::$cf ) )
 					return self::$cf[$idx];
@@ -298,6 +293,13 @@ if ( ! class_exists( 'WpssoPluginConfig' ) ) {
 			// additional classes are loaded and extended by the pro addon construct
 			if ( file_exists( $plugin_dir.'lib/pro/addon.php' ) )
 				require_once( $plugin_dir.'lib/pro/addon.php' );
+
+			add_action( 'wpsso_load_lib', array( 'WpssoConfig', 'load_lib' ), 10, 2 );
+		}
+
+		public static function load_lib( $sub, $id ) {
+			if ( file_exists( WPSSO_PLUGINDIR.'lib/'.$sub.'/'.$id.'.php' ) )
+				require_once( WPSSO_PLUGINDIR.'lib/'.$sub.'/'.$id.'.php' );
 		}
 	}
 }

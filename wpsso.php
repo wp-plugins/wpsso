@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
-Version: 0.21rc2
+Version: 0.21rc3
 
 Copyright 2012-2013 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -15,9 +15,9 @@ Copyright 2012-2013 - Jean-Sebastien Morisset - http://surniaulula.com/
 if ( ! defined( 'ABSPATH' ) ) 
 	die( 'These aren\'t the droids you\'re looking for...' );
 
-if ( ! class_exists( 'WpssoPlugin' ) ) {
+if ( ! class_exists( 'Wpsso' ) ) {
 
-	class WpssoPlugin {
+	class Wpsso {
 
 		// class object variables
 		public $debug, $util, $notice, $opt, $user, $media, $meta,
@@ -28,15 +28,14 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 		public $is_avail = array();	// assoc array for other plugin checks
 		public $options = array();	// individual blog/site options
 		public $site_options = array();	// multisite options
-		public $ngg_options = array();	// nextgen gallery options
-		public $ngg_version = 0;	// nextgen gallery version
 		public $addons = array();	// pro addons
 
 		public function __construct() {
 
 			require_once ( dirname( __FILE__ ).'/lib/config.php' );
-			WpssoPluginConfig::set_constants( __FILE__ );
-			WpssoPluginConfig::require_libs( __FILE__ );
+			$this->cf = WpssoConfig::get_config();
+			WpssoConfig::set_constants( __FILE__ );
+			WpssoConfig::require_libs( __FILE__ );
 
 			require_once ( dirname( __FILE__ ).'/lib/register.php' );
 			$classname = __CLASS__.'Register';
@@ -45,14 +44,12 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 			add_action( 'init', array( &$this, 'init_plugin' ), WPSSO_INIT_PRIORITY );
 		}
 
-		// called by WP init action
 		public function init_plugin() {
 			if ( is_feed() ) return;	// nothing to do in the feeds
 			if ( ! empty( $_SERVER['WPSSO_DISABLE'] ) ) return;
 
 			load_plugin_textdomain( WPSSO_TEXTDOM, false, dirname( WPSSO_PLUGINBASE ).'/languages/' );
-
-			$this->cf = WpssoPluginConfig::get_config();
+			$this->cf = apply_filters( 'wpsso_get_config', WpssoConfig::get_config() );
 			$this->set_objects();
 
 			if ( $this->debug->is_on() === true ) {
@@ -231,7 +228,7 @@ if ( ! class_exists( 'WpssoPlugin' ) ) {
 	}
 
         global $wpsso;
-	$wpsso = new WpssoPlugin();
+	$wpsso = new Wpsso();
 }
 
 if ( ! class_exists( 'WpssoNoDebug' ) ) {

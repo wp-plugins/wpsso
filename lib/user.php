@@ -180,34 +180,36 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		static function delete_metabox_prefs( $user_id = false ) {
-			$cf = WpssoPluginConfig::get_config();
-			foreach ( array( 'meta-box-order', 'metaboxhidden', 'closedpostboxes' ) as $state ) {
-				$menu_ids = array( key( $cf['lib']['submenu'] ) );
-				foreach ( $menu_ids as $menu ) {
-					$setting_ids = array_keys( $cf['lib']['submenu'] );
-					foreach ( $setting_ids as $submenu ) {
-						if ( $submenu == 'contact' )
-							$parent_slug = 'options-general.php';
-						else $parent_slug = $cf['lca'].'-'.$menu;
-						$menu_slug = $cf['lca'].'-'.$submenu;
-						$pagehook = get_plugin_page_hookname( $menu_slug, $parent_slug);
-						$meta_key = $state.'_'.$pagehook;
+			$cf = WpssoConfig::get_config();
 
-						if ( $user_id !== false ) {
-							delete_user_option( $user_id, $meta_key, true );
-						} else {
-							foreach ( get_users( array( 'meta_key' => $meta_key ) ) as $user )
-								delete_user_option( $user->ID, $meta_key, true );
-						}
-					}
-				}
+			$parent_slug = 'options-general.php';
+			foreach ( array_keys( $cf['lib']['setting'] ) as $id ) {
+				$menu_slug = $cf['lca'].'-'.$id;
+				self::delete_metabox_pagehook( $user_id, $menu_slug, $parent_slug );
+			}
+
+			$parent_slug = $cf['lca'].'-'.key( $cf['lib']['submenu'] );
+			foreach ( array_keys( $cf['lib']['submenu'] ) as $id ) {
+				$menu_slug = $cf['lca'].'-'.$id;
+				self::delete_metabox_pagehook( $user_id, $menu_slug, $parent_slug );
+			}
+		}
+
+		static function delete_metabox_pagehook( $user_id, $menu_slug, $parent_slug ) {
+			$pagehook = get_plugin_page_hookname( $menu_slug, $parent_slug);
+			foreach ( array( 'meta-box-order', 'metaboxhidden', 'closedpostboxes' ) as $state ) {
+				$meta_key = $state.'_'.$pagehook;
+				if ( $user_id !== false )
+					delete_user_option( $user_id, $meta_key, true );
+				else foreach ( get_users( array( 'meta_key' => $meta_key ) ) as $user )
+					delete_user_option( $user->ID, $meta_key, true );
 			}
 		}
 
 		public function get_options( $user_id = false ) {
 			$user_id = $user_id === false ? 
 				get_current_user_id() : $user_id;
-			$opts = get_user_option( constant( $this->p->cf['uca'].'_OPTIONS_NAME' ), $user_id );
+			$opts = get_user_option( WPSSO_OPTIONS_NAME, $user_id );
 			if ( ! is_array( $opts ) )
 				$opts = array();
 			return $opts;
@@ -216,7 +218,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		public function save_options( $opts = array(), $user_id = false ) {
 			$user_id = $user_id === false ? 
 				get_current_user_id() : $user_id;
-			update_user_option( $user_id, constant( $this->p->cf['uca'].'_OPTIONS_NAME' ), 
+			update_user_option( $user_id, WPSSO_OPTIONS_NAME, 
 				array_unique( $opts ), true );
 		}
 	}

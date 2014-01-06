@@ -40,7 +40,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$this->p->check->conflict_warnings();
 
 			$this->set_objects();
-
 			add_action( 'admin_init', array( &$this, 'register_setting' ) );
 			add_action( 'admin_menu', array( &$this, 'add_admin_menus' ), -20 );
 			add_action( 'admin_menu', array( &$this, 'add_admin_settings' ), -10 );
@@ -54,17 +53,18 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		private function set_objects() {
-			$libs = array_merge( 
-				$this->p->cf['lib']['setting'],
-				$this->p->cf['lib']['submenu']
-			);
+			$libs = array( 'setting', 'submenu' );
+
 			if ( is_multisite() )
-				$libs = array_merge( $libs, 
-					$this->p->cf['lib']['site_submenu'] );
-			foreach ( $libs as $id => $name ) {
-				$classname = __CLASS__.ucfirst( $id );
-				if ( class_exists( $classname ) )
-					$this->submenu[$id] = new $classname( $this->p, $id, $name );
+				$libs[] = ['site_submenu'];
+
+			foreach ( $libs as $sub ) {
+				foreach ( $this->p->cf['lib'][$sub] as $id => $name ) {
+					do_action( $this->p->cf['lca'].'_load_lib', $sub, $id );
+					$classname = __CLASS__.ucfirst( $id );
+					if ( class_exists( $classname ) )
+						$this->submenu[$id] = new $classname( $this->p, $id, $name );
+				}
 			}
 		}
 

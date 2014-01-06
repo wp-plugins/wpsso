@@ -8,9 +8,9 @@ Copyright 2013 - Jean-Sebastien Morisset - http://surniaulula.com/
 if ( ! defined( 'ABSPATH' ) ) 
 	die( 'These aren\'t the droids you\'re looking for...' );
 
-if ( ! class_exists( 'WpssoPluginRegister' ) ) {
+if ( ! class_exists( 'WpssoRegister' ) ) {
 
-	class WpssoPluginRegister {
+	class WpssoRegister {
 
 		protected $p;
 
@@ -31,7 +31,7 @@ if ( ! class_exists( 'WpssoPluginRegister' ) ) {
 
 		public static function network_uninstall() {
 			$sitewide = true;
-			$lca = WpssoPluginConfig::get_config( 'lca' );
+			$lca = WpssoConfig::get_config( 'lca' );
 			delete_site_option( $lca.'_site_options' );
 			self::do_multisite( $sitewide, array( __CLASS__, 'uninstall_plugin' ) );
 		}
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WpssoPluginRegister' ) ) {
 
 		private static function uninstall_plugin() {
 			global $wpdb;
-			$cf = WpssoPluginConfig::get_config();
+			$cf = WpssoConfig::get_config();
 			$options = get_option( $cf['lca'].'_options' );
 
 			if ( empty( $options['plugin_preserve'] ) ) {
