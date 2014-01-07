@@ -114,6 +114,11 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a> <div>A list of available PHP constants for the WPSSO plugin.</div></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/">Integration Notes</a>
+<ul>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a></li>
+</ul>
+</li>
 </ul>
 
 == Screenshots ==
@@ -139,11 +144,11 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 0.21rc4 =
+= Version 0.21rc5 =
 
 * **Moved the NextGEN Gallery support to a Pro version addon**.
+* Added support for **JetPack Photon** to retrieve correct image sizes (Pro version).
 * Added a 'wpsso_image_downsize' hook (for the Jetpack Photon Pro addon).
-* Added support for JetPack Photon to retrieve correct image sizes (Pro version).
 * Added hooks to disable JetPack Open Graph and Twitter Card meta tags.
 * Added a hook for the 'wpsso_sharing_url' filter to support WordPress SEO's "Force Transport" option (Pro version).
 * Moved the URL rewriting and shortening methods into hooks for the 'wpsso_rewrite_url' and 'wpsso_shorten_url' filters (Pro version).
@@ -152,6 +157,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 * Renamed the WPSSO_RESET constant to WPSSO_RESET_ON_ACTIVATE.
 * Added an 'wpsso_load_lib' action to allow 3rd party plugins to provide library files.
 * Moved several methods from lib/util.php to lib/com/util.php.
+* Moved `show_sharing()` from lib/postmeta.php to lib/social.php.
 * Renamed the 'WpssoPlugin' class to 'Wpsso'.
 
 = Version 0.20.1 =
@@ -160,7 +166,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Upgrade Notice ==
 
-= 0.21rc4 =
+= 0.21rc5 =
 
 Moved NextGEN Gallery support to Pro version, added support for JetPack Photon, added support for WordPress SEO "Force Transport" option.
 
