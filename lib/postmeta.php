@@ -23,41 +23,26 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 		}
 
 		protected function add_actions() {
-			if ( is_admin() ) {
-				if ( ! $this->p->check->is_aop() )
-					add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
+			if ( ! is_admin() )
+				return;
 
-				if ( $this->p->is_avail['opengraph'] )
-					add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
+			if ( ! $this->p->check->is_aop() )
+				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
 
-				add_action( 'save_post', array( &$this, 'flush_cache' ), 20 );
-				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 20 );
-			}
+			if ( $this->p->is_avail['opengraph'] )
+				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
+
+			add_action( 'save_post', array( &$this, 'flush_cache' ), 20 );
+			add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 20 );
 		}
 
 		public function add_metaboxes() {
-			// is there at least one social button enabled?
-			// if not, then don't include the sharing metabox on the editing pages
-			$enabled = false;
-			if ( $this->p->is_avail['ssb'] ) {
-				foreach ( $this->p->cf['opt']['pre'] as $id => $pre ) {
-					if ( ! empty( $this->p->options[$pre.'_on_admin_sharing'] ) ) {
-						$enabled = true;
-						break;
-					}
-				}
-			}
 			// include the custom settings metabox on the editing page for that post type
 			foreach ( $this->p->util->get_post_types( 'plugin' ) as $post_type ) {
 				if ( ! empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ) {
-
 					add_meta_box( WPSSO_META_NAME, $this->p->cf['menu'].' Custom Settings', 
 						array( &$this->p->meta, 'show_metabox' ), $post_type->name, 'advanced', 'high' );
-
-					if ( $enabled == true ) {
-						add_meta_box( '_'.$this->p->cf['lca'].'_share', $this->p->cf['menu'].' Sharing', 
-							array( &$this->p->meta, 'show_sharing' ), $post_type->name, 'side', 'high' );
-					}
+					break;
 				}
 			}
 		}
@@ -75,23 +60,6 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 					preg_match_all( '/<(\w+) (\w+)="([^"]*)" (\w+)="([^"]*)"[ \/]*>/', $html, $this->p->meta->header_tags, PREG_SET_ORDER );
 				}
 			}
-		}
-
-		public function show_sharing( $post ) {
-			if ( empty( $this->p->is_avail['ssb'] ) )
-				return;
-			$post_type = get_post_type_object( $post->post_type );	// since 3.0
-			$post_type_name = ucfirst( $post_type->name );
-			echo '<table class="sucom-setting side"><tr><td>';
-			if ( get_post_status( $post->ID ) == 'publish' ) {
-				$content = '';
-				if ( ! empty( $this->p->opt->admin_sharing ) )
-					$opts = array_merge( $this->p->options, $this->p->opt->admin_sharing );
-				$this->p->social->add_header();
-				echo $this->p->social->filter( $content, 'admin_sharing', $opts );
-				$this->p->social->add_footer();
-			} else echo '<p class="centered">The '.$post_type_name.' must be published<br/>before it can be shared.</p>';
-			echo '</td></tr></table>';
 		}
 
 		public function show_metabox( $post ) {

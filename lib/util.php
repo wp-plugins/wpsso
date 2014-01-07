@@ -27,6 +27,22 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			add_action( 'wp_scheduled_delete', array( &$this, 'delete_expired_file_cache' ) );
 		}
 
+		public function get_post_types( $prefix, $output = 'objects' ) {
+			$include = false;
+			$post_types = array();
+			switch ( $prefix ) {
+				case 'buttons':
+					$include = array( 'public' => true );
+					break;
+				case 'plugin':
+					$include = array( 'show_ui' => true, 'public' => true );
+					break;
+			}
+			$post_types = $include !== false ? 
+				get_post_types( $include, $output ) : array();
+			return apply_filters( $this->p->cf['lca'].'_post_types', $post_types, $prefix, $output );
+		}
+
 		public function flush_post_cache( $post_id ) {
 			switch ( get_post_status( $post_id ) ) {
 
@@ -79,4 +95,5 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		}
 	}
 }
+
 ?>

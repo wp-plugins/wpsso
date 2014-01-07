@@ -27,89 +27,106 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				$class = $this->p->cf['form']['tooltip_class'];	// default tooltip class
 
 			switch ( $idx ) {
-				case 'pro-feature-msg':
-					if ( $this->p->is_avail['aop'] == true )
-						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Purchase 
-						additional licence(s) to enable Pro version features</p>';
-					else
-						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Upgrade 
-						to the Pro version to enable the following features</a></p>';
-					break;
-				case 'pro-activate-nag':
-					// in multisite, only show the activation message on our own plugin pages
-					if ( ! is_multisite() || ( is_multisite() && preg_match( '/^.*\?page='.$this->p->cf['lca'].'-/', $_SERVER['REQUEST_URI'] ) ) ) {
-						$url = $this->p->util->get_admin_url( 'advanced' );
-						$text = '<p>The '.$this->p->cf['full'].' Authentication ID option value is empty.<br/>
-						To activate Pro version features, and allow the plugin to authenticate itself for updates,<br/>
-						<a href="'.$url.'">enter the unique Authenticaton ID you receive following your purchase
-						on the Advanced Settings page</a>.</p>';
+				/*
+				 * 'Plugin Features' side metabox
+				 */
+				case ( strpos( $idx, 'tooltip-side-' ) !== false ? true : false ):
+					switch ( $idx ) {
+						case 'tooltip-side-debug-messages':
+							$text = 'Debug code is loaded when the \'Add Hidden Debug Info\' option is checked, or one of the available 
+							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">debugging 
+							constants</a> is defined.';
+							break;
+						case 'tooltip-side-non-persistant-cache':
+							$text = $this->p->cf['full'].' saves filtered / rendered content to a non-persistant cache
+							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>) 
+							for re-use within the same page load. You can disable the use of non-persistant cache (not recommended)
+							using one of the available <a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" 
+							target="_blank">constants</a>.';
+							break;
+						case 'tooltip-side-open-graph-rich-pin':
+							$text = 'Open Graph and Rich Pin meta tags are added to the head section of all webpages. 
+							You must have a compatible eCommerce plugin installed to add <em>Product</em> Rich Pins, 
+							including product prices, images, and other attributes.';
+							break;
+						case 'tooltip-side-pro-update-check':
+							$text = 'When a \'Pro Version Authentication ID\' is entered on the '.$this->p->util->get_admin_url( 'advanced', 
+							'Advanced settings' ).' page, a check is scheduled every 12 hours to see if a Pro version update is available.';
+							break;
+						case 'tooltip-side-social-sharing-buttons':
+							$text = 'Social sharing features include the SSO '.$this->p->util->get_admin_url( 'social', 'Social Sharing' ).
+							' and '.$this->p->util->get_admin_url( 'style', 'Social Style' ).' settings pages (aka social sharing buttons), 
+							the Custom Settings - Social Sharing tab on admin editing pages, along with the social sharing shortcode 
+							and widget. All social sharing features can be disabled using an available
+							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
+							break;
+						case 'tooltip-side-social-sharing-shortcode':
+							$text = 'Support for shortcode(s) can be enabled / disabled on the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page. Shortcodes are disabled by default
+							to optimize WordPress performance and content processing.';
+							break;
+						case 'tooltip-side-social-sharing-widget':
+							$text = 'The social sharing widget feature adds an \'WPSSO Social Sharing\' widget in the WordPress Appearance - Widgets page.
+							The widget can be used in any number of widget areas, to share the current webpage. The widget, along with all social
+							sharing featured, can be disabled using an available 
+							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
+							break;
+						case 'tooltip-side-transient-cache':
+							$text = $this->p->cf['full'].' saves Open Graph, Rich Pin, Twitter Card meta tags, and social buttons to a persistant
+							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
+							$this->p->options['plugin_object_cache_exp'].' seconds (default is '.$this->p->opt->defaults['plugin_object_cache_exp'].
+							' seconds). You can adjust the Transient Cache expiration value from the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page, or disable it completely using an available
+							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
+							break;
+						case 'tooltip-side-social-file-cache':
+							$text = $this->p->cf['full_pro'].' can save social sharing images and JavaScript to a cache folder, 
+							and provide URLs to these cached files instead of the originals. The current \'File Cache Expiry\'
+							value, as defined on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page, is '.
+							$this->p->options['plugin_file_cache_hrs'].' Hours (the default value of 0 Hours disables the 
+							file caching feature).';
+							break;
+						case 'tooltip-side-custom-post-meta':
+							$text = 'The Custom Post Meta feature adds an SSO Custom Settings metabox to the Post and Page editing pages.
+							Custom values van be entered for Open Graph, Rich Pin, and Twitter Card meta tags, along with custom social sharing
+							text and meta tag validation tools.';
+							break;
+						case 'tooltip-side-wp-locale-language':
+							$text = $this->p->cf['full_pro'].' uses the WordPress locale value to define a language for the Open Graph and Rich Pin meta tags,
+							along with the Google, Facebook, and Twitter social sharing buttons. If your website and/or webpages are available in multiple
+							languages, this can be an important feature.';
+							break;
+						case 'tooltip-side-twitter-cards':
+							$text = 'Twitter Cards extend the standard Open Graph and Rich Pin meta tags with content-specific information for image galleries, 
+							photographs, eCommerce products, etc. Twitter Cards are displayed differently on Twitter, either online or from mobile Twitter 
+							clients, allowing you to better feature your content. The Twitter Cards addon can be enabled from the '.
+							$this->p->util->get_admin_url( 'general', 'General settings' ).' page.';
+							break;
+						case 'tooltip-side-url-rewriter':
+							$text = $this->p->cf['full_pro'].' can rewrite image URLs in meta tags, cached images and JavaScript, 
+							and for social sharing buttons like Pinterest and Tumblr, which use URL-encoded image URLs. 
+							Rewriting image URLs can be an important part of optimizing page load speeds. See the \'Static Content URL(s)\'
+							option on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page to enable URL rewriting.';
+							break;
+						case 'tooltip-side-url-shortener':
+							$text = '<strong>When using the Twitter social sharing button provided by '.$this->p->cf['full_pro'].'</strong>, 
+							the webpage URL (aka the <em>canonical</em> or <em>permalink</em> URL) within the Tweet, 
+							can be shortened by one of the available URL shortening services. Enable URL shortening for Twitter
+							from the '.$this->p->util->get_admin_url( 'social', 'Social Sharing' ).' settings page.';
+							break;
+						case 'tooltip-side-wistia-video-api':
+							$text = 'If the \'Check for Wistia Videos\' option on the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page is checked, '.
+							$this->p->cf['full_pro'].' will load an integration addon for Wistia to detect embedded Wistia videos, 
+							and retrieve information (video dimentions, preview image, etc) using Wistia\'s oEmbed API.';
+							break;
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_side', $text, $idx );
+							break;
 					}
-					break;
-				case 'pro-advert-nag':
-					$text .= '
-					<style type="text/css">.sucom-update-nag p { font-size:1.05em; }</style>
-					<p>Have you considered encouraging the continued development and support of '.$this->p->cf['full'].
-					' by purchasing the Pro version?</p>
-					<p>'.$this->p->cf['full_pro'].' supports several types of Twitter Cards, including the <em>Gallery</em>, 
-					<em>Player</em> and <em>Product</em> Twitter Cards, allows you to customize individual Post / Page meta tags, 
-					and integrates with popular 3rd party plugins to improve Open Graph, Rich Pin, and Twitter Card meta tags.</p>
-					<p><strong>Improve your social presence on Facebook, Twitter and Pinterest by providing your users with 
-					better looking, more accurate and tailored posts</strong>.</p>
-					<p>Upgrading to the Pro version is simple and takes just one or two minutes - <br/>
-					<a href="'.$this->p->cf['url']['purchase'].'" target="_blank">purchase an '.$this->p->cf['full_pro'].' license right now</a>.</p>
-					';
-					break;
-				case 'side-purchase':
-					$text = '<p>Developing and supporting the '.$this->p->cf['full'].' plugin takes most of my work days (and week-ends).
-					If you compare this plugin with others, I hope you\'ll agree that the result was worth all the effort and long hours.
-					If you would like to show your appreciation, and access the full range of features this plugin has to offer, please purchase ';
-					if ( $this->p->is_avail['aop'] == true )
-						$text .= 'a Pro version license.</p>';
-					else $text .= 'the Pro version.</p>';
-					break;
-				case 'side-thankyou':
-					$text = '<p>Thank you for your purchase. I hope '.$this->p->cf['full'].' will exceed all of your expectations for many years to come.</p>';
-					break;
-				case 'side-help':
-					$text = '<p>Individual option boxes (like this one) can be opened / closed by clicking on their title bar, 
-					moved and re-ordered by dragging them, and removed / added from the <em>Screen Options</em> tab (top-right).
-					Values in multiple tabs can be edited before clicking the \'Save All Changes\' button.</p>';
-					if ( $this->p->is_avail['aop'] == true )
-						$text .= '<p><strong>Need help with the Pro version?</strong>
-						Review the <a href="'.$this->p->cf['url']['pro_codex'].'" target="_blank">Plugin Codex</a>
-						and / or <a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new Support Ticket</a>.</p>';
-					else
-						$text .= '<p><strong>Need help with the GPL version?</strong>
-						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">Frequently Asked Questions</a>, 
-						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Other Notes</a>, and / or visit the 
-						<a href="'.$this->p->cf['url']['support'].'" target="_blank">Support Forum</a> on WordPress.org.</p>';
-					break;
-				case 'auth-id-info':
-					$text = '<p>'.$this->p->cf['full'].' must be active in order to check for Pro version updates.
-					If you de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the <em>GPL</em> version. 
-					Always update the Pro version when it is active. If you accidentally re-install the <em>GPL</em> version, your Authentication ID
-					will always allow you to upgrade back to the Pro version easily.</p>';
-					break;
-				case 'taglist-info':
-					$text = '<p>'.$this->p->cf['full'].' will add the following Facebook and Open Graph meta tags to your webpages. 
-					If your theme or another plugin already generates one or more of these meta tags, you may uncheck them here to 
-					prevent duplicates from being added (for example, the "description" meta tag is unchecked by default if any 
-					known SEO plugin was detected).</p>';
-					break;
-				case 'contact-info':
-					$text = '<p>The following options allow you to customize the contact field names and labels shown on the 
-					<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>. '.$this->p->cf['full'].' uses the Facebook, 
-					Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags (along with the Twitter social sharing button).
-					<strong>You should not modify the <em>Contact Field Name</em> unless you have a very good reason to do so.</strong>
-					The <em>Profile Contact Label</em> on the other hand, is for display purposes only, and its text can be changed as you wish.
-					Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying their values 
-					in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
-					target="_blank">get_the_author_meta()</a> for examples).</p>';
-					break;
-				case 'social-buttons-info':
-					$text = '<p>The following social buttons can be added to the content, excerpt, and/or enabled within the '.
-					$this->p->cf['menu'].' Social Sharing widget as well (see the <a href="'.
-					get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
 					break;
 
 				/*
@@ -196,8 +213,15 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 	$text = 'A custom Tweet text for the Twitter social sharing button. 
 							This text is in addition to any Twitter Card description.';
 						 	break;
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_postmeta', $text, $idx );
+							break;
 					}
 					break;
+
 				/*
 				 * Open Graph settings
 				 */
@@ -353,75 +377,17 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-og_empty_tags':
 							$text = 'Include meta property tags of type og:* without any content (default is unchecked).';
 							break;
-					}
-					break;
-
-				/*
-				 * Publisher 'Twitter' settings
-				 */
-				case ( strpos( $idx, 'tooltip-tc_' ) !== false ? true : false ):
-					switch ( $idx ) {
-						case 'tooltip-tc_enable':
-							$text = 'Add Twitter Card meta tags to all webpage headers.
-							<strong>Your website must be "authorized" by Twitter for each type of Twitter Card you support</strong>. 
-							See the FAQ entry titled <a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-dont-my-twitter-cards-show-on-twitter/" 
-							target="_blank">Why don’t my Twitter Cards show on Twitter?</a> for more information on Twitter\'s 
-							authorization process.';
-							break;
-						case 'tooltip-tc_desc_len':
-							$text = 'The maximum length of text used for the Twitter Card description.
-							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
-							(the default is '.$this->p->opt->get_defaults( 'tc_desc_len' ).' characters).';
-							break;
-						case 'tooltip-tc_site':
-							$text = 'The Twitter username for your website and / or company (not your personal Twitter username).
-							As an example, the Twitter username for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
-							is <a href="https://twitter.com/surniaululacom" target="_blank">@surniaululacom</a>.';
-							break;
-						case 'tooltip-tc_sum_size':
-							$text = 'The size of content images provided for the
-							<a href="https://dev.twitter.com/docs/cards/types/summary-card" target="_blank">Summary Card</a>
-							(should be at least 120x120, larger than 60x60, and less than 1MB).';
-							break;
-						case 'tooltip-tc_large_size':
-							$text = 'The size of Post Meta, Featured or Attached images provided for the
-							<a href="https://dev.twitter.com/docs/cards/types/large-image-summary-card" target="_blank">Large Image Summary Card</a>
-							(must be larger than 280x150 and less than 1MB).';
-							break;
-						case 'tooltip-tc_photo_size':
-							$text = 'The size of ImageBrowser or Attachment Page images provided for the 
-							<a href="https://dev.twitter.com/docs/cards/types/photo-card" target="_blank">Photo Card</a> 
-							(should be at least 560x750 and less than 1MB).';
-							break;
-						case 'tooltip-tc_gal_size':
-							$text = 'The size of gallery images provided for the
-							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
-							break;
-						case 'tooltip-tc_gal_min':
-							$text = 'The minimum number of images found in a gallery to qualify for the
-							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
-							break;
-						case 'tooltip-tc_prod_size':
-							$text = 'The size of a featured product image for the
-							<a href="https://dev.twitter.com/docs/cards/types/product-card" target="_blank">Product Card</a>.
-							The product card requires an image of size 160 x 160 or greater. A square (aka cropped) image is better, 
-							but Twitter can crop/resize oddly shaped images to fit, as long as both dimensions are greater 
-							than or equal to 160 pixels.';
-							break;
-						case 'tooltip-tc_prod_def':
-							$text = 'The <em>Product</em> Twitter Card needs a minimum of two product attributes.
-							The first attribute will be the product price, and if your product has additional attribute fields associated with it 
-							(weight, size, color, etc), these will be included in the <em>Product</em> Card as well (maximum of 4 attributes). 
-							<strong>If your product does not have additional attributes beyond just a price</strong>, then this default second 
-							attribute label and value will be used. 
-							You may modify both the Label <em>and</em> Value for whatever is most appropriate for your website and/or products.
-							Some examples: Location - City State, Shipped from - Country, Made in - Country, etc.';
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_og', $text, $idx );
 							break;
 					}
 					break;
 
 				/*
-				 * Advanced settings
+				 * Advanced plugin settings
 				 */
 				case ( strpos( $idx, 'tooltip-plugin_' ) !== false ? true : false ):
 					switch ( $idx ) {
@@ -559,101 +525,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							the \'Yes\' option here. You can then select the Google URL Shortener in the '.
 							$this->p->util->get_admin_url( 'social', 'Twitter settings' ).'.';
 							break;
-					}
-					break;
-
-				/*
-				 * 'Plugin Features' side metabox
-				 */
-				case ( strpos( $idx, 'tooltip-side-' ) !== false ? true : false ):
-					switch ( $idx ) {
-						case 'tooltip-side-debug-messages':
-							$text = 'Debug code is loaded when the \'Add Hidden Debug Info\' option is checked, or one of the available 
-							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">debugging 
-							constants</a> is defined.';
-							break;
-						case 'tooltip-side-non-persistant-cache':
-							$text = $this->p->cf['full'].' saves filtered / rendered content to a non-persistant cache
-							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>) 
-							for re-use within the same page load. You can disable the use of non-persistant cache (not recommended)
-							using one of the available <a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" 
-							target="_blank">constants</a>.';
-							break;
-						case 'tooltip-side-open-graph-rich-pin':
-							$text = 'Open Graph and Rich Pin meta tags are added to the head section of all webpages. 
-							You must have a compatible eCommerce plugin installed to add <em>Product</em> Rich Pins, 
-							including product prices, images, and other attributes.';
-							break;
-						case 'tooltip-side-pro-update-check':
-							$text = 'When a \'Pro Version Authentication ID\' is entered on the '.$this->p->util->get_admin_url( 'advanced', 
-							'Advanced settings' ).' page, a check is scheduled every 12 hours to see if a Pro version update is available.';
-							break;
-						case 'tooltip-side-social-sharing-buttons':
-							$text = 'Social sharing features include the SSO '.$this->p->util->get_admin_url( 'social', 'Social Sharing' ).
-							' and '.$this->p->util->get_admin_url( 'style', 'Social Style' ).' settings pages (aka social sharing buttons), 
-							the Custom Settings - Social Sharing tab on admin editing pages, along with the social sharing shortcode 
-							and widget. All social sharing features can be disabled using an available
-							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
-							break;
-						case 'tooltip-side-social-sharing-shortcode':
-							$text = 'Support for shortcode(s) can be enabled / disabled on the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page. Shortcodes are disabled by default
-							to optimize WordPress performance and content processing.';
-							break;
-						case 'tooltip-side-social-sharing-widget':
-							$text = 'The social sharing widget feature adds an \'WPSSO Social Sharing\' widget in the WordPress Appearance - Widgets page.
-							The widget can be used in any number of widget areas, to share the current webpage. The widget, along with all social
-							sharing featured, can be disabled using an available 
-							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
-							break;
-						case 'tooltip-side-transient-cache':
-							$text = $this->p->cf['full'].' saves Open Graph, Rich Pin, Twitter Card meta tags, and social buttons to a persistant
-							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
-							$this->p->options['plugin_object_cache_exp'].' seconds (default is '.$this->p->opt->defaults['plugin_object_cache_exp'].
-							' seconds). You can adjust the Transient Cache expiration value from the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page, or disable it completely using an available
-							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
-							break;
-						case 'tooltip-side-social-file-cache':
-							$text = $this->p->cf['full_pro'].' can save social sharing images and JavaScript to a cache folder, 
-							and provide URLs to these cached files instead of the originals. The current \'File Cache Expiry\'
-							value, as defined on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page, is '.
-							$this->p->options['plugin_file_cache_hrs'].' Hours (the default value of 0 Hours disables the 
-							file caching feature).';
-							break;
-						case 'tooltip-side-custom-post-meta':
-							$text = 'The Custom Post Meta feature adds an SSO Custom Settings metabox to the Post and Page editing pages.
-							Custom values van be entered for Open Graph, Rich Pin, and Twitter Card meta tags, along with custom social sharing
-							text and meta tag validation tools.';
-							break;
-						case 'tooltip-side-wp-locale-language':
-							$text = $this->p->cf['full_pro'].' uses the WordPress locale value to define a language for the Open Graph and Rich Pin meta tags,
-							along with the Google, Facebook, and Twitter social sharing buttons. If your website and/or webpages are available in multiple
-							languages, this can be an important feature.';
-							break;
-						case 'tooltip-side-twitter-cards':
-							$text = 'Twitter Cards extend the standard Open Graph and Rich Pin meta tags with content-specific information for image galleries, 
-							photographs, eCommerce products, etc. Twitter Cards are displayed differently on Twitter, either online or from mobile Twitter 
-							clients, allowing you to better feature your content. The Twitter Cards addon can be enabled from the '.
-							$this->p->util->get_admin_url( 'general', 'General settings' ).' page.';
-							break;
-						case 'tooltip-side-url-rewriter':
-							$text = $this->p->cf['full_pro'].' can rewrite image URLs in meta tags, cached images and JavaScript, 
-							and for social sharing buttons like Pinterest and Tumblr, which use URL-encoded image URLs. 
-							Rewriting image URLs can be an important part of optimizing page load speeds. See the \'Static Content URL(s)\'
-							option on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page to enable URL rewriting.';
-							break;
-						case 'tooltip-side-url-shortener':
-							$text = '<strong>When using the Twitter social sharing button provided by '.$this->p->cf['full_pro'].'</strong>, 
-							the webpage URL (aka the <em>canonical</em> or <em>permalink</em> URL) within the Tweet, 
-							can be shortened by one of the available URL shortening services. Enable URL shortening for Twitter
-							from the '.$this->p->util->get_admin_url( 'social', 'Social Sharing' ).' settings page.';
-							break;
-						case 'tooltip-side-wistia-video-api':
-							$text = 'If the \'Check for Wistia Videos\' option on the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page is checked, '.
-							$this->p->cf['full_pro'].' will load an integration addon for Wistia to detect embedded Wistia videos, 
-							and retrieve information (video dimentions, preview image, etc) using Wistia\'s oEmbed API.';
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_plugin', $text, $idx );
 							break;
 					}
 					break;
@@ -661,59 +537,189 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				/*
 				 * Publisher 'Facebook' settings
 				 */
-				case 'tooltip-fb_admins':
-					$text = 'The <em>Facebook Admin(s)</em> user names are used by Facebook to allow access to 
-					<a href="https://developers.facebook.com/docs/insights/" target="_blank">Facebook Insight</a> data.
-					Note that these are <em>user</em> account names, not Facebook <em>page</em> names.
-					<p>Enter one or more Facebook user names, separated with commas. 
-					When viewing your own Facebook wall, your user name is located in the URL 
-					(example: https://www.facebook.com/<strong>user_name</strong>). 
-					Enter only the user user name(s), not the URL(s).</p>
-					<a href="https://www.facebook.com/settings?tab=account&section=username&view" target="_blank">Update 
-					your user name in the Facebook General Account Settings</a>.';
-					break;
-				case 'tooltip-fb_app_id':
-					$text = 'If you have a <a href="https://developers.facebook.com/apps" target="_blank">Facebook Application</a> 
-					ID for your website, enter it here. The Facebook Application ID will appear in your webpage meta tags,
-					and is used by Facebook to allow access to <a href="https://developers.facebook.com/docs/insights/" 
-					target="_blank">Facebook Insight</a> data for <em>accounts associated with that Application ID</em>.';
-					break;
-				case 'tooltip-fb_lang':
-					$text = 'The language / locale for your website content. This option also controls the language of the 
-					Facebook social sharing button.';
+				case ( strpos( $idx, 'tooltip-fb_' ) !== false ? true : false ):
+					switch ( $idx ) {
+						case 'tooltip-fb_admins':
+							$text = 'The <em>Facebook Admin(s)</em> user names are used by Facebook to allow access to 
+							<a href="https://developers.facebook.com/docs/insights/" target="_blank">Facebook Insight</a> data.
+							Note that these are <em>user</em> account names, not Facebook <em>page</em> names.
+							<p>Enter one or more Facebook user names, separated with commas. 
+							When viewing your own Facebook wall, your user name is located in the URL 
+							(example: https://www.facebook.com/<strong>user_name</strong>). 
+							Enter only the user user name(s), not the URL(s).</p>
+							<a href="https://www.facebook.com/settings?tab=account&section=username&view" target="_blank">Update 
+							your user name in the Facebook General Account Settings</a>.';
+							break;
+						case 'tooltip-fb_app_id':
+							$text = 'If you have a <a href="https://developers.facebook.com/apps" target="_blank">Facebook Application</a> 
+							ID for your website, enter it here. The Facebook Application ID will appear in your webpage meta tags,
+							and is used by Facebook to allow access to <a href="https://developers.facebook.com/docs/insights/" 
+							target="_blank">Facebook Insight</a> data for <em>accounts associated with that Application ID</em>.';
+							break;
+						case 'tooltip-fb_lang':
+							$text = 'The language / locale for your website content. This option also controls the language of the 
+							Facebook social sharing button.';
+							break;
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_fb', $text, $idx );
+							break;
+					}
 					break;
 
 				/*
 				 * Publisher 'Google' settings
 				 */
-				case 'tooltip-meta_desc_len':
-					$text = 'The maximum length of text used for the Google Search description meta tag.
-					The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
-					(the default is '.$this->p->opt->get_defaults( 'meta_desc_len' ).' characters).';
+				case ( strpos( $idx, 'tooltip-google_' ) !== false ? true : false ):
+					switch ( $idx ) {
+						case 'tooltip-google_desc_len':
+							$text = 'The maximum length of text used for the Google Search description meta tag.
+							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
+							(the default is '.$this->p->opt->get_defaults( 'meta_desc_len' ).' characters).';
+							break;
+						case 'tooltip-google_author_field':
+							$text = $this->p->cf['full'].' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
+							These are not Open Graph / Rich Pin meta property tags - they are used primarily by Google\'s search engine 
+							to associate Google+ profiles with search results.';
+							break;
+						case 'tooltip-google_def_author_id':
+							$text = 'A default author for webpages missing authorship information (for example, an index webpage without posts). 
+							If you have several authors on your website, you should probably leave this option set to <em>[none]</em> (the default).
+							This option is similar to the Open Graph / Rich Pin <em>Default Author</em>, except that it\'s applied to the Link meta tag instead.';
+							break;
+						case 'tooltip-google_def_author_on_index':
+							$text = 'Check this option if you would like to force the <em>Default Author</em> on index webpages 
+							(homepage, archives, categories, author, etc.).';
+							break;
+						case 'tooltip-google_def_author_on_search':
+							$text = 'Check this option if you would like to force the <em>Default Author</em> on search result webpages as well.';
+							break;
+						case 'tooltip-google_publisher_url':
+							$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ business page for your website</a>, 
+							you may use it\'s URL as the Publisher Link. 
+							For example, the Publisher Link URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
+							is <a href="https://plus.google.com/u/1/103457833348046432604/posts" target="_blank">https://plus.google.com/u/1/103457833348046432604/posts</a>.
+							The <em>Publisher Link URL</em> may take precedence over the <em>Author Link URL</em> in Google\'s search results.';
+							break;
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_google', $text, $idx );
+							break;
+					}
 					break;
-				case 'tooltip-link_author_field':
-					$text = $this->p->cf['full'].' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
-					These are not Open Graph / Rich Pin meta property tags - they are used primarily by Google\'s search engine 
-					to associate Google+ profiles with search results.';
+
+				/*
+				 * Publisher 'Twitter Card' settings
+				 */
+				case ( strpos( $idx, 'tooltip-tc_' ) !== false ? true : false ):
+					switch ( $idx ) {
+						case 'tooltip-tc_enable':
+							$text = 'Add Twitter Card meta tags to all webpage headers.
+							<strong>Your website must be "authorized" by Twitter for each type of Twitter Card you support</strong>. 
+							See the FAQ entry titled <a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-dont-my-twitter-cards-show-on-twitter/" 
+							target="_blank">Why don’t my Twitter Cards show on Twitter?</a> for more information on Twitter\'s 
+							authorization process.';
+							break;
+						case 'tooltip-tc_desc_len':
+							$text = 'The maximum length of text used for the Twitter Card description.
+							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
+							(the default is '.$this->p->opt->get_defaults( 'tc_desc_len' ).' characters).';
+							break;
+						case 'tooltip-tc_site':
+							$text = 'The Twitter username for your website and / or company (not your personal Twitter username).
+							As an example, the Twitter username for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
+							is <a href="https://twitter.com/surniaululacom" target="_blank">@surniaululacom</a>.';
+							break;
+						case 'tooltip-tc_sum_size':
+							$text = 'The size of content images provided for the
+							<a href="https://dev.twitter.com/docs/cards/types/summary-card" target="_blank">Summary Card</a>
+							(should be at least 120x120, larger than 60x60, and less than 1MB).';
+							break;
+						case 'tooltip-tc_large_size':
+							$text = 'The size of Post Meta, Featured or Attached images provided for the
+							<a href="https://dev.twitter.com/docs/cards/types/large-image-summary-card" target="_blank">Large Image Summary Card</a>
+							(must be larger than 280x150 and less than 1MB).';
+							break;
+						case 'tooltip-tc_photo_size':
+							$text = 'The size of ImageBrowser or Attachment Page images provided for the 
+							<a href="https://dev.twitter.com/docs/cards/types/photo-card" target="_blank">Photo Card</a> 
+							(should be at least 560x750 and less than 1MB).';
+							break;
+						case 'tooltip-tc_gal_size':
+							$text = 'The size of gallery images provided for the
+							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
+							break;
+						case 'tooltip-tc_gal_min':
+							$text = 'The minimum number of images found in a gallery to qualify for the
+							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
+							break;
+						case 'tooltip-tc_prod_size':
+							$text = 'The size of a featured product image for the
+							<a href="https://dev.twitter.com/docs/cards/types/product-card" target="_blank">Product Card</a>.
+							The product card requires an image of size 160 x 160 or greater. A square (aka cropped) image is better, 
+							but Twitter can crop/resize oddly shaped images to fit, as long as both dimensions are greater 
+							than or equal to 160 pixels.';
+							break;
+						case 'tooltip-tc_prod_def':
+							$text = 'The <em>Product</em> Twitter Card needs a minimum of two product attributes.
+							The first attribute will be the product price, and if your product has additional attribute fields associated with it 
+							(weight, size, color, etc), these will be included in the <em>Product</em> Card as well (maximum of 4 attributes). 
+							<strong>If your product does not have additional attributes beyond just a price</strong>, then this default second 
+							attribute label and value will be used. 
+							You may modify both the Label <em>and</em> Value for whatever is most appropriate for your website and/or products.
+							Some examples: Location - City State, Shipped from - Country, Made in - Country, etc.';
+							break;
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_tc', $text, $idx );
+							break;
+					}
 					break;
-				case 'tooltip-link_def_author_id':
-					$text = 'A default author for webpages missing authorship information (for example, an index webpage without posts). 
-					If you have several authors on your website, you should probably leave this option set to <em>[none]</em> (the default).
-					This option is similar to the Open Graph / Rich Pin <em>Default Author</em>, except that it\'s applied to the Link meta tag instead.';
-					break;
-				case 'tooltip-link_def_author_on_index':
-					$text = 'Check this option if you would like to force the <em>Default Author</em> on index webpages 
-					(homepage, archives, categories, author, etc.).';
-					break;
-				case 'tooltip-link_def_author_on_search':
-					$text = 'Check this option if you would like to force the <em>Default Author</em> on search result webpages as well.';
-					break;
-				case 'tooltip-link_publisher_url':
-					$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ business page for your website</a>, 
-					you may use it\'s URL as the Publisher Link. 
-					For example, the Publisher Link URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
-					is <a href="https://plus.google.com/u/1/103457833348046432604/posts" target="_blank">https://plus.google.com/u/1/103457833348046432604/posts</a>.
-					The <em>Publisher Link URL</em> may take precedence over the <em>Author Link URL</em> in Google\'s search results.';
+
+				/*
+				 * 'Social Buttons' settings
+				 */
+				case ( strpos( $idx, 'tooltip-buttons_' ) !== false ? true : false ):
+					switch ( $idx ) {
+						case 'tooltip-buttons_location_the_content':
+							$text = 'Individual social sharing button(s) must also be enabled below.';
+							break;
+						case 'tooltip-buttons_location_the_excerpt':
+							$text = 'Individual social sharing button(s) must also be enabled below.';
+							break;
+						case 'tooltip-buttons_on_index':
+							$text = 'Add the following social sharing buttons to each entry of an index webpage (non-static homepage, category, archive, etc.). 
+							By Default, social sharing buttons are <em>not</em> included on index webpages (default is unchecked).
+							You must also enable the buttons you want to display by choosing to show the buttons on the content or excerpt.';
+							break;
+						case 'tooltip-buttons_on_front':
+							$text = 'If a static Post or Page has been chosen for the homepage, add the following
+							social sharing buttons to the static homepage as well (default is unchecked).
+							You must also enable the buttons you want to display by choosing to show the buttons on the content or excerpt.';
+							break;
+						case 'tooltip-buttons_add_to':
+							$text = 'Enabled social sharing buttons are added to the Post, Page, Media and Product custom post types by default.
+							If your theme (or another plugin) supports additional custom post types, and you would like to include
+							social sharing buttons on these webpages, check the appropriate option(s) here.';
+							break;
+						case 'tooltip-buttons_link_css':
+							$text = 'Add the following styles to all webpages (default is checked).
+							<strong>All styles will be minimized into a single stylesheet</strong> with the URL of <u>'.$this->p->style->social_css_min_url.'</u>. 
+							The stylesheet is created or removed, depending on whether this option is checked or unchecked.';
+							break;
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_buttons', $text, $idx );
+							break;
+					}
 					break;
 
 				/*
@@ -731,34 +737,99 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 
 				/*
-				 * 'Social Buttons' settings
+				 * Misc informational messages
 				 */
-				case 'tooltip-buttons_location_the_content':
-					$text = 'Individual social sharing button(s) must also be enabled below.';
+				case 'pro-feature-msg':
+					if ( $this->p->is_avail['aop'] == true )
+						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Purchase 
+						additional licence(s) to enable Pro version features</p>';
+					else
+						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Upgrade 
+						to the Pro version to enable the following features</a></p>';
 					break;
-				case 'tooltip-buttons_location_the_excerpt':
-					$text = 'Individual social sharing button(s) must also be enabled below.';
+				case 'pro-activate-nag':
+					// in multisite, only show the activation message on our own plugin pages
+					if ( ! is_multisite() || ( is_multisite() && preg_match( '/^.*\?page='.$this->p->cf['lca'].'-/', $_SERVER['REQUEST_URI'] ) ) ) {
+						$url = $this->p->util->get_admin_url( 'advanced' );
+						$text = '<p>The '.$this->p->cf['full'].' Authentication ID option value is empty.<br/>
+						To activate Pro version features, and allow the plugin to authenticate itself for updates,<br/>
+						<a href="'.$url.'">enter the unique Authenticaton ID you receive following your purchase
+						on the Advanced Settings page</a>.</p>';
+					}
 					break;
-				case 'tooltip-buttons_on_index':
-					$text = 'Add the following social sharing buttons to each entry of an index webpage (non-static homepage, category, archive, etc.). 
-					By Default, social sharing buttons are <em>not</em> included on index webpages (default is unchecked).
-					You must also enable the buttons you want to display by choosing to show the buttons on the content or excerpt.';
+				case 'pro-advert-nag':
+					$text .= '
+					<style type="text/css">.sucom-update-nag p { font-size:1.05em; }</style>
+					<p>Have you considered encouraging the continued development and support of '.$this->p->cf['full'].
+					' by purchasing the Pro version?</p>
+					<p>'.$this->p->cf['full_pro'].' supports several types of Twitter Cards, including the <em>Gallery</em>, 
+					<em>Player</em> and <em>Product</em> Twitter Cards, allows you to customize individual Post / Page meta tags, 
+					and integrates with popular 3rd party plugins to improve Open Graph, Rich Pin, and Twitter Card meta tags.</p>
+					<p><strong>Improve your social presence on Facebook, Twitter and Pinterest by providing your users with 
+					better looking, more accurate and tailored posts</strong>.</p>
+					<p>Upgrading to the Pro version is simple and takes just one or two minutes - <br/>
+					<a href="'.$this->p->cf['url']['purchase'].'" target="_blank">purchase an '.$this->p->cf['full_pro'].' license right now</a>.</p>
+					';
 					break;
-				case 'tooltip-buttons_on_front':
-					$text = 'If a static Post or Page has been chosen for the homepage, add the following
-					social sharing buttons to the static homepage as well (default is unchecked).
-					You must also enable the buttons you want to display by choosing to show the buttons on the content or excerpt.';
+				case 'side-purchase':
+					$text = '<p>Developing and supporting the '.$this->p->cf['full'].' plugin takes most of my work days (and week-ends).
+					If you compare this plugin with others, I hope you\'ll agree that the result was worth all the effort and long hours.
+					If you would like to show your appreciation, and access the full range of features this plugin has to offer, please purchase ';
+					if ( $this->p->is_avail['aop'] == true )
+						$text .= 'a Pro version license.</p>';
+					else $text .= 'the Pro version.</p>';
 					break;
-				case 'tooltip-buttons_add_to':
-					$text = 'Enabled social sharing buttons are added to the Post, Page, Media and Product custom post types by default.
-					If your theme (or another plugin) supports additional custom post types, and you would like to include
-					social sharing buttons on these webpages, check the appropriate option(s) here.';
+				case 'side-thankyou':
+					$text = '<p>Thank you for your purchase. I hope '.$this->p->cf['full'].' will exceed all of your expectations for many years to come.</p>';
 					break;
-				case 'tooltip-buttons_link_css':
-					$text = 'Add the following styles to all webpages (default is checked).
-					<strong>All styles will be minimized into a single stylesheet</strong> with the URL of <u>'.$this->p->style->social_css_min_url.'</u>. 
-					The stylesheet is created or removed, depending on whether this option is checked or unchecked.';
+				case 'side-help':
+					$text = '<p>Individual option boxes (like this one) can be opened / closed by clicking on their title bar, 
+					moved and re-ordered by dragging them, and removed / added from the <em>Screen Options</em> tab (top-right).
+					Values in multiple tabs can be edited before clicking the \'Save All Changes\' button.</p>';
+					if ( $this->p->is_avail['aop'] == true )
+						$text .= '<p><strong>Need help with the Pro version?</strong>
+						Review the <a href="'.$this->p->cf['url']['pro_codex'].'" target="_blank">Plugin Codex</a>
+						and / or <a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new Support Ticket</a>.</p>';
+					else
+						$text .= '<p><strong>Need help with the GPL version?</strong>
+						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">Frequently Asked Questions</a>, 
+						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Other Notes</a>, and / or visit the 
+						<a href="'.$this->p->cf['url']['support'].'" target="_blank">Support Forum</a> on WordPress.org.</p>';
 					break;
+				case 'auth-id-info':
+					$text = '<p>'.$this->p->cf['full'].' must be active in order to check for Pro version updates.
+					If you de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the <em>GPL</em> version. 
+					Always update the Pro version when it is active. If you accidentally re-install the <em>GPL</em> version, your Authentication ID
+					will always allow you to upgrade back to the Pro version easily.</p>';
+					break;
+				case 'taglist-info':
+					$text = '<p>'.$this->p->cf['full'].' will add the following Facebook and Open Graph meta tags to your webpages. 
+					If your theme or another plugin already generates one or more of these meta tags, you may uncheck them here to 
+					prevent duplicates from being added (for example, the "description" meta tag is unchecked by default if any 
+					known SEO plugin was detected).</p>';
+					break;
+				case 'contact-info':
+					$text = '<p>The following options allow you to customize the contact field names and labels shown on the 
+					<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>. '.$this->p->cf['full'].' uses the Facebook, 
+					Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags (along with the Twitter social sharing button).
+					<strong>You should not modify the <em>Contact Field Name</em> unless you have a very good reason to do so.</strong>
+					The <em>Profile Contact Label</em> on the other hand, is for display purposes only, and its text can be changed as you wish.
+					Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying their values 
+					in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
+					target="_blank">get_the_author_meta()</a> for examples).</p>';
+					break;
+				case 'social-buttons-info':
+					$text = '<p>The following social buttons can be added to the content, excerpt, and/or enabled within the '.
+					$this->p->cf['menu'].' Social Sharing widget as well (see the <a href="'.
+					get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
+					break;
+				/*
+				 * Other messages
+				 */
+				default:
+					$text = apply_filters( $this->p->cf['lca'].'_messages', $text, $idx );
+					break;
+
 			}
 			if ( strpos( $idx, 'tooltip-' ) !== false && ! empty( $text ) )
 				return '<img src="'.WPSSO_URLPATH.'images/question-mark.png" width="14" height="14" class="'.
@@ -767,4 +838,5 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 		}
 	}
 }
+
 ?>

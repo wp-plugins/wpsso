@@ -172,22 +172,22 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 				case 'google' :
 			
-					$ret[] = $this->p->util->th( 'Description Length', null, 'meta_desc_len' ).
+					$ret[] = $this->p->util->th( 'Description Length', null, 'google_desc_len' ).
 					'<td>'.$this->form->get_input( 'meta_desc_len', 'short' ).' characters or less</td>';
 
-					$ret[] = $this->p->util->th( 'Author Link URL', null, 'link_author_field' ).
+					$ret[] = $this->p->util->th( 'Author Link URL', null, 'google_author_field' ).
 					'<td>'.$this->form->get_select( 'link_author_field', $this->author_fields() ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Default Author', null, 'link_def_author_id' ).
+					$ret[] = $this->p->util->th( 'Default Author', null, 'google_def_author_id' ).
 					'<td>'.$this->form->get_select( 'link_def_author_id', $user_ids, null, null, true ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Default Author on Indexes', null, 'link_def_author_on_index' ).
+					$ret[] = $this->p->util->th( 'Default Author on Indexes', null, 'google_def_author_on_index' ).
 					'<td>'.$this->form->get_checkbox( 'link_def_author_on_index' ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Default Author on Search Results', null, 'link_def_author_on_search' ).
+					$ret[] = $this->p->util->th( 'Default Author on Search Results', null, 'google_def_author_on_search' ).
 					'<td>'.$this->form->get_checkbox( 'link_def_author_on_search' ).'</td>';
 			
-					$ret[] = $this->p->util->th( 'Publisher Link URL', 'highlight', 'link_publisher_url' ).
+					$ret[] = $this->p->util->th( 'Publisher Link URL', 'highlight', 'google_publisher_url' ).
 					'<td>'.$this->form->get_input( 'link_publisher_url', 'wide' ).'</td>';
 
 					break;

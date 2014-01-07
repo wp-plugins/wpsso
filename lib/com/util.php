@@ -117,22 +117,6 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $obj;
 		}
 
-		public function get_post_types( $prefix, $output = 'objects' ) {
-			$include = false;
-			$post_types = array();
-			switch ( $prefix ) {
-				case 'buttons':
-					$include = array( 'public' => true );
-					break;
-				case 'plugin':
-					$include = array( 'show_ui' => true, 'public' => true );
-					break;
-			}
-			$post_types = $include !== false ? 
-				get_post_types( $include, $output ) : array();
-			return apply_filters( $this->p->cf['lca'].'_post_types', $post_types, $prefix, $output );
-		}
-
 		public function get_meta_sharing_url( $post_id ) {
 			$url = false;
 			if ( empty( $post_id ) )	// post id must be > 0 to have post meta

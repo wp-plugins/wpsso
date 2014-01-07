@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
-Version: 0.21rc4
+Version: 0.21rc5
 
 Copyright 2012-2013 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -61,22 +61,19 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			}
 		}
 
-		// get the options, upgrade the options (if necessary), and validate their values
 		public function set_objects( $activate = false ) {
 
 			/*
-			 * plugin options
+			 * basic plugin setup (settings, check, debug, notices, utils)
 			 */
-			$this->set_options();				// local method for early load
+			$this->set_options();
 			$this->update_error = get_option( $this->cf['lca'].'_update_error' );
 			$this->check = new WpssoCheck( $this );
-			$this->is_avail = $this->check->get_avail();	// uses options
+			$this->is_avail = $this->check->get_avail();
 			if ( $this->is_avail['aop'] ) 
 				$this->cf['full'] = $this->cf['full_pro'];
-	
-			/*
-			 * essential class objects
-			 */
+
+			// load and config debug class
 			$html_debug = ! empty( $this->options['plugin_debug'] ) || 
 				( defined( 'WPSSO_HTML_DEBUG' ) && WPSSO_HTML_DEBUG ) ? true : false;
 			$wp_debug = defined( 'WPSSO_WP_DEBUG' ) && WPSSO_WP_DEBUG ? true : false;
@@ -89,13 +86,14 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$this->util = new WpssoUtil( $this );
 			$this->opt = new WpssoOptions( $this );
 
-			// uses wpssoOptions class, so must be after object creation, not in set_options() above
+			do_action( $this->cf['lca'].'_init_basic' );
+
+			/*
+			 * check and create defaults
+			 */
 			if ( is_multisite() && ( ! is_array( $this->site_options ) || empty( $this->site_options ) ) )
 				$this->site_options = $this->opt->get_site_defaults();
 
-			/*
-			 * plugin is being activated - create default options, if necessary, and exit
-			 */
 			if ( $activate == true || ( 
 				! empty( $_GET['action'] ) && $_GET['action'] == 'activate-plugin' &&
 				! empty( $_GET['plugin'] ) && $_GET['plugin'] == WPSSO_PLUGINBASE ) ) {
@@ -112,44 +110,46 @@ if ( ! class_exists( 'Wpsso' ) ) {
 					$this->debug->log( 'default options have been added to the database' );
 				}
 				$this->debug->log( 'exiting early: init_plugin() to follow' );
-				// no need to continue, init_plugin() will handle the rest
-				return;
+				return;	// no need to continue, init_plugin() will handle the rest
 			}
 
 			/*
 			 * remaining object classes
 			 */
-			$this->cache = new SucomCache( $this );
-			$this->style = new SucomStyle( $this );
-			$this->script = new SucomScript( $this );
-			$this->webpage = new SucomWebpage( $this );		// title, desc, etc., plus shortcodes
-			$this->user = new WpssoUser( $this );
-			$this->meta = new WpssoPostMeta( $this );
-			$this->media = new WpssoMedia( $this );			// images, videos, etc., plug ngg
-			$this->head = new WpssoHead( $this );			// adds opengraph and twitter card meta tags
-
-			if ( $this->is_avail['opengraph'] )
-				$this->og = new WpssoOpengraph( $this );
-			else $this->og = new SucomOpengraph( $this );		// og html parsing method
+			$this->cache = new SucomCache( $this );		// object and file caching
+			$this->script = new SucomScript( $this );	// admin jquery tooltips
+			$this->webpage = new SucomWebpage( $this );	// title, desc, etc., plus shortcodes
+			$this->user = new WpssoUser( $this );		// contact methods and metabox prefs
+			$this->meta = new WpssoPostMeta( $this );	// custom post meta
+			$this->media = new WpssoMedia( $this );		// images, videos, etc.
+			$this->head = new WpssoHead( $this );		// open graph and twitter card meta tags
 
 			if ( is_admin() ) {
-				$this->msg = new WpssoMessages( $this );
-				$this->admin = new WpssoAdmin( $this );
+				$this->msg = new WpssoMessages( $this );	// admin tooltip messages
+				$this->admin = new WpssoAdmin( $this );		// admin menus and page loader
 			}
 
-			// create pro class object last - it extends several previous classes
+			if ( $this->is_avail['opengraph'] )
+				$this->og = new WpssoOpengraph( $this );	// prepare open graph array
+			else $this->og = new SucomOpengraph( $this );		// read open graph html tags
+
+			if ( ! is_object( $this->style ) )
+				$this->style = new SucomStyle( $this );		// allow other plugins to define earlier
+
+			do_action( $this->cf['lca'].'_init_pro' );
+
 			if ( $this->is_avail['aop'] )
 				$this->pro = new WpssoAddonPro( $this );
 
 			/*
-			 * check options array read from database - upgrade options if necessary
+			 * check and upgrade options if necessary
 			 */
 			$this->options = $this->opt->check_options( WPSSO_OPTIONS_NAME, $this->options );
 			if ( is_multisite() )
 				$this->site_options = $this->opt->check_options( WPSSO_SITE_OPTIONS_NAME, $this->site_options );
 
 			/*
-			 * setup class properties, etc. based on option values
+			 * configure class properties based on plugin settings
 			 */
 			$this->cache->object_expire = $this->options['plugin_object_cache_exp'];
 			if ( $this->check->is_aop() ) {
@@ -186,7 +186,6 @@ if ( ! class_exists( 'Wpsso' ) ) {
 							$this->update->check_for_updates();
 				}
 			}
-
 		}
 
 		public function filter_installed_version( $version ) {

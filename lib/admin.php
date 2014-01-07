@@ -56,7 +56,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		private function set_objects() {
 			$libs = array( 'setting', 'submenu' );
 			if ( is_multisite() )
-				$libs[] = ['site_submenu'];
+				$libs[] = 'site_submenu';
 			foreach ( $libs as $sub ) {
 				foreach ( $this->p->cf['lib'][$sub] as $id => $name ) {
 					do_action( $this->p->cf['lca'].'_load_lib', $sub, $id );
