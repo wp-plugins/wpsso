@@ -114,6 +114,11 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a> <div>A list of available PHP constants for the WPSSO plugin.</div></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/">Integration Notes</a>
+<ul>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a></li>
+</ul>
+</li>
 </ul>
 
 == Screenshots ==
