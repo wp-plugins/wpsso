@@ -150,9 +150,6 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 				$this->p->util->get_sharing_url( true ) :
 				'<p>The Sharing URL will be available when the '.$post_type_name.' is published.</p>' ).'</td>';
 
-			$ret[] = $this->p->util->th( 'Disable Social Buttons', 'medium', 'postmeta-buttons_disabled', $post_info ).
-			'<td class="blank">&nbsp;</td>';
-
 			return $ret;
 		}
 
@@ -220,6 +217,9 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 			$ret[] = $this->p->util->th( 'Tweet Text', 'medium', 'postmeta-twitter_desc' ). 
 			'<td class="blank">'.$this->p->webpage->get_caption( $this->p->options['twitter_caption'], $twitter_cap_len,
 				true, true, true ).'</td>';	// use_post = true, use_cache = true, add_hashtags = true
+
+			$ret[] = $this->p->util->th( 'Disable Social Buttons', 'medium', 'postmeta-buttons_disabled', $post_info ).
+			'<td class="blank">&nbsp;</td>';
 
 			return $ret;
 		}
