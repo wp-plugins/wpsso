@@ -760,15 +760,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'pro-advert-nag':
 					$text .= '
 					<style type="text/css">.sucom-update-nag p { font-size:1.05em; }</style>
-					<p>Have you considered encouraging the continued development and support of '.$this->p->cf['full'].
-					' by purchasing the Pro version?</p>
-					<p>'.$this->p->cf['full_pro'].' supports several types of Twitter Cards, including the <em>Gallery</em>, 
-					<em>Player</em> and <em>Product</em> Twitter Cards, allows you to customize individual Post / Page meta tags, 
-					and integrates with popular 3rd party plugins to improve Open Graph, Rich Pin, and Twitter Card meta tags.</p>
-					<p><strong>Improve your social presence on Facebook, Twitter and Pinterest by providing your users with 
-					better looking, more accurate and tailored posts</strong>.</p>
+					<p>Have you considered encouraging the continued development and support of '.$this->p->cf['full'].' by purchasing the Pro version?</p>
+					<p>'.$this->p->cf['full_pro'].' supports several types of Twitter Cards, including the <em>Gallery</em>, <em>Player</em> and <em>Product</em> 
+					Cards, allows you to customize the meta tags of individual Posts and Pages, and integrates with a growing list of 3rd party plugins.</p>
+					<p><strong>Improve your social presence on Facebook, Twitter, Pinterest, LinkedIn, etc. by providing these social websites
+					more complete and accurate meta tags, correctly sized images, information on your products and embedded videos.</strong>.</p>
 					<p>Upgrading to the Pro version is simple and takes just one or two minutes - <br/>
-					<a href="'.$this->p->cf['url']['purchase'].'" target="_blank">purchase an '.$this->p->cf['full_pro'].' license right now</a>.</p>
+					<a href="'.$this->p->cf['url']['purchase'].'" target="_blank">purchase a '.$this->p->cf['full_pro'].' license right now</a>.</p>
 					';
 					break;
 				case 'side-purchase':
