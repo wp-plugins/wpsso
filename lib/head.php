@@ -91,7 +91,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$html .= $this->p->debug->get_html( print_r( $meta_tags, true ), 'open graph array' );
 			$html .= $this->p->debug->get_html( print_r( $this->p->util->get_urls_found(), true ), 'media urls found' );
 
-			$html .= '<meta name="generator" content="'.$this->p->cf['full'].' '.$this->p->cf['version'].'-';
+			$html .= '<meta name="generator" content="'.$this->p->cf['full'].' '.$this->p->cf['version'];
 			if ( $this->p->check->is_aop() ) $html .= 'L';
 			elseif ( $this->p->is_avail['aop'] ) $html .= 'U';
 			else $html .= 'G';

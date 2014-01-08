@@ -144,7 +144,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 0.21rc5 =
+= Version 1.21.0 =
 
 * **Moved the NextGEN Gallery support to a Pro version addon**.
 * Added support for **JetPack Photon** to retrieve correct image sizes (Pro version).
@@ -166,7 +166,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Upgrade Notice ==
 
-= 0.21rc5 =
+= 1.21.0 =
 
 Moved NextGEN Gallery support to Pro version, added support for JetPack Photon, added support for WordPress SEO "Force Transport" option.
 

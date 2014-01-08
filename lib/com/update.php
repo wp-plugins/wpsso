@@ -144,13 +144,14 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				return $plugin_data;
 			}
 
-			$user_agent = 'WordPress/'.$wp_version.' ('.$this->slug.'/'.$query['installed_version'].'); '.$site_url;
+			$ua = 'WordPress/'.$wp_version.' ('.( apply_filters( $this->lca.'_ua_plugin', 
+				$this->slug.'/'.$query['installed_version'] ) ).'); '.$site_url;
 			$options = array(
 				'timeout' => 10, 
-				'user-agent' => $user_agent,
+				'user-agent' => $ua,
 				'headers' => array( 
 					'Accept' => 'application/json',
-					'X-WordPress-Id' => $user_agent,
+					'X-WordPress-Id' => $ua,
 				),
 			);
 			$plugin_data = null;

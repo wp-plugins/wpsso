@@ -798,8 +798,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 				case 'auth-id-info':
 					$text = '<p>'.$this->p->cf['full'].' must be active in order to check for Pro version updates.
-					If you de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the <em>GPL</em> version. 
-					Always update the Pro version when it is active. If you accidentally re-install the <em>GPL</em> version, your Authentication ID
+					If you de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the GPL version. 
+					Always update the Pro version when it is active. If you accidentally re-install the GPL version, your Authentication ID
 					will always allow you to upgrade back to the Pro version easily.</p>';
 					break;
 				case 'taglist-info':

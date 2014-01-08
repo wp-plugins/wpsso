@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
-Version: 0.21rc5
+Version: 1.21.0
 
 Copyright 2012-2013 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -86,7 +86,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$this->util = new WpssoUtil( $this );
 			$this->opt = new WpssoOptions( $this );
 
-			do_action( $this->cf['lca'].'_init_basic' );
+			do_action( $this->cf['lca'].'_init_post_options' );
 
 			/*
 			 * check and create defaults
@@ -136,7 +136,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			if ( ! is_object( $this->style ) )
 				$this->style = new SucomStyle( $this );		// allow other plugins to define earlier
 
-			do_action( $this->cf['lca'].'_init_pro' );
+			do_action( $this->cf['lca'].'_init_pre_aop' );
 
 			if ( $this->is_avail['aop'] )
 				$this->pro = new WpssoAddonPro( $this );
@@ -166,8 +166,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 					$this->is_avail['cache'][$name] = defined( $constant_name ) && ! constant( $constant_name ) ? true : false;
 				}
 				$cache_msg = 'object cache '.( $this->is_avail['cache']['object'] ? 'could not be' : 'is' ).
-					' disabled, and transient cache '.( $this->is_avail['cache']['transient'] ? 'could not be' : 'is' ).
-					' disabled.';
+					' disabled, and transient cache '.( $this->is_avail['cache']['transient'] ? 'could not be' : 'is' ).' disabled.';
 				$this->debug->log( 'HTML debug mode active: '.$cache_msg );
 				$this->notice->inf( 'HTML debug mode active -- '.$cache_msg.' '.
 					__( 'Informational messages are being added to webpages as hidden HTML comments.', WPSSO_TEXTDOM ) );
@@ -175,6 +174,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 
 			// setup the update checks if we have an Authentication ID
 			if ( ! empty( $this->options['plugin_tid'] ) ) {
+				add_filter( $this->cf['lca'].'_ua_plugin', array( &$this, 'filter_ua_plugin' ), 10, 1 );
 				add_filter( $this->cf['lca'].'_installed_version', array( &$this, 'filter_installed_version' ), 10, 1 );
 				require_once( WPSSO_PLUGINDIR.'lib/com/update.php' );
 				$this->update = new SucomUpdate( $this );
@@ -189,9 +189,16 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		}
 
 		public function filter_installed_version( $version ) {
-			if ( $this->is_avail['aop'] )
-				return $version;
-			else return '0.'.$version;
+			if ( ! $this->is_avail['aop'] )
+				$version = '0.'.$version;
+			return $version;
+		}
+
+		public function filter_ua_plugin( $plugin ) {
+			if ( $this->check->is_aop() ) $plugin .= 'L';
+			elseif ( $this->is_avail['aop'] ) $plugin .= 'U';
+			else $plugin .= 'G';
+			return $plugin;
 		}
 
 		public function set_options() {

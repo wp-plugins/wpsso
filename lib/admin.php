@@ -300,7 +300,11 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			if ( $this->menu_id !== 'contact' )		// the "settings" page displays its own error messages
 				settings_errors( WPSSO_OPTIONS_NAME );	// display "error" and "updated" messages
 			$this->set_form();				// define form for side boxes and show_form()
-			$this->p->debug->show_html( null, 'Debug Log' );
+			if ( $this->p->debug->is_on() ) {
+				$this->p->debug->show_html( print_r( $this->p->is_avail, true ), 'available features' );
+				$this->p->debug->show_html( print_r( $this->p->check->get_active(), true ), 'active plugins' );
+				$this->p->debug->show_html( null, 'debug log' );
+			}
 			?>
 			<div class="wrap" id="<?php echo $this->pagehook; ?>">
 				<?php $this->show_follow_icons(); ?>

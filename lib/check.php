@@ -15,6 +15,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 		private $p;
 		private $active_plugins;
 		private $network_plugins;
+		private static $aop;
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
@@ -30,17 +31,16 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			}
 
 			// Disable JetPack Open Graph Meta Tags
-			if ( class_exists( 'JetPack' ) ||
-				in_array( 'jetpack/jetpack.php', $this->active_plugins ) ) {
-				add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );	//deprecated, but correct filter name is broken
+			if ( class_exists( 'JetPack' ) || in_array( 'jetpack/jetpack.php', $this->active_plugins ) ) {
+				add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );	// deprecated, but correct filter is checked too early
+				add_filter( 'jetpack_enable_open_graph', '__return_false', 99 );
 				add_filter( 'jetpack_disable_twitter_cards', '__return_true', 99 );
 			}
 
 			// Disable the NGFB Open Graph+ Meta Tags
-			if ( class_exists( 'NgfbPlugin' ) ||
-				in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) )
-					if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
-						define( 'NGFB_META_TAGS_DISABLE', true );
+			if ( class_exists( 'Ngfb' ) || in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) )
+				if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
+					define( 'NGFB_META_TAGS_DISABLE', true );
 		}
 
 		public function get_active() {
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 			$ret['ssb'] = false;	// social sharing buttons disabled by default
 
-			$ret['aop'] = file_exists( WPSSO_PLUGINDIR.'lib/pro/addon.php' ) &&
+			$ret['aop'] = self::$aop = file_exists( WPSSO_PLUGINDIR.'lib/pro/addon.php' ) &&
 				class_exists( $this->p->cf['cca'].'AddonPro' ) ? true : false;
 
 			foreach ( $this->p->cf['cache'] as $name => $val ) {
@@ -164,7 +164,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			}
 
 			// Yoast WordPress SEO
-			if ( $this->p->is_avail['seo']['wpseo'] == true ) {
+			if ( $this->p->is_avail['seo']['wpseo'] === true ) {
 				$opts = get_option( 'wpseo_social' );
 				if ( ! empty( $opts['opengraph'] ) ) {
 					$this->p->debug->log( $conflict_log_prefix.'wpseo opengraph meta data option is enabled' );
@@ -188,7 +188,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			}
 
 			// SEO Ultimate
-			if ( $this->p->is_avail['seo']['seou'] == true ) {
+			if ( $this->p->is_avail['seo']['seou'] === true ) {
 				$opts = get_option( 'seo_ultimate' );
 				if ( ! empty( $opts['modules'] ) && is_array( $opts['modules'] ) ) {
 					if ( array_key_exists( 'opengraph', $opts['modules'] ) && $opts['modules']['opengraph'] !== -10 ) {
@@ -201,7 +201,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			}
 
 			// All in One SEO Pack
-			if ( $this->p->is_avail['seo']['aioseop'] == true ) {
+			if ( $this->p->is_avail['seo']['aioseop'] === true ) {
 				$opts = get_option( 'aioseop_options' );
 				if ( array_key_exists( 'aiosp_google_disable_profile', $opts ) && empty( $opts['aiosp_google_disable_profile'] ) ) {
 					$this->p->debug->log( $conflict_log_prefix.'aioseop google plus profile is enabled' );
@@ -211,14 +211,25 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				}
 			}
 
+			// JetPack Photon
+			if ( $this->p->is_avail['media']['photon'] === true && ! $this->is_aop() ) {
+				$this->p->debug->log( $conflict_log_prefix.'jetpack photon is enabled' );
+				$this->p->notice->err( $conflict_err_prefix.
+					sprintf( __( 'JetPack Photon cripples the WordPress image size funtions. ', WPSSO_TEXTDOM ).
+						__( 'Please <a href="%s">disable JetPack Photon</a> or <a href="%s">upgrade to the %s version</a>
+							(which includes support for JetPack Photon).', WPSSO_TEXTDOM ), 
+						get_admin_url( null, 'admin.php?page=jetpack' ),
+						$this->p->cf['url']['purchase'],
+						$this->p->cf['full_pro'] ) );
+			}
+
 			/*
 			 * Other Conflicting Plugins
 			 */
 
 			// NGFB Open Graph+
-			if ( class_exists( 'NgfbPlugin' ) || 
-				in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) ) {
-                                $this->p->debug->log( $conflict_log_prefix.'ngfb plugin is active' );
+			if ( class_exists( 'Ngfb' ) || in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) ) {
+                                $this->p->debug->log( $conflict_log_prefix.'ngfbog plugin is active' );
                                 $this->p->notice->err( $conflict_err_prefix. 
 					sprintf( __( 'Please <a href="%s">deactivate the NGFB Open Graph+ plugin</a> to prevent conflicting and duplicate features.', WPSSO_TEXTDOM ), 
 						get_admin_url( null, 'plugins.php' ) ) );
@@ -262,7 +273,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				$this->p->notice->err( $conflict_err_prefix. 
 					__( 'The AddThis Social Bookmarking Widget has incorrectly coded content and excerpt filters.', WPSSO_TEXTDOM ).' '.
 					sprintf( __( 'Please uncheck the \'<em>Apply Content and Excerpt Filters</em>\' options on the <a href="%s">%s Advanced settings page</a>.', WPSSO_TEXTDOM ),  
-						$this->p->util->get_admin_url( 'advanced' ), $this->p->cf['full'] ) ).' '.
+						$this->p->util->get_admin_url( 'advanced' ), $this->p->cf['menu'] ) ).' '.
 					__( 'Disabling content filters will prevent shortcodes from being expanded, which may lead to incorrect / incomplete description meta tags.', WPSSO_TEXTDOM );
 			}
 
@@ -279,7 +290,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 		}
 
 		public function is_aop() {
-			if ( $this->p->is_avail['aop'] == true && 
+			if ( self::$aop === true && 
 				! empty( $this->p->options['plugin_tid'] ) && 
 					empty( $this->p->update_error ) )
 						return true; return false;
