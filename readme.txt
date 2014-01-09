@@ -147,6 +147,8 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Version 1.21.0 =
 
+Please note that support for the NextGEN Gallery plugin has been moved to the Pro version in v1.21.0. This restores balance between the two distributions - the WPSSO GPL version from WordPress.org offers complete support for Open Graph+ meta tags and the WordPress Media Library (including its `gallery` shortcode), while the Pro version includes support for 3rd party plugins and services (like NextGEN Gallery, WordPress SEO, BuddyPress, bbPress, WooCommerce, Wistia videos, etc.). I remain committed to providing a complete and reliable set of features in the GPL version - all for free. There's no need to contribute in any way, though a little [help with forum questions](http://wordpress.org/support/plugin/wpsso), for example, is always welcome. ;-)
+
 * **Moved the NextGEN Gallery support to a Pro version addon**.
 * Added support for **JetPack Photon** to retrieve correct image sizes (Pro version).
 * Added a 'wpsso_image_downsize' hook (for the Jetpack Photon Pro addon).
