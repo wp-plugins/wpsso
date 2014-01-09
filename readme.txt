@@ -154,6 +154,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 * Added a hook for the 'wpsso_sharing_url' filter to support WordPress SEO's "Force Transport" option (Pro version).
 * Moved the URL rewriting and shortening methods into hooks for the 'wpsso_rewrite_url' and 'wpsso_shorten_url' filters (Pro version).
 * Removed the "Disable Social Buttons" option from the SSO Custom Settings (Pro version).
+* Added links to http URLs in the Open Graph+ Custom Settings 'Meta Tags Preview' tab.
 * Changed the default object expiration time from 1800 to 3600 seconds (1 hour).
 * Removed the "Reset Settings on Activate" Advanced option.
 * Renamed the WPSSO_RESET constant to WPSSO_RESET_ON_ACTIVATE.

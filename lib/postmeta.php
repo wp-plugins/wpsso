@@ -265,7 +265,7 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 						'<th class="xshort">'.$m[2].'</th>'.
 						'<td class="short">'.$m[3].'</td>'.
 						'<th class="xshort">'.$m[4].'</th>'.
-						'<td class="wide">'.$m[5].'</td>';
+						'<td class="wide">'.( strpos( $m[5], 'http' ) === 0 ? '<a href="'.$m[5].'">'.$m[5].'</a>' : $m[5] ).'</td>';
 				}
 				sort( $ret );
 			} else $ret[] = '<td><p class="centered">The Meta Tags Preview will be available when the '.$this->post_info['ptn'].' is published with public visibility.</p></td>';
