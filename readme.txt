@@ -16,9 +16,20 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 = Summary of Features =
 
-* Open Graph (Facebook, G+, LinkedIn, etc.), Rich Pins (Pinterest), Twitter Cards (Twitter) meta tags.
-* Configurable image sizes and descriptions depending on contexts (various meta tags and social buttons).
-* Integrates to 3rd party plugins and services for image, video, product, and content information (NextGEN Gallery, JetPack Photon, WordPress SEO by Yoast, All in One SEO Pack, WooCommerce, MarketPressm WP e-Commerce, bbPress, BuddyPress, Youtube / Vimeo / Wistia APIs, and more).
+* Open Graph (Facebook, G+, LinkedIn, etc.), Rich Pins (Pinterest), and Twitter Card (Twitter) meta tags.
+* Configurable image sizes and descriptions depending on context (various meta tags and social buttons).
+* Integrates to 3rd party plugins and services for image, video, product, and content information:
+  * NextGEN Gallery
+  * JetPack Photon
+  * WordPress SEO by Yoast
+  * All in One SEO Pack
+  * WooCommerce
+  * MarketPress
+  * WP e-Commerce
+  * bbPress
+  * BuddyPress
+  * Youtube / Vimeo / Wistia APIs
+* Optional social sharing buttons, both on front-end webpages and back-end admin editing pages.
 * Configurable contact fields for user profile pages.
 
 = Complete Meta Tags =
