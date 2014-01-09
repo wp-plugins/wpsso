@@ -92,10 +92,13 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Installation ==
 
-= Install and Uninstall =
+= How-To =
 
-* [Installation Methods](http://surniaulula.com/codex/plugins/wpsso/how-to/install-the-plugin/)
-* [Uninstall Methods](http://surniaulula.com/codex/plugins/wpsso/how-to/uninstall-the-plugin/)
+<ul>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/install-the-plugin/">Install the Plugin</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/uninstall-the-plugin/">Uninstall the Plugin</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/migrate-from-ngfb-open-graph-to-wpsso/">Migrate from NGFB Open Graph+ to WPSSO</a></li>
+</ul>
 
 == Frequently Asked Questions ==
 
