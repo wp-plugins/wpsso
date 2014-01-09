@@ -39,12 +39,12 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 		}
 
 		public function add_metaboxes() {
-			// include the custom settings metabox on the editing page for that post type
+			// include the custom settings metabox on the editing page for all post types
 			foreach ( $this->p->util->get_post_types( 'plugin' ) as $post_type ) {
 				if ( ! empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ) {
+					// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 					add_meta_box( WPSSO_META_NAME, $this->p->cf['menu'].' Custom Settings', 
 						array( &$this->p->meta, 'show_metabox' ), $post_type->name, 'advanced', 'high' );
-					break;
 				}
 			}
 		}
