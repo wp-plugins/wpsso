@@ -236,7 +236,6 @@ if ( ! class_exists( 'Wpsso' ) ) {
 }
 
 if ( ! class_exists( 'WpssoNoDebug' ) ) {
-
 	class WpssoNoDebug {
 		public function mark() { return; }
 		public function args() { return; }
