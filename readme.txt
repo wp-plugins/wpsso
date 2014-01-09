@@ -12,13 +12,18 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 == Description ==
 
-**WordPress Social Sharing Optimization (WPSSO) is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features (Open Graph, Twitter Cards, 3rd party integration, etc.), but strives to be a little lighter and smaller by removing the social sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, url shortening, and url rewriting)**.
+**WordPress Social Sharing Optimization (WPSSO) is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features, but strives to be a little lighter and smaller by removing the social buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, url shortening, and url rewriting)**.
 
-= Meta Tags =
+= Summary of Features =
 
-WPSSO adds Facebook / [Open Graph](http://ogp.me/), [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), [Twitter Cards](https://dev.twitter.com/docs/cards), and (optionally) [Search Engine Optimization](http://en.wikipedia.org/wiki/Search_engine_optimization) meta tags to the head section of webpages. These meta tags are used by Google Search and most social websites to describe and display your content correctly (title, description, keyword tags, images, videos, product, author profile / authorship, publisher, etc.). [See examples from Google Search / Google+, Facebook, Twitter, Pinterest, StumbleUpon, Tumblr, and others](/extend/plugins/wpsso/screenshots/). 
+* Open Graph (Facebook, G+, LinkedIn, etc.), Rich Pins (Pinterest), Twitter Cards (Twitter) meta tags.
+* Configurable image sizes and descriptions depending on contexts (various meta tags and social buttons).
+* Integrates to 3rd party plugins and services for image, video, product, and content information (NextGEN Gallery, JetPack Photon, WordPress SEO by Yoast, All in One SEO Pack, WooCommerce, MarketPressm WP e-Commerce, bbPress, BuddyPress, Youtube / Vimeo / Wistia APIs, and more).
+* Configurable contact fields for user profile pages.
 
-**Twitter Cards**
+= Complete Meta Tags =
+
+WPSSO adds Facebook / [Open Graph](http://ogp.me/), [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), [Twitter Cards](https://dev.twitter.com/docs/cards), and (optionally) [Search Engine Optimization](http://en.wikipedia.org/wiki/Search_engine_optimization) meta tags to the head section of webpages. These meta tags are used by Google Search and most social websites to describe and display your content correctly (title, description, keyword tags, images, videos, product, author profile / authorship, publisher, etc.). [See a few examples from Google Search / Google+, Facebook, Twitter, Pinterest, StumbleUpon, Tumblr, and others](/extend/plugins/wpsso/screenshots/). 
 
 WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/types/summary-card), [Large Image Summary](https://dev.twitter.com/docs/cards/large-image-summary-card), [Photo](https://dev.twitter.com/docs/cards/types/photo-card), [Gallery](https://dev.twitter.com/docs/cards/types/gallery-card), [Player](https://dev.twitter.com/docs/cards/types/player-card) and [Product](https://dev.twitter.com/docs/cards/types/product-card) Twitter Cards, including configurable image sizes for each card type.
 
