@@ -258,8 +258,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							will take precedence.';
 							break;
 						case 'tooltip-og_def_img_on_index':
-							$text = 'Check this option if you would like to use the default image on index webpages (homepage, archives, categories, author, etc.). 
-							If you leave this unchecked, '.$this->p->cf['full'].' will attempt to use image(s) from the first entry on the webpage (default is checked).';
+							$text = 'Check this option if you would like to use the default image on index webpages (<strong>non-static</strong> 
+							homepage, archives, categories, author, etc.). If you leave this unchecked, '.$this->p->cf['full'].' will attempt to 
+							use image(s) from the first entry on the webpage (default is checked).';
 							break;
 						case 'tooltip-og_def_img_on_search':
 							$text = 'Check this option if you would like to use the default image on search result webpages as well (default is checked).';
@@ -354,10 +355,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-og_def_author_on_index':
 							$text = 'Check this option if you would like to force the <em>Default Author</em> on index webpages 
-							(homepage, archives, categories, author, etc.). 
-							If this option is checked, index webpages will be labeled as a an \'article\' with authorship 
-							attributed to the <em>Default Author </em> (default is unchecked).
-							If the <em>Default Author</em> is <em>[none]</em>, then the index webpages will be labeled as a \'website\'.';
+							(<strong>non-static</strong> homepage, archives, categories, author, etc.). If this option is checked, 
+							index webpages will be labeled as a an \'article\' with authorship attributed to the <em>Default Author</em>
+							(default is unchecked). If the <em>Default Author</em> is <em>[none]</em>, then the index webpages will be 
+							labeled as a \'website\'.';
 							break;
 						case 'tooltip-og_def_author_on_search':
 							$text = 'Check this option if you would like to force the <em>Default Author</em> on search result webpages as well.
@@ -591,7 +592,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-google_def_author_on_index':
 							$text = 'Check this option if you would like to force the <em>Default Author</em> on index webpages 
-							(homepage, archives, categories, author, etc.).';
+							(<strong>non-static</strong> homepage, archives, categories, author, etc.).';
 							break;
 						case 'tooltip-google_def_author_on_search':
 							$text = 'Check this option if you would like to force the <em>Default Author</em> on search result webpages as well.';
@@ -694,9 +695,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'Individual social sharing button(s) must also be enabled below.';
 							break;
 						case 'tooltip-buttons_on_index':
-							$text = 'Add the following social sharing buttons to each entry of an index webpage (non-static homepage, category, archive, etc.). 
-							By Default, social sharing buttons are <em>not</em> included on index webpages (default is unchecked).
-							You must also enable the buttons you want to display by choosing to show the buttons on the content or excerpt.';
+							$text = 'Add the following social sharing buttons to each entry of an index webpage (<strong>non-static</strong> 
+							homepage, category, archive, etc.). By Default, social sharing buttons are <em>not</em> included on index webpages 
+							(default is unchecked). You must also enable the buttons you want to display by choosing to show the buttons on 
+							the content or excerpt.';
 							break;
 						case 'tooltip-buttons_on_front':
 							$text = 'If a static Post or Page has been chosen for the homepage, add the following

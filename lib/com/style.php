@@ -18,7 +18,8 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
 
-			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_styles' ) );
+			if ( is_admin() )
+				add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_styles' ) );
 		}
 
 		public function admin_enqueue_styles( $hook ) {

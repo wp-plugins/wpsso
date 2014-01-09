@@ -299,9 +299,15 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 		}
 
 		public static function load_lib( $sub, $id ) {
-			if ( file_exists( WPSSO_PLUGINDIR.'lib/'.$sub.'/'.$id.'.php' ) )
-				require_once( WPSSO_PLUGINDIR.'lib/'.$sub.'/'.$id.'.php' );
+			if ( empty( $sub ) && ! empty( $id ) )
+				$filepath = WPSSO_PLUGINDIR.'lib/'.$id.'.php';
+			elseif ( ! empty( self::$cf['lib'][$sub][$id] ) )
+				$filepath = WPSSO_PLUGINDIR.'lib/'.$sub.'/'.$id.'.php';
+			else return false;
+			if ( file_exists( $filepath ) ) 
+				require_once( $filepath );
 		}
+
 	}
 }
 
