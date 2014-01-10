@@ -16,8 +16,8 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 = Summary of Features =
 
-* Open Graph (Facebook, G+, LinkedIn, etc.), Rich Pin (Pinterest), and Twitter Card (Twitter) meta tags.
-* Configurable image sizes and descriptions depending on context (various meta tags and social buttons).
+* Open Graph (Facebook, Google+, LinkedIn, etc.), Rich Pin (Pinterest), and Twitter Card (Twitter) meta tags.
+* Configurable image sizes and descriptions depending on context.
 * Configurable contact fields for user profile pages.
 * **Integrates with 3rd party plugins and services** for additional image, video, product, and content information:
   * NextGEN Gallery
@@ -162,6 +162,10 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 20. Screenshot 18 : An Example Twitter 'Product' Card from a WooCommerce Product Page
 
 == Changelog ==
+
+= Version 6.21.1 =
+
+* Added the WPSSO_META_NAME_ALT, WPSSO_OPTIONS_NAME_ALT, WPSSO_SITE_OPTIONS_NAME_ALT constants to allow for settings migration.
 
 = Version 1.21.0 =
 
