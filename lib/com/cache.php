@@ -219,7 +219,7 @@ if ( ! class_exists( 'SucomCache' ) ) {
 					elseif ( filemtime( $cache_file ) < time() - $file_expire )
 						$this->p->debug->log( $cache_file.' is expired (file expiration = '.$file_expire.').' );
 					elseif ( ! $fh = @fopen( $cache_file, 'rb' ) )
-						$this->p->notice->err( 'Failed to open <u>'.$cache_file.'</u> for reading.' );
+						$this->p->notice->err( 'Error reading <u>'.$cache_file.'</u>.' );
 					else {
 						$cache_data = fread( $fh, filesize( $cache_file ) );
 						fclose( $fh );

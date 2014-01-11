@@ -93,6 +93,18 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				break;
 			}
 		}
+
+		public function get_topics() {
+			if ( ( $topics = file( WPSSO_TOPICS_LIST, 
+				FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES ) ) === false ) {
+				$this->p->notice->err( 'Error reading <u>'.WPSSO_TOPICS_LIST.'</u>.' );
+				return $topics;
+			}
+			$topics = apply_filters( $this->p->cf['lca'].'_topics', $topics );
+			natsort( $topics );
+			$topics = array_merge( array( 'none' ), $topics );	// after sorting the array, put 'none' first
+			return $topics;
+		}
 	}
 }
 

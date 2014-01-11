@@ -163,10 +163,9 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 6.21.1 =
+= Version 6.22.0 =
 
 * Added the WPSSO_META_NAME_ALT, WPSSO_OPTIONS_NAME_ALT, WPSSO_SITE_OPTIONS_NAME_ALT constants to allow for settings migration.
-* Added "Fitness" to the website topic list.
 
 = Version 1.21.0 =
 
