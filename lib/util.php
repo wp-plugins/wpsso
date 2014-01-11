@@ -95,6 +95,17 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		}
 
 		public function get_topics() {
+			if ( $this->p->is_avail['cache']['transient'] ) {
+				$cache_salt = __METHOD__.'('.WPSSO_TOPICS_LIST.')';
+				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
+				$cache_type = 'object cache';
+				$this->p->debug->log( $cache_type.': topics array transient salt '.$cache_salt );
+				$topics = get_transient( $cache_id );
+				if ( is_array( $topics ) ) {
+					$this->p->debug->log( $cache_type.': topics array retrieved from transient '.$cache_id );
+					return $topics;
+				}
+			}
 			if ( ( $topics = file( WPSSO_TOPICS_LIST, 
 				FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES ) ) === false ) {
 				$this->p->notice->err( 'Error reading <u>'.WPSSO_TOPICS_LIST.'</u>.' );
@@ -103,6 +114,11 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			$topics = apply_filters( $this->p->cf['lca'].'_topics', $topics );
 			natsort( $topics );
 			$topics = array_merge( array( 'none' ), $topics );	// after sorting the array, put 'none' first
+
+			if ( ! empty( $cache_id ) ) {
+				set_transient( $cache_id, $topics, $this->p->cache->object_expire );
+				$this->p->debug->log( $cache_type.': topics array saved to transient '.$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
+			}
 			return $topics;
 		}
 	}
