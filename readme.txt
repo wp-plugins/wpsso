@@ -163,10 +163,13 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 6.21.1 =
+= Version 1.22.0 =
 
 * Added the WPSSO_META_NAME_ALT, WPSSO_OPTIONS_NAME_ALT, WPSSO_SITE_OPTIONS_NAME_ALT constants to allow for settings migration.
-* Added "Fitness" to the website topic list.
+* Added an WPSSO_TOPICS_LIST constant, with a default value of WPSSO_PLUGINDIR.'share/topics.txt'.
+* Created a new `share/topics.txt` text file by merging the Wikipedia and StumbleUpon website lists.
+* Expanded the "Website Topic" selection using the new `share/topics.txt` list.
+* Moved the `sucom_get_lang()` function to `SucomUtil::get_lang()`.
 
 = Version 1.21.0 =
 
