@@ -166,6 +166,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 = Version 6.21.1 =
 
 * Added the WPSSO_META_NAME_ALT, WPSSO_OPTIONS_NAME_ALT, WPSSO_SITE_OPTIONS_NAME_ALT constants to allow for settings migration.
+* Added "Fitness" to the website topic list.
 
 = Version 1.21.0 =
 
@@ -187,17 +188,9 @@ Please note that support for [the NextGEN Gallery plugin](http://wordpress.org/p
 * Moved `show_sharing()` from lib/postmeta.php to lib/social.php.
 * Renamed the 'WpssoPlugin' class to 'Wpsso'.
 
-= Version 0.20.1 =
-
-* Fixed a possible error condition in lib/media.php by adding an extra check, to make sure the size provided to the `image_constrain_size_for_editor()` filter is a string and not an array().
-
 == Upgrade Notice ==
 
 = 1.21.0 =
 
 Moved NextGEN Gallery support to Pro version, added support for JetPack Photon, added support for WordPress SEO "Force Transport" option.
-
-= 0.20.1 =
-
-* Fixed a possible error condition in lib/media.php by adding an extra check, to make sure the size provided to the image_constrain_size_for_editor() filter is a string and not an array().
 
