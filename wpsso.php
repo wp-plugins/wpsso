@@ -9,7 +9,7 @@ License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
 Version: 1.22.0
 
-Copyright 2012-2013 - Jean-Sebastien Morisset - http://surniaulula.com/
+Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
 
 if ( ! defined( 'ABSPATH' ) ) 
