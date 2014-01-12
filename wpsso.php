@@ -22,7 +22,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		// class object variables
 		public $debug, $util, $notice, $opt, $user, $media, $meta,
 			$style, $script, $cache, $admin, $head, $og, $webpage,
-			$social, $seo, $pro, $update, $reg;
+			$social, $seo, $pro, $update, $reg, $msg;
 
 		public $cf = array();		// config array defined in construct method
 		public $is_avail = array();	// assoc array for other plugin checks
