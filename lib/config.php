@@ -369,19 +369,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			if ( is_admin() ) {
 				require_once( $plugin_dir.'lib/messages.php' );
 				require_once( $plugin_dir.'lib/admin.php' );
-
-				// setting and submenu classes extend lib/admin.php, and objects are created by lib/admin.php
-				// some setting classes extend submenu classes, so load the submenu array first
-				foreach ( array( 'submenu', 'setting' ) as $sub )
-					foreach ( $cf['lib'][$sub] as $id => $name )
-						if ( file_exists( $plugin_dir.'lib/'.$sub.'/'.$id.'.php' ) )
-							require_once( $plugin_dir.'lib/'.$sub.'/'.$id.'.php' );
-
-				// load the network settings if we're a multisite
-				if ( is_multisite() )
-					foreach ( $cf['lib']['site_submenu'] as $id => $name )
-						require_once( $plugin_dir.'lib/site_submenu/'.$id.'.php' );
-
 				require_once( $plugin_dir.'lib/com/form.php' );
 				require_once( $plugin_dir.'lib/ext/parse-readme.php' );
 			}
