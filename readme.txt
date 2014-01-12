@@ -170,6 +170,9 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 * Created a new `share/topics.txt` text file by merging the Wikipedia and StumbleUpon website lists.
 * Expanded the "Website Topic" selection using the new `share/topics.txt` list.
 * Moved the `sucom_get_lang()` function to `SucomUtil::get_lang()`.
+* Moved the default options variable definition from lib/options.php to lib/config.php.
+* Added an `sanitize_option_value()` method in the WpssoUtil class.
+* Added an 'wpsso_option_type' filter to optimize sanitation of option values.
 
 = Version 1.21.0 =
 
