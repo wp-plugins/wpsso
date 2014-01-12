@@ -104,7 +104,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 					( defined( 'WPSSO_RESET_ON_ACTIVATE' ) && WPSSO_RESET_ON_ACTIVATE ) ) {
 
 					$this->options = $this->opt->get_defaults();
-					$this->options['options_version'] = $this->opt->options_version;
+					$this->options['options_version'] = $this->cf['opt']['version'];
 					delete_option( WPSSO_OPTIONS_NAME );
 					add_option( WPSSO_OPTIONS_NAME, $this->options, null, 'yes' );
 					$this->debug->log( 'default options have been added to the database' );
