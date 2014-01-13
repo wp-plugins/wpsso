@@ -165,6 +165,8 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Version 1.22.0 =
 
+The Website Topic list in the SSO General settings has been expanded, and the new topics list is now located in a `share/topics.txt` text file for easier maintenance.
+
 * Added the WPSSO_META_NAME_ALT, WPSSO_OPTIONS_NAME_ALT, WPSSO_SITE_OPTIONS_NAME_ALT constants to allow for settings migration.
 * Added an WPSSO_TOPICS_LIST constant, with a default value of WPSSO_PLUGINDIR.'share/topics.txt'.
 * Created a new `share/topics.txt` text file by merging the Wikipedia and StumbleUpon website lists.
@@ -173,6 +175,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 * Moved the default options variable definition from lib/options.php to lib/config.php.
 * Added an `sanitize_option_value()` method in the WpssoUtil class.
 * Added an 'wpsso_option_type' filter to optimize sanitation of option values.
+* Small improvements to the update check code.
 
 = Version 1.21.0 =
 
