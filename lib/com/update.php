@@ -13,7 +13,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 	class SucomUpdate {
 	
 		private $p;
-		private static $umsg = '';
+		private static $umsg = null;
 	
 		public $json_url = '';
 		public $json_expire = 3600;	// cache retrieved update json for 1 hour
@@ -44,7 +44,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 
 		public static function get_umsg( $lca ) {
-			if ( self::$umsg === '' ) {
+			if ( self::$umsg === null ) {
 				self::$umsg = base64_decode( get_option( $lca.'_umsg' ) );
 				if ( empty( self::$umsg ) )
 					self::$umsg = false;
