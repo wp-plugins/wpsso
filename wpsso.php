@@ -22,7 +22,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		// class object variables
 		public $debug, $util, $notice, $opt, $user, $media, $meta,
 			$style, $script, $cache, $admin, $head, $og, $webpage,
-			$social, $seo, $pro, $update, $reg, $msg;
+			$social, $seo, $pro, $update, $reg, $msgs;
 
 		public $cf = array();		// config array defined in construct method
 		public $is_avail = array();	// assoc array for other plugin checks
@@ -62,14 +62,15 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		}
 
 		public function set_objects( $activate = false ) {
-
 			/*
 			 * basic plugin setup (settings, check, debug, notices, utils)
 			 */
 			$this->set_options();
-			$this->update_error = get_option( $this->cf['lca'].'_update_error' );
+			if ( ! empty( $this->options['plugin_tid'] ) )
+				require_once( WPSSO_PLUGINDIR.'lib/com/update.php' );
+
 			$this->check = new WpssoCheck( $this );
-			$this->is_avail = $this->check->get_avail();
+			$this->is_avail = $this->check->get_avail();	// uses options
 			if ( $this->is_avail['aop'] ) 
 				$this->cf['full'] = $this->cf['full_pro'];
 
@@ -125,7 +126,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$this->head = new WpssoHead( $this );		// open graph and twitter card meta tags
 
 			if ( is_admin() ) {
-				$this->msg = new WpssoMessages( $this );	// admin tooltip messages
+				$this->msgs = new WpssoMessages( $this );	// admin tooltip messages
 				$this->admin = new WpssoAdmin( $this );		// admin menus and page loader
 			}
 
@@ -138,8 +139,10 @@ if ( ! class_exists( 'Wpsso' ) ) {
 
 			do_action( $this->cf['lca'].'_init_pre_aop' );
 
-			if ( $this->is_avail['aop'] )
-				$this->pro = new WpssoAddonPro( $this );
+			if ( ! empty( $this->options['plugin_tid'] ) ) {
+				if ( $this->is_avail['aop'] )
+					$this->pro = new WpssoAddonPro( $this );
+			}
 
 			/*
 			 * check and upgrade options if necessary
@@ -152,11 +155,9 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			 * configure class properties based on plugin settings
 			 */
 			$this->cache->object_expire = $this->options['plugin_object_cache_exp'];
-			if ( $this->check->is_aop() ) {
-				if ( $this->debug->is_on( 'wp' ) === true ) 
-					$this->cache->file_expire = WPSSO_DEBUG_FILE_EXP;
-				else $this->cache->file_expire = $this->options['plugin_file_cache_hrs'] * 60 * 60;
-			} else $this->cache->file_expire = 0;
+			if ( $this->debug->is_on( 'wp' ) === true ) 
+				$this->cache->file_expire = WPSSO_DEBUG_FILE_EXP;
+			else $this->cache->file_expire = $this->options['plugin_file_cache_hrs'] * 60 * 60;
 			$this->is_avail['cache']['file'] = $this->cache->file_expire > 0 ? true : false;
 
 			// set the object cache expiration value
@@ -176,11 +177,10 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			if ( ! empty( $this->options['plugin_tid'] ) ) {
 				add_filter( $this->cf['lca'].'_ua_plugin', array( &$this, 'filter_ua_plugin' ), 10, 1 );
 				add_filter( $this->cf['lca'].'_installed_version', array( &$this, 'filter_installed_version' ), 10, 1 );
-				require_once( WPSSO_PLUGINDIR.'lib/com/update.php' );
 				$this->update = new SucomUpdate( $this );
 				if ( is_admin() ) {
-					// if update_hours * 2 has passed without an update check, then force one now
-					$last_update = get_option( $this->cf['lca'].'_update_time' );
+					// if update_hours * 2 has passed without an update, then force one now
+					$last_update = get_option( $this->cf['lca'].'_utime' );
 					if ( empty( $last_update ) || 
 						( ! empty( $this->cf['update_hours'] ) && $last_update + ( $this->cf['update_hours'] * 7200 ) < time() ) )
 							$this->update->check_for_updates();

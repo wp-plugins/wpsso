@@ -179,7 +179,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					$val = trim( wptexturize( ' '.$val.' ' ) );
 					break;
 				// must be alpha-numeric uppercase
-				case 'alucase':
+				case 'anucase':
 					if ( ! empty( $val ) && preg_match( '/[^A-Z0-9]/', $val ) ) {
 						$this->p->notice->inf( '\''.$val.'\' is not an accepted value for option \''.$key.'\''.' - '.$reset_msg, true );
 						$val = $def_val;

@@ -189,7 +189,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		public function save_site_options() {
-
 			$page = empty( $_POST['page'] ) ? 
 				key( $this->p->cf['lib']['site_submenu'] ) : $_POST['page'];
 
@@ -213,10 +212,9 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$opts = array_merge( $this->p->site_options, $opts );
 			$opts = $this->p->opt->sanitize( $opts, $def_opts );	// cleanup excess options and sanitize
 
-			if ( empty( $this->p->site_options['plugin_tid'] ) ) {
-				$this->p->update_error = '';
-				delete_option( $this->p->cf['lca'].'_update_error' );
-			}
+			if ( empty( $this->p->site_options['plugin_tid'] ) )
+				delete_option( $this->p->cf['lca'].'_umsg' );
+
 			$opts = apply_filters( $this->p->cf['lca'].'_save_site_options', $opts );
 			update_site_option( WPSSO_SITE_OPTIONS_NAME, $opts );
 
@@ -231,21 +229,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$upload_dir = wp_upload_dir();	// returns assoc array with path info
 			$user_opts = $this->p->user->get_options();
 
-			if ( ! empty( $this->p->update_error ) && empty( $this->p->options['plugin_tid'] ) ) {
-				$this->p->update_error = '';
-				delete_option( $this->p->cf['lca'].'_update_error' );
-			}
-
-			if ( ! empty( $_GET['settings-updated'] ) ) {
-
-				// if the pro version plugin is installed, not active, and we have an
-				// Authentication ID, then check for updates
-				if ( $this->p->is_avail['aop'] && 
-					! $this->p->check->is_aop() && 
-					! empty( $this->p->options['plugin_tid'] ) )
-						$this->p->update->check_for_updates();
-
-			} elseif ( ! empty( $_GET['action'] ) ) {
+			if ( ! empty( $_GET['action'] ) ) {
 
 				if ( empty( $_GET[ WPSSO_NONCE ] ) )
 					$this->p->debug->log( 'Nonce token validation query field missing.' );
@@ -283,7 +267,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			// add child metaboxes first, since they contain the default reset_metabox_prefs()
 			$this->p->admin->submenu[$this->menu_id]->add_meta_boxes();
 
-			if ( ! $this->p->check->is_aop() && ( empty( $this->p->options['plugin_tid'] ) || ! empty( $this->p->update_error ) ) ) {
+			if ( empty( $this->p->options['plugin_tid'] ) || ! $this->p->check->is_aop() ) {
 				add_meta_box( $this->pagehook.'_purchase', __( 'Pro Version', WPSSO_TEXTDOM ), array( &$this, 'show_metabox_purchase' ), $this->pagehook, 'side' );
 				add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_purchase', array( &$this, 'add_class_postbox_highlight_side' ) );
 				$this->p->user->reset_metabox_prefs( $this->pagehook, array( 'purchase' ), null, 'side', true );
@@ -500,7 +484,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					$status = $arr['status'];
 				if ( ! empty( $status ) ) {
 					$tooltip_text = empty( $arr['tooltip'] ) ? '' : $arr['tooltip'];
-					$tooltip_text = $this->p->msg->get( 'tooltip-side-'.$name, $tooltip_text, 'sucom_tooltip_side' );
+					$tooltip_text = $this->p->msgs->get( 'tooltip-side-'.$name, $tooltip_text, 'sucom_tooltip_side' );
 					echo '<tr><td class="side'.( empty( $class ) ? '' : ' '.$class ).'">'.$tooltip_text.
 						( $status == 'rec' ? '<strong>'.$name.'</strong>' : $name ).'</td>'.$status_images[$status].'</tr>';
 				}
@@ -509,7 +493,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		public function show_metabox_purchase() {
 			echo '<table class="sucom-setting"><tr><td>';
-			echo $this->p->msg->get( 'side-purchase' );
+			echo $this->p->msgs->get( 'side-purchase' );
 			echo '<p>Thank you,</p>';
 			echo '<p class="sig">js.</p>';
 			echo '<p class="centered">';
@@ -523,14 +507,14 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		public function show_metabox_thankyou() {
 			echo '<table class="sucom-setting"><tr><td>';
-			echo $this->p->msg->get( 'side-thankyou' );
+			echo $this->p->msgs->get( 'side-thankyou' );
 			echo '<p class="sig">js.</p>';
 			echo '</td></tr></table>';
 		}
 
 		public function show_metabox_help() {
 			echo '<table class="sucom-setting"><tr><td>';
-			echo $this->p->msg->get( 'side-help' );
+			echo $this->p->msgs->get( 'side-help' );
 			echo '</td></tr></table>';
 		}
 

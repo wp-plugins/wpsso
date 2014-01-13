@@ -114,7 +114,7 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 		protected function get_rows_header( $post_id ) {
 			$ret = array();
 
-			$ret[] = '<td colspan="2" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>';
+			$ret[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$ret[] = $this->p->util->th( 'Topic', 'medium', 'postmeta-og_art_section', $this->post_info ).
 			'<td class="blank">'.$this->p->options['og_art_section'].'</td>';
@@ -184,7 +184,7 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 			$twitter_cap_len = $this->p->util->tweet_max_len( get_permalink( $post_id ) );
 			list( $pid, $video_url ) = $this->get_social_vars( $post_id );
 
-			$ret[] = '<td colspan="2" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>';
+			$ret[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$th = $this->p->util->th( 'Pinterest Image Caption', 'medium', 'postmeta-pin_desc' );
 			if ( ! empty( $pid ) ) {

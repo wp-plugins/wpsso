@@ -50,7 +50,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		public function show_metabox_contact() {
 			echo '<table class="sucom-setting" style="padding-bottom:0"><tr><td>'.
-			$this->p->msg->get( 'contact-info' ).'</td></tr></table>';
+			$this->p->msgs->get( 'contact-info' ).'</td></tr></table>';
 			$show_tabs = array( 
 				'custom' => 'Custom Contacts',
 				'builtin' => 'Built-In Contacts',
@@ -63,7 +63,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		public function show_metabox_taglist() {
 			echo '<table class="sucom-setting" style="padding-bottom:0;"><tr><td>'.
-			$this->p->msg->get( 'taglist-info' ).'</td></tr></table>';
+			$this->p->msgs->get( 'taglist-info' ).'</td></tr></table>';
 
 			echo '<table class="sucom-setting" style="padding-bottom:0;">';
 			foreach ( $this->get_more_taglist() as $num => $row ) 
@@ -86,7 +86,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 				case 'custom' :
 
 					if ( ! $this->p->check->is_aop() )
-						$ret[] = '<td colspan="4" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>';
+						$ret[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 					$ret[] = '<td></td>'.
 					$this->p->util->th( 'Show', 'left checkbox' ).
@@ -126,7 +126,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 				case 'builtin' :
 
 					if ( ! $this->p->check->is_aop() )
-						$ret[] = '<td colspan="4" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>';
+						$ret[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 					$ret[] = '<td></td>'.
 					$this->p->util->th( 'Show', 'left checkbox' ).
@@ -164,7 +164,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 					$ret[] = $this->p->util->th( 'Pro Version Authentication ID', 'highlight', 'plugin_tid' ).'<td>'.$input.'</td>';
 
 					if ( $this->p->is_avail['aop'] )
-						$ret[] = '<th></th><td>'.$this->p->msg->get( 'auth-id-info' ).'</td>';
+						$ret[] = '<th></th><td>'.$this->p->msgs->get( 'auth-id-info' ).'</td>';
 
 					$ret[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_preserve' ).'</td>';
@@ -225,7 +225,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 					$post_type->label.' '.( empty( $post_type->description ) ? '' : '('.$post_type->description.')' ).'</p>';
 
 			return array(
-				'<td colspan="2" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>',
+				'<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>',
 
 				$this->p->util->th( 'Check for Wistia Videos', null, 'plugin_wistia_api' ).
 				'<td class="blank">'.$this->form->get_fake_checkbox( 'plugin_wistia_api' ).'</td>',
@@ -252,12 +252,12 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[ $num % $per_col ] = '';	// initialize the array
 				$rows[ $num % $per_col ] .= $cell;	// create the html for each row
 			}
-			return array_merge( array( '<td colspan="'.($og_cols * 2).'" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>' ), $rows );
+			return array_merge( array( '<td colspan="'.($og_cols * 2).'" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>' ), $rows );
 		}
 
 		protected function get_more_cache() {
 			return array(
-				'<td colspan="2" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>',
+				'<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>',
 
 				$this->p->util->th( 'Social File Cache Expiry', 'highlight', 'plugin_file_cache_hrs' ).
 				'<td class="blank">'.$this->form->get_hidden( 'plugin_file_cache_hrs' ). 
@@ -270,7 +270,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		protected function get_more_apikeys() {
 			return array(
-				'<td colspan="2" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>',
+				'<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>',
 
 				$this->p->util->th( 'Bit.ly Username', null, 'plugin_bitly_login' ).
 				'<td class="blank mono">'.$this->form->get_hidden( 'plugin_bitly_login' ).
@@ -292,7 +292,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		protected function get_more_rewrite() {
 			return array(
-				'<td colspan="2" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>',
+				'<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>',
 
 				$this->p->util->th( 'URL Length to Shorten', null, 'plugin_min_shorten' ). 
 				'<td class="blank">'.$this->form->get_hidden( 'plugin_min_shorten' ).

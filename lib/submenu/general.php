@@ -63,7 +63,7 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>Width '.$this->form->get_input( 'og_img_width', 'short' ).' x '.
 					'Height '.$this->form->get_input( 'og_img_height', 'short' ).' &nbsp; '.
 					'Cropped '.$this->form->get_checkbox( 'og_img_crop' ).' &nbsp; '.
-					 'Auto-Resize Images'.$this->p->msg->get( 'tooltip-og_img_resize' ).
+					 'Auto-Resize Images'.$this->p->msgs->get( 'tooltip-og_img_resize' ).
 					 $this->form->get_checkbox( 'og_img_resize' ).'</td>';
 	
 					$id_pre = array( 'wp' => 'Media Library' );
@@ -204,7 +204,7 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		protected function get_rows_twitter() {
 			return array(
-				'<td colspan="2" align="center">'.$this->p->msg->get( 'pro-feature-msg' ).'</td>',
+				'<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>',
 
 				$this->p->util->th( 'Enable Twitter Cards', 'highlight', 'tc_enable' ).
 				'<td class="blank">'.$this->form->get_fake_checkbox( 'tc_enable' ).'</td>',

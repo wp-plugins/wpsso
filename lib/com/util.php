@@ -475,11 +475,11 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		// table header with optional tooltip text
 		public function th( $title = '', $class = '', $id = '', $atts = null ) {
-			if ( is_object( $this->p->msg ) ) {
+			if ( ! empty( $this->p->msgs ) ) {
 				if ( empty( $id ) ) 
 					$tooltip_idx = 'tooltip-'.$title;
 				else $tooltip_idx = 'tooltip-'.$id;
-				$tooltip_text = $this->p->msg->get( $tooltip_idx, $atts );	// text is esc_attr()
+				$tooltip_text = $this->p->msgs->get( $tooltip_idx, $atts );	// text is esc_attr()
 			}
 			return '<th'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
