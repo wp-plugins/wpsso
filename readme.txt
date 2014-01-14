@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.8
-Stable Tag: 1.21.0
+Stable Tag: 1.22.0
 
 Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
 
@@ -195,9 +195,13 @@ Please note that support for [the NextGEN Gallery plugin](http://wordpress.org/p
 * Added an 'wpsso_load_lib' action to allow 3rd party plugins to provide library files.
 * Moved several methods from lib/util.php to lib/com/util.php.
 * Moved `show_sharing()` from lib/postmeta.php to lib/social.php.
-* Renamed the 'WpssoPlugin' class to 'Wpsso'.
+* Renamed the 'WpssoPlugin' main plugin class to 'Wpsso'.
 
 == Upgrade Notice ==
+
+= 1.22.0 =
+
+Expanded the Website Topic list in the SSO General settings, new constants, small code improvements.
 
 = 1.21.0 =
 
