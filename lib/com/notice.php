@@ -2,7 +2,7 @@
 /*
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
-Copyright 2012-2013 - Jean-Sebastien Morisset - http://surniaulula.com/
+Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
 
 if ( ! defined( 'ABSPATH' ) ) 
@@ -81,8 +81,9 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 				) );
 				$this->trunc( $type );
 				if ( $type == 'err' ) {
-					if ( ! empty( $this->p->update_error ) )
-						$msg_arr[] = $this->p->update_error;
+					if ( class_exists( 'SucomUpdate' ) &&
+						( $umsg = SucomUpdate::get_umsg( $this->p->cf['lca'] ) ) !== false )
+							$msg_arr[] = $umsg;
 				}
 				if ( ! empty( $msg_arr ) ) {
 					if ( $type == 'nag' ) {
@@ -123,11 +124,11 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 								break;
 							case 'err' :
 								echo '<div class="error"><div style="float:left;"><p><b>', 
-									$this->p->cf['menu'], ' Warning</b> :</p></div><p>', $msg, '</p></div>', "\n";
+									$this->p->cf['menu'], ' Warning</b> :</p></div> <p>', $msg, '</p></div>', "\n";
 								break;
 							case 'inf' :
 								echo '<div class="updated fade"><div style="float:left;"><p><b>', 
-									$this->p->cf['menu'], ' Info</b> :</p></div><p>', $msg, '</p></div>', "\n";
+									$this->p->cf['menu'], ' Info</b> :</p></div> <p>', $msg, '</p></div>', "\n";
 								break;
 						}
 					}
@@ -136,4 +137,5 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 		}
 	}
 }
+
 ?>

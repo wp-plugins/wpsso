@@ -2,7 +2,7 @@
 /* 
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
-Copyright 2013 - Jean-Sebastien Morisset - http://surniaulula.com/
+Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
 
 if ( ! defined( 'ABSPATH' ) ) 
@@ -13,6 +13,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 	class SucomUpdate {
 	
 		private $p;
+		private static $umsg = null;
 	
 		public $json_url = '';
 		public $json_expire = 3600;	// cache retrieved update json for 1 hour
@@ -39,16 +40,24 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			$this->sched_hours = $this->p->cf['update_hours'];		// 12
 			$this->sched_name = 'every'.$this->sched_hours.'hours';		// every12hours
 			$this->option_name = 'external_updates-'.$this->slug;		// external_updates-nextgen-facebook
-
 			$this->install_hooks();
 		}
-	
+
+		public static function get_umsg( $lca ) {
+			if ( self::$umsg === null ) {
+				self::$umsg = base64_decode( get_option( $lca.'_umsg' ) );
+				if ( empty( self::$umsg ) )
+					self::$umsg = false;
+			}
+			return self::$umsg;
+		}
+
 		public function install_hooks() {
 			add_filter( 'plugins_api', array( &$this, 'inject_data' ), 10, 3 );
-			add_filter( 'site_transient_update_plugins', array(&$this,'inject_update'));
+			add_filter( 'site_transient_update_plugins', array( &$this, 'inject_update' ) );
 
-			// in a multisite environment, each site will (unfortunately) check for updates
-			if ($this->sched_hours > 0) {
+			// in a multisite environment, each site checks for updates
+			if ( $this->sched_hours > 0 ) {
 				add_filter( 'cron_schedules', array( &$this, 'custom_schedule' ) );
 				add_action( $this->cron_hook, array( &$this, 'check_for_updates' ) );
 				$schedule = wp_get_schedule( $this->cron_hook );
@@ -71,7 +80,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		    	$found = ( $action == 'plugin_information' ) && isset( $args->slug ) && ( $args->slug == $this->slug );
 			if ( ! $found ) return $result;
 			$plugin_data = $this->get_json();
-			if ( $plugin_data ) 
+			if ( ! empty( $plugin_data ) ) 
 				return $plugin_data->json_to_wp();
 			return $result;
 		}
@@ -115,10 +124,9 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 	
 		public function get_update() {
 			$plugin_data = $this->get_json();
-			if ( $plugin_data == null ) 
+			if ( empty( $plugin_data ) ) 
 				return null;
-			$plugin_data = SucomPluginUpdate::from_plugin_data( $plugin_data );
-			return $plugin_data;
+			return SucomPluginUpdate::from_plugin_data( $plugin_data );
 		}
 	
 		public function get_json( $query = array() ) {
@@ -138,10 +146,13 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			$cache_id = $this->lca.'_'.md5( $cache_salt );		// use lca prefix for plugin clear cache
 			$cache_type = 'object cache';
 			$this->p->debug->log( $cache_type.': plugin data transient salt '.$cache_salt );
-			$plugin_data = get_transient( $cache_id );
-			if ( $plugin_data !== false ) {
-				$this->p->debug->log( $cache_type.': plugin data retrieved from transient '.$cache_id );
-				return $plugin_data;
+			$last_update = get_option( $this->lca.'_utime' );
+			if ( $last_update !== false ) {
+				$plugin_data = get_transient( $cache_id );
+				if ( $plugin_data !== false ) {
+					$this->p->debug->log( $cache_type.': plugin data retrieved from transient '.$cache_id );
+					return $plugin_data;
+				}
 			}
 
 			$ua = 'WordPress/'.$wp_version.' ('.( apply_filters( $this->lca.'_ua_plugin', 
@@ -162,21 +173,19 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				&& ! empty( $result['body'] ) ) {
 	
 				if ( ! empty( $result['headers']['x-smp-error'] ) ) {
-					$error_msg = json_decode( $result['body'] );
-					$this->p->update_error = $error_msg;
-					update_option( $this->lca.'_update_error', $error_msg );
+					self::$umsg = json_decode( $result['body'] );
+					update_option( $this->lca.'_umsg', base64_encode( self::$umsg ) );
 				} else {
-					$this->p->update_error = '';
-					delete_option( $this->lca.'_update_error' );
+					self::$umsg = false;
+					delete_option( $this->lca.'_umsg' );
 					$plugin_data = SucomPluginData::from_json( $result['body'] );
 				}
 			}
 
 			$this->update_timestamp = time();
-			update_option( $this->lca.'_update_time', $this->update_timestamp );
+			update_option( $this->lca.'_utime', $this->update_timestamp );
 
-			// $plugin_data is null on wp_remote_get() failure; cache it anyway
-			set_transient( $cache_id, $plugin_data, $this->json_expire );
+			set_transient( $cache_id, ( $plugin_data === null ? '' : $plugin_data ), $this->json_expire );
 			$this->p->debug->log( $cache_type.': plugin data saved to transient '.$cache_id.' ('.$this->json_expire.' seconds)');
 
 			return $plugin_data;
@@ -218,7 +227,8 @@ if ( ! class_exists( 'SucomPluginData' ) ) {
 	
 		public static function from_json( $json ) {
 			$json_data = json_decode( $json );
-			if ( empty( $json_data ) || ! is_object( $json_data ) ) return null;
+			if ( empty( $json_data ) || ! is_object( $json_data ) ) 
+				return null;
 			$exists = isset( $json_data->name ) && !empty( $json_data->name )
 				&& isset( $json_data->version ) && !empty( $json_data->version );
 			if ( ! $exists ) return null;
@@ -277,9 +287,9 @@ if ( ! class_exists( 'SucomPluginUpdate' ) ) {
 		public $download_url;
 		public $upgrade_notice;
 	
-		public function from_json($json){
+		public function from_json( $json ) {
 			$plugin_data = SucomPluginData::from_json( $json );
-			if ( $plugin_data != null ) 
+			if ( $plugin_data !== null ) 
 				return self::from_plugin_data( $plugin_data );
 			else return null;
 		}

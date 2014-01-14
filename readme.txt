@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.8
-Stable Tag: 1.21.0
+Stable Tag: 1.22.0
 
 Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
 
@@ -16,7 +16,7 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 = Summary of Features =
 
-* Open Graph (Facebook, Google+, LinkedIn, etc.), Rich Pin (Pinterest), and Twitter Card (Twitter) meta tags.
+* Facebook / Google+ / LinkedIn / etc. Open Graph, Pinterest Rich Pin, and Twitter Card meta tags.
 * Configurable image sizes and descriptions depending on context.
 * Configurable contact fields for user profile pages.
 * **Integrates with 3rd party plugins and services** for additional image, video, product, and content information:
@@ -165,11 +165,17 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Version 1.22.0 =
 
+The Website Topic list in the SSO General settings has been expanded, and the new topics list is now located in a `share/topics.txt` text file for easier maintenance.
+
 * Added the WPSSO_META_NAME_ALT, WPSSO_OPTIONS_NAME_ALT, WPSSO_SITE_OPTIONS_NAME_ALT constants to allow for settings migration.
 * Added an WPSSO_TOPICS_LIST constant, with a default value of WPSSO_PLUGINDIR.'share/topics.txt'.
 * Created a new `share/topics.txt` text file by merging the Wikipedia and StumbleUpon website lists.
 * Expanded the "Website Topic" selection using the new `share/topics.txt` list.
 * Moved the `sucom_get_lang()` function to `SucomUtil::get_lang()`.
+* Moved the default options variable definition from lib/options.php to lib/config.php.
+* Added an `sanitize_option_value()` method in the WpssoUtil class.
+* Added an 'wpsso_option_type' filter to optimize sanitation of option values.
+* Small improvements to the update check code.
 
 = Version 1.21.0 =
 
@@ -189,9 +195,13 @@ Please note that support for [the NextGEN Gallery plugin](http://wordpress.org/p
 * Added an 'wpsso_load_lib' action to allow 3rd party plugins to provide library files.
 * Moved several methods from lib/util.php to lib/com/util.php.
 * Moved `show_sharing()` from lib/postmeta.php to lib/social.php.
-* Renamed the 'WpssoPlugin' class to 'Wpsso'.
+* Renamed the 'WpssoPlugin' main plugin class to 'Wpsso'.
 
 == Upgrade Notice ==
+
+= 1.22.0 =
+
+Expanded the Website Topic list in the SSO General settings, new constants, small code improvements.
 
 = 1.21.0 =
 

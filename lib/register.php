@@ -2,7 +2,7 @@
 /*
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
-Copyright 2013 - Jean-Sebastien Morisset - http://surniaulula.com/
+Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
 
 if ( ! defined( 'ABSPATH' ) ) 
@@ -77,8 +77,8 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 
 			// delete update related options
 			delete_option( 'external_updates-'.$cf['slug'] );
-			delete_option( $cf['lca'].'_update_error' );
-			delete_option( $cf['lca'].'_update_time' );
+			delete_option( $cf['lca'].'_umsg' );
+			delete_option( $cf['lca'].'_utime' );
 
 			// delete stored admin notices
 			foreach ( array( 'nag', 'err', 'inf' ) as $type ) {

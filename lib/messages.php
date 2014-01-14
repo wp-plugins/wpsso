@@ -2,7 +2,7 @@
 /*
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
-Copyright 2012-2013 - Jean-Sebastien Morisset - http://surniaulula.com/
+Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
 
 if ( ! defined( 'ABSPATH' ) ) 
@@ -74,7 +74,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-side-transient-cache':
 							$text = $this->p->cf['full'].' saves Open Graph, Rich Pin, Twitter Card meta tags, and social buttons to a persistant
 							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
-							$this->p->options['plugin_object_cache_exp'].' seconds (default is '.$this->p->opt->defaults['plugin_object_cache_exp'].
+							$this->p->options['plugin_object_cache_exp'].' seconds (default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).
 							' seconds). You can adjust the Transient Cache expiration value from the '.
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page, or disable it completely using an available
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
@@ -455,7 +455,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>), 
 							and Open Graph, Rich Pin, Twitter Card meta tags, and social buttons to a persistant (aka 
 							<a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. 
-							The default is '.$this->p->opt->defaults['plugin_object_cache_exp'].' seconds, and the minimum value is 
+							The default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).' seconds, and the minimum value is 
 							1 second (such a low value is not recommended).';
 							break;
 						case 'tooltip-plugin_file_cache_hrs':
@@ -475,7 +475,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'URL Rewrite' settings
 						 */
 						case 'tooltip-plugin_min_shorten':
-							$text = 'URLs shorter than this length will not be shortened (default is '.$this->p->opt->defaults['plugin_min_shorten'].').';
+							$text = 'URLs shorter than this length will not be shortened (default is '.$this->p->opt->get_defaults( 'plugin_min_shorten' ).').';
 							break;
 						case 'tooltip-plugin_cdn_urls':
 							$text = 'Rewrite image URLs in the Open Graph, Rich Pin, and Twitter Card meta tags, encoded image URLs shared by social buttons 

@@ -2,7 +2,7 @@
 /*
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
-Copyright 2012-014 - Jean-Sebastien Morisset - http://surniaulula.com/
+Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
 
 if ( ! defined( 'ABSPATH' ) ) 
@@ -475,11 +475,11 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		// table header with optional tooltip text
 		public function th( $title = '', $class = '', $id = '', $atts = null ) {
-			if ( is_object( $this->p->msg ) ) {
+			if ( ! empty( $this->p->msgs ) ) {
 				if ( empty( $id ) ) 
 					$tooltip_idx = 'tooltip-'.$title;
 				else $tooltip_idx = 'tooltip-'.$id;
-				$tooltip_text = $this->p->msg->get( $tooltip_idx, $atts );	// text is esc_attr()
+				$tooltip_text = $this->p->msgs->get( $tooltip_idx, $atts );	// text is esc_attr()
 			}
 			return '<th'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).

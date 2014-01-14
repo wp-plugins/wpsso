@@ -2,7 +2,7 @@
 /*
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
-Copyright 2012-014 - Jean-Sebastien Morisset - http://surniaulula.com/
+Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
 
 if ( ! defined( 'ABSPATH' ) ) 
@@ -120,6 +120,96 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				$this->p->debug->log( $cache_type.': topics array saved to transient '.$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
 			}
 			return $topics;
+		}
+
+		public function sanitize_option_value( $key, $val, $def_val ) {
+			$valid_types = array( 'css', 'atname', 'urlbase', 'url', 'numeric', 'posnum', 'textured', 'anucase', 'okblank', 'notblank', 'checkbox' );
+			$option_type = apply_filters( $this->p->cf['lca'].'_option_type', false, $key, $valid_types );
+			$reset_msg = __( 'resetting the option to its default value.', WPSSO_TEXTDOM );
+			$charset = get_bloginfo( 'charset' );
+			switch ( $option_type ) {
+				// don't remove / encode html tags from css
+				case 'css':
+					break;
+				default:
+					$val = stripslashes( $val );
+					$val = wp_filter_nohtml_kses( $val );
+					$val = htmlentities( $val, ENT_QUOTES, $charset, false );	// double_encode = false
+					break;
+			}
+			switch ( $option_type ) {
+				// twitter-style usernames (prepend with an at)
+				case 'atname':
+					$val = substr( preg_replace( '/[^a-z0-9_]/', '', strtolower( $val ) ), 0, 15 );
+					if ( ! empty( $val ) ) 
+						$val = '@'.$val;
+					break;
+
+				// strip leading urls off facebook usernames
+				case 'urlbase':
+					$val = preg_replace( '/(http|https):\/\/[^\/]*?\//', '', $val );
+					break;
+
+				// must be a url
+				case 'url':
+					if ( ! empty( $val ) && strpos( $val, '://' ) === false ) {
+						$this->p->notice->inf( 'The value of option \''.$key.'\' must be a URL'.' - '.$reset_msg, true );
+						$val = $def_val;
+					}
+					break;
+
+				// must be numeric (blank or zero is ok)
+				case 'numeric':
+					if ( ! empty( $val ) && ! is_numeric( $val ) ) {
+						$this->p->notice->inf( 'The value of option \''.$key.'\' must be numeric'.' - '.$reset_msg, true );
+						$val = $def_val;
+					}
+					break;
+
+				// integer options that must be 1 or more (not zero)
+				case 'posnum':
+					if ( empty( $val ) || ! is_numeric( $val ) ) {
+						$this->p->notice->inf( 'The value of option \''.$key.'\' must be greater or equal to 1'.' - '.$reset_msg, true );
+						$val = $def_val;
+					}
+					break;
+
+				// must be texturized 
+				case 'textured':
+					$val = trim( wptexturize( ' '.$val.' ' ) );
+					break;
+				// must be alpha-numeric uppercase
+				case 'anucase':
+					if ( ! empty( $val ) && preg_match( '/[^A-Z0-9]/', $val ) ) {
+						$this->p->notice->inf( '\''.$val.'\' is not an accepted value for option \''.$key.'\''.' - '.$reset_msg, true );
+						$val = $def_val;
+					}
+					break;
+
+				// text strings that can be blank
+				case 'okblank':
+					if ( ! empty( $val ) )
+						$val = trim( $val );
+					break;
+
+				// options that cannot be blank
+				case 'css':
+				case 'notblank':
+					if ( empty( $val ) ) {
+						$this->p->notice->inf( 'The value of option \''.$key.'\' cannot be empty'.' - '.$reset_msg, true );
+						$val = $def_val;
+					}
+					break;
+
+				// everything else is a 1/0 checkbox option 
+				case 'checkbox':
+				default:
+					// make sure the default option is also 1/0, just in case
+					if ( $def_val === 0 || $def_val === 1 )
+						$val = empty( $val ) ? 0 : 1;
+					break;
+			}
+			return $val;
 		}
 	}
 }
