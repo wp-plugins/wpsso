@@ -18,7 +18,7 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 * Facebook / Google+ / LinkedIn / etc. Open Graph, Pinterest Rich Pin, and Twitter Card meta tags.
 * Configurable image sizes and descriptions depending on context.
-* Configurable contact fields for user profile pages.
+* Configurable contact fields for author meta tags and user profile pages.
 * **Integrates with 3rd party plugins and services** for additional image, video, product, and content information:
   * NextGEN Gallery
   * JetPack Photon
