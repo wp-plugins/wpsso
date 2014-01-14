@@ -124,11 +124,11 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 								break;
 							case 'err' :
 								echo '<div class="error"><div style="float:left;"><p><b>', 
-									$this->p->cf['menu'], ' Warning</b> :</p></div><p>', $msg, '</p></div>', "\n";
+									$this->p->cf['menu'], ' Warning</b> :</p></div> <p>', $msg, '</p></div>', "\n";
 								break;
 							case 'inf' :
 								echo '<div class="updated fade"><div style="float:left;"><p><b>', 
-									$this->p->cf['menu'], ' Info</b> :</p></div><p>', $msg, '</p></div>', "\n";
+									$this->p->cf['menu'], ' Info</b> :</p></div> <p>', $msg, '</p></div>', "\n";
 								break;
 						}
 					}
@@ -137,4 +137,5 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 		}
 	}
 }
+
 ?>

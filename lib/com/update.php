@@ -57,7 +57,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			add_filter( 'site_transient_update_plugins', array( &$this, 'inject_update' ) );
 
 			// in a multisite environment, each site checks for updates
-			if ($this->sched_hours > 0) {
+			if ( $this->sched_hours > 0 ) {
 				add_filter( 'cron_schedules', array( &$this, 'custom_schedule' ) );
 				add_action( $this->cron_hook, array( &$this, 'check_for_updates' ) );
 				$schedule = wp_get_schedule( $this->cron_hook );

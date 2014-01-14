@@ -64,7 +64,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '220',
+				'version' => '221',
 				'defaults' => array(
 					'meta_desc_len' => 156,
 					'link_author_field' => '',

@@ -33,11 +33,12 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		public function __construct() {
 
 			require_once ( dirname( __FILE__ ).'/lib/config.php' );
+			require_once ( dirname( __FILE__ ).'/lib/register.php' );
+
 			$this->cf = WpssoConfig::get_config();
 			WpssoConfig::set_constants( __FILE__ );
 			WpssoConfig::require_libs( __FILE__ );
 
-			require_once ( dirname( __FILE__ ).'/lib/register.php' );
 			$classname = __CLASS__.'Register';
 			$this->reg = new $classname( $this );
 
@@ -61,11 +62,14 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			}
 		}
 
+		// called by activate_plugin() as well
 		public function set_objects( $activate = false ) {
 			/*
 			 * basic plugin setup (settings, check, debug, notices, utils)
 			 */
 			$this->set_options();
+
+			require_once( WPSSO_PLUGINDIR.'lib/com/debug.php' );
 			if ( ! empty( $this->options['plugin_tid'] ) )
 				require_once( WPSSO_PLUGINDIR.'lib/com/update.php' );
 
@@ -78,16 +82,13 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$html_debug = ! empty( $this->options['plugin_debug'] ) || 
 				( defined( 'WPSSO_HTML_DEBUG' ) && WPSSO_HTML_DEBUG ) ? true : false;
 			$wp_debug = defined( 'WPSSO_WP_DEBUG' ) && WPSSO_WP_DEBUG ? true : false;
-			if ( $html_debug || $wp_debug ) {
-				require_once( WPSSO_PLUGINDIR.'lib/com/debug.php' );
+			if ( $html_debug || $wp_debug )
 				$this->debug = new SucomDebug( $this, array( 'html' => $html_debug, 'wp' => $wp_debug ) );
-			} else $this->debug = new WpssoNoDebug();
+			else $this->debug = new WpssoNoDebug();
 
 			$this->notice = new SucomNotice( $this );
 			$this->util = new WpssoUtil( $this );
 			$this->opt = new WpssoOptions( $this );
-
-			do_action( $this->cf['lca'].'_init_post_options' );
 
 			/*
 			 * check and create defaults
@@ -117,13 +118,18 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			/*
 			 * remaining object classes
 			 */
-			$this->cache = new SucomCache( $this );		// object and file caching
-			$this->script = new SucomScript( $this );	// admin jquery tooltips
-			$this->webpage = new SucomWebpage( $this );	// title, desc, etc., plus shortcodes
-			$this->user = new WpssoUser( $this );		// contact methods and metabox prefs
-			$this->meta = new WpssoPostMeta( $this );	// custom post meta
-			$this->media = new WpssoMedia( $this );		// images, videos, etc.
-			$this->head = new WpssoHead( $this );		// open graph and twitter card meta tags
+			if ( ! is_object( $this->script ) )
+				$this->script = new SucomScript( $this );	// admin jquery tooltips
+
+			if ( ! is_object( $this->style ) )
+				$this->style = new SucomStyle( $this );		// allow other plugins to define earlier
+
+			$this->cache = new SucomCache( $this );			// object and file caching
+			$this->webpage = new SucomWebpage( $this );		// title, desc, etc., plus shortcodes
+			$this->user = new WpssoUser( $this );			// contact methods and metabox prefs
+			$this->meta = new WpssoPostMeta( $this );		// custom post meta
+			$this->media = new WpssoMedia( $this );			// images, videos, etc.
+			$this->head = new WpssoHead( $this );			// open graph and twitter card meta tags
 
 			if ( is_admin() ) {
 				$this->msgs = new WpssoMessages( $this );	// admin tooltip messages
@@ -133,11 +139,6 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			if ( $this->is_avail['opengraph'] )
 				$this->og = new WpssoOpengraph( $this );	// prepare open graph array
 			else $this->og = new SucomOpengraph( $this );		// read open graph html tags
-
-			if ( ! is_object( $this->style ) )
-				$this->style = new SucomStyle( $this );		// allow other plugins to define earlier
-
-			do_action( $this->cf['lca'].'_init_pre_aop' );
 
 			if ( ! empty( $this->options['plugin_tid'] ) ) {
 				if ( $this->is_avail['aop'] )

@@ -35,4 +35,5 @@ if ( ! class_exists( 'SucomOpengraph' ) ) {
 		}
 	}
 }
+
 ?>
