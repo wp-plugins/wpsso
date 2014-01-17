@@ -165,7 +165,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Version 1.22.1 =
 
-* Minor update to fix a variable name.
+* A minor update to fix a variable name used when upgrading the plugin options.
 
 = Version 1.22.0 =
 
@@ -205,7 +205,7 @@ Please note that support for [the NextGEN Gallery plugin](http://wordpress.org/p
 
 = 1.22.1 =
 
-* Minor update to fix a variable name.
+A minor update to fix a variable name used when upgrading the plugin options.
 
 = 1.22.0 =
 
