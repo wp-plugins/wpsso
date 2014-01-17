@@ -109,9 +109,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 						// show the nag and update the options only if we have someone with access
 						if ( current_user_can( 'manage_options' ) ) {
-							if ( ! is_object( $this->p->msg ) ) {
+							if ( ! is_object( $this->p->msgs ) ) {
 								require_once( WPSSO_PLUGINDIR.'lib/messages.php' );
-								$this->p->msg = new WpssoMessages( $this->p );
+								$this->p->msgs = new WpssoMessages( $this->p );
 							}
 							$this->p->notice->nag( $this->p->msgs->get( 'pro-advert-nag' ), true );
 							$this->save_options( $options_name, $opts );

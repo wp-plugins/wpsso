@@ -163,6 +163,10 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
+= Version 1.22.1 =
+
+* Minor update to fix a variable name.
+
 = Version 1.22.0 =
 
 The Website Topic list in the SSO General settings has been expanded, and the new topics list is now located in a `share/topics.txt` text file for easier maintenance.
@@ -198,6 +202,10 @@ Please note that support for [the NextGEN Gallery plugin](http://wordpress.org/p
 * Renamed the 'WpssoPlugin' main plugin class to 'Wpsso'.
 
 == Upgrade Notice ==
+
+= 1.22.1 =
+
+* Minor update to fix a variable name.
 
 = 1.22.0 =
 
