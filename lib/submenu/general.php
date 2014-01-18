@@ -59,7 +59,7 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 				case 'media' :
 
-					$ret[] = $this->p->util->th( 'Image Dimensions', 'highlight', 'og_img_resize' ).
+					$ret[] = $this->p->util->th( 'Image Dimensions', 'highlight', 'og_img_dimensions' ).
 					'<td>Width '.$this->form->get_input( 'og_img_width', 'short' ).' x '.
 					'Height '.$this->form->get_input( 'og_img_height', 'short' ).' &nbsp; '.
 					'Cropped '.$this->form->get_checkbox( 'og_img_crop' ).' &nbsp; '.

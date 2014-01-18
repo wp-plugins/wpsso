@@ -230,7 +230,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						/*
 						 * 'Image and Video' settings
 						 */
-						case 'tooltip-og_img_resize':
+						case 'tooltip-og_img_dimensions':
 							$text = 'The dimension of images used in the Open Graph / Rich Pin meta tags. The width and height must be 
 							greater than '.$this->p->cf['head']['min_img_width'].'x'.$this->p->cf['head']['min_img_height'].', 
 							and preferably smaller than 1500x1500
