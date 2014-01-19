@@ -447,7 +447,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		public function push_max( &$dst, &$src, $num = 0 ) {
 			if ( ! is_array( $dst ) || ! is_array( $src ) ) return false;
-			if ( ! empty( $src ) ) array_push( $dst, $src );
+			// if the array is not empty, or contains some non-empty values, then push it
+			if ( ! empty( $src ) && array_filter( $src ) ) array_push( $dst, $src );
 			return $this->slice_max( $dst, $num );	// returns true or false
 		}
 

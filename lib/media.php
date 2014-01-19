@@ -166,7 +166,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$img_width = -1;
 			$img_height = -1;
 			$img_cropped = empty( $size_info['crop'] ) ? 0 : 1;
-			$ret_empty = array( $img_url, $img_width, $img_height, $img_cropped );	// default values
+			$ret_empty = array( null, null, null, null );
 
 			if ( $this->p->is_avail['media']['ngg'] === true && strpos( $pid, 'ngg-' ) === 0 ) {
 				if ( ! empty( $this->p->addons['ngg'] ) )
