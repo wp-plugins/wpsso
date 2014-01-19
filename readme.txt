@@ -8,7 +8,7 @@ Requires At Least: 3.0
 Tested Up To: 3.8
 Stable Tag: 1.22.1
 
-Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and social website shares
+Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and Social Website shares
 
 == Description ==
 
@@ -33,7 +33,7 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 = Complete Meta Tags =
 
-WPSSO adds Facebook / [Open Graph](http://ogp.me/), [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), [Twitter Cards](https://dev.twitter.com/docs/cards), and (optionally) [Search Engine Optimization](http://en.wikipedia.org/wiki/Search_engine_optimization) meta tags to the head section of webpages. These meta tags are used by Google Search and most social websites to describe and display your content correctly (title, description, keyword tags, images, videos, product, author profile / authorship, publisher, etc.). [See a few examples from Google Search / Google+, Facebook, Twitter, Pinterest, StumbleUpon, Tumblr, and others](/extend/plugins/wpsso/screenshots/). 
+WPSSO adds Facebook / [Open Graph](http://ogp.me/), [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), [Twitter Cards](https://dev.twitter.com/docs/cards), and (optionally) [Search Engine Optimization](http://en.wikipedia.org/wiki/Search_engine_optimization) meta tags to the head section of webpages. These meta tags are used by Google Search and most Social Websites to describe and display your content correctly (title, description, keyword tags, images, videos, product, author profile / authorship, publisher, etc.). [See a few examples from Google Search / Google+, Facebook, Twitter, Pinterest, StumbleUpon, Tumblr, and others](/extend/plugins/wpsso/screenshots/). 
 
 WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/types/summary-card), [Large Image Summary](https://dev.twitter.com/docs/cards/large-image-summary-card), [Photo](https://dev.twitter.com/docs/cards/types/photo-card), [Gallery](https://dev.twitter.com/docs/cards/types/gallery-card), [Player](https://dev.twitter.com/docs/cards/types/player-card) and [Product](https://dev.twitter.com/docs/cards/types/product-card) Twitter Cards, including configurable image sizes for each card type.
 
