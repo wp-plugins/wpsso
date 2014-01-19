@@ -15,6 +15,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
+			$this->p->util->add_option_image_sizes( array( 'og_img' => 'opengraph' ) );
 
 			add_filter( 'language_attributes', array( &$this, 'add_doctype' ) );
 		}

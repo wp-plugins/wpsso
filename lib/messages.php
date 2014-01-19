@@ -230,18 +230,14 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						/*
 						 * 'Image and Video' settings
 						 */
-						case 'tooltip-og_img_resize':
+						case 'tooltip-og_img_dimensions':
 							$text = 'The dimension of images used in the Open Graph / Rich Pin meta tags. The width and height must be 
-							greater than '.$this->p->cf['head']['min_img_width'].'x'.$this->p->cf['head']['min_img_height'].', 
+							greater than '.$this->p->cf['head']['min_img_dim'].'x'.$this->p->cf['head']['min_img_dim'].', 
 							and preferably smaller than 1500x1500
 							(the defaults is '.$this->p->opt->get_defaults( 'og_img_width' ).'x'.$this->p->opt->get_defaults( 'og_img_height' ).', '.
 							( $this->p->opt->get_defaults( 'og_img_crop' ) == 0 ? 'not ' : '' ).'cropped). 
 							<strong>Facebook recommends an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200</strong>.
 							If the original image is smaller than the dimensions entered here, then the full-size image will be used instead.';
-							break;
-						case 'tooltip-og_img_resize':
-							$text = 'Automatically generate missing or incorrect image sizes for previously uploaded images in the 
-							WordPress Media Library (default is checked).';
 							break;
 						case 'tooltip-og_def_img_id':
 							$text = 'The ID number and location of your default image (example: 123). The <em>Default Image ID</em> 
@@ -253,7 +249,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-og_def_img_url':
 							$text = 'You can also specify a <em>Default Image URL</em> (including the http:// prefix) instead of choosing a 
 							<em>Default Image ID</em>. This allows you to use an image outside of a managed collection (WordPress Media Library or NextGEN Gallery). 
-							The image should be at least '.$this->p->cf['head']['min_img_width'].'x'.$this->p->cf['head']['min_img_height'].' or more in width and height. 
+							The image should be at least '.$this->p->cf['head']['min_img_dim'].'x'.$this->p->cf['head']['min_img_dim'].' or more in width and height. 
 							If both the <em>Default Image ID</em> and <em>Default Image URL</em> are defined, the <em>Default Image ID</em>
 							will take precedence.';
 							break;
@@ -428,6 +424,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-plugin_shortcode_wpsso':
 							$text = 'Enable the '.$this->p->cf['full'].' content shortcode(s) (default is unchecked).';
+							break;
+						case 'tooltip-plugin_auto_img_resize':
+							$text = 'Automatically generate missing or incorrect image sizes for previously uploaded images in the 
+							WordPress Media Library (default is checked).';
 							break;
 						case 'tooltip-plugin_ignore_small_img':
 							$text = $this->p->cf['full'].' will attempt to include images from the img html tags it finds in the content.
@@ -635,44 +635,44 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							As an example, the Twitter username for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
 							is <a href="https://twitter.com/surniaululacom" target="_blank">@surniaululacom</a>.';
 							break;
-						case 'tooltip-tc_sum_size':
+						case 'tooltip-tc_sum_dimensions':
 							$text = 'The size of content images provided for the
 							<a href="https://dev.twitter.com/docs/cards/types/summary-card" target="_blank">Summary Card</a>
 							(should be at least 120x120, larger than 60x60, and less than 1MB).';
 							break;
-						case 'tooltip-tc_large_size':
+						case 'tooltip-tc_lrgimg_dimensions':
 							$text = 'The size of Post Meta, Featured or Attached images provided for the
-							<a href="https://dev.twitter.com/docs/cards/types/large-image-summary-card" target="_blank">Large Image Summary Card</a>
+							<a href="https://dev.twitter.com/docs/cards/large-image-summary-card" target="_blank">Large Image Summary Card</a>
 							(must be larger than 280x150 and less than 1MB).';
 							break;
-						case 'tooltip-tc_photo_size':
+						case 'tooltip-tc_photo_dimensions':
 							$text = 'The size of ImageBrowser or Attachment Page images provided for the 
 							<a href="https://dev.twitter.com/docs/cards/types/photo-card" target="_blank">Photo Card</a> 
 							(should be at least 560x750 and less than 1MB).';
 							break;
-						case 'tooltip-tc_gal_size':
-							$text = 'The size of gallery images provided for the
-							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
-							break;
-						case 'tooltip-tc_gal_min':
+						case 'tooltip-tc_gal_minimum':
 							$text = 'The minimum number of images found in a gallery to qualify for the
 							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
 							break;
-						case 'tooltip-tc_prod_size':
+						case 'tooltip-tc_gal_dimensions':
+							$text = 'The size of gallery images provided for the
+							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
+							break;
+						case 'tooltip-tc_prod_dimensions':
 							$text = 'The size of a featured product image for the
 							<a href="https://dev.twitter.com/docs/cards/types/product-card" target="_blank">Product Card</a>.
 							The product card requires an image of size 160 x 160 or greater. A square (aka cropped) image is better, 
 							but Twitter can crop/resize oddly shaped images to fit, as long as both dimensions are greater 
 							than or equal to 160 pixels.';
 							break;
-						case 'tooltip-tc_prod_def':
-							$text = 'The <em>Product</em> Twitter Card needs a minimum of two product attributes.
+						case 'tooltip-tc_prod_defaults':
+							$text = 'The <em>Product</em> Twitter Card needs a <strong>minimum of two product attributes</strong>.
 							The first attribute will be the product price, and if your product has additional attribute fields associated with it 
 							(weight, size, color, etc), these will be included in the <em>Product</em> Card as well (maximum of 4 attributes). 
-							<strong>If your product does not have additional attributes beyond just a price</strong>, then this default second 
+							<strong>If your product does not have additional attributes beyond its price</strong>, then this default second 
 							attribute label and value will be used. 
 							You may modify both the Label <em>and</em> Value for whatever is most appropriate for your website and/or products.
-							Some examples: Location - City State, Shipped from - Country, Made in - Country, etc.';
+							Some examples: Promotion / Free Shipping, Ships from / Hong Kong, Made in / China, etc.';
 							break;
 						/*
 						 * Other settings

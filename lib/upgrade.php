@@ -14,7 +14,9 @@ if ( ! class_exists( 'WpssoOptionsUpgrade' ) && class_exists( 'WpssoOptions' ) )
 
 		private $renamed_site_keys = array();
 
-		private $renamed_keys = array();
+		private $renamed_keys = array(
+			'og_img_resize' => 'plugin_auto_img_resize',
+		);
 
 		protected $p;
 

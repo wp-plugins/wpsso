@@ -20,7 +20,6 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
-			$this->add_image_sizes();
 
 			// prevent image_downsize() from lying about image width and height
 			if ( is_admin() )
@@ -28,17 +27,6 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 			add_filter( 'wp_get_attachment_image_attributes', array( &$this, 'add_attachment_image_attributes' ), 10, 2 );
 			add_filter( 'get_image_tag', array( &$this, 'add_image_tag' ), 10, 6 );
-		}
-
-		private function add_image_sizes() {
-			foreach ( array( 'thumbnail', 'medium', 'large' ) as $size_name ) {
-				$size_info = $this->get_size_info( $size_name );
-				add_image_size( $this->p->cf['lca'].'-'.$size_name, 
-					$size_info['width'], $size_info['height'], $size_info['crop'] );
-			}
-			add_image_size( $this->p->cf['lca'].'-opengraph', 
-				$this->p->options['og_img_width'], $this->p->options['og_img_height'], 
-				( empty( $this->p->options['og_img_crop'] ) ? false : true ) );
 		}
 
 		// note that $size_name can be a string or an array()
@@ -201,7 +189,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 	
 				// make sure the returned image size matches the size we requested, if not then possibly resize the image
 				// we do this because image_downsize() does not always return accurate image sizes
-				if ( ! empty( $this->p->options['og_img_resize'] ) && 
+				if ( ! empty( $this->p->options['plugin_auto_img_resize'] ) && 
 					strpos( $size_name, $this->p->cf['lca'].'-' ) !== false ) {
 	
 					// get the actual image sizes from the metadata array

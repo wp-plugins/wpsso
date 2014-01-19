@@ -27,6 +27,16 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			add_action( 'wp_scheduled_delete', array( &$this, 'delete_expired_file_cache' ) );
 		}
 
+		// add filters to this plugin
+		public function add_plugin_filters( &$class, $filters, $prio = 10 ) {
+			foreach ( $filters as $name => $num ) {
+				$filter = $this->p->cf['lca'].'_'.$name;
+				$method = 'filter_'.$name;
+				add_filter( $filter, array( &$class, $method ), $prio, $num );
+				$this->p->debug->log( 'filter for '.$filter.' added', 2 );
+			}
+		}
+
 		public function get_post_types( $prefix, $output = 'objects' ) {
 			$include = false;
 			$post_types = array();
@@ -122,6 +132,16 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			return $topics;
 		}
 
+		public function add_option_image_sizes( $sizes ) {
+			foreach( $sizes as $pre => $suf )
+				if ( ! empty( $this->p->options[$pre.'_width'] ) &&
+					! empty( $this->p->options[$pre.'_height'] ) )
+						add_image_size( $this->p->cf['lca'].'-'.$suf, 
+							$this->p->options[$pre.'_width'], 
+							$this->p->options[$pre.'_height'], 
+							( empty( $this->p->options[$pre.'_crop'] ) ? false : true ) );
+		}
+
 		public function sanitize_option_value( $key, $val, $def_val ) {
 			$valid_types = array( 'css', 'atname', 'urlbase', 'url', 'numeric', 'posnum', 'textured', 'anucase', 'okblank', 'notblank', 'checkbox' );
 			$option_type = apply_filters( $this->p->cf['lca'].'_option_type', false, $key, $valid_types );
@@ -138,71 +158,58 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					break;
 			}
 			switch ( $option_type ) {
-				// twitter-style usernames (prepend with an at)
-				case 'atname':
+				case 'atname':	// twitter-style usernames (prepend with an at)
 					$val = substr( preg_replace( '/[^a-z0-9_]/', '', strtolower( $val ) ), 0, 15 );
 					if ( ! empty( $val ) ) 
 						$val = '@'.$val;
 					break;
-
-				// strip leading urls off facebook usernames
-				case 'urlbase':
+				case 'urlbase':	// strip leading urls off facebook usernames
 					$val = preg_replace( '/(http|https):\/\/[^\/]*?\//', '', $val );
 					break;
-
-				// must be a url
-				case 'url':
+				case 'url':	// must be a url
 					if ( ! empty( $val ) && strpos( $val, '://' ) === false ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' must be a URL'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
-
-				// must be numeric (blank or zero is ok)
-				case 'numeric':
+				case 'numeric':	// must be numeric (blank or zero is ok)
 					if ( ! empty( $val ) && ! is_numeric( $val ) ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' must be numeric'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
-
-				// integer options that must be 1 or more (not zero)
-				case 'posnum':
-					if ( empty( $val ) || ! is_numeric( $val ) ) {
-						$this->p->notice->inf( 'The value of option \''.$key.'\' must be greater or equal to 1'.' - '.$reset_msg, true );
+				case 'posnum':	// integer options that must be 1 or more (not zero)
+				case 'imgdim':	// image dimensions, subject to minimum value (typically, at least 200px)
+					if ( $option_type == 'imgdim' )
+						$min_int = empty( $this->p->cf['head']['min_img_dim'] ) ? 
+							200 : $this->p->cf['head']['min_img_dim'];
+					else $min_int = 1;
+					if ( empty( $val ) || ! is_numeric( $val ) || $val < $min_int ) {
+						$this->p->notice->inf( 'The value of option \''.$key.'\' must be greater or equal to '.$min_int.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
-
-				// must be texturized 
-				case 'textured':
+				case 'textured':	// must be texturized 
 					$val = trim( wptexturize( ' '.$val.' ' ) );
 					break;
-				// must be alpha-numeric uppercase
-				case 'anucase':
+				case 'anucase':	// must be alpha-numeric uppercase
 					if ( ! empty( $val ) && preg_match( '/[^A-Z0-9]/', $val ) ) {
 						$this->p->notice->inf( '\''.$val.'\' is not an accepted value for option \''.$key.'\''.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
-
-				// text strings that can be blank
-				case 'okblank':
+				case 'okblank':	// text strings that can be blank
 					if ( ! empty( $val ) )
 						$val = trim( $val );
 					break;
-
-				// options that cannot be blank
-				case 'css':
+				case 'css':	// options that cannot be blank
 				case 'notblank':
 					if ( empty( $val ) ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' cannot be empty'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
-
-				// everything else is a 1/0 checkbox option 
-				case 'checkbox':
+				case 'checkbox':	// everything else is a 1/0 checkbox option 
 				default:
 					// make sure the default option is also 1/0, just in case
 					if ( $def_val === 0 || $def_val === 1 )

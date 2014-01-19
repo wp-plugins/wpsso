@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '1.22.1',		// plugin version
+			'version' => '1.23dev1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -64,7 +64,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '222',
+				'version' => '226',
 				'defaults' => array(
 					'meta_desc_len' => 156,
 					'link_author_field' => '',
@@ -82,7 +82,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_img_width' => 1200,
 					'og_img_height' => 630,
 					'og_img_crop' => 1,
-					'og_img_resize' => 1,
 					'og_img_max' => 1,
 					'og_vid_max' => 1,
 					'og_vid_https' => 1,
@@ -108,12 +107,27 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'tc_enable' => 0,
 					'tc_site' => '',
 					'tc_desc_len' => 200,
+					// summary card
+					'tc_sum_width' => 200,
+					'tc_sum_height' => 200,
+					'tc_sum_crop' => 1,
+					// large image summary card
+					'tc_lrgimg_width' => 300,
+					'tc_lrgimg_height' => 300,
+					'tc_lrgimg_crop' => 0,
+					// photo card
+					'tc_photo_width' => 800,
+					'tc_photo_height' => 800,
+					'tc_photo_crop' => 0,
+					// gallery card
 					'tc_gal_min' => 4,
-					'tc_gal_size' => 'wpsso-medium',
-					'tc_photo_size' => 'wpsso-large',
-					'tc_large_size' => 'wpsso-medium',
-					'tc_sum_size' => 'wpsso-thumbnail',
-					'tc_prod_size' => 'wpsso-medium',
+					'tc_gal_width' => 300,
+					'tc_gal_height' => 300,
+					'tc_gal_crop' => 0,
+					// product card
+					'tc_prod_width' => 300,
+					'tc_prod_height' => 300,
+					'tc_prod_crop' => 1,    // prefers square product images
 					'tc_prod_def_l2' => 'Location',
 					'tc_prod_def_d2' => 'Unknown',
 					'inc_description' => 0,
@@ -174,6 +188,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_filter_content' => 1,
 					'plugin_filter_excerpt' => 0,
 					'plugin_shortcode_wpsso' => 0,
+					'plugin_auto_img_resize' => 1,
 					'plugin_ignore_small_img' => 1,
 					'plugin_wistia_api' => 1,
 					'plugin_add_to_post' => 1,
@@ -274,8 +289,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'tooltip_class' => 'sucom_tooltip',
 			),
 			'head' => array(
-				'min_img_width' => 200,
-				'min_img_height' => 200,
+				'min_img_dim' => 200,
 				'min_desc_len' => 156,
 			),
 		);
