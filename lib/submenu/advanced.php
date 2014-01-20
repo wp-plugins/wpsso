@@ -167,16 +167,6 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 
 					$ret[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_filter_excerpt' ).'</td>';
-
-					if ( $this->p->is_avail['ssb'] )
-						$ret[] = $this->p->util->th( 'Enable Shortcode(s)', 'highlight', 'plugin_shortcode_wpsso' ).
-						'<td>'.$this->form->get_checkbox( 'plugin_shortcode_wpsso' ).'</td>';
-
-					$ret[] =  $this->p->util->th( 'Auto-Resize Images', null, 'plugin_auto_img_resize' ).
-					'<td>'.$this->form->get_checkbox( 'plugin_auto_img_resize' ).'</td>';
-
-					$ret[] =  $this->p->util->th( 'Ignore Small Images', null, 'plugin_ignore_small_img' ).
-					'<td>'.$this->form->get_checkbox( 'plugin_ignore_small_img' ).'</td>';
 					break;
 
 				case 'plugin-cache':
