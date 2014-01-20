@@ -18,7 +18,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
-			add_filter( $this->p->cf['lca'].'_option_type', array( &$this, 'filter_option_type' ), 10, 3 );
+			add_filter( $this->p->cf['lca'].'_option_type', array( &$this, 'filter_option_type' ), 10, 2 );
 			do_action( $this->p->cf['lca'].'_init_options' );
 		}
 
@@ -156,14 +156,14 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				if ( $options_name == WPSSO_OPTIONS_NAME ) {
 					if ( $this->p->check->is_aop() &&
 						! empty( $this->p->is_avail['ecom']['*'] ) &&
-						$opts['tc_prod_def_l2'] === $this->p->cf['opt']['default']['tc_prod_def_l2'] &&
-						$opts['tc_prod_def_d2'] === $this->p->cf['opt']['default']['tc_prod_def_d2'] ) {
+						$opts['tc_prod_def_l2'] === $this->p->cf['opt']['defaults']['tc_prod_def_l2'] &&
+						$opts['tc_prod_def_d2'] === $this->p->cf['opt']['defaults']['tc_prod_def_d2'] ) {
 	
 						$this->p->notice->inf( 'An eCommerce plugin has been detected. Please update Twitter\'s
 							<em>Product Card Default 2nd Attribute</em> option values on the '.
 							$this->p->util->get_admin_url( 'general', 'General settings page' ). ' 
-							(to something else than \''.$this->p->cf['opt']['default']['tc_prod_def_l2'].
-							'\' and \''.$this->p->cf['opt']['default']['tc_prod_def_d2'].'\').' );
+							(to something else than \''.$this->p->cf['opt']['defaults']['tc_prod_def_l2'].
+							'\' and \''.$this->p->cf['opt']['defaults']['tc_prod_def_d2'].'\').' );
 					}
 				}
 				if ( $this->p->is_avail['aop'] === true && empty( $this->p->options['plugin_tid'] ) )
@@ -253,7 +253,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			return true;
 		}
 
-		public function filter_option_type( $ret, $key, $valid ) {
+		public function filter_option_type( $ret, $key ) {
 			switch ( $key ) {
 				// twitter-style usernames (prepend with an at)
 				case 'tc_site':

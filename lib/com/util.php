@@ -378,7 +378,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			} elseif ( array_key_exists( $submenu, $this->p->cf['lib']['submenu'] ) ) {
 				$page = 'admin.php?page='.$this->p->cf['lca'].'-'.$submenu;
 				$url = admin_url( $page );
-			} elseif ( array_key_exists( $submenu, $this->p->cf['lib']['site_submenu'] ) ) {
+			} elseif ( array_key_exists( $submenu, $this->p->cf['lib']['sitesubmenu'] ) ) {
 				$page = 'admin.php?page='.$this->p->cf['lca'].'-'.$submenu;
 				$url = network_admin_url( $page );
 			}

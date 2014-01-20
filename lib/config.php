@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '1.23dev1',		// plugin version
+			'version' => '1.23dev2',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -36,14 +36,19 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'advanced' => 'Advanced',
 					'about' => 'About',
 				),
-				'site_submenu' => array(
+				'sitesubmenu' => array(
 					'network' => 'Network',
 				),
+				'gpl' => array(
+					'admin' => array(
+						'general' => 'General',
+						'advanced' => 'Advanced',
+					),
+				),
 				'pro' => array(
-					'seo' => array(
-						'aioseop' => 'All in One SEO Pack',
-						'seou' => 'SEO Ultimate',
-						'wpseo' => 'WordPress SEO',
+					'admin' => array(
+						'general' => 'General',
+						'advanced' => 'Advanced',
 					),
 					'ecom' => array(
 						'woocommerce' => 'WooCommerce',
@@ -53,13 +58,24 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'forum' => array(
 						'bbpress' => 'bbPress',
 					),
-					'social' => array(
-						'buddypress' => 'BuddyPress',
+					'head' => array(
+						'twittercard' => 'Twitter Cards',
 					),
 					'media' => array(
 						'ngg' => 'NextGEN Gallery',
 						'photon' => 'Jetpack Photon',
 						'wistia' => 'Wistia Video API',
+					),
+					'seo' => array(
+						'aioseop' => 'All in One SEO Pack',
+						'seou' => 'SEO Ultimate',
+						'wpseo' => 'WordPress SEO',
+					),
+					'social' => array(
+						'buddypress' => 'BuddyPress',
+					),
+					'util' => array(
+						'language' => 'WP Locale Language',
 					),
 				),
 			),

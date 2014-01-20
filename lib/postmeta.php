@@ -84,23 +84,23 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 
 			$tab_rows = array();
 			foreach ( $show_tabs as $key => $title )
-				$tab_rows[$key] = $this->get_rows( $key, $post->ID );
+				$tab_rows[$key] = $this->get_rows( 'meta', $key, $post->ID );
 			$this->p->util->do_tabs( 'meta', $show_tabs, $tab_rows );
 		}
 
-		protected function get_rows( $key, $post_id ) {
+		protected function get_rows( $metabox, $key, $post_id ) {
 			$ret = array();
-			switch ( $key ) {
-				case 'header' :
+			switch ( $metabox.'-'.$key ) {
+				case 'meta-header':
 					$ret = $this->get_rows_header( $post_id );
 					break;
-				case 'social' :
+				case 'meta-social':
 					$ret = $this->get_rows_social( $post_id );
 					break;
-				case 'tools' :	
+				case 'meta-tools':
 					$ret = $this->get_rows_tools( $post_id );
 					break; 
-				case 'metatags' :	
+				case 'meta-metatags':	
 					$ret = $this->get_rows_metatags( $post_id );
 					break; 
 			}

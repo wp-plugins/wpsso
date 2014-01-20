@@ -143,8 +143,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		}
 
 		public function sanitize_option_value( $key, $val, $def_val ) {
-			$valid_types = array( 'css', 'atname', 'urlbase', 'url', 'numeric', 'posnum', 'textured', 'anucase', 'okblank', 'notblank', 'checkbox' );
-			$option_type = apply_filters( $this->p->cf['lca'].'_option_type', false, $key, $valid_types );
+			$option_type = apply_filters( $this->p->cf['lca'].'_option_type', false, $key );
 			$reset_msg = __( 'resetting the option to its default value.', WPSSO_TEXTDOM );
 			$charset = get_bloginfo( 'charset' );
 			switch ( $option_type ) {

@@ -81,57 +81,65 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				foreach ( $libs as $id => $name ) {
 					$chk = array();
 					$ret[$sub][$id] = false;	// default value
-					switch ( $id ) {
-						case 'aioseop':
-							$chk['class'] = 'All_in_One_SEO_Pack';
-							$chk['plugin'] = 'all-in-one-seo-pack/all-in-one-seo-pack.php';
-							break;
-						case 'seou':
-							$chk['class'] = 'SEO_Ultimate'; 
-							$chk['plugin'] = 'seo-ultimate/seo-ultimate.php';
-							break;
-						case 'wpseo':
-							$chk['function'] = 'wpseo_init'; 
-							$chk['plugin'] = 'wordpress-seo/wp-seo.php';
-							break;
-						case 'woocommerce':
+					switch ( $sub.'-'.$id ) {
+						/*
+						 * 3rd Party Plugins
+						 */
+						case 'ecom-woocommerce':
 							$chk['class'] = 'Woocommerce';
 							$chk['plugin'] = 'woocommerce/woocommerce.php';
 							break;
-						case 'marketpress':
+						case 'ecom-marketpress':
 							$chk['class'] = 'MarketPress'; 
 							$chk['plugin'] = 'wordpress-ecommerce/marketpress.php';
 							break;
-						case 'wpecommerce':
+						case 'ecom-wpecommerce':
 							$chk['class'] = 'WP_eCommerce';
 							$chk['plugin'] = 'wp-e-commerce/wp-shopping-cart.php';
 							break;
-						case 'bbpress':
+						case 'forum-bbpress':
 							$chk['class'] = 'bbPress'; 
 							$chk['plugin'] = 'bbpress/bbpress.php';
 							break;
-						case 'buddypress':
-							$chk['class'] = 'BuddyPress'; 
-							$chk['plugin'] = 'buddypress/bp-loader.php';
-							break;
-						case 'ngg':
+						case 'media-ngg':
 							$chk['class'] = 'nggdb';	// C_NextGEN_Bootstrap
 							$chk['plugin'] = 'nextgen-gallery/nggallery.php';
 							break;
-						case 'photon':
+						case 'media-photon':
 							if ( class_exists( 'Jetpack' ) && 
 								method_exists( 'Jetpack', 'get_active_modules' ) && 
 								in_array( 'photon', Jetpack::get_active_modules() ) )
 									$ret[$sub]['*'] = $ret[$sub][$id] = true;
 							break;
-						case 'wistia':
+						case 'seo-aioseop':
+							$chk['class'] = 'All_in_One_SEO_Pack';
+							$chk['plugin'] = 'all-in-one-seo-pack/all-in-one-seo-pack.php';
+							break;
+						case 'seo-seou':
+							$chk['class'] = 'SEO_Ultimate'; 
+							$chk['plugin'] = 'seo-ultimate/seo-ultimate.php';
+							break;
+						case 'seo-wpseo':
+							$chk['function'] = 'wpseo_init'; 
+							$chk['plugin'] = 'wordpress-seo/wp-seo.php';
+							break;
+						case 'social-buddypress':
+							$chk['class'] = 'BuddyPress'; 
+							$chk['plugin'] = 'buddypress/bp-loader.php';
+							break;
+						/*
+						 * Pro Version Features
+						 */
+						case 'head-twittercard':
+							$chk['optval'] = 'tc_enable';
+							break;
+						case 'media-wistia':
 							$chk['optval'] = 'plugin_wistia_api';
 							break;
-						case 'rewrite':
-							$chk['optval'] = 'plugin_cdn_urls';
-							break;
-						case 'shorten':
-							$chk['optval'] = 'twitter_shortener';
+						case 'admin-general':
+						case 'admin-advanced':
+						case 'util-language':
+							$ret[$sub]['*'] = $ret[$sub][$id] = true;
 							break;
 					}
 					if ( ( ! empty( $chk['function'] ) && function_exists( $chk['function'] ) ) || 

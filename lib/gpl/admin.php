@@ -119,56 +119,6 @@ if ( ! class_exists( 'WpssoAdminAdvancedGpl' ) && class_exists( 'WpssoAdminAdvan
 				'<td class="blank">'.$this->form->get_fake_checkbox( 'plugin_verify_certs' ).'</td>',
 			);
 		}
-
-		protected function get_more_apikeys() {
-			return array(
-				'<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>',
-
-				$this->p->util->th( 'Bit.ly Username', null, 'plugin_bitly_login' ).
-				'<td class="blank mono">'.$this->form->get_hidden( 'plugin_bitly_login' ).
-				$this->p->options['plugin_bitly_login'].'</td>',
-
-				$this->p->util->th( 'Bit.ly API Key', null, 'plugin_bitly_api_key' ).
-				'<td class="blank mono">'.$this->form->get_hidden( 'plugin_bitly_api_key' ).
-				$this->p->options['plugin_bitly_api_key'].'</td>',
-
-				$this->p->util->th( 'Google Project Application BrowserKey', null, 'plugin_google_api_key' ).
-				'<td class="blank mono">'.$this->form->get_hidden( 'plugin_google_api_key' ).
-				$this->p->options['plugin_google_api_key'].'</td>',
-
-				$this->p->util->th( 'Google URL Shortener API is ON', null, 'plugin_google_shorten' ).
-				'<td class="blank">'.$this->form->get_fake_radio( 'plugin_google_shorten', 
-					array( '1' => 'Yes', '0' => 'No' ), null, null, true ).'</td>',
-			);
-		}
-
-		protected function get_more_rewrite() {
-			return array(
-				'<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>',
-
-				$this->p->util->th( 'URL Length to Shorten', null, 'plugin_min_shorten' ). 
-				'<td class="blank">'.$this->form->get_hidden( 'plugin_min_shorten' ).
-					$this->p->options['plugin_min_shorten'].' characters</td>',
-
-				$this->p->util->th( 'Static Content URL(s)', 'highlight', 'plugin_cdn_urls' ). 
-				'<td class="blank">'.$this->form->get_hidden( 'plugin_cdn_urls' ). 
-					$this->p->options['plugin_cdn_urls'].'</td>',
-
-				$this->p->util->th( 'Include Folders', null, null, 'plugin_cdn_folders' ).
-				'<td class="blank">'.$this->form->get_hidden( 'plugin_cdn_folders' ). 
-					$this->p->options['plugin_cdn_folders'].'</td>',
-
-				$this->p->util->th( 'Exclude Patterns', null, 'plugin_cdn_excl' ).
-				'<td class="blank">'.$this->form->get_hidden( 'plugin_cdn_excl' ).
-					$this->p->options['plugin_cdn_excl'].'</td>',
-
-				$this->p->util->th( 'Not when Using HTTPS', null, 'plugin_cdn_not_https' ).
-				'<td class="blank">'.$this->form->get_fake_checkbox( 'plugin_cdn_not_https' ).'</td>',
-
-				$this->p->util->th( 'www is Optional', null, 'plugin_cdn_www_opt' ). 
-				'<td class="blank">'.$this->form->get_fake_checkbox( 'plugin_cdn_www_opt' ).'</td>',
-			);
-		}
 	}
 }
 
