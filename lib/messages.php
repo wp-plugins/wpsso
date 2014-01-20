@@ -54,11 +54,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							'Advanced settings' ).' page, a check is scheduled every 12 hours to see if a Pro version update is available.';
 							break;
 						case 'tooltip-side-social-sharing-buttons':
-							$text = 'Social sharing features include the SSO '.$this->p->util->get_admin_url( 'social', 'Social Sharing' ).
+							$text = 'Social sharing features include the SSO '.$this->p->util->get_admin_url( 'sharing', 'Social Sharing' ).
 							' and '.$this->p->util->get_admin_url( 'style', 'Social Style' ).' settings pages (aka social sharing buttons), 
 							the Custom Settings - Social Sharing tab on admin editing pages, along with the social sharing shortcode 
-							and widget. All social sharing features can be disabled using an available
-							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
+							and widget. All social sharing features can be disabled using one of the available PHP
+							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constants</a>.';
 							break;
 						case 'tooltip-side-social-sharing-shortcode':
 							$text = 'Support for shortcode(s) can be enabled / disabled on the '.
@@ -72,7 +72,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
 							break;
 						case 'tooltip-side-transient-cache':
-							$text = $this->p->cf['full'].' saves Open Graph, Rich Pin, Twitter Card meta tags, and social buttons to a persistant
+							$text = $this->p->cf['full'].' saves Open Graph, Rich Pin, Twitter Card meta tags, and sharing buttons to a persistant
 							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
 							$this->p->options['plugin_object_cache_exp'].' seconds (default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).
 							' seconds). You can adjust the Transient Cache expiration value from the '.
@@ -104,7 +104,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-side-url-rewriter':
 							$text = $this->p->cf['full_pro'].' can rewrite image URLs in meta tags, cached images and JavaScript, 
-							and for social sharing buttons like Pinterest and Tumblr, which use URL-encoded image URLs. 
+							and for social sharing buttons like Pinterest and Tumblr (which use encoded image URLs). 
 							Rewriting image URLs can be an important part of optimizing page load speeds. See the \'Static Content URL(s)\'
 							option on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page to enable URL rewriting.';
 							break;
@@ -112,7 +112,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = '<strong>When using the Twitter social sharing button provided by '.$this->p->cf['full_pro'].'</strong>, 
 							the webpage URL (aka the <em>canonical</em> or <em>permalink</em> URL) within the Tweet, 
 							can be shortened by one of the available URL shortening services. Enable URL shortening for Twitter
-							from the '.$this->p->util->get_admin_url( 'social', 'Social Sharing' ).' settings page.';
+							from the '.$this->p->util->get_admin_url( 'sharing', 'Social Sharing' ).' settings page.';
 							break;
 						case 'tooltip-side-wistia-video-api':
 							$text = 'If the \'Check for Wistia Videos\' option on the '.
@@ -453,7 +453,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-plugin_object_cache_exp':
 							$text = $this->p->cf['full'].' saves filtered / rendered content to a non-persistant cache 
 							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>), 
-							and Open Graph, Rich Pin, Twitter Card meta tags, and social buttons to a persistant (aka 
+							and Open Graph, Rich Pin, Twitter Card meta tags, and sharing buttons to a persistant (aka 
 							<a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. 
 							The default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).' seconds, and the minimum value is 
 							1 second (such a low value is not recommended).';
@@ -524,7 +524,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							target="_blank">Google\'s Cloud Console</a>, under the API &amp; auth - APIs 
 							menu options. Confirm that you have enabled Google\'s URL Shortener by checking 
 							the \'Yes\' option here. You can then select the Google URL Shortener in the '.
-							$this->p->util->get_admin_url( 'social', 'Twitter settings' ).'.';
+							$this->p->util->get_admin_url( 'sharing', 'Twitter settings' ).'.';
 							break;
 						/*
 						 * Other settings
@@ -712,7 +712,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-buttons_link_css':
 							$text = 'Add the following styles to all webpages (default is checked).
-							<strong>All styles will be minimized into a single stylesheet</strong> with the URL of <u>'.$this->p->style->social_css_min_url.'</u>. 
+							<strong>All styles will be minimized into a single stylesheet</strong> with the URL of <u>'.$this->p->style->sharing_css_min_url.'</u>. 
 							The stylesheet is created or removed, depending on whether this option is checked or unchecked.';
 							break;
 						/*
@@ -818,10 +818,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
 					target="_blank">get_the_author_meta()</a> for examples).</p>';
 					break;
-				case 'social-buttons-info':
-					$text = '<p>The following social buttons can be added to the content, excerpt, and/or enabled within the '.
-					$this->p->cf['menu'].' Social Sharing widget as well (see the <a href="'.
-					get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
+				case 'sharing-buttons-info':
+					$text = '<p>The following social sharing buttons can be added to the content, excerpt, and/or enabled within the '.
+					$this->p->cf['menu'].' Social Sharing widget as well (see the <a href="'.get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
 					break;
 				/*
 				 * Other messages

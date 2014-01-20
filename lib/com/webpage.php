@@ -253,17 +253,17 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$desc = $obj->post_excerpt;
 						if ( ! empty( $this->p->options['plugin_filter_excerpt'] ) ) {
 
-							// remove the social buttons filter to avoid recursive loops
-							if ( ! empty( $this->p->social ) && 
-								is_object( $this->p->social ) )
-									$filter_removed = $this->p->social->remove_filter( 'get_the_excerpt' );
+							// remove the sharing buttons filter to avoid recursive loops
+							if ( ! empty( $this->p->sharing ) && 
+								is_object( $this->p->sharing ) )
+									$filter_removed = $this->p->sharing->remove_filter( 'get_the_excerpt' );
 							else $filter_removed = false;
 
 							$this->p->debug->log( 'calling apply_filters(\'get_the_excerpt\')' );
 							$desc = apply_filters( 'get_the_excerpt', $desc );
 
 							if ( $filter_removed )
-								$this->p->social->add_filter( 'get_the_excerpt' );
+								$this->p->sharing->add_filter( 'get_the_excerpt' );
 						}
 					} 
 
@@ -371,10 +371,10 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			if ( $filter_content == true ) {
 
-				// remove the social buttons filter to avoid recursive loops
-				if ( ! empty( $this->p->social ) && 
-					is_object( $this->p->social ) )
-						$filter_removed = $this->p->social->remove_filter( 'the_content' );
+				// remove the sharing buttons filter to avoid recursive loops
+				if ( ! empty( $this->p->sharing ) && 
+					is_object( $this->p->sharing ) )
+						$filter_removed = $this->p->sharing->remove_filter( 'the_content' );
 				else $filter_removed = false;
 
 				// remove all of our shortcodes
@@ -395,9 +395,9 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				unset ( $GLOBALS['subalbum'] );
 				unset ( $GLOBALS['nggShowGallery'] );
 
-				// add the social buttons filter back, if it was removed
+				// add the sharing buttons filter back, if it was removed
 				if ( $filter_removed )
-					$this->p->social->add_filter( 'the_content' );
+					$this->p->sharing->add_filter( 'the_content' );
 
 				// add our shortcodes back
 				if ( ! empty( $this->p->cf['lib']['shortcode'] ) && 

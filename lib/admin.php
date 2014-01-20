@@ -347,23 +347,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			do_meta_boxes( $this->pagehook, 'normal', null ); 
 
-			// if we're displaying the "social" page, then do the social website metaboxes
-			if ( $this->menu_id == 'social' ) {
-				foreach ( range( 1, ceil( count( $this->p->admin->submenu[$this->menu_id]->website ) / 2 ) ) as $row ) {
-					echo '<div class="website-row">', "\n";
-					foreach ( range( 1, 2 ) as $col ) {
-						$pos_id = 'website-row-'.$row.'-col-'.$col;
-						echo '<div class="website-col-', $col, '" id="', $pos_id, '" >';
-						do_meta_boxes( $this->pagehook, $pos_id, null ); 
-						echo '</div>', "\n";
-					}
-					echo '</div>', "\n";
-				}
-				echo '<div style="clear:both;"></div>';
-			}
-
-			//do_meta_boxes( $this->pagehook, 'bottom', null ); 
-
 			if ( $this->menu_id != 'about' )
 				echo $this->get_submit_button();
 

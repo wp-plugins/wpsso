@@ -62,10 +62,10 @@ if ( ! class_exists( 'WpssoPostMetaGpl' ) && class_exists( 'WpssoPostMeta' ) ) {
 			return $ret;
 		}
 
-		protected function get_rows_social( $post_id ) {
+		protected function get_rows_sharing( $post_id ) {
 			$ret = array();
 			$twitter_cap_len = $this->p->util->tweet_max_len( get_permalink( $post_id ) );
-			list( $pid, $video_url ) = $this->get_social_vars( $post_id );
+			list( $pid, $video_url ) = $this->get_sharing_vars( $post_id );
 
 			$ret[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
@@ -101,7 +101,7 @@ if ( ! class_exists( 'WpssoPostMetaGpl' ) && class_exists( 'WpssoPostMeta' ) ) {
 			'<td class="blank">'.$this->p->webpage->get_caption( $this->p->options['twitter_caption'], $twitter_cap_len,
 				true, true, true ).'</td>';	// use_post = true, use_cache = true, add_hashtags = true
 
-			$ret[] = $this->p->util->th( 'Disable Social Buttons', 'medium', 'postmeta-buttons_disabled', $this->post_info ).
+			$ret[] = $this->p->util->th( 'Disable Sharing Buttons', 'medium', 'postmeta-buttons_disabled', $this->post_info ).
 			'<td class="blank">&nbsp;</td>';
 
 			return $ret;

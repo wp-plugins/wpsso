@@ -70,14 +70,14 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 
 			$show_tabs = array( 
 				'header' => 'Webpage Header', 
-				'social' => 'Social Sharing', 
+				'sharing' => 'Social Sharing', 
 				'tools' => 'Validation Tools',
 				'metatags' => 'Meta Tags Preview',
 			);
 
-			// only show if the social sharing button features are enabled
+			// only show if the social sharing features are enabled
 			if ( empty( $this->p->is_avail['ssb'] ) )
-				unset( $show_tabs['social'] );
+				unset( $show_tabs['sharing'] );
 
 			if ( empty( $this->p->is_avail['opengraph'] ) )
 				unset( $show_tabs['metatags'] );
@@ -94,8 +94,8 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 				case 'meta-header':
 					$ret = $this->get_rows_header( $post_id );
 					break;
-				case 'meta-social':
-					$ret = $this->get_rows_social( $post_id );
+				case 'meta-sharing':
+					$ret = $this->get_rows_sharing( $post_id );
 					break;
 				case 'meta-tools':
 					$ret = $this->get_rows_tools( $post_id );
@@ -108,7 +108,7 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 		}
 
 		// returns an array of $pid and $video_url
-		protected function get_social_vars( $post_id ) {
+		protected function get_sharing_vars( $post_id ) {
 			$pid = $this->p->meta->get_options( $post_id, 'og_img_id' );
 			$pre = $this->p->meta->get_options( $post_id, 'og_img_id_pre' );
 			$img_url = $this->p->meta->get_options( $post_id, 'og_img_url' );
@@ -199,7 +199,7 @@ if ( ! class_exists( 'WpssoPostMeta' ) ) {
 		}
 
 		protected function get_rows_header( $post_id ) { return array(); }
-		protected function get_rows_social( $post_id ) { return array(); }
+		protected function get_rows_sharing( $post_id ) { return array(); }
 	}
 }
 

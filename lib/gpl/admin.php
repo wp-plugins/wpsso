@@ -122,11 +122,11 @@ if ( ! class_exists( 'WpssoAdminAdvancedGpl' ) && class_exists( 'WpssoAdminAdvan
 	}
 }
 
-if ( ! class_exists( 'WpssoAdminSocialGpl' ) && class_exists( 'WpssoAdminSocial' ) ) {
+if ( ! class_exists( 'WpssoAdminSharingGpl' ) && class_exists( 'WpssoAdminSharing' ) ) {
 
-	class WpssoAdminSocialGpl extends WpssoAdminSocial {
+	class WpssoAdminSharingGpl extends WpssoAdminSharing {
 
-		protected function get_more_social() {
+		protected function get_more_sharing() {
 			$add_to_checkboxes = '';
 			foreach ( $this->p->util->get_post_types( 'buttons' ) as $post_type )
 				$add_to_checkboxes .= '<p>'.$this->form->get_fake_checkbox( 'buttons_add_to_'.$post_type->name ).' '.
