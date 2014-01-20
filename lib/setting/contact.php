@@ -8,9 +8,9 @@ Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 if ( ! defined( 'ABSPATH' ) ) 
 	die( 'These aren\'t the droids you\'re looking for...' );
 
-if ( ! class_exists( 'WpssoAdminContact' ) && class_exists( 'WpssoAdminAdvanced' ) ) {
+if ( ! class_exists( 'WpssoSettingContact' ) && class_exists( 'WpssoSubmenuAdvanced' ) ) {
 
-	class WpssoAdminContact extends WpssoAdminAdvanced {
+	class WpssoSettingContact extends WpssoSubmenuAdvanced {
 
 		public function __construct( &$plugin, $id, $name ) {
 			$this->p =& $plugin;

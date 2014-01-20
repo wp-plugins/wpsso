@@ -71,13 +71,13 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 		}
 
 		protected function get_rows( $metabox, $key ) {
-			$ret = array();
+			$rows = array();
 			switch ( $metabox.'-'.$key ) {
 				case 'cm-custom' :
 					if ( ! $this->p->check->is_aop() )
-						$ret[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
-					$ret[] = '<td></td>'.
+					$rows[] = '<td></td>'.
 					$this->p->util->th( 'Show', 'left checkbox' ).
 					$this->p->util->th( 'Contact Field Name', 'left medium', 'custom-cm-field-name' ).
 					$this->p->util->th( 'Profile Contact Label', 'left wide' );
@@ -95,12 +95,12 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 						// not all social websites have a contact method field
 						if ( array_key_exists( $cm_opt.'enabled', $this->p->options ) ) {
 							if ( $this->p->check->is_aop() ) {
-								$ret[] = $this->p->util->th( $name, 'medium' ).
+								$rows[] = $this->p->util->th( $name, 'medium' ).
 								'<td class="checkbox">'.$this->form->get_checkbox( $cm_opt.'enabled' ).'</td>'.
 								'<td>'.$this->form->get_input( $cm_opt.'name', 'medium' ).'</td>'.
 								'<td>'.$this->form->get_input( $cm_opt.'label' ).'</td>';
 							} else {
-								$ret[] = $this->p->util->th( $name, 'medium' ).
+								$rows[] = $this->p->util->th( $name, 'medium' ).
 								'<td class="blank checkbox">'.$this->form->get_fake_checkbox( $cm_opt.'enabled' ).'</td>'.
 								'<td class="blank medium">'.$this->form->get_hidden( $cm_opt.'name' ).
 								$this->p->options[$cm_opt.'name'].'</td>'.
@@ -114,9 +114,9 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 
 				case 'cm-builtin' :
 					if ( ! $this->p->check->is_aop() )
-						$ret[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
-					$ret[] = '<td></td>'.
+					$rows[] = '<td></td>'.
 					$this->p->util->th( 'Show', 'left checkbox' ).
 					$this->p->util->th( 'Contact Field Name', 'left medium', 'wp-cm-field-name' ).
 					$this->p->util->th( 'Profile Contact Label', 'left wide' );
@@ -127,12 +127,12 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 						$cm_opt = 'wp_cm_'.$id.'_';
 						if ( array_key_exists( $cm_opt.'enabled', $this->p->options ) ) {
 							if ( $this->p->check->is_aop() ) {
-								$ret[] = $this->p->util->th( $name, 'medium' ).
+								$rows[] = $this->p->util->th( $name, 'medium' ).
 								'<td class="checkbox">'.$this->form->get_checkbox( $cm_opt.'enabled' ).'</td>'.
 								'<td>'.$this->form->get_fake_input( $cm_opt.'name', 'medium' ).'</td>'.
 								'<td>'.$this->form->get_input( $cm_opt.'label' ).'</td>';
 							} else {
-								$ret[] = $this->p->util->th( $name, 'medium' ).
+								$rows[] = $this->p->util->th( $name, 'medium' ).
 								'<td class="blank checkbox">'.$this->form->get_hidden( $cm_opt.'enabled' ).
 									$this->form->get_fake_checkbox( $cm_opt.'enabled' ).'</td>'.
 								'<td>'.$this->form->get_fake_input( $cm_opt.'name', 'medium' ).'</td>'.
@@ -149,32 +149,32 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 							$input = $this->form->get_fake_input( 'plugin_tid', 'mono' );
 					else $input = $this->form->get_input( 'plugin_tid', 'mono' );
 
-					$ret[] = $this->p->util->th( 'Pro Version Authentication ID', 'highlight', 'plugin_tid' ).'<td>'.$input.'</td>';
+					$rows[] = $this->p->util->th( 'Pro Version Authentication ID', 'highlight', 'plugin_tid' ).'<td>'.$input.'</td>';
 
 					if ( $this->p->is_avail['aop'] )
-						$ret[] = '<th></th><td>'.$this->p->msgs->get( 'auth-id-info' ).'</td>';
+						$rows[] = '<th></th><td>'.$this->p->msgs->get( 'auth-id-info' ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
+					$rows[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_preserve' ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Add Hidden Debug Info', null, 'plugin_debug' ).
+					$rows[] = $this->p->util->th( 'Add Hidden Debug Info', null, 'plugin_debug' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_debug' ).'</td>';
 					break;
 
 				case 'plugin-content':
-					$ret[] = $this->p->util->th( 'Apply Content Filters', null, 'plugin_filter_content' ).
+					$rows[] = $this->p->util->th( 'Apply Content Filters', null, 'plugin_filter_content' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_filter_content' ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
+					$rows[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_filter_excerpt' ).'</td>';
 					break;
 
 				case 'plugin-cache':
-					$ret[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
+					$rows[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
 					'<td nowrap>'.$this->form->get_input( 'plugin_object_cache_exp', 'short' ).' seconds</td>';
 					break;
 			}
-			return $ret;
+			return $rows;
 		}
 	}
 }
