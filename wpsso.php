@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and Social Website shares
-Version: 1.23dev3
+Version: 2.0rc1
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */

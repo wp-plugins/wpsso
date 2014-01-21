@@ -163,14 +163,14 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 1.23dev3 =
+= Version 2.0rc1 =
 
 * **Added Image Dimension options (instead of image size drop-down) for Twitter Card images** (Pro version).
 * Added several filter hooks for the admin metabox tabs and option fields / rows.
-* Converted several methods to filter hooks in lib/gpl/admin/ and lib/pro/admin/.
-* Fixed the Twitter Card description value in the admin interface (Pro version).
-* Fixed WooCommerce product detection for meta tags in the admin interface (Pro version).
-* Fixed the detection of an empty array when an image is rejected by the WooCommerce addon (Pro version).
+* Converted several methods to filter hooks in the lib/gpl/admin/ and lib/pro/admin/ folders.
+* **Fixed** the Twitter Card description value in the admin interface (Pro version).
+* **Fixed** WooCommerce product detection for meta tags in the admin interface (Pro version).
+* **Fixed** the detection of an empty array when an image is rejected by the WooCommerce addon (Pro version).
 
 = Version 1.22.1 =
 

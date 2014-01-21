@@ -237,7 +237,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							(the defaults is '.$this->p->opt->get_defaults( 'og_img_width' ).'x'.$this->p->opt->get_defaults( 'og_img_height' ).', '.
 							( $this->p->opt->get_defaults( 'og_img_crop' ) == 0 ? 'not ' : '' ).'cropped). 
 							<strong>Facebook recommends an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200</strong>.
-							If the original image is smaller than the dimensions entered here, then the full-size image will be used instead.';
+							Your original images, in the WordPress Media Library and/or NextGEN Gallery, should be larger than these dimensions.';
 							break;
 						case 'tooltip-og_def_img_id':
 							$text = 'The ID number and location of your default image (example: 123). The <em>Default Image ID</em> 
