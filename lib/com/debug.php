@@ -43,7 +43,7 @@ if ( ! class_exists( 'SucomDebug' ) ) {
 
 			$stack = debug_backtrace();
 			$log_msg = '';
-			$log_msg .= sprintf( '%-26s:: ', 
+			$log_msg .= sprintf( '%-30s:: ', 
 				( empty( $stack[$backtrace]['class'] ) ? '' : $stack[$backtrace]['class'] ) );
 			$log_msg .= sprintf( '%-24s : ', 
 				( empty( $stack[$backtrace]['function'] ) ? '' : $stack[$backtrace]['function'] ) );

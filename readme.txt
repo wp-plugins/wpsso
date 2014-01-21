@@ -163,7 +163,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 1.23dev2 =
+= Version 1.23dev3 =
 
 * **Added Image Dimension options for Twitter Card images** (Pro version).
 * Fixed Twitter Card description in the admin interface (Pro version).

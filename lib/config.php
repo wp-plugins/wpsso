@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '1.23dev2',		// plugin version
+			'version' => '1.23dev3',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -43,12 +43,14 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'admin' => array(
 						'general' => 'General',
 						'advanced' => 'Advanced',
+						'postmeta' => 'Post Meta',
 					),
 				),
 				'pro' => array(
 					'admin' => array(
 						'general' => 'General',
 						'advanced' => 'Advanced',
+						'postmeta' => 'Post Meta',
 					),
 					'ecom' => array(
 						'woocommerce' => 'WooCommerce',
@@ -76,6 +78,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					),
 					'util' => array(
 						'language' => 'WP Locale Language',
+						'postmeta' => 'Post Meta',
 					),
 				),
 			),

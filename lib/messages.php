@@ -636,9 +636,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							is <a href="https://twitter.com/surniaululacom" target="_blank">@surniaululacom</a>.';
 							break;
 						case 'tooltip-tc_sum_dimensions':
-							$text = 'The size of content images provided for the
+							$card = 'sum';
+							$text = 'The dimension of content images provided for the
 							<a href="https://dev.twitter.com/docs/cards/types/summary-card" target="_blank">Summary Card</a>
-							(should be at least 120x120, larger than 60x60, and less than 1MB).';
+							(should be at least 120x120, larger than 60x60, and less than 1MB).
+							The default image dimenstions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
+							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
+							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_lrgimg_dimensions':
 							$text = 'The size of Post Meta, Featured or Attached images provided for the

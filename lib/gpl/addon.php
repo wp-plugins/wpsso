@@ -21,23 +21,6 @@ if ( ! class_exists( 'WpssoAddonGpl' ) ) {
 		}
 
 		private function load_addons() {
-
-			if ( is_admin() &&
-				file_exists( WPSSO_PLUGINDIR.'lib/gpl/admin.php' ) ) {
-				require_once ( WPSSO_PLUGINDIR.'lib/gpl/admin.php' );
-				foreach ( $this->p->cf['lib']['submenu'] as $id => $name ) {
-					$classname = $this->p->cf['cca'].'Admin'.ucfirst( $id ).'Gpl';
-					if ( class_exists( $classname ) )
-						$this->p->admin->submenu[$id] = new $classname( $this->p, $id, $name );
-				}
-			}
-
-			// extends WpssoPostMeta
-			if ( file_exists( WPSSO_PLUGINDIR.'lib/gpl/postmeta.php' ) ) {
-				require_once ( WPSSO_PLUGINDIR.'lib/gpl/postmeta.php' );
-				$this->p->meta = new WpssoPostMetaGpl( $this->p );
-			}
-
 			foreach ( $this->p->cf['lib']['gpl'] as $sub => $libs ) {
 				if ( $sub === 'admin' && ! is_admin() )	// only load admin menus and tabs in admin
 					continue;
