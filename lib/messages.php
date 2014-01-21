@@ -53,19 +53,19 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'When a \'Pro Version Authentication ID\' is entered on the '.$this->p->util->get_admin_url( 'advanced', 
 							'Advanced settings' ).' page, a check is scheduled every 12 hours to see if a Pro version update is available.';
 							break;
-						case 'tooltip-side-social-sharing-buttons':
+						case 'tooltip-side-sharing-buttons':
 							$text = 'Social sharing features include the SSO '.$this->p->util->get_admin_url( 'sharing', 'Social Sharing' ).
 							' and '.$this->p->util->get_admin_url( 'style', 'Social Style' ).' settings pages (aka social sharing buttons), 
 							the Custom Settings - Social Sharing tab on admin editing pages, along with the social sharing shortcode 
 							and widget. All social sharing features can be disabled using one of the available PHP
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constants</a>.';
 							break;
-						case 'tooltip-side-social-sharing-shortcode':
+						case 'tooltip-side-sharing-shortcode':
 							$text = 'Support for shortcode(s) can be enabled / disabled on the '.
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page. Shortcodes are disabled by default
 							to optimize WordPress performance and content processing.';
 							break;
-						case 'tooltip-side-social-sharing-widget':
+						case 'tooltip-side-sharing-widget':
 							$text = 'The social sharing widget feature adds an \'WPSSO Social Sharing\' widget in the WordPress Appearance - Widgets page.
 							The widget can be used in any number of widget areas, to share the current webpage. The widget, along with all social
 							sharing featured, can be disabled using an available 
@@ -422,8 +422,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'Apply the standard WordPress \'get_the_excerpt\' filter to render the excerpt text (default is unchecked).
 							Check this option if you use shortcodes in your excerpt, for example.';
 							break;
-						case 'tooltip-plugin_shortcode_wpsso':
-							$text = 'Enable the '.$this->p->cf['full'].' content shortcode(s) (default is unchecked).';
+						case 'tooltip-plugin_shortcodes':
+							$text = 'Enable the '.$this->p->cf['full'].' shortcode features (default is unchecked).';
+							break;
+						case 'tooltip-plugin_widgets':
+							$text = 'Enable the '.$this->p->cf['full'].' widget features (default is checked).';
 							break;
 						case 'tooltip-plugin_auto_img_resize':
 							$text = 'Automatically generate missing or incorrect image sizes for previously uploaded images in the 
@@ -640,34 +643,50 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'The dimension of content images provided for the
 							<a href="https://dev.twitter.com/docs/cards/types/summary-card" target="_blank">Summary Card</a>
 							(should be at least 120x120, larger than 60x60, and less than 1MB).
-							The default image dimenstions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
+							The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
 							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
 							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_lrgimg_dimensions':
-							$text = 'The size of Post Meta, Featured or Attached images provided for the
+							$card = 'lrgimg';
+							$text = 'The dimension of Post Meta, Featured or Attached images provided for the
 							<a href="https://dev.twitter.com/docs/cards/large-image-summary-card" target="_blank">Large Image Summary Card</a>
-							(must be larger than 280x150 and less than 1MB).';
+							(must be larger than 280x150 and less than 1MB).
+							The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
+							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
+							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_photo_dimensions':
-							$text = 'The size of ImageBrowser or Attachment Page images provided for the 
+							$card = 'photo';
+							$text = 'The dimension of ImageBrowser or Attachment Page images provided for the 
 							<a href="https://dev.twitter.com/docs/cards/types/photo-card" target="_blank">Photo Card</a> 
-							(should be at least 560x750 and less than 1MB).';
+							(should be at least 560x750 and less than 1MB).
+							The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
+							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
+							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_gal_minimum':
 							$text = 'The minimum number of images found in a gallery to qualify for the
 							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
 							break;
 						case 'tooltip-tc_gal_dimensions':
-							$text = 'The size of gallery images provided for the
-							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
+							$card = 'gal';
+							$text = 'The dimension of gallery images provided for the
+							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.
+							The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
+							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
+							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_prod_dimensions':
-							$text = 'The size of a featured product image for the
+							$card = 'prod';
+							$text = 'The dimension of a <em>featured product image</em> for the
 							<a href="https://dev.twitter.com/docs/cards/types/product-card" target="_blank">Product Card</a>.
 							The product card requires an image of size 160 x 160 or greater. A square (aka cropped) image is better, 
 							but Twitter can crop/resize oddly shaped images to fit, as long as both dimensions are greater 
-							than or equal to 160 pixels.';
+							than or equal to 160 pixels.
+							The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
+							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
+							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_prod_defaults':
 							$text = 'The <em>Product</em> Twitter Card needs a <strong>minimum of two product attributes</strong>.

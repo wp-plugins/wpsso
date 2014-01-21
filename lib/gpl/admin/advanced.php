@@ -18,7 +18,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			$this->p->util->add_plugin_filters( $this, array( 
 				'plugin_content_rows' => 2,
 				'taglist_tags_rows' => 2,
-			) );
+			), 50 );
 		}
 
 		public function filter_plugin_content_rows( $rows, $form ) {
@@ -29,21 +29,17 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
-			if ( $this->p->is_avail['ssb'] )
-				$rows[] = $this->p->util->th( 'Enable Shortcode(s)', 'highlight', 'plugin_shortcode' ).
-				'<td>'.$form->get_fake_checkbox( 'plugin_shortcode' ).'</td>';
-
 			$rows[] =  $this->p->util->th( 'Auto-Resize Images', null, 'plugin_auto_img_resize' ).
-			'<td>'.$form->get_fake_checkbox( 'plugin_auto_img_resize' ).'</td>';
+			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_auto_img_resize' ).'</td>';
 
 			$rows[] =  $this->p->util->th( 'Ignore Small Images', null, 'plugin_ignore_small_img' ).
-			'<td>'.$form->get_fake_checkbox( 'plugin_ignore_small_img' ).'</td>';
+			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_ignore_small_img' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Check for Wistia Videos', null, 'plugin_wistia_api' ).
-			'<td>'.$form->get_fake_checkbox( 'plugin_wistia_api' ).'</td>';
+			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_wistia_api' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Show Custom Settings on', null, 'plugin_add_to' ).
-			'<td>'.$checkboxes.'</td>';
+			'<td class="blank">'.$checkboxes.'</td>';
 			
 			return $rows;
 		}

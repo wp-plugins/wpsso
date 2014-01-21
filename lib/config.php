@@ -43,14 +43,14 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'admin' => array(
 						'general' => 'General',
 						'advanced' => 'Advanced',
-						'postmeta' => 'Post Meta',
+						'postmeta' => 'Custom Post Meta',
 					),
 				),
 				'pro' => array(
 					'admin' => array(
-						'general' => 'General',
-						'advanced' => 'Advanced',
-						'postmeta' => 'Post Meta',
+						'general' => 'General Settings',
+						'advanced' => 'Advanced Settings',
+						'postmeta' => 'Custom Post Meta',
 					),
 					'ecom' => array(
 						'woocommerce' => 'WooCommerce',
@@ -78,7 +78,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					),
 					'util' => array(
 						'language' => 'WP Locale Language',
-						'postmeta' => 'Post Meta',
+						'postmeta' => 'Custom Post Meta',
 					),
 				),
 			),
@@ -206,7 +206,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_debug' => 0,
 					'plugin_filter_content' => 1,
 					'plugin_filter_excerpt' => 0,
-					'plugin_shortcode_wpsso' => 0,
 					'plugin_auto_img_resize' => 1,
 					'plugin_ignore_small_img' => 1,
 					'plugin_wistia_api' => 1,

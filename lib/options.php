@@ -108,11 +108,8 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 						empty( $this->p->options['plugin_tid'] ) ) {
 
 						// show the nag and update the options only if we have someone with access
-						if ( current_user_can( 'manage_options' ) ) {
-							if ( ! is_object( $this->p->msgs ) ) {
-								require_once( WPSSO_PLUGINDIR.'lib/messages.php' );
-								$this->p->msgs = new WpssoMessages( $this->p );
-							}
+						// otherwise, wait until next time
+						if ( is_admin() && current_user_can( 'manage_options' ) ) {
 							$this->p->notice->nag( $this->p->msgs->get( 'pro-advert-nag' ), true );
 							$this->save_options( $options_name, $opts );
 						}
@@ -225,6 +222,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			$previous_opts_version = $opts['options_version'];
 			$opts['options_version'] = $this->p->cf['opt']['version'];
 			$opts['plugin_version'] = $this->p->cf['version'];
+			$opts = apply_filters( $this->p->cf['lca'].'_save_options', $opts, $options_name );
 
 			// update_option() returns false if options are the same or there was an error, 
 			// so check to make sure they need to be updated to avoid throwing a false error

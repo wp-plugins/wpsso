@@ -167,6 +167,17 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 
 					$rows[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_filter_excerpt' ).'</td>';
+
+					if ( ! empty( $this->p->cf['lib']['shortcode'] ) ) {
+						$rows[] = $this->p->util->th( 'Enable Shortcode(s)', 'highlight', 'plugin_shortcodes' ).
+						'<td>'.$this->form->get_checkbox( 'plugin_shortcodes' ).'</td>';
+					}
+
+					if ( ! empty( $this->p->cf['lib']['widget'] ) ) {
+						$rows[] = $this->p->util->th( 'Enable Widget(s)', 'highlight', 'plugin_widgets' ).
+						'<td>'.$this->form->get_checkbox( 'plugin_widgets' ).'</td>';
+					}
+
 					break;
 
 				case 'plugin-cache':

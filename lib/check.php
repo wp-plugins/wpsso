@@ -64,8 +64,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) &&
 				class_exists( $this->p->cf['cca'].'Opengraph' ) ? true : false;
 
-			$ret['ssb'] = false;	// social sharing buttons disabled by default
-
 			$ret['aop'] = self::$aop = file_exists( WPSSO_PLUGINDIR.'lib/pro/addon.php' ) &&
 				class_exists( $this->p->cf['cca'].'AddonPro' ) ? true : false;
 

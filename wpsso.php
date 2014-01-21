@@ -62,6 +62,18 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			}
 		}
 
+		public function init_widgets() {
+			$opts = get_option( NGFB_OPTIONS_NAME );
+			if ( ! empty( $opts['plugin_widgets'] ) ) {
+				foreach ( $this->cf['lib']['widget'] as $id => $name ) {
+					do_action( $this->cf['lca'].'_load_lib', 'widget', $id );
+					$classname = __CLASS__.'Widget'.$name;
+					if ( class_exists( $classname ) )
+					register_widget( $classname );
+				}
+			}
+		}
+
 		// called by activate_plugin() as well
 		public function set_objects( $activate = false ) {
 			/*
@@ -118,13 +130,9 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			/*
 			 * remaining object classes
 			 */
-			if ( ! is_object( $this->script ) )
-				$this->script = new SucomScript( $this );	// admin jquery tooltips
-
-			if ( ! is_object( $this->style ) )
-				$this->style = new SucomStyle( $this );		// allow other plugins to define earlier
-
 			$this->cache = new SucomCache( $this );			// object and file caching
+			$this->style = new SucomStyle( $this );			// allow other plugins to define earlier
+			$this->script = new SucomScript( $this );		// admin jquery tooltips
 			$this->webpage = new SucomWebpage( $this );		// title, desc, etc., plus shortcodes
 			$this->user = new WpssoUser( $this );			// contact methods and metabox prefs
 			$this->meta = new WpssoPostmeta( $this );		// custom post meta

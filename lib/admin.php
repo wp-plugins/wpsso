@@ -53,6 +53,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 		}
 
+		// load all submenu classes into the $this->submenu array
 		private function set_objects() {
 			$libs = array( 'setting', 'submenu' );
 			if ( is_multisite() )
@@ -181,7 +182,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$opts = SucomUtil::restore_checkboxes( $opts );
 			$opts = array_merge( $this->p->options, $opts );
 			$opts = $this->p->opt->sanitize( $opts, $def_opts );	// cleanup excess options and sanitize
-			$opts = apply_filters( $this->p->cf['lca'].'_save_options', $opts );
+			$opts = apply_filters( $this->p->cf['lca'].'_save_options', $opts, WPSSO_OPTIONS_NAME );
 			$this->p->notice->inf( __( 'Plugin settings have been updated.', WPSSO_TEXTDOM ).' '.
 				sprintf( __( 'Wait %d seconds for cache objects to expire (default) or use the \'Clear All Cache\' button.', WPSSO_TEXTDOM ), 
 					$this->p->options['plugin_object_cache_exp'] ), true );
@@ -211,9 +212,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				SucomUtil::restore_checkboxes( $_POST[WPSSO_SITE_OPTIONS_NAME] );
 			$opts = array_merge( $this->p->site_options, $opts );
 			$opts = $this->p->opt->sanitize( $opts, $def_opts );	// cleanup excess options and sanitize
-
-			if ( empty( $this->p->site_options['plugin_tid'] ) )
-				delete_option( $this->p->cf['lca'].'_umsg' );
 
 			$opts = apply_filters( $this->p->cf['lca'].'_save_site_options', $opts );
 			update_site_option( WPSSO_SITE_OPTIONS_NAME, $opts );
@@ -347,6 +345,23 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			do_meta_boxes( $this->pagehook, 'normal', null ); 
 
+			// if we're displaying the sharing page, then do the sharing website metaboxes
+			if ( $this->menu_id == 'sharing' ) {
+				foreach ( range( 1, ceil( count( $this->p->admin->submenu[$this->menu_id]->website ) / 2 ) ) as $row ) {
+					echo '<div class="website-row">', "\n";
+					foreach ( range( 1, 2 ) as $col ) {
+						$pos_id = 'website-row-'.$row.'-col-'.$col;
+						echo '<div class="website-col-', $col, '" id="', $pos_id, '" >';
+						do_meta_boxes( $this->pagehook, $pos_id, null ); 
+						echo '</div>', "\n";
+					}
+					echo '</div>', "\n";
+				}
+				echo '<div style="clear:both;"></div>';
+			}
+
+			//do_meta_boxes( $this->pagehook, 'bottom', null ); 
+
 			if ( $this->menu_id != 'about' )
 				echo $this->get_submit_button();
 
@@ -388,13 +403,16 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		public function show_metabox_status() {
 			echo '<table class="sucom-setting">';
 			/*
-			 * GNU version features
+			 * GPL version features
 			 */
 			$features = array(
 				'Debug Messages' => array( 'class' => 'SucomDebug' ),
 				'Non-Persistant Cache' => array( 'status' => $this->p->is_avail['cache']['object'] ? 'on' : 'rec' ),
 				'Open Graph / Rich Pin' => array( 'status' => class_exists( $this->p->cf['lca'].'Opengraph' ) ? 'on' : 'rec' ),
 				'Pro Update Check' => array( 'class' => 'SucomUpdate' ),
+				'Sharing Buttons' => array( 'class' => $this->p->cf['lca'].'Sharing' ),
+				'Sharing Shortcode' => array( 'class' => $this->p->cf['lca'].'ShortcodeSharing' ),
+				'Sharing Widget' => array( 'class' => $this->p->cf['lca'].'WidgetSharing' ),
 				'Transient Cache' => array( 'status' => $this->p->is_avail['cache']['transient'] ? 'on' : 'rec' ),
 			);
 			echo '<tr><td><h4 style="margin-top:0;">Standard</h4></td></tr>';
@@ -404,10 +422,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			 * Pro version features
 			 */
 			$features = array(
-				'Custom Post Meta' => array( 'status' => class_exists( $this->p->cf['lca'].'PostMetaPro' ) ? 'on' : 'rec' ),
+				'Social File Cache' => array( 'status' => $this->p->is_avail['cache']['file'] ? 'on' : 'off' ),
 			);
 			foreach ( $this->p->cf['lib']['pro'] as $sub => $libs ) {
-				if ( $sub === 'admin' ) // skip status for admin menus and tabs
+				if ( $sub === 'admin' )	// skip status for admin menus and tabs
 					continue;
 				foreach ( $libs as $id => $name ) {
 					$features[$name] = array( 
@@ -418,6 +436,15 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						$this->p->cf['full_pro'].' will load a specific integration addon
 						for '.$name.' to improve the accuracy of Open Graph, Rich Pin, 
 						and Twitter Card meta tag values.';
+
+					switch ( $id ) {
+						case 'bbpress':
+						case 'buddypress':
+							$features[$name]['tooltip'] .= ' '.$name.' support also provides social sharing buttons 
+							that can be enabled from the SSO '.$this->p->util->get_admin_url( 'sharing',
+							'Social Sharing settings' ).' page.';
+							break;
+					}
 				}
 			}
 			echo '<tr><td><h4>Pro Addons</h4></td></tr>';
