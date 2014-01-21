@@ -14,7 +14,6 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) ) {
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
-			$this->p->debug->mark();
 			$this->p->util->add_plugin_filters( $this, array( 
 				'pub_twitter_rows' => 2,
 			) );

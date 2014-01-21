@@ -14,7 +14,6 @@ if ( ! class_exists( 'WpssoAdminPostmeta' ) ) {
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
-			$this->p->debug->mark();
 			$this->p->util->add_plugin_filters( $this, array( 
 				'meta_header_rows' => 3,
 			) );
