@@ -165,7 +165,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Version 1.23dev3 =
 
-* **Added Image Dimension options (instead of Size selction) for Twitter Card images** (Pro version).
+* **Added Image Dimension options (instead of image size drop-down) for Twitter Card images** (Pro version).
 * Added several filter hooks for the admin metabox tabs and option fields / rows.
 * Converted several methods to filter hooks in lib/gpl/admin/ and lib/pro/admin/.
 * Fixed the Twitter Card description value in the admin interface (Pro version).
