@@ -532,7 +532,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $twitter_cap_len;
 		}
 
-		public function get_source_id( $src_name, $atts = array() ) {
+		public function get_source_id( $src_name, &$atts = array() ) {
 			global $post;
 			$use_post = empty( $atts['is_widget'] ) || is_singular() ? true : false;
 			$source_id = $src_name.( empty( $atts['css_id'] ) ? 
