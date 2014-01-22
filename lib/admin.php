@@ -401,29 +401,27 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		public function show_metabox_status() {
+			$metabox = 'status';
 			echo '<table class="sucom-setting">';
 			/*
 			 * GPL version features
 			 */
+			echo '<tr><td><h4 style="margin-top:0;">Standard</h4></td></tr>';
 			$features = array(
 				'Debug Messages' => array( 'class' => 'SucomDebug' ),
 				'Non-Persistant Cache' => array( 'status' => $this->p->is_avail['cache']['object'] ? 'on' : 'rec' ),
 				'Open Graph / Rich Pin' => array( 'status' => class_exists( $this->p->cf['lca'].'Opengraph' ) ? 'on' : 'rec' ),
 				'Pro Update Check' => array( 'class' => 'SucomUpdate' ),
-				'Sharing Buttons' => array( 'class' => $this->p->cf['lca'].'Sharing' ),
-				'Sharing Shortcode' => array( 'class' => $this->p->cf['lca'].'ShortcodeSharing' ),
-				'Sharing Widget' => array( 'class' => $this->p->cf['lca'].'WidgetSharing' ),
 				'Transient Cache' => array( 'status' => $this->p->is_avail['cache']['transient'] ? 'on' : 'rec' ),
 			);
-			echo '<tr><td><h4 style="margin-top:0;">Standard</h4></td></tr>';
+			$features = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_gpl_features', $features );
 			$this->show_plugin_status( $features );
 
 			/*
 			 * Pro version features
 			 */
-			$features = array(
-				'Social File Cache' => array( 'status' => $this->p->is_avail['cache']['file'] ? 'on' : 'off' ),
-			);
+			echo '<tr><td><h4>Pro Addons</h4></td></tr>';
+			$features = array();
 			foreach ( $this->p->cf['lib']['pro'] as $sub => $libs ) {
 				if ( $sub === 'admin' )	// skip status for admin menus and tabs
 					continue;
@@ -447,7 +445,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					}
 				}
 			}
-			echo '<tr><td><h4>Pro Addons</h4></td></tr>';
+			$features = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_pro_features', $features );
 			$this->show_plugin_status( $features, ( $this->p->check->is_aop() ? '' : 'blank' ) );
 
 			$action_buttons = '';
