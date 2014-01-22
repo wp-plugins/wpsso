@@ -718,14 +718,17 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					known SEO plugin was detected).</p>';
 					break;
 				case 'cm-info':
-					$text = '<p>The following options allow you to customize the contact field names and labels shown on the 
-					<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>. '.$this->p->cf['full'].' uses the Facebook, 
-					Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags (along with the Twitter social sharing button).
+					$text = '<p>The following options allow you to customize the contact field names and labels shown on the
+					<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.
+					'.$this->p->cf['full'].' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags 
+					(along with the Twitter social sharing button).
 					<strong>You should not modify the <em>Contact Field Name</em> unless you have a very good reason to do so.</strong>
-					The <em>Profile Contact Label</em> on the other hand, is for display purposes only, and its text can be changed as you wish.
-					Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying their values 
-					in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
-					target="_blank">get_the_author_meta()</a> for examples).</p>';
+					The <em>Profile Contact Label</em> on the other hand, is for <strong>display purposes only</strong>, and its text can be changed as you wish.
+					Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying these
+					contact fields in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
+					target="_blank">get_the_author_meta()</a> for examples).</p>
+					<p><center><strong><font color="red">DO NOT ENTER YOUR CONTACT INFORMATION HERE</font> -- THESE ARE CONTACT FIELD LABELS ONLY</strong>
+					(enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>).</p>';
 					break;
 				case 'sharing-buttons-info':
 					$text = '<p>The following social sharing buttons can be added to the content, excerpt, and/or enabled within the '.
