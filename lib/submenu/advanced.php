@@ -152,7 +152,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					$rows[] = $this->p->util->th( 'Pro Version Authentication ID', 'highlight', 'plugin_tid' ).'<td>'.$input.'</td>';
 
 					if ( $this->p->is_avail['aop'] )
-						$rows[] = '<th></th><td>'.$this->p->msgs->get( 'auth-id-info' ).'</td>';
+						$rows[] = '<th></th><td>'.$this->p->msgs->get( 'tid-info' ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_preserve' ).'</td>';

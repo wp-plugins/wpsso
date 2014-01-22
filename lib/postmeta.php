@@ -10,6 +10,13 @@ if ( ! defined( 'ABSPATH' ) )
 
 if ( ! class_exists( 'WpssoPostmeta' ) ) {
 
+	/*
+	 * This class is extended by gpl/util/postmeta.php or pro/util/postmeta.php
+	 * and the class object is created as $this->p->addons['util']['postmeta'] by
+	 * gpl/addons.php or pro/addons.php.
+	 *
+	 */
+
 	class WpssoPostmeta {
 
 		protected $p;
@@ -17,7 +24,6 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		protected $header_tags = array();
 		protected $post_info = array();
 
-		// executed by wpssoUtilPostmeta() as well
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
@@ -25,13 +31,6 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		}
 
 		protected function add_actions() {
-			if ( ! is_admin() ) return;
-
-			if ( $this->p->is_avail['opengraph'] )
-				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
-
-			add_action( 'save_post', array( &$this, 'flush_cache' ), 20 );
-			add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 20 );
 		}
 
 		public function add_metaboxes() {
@@ -40,13 +39,13 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				if ( ! empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ) {
 					// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 					add_meta_box( WPSSO_META_NAME, $this->p->cf['menu'].' Custom Settings', 
-						array( &$this->p->meta, 'show_metabox_postmeta' ), $post_type->name, 'advanced', 'high' );
+						array( &$this, 'show_metabox_postmeta' ), $post_type->name, 'advanced', 'high' );
 				}
 			}
 		}
 
 		public function set_header_tags() {
-			if ( $this->p->is_avail['opengraph'] && empty( $this->p->meta->header_tags ) ) {
+			if ( $this->p->is_avail['opengraph'] && empty( $this->header_tags ) ) {
 				if ( ( $obj = $this->p->util->get_the_object() ) === false ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return;
@@ -55,7 +54,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					$html = $this->p->head->get_header_html( $this->p->og->get_array( $obj->ID ), $obj->ID );
 					$this->p->debug->show_html( null, 'debug log' );
 					$html = preg_replace( '/<!--.*-->/Us', '', $html );
-					preg_match_all( '/<(\w+) (\w+)="([^"]*)" (\w+)="([^"]*)"[ \/]*>/', $html, $this->p->meta->header_tags, PREG_SET_ORDER );
+					preg_match_all( '/<(\w+) (\w+)="([^"]*)" (\w+)="([^"]*)"[ \/]*>/', $html, $this->header_tags, PREG_SET_ORDER );
 				}
 			}
 		}
@@ -119,7 +118,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 
 				case 'meta-tags':	
 					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
-						foreach ( $this->p->meta->header_tags as $m ) {
+						foreach ( $this->header_tags as $m ) {
 							$rows[] = '<th class="xshort">'.$m[1].'</th>'.
 								'<th class="xshort">'.$m[2].'</th>'.
 								'<td class="short">'.$m[3].'</td>'.
@@ -137,10 +136,10 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		// returns an array of $pid and $video_url
 		public function get_media( $post_id ) {
 			// use get_options() from the extended meta object
-			$pid = $this->p->meta->get_options( $post_id, 'og_img_id' );
-			$pre = $this->p->meta->get_options( $post_id, 'og_img_id_pre' );
-			$img_url = $this->p->meta->get_options( $post_id, 'og_img_url' );
-			$video_url = $this->p->meta->get_options( $post_id, 'og_vid_url' );
+			$pid = $this->get_options( $post_id, 'og_img_id' );
+			$pre = $this->get_options( $post_id, 'og_img_id_pre' );
+			$img_url = $this->get_options( $post_id, 'og_img_url' );
+			$video_url = $this->get_options( $post_id, 'og_vid_url' );
 
 			if ( empty( $pid ) ) {
 				if ( $this->p->is_avail['postthumb'] == true && has_post_thumbnail( $post_id ) )

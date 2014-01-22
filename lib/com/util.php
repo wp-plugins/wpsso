@@ -119,9 +119,10 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		public function get_meta_sharing_url( $post_id ) {
 			$url = false;
-			if ( empty( $post_id ) )	// post id must be > 0 to have post meta
-				return $url;
-			$url = $this->p->meta->get_options( $post_id, 'sharing_url' );
+			if ( empty( $post_id ) || 
+				! array_key_exists( 'postmeta', $this->p->addons ) )
+					return $url;
+			$url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'sharing_url' );
 			if ( ! empty( $url ) )
 				$this->p->debug->log( 'found custom meta sharing url = '.$url );
 			return $url;
@@ -435,8 +436,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			$og_max = array();
 			foreach ( array( 'og_vid_max', 'og_img_max' ) as $max_name ) {
 				$num_meta = false;
-				if ( ! empty( $post_id ) )
-					$num_meta = $this->p->meta->get_options( $post_id, $max_name );
+				if ( ! empty( $post_id ) && 
+					array_key_exists( 'postmeta', $this->p->addons ) )
+						$num_meta = $this->p->addons['util']['postmeta']->get_options( $post_id, $max_name );
 				if ( $num_meta !== false ) {
 					$og_max[$max_name] = $num_meta;
 					$this->p->debug->log( 'found custom meta '.$max_name.' = '.$num_meta );

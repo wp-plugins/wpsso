@@ -138,7 +138,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			if ( ! empty( $this->p->options['inc_description'] ) ) {
 				if ( ! array_key_exists( 'description', $meta_tags ) ) {
 					if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
-						$meta_tags['description'] = $this->p->meta->get_options( $post_id, 'meta_desc' );
+						$meta_tags['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'meta_desc' );
 					if ( empty( $meta_tags['description'] ) )
 						$meta_tags['description'] = $this->p->webpage->get_description( $this->p->options['meta_desc_len'], '...',
 							$use_post, true, false );	// use_post = false, use_cache = true, add_hashtags = false

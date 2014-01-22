@@ -169,8 +169,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$ret_empty = array( null, null, null, null );
 
 			if ( $this->p->is_avail['media']['ngg'] === true && strpos( $pid, 'ngg-' ) === 0 ) {
-				if ( ! empty( $this->p->addons['ngg'] ) )
-					return $this->p->addons['ngg']->get_image_src( $pid, $size_name, $check_dupes );
+				if ( ! empty( $this->p->addons['media']['ngg'] ) )
+					return $this->p->addons['media']['ngg']->get_image_src( $pid, $size_name, $check_dupes );
 				else {
 					if ( is_admin() )
 						$this->p->notice->err( 'NextGEN Gallery support is not available - image id '.$pid.' ignored.' ); 
@@ -287,12 +287,12 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$og_ret = array();
 			$og_image = array();
 
-			if ( empty( $post_id ) )	// post id must be > 0 to have post meta
+			if ( empty( $post_id ) || ! isset( $this->p->addons['util']['postmeta'] ) )
 				return $og_ret;
 
-			$pid = $this->p->meta->get_options( $post_id, 'og_img_id' );
-			$pre = $this->p->meta->get_options( $post_id, 'og_img_id_pre' );
-			$img_url = $this->p->meta->get_options( $post_id, 'og_img_url' );
+			$pid = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_img_id' );
+			$pre = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_img_id_pre' );
+			$img_url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_img_url' );
 
 			if ( $pid > 0 ) {
 				$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
@@ -360,8 +360,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 			// check div|a|img html tags for ngg images
 			if ( $this->p->is_avail['media']['ngg'] === true ) {
-				if ( ! empty( $this->p->addons['ngg'] ) ) {
-					$og_ret = $this->p->addons['ngg']->get_content_images( $num, $size_name, $use_post, $check_dupes, $content );
+				if ( ! empty( $this->p->addons['media']['ngg'] ) ) {
+					$og_ret = $this->p->addons['media']['ngg']->get_content_images( $num, $size_name, $use_post, $check_dupes, $content );
 					if ( $this->p->util->is_maxed( $og_ret, $num ) )
 						return $og_ret;
 				}
@@ -392,9 +392,9 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 							break;
 						default :
 							// prevent duplicates by silently ignoring ngg images (already processed by the ngg addon)
-							if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->addons['ngg'] ) &&
+							if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->addons['media']['ngg'] ) &&
 								( strpos( $tag_value, " class='ngg-" ) !== false || 
-									preg_match( '/^'.$this->p->addons['ngg']->img_src_preg.'$/', $attr_value ) ) ) {
+									preg_match( '/^'.$this->p->addons['media']['ngg']->img_src_preg.'$/', $attr_value ) ) ) {
 								break;
 							}
 	
@@ -482,8 +482,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				} else $this->p->debug->log( '[gallery] shortcode not found' );
 			}
 			// check for ngg gallery
-			if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->addons['ngg'] ) ) {
-				$og_ret = $this->p->addons['ngg']->get_gallery_images( $num , $size_name, $want_this, $check_dupes );
+			if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->addons['media']['ngg'] ) ) {
+				$og_ret = $this->p->addons['media']['ngg']->get_gallery_images( $num , $size_name, $want_this, $check_dupes );
 				if ( $this->p->util->is_maxed( $og_ret, $num ) )
 					return $og_ret;
 			}
@@ -494,10 +494,11 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 		public function get_meta_video( $num = 0, $post_id, $check_dupes = true ) {
 			$this->p->debug->args( array( 'num' => $num, 'post_id' => $post_id, 'check_dupes' => $check_dupes ) );
 			$og_ret = array();
-			if ( empty( $post_id ) ) 	// post id must be > 0 to have post meta
+
+			if ( empty( $post_id ) || ! isset( $this->p->addons['util']['postmeta'] ) )
 				return $og_ret;
 
-			$video_url = $this->p->meta->get_options( $post_id, 'og_vid_url' );
+			$video_url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_vid_url' );
 
 			if ( ! empty( $video_url ) && 
 				( $check_dupes == false || $this->p->util->is_uniq_url( $video_url ) ) ) {

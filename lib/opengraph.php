@@ -264,14 +264,14 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 			// check for ngg shortcodes and query vars
 			if ( $this->p->is_avail['media']['ngg'] === true && 
-				! empty( $this->p->addons['ngg'] ) &&
+				! empty( $this->p->addons['media']['ngg'] ) &&
 				! $this->p->util->is_maxed( $og_ret, $num ) ) {
 
 				// ngg pre-v2 used query arguments
 				$ngg_query_og_ret = array();
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				if ( version_compare( $this->p->addons['ngg']->ngg_version, '2.0.0', '<' ) )
-					$ngg_query_og_ret = $this->p->addons['ngg']->get_query_images( $num_remains, $size_name, $check_dupes );
+				if ( version_compare( $this->p->addons['media']['ngg']->ngg_version, '2.0.0', '<' ) )
+					$ngg_query_og_ret = $this->p->addons['media']['ngg']->get_query_images( $num_remains, $size_name, $check_dupes );
 
 				// if we found images in the query, skip content shortcodes
 				if ( count( $ngg_query_og_ret ) > 0 ) {
@@ -282,7 +282,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				} elseif ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
 					$num_remains = $this->p->media->num_remains( $og_ret, $num );
 					$og_ret = array_merge( $og_ret, 
-						$this->p->addons['ngg']->get_shortcode_images( $num_remains, $size_name, $check_dupes ) );
+						$this->p->addons['media']['ngg']->get_shortcode_images( $num_remains, $size_name, $check_dupes ) );
 				}
 			} // end of check for ngg shortcodes and query vars
 

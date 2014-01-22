@@ -53,28 +53,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'When a \'Pro Version Authentication ID\' is entered on the '.$this->p->util->get_admin_url( 'advanced', 
 							'Advanced settings page' ).', a check is scheduled every 12 hours to see if a Pro version update is available.';
 							break;
-						case 'tooltip-side-sharing-buttons':
-							$text = 'Social sharing features include the SSO '.$this->p->util->get_admin_url( 'sharing', 'Social Sharing' ).
-							' and '.$this->p->util->get_admin_url( 'style', 'Social Style' ).' settings pages (aka social sharing buttons), 
-							the Custom Settings / Social Sharing tab on Post or Page editing pages, along with the social sharing shortcode 
-							and widget. All social sharing features can be disabled using one of the available PHP
-							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constants</a>.';
-							break;
-						case 'tooltip-side-sharing-shortcode':
-							$text = 'Support for shortcode(s) can be enabled / disabled on the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).'. Shortcodes are disabled by default
-							to optimize WordPress performance and content processing.';
-							break;
-						case 'tooltip-side-sharing-stylesheet':
-							$text = 'A stylesheet can be included on all webpages for the social sharing buttons. Enable or disable the
-							addition of the stylesheet from the '.$this->p->util->get_admin_url( 'style', 'Social Style settings page' ).'.';
-							break;
-						case 'tooltip-side-sharing-widget':
-							$text = 'The social sharing widget feature adds an \'WPSSO Social Sharing\' widget in the WordPress Appearance - Widgets page.
-							The widget can be used in any number of widget areas, to share the current webpage. The widget, along with all social
-							sharing featured, can be disabled using an available 
-							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
-							break;
 						case 'tooltip-side-transient-cache':
 							$text = $this->p->cf['full'].' saves Open Graph, Rich Pin, Twitter Card meta tags, and sharing buttons to a persistant
 							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
@@ -82,13 +60,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							' seconds). You can adjust the Transient Cache expiration value from the '.
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).', or disable it completely using an available
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
-							break;
-						case 'tooltip-side-social-file-cache':
-							$text = $this->p->cf['full_pro'].' can save social sharing images and JavaScript to a cache folder, 
-							and provide URLs to these cached files instead of the originals. The current \'File Cache Expiry\'
-							value, as defined on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).', is '.
-							$this->p->options['plugin_file_cache_hrs'].' Hours (the default value of 0 Hours disables the 
-							file caching feature).';
 							break;
 						case 'tooltip-side-custom-post-meta':
 							$text = 'The Custom Post Meta feature adds an SSO Custom Settings metabox to the Post and Page editing pages.
@@ -105,18 +76,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							photographs, eCommerce products, etc. Twitter Cards are displayed differently on Twitter, either online or from mobile Twitter 
 							clients, allowing you to better feature your content. The Twitter Cards addon can be enabled from the '.
 							$this->p->util->get_admin_url( 'general', 'General settings page' ).'.';
-							break;
-						case 'tooltip-side-url-rewriter':
-							$text = $this->p->cf['full_pro'].' can rewrite image URLs in meta tags, cached images and JavaScript, 
-							and for social sharing buttons like Pinterest and Tumblr (which use encoded image URLs). 
-							Rewriting image URLs can be an important part of optimizing page load speeds. See the \'Static Content URL(s)\'
-							option on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' to enable URL rewriting.';
-							break;
-						case 'tooltip-side-url-shortener':
-							$text = '<strong>When using the Twitter social sharing button provided by '.$this->p->cf['full_pro'].'</strong>, 
-							the webpage URL (aka the <em>canonical</em> or <em>permalink</em> URL) within the Tweet, 
-							can be shortened by one of the available URL shortening services. Enable URL shortening for Twitter
-							from the '.$this->p->util->get_admin_url( 'sharing', 'Social Sharing' ).' settings page.';
 							break;
 						case 'tooltip-side-wistia-video-api':
 							$text = 'If the \'Check for Wistia Videos\' option on the '.
@@ -195,33 +154,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							The default sharing URL may be influenced by settings from supported SEO plugins.
 							Please make sure any custom URL you enter here is functional and redirects correctly.';
 						 	break;
-						 case 'tooltip-postmeta-buttons_disabled':
-							$text = 'Disable all social sharing buttons (content, excerpt, widget, shortcode) for this '.$ptn.'.';
-						 	break;
-						/*
-						 * 'Social Sharing' settings
-						 */
-						 case 'tooltip-postmeta-pin_desc':
-							$text = 'A custom caption text, used by the Pinterest social sharing button, 
-							for the custom Image ID, attached or featured image.';
-						 	break;
-						 case 'tooltip-postmeta-tumblr_img_desc':
-						 	$text = 'A custom caption, used by the Tumblr social sharing button, 
-							for the custom Image ID, attached or featured image.';
-						 	break;
-						 case 'tooltip-postmeta-tumblr_vid_desc':
-							$text = 'A custom caption, used by the Tumblr social sharing button, 
-							for the custom Video URL or embedded video.';
-						 	break;
-						 case 'tooltip-postmeta-twitter_desc':
-						 	$text = 'A custom Tweet text for the Twitter social sharing button. 
-							This text is in addition to any Twitter Card description.';
-						 	break;
 						/*
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_postmeta', $text, $idx );
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_postmeta', $text, $idx, $atts );
 							break;
 					}
 					break;
@@ -477,61 +414,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'Enable verification of peer SSL certificates when fetching content to be cached using HTTPS. 
 							The PHP \'curl\' function will use the '.WPSSO_CURL_CAINFO.' certificate file by default. 
 							You can define a WPSSO_CURL_CAINFO constant in your wp-config.php file to use an alternate certificate file.';
-							break;
-						/*
-						 * 'URL Rewrite' settings
-						 */
-						case 'tooltip-plugin_min_shorten':
-							$text = 'URLs shorter than this length will not be shortened (default is '.$this->p->opt->get_defaults( 'plugin_min_shorten' ).').';
-							break;
-						case 'tooltip-plugin_cdn_urls':
-							$text = 'Rewrite image URLs in the Open Graph, Rich Pin, and Twitter Card meta tags, encoded image URLs shared by social buttons 
-							(like Pinterest and Tumblr), and cached social media files. Leave this option blank to disable the URL rewriting feature 
-							(default is disabled). Wildcarding and multiple CDN hostnames are supported -- see the 
-							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/url-rewriting/" target="_blank">URL Rewriting</a> 
-							notes for more information and examples.';
-							break;
-						case 'tooltip-plugin_cdn_folders':
-							$text = 'A comma delimited list of patterns to match. These patterns must be present in the URL for the rewrite to take place 
-							(the default value is "<em>wp-content, wp-includes</em>").';
-							break;
-						case 'tooltip-plugin_cdn_excl':
-							$text = 'A comma delimited list of patterns to match. If these patterns are found in the URL, the rewrite will be skipped (the default value is blank).
-							If you are caching social website images and JavaScript (see the <em>Social File Cache Expiry</em> option), 
-							the URLs to this cached content will be rewritten as well (that\'s a good thing).
-							To exclude the '.$this->p->cf['full'].' cache folder URLs from being rewritten, enter \'/wpsso/cache/\' as a value here.';
-							break;
-						case 'tooltip-plugin_cdn_not_https':
-							$text = 'Skip rewriting URLs when using HTTPS (useful if your CDN provider does not offer HTTPS, for example).';
-							break;
-						case 'tooltip-plugin_cdn_www_opt':
-							$text = 'The www hostname prefix (if any) in the WordPress site URL is optional (default is checked).';
-							break;
-						/*
-						 * 'API Keys' settings
-						 */
-						case 'tooltip-plugin_bitly_login':
-							$text = 'The Bit.ly username for the following API key. If you don\'t already have one, see 
-							<a href="https://bitly.com/a/your_api_key" target="_blank">Your Bit.ly API Key</a>.';
-							break;
-						case 'tooltip-plugin_bitly_api_key':
-							$text = 'The Bit.ly API key for this website. If you don\'t already have one, see 
-							<a href="https://bitly.com/a/your_api_key" target="_blank">Your Bit.ly API Key</a>.';
-							break;
-						case 'tooltip-plugin_google_api_key':
-							$text = 'The Google BrowserKey for this website / project. If you don\'t already have one, visit
-							<a href="https://cloud.google.com/console#/project" target="_blank">Google\'s Cloud Console</a>,
-							create a new project for your website, and under the API &amp; auth - Registered apps, 
-							register a new \'Web Application\' (name it \'WPSSO\' for example), 
-							and enter it\'s BrowserKey here.';
-							break;
-						case 'tooltip-plugin_google_shorten':
-							$text = 'In order to use Google\'s URL Shortener for URLs in Tweets, you must turn on the 
-							URL Shortener API from <a href="https://cloud.google.com/console#/project" 
-							target="_blank">Google\'s Cloud Console</a>, under the API &amp; auth - APIs 
-							menu options. Confirm that you have enabled Google\'s URL Shortener by checking 
-							the \'Yes\' option here. You can then select the Google URL Shortener in the '.
-							$this->p->util->get_admin_url( 'sharing', 'Twitter settings' ).'.';
 							break;
 						/*
 						 * Other settings
@@ -823,7 +705,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Other Notes</a>, and / or visit the 
 						<a href="'.$this->p->cf['url']['support'].'" target="_blank">Support Forum</a> on WordPress.org.</p>';
 					break;
-				case 'auth-id-info':
+				case 'tid-info':
 					$text = '<p>'.$this->p->cf['full'].' must be active in order to check for Pro version updates.
 					If you de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the GPL version. 
 					Always update the Pro version when it is active. If you accidentally re-install the GPL version, your Authentication ID
@@ -835,7 +717,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					prevent duplicates from being added (for example, the "description" meta tag is unchecked by default if any 
 					known SEO plugin was detected).</p>';
 					break;
-				case 'contact-info':
+				case 'cm-info':
 					$text = '<p>The following options allow you to customize the contact field names and labels shown on the 
 					<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>. '.$this->p->cf['full'].' uses the Facebook, 
 					Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags (along with the Twitter social sharing button).

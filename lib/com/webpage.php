@@ -94,9 +94,11 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					return $title;
 				}
 				$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
-				$title = $this->p->meta->get_options( $post_id, 'og_title' );
-				if ( ! empty( $title ) )
-					$this->p->debug->log( 'custom meta title = "'.$title.'"' );
+				if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
+					$title = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_title' );
+					if ( ! empty( $title ) )
+						$this->p->debug->log( 'custom meta title = "'.$title.'"' );
+				}
 			}
 
 			// get seed if no custom meta title
@@ -216,9 +218,11 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					return $desc;
 				}
 				$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
-				$desc = $this->p->meta->get_options( $post_id, 'og_desc' );
-				if ( ! empty( $desc ) )
-					$this->p->debug->log( 'custom meta description = "'.$desc.'"' );
+				if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
+					$desc = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_desc' );
+					if ( ! empty( $desc ) )
+						$this->p->debug->log( 'custom meta description = "'.$desc.'"' );
+				}
 			}
 
 			// get seed if no custom meta description
@@ -433,13 +437,16 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 		public function get_section( $post_id ) {
 			$section = '';
-			if ( is_singular() )
-				$section = $this->p->meta->get_options( $post_id, 'og_art_section' );
+			if ( ( is_singular() || ! empty( $post_id ) ) && isset( $this->p->addons['util']['postmeta'] ) )
+				$section = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_art_section' );
+
 			if ( ! empty( $section ) ) 
 				$this->p->debug->log( 'found custom meta section = '.$section );
 			else $section = $this->p->options['og_art_section'];
+
 			if ( $section == 'none' )
 				$section = '';
+
 			return apply_filters( $this->p->cf['lca'].'_section', $section );
 		}
 
@@ -468,16 +475,16 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				if ( is_singular() || ! empty( $post_id ) ) {
 					$tags = $this->get_wp_tags( $post_id );
 
-					if ( $this->p->is_avail['media']['ngg'] === true && 
+					if ( $this->p->is_avail['media']['ngg'] && 
 						$this->p->options['og_ngg_tags'] && 
-						$this->p->is_avail['postthumb'] == true && 
+						$this->p->is_avail['postthumb'] && 
 						has_post_thumbnail( $post_id ) ) {
 
 						$pid = get_post_thumbnail_id( $post_id );
 
 						// featured images from ngg pre-v2 had 'ngg-' prefix
 						if ( is_string( $pid ) && substr( $pid, 0, 4 ) == 'ngg-' )
-							$tags = array_merge( $tags, $this->p->addons['ngg']->get_tags( $pid ) );
+							$tags = array_merge( $tags, $this->p->addons['media']['ngg']->get_tags( $pid ) );
 					}
 				} elseif ( is_search() )
 					$tags = preg_split( '/ *, */', get_search_query( false ) );
