@@ -163,12 +163,16 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 == Changelog ==
 
-= Version 2.0rc1 =
+= Version 2.0rc2 =
+
+This version continues several underlying code improvements by moving the GPL-only code into a `lib/gpl/` folder structure (like the Pro version) and adding strategic filter hooks to improve the overall modularity of the plugin. Relying on existing WordPress image size names -- like *thumbnail*, *medium* and *large* -- has been found to be too limiting at times, so individual image dimensions have been introduced for each image context. You'll find new image dimension settings for all Twitter Cards formats on the SSO General settings page. Please make sure you review these new image dimensions and adjust them for your needs. The defaults should be fine, but you may prefer to use existing image sizes to reduce the number of resized image files created. For example, some of the larger image dimensions default to 800x800 uncropped. If you already have an image size of 1024x1024 uncropped, you may wish to use those dimensions instead.
 
 * **Added Image Dimension options (instead of image size drop-down) for Twitter Card images** (Pro version).
 * Added several filter hooks for the admin metabox tabs and option fields / rows.
 * Converted several methods to filter hooks in the lib/gpl/admin/ and lib/pro/admin/ folders.
-* **Fixed** the Twitter Card description value in the admin interface (Pro version).
+* Renamed the $ngfb->meta object variable to $ngfb->addons['util']['postmeta'].
+* **Fixed** the missing Open Graph 'article:section' value in the Meta Tags Preview tab.
+* **Fixed** the Twitter Card 'twitter:description' value in the Meta Tags Preview tab (Pro version).
 * **Fixed** WooCommerce product detection for meta tags in the admin interface (Pro version).
 * **Fixed** the detection of an empty array when an image is rejected by the WooCommerce addon (Pro version).
 
@@ -211,6 +215,10 @@ Please note that support for [the NextGEN Gallery plugin](http://wordpress.org/p
 * Renamed the 'WpssoPlugin' main plugin class to 'Wpsso'.
 
 == Upgrade Notice ==
+
+= 2.0rc2 =
+
+Underlying code improvements for modularity and future scalability. Addition of individual image dimension options for all Twitter Card formats. A few minor bug fixes for the 'Meta Tag Preview' values.
 
 = 1.22.1 =
 
