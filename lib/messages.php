@@ -51,19 +51,23 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-side-pro-update-check':
 							$text = 'When a \'Pro Version Authentication ID\' is entered on the '.$this->p->util->get_admin_url( 'advanced', 
-							'Advanced settings' ).' page, a check is scheduled every 12 hours to see if a Pro version update is available.';
+							'Advanced settings page' ).', a check is scheduled every 12 hours to see if a Pro version update is available.';
 							break;
 						case 'tooltip-side-sharing-buttons':
 							$text = 'Social sharing features include the SSO '.$this->p->util->get_admin_url( 'sharing', 'Social Sharing' ).
 							' and '.$this->p->util->get_admin_url( 'style', 'Social Style' ).' settings pages (aka social sharing buttons), 
-							the Custom Settings - Social Sharing tab on admin editing pages, along with the social sharing shortcode 
+							the Custom Settings / Social Sharing tab on Post or Page editing pages, along with the social sharing shortcode 
 							and widget. All social sharing features can be disabled using one of the available PHP
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constants</a>.';
 							break;
 						case 'tooltip-side-sharing-shortcode':
 							$text = 'Support for shortcode(s) can be enabled / disabled on the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page. Shortcodes are disabled by default
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).'. Shortcodes are disabled by default
 							to optimize WordPress performance and content processing.';
+							break;
+						case 'tooltip-side-sharing-stylesheet':
+							$text = 'A stylesheet can be included on all webpages for the social sharing buttons. Enable or disable the
+							addition of the stylesheet from the '.$this->p->util->get_admin_url( 'style', 'Social Style settings page' ).'.';
 							break;
 						case 'tooltip-side-sharing-widget':
 							$text = 'The social sharing widget feature adds an \'WPSSO Social Sharing\' widget in the WordPress Appearance - Widgets page.
@@ -76,13 +80,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
 							$this->p->options['plugin_object_cache_exp'].' seconds (default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).
 							' seconds). You can adjust the Transient Cache expiration value from the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page, or disable it completely using an available
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).', or disable it completely using an available
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
 							break;
 						case 'tooltip-side-social-file-cache':
 							$text = $this->p->cf['full_pro'].' can save social sharing images and JavaScript to a cache folder, 
 							and provide URLs to these cached files instead of the originals. The current \'File Cache Expiry\'
-							value, as defined on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page, is '.
+							value, as defined on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).', is '.
 							$this->p->options['plugin_file_cache_hrs'].' Hours (the default value of 0 Hours disables the 
 							file caching feature).';
 							break;
@@ -100,13 +104,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'Twitter Cards extend the standard Open Graph and Rich Pin meta tags with content-specific information for image galleries, 
 							photographs, eCommerce products, etc. Twitter Cards are displayed differently on Twitter, either online or from mobile Twitter 
 							clients, allowing you to better feature your content. The Twitter Cards addon can be enabled from the '.
-							$this->p->util->get_admin_url( 'general', 'General settings' ).' page.';
+							$this->p->util->get_admin_url( 'general', 'General settings page' ).'.';
 							break;
 						case 'tooltip-side-url-rewriter':
 							$text = $this->p->cf['full_pro'].' can rewrite image URLs in meta tags, cached images and JavaScript, 
 							and for social sharing buttons like Pinterest and Tumblr (which use encoded image URLs). 
 							Rewriting image URLs can be an important part of optimizing page load speeds. See the \'Static Content URL(s)\'
-							option on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page to enable URL rewriting.';
+							option on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' to enable URL rewriting.';
 							break;
 						case 'tooltip-side-url-shortener':
 							$text = '<strong>When using the Twitter social sharing button provided by '.$this->p->cf['full_pro'].'</strong>, 
@@ -116,7 +120,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-side-wistia-video-api':
 							$text = 'If the \'Check for Wistia Videos\' option on the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' page is checked, '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
 							$this->p->cf['full_pro'].' will load an integration addon for Wistia to detect embedded Wistia videos, 
 							and retrieve information (video dimentions, preview image, etc) using Wistia\'s oEmbed API.';
 							break;
