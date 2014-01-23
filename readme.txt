@@ -176,6 +176,7 @@ This version continues several underlying code improvements by moving the GPL-on
 * **Fixed** the Twitter Card 'twitter:description' value in the Meta Tags Preview tab (Pro version).
 * **Fixed** WooCommerce product detection for meta tags in the admin interface (Pro version).
 * **Fixed** the detection of an empty array when an image is rejected by the WooCommerce addon (Pro version).
+* **Fixed** fallback to the Site Description value on singular pages.
 
 = Version 1.22.1 =
 
