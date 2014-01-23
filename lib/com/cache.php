@@ -39,12 +39,12 @@ if ( ! class_exists( 'SucomCache' ) ) {
 
 		public function get( $url, $return = 'url', $cache_name = 'file', $expire_secs = false, $curl_userpwd = '' ) {
 
-			if ( $this->p->is_avail['curl'] == false ) {
-				$this->p->debug->log( 'curl is not available: '.$url );
+			if ( $this->p->is_avail['curl'] !== true ) {
+				$this->p->debug->log( 'exiting early: curl is not available' );
 				return $return == 'url' ? $url : false;
 			} elseif ( defined( $this->p->cf['uca'].'_CURL_DISABLE' ) && 
 				constant( $this->p->cf['uca'].'_CURL_DISABLE' ) ) {
-				$this->p->debug->log( 'curl is disabled: '.$url );
+				$this->p->debug->log( 'exiting early: curl has been disabled' );
 				return $return == 'url' ? $url : false;
 			} elseif ( $expire_secs === false && 
 				$cache_name === 'file' &&

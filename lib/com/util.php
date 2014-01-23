@@ -534,7 +534,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		public function get_source_id( $src_name, &$atts = array() ) {
 			global $post;
-			$use_post = empty( $atts['is_widget'] ) || is_singular() ? true : false;
+			$use_post = array_key_exists( 'use_post', $atts ) ? $atts['use_post'] : true;
 			$source_id = $src_name.( empty( $atts['css_id'] ) ? 
 				'' : '-'.preg_replace( '/^'.$this->p->cf['lca'].'-/','', $atts['css_id'] ) );
 			if ( $use_post == true && ! empty( $post ) ) 
