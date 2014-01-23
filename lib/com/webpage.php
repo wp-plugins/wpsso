@@ -298,7 +298,11 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$desc = sprintf( 'Monthly Archives for %s', get_the_date('F Y') );
 				elseif ( is_year() ) 
 					$desc = sprintf( 'Yearly Archives for %s', get_the_date('Y') );
-				elseif ( ! empty( $this->p->options['og_site_description'] ) )
+			}
+
+			// if there's still no description, then fallback to a generic version
+			if ( empty( $desc ) ) {
+				if ( ! empty( $this->p->options['og_site_description'] ) )
 					$desc = $this->p->options['og_site_description'];
 				else $desc = get_bloginfo( 'description', 'display' );
 			}
