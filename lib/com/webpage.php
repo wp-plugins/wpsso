@@ -247,10 +247,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			if ( empty( $desc ) ) {
 				// $obj and $post_id are defined above, with the same test, so we should be good
 				if ( is_singular() || $use_post !== false ) {
-	
 					$this->p->debug->log( 'use_post = '.( $use_post ? 'true' : 'false' ) );
-					//$this->p->debug->log( 'is_singular() = '.( is_singular() ? 'true' : 'false' ) );
-					//$this->p->debug->log( 'has_excerpt() = '.( has_excerpt( $post_id ) ? 'true' : 'false' ) );
 	
 					// use the excerpt, if we have one
 					if ( has_excerpt( $post_id ) ) {
@@ -302,7 +299,11 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$desc = sprintf( 'Monthly Archives for %s', get_the_date('F Y') );
 				elseif ( is_year() ) 
 					$desc = sprintf( 'Yearly Archives for %s', get_the_date('Y') );
-				elseif ( ! empty( $this->p->options['og_site_description'] ) )
+			}
+
+			// if there's still no description, then fallback to a generic version
+			if ( empty( $desc ) ) {
+				if ( ! empty( $this->p->options['og_site_description'] ) )
 					$desc = $this->p->options['og_site_description'];
 				else $desc = get_bloginfo( 'description', 'display' );
 			}
