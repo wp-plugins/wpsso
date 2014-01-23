@@ -123,11 +123,11 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 								echo '<div class="update-nag sucom-update-nag">', $msg, '</div>', "\n";
 								break;
 							case 'err' :
-								echo '<div class="error"><div style="float:left;"><p><b>', 
+								echo '<div class="error"><div style="float:left;"><p style="white-space:nowrap;"><b>', 
 									$this->p->cf['menu'], ' Warning</b> :</p></div> <p>', $msg, '</p></div>', "\n";
 								break;
 							case 'inf' :
-								echo '<div class="updated fade"><div style="float:left;"><p><b>', 
+								echo '<div class="updated fade"><div style="float:left;"><p style="white-space:nowrap;"><b>', 
 									$this->p->cf['menu'], ' Info</b> :</p></div> <p>', $msg, '</p></div>', "\n";
 								break;
 						}
