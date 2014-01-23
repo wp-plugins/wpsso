@@ -176,6 +176,9 @@ This version continues several underlying code improvements by moving the GPL-on
 * **Fixed** the Twitter Card 'twitter:description' value in the Meta Tags Preview tab (Pro version).
 * **Fixed** WooCommerce product detection for meta tags in the admin interface (Pro version).
 * **Fixed** the detection of an empty array when an image is rejected by the WooCommerce addon (Pro version).
+
+= Version 1.22.2 =
+
 * **Fixed** fallback to the Site Description value on singular pages.
 
 = Version 1.22.1 =
@@ -221,6 +224,10 @@ Please note that support for [the NextGEN Gallery plugin](http://wordpress.org/p
 = 2.0rc3 =
 
 Underlying code improvements for modularity and future scalability. Addition of individual image dimension options for all Twitter Card formats. A few minor bug fixes for the 'Meta Tag Preview' values.
+
+= 1.22.2 =
+
+Maintenance release to fix two minor issues.
 
 = 1.22.1 =
 
