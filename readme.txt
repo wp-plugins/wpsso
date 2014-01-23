@@ -183,7 +183,7 @@ This version continues several underlying code improvements by moving the GPL-on
 
 = Version 1.22.1 =
 
-* A minor update to fix a variable name used when upgrading the plugin options.
+* **Fixed** a variable name used when upgrading the plugin options.
 
 = Version 1.22.0 =
 
