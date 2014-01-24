@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.0rc3',		// plugin version
+			'version' => '2.0rc4',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -209,6 +209,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_debug' => 0,
 					'plugin_filter_content' => 1,
 					'plugin_filter_excerpt' => 0,
+					'plugin_filter_lang' => 1,
 					'plugin_auto_img_resize' => 1,
 					'plugin_ignore_small_img' => 1,
 					'plugin_wistia_api' => 1,

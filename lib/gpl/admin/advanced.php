@@ -28,6 +28,22 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
+			$rows[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
+			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_filter_excerpt' ).'</td>';
+
+			$rows[] = $this->p->util->th( 'Language uses WP Locale', null, 'plugin_filter_lang' ).
+			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_filter_lang' ).'</td>';
+
+			if ( ! empty( $this->p->cf['lib']['shortcode'] ) ) {
+				$rows[] = $this->p->util->th( 'Enable Shortcode(s)', 'highlight', 'plugin_shortcodes' ).
+				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_shortcodes' ).'</td>';
+			}
+
+			if ( ! empty( $this->p->cf['lib']['widget'] ) ) {
+				$rows[] = $this->p->util->th( 'Enable Widget(s)', 'highlight', 'plugin_widgets' ).
+				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_widgets' ).'</td>';
+			}
+
 			$rows[] =  $this->p->util->th( 'Auto-Resize Images', null, 'plugin_auto_img_resize' ).
 			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_auto_img_resize' ).'</td>';
 
