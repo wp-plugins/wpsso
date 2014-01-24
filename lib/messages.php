@@ -67,9 +67,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							text and meta tag validation tools.';
 							break;
 						case 'tooltip-side-wp-locale-language':
-							$text = $this->p->cf['full_pro'].' uses the WordPress locale value to define a language for the Open Graph and Rich Pin meta tags,
-							along with the Google, Facebook, and Twitter social sharing buttons. If your website and/or webpages are available in multiple
-							languages, this can be an important feature.';
+							$text = $this->p->cf['full_pro'].' can use the WordPress locale to dynmically adjust the language for the Open Graph and 
+							Rich Pin meta tags, along with the Google, Facebook, and Twitter social sharing buttons. 
+							If your website and/or webpages are available in multiple languages, this can be an important feature.';
 							break;
 						case 'tooltip-side-twitter-cards':
 							$text = 'Twitter Cards extend the standard Open Graph and Rich Pin meta tags with content-specific information for image galleries, 
@@ -363,6 +363,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'Apply the standard WordPress \'get_the_excerpt\' filter to render the excerpt text (default is unchecked).
 							Check this option if you use shortcodes in your excerpt, for example.';
 							break;
+						case 'tooltip-plugin_filter_lang':
+							return self::get( 'tooltip-side-wp-locale-language' );
+							break;
 						case 'tooltip-plugin_shortcodes':
 							$text = 'Enable the '.$this->p->cf['full'].' shortcode features (default is unchecked).';
 							break;
@@ -447,8 +450,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							target="_blank">Facebook Insight</a> data for <em>accounts associated with that Application ID</em>.';
 							break;
 						case 'tooltip-fb_lang':
-							$text = 'The language / locale for your website content. This option also controls the language of the 
-							Facebook social sharing button.';
+							$text = 'The default language of your website content, used in the Open Graph and Rich Pin meta tags. 
+							The Pro version can also use the WordPress locale to adjust the language value dynamically
+							(useful for websites with multilingual content).';
 							break;
 						/*
 						 * Other settings
