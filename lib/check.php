@@ -41,6 +41,33 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			if ( class_exists( 'Ngfb' ) || in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) )
 				if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
 					define( 'NGFB_META_TAGS_DISABLE', true );
+
+			// disable WordPress SEO opengraph, twitter, publisher, and author meta tags
+			if ( function_exists( 'wpseo_init' ) || in_array( 'wordpress-seo/wp-seo.php', $this->active_plugins ) ) {
+
+				global $wpseo_og;
+				if ( is_object( $wpseo_og ) && ( $prio = has_action( 'wpseo_head', array( $wpseo_og, 'opengraph' ) ) ) )
+					$ret = remove_action( 'wpseo_head', array( $wpseo_og, 'opengraph' ), $prio );
+
+				if ( ! empty( $this->p->options['tc_enable'] ) ) {
+					global $wpseo_twitter;
+					if ( is_object( $wpseo_twitter ) && ( $prio = has_action( 'wpseo_head', array( $wpseo_twitter, 'twitter' ) ) ) )
+						$ret = remove_action( 'wpseo_head', array( $wpseo_twitter, 'twitter' ), $prio );
+				}
+
+				if ( ! empty( $this->p->options['link_publisher_url'] ) ) {
+					global $wpseo_front;
+					if ( is_object( $wpseo_front ) && ( $prio = has_action( 'wpseo_head', array( $wpseo_front, 'publisher' ) ) ) )
+						$ret = remove_action( 'wpseo_head', array( $wpseo_front, 'publisher' ), $prio );
+				}
+
+				if ( ! empty( $this->p->options['link_def_author_id'] ) &&
+					! empty( $this->p->options['link_def_author_on_index'] ) ) {
+					global $wpseo_front;
+					if ( is_object( $wpseo_front ) && ( $prio = has_action( 'wpseo_head', array( $wpseo_front, 'author' ) ) ) )
+						$ret = remove_action( 'wpseo_head', array( $wpseo_front, 'author' ), $prio );
+				}
+			}
 		}
 
 		public function get_active() {
@@ -126,10 +153,13 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 							$chk['plugin'] = 'buddypress/bp-loader.php';
 							break;
 						/*
-						 * Pro Version Features
+						 * Pro Version Features / Options
 						 */
 						case 'head-twittercard':
 							$chk['optval'] = 'tc_enable';
+							break;
+						case 'media-slideshare':
+							$chk['optval'] = 'plugin_slideshare_api';
 							break;
 						case 'media-wistia':
 							$chk['optval'] = 'plugin_wistia_api';

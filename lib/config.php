@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.0rc4',		// plugin version
+			'version' => '2.0rc5',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -69,6 +69,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'media' => array(
 						'ngg' => 'NextGEN Gallery',
 						'photon' => 'Jetpack Photon',
+						'slideshare' => 'Slideshare API',
 						'wistia' => 'Wistia Video API',
 					),
 					'seo' => array(
@@ -86,7 +87,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '230',
+				'version' => '233',
 				'defaults' => array(
 					'meta_desc_len' => 156,
 					'link_author_field' => '',
@@ -212,7 +213,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_filter_lang' => 1,
 					'plugin_auto_img_resize' => 1,
 					'plugin_ignore_small_img' => 1,
+					'plugin_slideshare_api' => 1,
+					'plugin_vimeo_api' => 1,
 					'plugin_wistia_api' => 1,
+					'plugin_youtube_api' => 1,
 					'plugin_add_to_post' => 1,
 					'plugin_add_to_page' => 1,
 					'plugin_add_to_attachment' => 1,

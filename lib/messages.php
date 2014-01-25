@@ -77,11 +77,30 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							clients, allowing you to better feature your content. The Twitter Cards addon can be enabled from the '.
 							$this->p->util->get_admin_url( 'general', 'General settings page' ).'.';
 							break;
-						case 'tooltip-side-wistia-video-api':
-							$text = 'If the \'Check for Wistia Videos\' option on the '.
+						case 'tooltip-side-slideshare-api':
+							$text = 'If the embedded Slideshare Presentations option on the '.
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
-							$this->p->cf['full_pro'].' will load an integration addon for Wistia to detect embedded Wistia videos, 
-							and retrieve information (video dimentions, preview image, etc) using Wistia\'s oEmbed API.';
+							$this->p->cf['full_pro'].' will load an integration addon for Slideshare to detect embedded Slideshare 
+							presentations, and retrieve information using Slideshare\'s oEmbed API (media dimentions, preview image, etc).';
+							break;
+						case 'tooltip-side-vimeo-video-api':
+							$text = 'If the embedded Vimeo Videos option on the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
+							$this->p->cf['full_pro'].' will detect embedded Vimeo 
+							videos, and retrieve information using Vimeo\'s oEmbed API (media dimentions, preview image, etc).';
+							break;
+						case 'tooltip-side-wistia-video-api':
+							$text = 'If the embedded Wistia Videos option on the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
+							$this->p->cf['full_pro'].' will load an integration addon for Wistia to detect embedded Wistia 
+							videos, and retrieve information using Wistia\'s oEmbed API (media dimentions, preview image, etc).';
+							break;
+						case 'tooltip-side-youtube-video-playlist-api':
+							$text = 'If the embedded Youtube Videos and Playlists option on the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
+							$this->p->cf['full_pro'].' will detect embedded Youtube 
+							videos and playlists, and retrieve information using Youtube\'s XML and oEmbed APIs
+							(media dimentions, preview image, etc).';
 							break;
 						/*
 						 * Other settings
@@ -367,7 +386,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							return self::get( 'tooltip-side-wp-locale-language' );
 							break;
 						case 'tooltip-plugin_shortcodes':
-							$text = 'Enable the '.$this->p->cf['full'].' shortcode features (default is unchecked).';
+							$text = 'Enable the '.$this->p->cf['full'].' shortcode features (default is checked).';
 							break;
 						case 'tooltip-plugin_widgets':
 							$text = 'Enable the '.$this->p->cf['full'].' widget features (default is checked).';
@@ -384,9 +403,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							<strong>Unchecking this option is not advised</strong> - 
 							images that are much too small for some social websites may be included in your meta tags.';
 							break;
-						case 'tooltip-plugin_wistia_api':
-							$text = 'Check the Post / Page content and the Custom Settings for Wistia video URLs, 
-							retrieving the preferred oEmbed sharing URL, video dimensions, and video preview image.';
+						case 'tooltip-plugin_embedded_media':
+							$text = 'Check the Post and Page content, along with the Custom Settings, for embedded media URLs 
+							from supported media providers (Youtube, Wistia, etc.). If a supported URL is found, an API connection 
+							to the provider will be made to retrieve information about the media (preview image, flash player url,
+							oembed player url, video width / height, etc.).';
 							break;
 						case 'tooltip-plugin_add_to':
 							$text = 'The Custom Settings metabox, which allows you to enter custom Open Graph values (among other options), 
@@ -625,7 +646,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-buttons_link_css':
 							$text = 'Add the following styles to all webpages (default is checked).
-							<strong>All styles will be minimized into a single stylesheet</strong> with the URL of <u>'.$this->p->style->sharing_css_min_url.'</u>. 
+							<strong>All styles will be minimized into a single stylesheet</strong> with the URL of 
+							<u>'.$this->p->sharing->sharing_css_min_url.'</u>. 
 							The stylesheet is created or removed, depending on whether this option is checked or unchecked.';
 							break;
 						/*
@@ -731,7 +753,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying these
 					contact fields in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
 					target="_blank">get_the_author_meta()</a> for examples).</p>
-					<p><center><strong><font color="red">DO NOT ENTER YOUR CONTACT INFORMATION HERE</font> -- THESE ARE CONTACT FIELD LABELS ONLY</strong>
+					<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY</strong><br/>
 					(enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>).</p>';
 					break;
 				case 'sharing-buttons-info':

@@ -522,7 +522,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				return $og_ret; 
 			}
 			// detect standard iframe/embed tags - use the wpsso_content_videos filter for custom html5/javascript methods
-			if ( preg_match_all( '/<(iframe|embed)[^>]*? src=[\'"]([^\'"]+\/(embed|video)\/[^\'"]+)[\'"][^>]*>/i', $content, $match_all, PREG_SET_ORDER ) ) {
+			if ( preg_match_all( '/<(iframe|embed)[^>]*? src=[\'"]([^\'"]+\/(embed|embed_code|video)\/[^\'"]+)[\'"][^>]*>/i', $content, $match_all, PREG_SET_ORDER ) ) {
 				$this->p->debug->log( count( $match_all ).' x video <iframe|embed/> html tag(s) found' );
 				foreach ( $match_all as $media ) {
 					$this->p->debug->log( '<'.$media[1].'/> html tag found = '.$media[2] );
@@ -577,7 +577,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			/*
 			 * YouTube video API
 			 */
-			if ( preg_match( '/^.*(youtube\.com|youtube-nocookie\.com|youtu\.be)\/(watch\?v=)?([^\?\&\#]+)(\?(list)=([^\?\&\#]+)|.*)$/', $embed_url, $match ) ) {
+			if ( ! empty( $this->p->options['plugin_youtube_api'] ) && 
+				preg_match( '/^.*(youtube\.com|youtube-nocookie\.com|youtu\.be)\/(watch\?v=)?([^\?\&\#]+)(\?(list)=([^\?\&\#]+)|.*)$/', $embed_url, $match ) ) {
 
 				$vid_name = false;
 				$list_name = false;
@@ -656,7 +657,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			/*
 			 * Vimeo video API
 			 */
-			} elseif ( preg_match( '/^.*(vimeo\.com)\/(.*\/)?([^\/\?\&\#]+).*$/', $embed_url, $match ) ) {
+			} elseif ( ! empty( $this->p->options['plugin_vimeo_api'] ) && 
+				preg_match( '/^.*(vimeo\.com)\/(.*\/)?([^\/\?\&\#]+).*$/', $embed_url, $match ) ) {
 
 				$vid_name = preg_replace( '/^.*\//', '', $match[3] );
 				$og_video['og:video'] = $prot.'//vimeo.com/moogaloop.swf?clip_id='.$vid_name;

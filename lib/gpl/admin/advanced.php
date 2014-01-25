@@ -16,16 +16,12 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			$this->p =& $plugin;
 			$this->p->util->add_plugin_filters( $this, array( 
 				'plugin_content_rows' => 2,
+				'plugin_custom_rows' => 2,
 				'taglist_tags_rows' => 2,
 			), 50 );
 		}
 
 		public function filter_plugin_content_rows( $rows, $form ) {
-			$checkboxes = '';
-			foreach ( $this->p->util->get_post_types( 'plugin' ) as $post_type )
-				$checkboxes .= '<p>'.$form->get_fake_checkbox( 'plugin_add_to_'.$post_type->name ).' '.
-					$post_type->label.' '.( empty( $post_type->description ) ? '' : '('.$post_type->description.')' ).'</p>';
-
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
@@ -50,8 +46,24 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			$rows[] =  $this->p->util->th( 'Ignore Small Images', null, 'plugin_ignore_small_img' ).
 			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_ignore_small_img' ).'</td>';
 
-			$rows[] = $this->p->util->th( 'Check for Wistia Videos', null, 'plugin_wistia_api' ).
-			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_wistia_api' ).'</td>';
+			$rows[] = $this->p->util->th( 'Check for Embedded Media', null, 'plugin_embedded_media' ).
+			'<td class="blank">'.
+			'<p>'.$form->get_fake_checkbox( 'plugin_slideshare_api' ).' Slideshare Presentations</p>'.
+			'<p>'.$form->get_fake_checkbox( 'plugin_vimeo_api' ).' Vimeo Videos</p>'.
+			'<p>'.$form->get_fake_checkbox( 'plugin_wistia_api' ).' Wistia Videos</p>'.
+			'<p>'.$form->get_fake_checkbox( 'plugin_youtube_api' ).' YouTube Videos and Playlists</p>'.
+			'</td>';
+
+			return $rows;
+		}
+
+		public function filter_plugin_custom_rows( $rows, $form ) {
+			$checkboxes = '';
+			foreach ( $this->p->util->get_post_types( 'plugin' ) as $post_type )
+				$checkboxes .= '<p>'.$form->get_fake_checkbox( 'plugin_add_to_'.$post_type->name ).' '.
+					$post_type->label.' '.( empty( $post_type->description ) ? '' : '('.$post_type->description.')' ).'</p>';
+
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Show Custom Settings on', null, 'plugin_add_to' ).
 			'<td class="blank">'.$checkboxes.'</td>';
