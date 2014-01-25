@@ -31,6 +31,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
 				'activation' => 'Activate and Update',
 				'content' => 'Content and Filters',
+				'custom' => 'Custom Settings',
 				'cache' => 'File and Object Cache' ) );
 			$rows = array();
 			foreach ( $tabs as $key => $title )
@@ -73,6 +74,35 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 		protected function get_rows( $metabox, $key ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
+				case 'plugin-activation':
+					if ( is_multisite() && ! empty( $this->p->site_options['plugin_tid:use'] ) && 
+						$this->p->site_options['plugin_tid:use'] == 'force' )
+							$input = $this->form->get_fake_input( 'plugin_tid', 'mono' );
+					else $input = $this->form->get_input( 'plugin_tid', 'mono' );
+
+					$rows[] = $this->p->util->th( 'Pro Version Authentication ID', 'highlight', 'plugin_tid' ).'<td>'.$input.'</td>';
+
+					if ( $this->p->is_avail['aop'] )
+						$rows[] = '<th></th><td>'.$this->p->msgs->get( 'tid-info' ).'</td>';
+
+					$rows[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
+					'<td>'.$this->form->get_checkbox( 'plugin_preserve' ).'</td>';
+
+					$rows[] = $this->p->util->th( 'Add Hidden Debug Info', null, 'plugin_debug' ).
+					'<td>'.$this->form->get_checkbox( 'plugin_debug' ).'</td>';
+					break;
+
+				case 'plugin-content':
+					$rows[] = $this->p->util->th( 'Apply Content Filters', null, 'plugin_filter_content' ).
+					'<td>'.$this->form->get_checkbox( 'plugin_filter_content' ).'</td>';
+
+					break;
+
+				case 'plugin-cache':
+					$rows[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
+					'<td nowrap>'.$this->form->get_input( 'plugin_object_cache_exp', 'short' ).' seconds</td>';
+					break;
+
 				case 'cm-custom' :
 					if ( ! $this->p->check->is_aop() )
 						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
@@ -141,35 +171,6 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 							}
 						}
 					}
-					break;
-
-				case 'plugin-activation':
-					if ( is_multisite() && ! empty( $this->p->site_options['plugin_tid:use'] ) && 
-						$this->p->site_options['plugin_tid:use'] == 'force' )
-							$input = $this->form->get_fake_input( 'plugin_tid', 'mono' );
-					else $input = $this->form->get_input( 'plugin_tid', 'mono' );
-
-					$rows[] = $this->p->util->th( 'Pro Version Authentication ID', 'highlight', 'plugin_tid' ).'<td>'.$input.'</td>';
-
-					if ( $this->p->is_avail['aop'] )
-						$rows[] = '<th></th><td>'.$this->p->msgs->get( 'tid-info' ).'</td>';
-
-					$rows[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
-					'<td>'.$this->form->get_checkbox( 'plugin_preserve' ).'</td>';
-
-					$rows[] = $this->p->util->th( 'Add Hidden Debug Info', null, 'plugin_debug' ).
-					'<td>'.$this->form->get_checkbox( 'plugin_debug' ).'</td>';
-					break;
-
-				case 'plugin-content':
-					$rows[] = $this->p->util->th( 'Apply Content Filters', null, 'plugin_filter_content' ).
-					'<td>'.$this->form->get_checkbox( 'plugin_filter_content' ).'</td>';
-
-					break;
-
-				case 'plugin-cache':
-					$rows[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
-					'<td nowrap>'.$this->form->get_input( 'plugin_object_cache_exp', 'short' ).' seconds</td>';
 					break;
 			}
 			return $rows;

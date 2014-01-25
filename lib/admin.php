@@ -413,6 +413,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				'Open Graph / Rich Pin' => array( 'status' => class_exists( $this->p->cf['lca'].'Opengraph' ) ? 'on' : 'rec' ),
 				'Pro Update Check' => array( 'class' => 'SucomUpdate' ),
 				'Transient Cache' => array( 'status' => $this->p->is_avail['cache']['transient'] ? 'on' : 'rec' ),
+				'Vimeo Video API' => array( 'status' => empty( $this->p->options['plugin_vimeo_api'] ) ? 'off' : 'on' ),
+				'YouTube Video / Playlist API' => array( 'status' => empty( $this->p->options['plugin_youtube_api'] ) ? 'off' : 'on' ),
 			);
 			$features = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_gpl_features', $features );
 			$this->show_plugin_status( $features );
@@ -431,9 +433,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 							( $this->p->is_avail[$sub][$id] ? 'rec' : 'off' ) );
 
 					$features[$name]['tooltip'] = 'If the '.$name.' plugin is detected, '.
-						$this->p->cf['full_pro'].' will load a specific integration addon
-						for '.$name.' to improve the accuracy of Open Graph, Rich Pin, 
-						and Twitter Card meta tag values.';
+						$this->p->cf['full_pro'].' will load a specific integration addon for '.$name.
+						' to improve the accuracy of Open Graph, Rich Pin, and Twitter Card meta tag values.';
 
 					switch ( $id ) {
 						case 'bbpress':
