@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.0rc6',		// plugin version
+			'version' => '2.0rc7',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -87,7 +87,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '233',
+				'version' => '235',
 				'defaults' => array(
 					'meta_desc_len' => 156,
 					'link_author_field' => '',
@@ -213,9 +213,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_filter_lang' => 1,
 					'plugin_auto_img_resize' => 1,
 					'plugin_ignore_small_img' => 1,
-					'plugin_slideshare_api' => 1,
+					'plugin_slideshare_api' => 0,
 					'plugin_vimeo_api' => 1,
-					'plugin_wistia_api' => 1,
+					'plugin_wistia_api' => 0,
 					'plugin_youtube_api' => 1,
 					'plugin_add_to_post' => 1,
 					'plugin_add_to_page' => 1,
@@ -285,14 +285,14 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'url' => array(
-				'feed' => 'http://feed.surniaulula.com/category/application/wordpress/wp-plugins/wpsso/feed/',
 				'readme' => 'http://plugins.svn.wordpress.org/wpsso/trunk/readme.txt',
-				'purchase' => 'http://plugin.surniaulula.com/extend/plugins/wpsso/',
-				'faq' => 'http://wordpress.org/plugins/wpsso/faq/',
-				'notes' => 'http://wordpress.org/plugins/wpsso/other_notes/',
 				'changelog' => 'http://wordpress.org/plugins/wpsso/changelog/',
+				'purchase' => 'http://plugin.surniaulula.com/extend/plugins/wpsso/',
+				'codex' => 'http://surniaulula.com/codex/plugins/wpsso/',
+				'faq' => 'http://surniaulula.com/codex/plugins/wpsso/faq/',
+				'notes' => 'http://surniaulula.com/codex/plugins/wpsso/notes/',
+				'feed' => 'http://surniaulula.com/category/application/wordpress/wp-plugins/wpsso/feed/',
 				'support' => 'http://wordpress.org/support/plugin/wpsso',
-				'pro_codex' => 'http://codex.wpsso.surniaulula.com/',
 				'pro_support' => 'http://support.wpsso.surniaulula.com/',
 				'pro_ticket' => 'http://ticket.wpsso.surniaulula.com/',
 				'pro_update' => 'http://update.surniaulula.com/extend/plugins/wpsso/update/',
