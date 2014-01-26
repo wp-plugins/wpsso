@@ -618,48 +618,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 
 				/*
-				 * 'Social Buttons' settings
-				 */
-				case ( strpos( $idx, 'tooltip-buttons_' ) !== false ? true : false ):
-					switch ( $idx ) {
-						case 'tooltip-buttons_location_the_content':
-							$text = 'Individual social sharing button(s) must also be enabled below.';
-							break;
-						case 'tooltip-buttons_location_the_excerpt':
-							$text = 'Individual social sharing button(s) must also be enabled below.';
-							break;
-						case 'tooltip-buttons_on_index':
-							$text = 'Add the following social sharing buttons to each entry of an index webpage (<strong>non-static</strong> 
-							homepage, category, archive, etc.). By Default, social sharing buttons are <em>not</em> included on index webpages 
-							(default is unchecked). You must also enable the buttons you want to display by choosing to show the buttons on 
-							the content or excerpt.';
-							break;
-						case 'tooltip-buttons_on_front':
-							$text = 'If a static Post or Page has been chosen for the homepage, add the following
-							social sharing buttons to the static homepage as well (default is unchecked).
-							You must also enable the buttons you want to display by choosing to show the buttons on the content or excerpt.';
-							break;
-						case 'tooltip-buttons_add_to':
-							$text = 'Enabled social sharing buttons are added to the Post, Page, Media and Product custom post types by default.
-							If your theme (or another plugin) supports additional custom post types, and you would like to include
-							social sharing buttons on these webpages, check the appropriate option(s) here.';
-							break;
-						case 'tooltip-buttons_link_css':
-							$text = 'Add the following styles to all webpages (default is checked).
-							<strong>All styles will be minimized into a single stylesheet</strong> with the URL of 
-							<u>'.$this->p->sharing->sharing_css_min_url.'</u>. 
-							The stylesheet is created or removed, depending on whether this option is checked or unchecked.';
-							break;
-						/*
-						 * Other settings
-						 */
-						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_buttons', $text, $idx );
-							break;
-					}
-					break;
-
-				/*
 				 * 'Profile Contact Methods' settings
 				 */
 				case 'tooltip-custom-cm-field-name':
@@ -708,8 +666,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 				case 'side-purchase':
 					$text = '<p>Developing and supporting the '.$this->p->cf['full'].' plugin takes most of my work days (and week-ends).
-					If you compare this plugin with others, I hope you\'ll agree that the result was worth all the effort and long hours.
-					If you would like to show your appreciation, and access the full range of features this plugin has to offer, please purchase ';
+					If you compare this plugin with others, I think you\'ll find that the result was worth all the hard work and long hours.
+					If you would like to show your appreciation, and access the full range of features this plugin offers, please purchase ';
 					if ( $this->p->is_avail['aop'] == true )
 						$text .= 'a Pro version license.</p>';
 					else $text .= 'the Pro version.</p>';
@@ -723,13 +681,14 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					Values in multiple tabs can be edited before clicking the \'Save All Changes\' button.</p>';
 					if ( $this->p->is_avail['aop'] == true )
 						$text .= '<p><strong>Need help with the Pro version?</strong>
-						Review the <a href="'.$this->p->cf['url']['pro_codex'].'" target="_blank">Plugin Codex</a>
+						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">FAQs</a>, 
+						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Notes</a>,
 						and / or <a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new Support Ticket</a>.</p>';
 					else
 						$text .= '<p><strong>Need help with the GPL version?</strong>
-						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">Frequently Asked Questions</a>, 
-						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Other Notes</a>, and / or visit the 
-						<a href="'.$this->p->cf['url']['support'].'" target="_blank">Support Forum</a> on WordPress.org.</p>';
+						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">FAQs</a>, 
+						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Notes</a>, 
+						and / or visit the <a href="'.$this->p->cf['url']['support'].'" target="_blank">Support Forum</a> on WordPress.org.</p>';
 					break;
 				case 'tid-info':
 					$text = '<p>'.$this->p->cf['full'].' must be active in order to check for Pro version updates.

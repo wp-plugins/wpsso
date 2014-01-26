@@ -153,14 +153,13 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					if ( preg_match( '/>Edit</', $val ) )
 						unset ( $links[$num] );
 				}
+				array_push( $links, '<a href="'.$this->p->cf['url']['faq'].'">'.__( 'FAQ', WPSSO_TEXTDOM ).'</a>' );
+				array_push( $links, '<a href="'.$this->p->cf['url']['notes'].'">'.__( 'Notes', WPSSO_TEXTDOM ).'</a>' );
 				if ( $this->p->is_avail['aop'] ) {
-					array_push( $links, '<a href="'.$this->p->cf['url']['pro_codex'].'">'.__( 'Codex', WPSSO_TEXTDOM ).'</a>' );
 					array_push( $links, '<a href="'.$this->p->cf['url']['pro_support'].'">'.__( 'Support', WPSSO_TEXTDOM ).'</a>' );
 					if ( ! $this->p->check->is_aop() ) 
 						array_push( $links, '<a href="'.$this->p->cf['url']['purchase'].'">'.__( 'Purchase License', WPSSO_TEXTDOM ).'</a>' );
 				} else {
-					array_push( $links, '<a href="'.$this->p->cf['url']['faq'].'">'.__( 'FAQ', WPSSO_TEXTDOM ).'</a>' );
-					array_push( $links, '<a href="'.$this->p->cf['url']['notes'].'">'.__( 'Notes', WPSSO_TEXTDOM ).'</a>' );
 					array_push( $links, '<a href="'.$this->p->cf['url']['support'].'">'.__( 'Forum', WPSSO_TEXTDOM ).'</a>' );
 					array_push( $links, '<a href="'.$this->p->cf['url']['purchase'].'">'.__( 'Purchase Pro', WPSSO_TEXTDOM ).'</a>' );
 				}
