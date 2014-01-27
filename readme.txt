@@ -1,7 +1,7 @@
 === WordPress Social Sharing Optimization ===
 Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
-Tags: nextgen, featured, attached, open graph, meta, facebook, google, google plus, g+, twitter, linkedin, social, seo, pinterest, rich pins, tumblr, stumbleupon, widget, language, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, nextgen gallery, gallery, twitter cards, photo card, gallery card, player card, large image summary card, summary card, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon
+Tags: nextgen, featured, attached, open graph, meta, facebook, google, google plus, g+, twitter, linkedin, social, seo, pinterest, rich pins, tumblr, stumbleupon, widget, language, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, nextgen gallery, gallery, twitter cards, photo card, gallery card, player card, large image summary card, summary card, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube
 License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
@@ -29,7 +29,7 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
   * WP e-Commerce
   * bbPress
   * BuddyPress
-  * Youtube / Vimeo / Wistia APIs
+  * Slideshare, Vimeo, Wistia, Youtube APIs
 
 = Complete Meta Tags =
 
