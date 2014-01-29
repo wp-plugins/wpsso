@@ -289,11 +289,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			?>
 			<div class="wrap" id="<?php echo $this->pagehook; ?>">
 				<?php $this->show_follow_icons(); ?>
-				<h2>
-					<!-- <span class="dashicons dashicons-share" 
-						style="font-size:1.4em;vertical-align:abs-middle;margin-right:0.6em;"></span> -->
-					<?php echo $this->p->cf['full'].' : '.$this->menu_name; ?>
-				</h2>
+				<h2><?php echo $this->p->cf['full'].' : '.$this->menu_name; ?></h2>
 				<div id="poststuff" class="metabox-holder <?php echo 'has-right-sidebar'; ?>">
 					<div id="side-info-column" class="inner-sidebar">
 						<?php do_meta_boxes( $this->pagehook, 'side', null ); ?>

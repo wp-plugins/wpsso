@@ -30,7 +30,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			if ( empty( $name ) ) return;	// just in case
 			// hide the current options value, unless one is given as an argument to the method
 			$value = empty( $value ) && $this->in_options( $name ) ? $this->options[$name] : $value;
-			return '<input type="hidden" name="'.$this->options_name.'['.$name.']" value="'.$value.'" />';
+			return '<input type="hidden" name="'.$this->options_name.'['.$name.']" value="'.esc_attr( $value ).'" />';
 		}
 
 		public function get_checkbox( $name, $check = array( 1, 0 ), $class = '', $id = '', $disabled = false ) {
@@ -41,7 +41,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 					$disabled = true;
 			$html = $disabled === true ? $this->get_hidden( $name ) : $this->get_hidden( 'is_checkbox_'.$name, 1 );
 			$html .= '<input type="checkbox"'.
-				( $disabled === true ? ' disabled="disabled"' : ' name="'.$this->options_name.'['.$name.']" value="'.$check[0].'"' ).
+				( $disabled === true ? ' disabled="disabled"' : ' name="'.$this->options_name.'['.$name.']" value="'.esc_attr( $check[0] ).'"' ).
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
 				( empty( $id ) ? '' : ' id="'.$id.'"' ).
 				( $this->in_options( $name ) ? checked( $this->options[$name], $check[0], false ) : '' ).
@@ -67,7 +67,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				// then the description is used as the saved value as well
 				if ( $is_assoc == false ) $val = $desc;
 				$html .= '<input type="radio"'.
-					( $disabled === true ? ' disabled="disabled"' : ' name="'.$this->options_name.'['.$name.']" value="'.$val.'"' ).
+					( $disabled === true ? ' disabled="disabled"' : ' name="'.$this->options_name.'['.$name.']" value="'.esc_attr( $val ).'"' ).
 					( empty( $class ) ? '' : ' class="'.$class.'"' ).
 					( empty( $id ) ? '' : ' id="'.$id.'"' ).
 					( $this->in_options( $name ) ? checked( $this->options[$name], $val, false ) : '' ).
@@ -101,7 +101,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 					if ( $this->in_defaults( $name ) && $val == $this->defaults[$name] ) 
 						$desc .= ' (default)';
 				}
-				$html .= '<option value="'.$val.'"';
+				$html .= '<option value="'.esc_attr( $val ).'"';
 				if ( $this->in_options( $name ) )
 					$html .= selected( $this->options[$name], $val, false );
 				$html .= '>'.$desc.'</option>';
@@ -122,7 +122,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				if ( ! is_string( $size_name ) ) 
 					continue;
 				$size = $this->p->media->get_size_info( $size_name );
-				$html .= '<option value="'.$size_name.'" ';
+				$html .= '<option value="'.esc_attr( $size_name ).'" ';
 				if ( $this->in_options( $name ) )
 					$html .= selected( $this->options[$name], $size_name, false );
 				$html .= '>'.$size_name.' [ '.$size['width'].'x'.$size['height'].( $size['crop'] ? ' cropped' : '' ).' ]';

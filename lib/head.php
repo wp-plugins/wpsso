@@ -17,7 +17,6 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
-
 			add_action( 'wp_head', array( &$this, 'add_header' ), WPSSO_HEAD_PRIORITY );
 		}
 
@@ -58,7 +57,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$opts = $this->p->options;
 				foreach ( $opts as $key => $val ) {
 					switch ( $key ) {
-						case ( preg_match( '/^buttons_css_/', $key ) ? true : false ):
+						case ( strpos( $key, 'buttons_css_' ) ):
+						case ( strpos( $key, 'buttons_js_' ) ):
 						case ( preg_match( '/_key$/', $key ) ? true : false ):
 						case 'plugin_tid':
 							$opts[$key] = '********';
@@ -68,6 +68,14 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->p->debug->show_html( print_r( $this->p->check->get_active(), true ), 'active plugins' );
 				$this->p->debug->show_html( null, 'debug log' );
 				$this->p->debug->show_html( $opts, 'wpsso settings' );
+
+				if ( ( $obj = $this->p->util->get_the_object() ) !== false ) {
+					$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+					if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
+						$meta_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
+						$this->p->debug->show_html( $meta_opts, 'wpsso post_id '.$post_id.' custom settings' );
+					}
+				}
 			}
 		}
 

@@ -52,7 +52,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		protected function get_rows( $metabox, $key ) {
-			$ret = array();
+			$rows = array();
 			$user_ids = array();
 			foreach ( get_users() as $user ) 
 				$user_ids[$user->ID] = $user->display_name;
@@ -63,127 +63,127 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					if ( $this->p->is_avail['media']['ngg'] == true ) 
 						$img_id_pre['ngg'] = 'NextGEN Gallery';
 
-					$ret[] = $this->p->util->th( 'Image Dimensions', 'highlight', 'og_img_dimensions' ).
+					$rows[] = $this->p->util->th( 'Image Dimensions', 'highlight', 'og_img_dimensions' ).
 					'<td>Width '.$this->form->get_input( 'og_img_width', 'short' ).' x '.
 					'Height '.$this->form->get_input( 'og_img_height', 'short' ).' &nbsp; '.
 					'Crop '.$this->form->get_checkbox( 'og_img_crop' ).'</td>';
 	
-					$ret[] = $this->p->util->th( 'Default Image ID', 'highlight', 'og_def_img_id' ).
+					$rows[] = $this->p->util->th( 'Default Image ID', 'highlight', 'og_def_img_id' ).
 					'<td>'.$this->form->get_input( 'og_def_img_id', 'short' ).' in the '.
 					$this->form->get_select( 'og_def_img_id_pre', $img_id_pre ).'</td>';
 	
-					$ret[] = $this->p->util->th( 'Default Image URL', null, 'og_def_img_url' ).
+					$rows[] = $this->p->util->th( 'Default Image URL', null, 'og_def_img_url' ).
 					'<td>'.$this->form->get_input( 'og_def_img_url', 'wide' ).'</td>';
 	
-					$ret[] = $this->p->util->th( 'Default Image on Indexes', null, 'og_def_img_on_index' ).
+					$rows[] = $this->p->util->th( 'Default Image on Indexes', null, 'og_def_img_on_index' ).
 					'<td>'.$this->form->get_checkbox( 'og_def_img_on_index' ).'</td>';
 	
-					$ret[] = $this->p->util->th( 'Default Image on Search Results', null, 'og_def_img_on_search' ).
+					$rows[] = $this->p->util->th( 'Default Image on Search Results', null, 'og_def_img_on_search' ).
 					'<td>'.$this->form->get_checkbox( 'og_def_img_on_search' ).'</td>';
 	
 					if ( $this->p->is_avail['media']['ngg'] == true ) {
-						$ret[] = $this->p->util->th( 'Add Featured Image Tags', null, 'og_ngg_tags' ).
+						$rows[] = $this->p->util->th( 'Add Featured Image Tags', null, 'og_ngg_tags' ).
 						'<td>'.$this->form->get_checkbox( 'og_ngg_tags' ).'</td>';
-					} else $ret[] = $this->form->get_hidden( 'og_ngg_tags' );
+					} else $rows[] = $this->form->get_hidden( 'og_ngg_tags' );
 	
-					$ret[] = $this->p->util->th( 'Maximum Images', 'highlight', 'og_img_max' ).
+					$rows[] = $this->p->util->th( 'Maximum Images', 'highlight', 'og_img_max' ).
 					'<td>'.$this->form->get_select( 'og_img_max', 
 						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
 	
-					$ret[] = $this->p->util->th( 'Maximum Videos', 'highlight', 'og_vid_max' ).
+					$rows[] = $this->p->util->th( 'Maximum Videos', 'highlight', 'og_vid_max' ).
 					'<td>'.$this->form->get_select( 'og_vid_max', 
 						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
 	
-					$ret[] = $this->p->util->th( 'Use HTTPS for Video APIs', null, 'og_vid_https' ).
+					$rows[] = $this->p->util->th( 'Use HTTPS for Video APIs', null, 'og_vid_https' ).
 					'<td>'.$this->form->get_checkbox( 'og_vid_https' ).'</td>';
 					break;
 
 				case 'og-general' :
-					$ret[] = $this->p->util->th( 'Website Topic', 'highlight', 'og_art_section' ).
+					$rows[] = $this->p->util->th( 'Website Topic', 'highlight', 'og_art_section' ).
 					'<td>'.$this->form->get_select( 'og_art_section', $this->p->util->get_topics() ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Site Name', 'highlight', 'og_site_name' ).
+					$rows[] = $this->p->util->th( 'Site Name', 'highlight', 'og_site_name' ).
 					'<td>'.$this->form->get_input( 'og_site_name', null, null, null, get_bloginfo( 'name', 'display' ) ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Site Description', 'highlight', 'og_site_description' ).
+					$rows[] = $this->p->util->th( 'Site Description', 'highlight', 'og_site_description' ).
 					'<td>'.$this->form->get_input( 'og_site_description', 'wide', null, null, get_bloginfo( 'description', 'display' ) ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Title Separator', 'highlight', 'og_title_sep' ).
+					$rows[] = $this->p->util->th( 'Title Separator', 'highlight', 'og_title_sep' ).
 					'<td>'.$this->form->get_input( 'og_title_sep', 'short' ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Title Length', null, 'og_title_len' ).
+					$rows[] = $this->p->util->th( 'Title Length', null, 'og_title_len' ).
 					'<td>'.$this->form->get_input( 'og_title_len', 'short' ).' characters or less</td>';
 
-					$ret[] = $this->p->util->th( 'Description Length', null, 'og_desc_len' ).
+					$rows[] = $this->p->util->th( 'Description Length', null, 'og_desc_len' ).
 					'<td>'.$this->form->get_input( 'og_desc_len', 'short' ).' characters or less</td>';
 
-					$ret[] = $this->p->util->th( 'Add Page Title in Tags', null, 'og_page_title_tag' ).
+					$rows[] = $this->p->util->th( 'Add Page Title in Tags', null, 'og_page_title_tag' ).
 					'<td>'.$this->form->get_checkbox( 'og_page_title_tag' ).'</td>';
 	
-					$ret[] = $this->p->util->th( 'Add Page Ancestor Tags', null, 'og_page_parent_tags' ).
+					$rows[] = $this->p->util->th( 'Add Page Ancestor Tags', null, 'og_page_parent_tags' ).
 					'<td>'.$this->form->get_checkbox( 'og_page_parent_tags' ).'</td>';
 	
-					$ret[] = $this->p->util->th( 'Number of Hashtags to Include', 'highlight', 'og_desc_hashtags' ).
+					$rows[] = $this->p->util->th( 'Number of Hashtags to Include', 'highlight', 'og_desc_hashtags' ).
 					'<td>'.$this->form->get_select( 'og_desc_hashtags', 
 						range( 0, $this->p->cf['form']['max_desc_hashtags'] ), 'short', null, true ).' tag names</td>';
 	
-					$ret[] = $this->p->util->th( 'Content Begins at First Paragraph', null, 'og_desc_strip' ).
+					$rows[] = $this->p->util->th( 'Content Begins at First Paragraph', null, 'og_desc_strip' ).
 					'<td>'.$this->form->get_checkbox( 'og_desc_strip' ).'</td>';
 					break;
 
 				case 'og-author' :
-					$ret[] = $this->p->util->th( 'Author Profile URL', null, 'og_author_field' ).
+					$rows[] = $this->p->util->th( 'Author Profile URL', null, 'og_author_field' ).
 					'<td>'.$this->form->get_select( 'og_author_field', $this->author_fields() ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Fallback to Author Index', null, 'og_author_fallback' ).
+					$rows[] = $this->p->util->th( 'Fallback to Author Index', null, 'og_author_fallback' ).
 					'<td>'.$this->form->get_checkbox( 'og_author_fallback' ).'</td>';
 	
-					$ret[] = $this->p->util->th( 'Default Author', null, 'og_def_author_id' ).
+					$rows[] = $this->p->util->th( 'Default Author', null, 'og_def_author_id' ).
 					'<td>'.$this->form->get_select( 'og_def_author_id', $user_ids, null, null, true ).'</td>';
 	
-					$ret[] = $this->p->util->th( 'Default Author on Indexes', null, 'og_def_author_on_index' ).
+					$rows[] = $this->p->util->th( 'Default Author on Indexes', null, 'og_def_author_on_index' ).
 					'<td>'.$this->form->get_checkbox( 'og_def_author_on_index' ).' defines index webpages as articles</td>';
 	
-					$ret[] = $this->p->util->th( 'Default Author on Search Results', null, 'og_def_author_on_search' ).
+					$rows[] = $this->p->util->th( 'Default Author on Search Results', null, 'og_def_author_on_search' ).
 					'<td>'.$this->form->get_checkbox( 'og_def_author_on_search' ).' defines search webpages as articles</td>';
 
-					$ret[] = $this->p->util->th( 'Article Publisher Page URL', 'highlight', 'og_publisher_url' ).
+					$rows[] = $this->p->util->th( 'Article Publisher Page URL', 'highlight', 'og_publisher_url' ).
 					'<td>'.$this->form->get_input( 'og_publisher_url', 'wide' ).'</td>';
 					break;
 
 				case 'pub-facebook' :
-					$ret[] = $this->p->util->th( 'Facebook Admin(s)', 'highlight', 'fb_admins' ).
+					$rows[] = $this->p->util->th( 'Facebook Admin(s)', 'highlight', 'fb_admins' ).
 					'<td>'.$this->form->get_input( 'fb_admins' ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Facebook Application ID', null, 'fb_app_id' ).
+					$rows[] = $this->p->util->th( 'Facebook Application ID', null, 'fb_app_id' ).
 					'<td>'.$this->form->get_input( 'fb_app_id' ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Default Language', null, 'fb_lang' ).
+					$rows[] = $this->p->util->th( 'Default Language', null, 'fb_lang' ).
 					'<td>'.$this->form->get_select( 'fb_lang', SucomUtil::get_lang( 'facebook' ) ).'</td>';
 					break;
 
 				case 'pub-google' :
-					$ret[] = $this->p->util->th( 'Description Length', null, 'google_desc_len' ).
+					$rows[] = $this->p->util->th( 'Description Length', null, 'google_desc_len' ).
 					'<td>'.$this->form->get_input( 'meta_desc_len', 'short' ).' characters or less</td>';
 
-					$ret[] = $this->p->util->th( 'Author Link URL', null, 'google_author_field' ).
+					$rows[] = $this->p->util->th( 'Author Link URL', null, 'google_author_field' ).
 					'<td>'.$this->form->get_select( 'link_author_field', $this->author_fields() ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Default Author', null, 'google_def_author_id' ).
+					$rows[] = $this->p->util->th( 'Default Author', null, 'google_def_author_id' ).
 					'<td>'.$this->form->get_select( 'link_def_author_id', $user_ids, null, null, true ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Default Author on Indexes', null, 'google_def_author_on_index' ).
+					$rows[] = $this->p->util->th( 'Default Author on Indexes', null, 'google_def_author_on_index' ).
 					'<td>'.$this->form->get_checkbox( 'link_def_author_on_index' ).'</td>';
 
-					$ret[] = $this->p->util->th( 'Default Author on Search Results', null, 'google_def_author_on_search' ).
+					$rows[] = $this->p->util->th( 'Default Author on Search Results', null, 'google_def_author_on_search' ).
 					'<td>'.$this->form->get_checkbox( 'link_def_author_on_search' ).'</td>';
 			
-					$ret[] = $this->p->util->th( 'Publisher Link URL', 'highlight', 'google_publisher_url' ).
+					$rows[] = $this->p->util->th( 'Publisher Link URL', 'highlight', 'google_publisher_url' ).
 					'<td>'.$this->form->get_input( 'link_publisher_url', 'wide' ).'</td>';
 					break;
 
 			}
-			return $ret;
+			return $rows;
 		}
 
 		private function author_fields() {
