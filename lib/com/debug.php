@@ -77,7 +77,7 @@ if ( ! class_exists( 'SucomDebug' ) ) {
 				$from .= $stack[$backtrace]['class'].'::';
 			if ( ! empty( $stack[$backtrace]['function'] ) )
 				$from .= $stack[$backtrace]['function'];
-			if ( empty( $data ) ) {
+			if ( $data === null ) {
 				$this->log( 'truncating debug log' );
 				$data = $this->buffer;
 				$this->buffer = array();

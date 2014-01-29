@@ -64,19 +64,18 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				$name = is_page( $post_id ) ? 'Page' : 'Post';
 				$cache_type = 'object cache';
 				$sharing_url = $this->p->util->get_sharing_url( $post_id );
+
 				$transients = array(
-					'WpssoOpengraph::get_array' => array(
-						'og array' => 'lang:'.$lang.'_sharing_url:'.$sharing_url,
-					),
-					'WpssoSharing::filter' => array(
-						'the_excerpt' => 'lang:'.$lang.'_post:'.$post_id.'_type:the_excerpt',
-						'the_content' => 'lang:'.$lang.'_post:'.$post_id.'_type:the_content',
-						'admin_sharing' => 'lang:'.$lang.'_post:'.$post_id.'_type:admin_sharing',
-					),
-					'WpssoUtilShorten::short' => array(
-						'long url' => 'url:'.$sharing_url,
-					),
+					'WpssoOpengraph::get_array' => array( 'og array' => 'lang:'.$lang.'_sharing_url:'.$sharing_url ),
+					'WpssoUtilShorten::short' => array( 'long url' => 'url:'.$sharing_url ),
 				);
+				if ( ! empty( $this->p->cf['sharing']['show_on'] ) &&
+					is_array( $this->p->cf['sharing']['show_on'] ) ) {
+					$transients['WpssoSharing::add_buttons'] = array();
+					foreach( $this->p->cf['sharing']['show_on'] as $type_id => $type_name )
+						$transients['WpssoSharing::add_buttons'][$type_id] = 'lang:'.$lang.'_post:'.$post_id.'_type:'.$type_name;
+				}
+
 				$objects = array(
 					'SucomWebpage::get_content' => array(
 						'filtered content' => 'lang:'.$lang.'_post:'.$post_id.'_filtered',
@@ -86,6 +85,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 						'hashtags' => 'lang:'.$lang.'_post:'.$post_id,
 					),
 				);
+
 				$deleted = 0;
 				foreach ( $transients as $group => $arr ) {
 					foreach ( $arr as $name => $val ) {
@@ -150,8 +150,8 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			$reset_msg = __( 'resetting the option to its default value.', WPSSO_TEXTDOM );
 			$charset = get_bloginfo( 'charset' );
 			switch ( $option_type ) {
-				// don't remove / encode html tags from css
-				case 'css':
+				// don't remove / encode html tags from css, js, etc.
+				case 'code':
 					break;
 				default:
 					$val = stripslashes( $val );
@@ -204,7 +204,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					if ( ! empty( $val ) )
 						$val = trim( $val );
 					break;
-				case 'css':	// options that cannot be blank
+				case 'code':	// options that cannot be blank
 				case 'notblank':
 					if ( empty( $val ) ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' cannot be empty'.' - '.$reset_msg, true );

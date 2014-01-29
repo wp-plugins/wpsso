@@ -257,14 +257,14 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 							// remove the sharing buttons filter to avoid recursive loops
 							if ( ! empty( $this->p->sharing ) && 
 								is_object( $this->p->sharing ) )
-									$filter_removed = $this->p->sharing->remove_filter( 'get_the_excerpt' );
+									$filter_removed = $this->p->sharing->remove_buttons_filter( 'get_the_excerpt' );
 							else $filter_removed = false;
 
 							$this->p->debug->log( 'calling apply_filters(\'get_the_excerpt\')' );
 							$desc = apply_filters( 'get_the_excerpt', $desc );
 
 							if ( $filter_removed )
-								$this->p->sharing->add_filter( 'get_the_excerpt' );
+								$this->p->sharing->add_buttons_filter( 'get_the_excerpt' );
 						}
 					} 
 
@@ -379,7 +379,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				// remove the sharing buttons filter to avoid recursive loops
 				if ( ! empty( $this->p->sharing ) && 
 					is_object( $this->p->sharing ) )
-						$filter_removed = $this->p->sharing->remove_filter( 'the_content' );
+						$filter_removed = $this->p->sharing->remove_buttons_filter( 'the_content' );
 				else $filter_removed = false;
 
 				// remove all of our shortcodes
@@ -402,7 +402,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 				// add the sharing buttons filter back, if it was removed
 				if ( $filter_removed )
-					$this->p->sharing->add_filter( 'the_content' );
+					$this->p->sharing->add_buttons_filter( 'the_content' );
 
 				// add our shortcodes back
 				if ( ! empty( $this->p->cf['lib']['shortcode'] ) && 
