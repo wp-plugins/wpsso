@@ -287,8 +287,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					break;
 
 				// image dimensions, subject to minimum value (typically, at least 200px)
-				case 'og_img_width': 
-				case 'og_img_height': 
+				case ( preg_match( '/_img_(width|height)$/', $key ) ? true : false ):
 				case ( preg_match( '/^tc_[a-z]+_(width|height)$/', $key ) ? true : false ):
 					return 'imgdim';
 					break;

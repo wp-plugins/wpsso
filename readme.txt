@@ -176,7 +176,6 @@ This version continues several underlying code improvements by moving the GPL-on
 * Added extra checks and error reporting for missing PHP cURL library.
 * Added checks for WordPress SEO opengraph, twitter, publisher and author actions, removing them if necessary.
 * Converted several methods to filter hooks in the lib/gpl/admin/ and lib/pro/admin/ folders.
-* Renamed the $ngfb->meta object variable to $ngfb->addons['util']['postmeta'].
 * **Fixed** a possible two-letter WordPress locale language issue for Open Graph meta tags (Pro version).
 * **Fixed** the missing Open Graph 'article:section' value in the Meta Tags Preview tab.
 * **Fixed** the Twitter Card 'twitter:description' value in the Meta Tags Preview tab (Pro version).
