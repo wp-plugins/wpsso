@@ -165,17 +165,17 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Version 2.0rc9 =
 
-This version continues several underlying code improvements by moving the GPL-only code into a `lib/gpl/` folder structure (like the Pro version) and adding strategic filter hooks to improve the overall modularity of the plugin. Relying on existing WordPress image size names -- like *thumbnail*, *medium* and *large* -- has been found to be too limiting at times, so individual image dimensions have been introduced for each image context. You'll find new image dimension settings for all Twitter Cards formats on the SSO General settings page. Please make sure you review these new image dimensions and adjust them for your needs. The defaults should be fine, but you may prefer to use existing image sizes to reduce the number of resized image files created. For example, some of the larger image dimensions default to 800x800 uncropped. If you already have an image size of 1024x1024 uncropped, you may wish to use those dimensions instead.
+This version continues several underlying code improvements by moving the GPL-only code into a `lib/gpl/` folder structure (like the Pro version) and adding several filter hooks to improve the overall modularity of the plugin. Relying on existing WordPress image size names -- like *thumbnail*, *medium* and *large* -- has been too limiting, so new individual image dimensions have been added for each image context. You'll find new image dimension settings for all Twitter Card formats. Please make sure you review these new image dimensions and adjust them for your needs. The defaults should be fine, but you may prefer to match your existing image sizes to reduce the number of resized image files. For example, some of the larger image dimensions default to 800x800 uncropped. If you already have an image size of 1024x1024 uncropped, for example, you may wish to use those dimensions instead.
 
 * **Added image dimension options (instead of image size drop-down) for Twitter Card images** (Pro version).
-* Added support for embedded Slideshare presentations (Pro version).
+* **Added support for embedded Slideshare presentations** (Pro version).
 * Added a new 'Language uses WP Locale' option to enable/disable the dynamic language selection feature (Pro version).
 * Added a new 'Check for Embedded Media' option with checkboxes for Slideshare, Vimeo, Wistia, and Youtube (Pro version).
 * Added a new 'Custom Settings' tab on the Advanced settings page (Pro version).
 * Added several filter hooks for the admin metabox tabs and option fields / rows.
 * Added extra checks and error reporting for missing PHP cURL library.
 * Added checks for WordPress SEO opengraph, twitter, publisher and author actions, removing them if necessary.
-* Converted several methods to filter hooks in the lib/gpl/admin/ and lib/pro/admin/ folders.
+* Converted several methods to filter hooks in the `lib/gpl/admin/` and `lib/pro/admin/` folders.
 * **Fixed** a possible two-letter WordPress locale language issue for Open Graph meta tags (Pro version).
 * **Fixed** the missing Open Graph 'article:section' value in the Meta Tags Preview tab.
 * **Fixed** the Twitter Card 'twitter:description' value in the Meta Tags Preview tab (Pro version).
