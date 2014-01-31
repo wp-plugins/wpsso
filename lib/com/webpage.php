@@ -475,14 +475,12 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			else {
 				if ( is_singular() || ! empty( $post_id ) ) {
 					$tags = $this->get_wp_tags( $post_id );
-
-					if ( $this->p->is_avail['media']['ngg'] && 
+					if ( isset( $this->p->addons['media']['ngg'] ) && 
 						$this->p->options['og_ngg_tags'] && 
 						$this->p->is_avail['postthumb'] && 
 						has_post_thumbnail( $post_id ) ) {
 
 						$pid = get_post_thumbnail_id( $post_id );
-
 						// featured images from ngg pre-v2 had 'ngg-' prefix
 						if ( is_string( $pid ) && substr( $pid, 0, 4 ) == 'ngg-' )
 							$tags = array_merge( $tags, $this->p->addons['media']['ngg']->get_tags( $pid ) );
