@@ -37,7 +37,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			if ( empty( $name ) ) return;	// just in case
 			if ( ! is_array( $check ) ) $check = array( 1, 0 );
 			if ( $this->in_options( $name.':is' ) && 
-				$this->options[$name.':is'] == 'disabled' )
+				$this->options[$name.':is'] === 'disabled' )
 					$disabled = true;
 			$html = $disabled === true ? $this->get_hidden( $name ) : $this->get_hidden( 'is_checkbox_'.$name, 1 );
 			$html .= '<input type="checkbox"'.
@@ -59,7 +59,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			if ( $is_assoc == false ) 
 				$is_assoc = SucomUtil::is_assoc( $values );
 			if ( $this->in_options( $name.':is' ) && 
-				$this->options[$name.':is'] == 'disabled' )
+				$this->options[$name.':is'] === 'disabled' )
 					$disabled = true;
 			$html = $disabled === true ? $this->get_hidden( $name ) : '';
 			foreach ( $values as $val => $desc ) {
@@ -145,7 +145,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 		public function get_input( $name, $class = '', $id = '', $len = 0, $placeholder = '' ) {
 			if ( empty( $name ) ) return;	// just in case
 			if ( $this->in_options( $name.':is' ) && 
-				$this->options[$name.':is'] == 'disabled' )
+				$this->options[$name.':is'] === 'disabled' )
 					return $this->get_fake_input( $name, $class, $id );
 			$html = '';
 			$value = $this->in_options( $name ) ? $this->options[$name] : '';
@@ -176,7 +176,6 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			$value = $this->in_options( $name ) ? $this->options[$name] : '';
 			if ( ! empty( $len ) && ! empty( $id ) )
 				$html .= $this->get_id_jquery( $id );
-
 			$html .= '<textarea name="'.$this->options_name.'['.$name.']"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
 				( empty( $id ) ? '' : ' id="'.$id.'"' ).
