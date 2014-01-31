@@ -89,6 +89,8 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 **WPSSO support and development is on-going**. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
 
+Surnia Ulula on [Google+](https://plus.google.com/u/1/103457833348046432604?rel=author), [Facebook](https://www.facebook.com/SurniaUlulaCom), and [Twitter](https://twitter.com/surniaululacom), and [YouTube](http://www.youtube.com/user/SurniaUlulaCom).
+
 == Installation ==
 
 = How-To =
