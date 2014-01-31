@@ -81,9 +81,11 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[] = $this->p->util->th( 'Default Image on Search Results', null, 'og_def_img_on_search' ).
 					'<td>'.$this->form->get_checkbox( 'og_def_img_on_search' ).'</td>';
 	
-					if ( $this->p->is_avail['media']['ngg'] == true ) {
-						$rows[] = $this->p->util->th( 'Add Featured Image Tags', null, 'og_ngg_tags' ).
-						'<td>'.$this->form->get_checkbox( 'og_ngg_tags' ).'</td>';
+					if ( $this->p->is_avail['media']['ngg'] === true ) {
+						$rows[] = $this->p->util->th( 'Add Featured Image NGG Tags', null, 'og_ngg_tags' ).
+						( isset( $this->p->addons['media']['ngg'] ) ?
+							'<td>'.$this->form->get_checkbox( 'og_ngg_tags' ).'</td>' :
+							'<td class="blank">'.$this->form->get_fake_checkbox( 'og_ngg_tags' ).'</td>' );
 					} else $rows[] = $this->form->get_hidden( 'og_ngg_tags' );
 	
 					$rows[] = $this->p->util->th( 'Maximum Images', 'highlight', 'og_img_max' ).
