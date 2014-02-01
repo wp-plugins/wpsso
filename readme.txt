@@ -20,7 +20,7 @@ WPSSO is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins
 
 * Clean, elegant and feature-rich admin settings.
 * Adds Facebook / Google+ / LinkedIn / etc. Open Graph, Pinterest Rich Pin, and Twitter Card meta tags.
-* Configurable image sizes and content descriptions depending on context.
+* Configurable image sizes and content descriptions for different contexts.
 * Configurable contact fields for author meta tags and user profile pages.
 * **Integrates with 3rd party plugins and services for additional image, video, product, and content information**:
   * NextGEN Gallery
