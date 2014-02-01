@@ -140,10 +140,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 							$chk['class'] = 'All_in_One_SEO_Pack';
 							$chk['plugin'] = 'all-in-one-seo-pack/all-in-one-seo-pack.php';
 							break;
-						case 'seo-seou':
-							$chk['class'] = 'SEO_Ultimate'; 
-							$chk['plugin'] = 'seo-ultimate/seo-ultimate.php';
-							break;
 						case 'seo-wpseo':
 							$chk['function'] = 'wpseo_init'; 
 							$chk['plugin'] = 'wordpress-seo/wp-seo.php';
@@ -179,6 +175,13 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 							$ret[$sub]['*'] = $ret[$sub][$id] = true;
 				}
 			}
+
+			if ( $ret['seo']['*'] === false ) {
+				if ( class_exists( 'SEO_Ultimate' ) || 
+					in_array( 'seo-ultimate/seo-ultimate.php', $this->active_plugins ) )
+						$ret['seo']['*'] = true;
+			}
+
 			return $ret;
 		}
 
