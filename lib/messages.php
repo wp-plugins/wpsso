@@ -660,8 +660,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					Cards, allows you to customize the meta tags of individual Posts and Pages, and integrates with a growing list of 3rd party plugins.</p>
 					<p><strong>Improve your social presence on Facebook, Twitter, Pinterest, LinkedIn, etc. by providing these social websites
 					complete and accurate meta tags, correctly sized images, information on your products and embedded videos</strong>.</p>
-					<p>Upgrading to the Pro version is simple and takes just one or two minutes - <br/>
-					<a href="'.$this->p->cf['url']['purchase'].'" target="_blank">purchase a '.$this->p->cf['full_pro'].' license right now</a>.</p>
+					<p>Have the Pro version running in just two minutes!<br/>
+					<a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Purchase a '.$this->p->cf['full_pro'].' license right now</a>.</p>
 					';
 					break;
 				case 'side-purchase':
