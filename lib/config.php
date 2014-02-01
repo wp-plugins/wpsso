@@ -74,7 +74,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					),
 					'seo' => array(
 						'aioseop' => 'All in One SEO Pack',
-						'seou' => 'SEO Ultimate',
 						'wpseo' => 'WordPress SEO',
 					),
 					'social' => array(

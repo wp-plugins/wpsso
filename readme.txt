@@ -12,12 +12,15 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 == Description ==
 
-**WordPress Social Sharing Optimization (WPSSO) is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - it has all the same great features, but strives to be a little lighter and smaller by removing the social buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, url shortening, and url rewriting)**.
+**WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head section of WordPress webpages for improved Google Search results / ranking and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more.**
+
+WPSSO is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - they hare many of the same great features, but WPSSO strives to be a little smaller and lighter by removing the social buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, url shortening, and url rewriting).
 
 = Summary of Features =
 
-* Facebook / Google+ / LinkedIn / etc. Open Graph, Pinterest Rich Pin, and Twitter Card meta tags.
-* Configurable image sizes and descriptions depending on context.
+* Clean, elegant and feature-rich admin settings.
+* Adds Facebook / Google+ / LinkedIn / etc. Open Graph, Pinterest Rich Pin, and Twitter Card meta tags.
+* Configurable image sizes and content descriptions depending on context.
 * Configurable contact fields for author meta tags and user profile pages.
 * **Integrates with 3rd party plugins and services for additional image, video, product, and content information**:
   * NextGEN Gallery
