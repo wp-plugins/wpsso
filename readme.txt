@@ -234,7 +234,7 @@ Please note that support for [the NextGEN Gallery plugin](http://wordpress.org/p
 
 = 2.0 =
 
-Underlying code improvements for modularity and future scalability. Addition of individual image dimension options for all Twitter Card formats. A few minor bug fixes for the 'Meta Tag Preview' values.
+Underlying code improvements for modularity and future scalability. Addition of individual image dimension options for all Twitter Card formats. A few minor bug fixes for 'Meta Tag Preview' values.
 
 = 1.22.2 =
 
