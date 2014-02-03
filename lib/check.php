@@ -37,11 +37,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				add_filter( 'jetpack_disable_twitter_cards', '__return_true', 99 );
 			}
 
-			// disable the ngfb open graph+ meta tags
-			if ( class_exists( 'Ngfb' ) || in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) )
-				if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
-					define( 'NGFB_META_TAGS_DISABLE', true );
-
 			// disable WordPress SEO opengraph, twitter, publisher, and author meta tags
 			if ( function_exists( 'wpseo_init' ) || in_array( 'wordpress-seo/wp-seo.php', $this->active_plugins ) ) {
 
@@ -68,6 +63,11 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 						$ret = remove_action( 'wpseo_head', array( $wpseo_front, 'author' ), $prio );
 				}
 			}
+
+			// disable the ngfb open graph+ meta tags
+			if ( class_exists( 'Ngfb' ) || in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) )
+				if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
+					define( 'NGFB_META_TAGS_DISABLE', true );
 		}
 
 		public function get_active() {
@@ -100,7 +100,13 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 					constant( $constant_name ) ? false : true;
 			}
 
-			foreach ( $this->p->cf['lib']['pro'] as $sub => $libs ) {
+			$more_avail_checks = array(
+				'seo' => array(
+					'seou' => 'SEO Ultimate',
+				), 
+			);
+
+			foreach ( SucomUtil::array_merge_recursive_distinct( $this->p->cf['lib']['pro'], $more_avail_checks ) as $sub => $libs ) {
 				$ret[$sub] = array();
 				$ret[$sub]['*'] = false;
 				foreach ( $libs as $id => $name ) {
@@ -140,6 +146,10 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 							$chk['class'] = 'All_in_One_SEO_Pack';
 							$chk['plugin'] = 'all-in-one-seo-pack/all-in-one-seo-pack.php';
 							break;
+						case 'seo-seou':
+							$chk['class'] = 'SEO_Ultimate';
+							$chk['plugin'] = 'seo-ultimate/seo-ultimate.php';
+							break;
 						case 'seo-wpseo':
 							$chk['function'] = 'wpseo_init'; 
 							$chk['plugin'] = 'wordpress-seo/wp-seo.php';
@@ -174,12 +184,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 						( ! empty( $chk['optval'] ) && ! empty( $this->p->options[$chk['optval']] ) ) )
 							$ret[$sub]['*'] = $ret[$sub][$id] = true;
 				}
-			}
-
-			if ( $ret['seo']['*'] === false ) {
-				if ( class_exists( 'SEO_Ultimate' ) || 
-					in_array( 'seo-ultimate/seo-ultimate.php', $this->active_plugins ) )
-						$ret['seo']['*'] = true;
 			}
 
 			return $ret;
