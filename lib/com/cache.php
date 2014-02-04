@@ -19,9 +19,10 @@ if ( ! class_exists( 'SucomCache' ) ) {
 		public $verify_certs = false;
 		public $file_expire = 0;
 		public $object_expire = 60;
-		public $connect_timeout = 5;
+		public $timeout = 10;		// wait 10 seconds for a completed transaction
+		public $connect_timeout = 5;	// wait 5 seconds for a connection
 		public $ignore_time = 300;
-		public $ignore_urls = array();		// offline some URLs for a period of time
+		public $ignore_urls = array();	// offline some URLs for a period of time
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
@@ -109,6 +110,7 @@ if ( ! class_exists( 'SucomCache' ) ) {
 			$ch = curl_init();
 			curl_setopt( $ch, CURLOPT_URL, $get_url );
 			curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+			curl_setopt( $ch, CURLOPT_TIMEOUT, $this->timeout );
 			curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, $this->connect_timeout );
 
 			if( ini_get('safe_mode') || ini_get('open_basedir') )
