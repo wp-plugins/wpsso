@@ -521,8 +521,9 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				$this->p->debug->log( 'exiting early: empty post content' ); 
 				return $og_ret; 
 			}
-			// detect standard iframe/embed tags - use the wpsso_content_videos filter for custom html5/javascript methods
-			if ( preg_match_all( '/<(iframe|embed)[^>]*? src=[\'"]([^\'"]+\/(embed|embed_code|video)\/[^\'"]+)[\'"][^>]*>/i', $content, $match_all, PREG_SET_ORDER ) ) {
+			// detect standard iframe/embed tags - use the wpsso_content_videos filter for additional html5/javascript methods
+			// the src url must contain /embed|embed_code|swf|video/ in its path to be recognized as an embedded video url
+			if ( preg_match_all( '/<(iframe|embed)[^>]*? src=[\'"]([^\'"]+\/(embed|embed_code|swf|video)\/[^\'"]+)[\'"][^>]*>/i', $content, $match_all, PREG_SET_ORDER ) ) {
 				$this->p->debug->log( count( $match_all ).' x video <iframe|embed/> html tag(s) found' );
 				foreach ( $match_all as $media ) {
 					$this->p->debug->log( '<'.$media[1].'/> html tag found = '.$media[2] );
