@@ -136,13 +136,16 @@ Surnia Ulula on [Google+](https://plus.google.com/u/1/103457833348046432604?rel=
 == Other / Additional Notes ==
 
 <ul>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a> <div>A list of available PHP constants for the WPSSO plugin.</div></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a>
+		<div>A list of available PHP constants for the WPSSO plugin.</div></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/">Integration Notes</a>
-<ul>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a></li>
-</ul>
-</li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/">Filters</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/">Integration Notes</a><ul>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a></li>
+	</ul></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/multisite-network-support/">Multisite / Network Support</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/performance-tuning/">Performance Tuning</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/resources-and-contacts/">Resources and Contacts</a></li>
 </ul>
 
 == Screenshots ==
