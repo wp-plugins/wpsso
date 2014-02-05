@@ -245,7 +245,7 @@ Minor update to fix the SSO Custom Settings metabox, which referenced an empty f
 
 = 2.0 =
 
-Underlying code improvements for modularity and future scalability. Addition of individual image dimension options for all Twitter Card formats. A few minor bug fixes for 'Meta Tag Preview' values.
+Underlying code improvements, individual image dimension options for all Twitter Card formats, a few minor bug fixes for 'Meta Tag Preview' values.
 
 = 1.22.2 =
 
