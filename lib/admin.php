@@ -422,9 +422,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				if ( $sub === 'admin' )	// skip status for admin menus and tabs
 					continue;
 				foreach ( $libs as $id => $name ) {
+					$off = $this->p->is_avail[$sub][$id] ? 'rec' : 'off';
 					$features[$name] = array( 
-						'status' => class_exists( $this->p->cf['lca'].$sub.$id ) ? 'on' : 
-							( $this->p->is_avail[$sub][$id] ? 'rec' : 'off' ) );
+						'status' => class_exists( $this->p->cf['lca'].$sub.$id ) ? 
+							( $this->p->is_avail['aop'] ? 'on' : $off ) : $off );
 
 					$features[$name]['tooltip'] = 'If the '.$name.' plugin is detected, '.
 						$this->p->cf['full_pro'].' will load a specific integration addon for '.$name.
