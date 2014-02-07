@@ -343,11 +343,10 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 		}
 
 		public function is_aop() {
-			if ( ! empty( $this->p->options['plugin_tid'] ) && 
-				self::$aop === true && 
-				class_exists( 'SucomUpdate' ) &&
-				SucomUpdate::get_umsg( $this->p->cf['lca'] ) === false ) 
-					return true; return false;
+			if ( ! empty( $this->p->options['plugin_tid'] ) &&
+				self::$aop && class_exists( 'SucomUpdate' ) &&
+				( $r = SucomUpdate::get_umsg( $this->p->cf['lca'] ) ? false : self::$aop ) )
+					return $r;
 		}
 	}
 }

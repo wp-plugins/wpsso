@@ -147,7 +147,9 @@ if ( ! class_exists( 'Wpsso' ) ) {
 				$this->og = new WpssoOpengraph( $this );	// prepare open graph array
 			else $this->og = new SucomOpengraph( $this );		// read open graph html tags
 
-			if ( ! $this->check->is_aop() ) {
+			if ( ! $this->check->is_aop() ||
+				get_option( $this->cf['lca'].'_umsg' ) ||
+				SucomUpdate::get_umsg( $this->cf['lca'] ) ) {
 				require_once( WPSSO_PLUGINDIR.'lib/gpl/addon.php' );
 				$this->gpl = new WpssoAddonGpl( $this );
 			} else $this->pro = new WpssoAddonPro( $this );
