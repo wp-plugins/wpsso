@@ -311,6 +311,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'og_site_description':
 				case 'meta_desc':
 				case 'tc_desc':
+				case 'plugin_cf_vid_url':
 					return 'okblank';
 					break;
 

@@ -409,11 +409,21 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							to the provider will be made to retrieve information about the media (preview image, flash player url,
 							oembed player url, video width / height, etc.).';
 							break;
+						/*
+						 * 'Custom Settings' settings
+						 */
 						case 'tooltip-plugin_add_to':
 							$text = 'The Custom Settings metabox, which allows you to enter custom Open Graph values (among other options), 
 							is available on the Posts, Pages, Media, and Product admin pages by default. 
 							If your theme (or another plugin) supports additional custom post types, and you would like to 
 							include the Custom Settings metabox on their admin pages, check the appropriate option(s) here.';
+							break;
+						case 'tooltip-plugin_cf_vid_url':
+							$text = 'If your theme (or another plugin) provides a custom field for embedded video URLs, 
+							you may enter that custom field name here. If a custom field matching that name is found, 
+							it\'s value will be used for the Video URL in the '.$this->p->cf['menu'].' Custom Settings
+							for Posts and Pages. The default <em>Video URL Custom Field</em> name is "'.
+							$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'".';
 							break;
 						/*
 						 * 'File and Object Cache' settings

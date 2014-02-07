@@ -425,7 +425,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					$off = $this->p->is_avail[$sub][$id] ? 'rec' : 'off';
 					$features[$name] = array( 
 						'status' => class_exists( $this->p->cf['lca'].$sub.$id ) ? 
-							( $this->p->is_avail['aop'] ? 'on' : $off ) : $off );
+							( $this->p->check->is_aop() ? 'on' : $off ) : $off );
 
 					$features[$name]['tooltip'] = 'If the '.$name.' plugin is detected, '.
 						$this->p->cf['full_pro'].' will load a specific integration addon for '.$name.
