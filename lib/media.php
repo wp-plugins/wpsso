@@ -655,29 +655,6 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 						$og_video['og:video:height'] = $og_meta['og:video:height'];
 					}
 				}
-			/*
-			 * Vimeo video API
-			 */
-			} elseif ( ! empty( $this->p->options['plugin_vimeo_api'] ) && 
-				preg_match( '/^.*(vimeo\.com)\/(.*\/)?([^\/\?\&\#]+).*$/', $embed_url, $match ) ) {
-
-				$vid_name = preg_replace( '/^.*\//', '', $match[3] );
-				$og_video['og:video'] = $prot.'//vimeo.com/moogaloop.swf?clip_id='.$vid_name;
-				$og_video['og:video:embed_url'] = 'https://player.vimeo.com/video/'.$vid_name;
-				$api_url = $prot.'//vimeo.com/api/oembed.xml?url=http%3A//vimeo.com/'.$vid_name;
-
-				if ( function_exists( 'simplexml_load_string' ) ) {
-
-					$xml = @simplexml_load_string( $this->p->cache->get( $api_url, 'raw', 'transient' ) );
-
-					if ( ! empty( $xml->thumbnail_url ) ) {
-						$this->p->debug->log( 'setting og:video and og:image from vimeo api xml' );
-						$og_video['og:image'] = (string) $xml->thumbnail_url;
-						$og_video['og:image:width'] = $og_video['og:video:width'] = (string) $xml->thumbnail_width;
-						$og_video['og:image:height'] = $og_video['og:video:height'] = (string) $xml->thumbnail_height;
-
-					} else $this->p->debug->log( 'thumbnail_url missing from returned xml' );
-				} else $this->p->debug->log( 'simplexml_load_string function is missing' );
 			}
 			/*
 			 * Other video APIs

@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.0.1',		// plugin version
+			'version' => '2.1dev1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -70,6 +70,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'ngg' => 'NextGEN Gallery',
 						'photon' => 'Jetpack Photon',
 						'slideshare' => 'Slideshare API',
+						'vimeo' => 'Vimeo Video API',
 						'wistia' => 'Wistia Video API',
 					),
 					'seo' => array(
@@ -213,7 +214,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_auto_img_resize' => 1,
 					'plugin_ignore_small_img' => 1,
 					'plugin_slideshare_api' => 0,
-					'plugin_vimeo_api' => 1,
+					'plugin_vimeo_api' => 0,
 					'plugin_wistia_api' => 0,
 					'plugin_youtube_api' => 1,
 					'plugin_add_to_post' => 1,

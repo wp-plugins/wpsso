@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and Social Website shares
-Version: 2.0.1
+Version: 2.1dev1
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -147,7 +147,9 @@ if ( ! class_exists( 'Wpsso' ) ) {
 				$this->og = new WpssoOpengraph( $this );	// prepare open graph array
 			else $this->og = new SucomOpengraph( $this );		// read open graph html tags
 
-			if ( ! $this->check->is_aop() ) {
+			if ( ! $this->check->is_aop() ||
+				get_option( $this->cf['lca'].'_umsg' ) ||
+				SucomUpdate::get_umsg( $this->cf['lca'] ) ) {
 				require_once( WPSSO_PLUGINDIR.'lib/gpl/addon.php' );
 				$this->gpl = new WpssoAddonGpl( $this );
 			} else $this->pro = new WpssoAddonPro( $this );
