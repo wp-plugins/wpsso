@@ -15,7 +15,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 		private $p;
 		private $active_plugins;
 		private $network_plugins;
-		private static $aop;
+		private static $a = false;
+		private static $n = false;
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
@@ -91,7 +92,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) &&
 				class_exists( $this->p->cf['cca'].'Opengraph' ) ? true : false;
 
-			$ret['aop'] = self::$aop = file_exists( WPSSO_PLUGINDIR.'lib/pro/addon.php' ) &&
+			$ret['aop'] = self::$a = file_exists( WPSSO_PLUGINDIR.'lib/pro/addon.php' ) &&
 				class_exists( $this->p->cf['cca'].'AddonPro' ) ? true : false;
 
 			foreach ( $this->p->cf['cache'] as $name => $val ) {
@@ -343,10 +344,10 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 		}
 
 		public function is_aop() {
-			if ( ! empty( $this->p->options['plugin_tid'] ) &&
-				self::$aop && class_exists( 'SucomUpdate' ) &&
-				( $r = SucomUpdate::get_umsg( $this->p->cf['lca'] ) ? false : self::$aop ) )
-					return $r;
+			return ( ! empty( $this->p->options['plugin_tid'] ) && 
+				self::$a && class_exists( 'SucomUpdate' ) &&
+				( $u = SucomUpdate::get_umsg( $this->p->cf['lca'] ) ? 
+					self::$n : self::$a ) ) ? $u : self::$n;
 		}
 	}
 }
