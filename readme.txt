@@ -172,6 +172,10 @@ Surnia Ulula on [Google+](https://plus.google.com/u/1/103457833348046432604?rel=
 
 == Changelog ==
 
+= Version 2.1dev1 =
+
+* Moved the Vimeo Video API support to the Pro version codebase.
+
 = Version 2.0.1 =
 
 * **Fixed** the SSO Custom Settings metabox, which referenced an empty form object (GPL version).
