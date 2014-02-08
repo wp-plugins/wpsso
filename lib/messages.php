@@ -146,21 +146,24 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							The default description value is refreshed when the '.$ptn.' is saved.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_id':
-							$text = 'A custom Image ID to include (first) in the Open Graph, Rich Pin, 
+							$text = 'A custom Image ID to include first in the Open Graph, Rich Pin, 
 							and \'Large Image Summary\' Twitter Card meta tags, along with the Pinterest 
 							and Tumblr social sharing buttons.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_url':
-							$text = 'A custom image URL, instead of an Image ID, to include (first) in the Open Graph, Rich Pin, 
+							$text = 'A custom image URL, instead of an Image ID, to include first in the Open Graph, Rich Pin, 
 							and \'Large Image Summary\' Twitter Card meta tags. Please make sure your custom image
 							is large enough, or it may be ignored by the social website(s). <strong>Facebook recommends 
 							an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200</strong>.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_url':
-							$text = 'A custom video URL to include (first) in the Open Graph, Rich Pin, 
-							and \'Player\' Twitter Card meta tags, along with the Tumblr social sharing button.
-							If the URL is from Youtube, Vimeo, or Wistia, an API connection will be made to 
-							retrieve the preferred video URL, dimensions, and preview image.';
+							$text = 'A custom Video URL to include first in the Open Graph, Rich Pin, 
+							and \'Player\' Twitter Card meta tags'.
+							( $this->p->is_avail['ssb'] ? ', along with the Tumblr social sharing button.' : '.' ).
+							' If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred 
+							sharing URL, video dimensions, and video preview image. The '.
+							$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_custom', 'Video URL Custom Field' ).
+							' Advanced option also allows a 3rd-party to provide a Video URL value for this option.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_max':
 							$text = 'The maximum number of images to include in the Open Graph meta tags for this '.$ptn.'.';
@@ -422,8 +425,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'If your theme (or another plugin) provides a custom field for embedded video URLs, 
 							you may enter that custom field name here. If a custom field matching that name is found, 
 							it\'s value will be used for the Video URL in the '.$this->p->cf['menu'].' Custom Settings
-							for Posts and Pages. The default <em>Video URL Custom Field</em> name is "'.
-							$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'".';
+							for Posts and Pages. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'".';
 							break;
 						/*
 						 * 'File and Object Cache' settings
