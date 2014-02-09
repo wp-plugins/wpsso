@@ -172,7 +172,7 @@ Surnia Ulula on [Google+](https://plus.google.com/u/1/103457833348046432604?rel=
 
 == Changelog ==
 
-= Version 2.1dev2 =
+= Version 2.1rc1 =
 
 * Added a 'Alternate Video URL Custom Field' option to include a video URL from a theme's custom field (Pro version).
 * Added 'ngfb_post_cache_transients' and 'ngfb_post_cache_objects' filters.
