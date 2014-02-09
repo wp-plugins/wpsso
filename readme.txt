@@ -176,7 +176,7 @@ Surnia Ulula on [Google+](https://plus.google.com/u/1/103457833348046432604?rel=
 
 * Added a 'Alternate Video URL Custom Field' option to include a video URL from a theme's custom field (Pro version).
 * Added 'ngfb_post_cache_transients' and 'ngfb_post_cache_objects' filters.
-* Moved the Vimeo Video API support to the Pro version codebase.
+* Moved the Vimeo and Yahoo API support to the Pro version codebase.
 * **Fixed** false positive on the Custom Post Meta addon status (GPL version).
 
 = Version 2.0.1 =

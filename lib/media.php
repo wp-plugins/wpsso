@@ -565,7 +565,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 		private function get_video_info( $embed_url, $embed_width = 0, $embed_height = 0 ) {
 			if ( empty( $embed_url ) ) 
 				return array();
-			$prot = empty( $this->p->options['og_vid_https'] ) ? 'http:' : 'https:';
+
 			$og_video = array(
 				'og:video' => '',
 				'og:video:type' => 'application/x-shockwave-flash',
@@ -575,90 +575,6 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				'og:image:width' => -1,
 				'og:image:height' => -1,
 			);
-			/*
-			 * YouTube video API
-			 */
-			if ( ! empty( $this->p->options['plugin_youtube_api'] ) && 
-				preg_match( '/^.*(youtube\.com|youtube-nocookie\.com|youtu\.be)\/(watch\?v=)?([^\?\&\#]+)(\?(list)=([^\?\&\#]+)|.*)$/', $embed_url, $match ) ) {
-
-				$vid_name = false;
-				$list_name = false;
-
-				if ( ! empty( $match[6] ) && $match[5] === 'list' ) {
-					$list_name = $match[6];
-					$api_url = $prot.'//gdata.youtube.com/feeds/api/playlists/'.$list_name;
-					if ( $match[3] !== 'videoseries' ) {
-						$og_video['og:video'] = $prot.'//www.youtube.com/v/'.$vid_name.'?list='.$list_name;
-						$og_video['og:video:embed_url'] = 'https://www.youtube.com/embed/'.$vid_name.'?list='.$list_name;
-						$og_video['og:image'] = $prot.'//img.youtube.com/vi/'.$match[3].'/0.jpg';
-					}
-				} elseif ( ! empty( $match[3] ) ) {
-					$vid_name = preg_replace( '/^.*\//', '', $match[3] );
-					$api_url = $prot.'//gdata.youtube.com/feeds/api/videos?q='.$vid_name.'&max-results=1&format=5';
-					$og_video['og:video'] = $prot.'//www.youtube.com/v/'.$vid_name;
-					$og_video['og:video:embed_url'] = 'https://www.youtube.com/embed/'.$vid_name;
-					$og_video['og:image'] = $prot.'//img.youtube.com/vi/'.$vid_name.'/0.jpg';
-				}
-
-				if ( empty( $api_url ) ) {
-					$this->p->debug->log( 'youtube api url is empty - no video or playlist names found' );
-
-				} elseif ( function_exists( 'simplexml_load_string' ) ) {
-
-					$xml = @simplexml_load_string( $this->p->cache->get( $api_url, 'raw', 'transient' ) );
-
-					if ( ! empty( $xml ) ) {
-						$this->p->debug->log( 'setting og:video and og:image from youtube api xml' );
-						if ( ! empty( $xml->entry[0] ) ) {
-							$media = $xml->entry[0]->children( 'media', true );
-							$content = $media->group->content[0]->attributes();
-
-							if ( $content['type'] == 'application/x-shockwave-flash' )
-								$og_video['og:video'] = (string) $content['url'];
-
-							$og_video['og:video'] .= $list_name !== false ? 
-								( strpos( $og_video['og:video'], '?' ) !== false ? 
-									'&' : '?' ).'list='.$list_name : '';
-	
-							// find the largest thumbnail available
-							foreach ( $media->group->thumbnail as $thumb ) {
-								$thumb_attr = $thumb->attributes();
-								if ( ! empty( $thumb_attr['width'] ) ) {
-									$thumb_url = (string) $thumb_attr['url'];
-									$thumb_width = (string) $thumb_attr['width'];
-									$thumb_height = (string) $thumb_attr['height'];
-									if ( empty( $og_video['og:image:width'] ) || $thumb_width > $og_video['og:image:width'] ) {
-										list( $og_video['og:image'], $og_video['og:image:width'], $og_video['og:image:height'] ) = 
-											array( $thumb_url, $thumb_width, $thumb_height );
-									}
-								}
-							}
-							// determine video name from preview image url for open graph parsing
-							if ( $vid_name === false && ! empty( $og_video['og:image'] ) )
-								$vid_name = preg_match( '/^.*\/([^\/]+)\/[^\/]+\.[a-z]+$/', $og_video['og:image'], $match ) ? 
-									$match[1] : false;
-
-						} else $this->p->debug->log( 'entry missing from returned xml' );
-					} else $this->p->debug->log( 'returned xml is empty' );
-				} else $this->p->debug->log( 'simplexml_load_string function is missing' );
-
-				// the google youtube api does not provide the video width / height (seriously), 
-				// so get them from the youtube opengraph meta tags if / when missing
-				if ( $vid_name !== false && ! empty( $og_video['og:video'] ) && 
-					( $og_video['og:video:width'] <= 0 || $og_video['og:video:height'] <= 0 ) ) {
-
-					$og_fetch = $prot.'//www.youtube.com/watch?v='.$vid_name;
-					$this->p->debug->log( 'fetching missing video width / height from '.$og_fetch );
-					if ( ( $og_html = $this->p->cache->get( $og_fetch, 'raw', 'transient' ) ) !== false ) {
-						$og_meta = $this->p->og->parse( $og_html );
-						$og_video['og:video:width'] = $og_meta['og:video:width'];
-						$og_video['og:video:height'] = $og_meta['og:video:height'];
-					}
-				}
-			}
-			/*
-			 * Other video APIs
-			 */
 			$og_video = apply_filters( $this->p->cf['lca'].'_video_info', $og_video, $embed_url, $embed_width, $embed_height );
 
 			$this->p->debug->log( 'video = '.$og_video['og:video'].' ('.$og_video['og:video:width'].'x'.$og_video['og:video:height'].')' );
