@@ -55,26 +55,18 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 
 		public function flush_post_cache( $post_id ) {
 			switch ( get_post_status( $post_id ) ) {
-
-			case 'draft' :
-			case 'pending' :
-			case 'private' :
-			case 'publish' :
+			case 'draft':
+			case 'pending':
+			case 'private':
+			case 'publish':
 				$lang = get_locale();
-				$name = is_page( $post_id ) ? 'Page' : 'Post';
 				$cache_type = 'object cache';
 				$sharing_url = $this->p->util->get_sharing_url( $post_id );
 
 				$transients = array(
 					'WpssoOpengraph::get_array' => array( 'og array' => 'lang:'.$lang.'_sharing_url:'.$sharing_url ),
-					'WpssoUtilShorten::short' => array( 'long url' => 'url:'.$sharing_url ),
 				);
-				if ( ! empty( $this->p->cf['sharing']['show_on'] ) &&
-					is_array( $this->p->cf['sharing']['show_on'] ) ) {
-					$transients['WpssoSharing::get_buttons'] = array();
-					foreach( $this->p->cf['sharing']['show_on'] as $type_id => $type_name )
-						$transients['WpssoSharing::get_buttons'][$type_id] = 'lang:'.$lang.'_post:'.$post_id.'_type:'.$type_id;
-				}
+				$transients = apply_filters( $this->p->cf['lca'].'_post_cache_transients', $transients, $post_id, $lang, $sharing_url );
 
 				$objects = array(
 					'SucomWebpage::get_content' => array(
@@ -85,24 +77,33 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 						'hashtags' => 'lang:'.$lang.'_post:'.$post_id,
 					),
 				);
+				$objects = apply_filters( $this->p->cf['lca'].'_post_cache_objects', $objects, $post_id, $lang, $sharing_url );
 
 				$deleted = 0;
 				foreach ( $transients as $group => $arr ) {
 					foreach ( $arr as $name => $val ) {
 						$cache_salt = $group.'('.$val.')';
 						$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
-						if ( delete_transient( $cache_id ) ) $deleted++;
+						if ( delete_transient( $cache_id ) ) {
+							if ( $this->p->debug->is_on() )
+								$this->p->debug->log( 'flushed transient cache salt: '. $cache_salt );
+							$deleted++;
+						}
 					}
 				}
 				foreach ( $objects as $group => $arr ) {
 					foreach ( $arr as $name => $val ) {
 						$cache_salt = $group.'('.$val.')';
 						$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
-						if ( wp_cache_delete( $cache_id, $group ) ) $deleted++;
+						if ( wp_cache_delete( $cache_id, $group ) ) {
+							if ( $this->p->debug->is_on() )
+								$this->p->debug->log( 'flushed object cache salt: '. $cache_salt );
+							$deleted++;
+						}
 					}
 				}
 				if ( $deleted > 0 && $this->p->debug->is_on() )
-					$this->p->notice->inf( $deleted.' items flushed from the WordPress object and transient caches for post ID #'.$post_id, true );
+					$this->p->notice->inf( $deleted.' items flushed from object and transient cache for post ID #'.$post_id, true );
 				break;
 			}
 		}

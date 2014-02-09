@@ -68,7 +68,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			$rows[] = $this->p->util->th( 'Show Custom Settings on', null, 'plugin_add_to' ).
 			'<td class="blank">'.$checkboxes.'</td>';
 			
-			$rows[] = $this->p->util->th( 'Video URL Custom Field', null, 'plugin_cf_vid_url' ).
+			$rows[] = $this->p->util->th( 'Alternate Video URL Custom Field', null, 'plugin_cf_vid_url' ).
 			'<td class="blank">'.$form->get_hidden( 'plugin_cf_vid_url' ).
 			$this->p->options['plugin_cf_vid_url'].'</td>';
 			
