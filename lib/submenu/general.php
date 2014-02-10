@@ -41,9 +41,10 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 		public function show_metabox_publishers() {
 			$metabox = 'pub';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
+				'twitter' => 'Twitter',
 				'google' => 'Google',
 				'facebook' => 'Facebook',
-				'twitter' => 'Twitter' ) );
+			) );
 			$rows = array();
 			foreach ( $tabs as $key => $title )
 				$rows[$key] = array_merge( $this->get_rows( $metabox, $key ), 
@@ -88,11 +89,11 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 							'<td class="blank">'.$this->form->get_fake_checkbox( 'og_ngg_tags' ).'</td>' );
 					} else $rows[] = $this->form->get_hidden( 'og_ngg_tags' );
 	
-					$rows[] = $this->p->util->th( 'Maximum Images', 'highlight', 'og_img_max' ).
+					$rows[] = $this->p->util->th( 'Maximum Images', null, 'og_img_max' ).
 					'<td>'.$this->form->get_select( 'og_img_max', 
 						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
 	
-					$rows[] = $this->p->util->th( 'Maximum Videos', 'highlight', 'og_vid_max' ).
+					$rows[] = $this->p->util->th( 'Maximum Videos', null, 'og_vid_max' ).
 					'<td>'.$this->form->get_select( 'og_vid_max', 
 						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
 	
@@ -104,13 +105,13 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[] = $this->p->util->th( 'Website Topic', 'highlight', 'og_art_section' ).
 					'<td>'.$this->form->get_select( 'og_art_section', $this->p->util->get_topics() ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Site Name', 'highlight', 'og_site_name' ).
+					$rows[] = $this->p->util->th( 'Site Name', null, 'og_site_name' ).
 					'<td>'.$this->form->get_input( 'og_site_name', null, null, null, get_bloginfo( 'name', 'display' ) ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Site Description', 'highlight', 'og_site_description' ).
+					$rows[] = $this->p->util->th( 'Site Description', null, 'og_site_description' ).
 					'<td>'.$this->form->get_input( 'og_site_description', 'wide', null, null, get_bloginfo( 'description', 'display' ) ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Title Separator', 'highlight', 'og_title_sep' ).
+					$rows[] = $this->p->util->th( 'Title Separator', null, 'og_title_sep' ).
 					'<td>'.$this->form->get_input( 'og_title_sep', 'short' ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Title Length', null, 'og_title_len' ).
