@@ -174,6 +174,10 @@ Surnia Ulula on [Google+](https://plus.google.com/u/1/103457833348046432604?rel=
 
 == Changelog ==
 
+= Version 2.1.1 =
+
+* **Fixed** missing check for the 'plugin_filter_lang' option to enable/disable the WP Locale Language addon (Pro version).
+
 = Version 2.1 =
 
 WPSSO can recognize and parse standard object / iframe embed code, but some themes and plugins offer a custom field for video URLs, which is then used to create custom / non-standard embed code. Version 7.1 includes a new 'Video URL Custom Field' option on the Advanced settings page, under the Custom Settings tab, where you can enter the name of such a custom field. If found, the video URL will be used to retrieve information on that video, just like if it was found embedded in the content. Typically, the custom field name will start with an underscore, and the default 'Video URL Custom Field' name is "_format_video_embed" (which may or may not be supported by your theme, or may be known under a different name).
@@ -209,6 +213,10 @@ This version continues several underlying code improvements by moving the GPL-on
 * **Fixed** call to NGG method for image tags when addon is not available (GPL version).
 
 == Upgrade Notice ==
+
+= 2.1.1 =
+
+Fixed missing check for the 'plugin_filter_lang' option to enable/disable the WP Locale Language addon (Pro version).
 
 = 2.1 =
 

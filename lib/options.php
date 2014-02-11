@@ -57,6 +57,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			}
 
 			$this->p->cf['opt']['defaults'] = apply_filters( $this->p->cf['lca'].'_get_defaults', $this->p->cf['opt']['defaults'] );
+
 			if ( ! empty( $idx ) ) 
 				if ( array_key_exists( $idx, $this->p->cf['opt']['defaults'] ) )
 					return $this->p->cf['opt']['defaults'][$idx];
@@ -176,8 +177,6 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			if ( empty( $def_opts ) || ! is_array( $def_opts ) )
 				return $opts;
 
-			$charset = get_bloginfo( 'charset' );
-
 			// unset options that no longer exist
 			foreach ( $opts as $key => $val )
 				// if the key isn't in the default options, then remove it
@@ -193,6 +192,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 			/*
 			 * Adjust dependent options
+			 * All options (site and meta as well) are sanitized here, so use array_key_exists() on all tests
 			 */
 			if ( ! $this->p->check->is_aop() )
 				$opts['plugin_file_cache_hrs'] = 0;
