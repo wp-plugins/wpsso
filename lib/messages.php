@@ -67,9 +67,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							text and meta tag validation tools.';
 							break;
 						case 'tooltip-side-wp-locale-language':
-							$text = $this->p->cf['full_pro'].' can use the WordPress locale to dynmically adjust the language for the Open Graph and 
-							Rich Pin meta tags, along with the Google, Facebook, and Twitter social sharing buttons. 
-							If your website and/or webpages are available in multiple languages, this can be an important feature.';
+							$text = $this->p->cf['full_pro'].' can use the WordPress locale to dynmically adjust the language for the Open Graph 
+							and Rich Pin meta tags'.( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
+							'. If your website or webpages are available in multiple languages, this can be a useful feature.
+							Uncheck to ignore the WordPress locale and use all default language settings.'; 
 							break;
 						case 'tooltip-side-twitter-cards':
 							$text = 'Twitter Cards extend the standard Open Graph and Rich Pin meta tags with content-specific information for image galleries, 
@@ -157,10 +158,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200</strong>.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_url':
-							$text = 'A custom Video URL to include first in the Open Graph, Rich Pin, 
-							and \'Player\' Twitter Card meta tags'.
-							( $this->p->is_avail['ssb'] ? ', along with the Tumblr social sharing button.' : '.' ).
-							' If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred 
+							$text = 'A custom Video URL to include first in the Open Graph, Rich Pin, and \'Player\' Twitter Card meta tags'.
+							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Tumblr social sharing button' ).
+							'. If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred 
 							sharing URL, video dimensions, and video preview image. The '.
 							$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_custom', 'Video URL Custom Field' ).
 							' Advanced option also allows a 3rd-party to provide a Video URL value for this option.';
