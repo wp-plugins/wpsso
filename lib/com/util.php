@@ -418,13 +418,16 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			$time = empty( $this->p->options['plugin_file_cache_hrs'] ) ? 
 				$time : $time - ( $this->p->options['plugin_file_cache_hrs'] * 60 * 60 );
 			$cachedir = constant( $this->p->cf['uca'].'_CACHEDIR' );
-			if ( $dh = opendir( $cachedir ) ) {
-				while ( $fn = readdir( $dh ) ) {
+			if ( ! $dh = @opendir( $cachedir ) )
+				$this->p->notice->err( 'Failed to open directory '.$cachedir.' for reading.', true );
+			else {
+				while ( $fn = @readdir( $dh ) ) {
 					$filepath = $cachedir.$fn;
 					if ( ! preg_match( '/^(\..*|index\.php)$/', $fn ) && is_file( $filepath ) && 
 						( $all === true || filemtime( $filepath ) < $time ) ) {
-						unlink( $filepath );
-						$deleted++;
+						if ( ! @unlink( $filepath ) ) 
+							$this->p->notice->err( 'Error removing file '.$filepath, true );
+						else $deleted++;
 					}
 				}
 				closedir( $dh );
