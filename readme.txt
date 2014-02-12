@@ -174,6 +174,10 @@ Surnia Ulula on [Google+](https://plus.google.com/u/1/103457833348046432604?rel=
 
 == Changelog ==
 
+= Version 2.1.2dev1 =
+
+* Improved error message reporting for permission issues accessing the cache folder.
+
 = Version 2.1.1 =
 
 * **Fixed** missing check for the 'plugin_filter_lang' option to enable/disable the WP Locale Language addon (Pro version).
