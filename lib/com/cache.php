@@ -168,11 +168,9 @@ if ( ! class_exists( 'SucomCache' ) ) {
 				if ( is_admin() )
 					$this->p->notice->err( 'Error connecting to <a href="'.$get_url.'" target="_blank">'.$get_url.'</a> for caching. 
 						Ignoring requests to cache this URL for '.$this->ignore_time.' second(s)', true );
-
 				$this->p->debug->log( 'error connecting to URL '.$get_url.' for caching. ' );
 				$this->p->debug->log( 'ignoring requests to cache this URL for '.$this->ignore_time.' second(s)' );
 				$this->ignore_urls[$get_url] = time();
-
 				$cache_salt = __CLASS__.'(ignore_urls)';
 				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 				set_transient( $cache_id, $this->ignore_urls, $this->ignore_time );
