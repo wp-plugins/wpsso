@@ -128,7 +128,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_desc_hashtags' => 0,
 					'og_desc_strip' => 0,
 					'og_empty_tags' => 0,
-					'tc_enable' => 0,
+					'tc_enable' => 1,
 					'tc_site' => '',
 					'tc_desc_len' => 200,
 					// summary card
