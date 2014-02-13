@@ -16,7 +16,7 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 <p><strong>WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head section of WordPress webpages for improved Google Search results / ranking and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more.</strong></p>
 </blockquote>
 
-WPSSO is a fork of the excellent <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin - they have many of the same great features, but WPSSO strives to be a little smaller and lighter by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, url shortening, and url rewriting).
+WPSSO is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin - they have many of the same great features, but WPSSO strives to be a little smaller and lighter by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, url shortening, and url rewriting).
 
 = Summary of Features =
 
@@ -54,7 +54,7 @@ Aside from the additional support for Twitter Cards, the main difference between
 
 **Images and Videos**
 
-WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress Media Library image galleries and embedded videos from YouTube, Vimeo, and Wistia (including their preview images). WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized and provided according to their intended audience (Facebook, Twitter, Pinterest, etc). 
+WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress Media Library image galleries and embedded videos from Slideshare, Vimeo, Wistia, and Youtube (including their preview images). WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized according to their intended audience (Facebook, Twitter, Pinterest, etc).
 
 WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me/support/photon/) and [NextGEN Gallery v1 and v2](http://wordpress.org/plugins/nextgen-gallery/) albums, galleries and images (shortcodes, image tags, album / gallery preview images, etc.).
 
@@ -94,7 +94,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 **WPSSO support and development is on-going**. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
 
-Surnia Ulula on [Google+](https://plus.google.com/u/1/103457833348046432604?rel=author), [Facebook](https://www.facebook.com/SurniaUlulaCom), and [Twitter](https://twitter.com/surniaululacom), and [YouTube](http://www.youtube.com/user/SurniaUlulaCom).
+Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Facebook](https://www.facebook.com/SurniaUlulaCom), and [Twitter](https://twitter.com/surniaululacom), and [YouTube](http://www.youtube.com/user/SurniaUlulaCom).
 
 == Installation ==
 
