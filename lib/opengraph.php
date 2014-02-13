@@ -53,7 +53,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			$og_max = $this->p->util->get_max_nums( $post_id );
 			$og = apply_filters( $this->p->cf['lca'].'_og_seed', array(), $use_post );
 
-			$lang = empty( $this->p->options['fb_lang'] ) ? 'en-US' : $this->p->options['fb_lang'];
+			$lang = empty( $this->p->options['fb_lang'] ) ? 'en_US' : $this->p->options['fb_lang'];
 			$lang = apply_filters( $this->p->cf['lca'].'_lang', $lang, SucomUtil::get_lang( 'facebook' ) );
 
 			if ( ! array_key_exists( 'fb:admins', $og ) )
