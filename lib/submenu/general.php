@@ -41,9 +41,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 		public function show_metabox_publishers() {
 			$metabox = 'pub';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
-				'twitter' => 'Twitter',
-				'google' => 'Google',
 				'facebook' => 'Facebook',
+				'google' => 'Google',
+				'twitter' => 'Twitter',
 			) );
 			$rows = array();
 			foreach ( $tabs as $key => $title )
