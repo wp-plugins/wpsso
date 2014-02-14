@@ -665,14 +665,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					}
 					break;
 				case 'pro-advert-nag':
-					$text .= '
-					<style type="text/css">.sucom-update-nag p { font-size:1.05em; }</style>
-					<p>Have you considered encouraging the continued development and support of '.$this->p->cf['full'].' by purchasing the Pro version?</p>
+					$text .= '<p style="font-size:1.1em;">Have you considered encouraging the continued development and support of '.
+					$this->p->cf['full'].' by purchasing the Pro version?</p>
 					<p>'.$this->p->cf['full_pro'].' supports several types of Twitter Cards, including the <em>Gallery</em>, <em>Player</em> and <em>Product</em> 
 					Cards, allows you to customize the meta tags of individual Posts and Pages, and integrates with a growing list of 3rd party plugins.</p>
 					<p><strong>Improve your social presence on Facebook, Twitter, Pinterest, LinkedIn, etc. by providing these social websites
 					complete and accurate meta tags, correctly sized images, information on your products and embedded videos</strong>.</p>
-					<p>Have the Pro version running in just two minutes!<br/>
+					<p style="font-size:1.05em;">Have the Pro version running in just two minutes!<br/>
 					<a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Purchase a '.$this->p->cf['full_pro'].' license right now</a>.</p>
 					';
 					break;
