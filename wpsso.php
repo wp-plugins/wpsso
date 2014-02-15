@@ -154,6 +154,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 				$this->gpl = new WpssoAddonGpl( $this );
 			} else $this->pro = new WpssoAddonPro( $this );
 
+			do_action( $this->cf['lca'].'_init_addon' );
+
 			/*
 			 * check and upgrade options if necessary
 			 */

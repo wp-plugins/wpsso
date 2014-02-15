@@ -33,7 +33,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 		public function get_defaults( $idx = '' ) {
 
-			$this->p->cf['opt']['defaults'] = $this->add_to_post_types( $this->p->cf['opt']['defaults'] );
+			$this->p->cf['opt']['defaults'] = $this->add_to_options( $this->p->cf['opt']['defaults'] );
 
 			$this->p->cf['opt']['defaults']['link_author_field'] = empty( $this->p->options['plugin_cm_gp_name'] ) ? 
 				$this->p->cf['opt']['defaults']['plugin_cm_gp_name'] : $this->p->options['plugin_cm_gp_name'];
@@ -65,7 +65,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			else return $this->p->cf['opt']['defaults'];
 		}
 
-		public function add_to_post_types( &$opts = array(), $add_to_prefixes = array( 'plugin' ) ) {
+		public function add_to_options( &$opts = array(), $add_to_prefixes = array( 'plugin' ) ) {
 			foreach ( $add_to_prefixes as $prefix ) {
 				foreach ( $this->p->util->get_post_types( $prefix ) as $post_type ) {
 					$option_name = $prefix.'_add_to_'.$post_type->name;
@@ -119,7 +119,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 				// add support for post types that may have been added since options last saved
 				if ( $options_name == WPSSO_OPTIONS_NAME )
-					$opts = $this->add_to_post_types( $opts );
+					$opts = $this->add_to_options( $opts );
 
 				if ( ! empty( $this->p->is_avail['seo']['*'] ) &&
 					array_key_exists( 'inc_description', $opts ) ) {
@@ -211,7 +211,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			return $opts;
 		}
 
-		// saved both options and site options
+		// save both options and site options
 		public function save_options( $options_name, &$opts ) {
 			// make sure we have something to work with
 			if ( empty( $opts ) || ! is_array( $opts ) ) {
@@ -222,6 +222,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			$previous_opts_version = $opts['options_version'];
 			$opts['options_version'] = $this->p->cf['opt']['version'];
 			$opts['plugin_version'] = $this->p->cf['version'];
+
 			$opts = apply_filters( $this->p->cf['lca'].'_save_options', $opts, $options_name );
 
 			// update_option() returns false if options are the same or there was an error, 
