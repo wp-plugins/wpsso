@@ -66,9 +66,10 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			}
 
 			// disable the ngfb open graph+ meta tags
-			if ( class_exists( 'Ngfb' ) || in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) )
-				if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
-					define( 'NGFB_META_TAGS_DISABLE', true );
+			if ( class_exists( 'Ngfb' ) || 
+				in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) )
+					if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
+						define( 'NGFB_META_TAGS_DISABLE', true );
 		}
 
 		public function get_active() {
@@ -84,12 +85,14 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 			$ret['postthumb'] = function_exists( 'has_post_thumbnail' ) ? true : false;
 
-			$ret['metatags'] = ( ! defined( 'WPSSO_META_TAGS_DISABLE' ) || ! WPSSO_META_TAGS_DISABLE ) &&
+			$ret['metatags'] = ( ! defined( 'WPSSO_META_TAGS_DISABLE' ) || 
+				( defined( 'WPSSO_META_TAGS_DISABLE' ) && ! WPSSO_META_TAGS_DISABLE ) ) &&
 				empty( $_SERVER['WPSSO_META_TAGS_DISABLE'] ) ? true : false;
 
-			$ret['opengraph'] = file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) &&
-				( ! defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) || ! WPSSO_OPEN_GRAPH_DISABLE ) &&
+			$ret['opengraph'] = ( ! defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) || 
+				( defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) && ! WPSSO_OPEN_GRAPH_DISABLE ) ) &&
 				empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) &&
+				file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) &&
 				class_exists( $this->p->cf['cca'].'Opengraph' ) ? true : false;
 
 			$ret['aop'] = self::$a = file_exists( WPSSO_PLUGINDIR.'lib/pro/addon.php' ) &&
@@ -220,8 +223,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				if ( ! empty( $this->p->options['plugin_file_cache_hrs'] ) ) {
 					$this->p->debug->log( 'file caching is enabled but curl function is missing' );
 					$this->p->notice->err( sprintf( __( 'File caching has been enabled, but PHP\'s <a href="%s" target="_blank">Client URL Library</a> '.
-						'(cURL) is missing.', NGFB_TEXTDOM ), 'http://ca3.php.net/curl' ).' '.
-						 __( 'Please contact your hosting provider to install the missing library.', NGFB_TEXTDOM ) );
+						'(cURL) is missing.', WPSSO_TEXTDOM ), 'http://ca3.php.net/curl' ).' '.
+						 __( 'Please contact your hosting provider to install the missing library.', WPSSO_TEXTDOM ) );
 				}
 			}
 

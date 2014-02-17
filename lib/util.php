@@ -136,14 +136,19 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			return $topics;
 		}
 
-		public function add_option_image_sizes( $sizes ) {
-			foreach( $sizes as $pre => $suf )
+		public function add_img_sizes_from_opts( $sizes ) {
+			foreach( $sizes as $pre => $suf ) {
 				if ( ! empty( $this->p->options[$pre.'_width'] ) &&
-					! empty( $this->p->options[$pre.'_height'] ) )
-						add_image_size( $this->p->cf['lca'].'-'.$suf, 
-							$this->p->options[$pre.'_width'], 
-							$this->p->options[$pre.'_height'], 
-							( empty( $this->p->options[$pre.'_crop'] ) ? false : true ) );
+					! empty( $this->p->options[$pre.'_height'] ) ) {
+					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$suf.
+						' ('.$this->p->options[$pre.'_width'].'x'.$this->p->options[$pre.'_height'].
+						( empty( $this->p->options[$pre.'_crop'] ) ? '' : ' cropped' ).') added' );
+					add_image_size( $this->p->cf['lca'].'-'.$suf, 
+						$this->p->options[$pre.'_width'], 
+						$this->p->options[$pre.'_height'], 
+						( empty( $this->p->options[$pre.'_crop'] ) ? false : true ) );
+				}
+			}
 		}
 
 		public function sanitize_option_value( $key, $val, $def_val ) {

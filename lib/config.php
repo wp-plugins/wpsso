@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.1.1',		// plugin version
+			'version' => '2.1.2',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -414,9 +414,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				require_once( $plugin_dir.'lib/ext/parse-readme.php' );
 			}
 
-			if ( file_exists( $plugin_dir.'lib/opengraph.php' ) &&
-				( ! defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) || ! WPSSO_OPEN_GRAPH_DISABLE ) &&
-				empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) )
+			if ( ( ! defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) || 
+				( defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) && ! WPSSO_OPEN_GRAPH_DISABLE ) ) &&
+				empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) &&
+				file_exists( $plugin_dir.'lib/opengraph.php' ) )
 					require_once( $plugin_dir.'lib/opengraph.php' );	// extends lib/com/opengraph.php
 
 			// additional classes are loaded and extended by the pro addon construct

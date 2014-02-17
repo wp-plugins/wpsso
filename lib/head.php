@@ -72,8 +72,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				if ( ( $obj = $this->p->util->get_the_object() ) !== false ) {
 					$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 					if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
-						$meta_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
-						$this->p->debug->show_html( $meta_opts, 'wpsso post_id '.$post_id.' custom settings' );
+						$post_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
+						$this->p->debug->show_html( $post_opts, 'wpsso post_id '.$post_id.' custom settings' );
 					}
 				}
 			}
@@ -81,7 +81,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 		// called from add_header() and the work/header.php template
 		// input array should be from transient cache
-		public function get_header_html( $meta_tags = array(), $use_post = false ) {
+		public function get_header_html( $meta = array(), $use_post = false ) {
 		
 			if ( ( $obj = $this->p->util->get_the_object( $use_post ) ) === false ) {
 				$this->p->debug->log( 'exiting early: invalid object type' );
@@ -89,15 +89,16 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			}
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			$this->p->debug->log( 'using post_id '.$post_id );
-			$author_url = '';
 		
 			$html = "\n<!-- ".$this->p->cf['lca']." meta tags begin -->\n";
 			if ( $this->p->is_avail['aop'] )
 				$html .= "<!-- updates: ".$this->p->cf['url']['pro_update']." -->\n";
 
 			// show the array structure before the html block
-			$html .= $this->p->debug->get_html( print_r( $meta_tags, true ), 'open graph array' );
-			$html .= $this->p->debug->get_html( print_r( $this->p->util->get_urls_found(), true ), 'media urls found' );
+			if ( $this->p->debug->is_on() ) {
+				$html .= $this->p->debug->get_html( print_r( $meta, true ), 'open graph array' );
+				$html .= $this->p->debug->get_html( print_r( $this->p->util->get_urls_found(), true ), 'media urls found' );
+			}
 
 			$html .= '<meta name="generator" content="'.$this->p->cf['full'].' '.$this->p->cf['version'];
 			if ( $this->p->check->is_aop() ) $html .= 'L';
@@ -106,26 +107,40 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$html .= '" />'."\n";
 
 			/*
-			 * Meta HTML Tags for Google
+			 * Meta name / property tags
 			 */
-			$links = array();
-			if ( array_key_exists( 'link:publisher', $meta_tags ) ) {
-				$links['publisher'] = $meta_tags['link:publisher'];
-				unset ( $meta_tags['link:publisher'] );
-			} elseif ( ! empty( $this->p->options['link_publisher_url'] ) )
-				$links['publisher'] = $this->p->options['link_publisher_url'];
+			if ( ! empty( $this->p->options['inc_description'] ) ) {
+				if ( ! array_key_exists( 'description', $meta ) ) {
+					if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
+						$meta['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'meta_desc' );
+					if ( empty( $meta['description'] ) )
+						$meta['description'] = $this->p->webpage->get_description( $this->p->options['meta_desc_len'], '...',
+							$use_post, true, false );	// use_post = false, use_cache = true, add_hashtags = false
+				}
+			}
+			$meta = apply_filters( $this->p->cf['lca'].'_meta', $meta );
 
-			if ( array_key_exists( 'link:author', $meta_tags ) ) {
-				$links['author'] = $meta_tags['link:author'];
-				unset ( $meta_tags['link:author'] );
+			/*
+			 * Link rel tags
+			 */
+			$link_rel = array();
+			if ( array_key_exists( 'link_rel:publisher', $meta ) ) {
+				$link_rel['publisher'] = $meta['link_rel:publisher'];
+				unset ( $meta['link_rel:publisher'] );
+			} elseif ( ! empty( $this->p->options['link_publisher_url'] ) )
+				$link_rel['publisher'] = $this->p->options['link_publisher_url'];
+
+			if ( array_key_exists( 'link_rel:author', $meta ) ) {
+				$link_rel['author'] = $meta['link_rel:author'];
+				unset ( $meta['link_rel:author'] );
 			} else {
 				// check for single/attachment page, or admin editing page
 				if ( is_singular() || $use_post !== false ) {
 					if ( ! empty( $obj->post_author ) )
-						$links['author'] = $this->p->user->get_author_url( $obj->post_author, 
+						$link_rel['author'] = $this->p->user->get_author_url( $obj->post_author, 
 							$this->p->options['link_author_field'] );
 					elseif ( ! empty( $this->p->options['link_def_author_id'] ) )
-						$links['author'] = $this->p->user->get_author_url( $this->p->options['link_def_author_id'], 
+						$link_rel['author'] = $this->p->user->get_author_url( $this->p->options['link_def_author_id'], 
 							$this->p->options['link_author_field'] );
 
 				// check for default author info on indexes and searches
@@ -133,32 +148,21 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					! is_search() && ! empty( $this->p->options['link_def_author_on_index'] ) && ! empty( $this->p->options['link_def_author_id'] ) )
 					|| ( is_search() && ! empty( $this->p->options['link_def_author_on_search'] ) && ! empty( $this->p->options['link_def_author_id'] ) ) ) {
 
-					$links['author'] = $this->p->user->get_author_url( $this->p->options['link_def_author_id'], 
+					$link_rel['author'] = $this->p->user->get_author_url( $this->p->options['link_def_author_id'], 
 						$this->p->options['link_author_field'] );
 				}
 			}
-			$links = apply_filters( $this->p->cf['lca'].'_link', $links );
-			foreach ( $links as $key => $val )
+			$link_rel = apply_filters( $this->p->cf['lca'].'_link_rel', $link_rel );
+
+			/*
+			 * Print the arrays as html
+			 */
+			foreach ( $link_rel as $key => $val )
 				if ( ! empty( $val ) )
 					$html .= '<link rel="'.$key.'" href="'.$val.'" />'."\n";
 
-			// the meta "description" html tag
-			if ( ! empty( $this->p->options['inc_description'] ) ) {
-				if ( ! array_key_exists( 'description', $meta_tags ) ) {
-					if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
-						$meta_tags['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'meta_desc' );
-					if ( empty( $meta_tags['description'] ) )
-						$meta_tags['description'] = $this->p->webpage->get_description( $this->p->options['meta_desc_len'], '...',
-							$use_post, true, false );	// use_post = false, use_cache = true, add_hashtags = false
-				}
-			}
-			$meta_tags = apply_filters( $this->p->cf['lca'].'_meta', $meta_tags );
-
-			/*
-			 * Print the Multi-Dimensional Array as HTML
-			 */
-			$this->p->debug->log( count( $meta_tags ).' meta_tags to process' );
-			foreach ( $meta_tags as $first_name => $first_val ) {			// 1st-dimension array (associative)
+			$this->p->debug->log( count( $meta ).' meta to process' );
+			foreach ( $meta as $first_name => $first_val ) {			// 1st-dimension array (associative)
 				if ( is_array( $first_val ) ) {
 					if ( empty( $first_val ) )
 						$html .= $this->get_single_meta( $first_name );	// possibly show an empty tag (depends on og_empty_tags value)
@@ -178,14 +182,14 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		}
 
 		private function get_single_meta( $name, $val = '', $cmt = '' ) {
-			$meta_html = '';
+			$html = '';
 
 			if ( empty( $this->p->options['inc_'.$name] ) ) {
 				$this->p->debug->log( 'meta '.$name.' is disabled (skipped)' );
-				return $meta_html;
+				return $html;
 			} elseif ( $val === -1 ) {
 				$this->p->debug->log( 'meta '.$name.' is -1 (skipped)' );
-				return $meta_html;
+				return $html;
 			// ignore all empty non-open graph meta tags, 
 			// and open-graph meta tags as well if the option allows
 			} elseif ( ( $val === '' || $val === null ) && 
@@ -193,37 +197,36 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					empty( $this->p->options['og_empty_tags'] ) ) ) {
 
 				$this->p->debug->log( 'meta '.$name.' is empty (skipped)' );
-				return $meta_html;
+				return $html;
 			} elseif ( is_object( $val ) ) {
 				$this->p->debug->log( 'meta '.$name.' value is an object (skipped)' );
-				return $meta_html;
+				return $html;
 			}
 
 			$charset = get_bloginfo( 'charset' );
 			$val = htmlentities( $val, ENT_QUOTES, $charset, false );	// double_encode = false
 
 			$this->p->debug->log( 'meta '.$name.' = "'.$val.'"' );
-			if ( $cmt ) $meta_html .= "<!-- $cmt -->";
+			if ( $cmt ) $html .= "<!-- $cmt -->";
 
-			// by default, echo a <meta property="" content=""> html tag
+			// by default, return <meta property="" content=""> html tags
 			// the description and twitter card tags are exceptions
-			if ( $name == 'description' || strpos( $name, 'twitter:' ) === 0 ) {
+			if ( $name == 'description' || strpos( $name, 'twitter:' ) === 0 )
+				$html .= '<meta name="'.$name.'" content="'.$val.'" />'."\n";
 
-				$meta_html .= '<meta name="'.$name.'" content="'.$val.'" />'."\n";
-
-			} elseif ( ( $name == 'og:image' || $name == 'og:video' ) && 
+			elseif ( ( $name == 'og:image' || $name == 'og:video' ) && 
 				strpos( $val, 'https:' ) === 0 && ! empty( $this->p->options['inc_'.$name] ) ) {
 
 				$http_url = preg_replace( '/^https:/', 'http:', $val );
-				$meta_html .= '<meta property="'.$name.'" content="'.$http_url.'" />'."\n";
+				$html .= '<meta property="'.$name.'" content="'.$http_url.'" />'."\n";
 
 				// add an additional secure_url meta tag
-				if ( $cmt ) $meta_html .= "<!-- $cmt -->";
-				$meta_html .= '<meta property="'.$name.':secure_url" content="'.$val.'" />'."\n";
+				if ( $cmt ) $html .= "<!-- $cmt -->";
+				$html .= '<meta property="'.$name.':secure_url" content="'.$val.'" />'."\n";
 
-			} else $meta_html .= '<meta property="'.$name.'" content="'.$val.'" />'."\n";
+			} else $html .= '<meta property="'.$name.'" content="'.$val.'" />'."\n";
 
-			return $meta_html;
+			return $html;
 		}
 	}
 }
