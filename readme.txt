@@ -174,6 +174,10 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
+= Version 2.1.2 =
+
+* **Fixed** checks for the NGFB_META_TAGS_DISABLE and NGFB_OPEN_GRAPH_DISABLE constants.
+
 = Version 2.1.1 =
 
 * **Fixed** missing check for the 'plugin_filter_lang' option to enable/disable the WP Locale Language addon (Pro version).
@@ -214,6 +218,10 @@ This version continues several underlying code improvements by moving the GPL-on
 * **Fixed** call to NGG method for image tags when addon is not available (GPL version).
 
 == Upgrade Notice ==
+
+= 2.1.2 =
+
+Fixed checks for a few constants that disable features.
 
 = 2.1.1 =
 
