@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.8.1
-Stable Tag: 2.1.1
+Stable Tag: 2.1.2
 
 Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and Social Website shares
 
@@ -185,37 +185,13 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 = Version 2.1 =
 
-WPSSO can recognize and parse standard object / iframe embed code, but some themes and plugins offer a custom field for video URLs, which is then used to create custom / non-standard embed code. Version 7.1 includes a new 'Video URL Custom Field' option on the Advanced settings page, under the Custom Settings tab, where you can enter the name of such a custom field. If found, the video URL will be used to retrieve information on that video, just like if it was found embedded in the content. Typically, the custom field name will start with an underscore, and the default 'Video URL Custom Field' name is "_format_video_embed" (which may or may not be supported by your theme, or may be known under a different name).
+WPSSO can recognize and parse standard object / iframe embed code, but some themes and plugins offer a custom field for video URLs, which is then used to create custom / non-standard embed code. Version 2.1 includes a new 'Video URL Custom Field' option on the Advanced settings page, under the Custom Settings tab, where you can enter the name of such a custom field. If found, the video URL will be used to retrieve information on that video, just like if it was found embedded in the content. Typically, the custom field name will start with an underscore, and the default 'Video URL Custom Field' name is "_format_video_embed" (which may or may not be supported by your theme, or may be known under a different name).
 
 * Added an 'Video URL Custom Field' option to include a video URL from a theme's custom field (Pro version).
 * Added new 'ngfb_post_cache_transients' and 'ngfb_post_cache_objects' filters, called when a Post or Page is updated.
 * Moved the Vimeo and Yahoo APIs to Pro version addons.
 * **Fixed** false positive on the Custom Post Meta addon status (GPL version).
 * **Fixed** flushing of transient cache for sharing buttons on Post / Page updates.
-
-= Version 2.0.1 =
-
-* **Fixed** the SSO Custom Settings metabox, which referenced an empty form object (GPL version).
-
-= Version 2.0 =
-
-This version continues several underlying code improvements by moving the GPL-only code into a `lib/gpl/` folder structure (like the Pro version) and adding several filter hooks to improve the overall modularity of the plugin. Relying on existing WordPress image size names -- like *thumbnail*, *medium* and *large* -- has been too limiting, so new individual image dimensions have been added for each image context. You'll find new image dimension settings for all Twitter Card formats. Please make sure you review these new image dimensions and adjust them for your needs. The defaults should be fine, but you may prefer to match your existing image sizes to reduce the number of resized image files. For example, some of the larger image dimensions default to 800x800 uncropped. If you already have an image size of 1024x1024 uncropped, for example, you may wish to use those dimensions instead.
-
-* **Added image dimension options (instead of image size drop-down) for Twitter Card images** (Pro version).
-* **Added support for embedded Slideshare presentations** (Pro version).
-* Added a new 'Language uses WP Locale' option to enable/disable the dynamic language selection feature (Pro version).
-* Added a new 'Check for Embedded Media' option with checkboxes for Slideshare, Vimeo, Wistia, and Youtube (Pro version).
-* Added a new 'Custom Settings' tab on the Advanced settings page (Pro version).
-* Added several filter hooks for the admin metabox tabs and option fields / rows.
-* Added extra checks and error reporting for missing PHP cURL library.
-* Added checks for WordPress SEO opengraph, twitter, publisher and author actions, removing them if necessary.
-* Converted several methods to filter hooks in the `lib/gpl/admin/` and `lib/pro/admin/` folders.
-* **Fixed** a possible two-letter WordPress locale language issue for Open Graph meta tags (Pro version).
-* **Fixed** the missing Open Graph 'article:section' value in the Meta Tags Preview tab.
-* **Fixed** the Twitter Card 'twitter:description' value in the Meta Tags Preview tab (Pro version).
-* **Fixed** WooCommerce product detection for meta tags in the admin interface (Pro version).
-* **Fixed** the detection of an empty array when an image is rejected by the WooCommerce addon (Pro version).
-* **Fixed** call to NGG method for image tags when addon is not available (GPL version).
 
 == Upgrade Notice ==
 
@@ -230,12 +206,4 @@ Fixed missing check for the 'plugin_filter_lang' option to enable/disable the WP
 = 2.1 =
 
 Added a new 'Video URL Custom Field' option, fixed transient cache expiration on Post / Page updates.
-
-= 2.0.1 =
-
-Minor update to fix the SSO Custom Settings metabox, which referenced an empty form object in the GPL version.
-
-= 2.0 =
-
-Underlying code improvements, individual image dimension options for all Twitter Card formats, a few minor bug fixes for 'Meta Tag Preview' values.
 
