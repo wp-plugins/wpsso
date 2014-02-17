@@ -233,7 +233,6 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 							$size_name.' ('.$size_info['width'].'x'.$size_info['height'].( empty( $size_info['crop'] ) ? '' : ' cropped' ).')' );
 	
 						$fullsizepath = get_attached_file( $pid );
-						$this->p->debug->log( 'calling image_make_intermediate_size()' );
 						$resized = image_make_intermediate_size( $fullsizepath, $size_info['width'], $size_info['height'], $size_info['crop'] );
 						$this->p->debug->log( 'image_make_intermediate_size() reported '.( $resized === false ? 'failure' : 'success' ) );
 	

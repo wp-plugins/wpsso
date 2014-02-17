@@ -272,9 +272,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			add_meta_box( $this->pagehook.'_info', __( 'Version Information', WPSSO_TEXTDOM ), array( &$this, 'show_metabox_info' ), $this->pagehook, 'side' );
 			add_meta_box( $this->pagehook.'_status', __( 'Plugin Features', WPSSO_TEXTDOM ), array( &$this, 'show_metabox_status' ), $this->pagehook, 'side' );
 			add_meta_box( $this->pagehook.'_help', __( 'Help and Support', WPSSO_TEXTDOM ), array( &$this, 'show_metabox_help' ), $this->pagehook, 'side' );
-
-			if ( $this->p->check->is_aop() )
-				add_meta_box( $this->pagehook.'_thankyou', __( 'Thank You', WPSSO_TEXTDOM ), array( &$this, 'show_metabox_thankyou' ), $this->pagehook, 'side' );
 		}
 
 		public function show_page() {
@@ -504,13 +501,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					__( 'Purchase the Pro Version', WPSSO_TEXTDOM ) ), 
 				'button-primary', null, $this->p->cf['url']['purchase'], true );
 			echo '</p></td></tr></table>';
-		}
-
-		public function show_metabox_thankyou() {
-			echo '<table class="sucom-setting"><tr><td>';
-			echo $this->p->msgs->get( 'side-thankyou' );
-			echo '<p class="sig">js.</p>';
-			echo '</td></tr></table>';
 		}
 
 		public function show_metabox_help() {
