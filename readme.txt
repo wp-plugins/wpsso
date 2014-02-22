@@ -170,6 +170,10 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
+= Version 2.1.3 =
+
+* Added support for YouTube's old embed code.
+
 = Version 2.1.2 =
 
 * **Fixed** checks for the NGFB_META_TAGS_DISABLE and NGFB_OPEN_GRAPH_DISABLE constants.
@@ -190,6 +194,10 @@ WPSSO can recognize and parse standard object / iframe embed code, but some them
 * **Fixed** flushing of transient cache for sharing buttons on Post / Page updates.
 
 == Upgrade Notice ==
+
+= 2.1.3 =
+
+Added support for YouTube's old embed code.
 
 = 2.1.2 =
 
