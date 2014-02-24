@@ -170,6 +170,10 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
+= Version 2.1.4dev1 =
+
+* Small improvement to the `ngfb_load_lib()` action to improve compatibility with addon plugins.
+
 = Version 2.1.3 =
 
 * Added support for YouTube's old embed code.
