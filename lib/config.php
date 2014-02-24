@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.1.3',		// plugin version
+			'version' => '2.1.4dev1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -424,19 +424,19 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			if ( file_exists( $plugin_dir.'lib/pro/addon.php' ) )
 				require_once( $plugin_dir.'lib/pro/addon.php' );
 
-			add_action( 'wpsso_load_lib', array( 'WpssoConfig', 'load_lib' ), 10, 2 );
+			add_action( 'wpsso_load_lib', array( 'WpssoConfig', 'load_lib' ), 10, 1 );
 		}
 
-		public static function load_lib( $sub, $id ) {
-			if ( empty( $sub ) && ! empty( $id ) )
-				$filepath = WPSSO_PLUGINDIR.'lib/'.$id.'.php';
-			elseif ( ! empty( self::$cf['lib'][$sub][$id] ) )
-				$filepath = WPSSO_PLUGINDIR.'lib/'.$sub.'/'.$id.'.php';
-			else return false;
-			if ( file_exists( $filepath ) ) 
-				require_once( $filepath );
+		public static function load_lib( $filepath ) {
+			if ( ! empty( $filepath ) ) {
+				$filepath = WPSSO_PLUGINDIR.'lib/'.$filepath.'.php';
+				if ( file_exists( $filepath ) ) {
+					require_once( $filepath );
+					return true;
+				}
+			}
+			return false;
 		}
-
 	}
 }
 

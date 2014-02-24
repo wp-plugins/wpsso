@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and Social Website shares
-Version: 2.1.3
+Version: 2.1.4dev1
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -66,8 +66,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$opts = get_option( NGFB_OPTIONS_NAME );
 			if ( ! empty( $opts['plugin_widgets'] ) ) {
 				foreach ( $this->cf['lib']['widget'] as $id => $name ) {
-					do_action( $this->cf['lca'].'_load_lib', 'widget', $id );
-					$classname = __CLASS__.'Widget'.$name;
+					do_action( $this->cf['lca'].'_load_lib', "widget/$id" );
+					$classname = __CLASS__.'widget'.$name;
 					if ( class_exists( $classname ) )
 					register_widget( $classname );
 				}

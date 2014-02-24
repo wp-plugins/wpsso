@@ -25,9 +25,8 @@ if ( ! class_exists( 'WpssoAddonGpl' ) ) {
 				if ( $sub === 'admin' && ! is_admin() )		// only load admin menus and tabs in admin
 					continue;
 				foreach ( $libs as $id => $name ) {
-					if ( $this->p->is_avail[$sub][$id] && 
-						file_exists( WPSSO_PLUGINDIR.'lib/gpl/'.$sub.'/'.$id.'.php' ) ) {
-						require_once ( WPSSO_PLUGINDIR.'lib/gpl/'.$sub.'/'.$id.'.php' );
+					if ( $this->p->is_avail[$sub][$id] ) {
+						do_action( $this->p->cf['lca'].'_load_lib', "gpl/$sub/$id" );
 						$classname = $this->p->cf['lca'].$sub.$id;	// class names are not case sensitive
 						if ( class_exists( $classname ) )
 							$this->p->addons[$sub][$id] = new $classname( $this->p );

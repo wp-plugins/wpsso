@@ -60,7 +60,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$libs[] = 'sitesubmenu';
 			foreach ( $libs as $sub ) {
 				foreach ( $this->p->cf['lib'][$sub] as $id => $name ) {
-					do_action( $this->p->cf['lca'].'_load_lib', $sub, $id );
+					do_action( $this->p->cf['lca'].'_load_lib', "$sub/$id" );
 					$classname = $this->p->cf['lca'].$sub.$id;
 					if ( class_exists( $classname ) )
 						$this->submenu[$id] = new $classname( $this->p, $id, $name );

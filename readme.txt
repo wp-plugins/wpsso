@@ -172,7 +172,7 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 = Version 2.1.4dev1 =
 
-* Small improvement to the `ngfb_load_lib()` action to improve compatibility with addon plugins.
+* Small improvement to the `ngfb_load_lib()` action to improve compatibility with future addon plugins.
 
 = Version 2.1.3 =
 
@@ -180,7 +180,7 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 = Version 2.1.2 =
 
-* **Fixed** checks for the NGFB_META_TAGS_DISABLE and NGFB_OPEN_GRAPH_DISABLE constants.
+* **Fixed** checks for the `WPSSO_META_TAGS_DISABLE` and `WPSSO_OPEN_GRAPH_DISABLE` constants.
 
 = Version 2.1.1 =
 
