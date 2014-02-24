@@ -120,7 +120,7 @@ if ( ! class_exists( 'SucomCache' ) ) {
 				curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
 			}
 
-			if ( defined( $this->p->cf['uca'].'_CURL_PROXY' ) ) 
+			if ( defined( $this->p->cf['uca'].'_CURL_USERAGENT' ) ) 
 				curl_setopt( $ch, CURLOPT_USERAGENT, 
 					constant( $this->p->cf['uca'].'_CURL_USERAGENT' ) );
 			
