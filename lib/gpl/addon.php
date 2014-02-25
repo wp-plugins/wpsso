@@ -26,7 +26,7 @@ if ( ! class_exists( 'WpssoAddonGpl' ) ) {
 					continue;
 				foreach ( $libs as $id => $name ) {
 					if ( $this->p->is_avail[$sub][$id] ) {
-						do_action( $this->p->cf['lca'].'_load_lib', "gpl/$sub/$id" );
+						$loaded = apply_filters( $this->p->cf['lca'].'_load_lib', false, "gpl/$sub/$id" );
 						$classname = $this->p->cf['lca'].$sub.$id;	// class names are not case sensitive
 						if ( class_exists( $classname ) )
 							$this->p->addons[$sub][$id] = new $classname( $this->p );
