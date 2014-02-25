@@ -22,7 +22,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'full' => 'WPSSO',		// full plugin name
 			'full_pro' => 'WPSSO Pro',
 			'update_hours' => 12,		// check for pro updates
-			'filtered' => false,		// filters have been applied
 			'cache' => array(
 				'file' => true,
 				'object' => true,
@@ -213,16 +212,18 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_filter_content' => 1,
 					'plugin_filter_excerpt' => 0,
 					'plugin_filter_lang' => 1,
+					'plugin_shortcodes' => 1,
+					'plugin_widgets' => 1,
 					'plugin_auto_img_resize' => 1,
 					'plugin_ignore_small_img' => 1,
 					'plugin_slideshare_api' => 1,
 					'plugin_vimeo_api' => 1,
 					'plugin_wistia_api' => 1,
 					'plugin_youtube_api' => 1,
+					'plugin_cf_vid_url' => '_format_video_embed',
 					'plugin_add_to_post' => 1,
 					'plugin_add_to_page' => 1,
 					'plugin_add_to_attachment' => 1,
-					'plugin_cf_vid_url' => '_format_video_embed',
 					'plugin_verify_certs' => 0,
 					'plugin_file_cache_hrs' => 0,
 					'plugin_object_cache_exp' => 3600,

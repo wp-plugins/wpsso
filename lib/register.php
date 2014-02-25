@@ -52,10 +52,11 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 		private function activate_plugin() {
 			global $wp_version;
 			if ( version_compare( $wp_version, $this->p->cf['wp']['min_version'], '<' ) ) {
+				require_once( ABSPATH.'wp-admin/includes/plugin.php' );
 				deactivate_plugins( WPSSO_PLUGINBASE );
 				error_log( WPSSO_PLUGINBASE.' requires WordPress '.$this->p->cf['wp']['min_version'].' or higher ('.$wp_version.' reported).' );
 				wp_die( '<p>'. sprintf( __( 'The %1$s plugin cannot be activated - it requires WordPress %2$s or higher.', WPSSO_TEXTDOM ), 
-					$this->p->cf['full'], $this->p->cf['wp']['min_version'] ) .'</p>' );
+					$this->p->cf['full'], $this->p->cf['wp']['min_version'] ).'</p>' );
 			}
 			$this->p->set_objects( true );
 		}

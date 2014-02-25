@@ -37,9 +37,29 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			}
 		}
 
+		public function push_add_to_options( &$opts = array(), $add_to_prefixes = array( 'plugin' ) ) {
+			foreach ( $add_to_prefixes as $prefix ) {
+				foreach ( $this->get_post_types( $prefix ) as $post_type ) {
+					$option_name = $prefix.'_add_to_'.$post_type->name;
+					if ( ! array_key_exists( $option_name, $opts ) ) {
+						switch ( $post_type->name ) {
+							case 'product':
+								$opts[$option_name] = 1;
+								break;
+							default:
+								$opts[$option_name] = 0;
+								break;
+						}
+					}
+				}
+			}
+			return $opts;
+		}
+
 		public function get_post_types( $opt_prefix, $output = 'objects' ) {
 			$include = false;
 			$post_types = array();
+
 			switch ( $opt_prefix ) {
 				case 'buttons':
 					$include = array( 'public' => true );
@@ -50,6 +70,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			}
 			$post_types = $include !== false ? 
 				get_post_types( $include, $output ) : array();
+
 			return apply_filters( $this->p->cf['lca'].'_post_types', $post_types, $opt_prefix, $output );
 		}
 
