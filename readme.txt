@@ -170,9 +170,12 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
-= Version 2.1.4dev1 =
+= Version 2.2dev1 =
 
-* Small improvement to the `ngfb_load_lib()` action to improve compatibility with future addon plugins.
+* Changed the 'wpsso_load_lib' action to a filter (returning true or false).
+* Improved the 'wpsso_load_lib' filter for compatibility with future addon plugins.
+* Added support for NextGEN Gallery's 'href_link' image attribute to determine the correct image ID (Pro version).
+* Added an 'wpsso_get_content_img_data_ngg_pid' filter to fetch image information for NGG image attributes (Pro version).
 
 = Version 2.1.3 =
 
@@ -192,7 +195,7 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 WPSSO can recognize and parse standard object / iframe embed code, but some themes and plugins offer a custom field for video URLs, which is then used to create custom / non-standard embed code. Version 2.1 includes a new 'Video URL Custom Field' option on the Advanced settings page, under the Custom Settings tab, where you can enter the name of such a custom field. If found, the video URL will be used to retrieve information on that video, just like if it was found embedded in the content. Typically, the custom field name will start with an underscore, and the default 'Video URL Custom Field' name is "_format_video_embed" (which may or may not be supported by your theme, or may be known under a different name).
 
 * Added an 'Video URL Custom Field' option to include a video URL from a theme's custom field (Pro version).
-* Added new 'ngfb_post_cache_transients' and 'ngfb_post_cache_objects' filters, called when a Post or Page is updated.
+* Added new 'wpsso_post_cache_transients' and 'wpsso_post_cache_objects' filters, called when a Post or Page is updated.
 * Moved the Vimeo and Yahoo APIs to Pro version addons.
 * **Fixed** false positive on the Custom Post Meta addon status (GPL version).
 * **Fixed** flushing of transient cache for sharing buttons on Post / Page updates.
