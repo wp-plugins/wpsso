@@ -170,7 +170,7 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
-= Version 2.2dev1 =
+= Version 2.2dev2 =
 
 * Changed the 'wpsso_load_lib' action to a filter (returning true or false).
 * Improved the 'wpsso_load_lib' filter for compatibility with future addon plugins.
