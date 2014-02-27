@@ -170,8 +170,11 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
-= Version 2.2dev1 =
+= Version 2.2dev3 =
 
+Pinterest Rich Pins have adopted the Open Graph standard, except for the 'article:author' meta tag value. The Open Graph standard expects the 'article:author' to be a profile URL or profile ID, where-as Pinterest expects a person's name instead (and ignores any URL values). To correct this incompatibility, a new Pinterest publisher settings tab has been added to the SSO General settings page, with an option to include an author's name specifically for the Pinterest crawler. The default value includes the author's 'Display Name', but you may also choose the author's 'First and Last Names' or 'Nickname' instead.
+
+* Added a new Pinterest publisher settings tab, along with a new 'Author Name Format' option.
 * Changed the 'wpsso_load_lib' action to a filter (returning true or false).
 * Improved the 'wpsso_load_lib' filter for compatibility with future addon plugins.
 * Added support for NextGEN Gallery's 'href_link' image attribute to determine the correct image ID (Pro version).
