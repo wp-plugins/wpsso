@@ -12,15 +12,14 @@ Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Prod
 
 == Description ==
 
-WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head section of WordPress webpages for improved Google Search results / ranking and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more (also-known-as [Social Media Optimization](http://en.wikipedia.org/wiki/Social_media_optimization)). WPSSO is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin &ndash; they have many of the same great features, but WPSSO strives to be a little smaller and faster by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, url shortening, and url rewriting).
+WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head section of WordPress webpages for **improved Google Search results / ranking and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and other social websites**. WPSSO is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin &ndash; they have many of the same great features, but WPSSO strives to be a little smaller and faster by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, url shortening, and url rewriting).
 
 = Summary of Features =
 
-* Clean, elegant and feature-rich admin settings.
 * Adds Facebook / Google+ / LinkedIn / etc. Open Graph, Pinterest Rich Pin, and Twitter Card meta tags.
 * Configurable image sizes and content descriptions for different contexts.
 * Configurable contact fields for author meta tags and user profile pages.
-* **Integrates with 3rd party plugins and services for additional image, video, product, and content information**:
+* Integrates with 3rd party plugins and services for additional image, video, product, and content information:
   * NextGEN Gallery
   * JetPack Photon
   * WordPress SEO by Yoast

@@ -84,7 +84,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_checkbox( 'og_def_img_on_search' ).'</td>';
 	
 					if ( $this->p->is_avail['media']['ngg'] === true ) {
-						$rows[] = $this->p->util->th( 'Add Featured Image NGG Tags', null, 'og_ngg_tags' ).
+						$rows[] = $this->p->util->th( 'Add Tags from NGG Featured Image', null, 'og_ngg_tags' ).
 						( isset( $this->p->addons['media']['ngg'] ) ?
 							'<td>'.$this->form->get_checkbox( 'og_ngg_tags' ).'</td>' :
 							'<td class="blank">'.$this->form->get_fake_checkbox( 'og_ngg_tags' ).'</td>' );
