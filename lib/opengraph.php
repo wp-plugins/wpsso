@@ -113,10 +113,9 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 					! is_search() && ! empty( $this->p->options['og_def_author_on_index'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) || 
 					( is_search() && ! empty( $this->p->options['og_def_author_on_search'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) ) {
 	
-					$og['og:type'] = "article";
+					$og['og:type'] = 'article';
 					if ( ! array_key_exists( 'article:author', $og ) )
-						$og['article:author'] = $this->p->user->get_author_url( $this->p->options['og_def_author_id'], 
-							$this->p->options['og_author_field'] );
+						$og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
 
 				// default for everything else is 'website'
 				} else $og['og:type'] = 'website';
@@ -128,11 +127,8 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 					! array_key_exists( 'article:author', $og ) ) {
 
 					if ( ! empty( $obj->post_author ) )
-						$og['article:author'] = $this->p->user->get_author_url( $obj->post_author, 
-							$this->p->options['og_author_field'] );
-					elseif ( ! empty( $this->p->options['og_def_author_id'] ) )
-						$og['article:author'] = $this->p->user->get_author_url( $this->p->options['og_def_author_id'], 
-							$this->p->options['og_author_field'] );
+						$og['article:author'] = $this->p->user->get_article_author( $obj->post_author );
+					else $og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
 				}
 
 				if ( ! array_key_exists( 'article:publisher', $og ) )

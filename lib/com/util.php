@@ -21,6 +21,32 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			$this->p->debug->mark();
 		}
 
+		public static function agent_id( $id = '' ) {
+			$ret = false;
+			$agent = $_SERVER['HTTP_USER_AGENT'];
+			switch ( $agent ) {
+
+				// "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
+				case ( strpos( $agent, 'facebookexternalhit/' ) === 0 ? true : false ):
+					$ret = 'facebook';
+					break;
+
+				// "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+				case ( strpos( $agent, 'compatible; Googlebot/' ) !== false ? true : false ):
+					$ret = 'google';
+					break;
+
+				// "Pinterest/0.1 +http://pinterest.com/"
+				case ( strpos( $agent, 'Pinterest/' ) === 0 ? true : false ):
+					$ret = 'pinterest';
+					break;
+			}
+
+			if ( ! empty( $id ) && $id === $ret )
+				return true;
+			else return $ret;
+		}
+
 		public static function is_assoc( $arr ) {
 			if ( ! is_array( $arr ) ) 
 				return false;
@@ -112,9 +138,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			} elseif ( is_numeric( $use_post ) ) 
 				return get_post( $use_post );
 
-			if ( $obj === false )
-				$this->p->debug->log( 'cannot determine object type' );
-			return $obj;
+			if ( $obj === false || ! is_object( $obj ) )
+				return false;
+			else return $obj;
 		}
 
 		public function get_meta_sharing_url( $post_id ) {

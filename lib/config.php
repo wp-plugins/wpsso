@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.2dev2',		// plugin version
+			'version' => '2.2dev3',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -88,10 +88,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '250',
+				'version' => '253',
 				'defaults' => array(
 					'meta_desc_len' => 156,
-					'link_author_field' => '',
+					'link_author_field' => '',	// default value set by WpssoOptions::get_defaults()
 					'link_def_author_id' => 0,
 					'link_def_author_on_index' => 0,
 					'link_def_author_on_search' => 0,
@@ -120,14 +120,15 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_ngg_tags' => 0,
 					'og_page_parent_tags' => 0,
 					'og_page_title_tag' => 0,
-					'og_author_field' => '',
+					'og_author_field' => '',	// default value set by WpssoOptions::get_defaults()
 					'og_author_fallback' => 0,
 					'og_title_sep' => '-',
 					'og_title_len' => 70,
 					'og_desc_len' => 300,
-					'og_desc_hashtags' => 0,
+					'og_desc_hashtags' => 3,
 					'og_desc_strip' => 0,
 					'og_empty_tags' => 0,
+					'rp_author_name' => 'display_name',	// rich-pin specific article:author
 					'tc_enable' => 1,
 					'tc_site' => '',
 					'tc_desc_len' => 200,

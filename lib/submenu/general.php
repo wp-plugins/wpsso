@@ -44,6 +44,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 				'facebook' => 'Facebook',
 				'google' => 'Google',
 				'twitter' => 'Twitter',
+				'pinterest' => 'Pinterest',
 			) );
 			$rows = array();
 			foreach ( $tabs as $key => $title )
@@ -59,7 +60,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 				$user_ids[$user->ID] = $user->display_name;
 			$user_ids[0] = 'none';
 			switch ( $metabox.'-'.$key ) {
-				case 'og-media' :
+				case 'og-media':
 					$img_id_pre = array( 'wp' => 'Media Library' );
 					if ( $this->p->is_avail['media']['ngg'] == true ) 
 						$img_id_pre['ngg'] = 'NextGEN Gallery';
@@ -101,7 +102,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_checkbox( 'og_vid_https' ).'</td>';
 					break;
 
-				case 'og-general' :
+				case 'og-general':
 					$rows[] = $this->p->util->th( 'Website Topic', 'highlight', 'og_art_section' ).
 					'<td>'.$this->form->get_select( 'og_art_section', $this->p->util->get_topics() ).'</td>';
 
@@ -134,17 +135,17 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_checkbox( 'og_desc_strip' ).'</td>';
 					break;
 
-				case 'og-author' :
+				case 'og-author':
 					$rows[] = $this->p->util->th( 'Author Profile URL', null, 'og_author_field' ).
-					'<td>'.$this->form->get_select( 'og_author_field', $this->author_fields() ).'</td>';
+					'<td>'.$this->form->get_select( 'og_author_field', $this->author_contact_fields() ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Fallback to Author Index', null, 'og_author_fallback' ).
+					$rows[] = $this->p->util->th( 'Fallback to Author Index URL', null, 'og_author_fallback' ).
 					'<td>'.$this->form->get_checkbox( 'og_author_fallback' ).'</td>';
 	
-					$rows[] = $this->p->util->th( 'Default Author', null, 'og_def_author_id' ).
+					$rows[] = $this->p->util->th( 'Default Author when Missing', null, 'og_def_author_id' ).
 					'<td>'.$this->form->get_select( 'og_def_author_id', $user_ids, null, null, true ).'</td>';
 	
-					$rows[] = $this->p->util->th( 'Default Author on Indexes', null, 'og_def_author_on_index' ).
+					$rows[] = $this->p->util->th( 'Use Default Author on Indexes', null, 'og_def_author_on_index' ).
 					'<td>'.$this->form->get_checkbox( 'og_def_author_on_index' ).' defines index webpages as articles</td>';
 	
 					$rows[] = $this->p->util->th( 'Default Author on Search Results', null, 'og_def_author_on_search' ).
@@ -154,7 +155,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_input( 'og_publisher_url', 'wide' ).'</td>';
 					break;
 
-				case 'pub-facebook' :
+				case 'pub-facebook':
 					$rows[] = $this->p->util->th( 'Facebook Admin(s)', 'highlight', 'fb_admins' ).
 					'<td>'.$this->form->get_input( 'fb_admins' ).'</td>';
 
@@ -165,17 +166,17 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_select( 'fb_lang', SucomUtil::get_lang( 'facebook' ) ).'</td>';
 					break;
 
-				case 'pub-google' :
+				case 'pub-google':
 					$rows[] = $this->p->util->th( 'Description Length', null, 'google_desc_len' ).
 					'<td>'.$this->form->get_input( 'meta_desc_len', 'short' ).' characters or less</td>';
 
 					$rows[] = $this->p->util->th( 'Author Link URL', null, 'google_author_field' ).
-					'<td>'.$this->form->get_select( 'link_author_field', $this->author_fields() ).'</td>';
+					'<td>'.$this->form->get_select( 'link_author_field', $this->author_contact_fields() ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Default Author', null, 'google_def_author_id' ).
+					$rows[] = $this->p->util->th( 'Default Author when Missing', null, 'google_def_author_id' ).
 					'<td>'.$this->form->get_select( 'link_def_author_id', $user_ids, null, null, true ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Default Author on Indexes', null, 'google_def_author_on_index' ).
+					$rows[] = $this->p->util->th( 'Use Default Author on Indexes', null, 'google_def_author_on_index' ).
 					'<td>'.$this->form->get_checkbox( 'link_def_author_on_index' ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Default Author on Search Results', null, 'google_def_author_on_search' ).
@@ -185,13 +186,31 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_input( 'link_publisher_url', 'wide' ).'</td>';
 					break;
 
+				case 'pub-pinterest':
+					$rows[] = '<td colspan="2" style="padding-bottom:10px;">'.$this->p->msgs->get( 'pub-pinterest-info' ).'</td>';
+					$rows[] = $this->p->util->th( 'Author Name Format', null, 'rp_author_name' ).
+					'<td>'.$this->form->get_select( 'rp_author_name', $this->author_name_fields() ).'</td>';
+	
+					break;
 			}
 			return $rows;
 		}
 
-		private function author_fields() {
-			return $this->p->user->add_contact_methods( 
-				array( 'none' => '', 'author' => 'Author Index', 'url' => 'Website' ) 
+		private function author_contact_fields() {
+			return array_merge( array( 'none' => '' ), 	// make sure [none] is first
+				$this->p->user->add_contact_methods( array( 
+					'author' => 'Author Index', 
+					'url' => 'Website'
+				) )
+			);
+		}
+
+		private function author_name_fields() {
+			return array( 
+				'none' => '',
+				'fullname' => 'First and Last Names',
+				'display_name' => 'Display Name',
+				'nickname' => 'Nickname',
 			);
 		}
 	}
