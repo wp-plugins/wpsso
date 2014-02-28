@@ -59,7 +59,6 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		public function get_post_types( $opt_prefix, $output = 'objects' ) {
 			$include = false;
 			$post_types = array();
-
 			switch ( $opt_prefix ) {
 				case 'buttons':
 					$include = array( 'public' => true );
@@ -85,24 +84,27 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				$sharing_url = $this->p->util->get_sharing_url( $post_id );
 
 				$transients = array(
-					'WpssoOpengraph::get_array' => array( 'og array' => 'lang:'.$lang.'_sharing_url:'.$sharing_url ),
+					'WpssoOpengraph::get_array' => array( 
+						'lang:'.$lang.'_sharing_url:'.$sharing_url,
+						'lang:'.$lang.'_sharing_url:'.$sharing_url.'_crawler:pinterest',
+					),
 				);
 				$transients = apply_filters( $this->p->cf['lca'].'_post_cache_transients', $transients, $post_id, $lang, $sharing_url );
 
 				$objects = array(
 					'SucomWebpage::get_content' => array(
-						'filtered content' => 'lang:'.$lang.'_post:'.$post_id.'_filtered',
-						'unfiltered content' => 'lang:'.$lang.'_post:'.$post_id.'_unfiltered',
+						'lang:'.$lang.'_post:'.$post_id.'_filtered',
+						'lang:'.$lang.'_post:'.$post_id.'_unfiltered',
 					),
 					'SucomWebpage::get_hashtags' => array(
-						'hashtags' => 'lang:'.$lang.'_post:'.$post_id,
+						'lang:'.$lang.'_post:'.$post_id,
 					),
 				);
 				$objects = apply_filters( $this->p->cf['lca'].'_post_cache_objects', $objects, $post_id, $lang, $sharing_url );
 
 				$deleted = 0;
 				foreach ( $transients as $group => $arr ) {
-					foreach ( $arr as $name => $val ) {
+					foreach ( $arr as $val ) {
 						$cache_salt = $group.'('.$val.')';
 						$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 						if ( delete_transient( $cache_id ) ) {
@@ -113,7 +115,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					}
 				}
 				foreach ( $objects as $group => $arr ) {
-					foreach ( $arr as $name => $val ) {
+					foreach ( $arr as $val ) {
 						$cache_salt = $group.'('.$val.')';
 						$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 						if ( wp_cache_delete( $cache_id, $group ) ) {

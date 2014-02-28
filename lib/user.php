@@ -102,7 +102,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				$ret[] = $this->p->user->get_author_url( $author_id, 
 					$this->p->options['og_author_field'] );
 
-				if ( SucomUtil::agent_id( 'pinterest' ) )
+				if ( SucomUtil::crawler_name( 'pinterest' ) === true )
 					$ret[] = $this->p->user->get_author_name( $author_id, 
 						$this->p->options['rp_author_name'] );
 			}

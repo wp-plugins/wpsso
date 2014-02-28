@@ -14,32 +14,45 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
-			$this->p->debug->mark();
 			$this->p->util->add_img_sizes_from_opts( array( 'og_img' => 'opengraph' ) );
 
 			add_filter( 'language_attributes', array( &$this, 'add_doctype' ) );
+
+			$this->p->util->add_plugin_filters( $this, array( 
+				'og_cache_salt' => 2,		// modify the cache salt for certain crawlers
+			) );
 		}
-	
+
 		public function add_doctype( $doctype ) {
 			return $doctype.' xmlns:og="http://ogp.me/ns#"'.
 				' xmlns:fb="http://ogp.me/ns/fb#"';
 		}
 
-		public function get_array( $use_post = false, $use_cache = true ) {
+		public function filter_og_cache_salt( $salt, $use_post = false ) {
+			switch ( SucomUtil::crawler_name() ) {
+				case 'pinterest':
+					$salt .= '_crawler:'.SucomUtil::crawler_name();
+					break;
+			}
+			return $salt;
+		}
 
+		public function get_array( $use_post = false, $read_cache = true ) {
 			$source_id = $this->p->util->get_source_id( 'opengraph' );
 			$sharing_url = $this->p->util->get_sharing_url( $use_post, true, $source_id );
 
 			if ( $this->p->is_avail['cache']['transient'] ) {
-				$cache_salt = __METHOD__.'(lang:'.get_locale().'_sharing_url:'.$sharing_url.')';
+				$cache_salt = __METHOD__.'('.apply_filters( $this->p->cf['lca'].'_og_cache_salt', 
+					'lang:'.get_locale().'_sharing_url:'.$sharing_url, $use_post ).')';
 				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
 				$this->p->debug->log( $cache_type.': og array transient salt '.$cache_salt );
-				if ( $use_cache )
+				if ( $read_cache ) {
 					$og = get_transient( $cache_id );
-				if ( is_array( $og ) ) {
-					$this->p->debug->log( $cache_type.': og array retrieved from transient '.$cache_id );
-					return $og;
+					if ( is_array( $og ) ) {
+						$this->p->debug->log( $cache_type.': og array retrieved from transient '.$cache_id );
+						return $og;
+					}
 				}
 			}
 
@@ -191,7 +204,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			// run filter before saving to transient cache
 			$og = apply_filters( $this->p->cf['lca'].'_og', $og, $use_post );
 
-			if ( ! empty( $cache_id ) ) {
+			if ( $this->p->is_avail['cache']['transient'] ) {
 				set_transient( $cache_id, $og, $this->p->cache->object_expire );
 				$this->p->debug->log( $cache_type.': og array saved to transient '.$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
 			}

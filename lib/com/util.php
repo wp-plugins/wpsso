@@ -12,7 +12,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 	class SucomUtil {
 
-		private $urls_found = array();	// array to detect duplicate images, etc.
+		private static $crawler_name = false;
+		private static $urls_found = array();	// array to detect duplicate images, etc.
 
 		protected $p;
 
@@ -21,30 +22,39 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			$this->p->debug->mark();
 		}
 
-		public static function agent_id( $id = '' ) {
-			$ret = false;
-			$agent = $_SERVER['HTTP_USER_AGENT'];
-			switch ( $agent ) {
-
-				// "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
-				case ( strpos( $agent, 'facebookexternalhit/' ) === 0 ? true : false ):
-					$ret = 'facebook';
-					break;
-
-				// "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
-				case ( strpos( $agent, 'compatible; Googlebot/' ) !== false ? true : false ):
-					$ret = 'google';
-					break;
-
-				// "Pinterest/0.1 +http://pinterest.com/"
-				case ( strpos( $agent, 'Pinterest/' ) === 0 ? true : false ):
-					$ret = 'pinterest';
-					break;
-			}
-
-			if ( ! empty( $id ) && $id === $ret )
-				return true;
-			else return $ret;
+		public static function crawler_name( $id = '' ) {
+			if ( self::$crawler_name === false ) {	// optimize perf - only check once
+				$str = $_SERVER['HTTP_USER_AGENT'];
+				switch ( $str ) {
+					// "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
+					case ( strpos( $str, 'facebookexternalhit/' ) === 0 ? true : false ):
+						self::$crawler_name = 'facebook';
+						break;
+	
+					// "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+					case ( strpos( $str, 'compatible; Googlebot/' ) !== false ? true : false ):
+						self::$crawler_name = 'google';
+						break;
+	
+					// "Pinterest/0.1 +http://pinterest.com/"
+					case ( strpos( $str, 'Pinterest/' ) === 0 ? true : false ):
+						self::$crawler_name = 'pinterest';
+						break;
+	
+					// "Twitterbot/1.0"
+					case ( strpos( $str, 'Twitterbot/' ) === 0 ? true : false ):
+						self::$crawler_name = 'twitter';
+						break;
+	
+					// "W3C_Validator/1.3 http://validator.w3.org/services"
+					case ( strpos( $str, 'W3C_Validator/' ) === 0 ? true : false ):
+						self::$crawler_name = 'twitter';
+						break;
+				}
+			}	
+			if ( ! empty( $id ) )
+				return $id === self::$crawler_name ? true : false;
+			else return self::$crawler_name;
 		}
 
 		public static function is_assoc( $arr ) {
@@ -95,12 +105,12 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		}
 
 		public function reset_urls_found() {
-			$this->urls_found = array();
+			self::$urls_found = array();
 			return;
 		}
 
 		public function get_urls_found() {
-			return $this->urls_found;
+			return self::$urls_found;
 		}
 
 		public function is_uniq_url( $url = '' ) {
@@ -114,8 +124,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			if ( ! preg_match( '/[a-z]+:\/\//i', $url ) )
 				$this->p->debug->log( 'incomplete url given: '.$url );
 
-			if ( empty( $this->urls_found[$url] ) ) {
-				$this->urls_found[$url] = 1;
+			if ( empty( self::$urls_found[$url] ) ) {
+				self::$urls_found[$url] = 1;
 				return true;
 			} else {
 				$this->p->debug->log( 'duplicate url rejected: '.$url ); 

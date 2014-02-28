@@ -386,7 +386,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 							$filter_name = $this->p->cf['lca'].'_get_content_'.$tag_name.'_'.( preg_replace( '/-/', '_', $attr_name ) );
 							list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
 								$og_image['og:image:cropped'] ) = apply_filters( $filter_name, array( null, null, null, null ), 
-									$attr_value, $size_name, $check_dupes );
+									$attr_value, $size_name, false );
 							break;
 						default :
 							// prevent duplicates by silently ignoring ngg images (already processed by the ngg addon)
