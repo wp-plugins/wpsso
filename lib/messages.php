@@ -683,6 +683,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					}
 					break;
 				case 'pro-advert-nag':
+					$text .= '<center><p style="font-size:1.15em;">What do you think of '.$this->p->cf['full'].'?</p>
+					<p style="font-size:1.05em;">Please take a moment <a href="'.$this->p->cf['url']['review'].'" target="_blank">to share your opinion,                     
+					and rate the plugin on wordpress.org</a>...</p><p class="sig">Thank you!</p></center>';
+					/*
 					$text .= '<p style="font-size:1.1em;">Have you considered encouraging the continued development and support of '.
 					$this->p->cf['full'].' by purchasing the Pro version?</p>
 					<p>'.$this->p->cf['full_pro'].' supports several types of Twitter Cards, including the <em>Gallery</em>, <em>Player</em> and <em>Product</em> 
@@ -692,6 +696,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					<p style="font-size:1.05em;">Have the Pro version running in just two minutes!<br/>
 					<a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Purchase a '.$this->p->cf['full_pro'].' license right now</a>.</p>
 					';
+					*/
 					break;
 				case 'side-purchase':
 					$text = '<p>Developing and supporting the '.$this->p->cf['full'].' plugin takes most of my work days (and week-ends).
@@ -749,8 +754,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					$this->p->cf['menu'].' Social Sharing widget as well (see the <a href="'.get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
 					break;
 				case 'pub-pinterest-info':
-					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins.
-					These settings allow you to manage a few Pinterest-specific options.</p>';
+					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins (see the Open Graph Settings above).
+					The following settings allow you to manage a few Pinterest-specific options.</p>';
 					break;
 				/*
 				 * Other messages

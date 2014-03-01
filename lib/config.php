@@ -290,6 +290,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'url' => array(
+				'review' => 'http://wordpress.org/support/view/plugin-reviews/wpsso',
 				'readme' => 'http://plugins.svn.wordpress.org/wpsso/trunk/readme.txt',
 				'changelog' => 'http://wordpress.org/plugins/wpsso/changelog/',
 				'purchase' => 'http://plugin.surniaulula.com/extend/plugins/wpsso/',
