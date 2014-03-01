@@ -208,6 +208,10 @@ WPSSO can recognize and parse standard object / iframe embed code, but some them
 
 == Upgrade Notice ==
 
+= 2.2 =
+
+Added Pinterest-specific option for 'article:author' meta tag (see Changelog), and small code improvements for NextGEN Gallery.
+
 = 2.1.3 =
 
 Added support for YouTube's old embed code.
