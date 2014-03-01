@@ -48,7 +48,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 	
 					// "W3C_Validator/1.3 http://validator.w3.org/services"
 					case ( strpos( $str, 'W3C_Validator/' ) === 0 ? true : false ):
-						self::$crawler_name = 'twitter';
+						self::$crawler_name = 'w3c';
 						break;
 				}
 			}	
