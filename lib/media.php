@@ -15,7 +15,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 		private $p;
 
 		public $data_tags_preg = '(img)';
-		public $data_attr_preg = '(data-wp-pid)';
+		public $data_attr_preg = '(data-[a-z]+-pid)';
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
@@ -266,12 +266,13 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 							' ('.$size_info['width'].'x'.$size_info['height'].
 							( empty( $size_info['crop'] ) ? '' : ' cropped' ).').' );
 
-					$this->p->debug->log( 'exiting early: returned image dimensions are smaller than'.
+					$this->p->debug->log( 'exiting early: returned image dimensions'.
+						' ('.$img_width.'x'.$img_height.') smaller than'.
 						' ('.$size_info['width'].'x'.$size_info['height'].
 						( empty( $size_info['crop'] ) ? '' : ' cropped' ).')' );
 
 					return $ret_empty;
-				}
+				} else $this->p->debug->log( 'returned image dimensions ('.$img_width.'x'.$img_height.') are sufficient' );
 			}
 
 			if ( ! empty( $img_url ) && 
@@ -357,20 +358,11 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				return $og_ret; 
 			}
 
-			// check div|a|img html tags for ngg images
-			if ( $this->p->is_avail['media']['ngg'] === true ) {
-				if ( ! empty( $this->p->addons['media']['ngg'] ) ) {
-					$og_ret = $this->p->addons['media']['ngg']->get_content_images( $num, $size_name, $use_post, $check_dupes, $content );
-					if ( $this->p->util->is_maxed( $og_ret, $num ) )
-						return $og_ret;
-				}
-			}
-
 			// img attributes in order of preference
+			// data_tags_preg provides a filter hook for 3rd party addons like ngg to return image information
 			if ( preg_match_all( '/<('.$this->data_tags_preg.'[^>]*? '.$this->data_attr_preg.'=[\'"]([0-9]+)[\'"]|'.
-				'(img)[^>]*? (data-share-src|src)=[\'"]([^\'"]+)[\'"])[^>]*>/s', 
-				$content, $match, PREG_SET_ORDER ) ) {
-				$this->p->debug->log( count( $match ).' x matching <img/> html tag(s) found' );
+				'(img)[^>]*? (data-share-src|src)=[\'"]([^\'"]+)[\'"])[^>]*>/s', $content, $match, PREG_SET_ORDER ) ) {
+				$this->p->debug->log( count( $match ).' x matching <'.$this->data_tags_preg.'/> html tag(s) found' );
 				foreach ( $match as $img_num => $img_arr ) {
 					$tag_value = $img_arr[0];
 					if ( empty( $img_arr[5] ) ) {
@@ -388,6 +380,13 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 						case 'data-wp-pid' :
 							list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
 								$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $attr_value, $size_name, false );
+							break;
+						// filter hook for 3rd party addons to return image information
+						case ( preg_match( '/^data-[a-z]+-pid$/', $attr_name ) ? true : false ):
+							$filter_name = $this->p->cf['lca'].'_get_content_'.$tag_name.'_'.( preg_replace( '/-/', '_', $attr_name ) );
+							list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
+								$og_image['og:image:cropped'] ) = apply_filters( $filter_name, array( null, null, null, null ), 
+									$attr_value, $size_name, false );
 							break;
 						default :
 							// prevent duplicates by silently ignoring ngg images (already processed by the ngg addon)
@@ -447,7 +446,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				}
 				return $og_ret;
 			}
-			$this->p->debug->log( 'no matching <img/> html tag(s) found' );
+			$this->p->debug->log( 'no matching <'.$this->data_tags_preg.'/> html tag(s) found' );
 			return $og_ret;
 		}
 

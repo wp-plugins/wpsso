@@ -75,16 +75,16 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 						if ( ! empty( $val ) ) {
 							// use the social prefix id to decide on actions
 							switch ( $id ) {
-								case 'skype' :
+								case 'skype':
 									// no change
 									break;
-								case 'twitter' :
+								case 'twitter':
 									$val = substr( preg_replace( '/[^a-z0-9_]/', '', 
 										strtolower( $val ) ), 0, 15 );
 									if ( ! empty( $val ) ) 
 										$val = '@'.$val;
 									break;
-								default :
+								default:
 									if ( strpos( $val, '://' ) === false )
 										$val = '';
 									break;
@@ -96,15 +96,52 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			}
 		}
 
+		public function get_article_author( $author_id ) {
+			$ret = array();
+			if ( ! empty( $author_id ) ) {
+				$ret[] = $this->p->user->get_author_url( $author_id, 
+					$this->p->options['og_author_field'] );
+
+				if ( SucomUtil::crawler_name( 'pinterest' ) === true )
+					$ret[] = $this->p->user->get_author_name( $author_id, 
+						$this->p->options['rp_author_name'] );
+			}
+			return $ret;
+		}
+
+		// called from head and opengraph classes
+		public function get_author_name( $author_id, $field_id = 'display_name' ) {
+			$name = '';
+			switch ( $field_id ) {
+				case 'none':
+					break;
+				case 'fullname':
+					$name = trim( get_the_author_meta( 'first_name', $author_id ) ).' '.
+						trim( get_the_author_meta( 'last_name', $author_id ) );
+					break;
+				// sanitation controls, just in case ;-)
+				case 'user_login':
+				case 'user_nicename':
+				case 'display_name':
+				case 'nickname':
+				case 'first_name':
+				case 'last_name':
+					$name = get_the_author_meta( $field_id, $author_id );	// since wp 2.8.0 
+					break;
+			}
+			return $name;
+		}
+
 		// called from head and opengraph classes
 		public function get_author_url( $author_id, $field_id = 'url' ) {
+			$url = '';
 			switch ( $field_id ) {
-				case 'none' :
+				case 'none':
 					break;
-				case 'index' :
+				case 'index':
 					$url = get_author_posts_url( $author_id );
 					break;
-				default :
+				default:
 					$url = get_the_author_meta( $field_id, $author_id );	// since wp 2.8.0 
 
 					// if empty or not a url, then fallback to the author index page,

@@ -38,7 +38,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
 			$this->p->check->conflict_warnings();
-
 			$this->set_objects();
 
 			add_action( 'admin_init', array( &$this, 'register_setting' ) );
@@ -60,7 +59,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$libs[] = 'sitesubmenu';
 			foreach ( $libs as $sub ) {
 				foreach ( $this->p->cf['lib'][$sub] as $id => $name ) {
-					do_action( $this->p->cf['lca'].'_load_lib', $sub, $id );
+					$loaded = apply_filters( $this->p->cf['lca'].'_load_lib', false, "$sub/$id" );
 					$classname = $this->p->cf['lca'].$sub.$id;
 					if ( class_exists( $classname ) )
 						$this->submenu[$id] = new $classname( $this->p, $id, $name );

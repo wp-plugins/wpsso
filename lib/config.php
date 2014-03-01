@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.1.3',		// plugin version
+			'version' => '2.2',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -88,10 +88,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '248',
+				'version' => '253',
 				'defaults' => array(
 					'meta_desc_len' => 156,
-					'link_author_field' => '',
+					'link_author_field' => '',	// default value set by WpssoOptions::get_defaults()
 					'link_def_author_id' => 0,
 					'link_def_author_on_index' => 0,
 					'link_def_author_on_search' => 0,
@@ -120,14 +120,15 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_ngg_tags' => 0,
 					'og_page_parent_tags' => 0,
 					'og_page_title_tag' => 0,
-					'og_author_field' => '',
+					'og_author_field' => '',	// default value set by WpssoOptions::get_defaults()
 					'og_author_fallback' => 0,
 					'og_title_sep' => '-',
 					'og_title_len' => 70,
 					'og_desc_len' => 300,
-					'og_desc_hashtags' => 0,
+					'og_desc_hashtags' => 3,
 					'og_desc_strip' => 0,
 					'og_empty_tags' => 0,
+					'rp_author_name' => 'display_name',	// rich-pin specific article:author
 					'tc_enable' => 1,
 					'tc_site' => '',
 					'tc_desc_len' => 200,
@@ -212,16 +213,18 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_filter_content' => 1,
 					'plugin_filter_excerpt' => 0,
 					'plugin_filter_lang' => 1,
+					'plugin_shortcodes' => 1,
+					'plugin_widgets' => 1,
 					'plugin_auto_img_resize' => 1,
 					'plugin_ignore_small_img' => 1,
 					'plugin_slideshare_api' => 1,
 					'plugin_vimeo_api' => 1,
 					'plugin_wistia_api' => 1,
 					'plugin_youtube_api' => 1,
+					'plugin_cf_vid_url' => '_format_video_embed',
 					'plugin_add_to_post' => 1,
 					'plugin_add_to_page' => 1,
 					'plugin_add_to_attachment' => 1,
-					'plugin_cf_vid_url' => '_format_video_embed',
 					'plugin_verify_certs' => 0,
 					'plugin_file_cache_hrs' => 0,
 					'plugin_object_cache_exp' => 3600,
@@ -424,19 +427,19 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			if ( file_exists( $plugin_dir.'lib/pro/addon.php' ) )
 				require_once( $plugin_dir.'lib/pro/addon.php' );
 
-			add_action( 'wpsso_load_lib', array( 'WpssoConfig', 'load_lib' ), 10, 2 );
+			add_filter( 'wpsso_load_lib', array( 'WpssoConfig', 'load_lib' ), 10, 2 );
 		}
 
-		public static function load_lib( $sub, $id ) {
-			if ( empty( $sub ) && ! empty( $id ) )
-				$filepath = WPSSO_PLUGINDIR.'lib/'.$id.'.php';
-			elseif ( ! empty( self::$cf['lib'][$sub][$id] ) )
-				$filepath = WPSSO_PLUGINDIR.'lib/'.$sub.'/'.$id.'.php';
-			else return false;
-			if ( file_exists( $filepath ) ) 
-				require_once( $filepath );
+		public static function load_lib( $loaded = false, $filepath = '' ) {
+			if ( $loaded === false && ! empty( $filepath ) ) {
+				$filepath = WPSSO_PLUGINDIR.'lib/'.$filepath.'.php';
+				if ( file_exists( $filepath ) ) {
+					require_once( $filepath );
+					return true;
+				}
+			}
+			return false;
 		}
-
 	}
 }
 

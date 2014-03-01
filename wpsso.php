@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and Social Website shares
-Version: 2.1.3
+Version: 2.2
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -42,34 +42,44 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$classname = __CLASS__.'Register';
 			$this->reg = new $classname( $this );
 
+			add_action( 'init', array( &$this, 'set_config' ), -1 );
 			add_action( 'init', array( &$this, 'init_plugin' ), WPSSO_INIT_PRIORITY );
+			add_action( 'widgets_init', array( &$this, 'init_widgets' ), 10 );
 		}
 
+		// runs at init priority -1
+		public function set_config() {
+			$this->cf = apply_filters( 'wpsso_get_config', WpssoConfig::get_config() );
+		}
+
+		// runs at init priority 1
+		public function init_widgets() {
+			$opts = get_option( WPSSO_OPTIONS_NAME );
+			if ( ! empty( $opts['plugin_widgets'] ) && ! empty( $this->cf['lib']['widget'] ) ) {
+				foreach ( $this->cf['lib']['widget'] as $id => $name ) {
+					$loaded = apply_filters( $this->cf['lca'].'_load_lib', false, "widget/$id" );
+					$classname = __CLASS__.'widget'.$name;
+					if ( class_exists( $classname ) )
+						register_widget( $classname );
+				}
+			}
+		}
+
+		// runs at init priority 12 (by default)
 		public function init_plugin() {
-			if ( is_feed() ) return;	// nothing to do in the feeds
-			if ( ! empty( $_SERVER['WPSSO_DISABLE'] ) ) return;
+			if ( is_feed() ) 
+				return;	// nothing to do in the feeds
+
+			if ( ! empty( $_SERVER['WPSSO_DISABLE'] ) ) 
+				return;
 
 			load_plugin_textdomain( WPSSO_TEXTDOM, false, dirname( WPSSO_PLUGINBASE ).'/languages/' );
-			$this->cf = apply_filters( 'wpsso_get_config', WpssoConfig::get_config() );
 			$this->set_objects();
-
 			if ( $this->debug->is_on() === true ) {
 				foreach ( array( 'wp_head', 'wp_footer' ) as $action ) {
 					foreach ( array( 1, 9999 ) as $prio )
 						add_action( $action, create_function( '', 
 							"echo '<!-- ".$this->cf['lca']." add_action( \'$action\' ) priority $prio test = PASSED -->\n';" ), $prio );
-				}
-			}
-		}
-
-		public function init_widgets() {
-			$opts = get_option( NGFB_OPTIONS_NAME );
-			if ( ! empty( $opts['plugin_widgets'] ) ) {
-				foreach ( $this->cf['lib']['widget'] as $id => $name ) {
-					do_action( $this->cf['lca'].'_load_lib', 'widget', $id );
-					$classname = __CLASS__.'Widget'.$name;
-					if ( class_exists( $classname ) )
-					register_widget( $classname );
 				}
 			}
 		}
@@ -131,7 +141,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			 * remaining object classes
 			 */
 			$this->cache = new SucomCache( $this );			// object and file caching
-			$this->style = new SucomStyle( $this );			// allow other plugins to define earlier
+			$this->style = new SucomStyle( $this );			// admin styles
 			$this->script = new SucomScript( $this );		// admin jquery tooltips
 			$this->webpage = new SucomWebpage( $this );		// title, desc, etc., plus shortcodes
 			$this->user = new WpssoUser( $this );			// contact methods and metabox prefs
@@ -207,9 +217,9 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		}
 
 		public function filter_ua_plugin( $plugin ) {
-			if ( $this->check->is_aop() ) $plugin .= 'L';
-			elseif ( $this->is_avail['aop'] ) $plugin .= 'U';
-			else $plugin .= 'G';
+			if ( $this->check->is_aop() ) $plugin .= '-L';
+			elseif ( $this->is_avail['aop'] ) $plugin .= '-U';
+			else $plugin .= '-G';
 			return $plugin;
 		}
 

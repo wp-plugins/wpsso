@@ -284,7 +284,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'The maximum number of tag names (not their slugs), converted to hashtags, to include in the 
 							Open Graph / Rich Pin description, tweet text, and social captions.
 							Each tag name is converted to lowercase with any whitespaces removed. 
-							Select \'0\' (the default) to disable this feature.';
+							Select \'0\' to disable the additiona of hashtags.';
 							break;
 						case 'tooltip-og_desc_strip':
 							$text = 'For a Page or Post <em>without</em> an excerpt, if this option is checked, 
@@ -296,11 +296,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Authorship' settings
 						 */
 						case 'tooltip-og_author_field':
-							$text = 'Select the profile field to use for Posts and Pages in the \'article:author\' Open Graph / Rich Pin meta tag.
-							The URL should point to an author\'s <em>personal</em> website or social page.
-							This Open Graph / Rich Pin meta tag is primarily used by Facebook, so the preferred (and default) 
-							value is the author\'s Facebook webpage URL.
-							See the Google Settings below for an <em>Author Link URL</em> for Google.';
+							$text = 'Select a profile field to use in the \'article:author\' Open Graph / Rich Pin meta tag(s).
+							The preferred and default value is the author\'s Facebook URL (recommended setting). 
+							See the Publisher settings Google tab bellow for an <em>Author Link URL</em> option, which is used by Google Search.';
 							break;
 						case 'tooltip-og_author_fallback':
 							$text = 'If the <em>Author Profile URL</em> (and the <em>Author Link URL</em> in the Google Settings below) 
@@ -630,6 +628,26 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 
 				/*
+				 * Publisher 'Pinterest' (Rich Pin) settings
+				 */
+				case ( strpos( $idx, 'tooltip-rp_' ) !== false ? true : false ):
+					switch ( $idx ) {
+						case 'tooltip-rp_author_name':
+							$text = 'Pinterest ignores Facebook-style <em>Author Profile URLs</em> in the \'article:author\'
+							Open Graph / Rich Pin meta tags. An additional \'article:author\' meta tag may be included 
+							when the Pinterest crawler is detected. Select a User\'s Name Format to include for the Pinterest
+							crawler, or \'none\' to disable this feature (the default and recommended value is \'Display Name\').';
+							break;
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_rp', $text, $idx );
+							break;
+					}
+					break;
+
+				/*
 				 * 'Profile Contact Methods' settings
 				 */
 				case 'tooltip-custom-cm-field-name':
@@ -729,6 +747,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'sharing-buttons-info':
 					$text = '<p>The following social sharing buttons can be added to the content, excerpt, and/or enabled within the '.
 					$this->p->cf['menu'].' Social Sharing widget as well (see the <a href="'.get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
+					break;
+				case 'pub-pinterest-info':
+					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins.
+					These settings allow you to manage a few Pinterest-specific options.</p>';
 					break;
 				/*
 				 * Other messages

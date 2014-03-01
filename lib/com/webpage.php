@@ -26,8 +26,8 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				! empty( $this->p->options['plugin_shortcodes'] ) ) {
 
 				foreach ( $this->p->cf['lib']['shortcode'] as $id => $name ) {
-					do_action( $this->p->cf['lca'].'_load_lib', 'shortcode', $id );
-					$classname = $this->p->cf['lca'].'Shortcode'.$id;
+					$loaded = apply_filters( $this->p->cf['lca'].'_load_lib', false, "shortcode/$id" );
+					$classname = $this->p->cf['lca'].'shortcode'.$id;
 					if ( class_exists( $classname ) )
 						$this->shortcode[$id] = new $classname( $this->p );
 				}
