@@ -23,6 +23,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 			add_meta_box( $this->pagehook.'_opengraph', 'Open Graph Settings', array( &$this, 'show_metabox_opengraph' ), $this->pagehook, 'normal' );
 			add_meta_box( $this->pagehook.'_publishers', 'Publisher Settings', array( &$this, 'show_metabox_publishers' ), $this->pagehook, 'normal' );
+
+			// issues a warning notice if the default image size is too small
+			$this->p->media->get_default_image( 1, $this->p->cf['lca'].'-opengraph', false );
 		}
 
 		public function show_metabox_opengraph() {
