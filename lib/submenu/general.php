@@ -46,8 +46,8 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
 				'facebook' => 'Facebook',
 				'google' => 'Google',
-				'twitter' => 'Twitter',
 				'pinterest' => 'Pinterest',
+				'twitter' => 'Twitter',
 			) );
 			$rows = array();
 			foreach ( $tabs as $key => $title )
