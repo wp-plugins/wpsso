@@ -260,11 +260,12 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				if ( ( empty( $size_info['crop'] ) && ( ! $is_sufficient_width && ! $is_sufficient_height ) ) ||
 					( ! empty( $size_info['crop'] ) && ( ! $is_sufficient_width || ! $is_sufficient_height ) ) ) {
 
-					if ( is_admin() )
-						$this->p->notice->err( 'Image id '.$pid.' rejected - '.$img_url.
-							' ('.$img_width.'x'.$img_height.') too small for '.$size_name.
-							' ('.$size_info['width'].'x'.$size_info['height'].
-							( empty( $size_info['crop'] ) ? '' : ' cropped' ).').' );
+					if ( is_admin() ) {
+						$rel_url = preg_replace( '!.*//.*/!U', '/', $img_url );
+						$this->p->notice->err( 'Image id '.$pid.' rejected: '.$rel_url.' ('.$img_width.'x'.$img_height.') is too small for the '.$size_name.
+							' ('.$size_info['width'].'x'.$size_info['height'].( empty( $size_info['crop'] ) ? '' : ' cropped' ).') image size. '.
+							'You must upload a larger original image, or reduce the '.$size_name.' image size width and / or height.' );
+					}
 
 					$this->p->debug->log( 'exiting early: returned image dimensions'.
 						' ('.$img_width.'x'.$img_height.') smaller than'.
