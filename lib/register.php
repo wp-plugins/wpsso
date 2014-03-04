@@ -19,6 +19,24 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 			register_activation_hook( WPSSO_FILEPATH, array( &$this, 'network_activate' ) );
 			register_deactivation_hook( WPSSO_FILEPATH, array( &$this, 'network_deactivate' ) );
 			register_uninstall_hook( WPSSO_FILEPATH, array( __CLASS__, 'network_uninstall' ) );
+
+			add_action( 'wpmu_new_blog', array( &$this, 'wpmu_new_blog' ), 10, 6 );
+			add_action( 'wpmu_activate_blog', array( &$this, 'wpmu_activate_blog' ), 10, 5 );
+		}
+
+		// fires immediately after a new site is created
+		public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
+			switch_to_blog( $blog_id );
+			$this->activate_plugin();
+			restore_current_blog();
+		}
+
+		// fires immediately after a site is activated
+		// (not called when users and sites are created by a Super Admin)
+		public function wpmu_activate_blog( $blog_id, $user_id, $password, $signup_title, $meta ) {
+			switch_to_blog( $blog_id );
+			$this->activate_plugin();
+			restore_current_blog();
 		}
 
 		public function network_activate( $sitewide ) {
@@ -38,14 +56,14 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 
 		private static function do_multisite( $sitewide, $method, $args = array() ) {
 			if ( is_multisite() && $sitewide ) {
-				global $wpdb, $blog_id;
+				global $wpdb;
 				$dbquery = 'SELECT blog_id FROM '.$wpdb->blogs;
 				$ids = $wpdb->get_col( $dbquery );
 				foreach ( $ids as $id ) {
 					switch_to_blog( $id );
 					call_user_func_array( $method, array( $args ) );
 				}
-				switch_to_blog( $blog_id );
+				restore_current_blog();
 			} else call_user_func_array( $method, array( $args ) );
 		}
 

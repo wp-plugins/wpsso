@@ -213,6 +213,10 @@ WPSSO can recognize and parse standard object / iframe embed code, but some them
 
 == Upgrade Notice ==
 
+= Version 2.3dev1 =
+
+* Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when multisite blogs are added / activated.
+
 = 2.2 =
 
 Added Pinterest-specific option for 'article:author' meta tag (see Changelog), and small code improvements for NextGEN Gallery.
