@@ -213,9 +213,10 @@ WPSSO can recognize and parse standard object / iframe embed code, but some them
 
 == Upgrade Notice ==
 
-= Version 2.3dev1 =
+= Version 2.3dev2 =
 
-* Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when multisite blogs are added / activated.
+* Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are added / activated.
+* Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information.
 
 = 2.2 =
 

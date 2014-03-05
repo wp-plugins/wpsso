@@ -53,8 +53,8 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 
 		public function install_hooks() {
-			add_filter( 'plugins_api', array( &$this, 'inject_data' ), 10, 3 );
-			add_filter( 'site_transient_update_plugins', array( &$this, 'inject_update' ) );
+			add_filter( 'plugins_api', array( &$this, 'inject_data' ), 100, 3 );
+			add_filter( 'site_transient_update_plugins', array( &$this, 'inject_update' ), 100, 1 );
 
 			// in a multisite environment, each site checks for updates
 			if ( $this->sched_hours > 0 ) {
@@ -77,29 +77,28 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 	
 		public function inject_data( $result, $action = null, $args = null ) {
-		    	$found = ( $action == 'plugin_information' ) && isset( $args->slug ) && ( $args->slug == $this->slug );
-			if ( ! $found ) return $result;
-			$plugin_data = $this->get_json();
-			if ( ! empty( $plugin_data ) ) 
-				return $plugin_data->json_to_wp();
+		    	if ( $action == 'plugin_information' && isset( $args->slug ) && $args->slug == $this->slug ) {
+				$plugin_data = $this->get_json();
+				if ( ! empty( $plugin_data ) ) 
+					return $plugin_data->json_to_wp();
+			}
 			return $result;
 		}
 	
 		public function inject_update( $updates ) {
-			if ( ! empty( $updates->response[$this->base] ) ) {
+			if ( ! empty( $updates->response[$this->base] ) )
 				unset( $updates->response[$this->base] );
-			}
+
 			$option_data = get_site_option( $this->option_name );
-			if ( ! empty( $option_data ) && is_object( $option_data->update ) && ! empty( $option_data->update ) ) {
-				if ( version_compare( $option_data->update->version, $this->get_installed_version(), '>' ) ) {
+			if ( ! empty( $option_data ) && is_object( $option_data->update ) && ! empty( $option_data->update ) &&
+				version_compare( $option_data->update->version, $this->get_installed_version(), '>' ) )
 					$updates->response[$this->base] = $option_data->update->json_to_wp();
-				}
-			}
+
 			return $updates;
 		}
 	
 		public function custom_schedule( $schedule ) {
-			if ($this->sched_hours > 0) {
+			if ( $this->sched_hours > 0 ) {
 				$schedule[$this->sched_name] = array(
 					'interval' => $this->sched_hours * 3600,
 					'display' => sprintf('Every %d hours', $this->sched_hours)
@@ -130,7 +129,6 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 	
 		public function get_json( $query = array() ) {
-
 			global $wp_version;
 			$update_url = $this->json_url;
 			$site_url = get_bloginfo( 'url' );
@@ -167,8 +165,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			);
 			$plugin_data = null;
 			$result = wp_remote_get( $update_url, $options );
-			if ( ! is_wp_error( $result )
-				&& isset( $result['response']['code'] )
+			if ( ! is_wp_error( $result ) && isset( $result['response']['code'] )
 				&& ( $result['response']['code'] == 200 )
 				&& ! empty( $result['body'] ) ) {
 	
@@ -184,7 +181,6 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 
 			$this->update_timestamp = time();
 			update_option( $this->lca.'_utime', $this->update_timestamp );
-
 			set_transient( $cache_id, ( $plugin_data === null ? '' : $plugin_data ), $this->json_expire );
 			$this->p->debug->log( $cache_type.': plugin data saved to transient '.$cache_id.' ('.$this->json_expire.' seconds)');
 
