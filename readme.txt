@@ -176,11 +176,12 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
-= Version 2.3dev3 =
+= Version 2.3dev4 =
 
 * Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are added / activated.
 * Added a notice error message if/when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
 * Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information.
+* Changed the default Open Graph Image Dimensions from 1200x630, cropped to 1200x1200, cropped.
 
 = Version 2.2 =
 
