@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WordPress Social Sharing Optimization (WPSSO)
+Plugin Name: WPSSO
 Plugin URI: http://surniaulula.com/extend/plugins/wpsso/
 Author: Jean-Sebastien Morisset
 Author URI: http://surniaulula.com/
