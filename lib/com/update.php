@@ -168,10 +168,13 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			$plugin_data = null;
 			$result = wp_remote_get( $update_url, $options );
 			if ( is_wp_error( $result ) ) {
-				if ( isset( $this->p->notice ) &&
-					is_object( $this->p->notice ) )
-						$this->p->notice->err( 'Update library error &ndash; '.$result->get_error_message().'.' );
+				if ( isset( $this->p->notice ) && is_object( $this->p->notice ) &&
+					isset( $this->p->debug ) && is_object( $this->p->debug ) &&
+					$this->p->debug->is_on() === true ) {
 
+					$this->p->debug->log( 'Error from update library - '.$result->get_error_message().'.' );
+					$this->p->notice->err( 'Error from update library &ndash; '.$result->get_error_message().'.' );
+				}
 			} elseif ( isset( $result['response']['code'] ) && 
 				( $result['response']['code'] == 200 ) && 
 				! empty( $result['body'] ) ) {
