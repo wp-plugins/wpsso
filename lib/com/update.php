@@ -90,7 +90,9 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				unset( $updates->response[$this->base] );
 
 			$option_data = get_site_option( $this->option_name );
-			if ( ! empty( $option_data ) && is_object( $option_data->update ) && ! empty( $option_data->update ) &&
+			if ( ! empty( $option_data ) && 
+				is_object( $option_data->update ) && 
+				! empty( $option_data->update ) &&
 				version_compare( $option_data->update->version, $this->get_installed_version(), '>' ) )
 					$updates->response[$this->base] = $option_data->update->json_to_wp();
 
@@ -165,9 +167,14 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			);
 			$plugin_data = null;
 			$result = wp_remote_get( $update_url, $options );
-			if ( ! is_wp_error( $result ) && isset( $result['response']['code'] )
-				&& ( $result['response']['code'] == 200 )
-				&& ! empty( $result['body'] ) ) {
+			if ( is_wp_error( $result ) ) {
+				if ( isset( $this->p->notice ) &&
+					is_object( $this->p->notice ) )
+						$this->p->notice->err( 'Update library error &ndash; '.$result->get_error_message().'.' );
+
+			} elseif ( isset( $result['response']['code'] ) && 
+				( $result['response']['code'] == 200 ) && 
+				! empty( $result['body'] ) ) {
 	
 				if ( ! empty( $result['headers']['x-smp-error'] ) ) {
 					self::$umsg = json_decode( $result['body'] );
@@ -223,16 +230,20 @@ if ( ! class_exists( 'SucomPluginData' ) ) {
 	
 		public static function from_json( $json ) {
 			$json_data = json_decode( $json );
-			if ( empty( $json_data ) || ! is_object( $json_data ) ) 
-				return null;
-			$exists = isset( $json_data->name ) && !empty( $json_data->name )
-				&& isset( $json_data->version ) && !empty( $json_data->version );
-			if ( ! $exists ) return null;
-			$plugin_data = new SucomPluginData();
-			foreach( get_object_vars( $json_data ) as $key => $value) {
-				$plugin_data->$key = $value;
-			}
-			return $plugin_data;
+			if ( empty( $json_data ) || 
+				! is_object( $json_data ) ) 
+					return null;
+			if ( isset( $json_data->name ) && 
+				! empty( $json_data->name ) && 
+				isset( $json_data->version ) && 
+				! empty( $json_data->version ) ) {
+
+				$plugin_data = new SucomPluginData();
+				foreach( get_object_vars( $json_data ) as $key => $value) {
+					$plugin_data->$key = $value;
+				}
+				return $plugin_data;
+			} else return null;
 		}
 	
 		public function json_to_wp(){
@@ -265,8 +276,7 @@ if ( ! class_exists( 'SucomPluginData' ) ) {
 				$data->sections = $this->sections;
 			elseif ( is_object( $this->sections ) ) 
 				$data->sections = get_object_vars( $this->sections );
-			else 
-				$data->sections = array( 'description' => '' );
+			else $data->sections = array( 'description' => '' );
 			return $data;
 		}
 	}
