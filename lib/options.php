@@ -85,14 +85,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 						$opts = $this->upg->options( $options_name, $opts, $this->get_defaults() );
 					}
 
-					if ( $options_name == WPSSO_OPTIONS_NAME &&
-						$this->p->is_avail['aop'] !== true && 
-						empty( $this->p->options['plugin_tid'] ) ) {
-
-						// show the nag and update the options only if we have someone with access
-						// otherwise, wait until next time
+					if ( $options_name == WPSSO_OPTIONS_NAME ) {
 						if ( is_admin() && current_user_can( 'manage_options' ) ) {
-							$this->p->notice->nag( $this->p->msgs->get( 'pro-advert-nag' ), true );
+							$this->p->notice->nag( $this->p->msgs->get( 'upgrade-nag' ), true );
 							$this->save_options( $options_name, $opts );
 						}
 					} else $this->save_options( $options_name, $opts );
