@@ -119,7 +119,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					$ptn = empty( $atts['ptn'] ) ? 'Post' : $atts['ptn'];
 					switch ( $idx ) {
 						/*
-						 * 'Webpage Header' settings
+						 * 'Header Meta Tags' settings
 						 */
 						 case 'tooltip-postmeta-og_art_section':
 							$text = 'A custom topic for this '.$ptn.', different from the default 
@@ -740,7 +740,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 				case 'sharing-buttons-info':
 					$text = '<p>The following social sharing buttons can be added to the content, excerpt, and/or enabled within the '.
-					$this->p->cf['menu'].' Social Sharing widget as well (see the <a href="'.get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
+					$this->p->cf['menu'].' Sharing Buttons widget as well (see the <a href="'.
+					get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
 					break;
 				case 'pub-pinterest-info':
 					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins (see the Open Graph Settings above).

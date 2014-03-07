@@ -76,7 +76,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 
 			$metabox = 'meta';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
-				'header' => 'Webpage Header', 
+				'header' => 'Header Meta Tags', 
 				'tools' => 'Validation Tools',
 				'tags' => 'Meta Tags Preview' ) );
 
