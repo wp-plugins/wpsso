@@ -176,6 +176,13 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
+= Version 2.3dev6 =
+
+* Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are added / activated.
+* Added a notice error message if/when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
+* Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information.
+* Changed the default Open Graph Image Dimensions from 1200x630, cropped to 1200x1200, cropped.
+
 = Version 2.2 =
 
 Pinterest Rich Pins have adopted the Open Graph standard, except for the 'article:author' meta tag value. The Open Graph standard expects the 'article:author' to be a profile URL or profile ID, where-as Pinterest expects a person's name instead (and ignores any URL values). To correct this incompatibility, a new Pinterest publisher settings tab has been added to the SSO General settings page, with an option to include an author's name specifically for the Pinterest crawler. The default value includes the author's 'Display Name', but you may also choose the author's 'First and Last Names' or 'Nickname' instead.
@@ -212,11 +219,6 @@ WPSSO can recognize and parse standard object / iframe embed code, but some them
 * **Fixed** flushing of transient cache for sharing buttons on Post / Page updates.
 
 == Upgrade Notice ==
-
-= Version 2.3dev2 =
-
-* Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are added / activated.
-* Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information.
 
 = 2.2 =
 
