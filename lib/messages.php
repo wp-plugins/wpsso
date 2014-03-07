@@ -685,7 +685,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'upgrade-nag':
 					$text .= '<center><p style="font-size:1.15em;">Would you recommend '.WpssoConfig::get_config( 'full' ).'?</p>
 					<p style="font-size:1.05em;">Please take a moment to <a href="'.$this->p->cf['url']['review'].'" target="_blank">share your opinion,                     
-					and rate the plugin on wordpress.org</a>...</p><p class="sig">Thank you!</p></center>';
+					and rate the plugin on wordpress.org</a>...</p><p style="font-family:cursive; font-size:1.3em;">Thank you!</p></center>';
 					break;
 				case 'side-purchase':
 					$text = '<p>Developing and supporting the '.$this->p->cf['full'].' plugin takes most of my work days (and week-ends).
