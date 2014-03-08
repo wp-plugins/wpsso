@@ -176,12 +176,12 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
-= Version 2.3dev6 =
+= Version 2.3 =
 
 * Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are added / activated.
-* Added a notice error message if/when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
+* Added a notice error message if / when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
 * Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information (Pro version).
-* Changed the default Open Graph Image Dimensions from 1200x630, cropped to 1200x1200, cropped.
+* Changed the default Open Graph Image Dimensions from 1200x630 cropped to 1200x1200 cropped.
 
 = Version 2.2 =
 
@@ -219,6 +219,10 @@ WPSSO can recognize and parse standard object / iframe embed code, but some them
 * **Fixed** flushing of transient cache for sharing buttons on Post / Page updates.
 
 == Upgrade Notice ==
+
+= 2.3 =
+
+Added default options when adding a multisite blog, added check for wp_remote_get() errors, changed the default Open Graph image size to 1200x1200 cropped.
 
 = 2.2 =
 
