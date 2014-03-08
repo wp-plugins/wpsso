@@ -21,8 +21,8 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		public $slug = '';
 		public $base = '';
 		public $cron_hook = 'plugin_updates';
-		public $sched_hours = 12;
-		public $sched_name = 'every12hours';
+		public $sched_hours = 24;
+		public $sched_name = 'every24hours';
 		public $option_name = '';
 		public $update_timestamp = '';
 	
@@ -37,8 +37,8 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			$this->slug = $this->p->cf['slug'];				// nextgen-facebook
 			$this->base = constant( $this->p->cf['uca'].'_PLUGINBASE' );	// nextgen-facebook/nextgen-facebook.php
 			$this->cron_hook = 'plugin_updates-'.$this->slug;		// plugin_updates-nextgen-facebook
-			$this->sched_hours = $this->p->cf['update_hours'];		// 12
-			$this->sched_name = 'every'.$this->sched_hours.'hours';		// every12hours
+			$this->sched_hours = $this->p->cf['update_hours'];		// 24
+			$this->sched_name = 'every'.$this->sched_hours.'hours';		// every24hours
 			$this->option_name = 'external_updates-'.$this->slug;		// external_updates-nextgen-facebook
 			$this->install_hooks();
 		}

@@ -21,7 +21,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'menu' => 'SSO',		// menu item label
 			'full' => 'WPSSO',		// full plugin name
 			'full_pro' => 'WPSSO Pro',
-			'update_hours' => 12,		// check for pro updates
+			'update_hours' => 24,		// check for pro updates
 			'cache' => array(
 				'file' => true,
 				'object' => true,
