@@ -149,11 +149,13 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			if ( empty( $def_opts ) || ! is_array( $def_opts ) )
 				return $opts;
 
+			/*
 			// unset options that no longer exist
 			foreach ( $opts as $key => $val )
 				// if the key isn't in the default options, then remove it
 				if ( ! empty( $key ) && ! array_key_exists( $key, $def_opts ) )
 					unset( $opts[$key] );
+			*/
 
 			// add missing options and sanitize values
 			foreach ( $def_opts as $key => $def_val ) {

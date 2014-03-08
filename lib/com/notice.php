@@ -71,6 +71,7 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 		}
 
 		public function admin_notices() {
+			$all_nag_msgs = '';
 			foreach ( array( 'nag', 'err', 'inf' ) as $type ) {
 				$user_id = get_current_user_id();	// since wp 3.0
 				$msg_opt = $this->p->cf['lca'].'_notices_'.$type;
@@ -92,13 +93,9 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 							.sucom-update-nag {
 								display:block;
 								line-height:1.4em;
-								color:#333;
-								background:#eeeeff;
-								background-image: -webkit-gradient(linear, left bottom, left top, color-stop(7%, #eeeeff), color-stop(77%, #ddddff));
-								background-image: -webkit-linear-gradient(bottom, #eeeeff 7%, #ddddff 77%);
-								background-image:    -moz-linear-gradient(bottom, #eeeeff 7%, #ddddff 77%);
-								background-image:      -o-linear-gradient(bottom, #eeeeff 7%, #ddddff 77%);
-								background-image: linear-gradient(to top, #eeeeff 7%, #ddddff 77%);
+								background-image: url("'.constant( $this->p->cf['uca'].'_URLPATH' ).'images/background.jpg");
+								background-position:top;
+								background-size:cover;
 								border:1px dashed #ccc;
 								padding:10px 40px 10px 40px;
 								margin-top:0;
@@ -120,7 +117,7 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 						if ( ! empty( $msg ) )
 							switch ( $type ) {
 							case 'nag' :
-								echo '<div class="update-nag sucom-update-nag">', $msg, '</div>', "\n";
+								$all_nag_msgs .= $msg;
 								break;
 							case 'err' :
 								echo '<div class="error"><div style="float:left;"><p style="white-space:nowrap;"><b>', 
@@ -134,6 +131,8 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 					}
 				}
 			}
+			if ( ! empty( $all_nag_msgs ) )
+				echo '<div class="update-nag sucom-update-nag">', $all_nag_msgs, '</div>', "\n";
 		}
 	}
 }
