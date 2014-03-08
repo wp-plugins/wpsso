@@ -88,7 +88,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '260',
+				'version' => '265',
 				'defaults' => array(
 					'meta_desc_len' => 156,
 					'link_author_field' => '',	// default value set by WpssoOptions::get_defaults()
