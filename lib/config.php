@@ -21,7 +21,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'menu' => 'SSO',		// menu item label
 			'full' => 'WPSSO',		// full plugin name
 			'full_pro' => 'WPSSO Pro',
-			'update_hours' => 12,		// check for pro updates
+			'update_hours' => 24,		// check for pro updates
 			'cache' => array(
 				'file' => true,
 				'object' => true,
@@ -88,7 +88,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '260',
+				'version' => '265',
 				'defaults' => array(
 					'meta_desc_len' => 156,
 					'link_author_field' => '',	// default value set by WpssoOptions::get_defaults()
@@ -273,8 +273,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'gplus' => 'gp',
 					'twitter' => 'twitter',
 					'linkedin' => 'linkedin',
-					'managewp' => 'managewp',
 					'pinterest' => 'pin',
+					'reddit' => 'reddit',
+					'managewp' => 'managewp',
 					'stumbleupon' => 'stumble',
 					'tumblr' => 'tumblr',
 					'youtube' => 'yt',

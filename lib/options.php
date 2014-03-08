@@ -23,41 +23,56 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 		}
 
 		public function get_site_defaults( $idx = '' ) {
-			$defs = apply_filters( $this->p->cf['lca'].'_get_site_defaults', $this->p->cf['opt']['site_defaults'] );
+			if ( ! isset( $this->p->cf['opt']['site_defaults']['options_filtered'] ) ||
+				$this->p->cf['opt']['site_defaults']['options_filtered'] === false ) {
+
+				$this->p->cf['opt']['site_defaults'] = apply_filters( 
+					$this->p->cf['lca'].'_get_site_defaults', 
+					$this->p->cf['opt']['site_defaults'] );
+				$this->p->cf['opt']['site_defaults']['options_filtered'] = true;
+				$this->p->cf['opt']['site_defaults']['options_version'] = $this->p->cf['opt']['version'];
+				$this->p->cf['opt']['site_defaults']['plugin_version'] = $this->p->cf['version'];
+			}
 			if ( ! empty( $idx ) ) {
 				if ( array_key_exists( $idx, $defs ) )
-					return $defs[$idx];
+					return $this->p->cf['opt']['site_defaults'][$idx];
 				else return false;
-			} else return $defs;
+			} else return $this->p->cf['opt']['site_defaults'];
 		}
 
 		public function get_defaults( $idx = '' ) {
+			if ( ! isset( $this->p->cf['opt']['defaults']['options_filtered'] ) ||
+				$this->p->cf['opt']['defaults']['options_filtered'] === false ) {
 
-			$this->p->cf['opt']['defaults'] = $this->p->util->push_add_to_options( $this->p->cf['opt']['defaults'], array( 'plugin' ) );
+				$this->p->cf['opt']['defaults'] = $this->p->util->push_add_to_options( $this->p->cf['opt']['defaults'], array( 'plugin' ) );
 
-			$this->p->cf['opt']['defaults']['link_author_field'] = empty( $this->p->options['plugin_cm_gp_name'] ) ? 
-				$this->p->cf['opt']['defaults']['plugin_cm_gp_name'] : $this->p->options['plugin_cm_gp_name'];
+				$this->p->cf['opt']['defaults']['link_author_field'] = empty( $this->p->options['plugin_cm_gp_name'] ) ? 
+					$this->p->cf['opt']['defaults']['plugin_cm_gp_name'] : $this->p->options['plugin_cm_gp_name'];
 
-			$this->p->cf['opt']['defaults']['og_author_field'] = empty( $this->p->options['plugin_cm_fb_name'] ) ? 
-				$this->p->cf['opt']['defaults']['plugin_cm_fb_name'] : $this->p->options['plugin_cm_fb_name'];
+				$this->p->cf['opt']['defaults']['og_author_field'] = empty( $this->p->options['plugin_cm_fb_name'] ) ? 
+					$this->p->cf['opt']['defaults']['plugin_cm_fb_name'] : $this->p->options['plugin_cm_fb_name'];
 
-			// add description meta tag if no known SEO plugin was detected
-			$this->p->cf['opt']['defaults']['inc_description'] = empty( $this->p->is_avail['seo']['*'] ) ? 1 : 0;
+				// add description meta tag if no known SEO plugin was detected
+				$this->p->cf['opt']['defaults']['inc_description'] = empty( $this->p->is_avail['seo']['*'] ) ? 1 : 0;
 
-			// check for default values from network admin settings
-			if ( is_multisite() && is_array( $this->p->site_options ) ) {
-				foreach ( $this->p->site_options as $key => $val ) {
-					if ( array_key_exists( $key, $this->p->cf['opt']['defaults'] ) && 
-						array_key_exists( $key.':use', $this->p->site_options ) ) {
-
-						if ( $this->p->site_options[$key.':use'] == 'default' )
-							$this->p->cf['opt']['defaults'][$key] = $this->p->site_options[$key];
+				// check for default values from network admin settings
+				if ( is_multisite() && is_array( $this->p->site_options ) ) {
+					foreach ( $this->p->site_options as $key => $val ) {
+						if ( array_key_exists( $key, $this->p->cf['opt']['defaults'] ) && 
+							array_key_exists( $key.':use', $this->p->site_options ) ) {
+	
+							if ( $this->p->site_options[$key.':use'] == 'default' )
+								$this->p->cf['opt']['defaults'][$key] = $this->p->site_options[$key];
+						}
 					}
 				}
+				$this->p->cf['opt']['defaults'] = apply_filters( 
+					$this->p->cf['lca'].'_get_defaults', 
+					$this->p->cf['opt']['defaults'] );
+				$this->p->cf['opt']['defaults']['options_filtered'] = true;
+				$this->p->cf['opt']['defaults']['options_version'] = $this->p->cf['opt']['version'];
+				$this->p->cf['opt']['defaults']['plugin_version'] = $this->p->cf['version'];
 			}
-
-			$this->p->cf['opt']['defaults'] = apply_filters( $this->p->cf['lca'].'_get_defaults', $this->p->cf['opt']['defaults'] );
-
 			if ( ! empty( $idx ) ) 
 				if ( array_key_exists( $idx, $this->p->cf['opt']['defaults'] ) )
 					return $this->p->cf['opt']['defaults'][$idx];
@@ -149,11 +164,13 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			if ( empty( $def_opts ) || ! is_array( $def_opts ) )
 				return $opts;
 
+			/*
 			// unset options that no longer exist
 			foreach ( $opts as $key => $val )
 				// if the key isn't in the default options, then remove it
 				if ( ! empty( $key ) && ! array_key_exists( $key, $def_opts ) )
 					unset( $opts[$key] );
+			*/
 
 			// add missing options and sanitize values
 			foreach ( $def_opts as $key => $def_val ) {

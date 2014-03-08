@@ -173,8 +173,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					return $this->p->addons['media']['ngg']->get_image_src( $pid, $size_name, $check_dupes );
 				else {
 					if ( is_admin() )
-						$this->p->notice->err( 'NextGEN Gallery support is not available - image id '.$pid.' ignored.' ); 
-					else $this->p->debug->log( 'ngg support is not available - image id '.$attr_value.' ignored' ); 
+						$this->p->notice->err( 'The NextGEN Gallery addon is not available: image id '.$pid.' ignored.' ); 
+					else $this->p->debug->log( 'ngg addon is not available: image id '.$attr_value.' ignored' ); 
 					return $ret_empty; 
 				}
 			} else {
