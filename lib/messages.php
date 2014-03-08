@@ -684,7 +684,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 				case 'upgrade-nag':
 					$text .= '<center><p style="font-size:1.15em;margin:5px 0;">Would you recommend '.WpssoConfig::get_config( 'full' ).'?</p>
-					<p style="font-size:1.05em;margin:5px 0;">Please take a moment to <a href="'.$this->p->cf['url']['review'].'" target="_blank">share your opinion,                     
+					<p style="font-size:1.05em;margin:5px 0;">Please take a moment to <a href="'.$this->p->cf['url']['review'].'" target="_blank">share your opinion
 					and rate the plugin on wordpress.org</a>...</p><p style="font-family:cursive;font-size:1.3em;margin:5px 0;">Thank you!</p></center>';
 					break;
 				case 'side-purchase':
