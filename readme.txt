@@ -182,6 +182,8 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 * Added a notice error message if / when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
 * Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information (Pro version).
 * Changed the default Open Graph Image Dimensions from 1200x630 cropped to 1200x1200 cropped.
+* Changed the update check schedule from every 12 hours to every 24 hours.
+* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 = Version 2.2 =
 
