@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve the appearance and ranking of WordPress Posts, Pages, and eCommerce Products in Google Search and Social Website shares
-Version: 2.3
+Version: 2.3.1
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -111,34 +111,6 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$this->notice = new SucomNotice( $this );
 			$this->util = new WpssoUtil( $this );
 			$this->opt = new WpssoOptions( $this );
-
-			/*
-			 * check and create defaults
-			 */
-			if ( is_multisite() && ( ! is_array( $this->site_options ) || empty( $this->site_options ) ) )
-				$this->site_options = $this->opt->get_site_defaults();
-
-			if ( $activate == true || ( 
-				! empty( $_GET['action'] ) && $_GET['action'] == 'activate-plugin' &&
-				! empty( $_GET['plugin'] ) && $_GET['plugin'] == WPSSO_PLUGINBASE ) ) {
-
-				$this->debug->log( 'plugin activation detected' );
-
-				if ( ! is_array( $this->options ) || empty( $this->options ) ||
-					( defined( 'WPSSO_RESET_ON_ACTIVATE' ) && WPSSO_RESET_ON_ACTIVATE ) ) {
-
-					$this->options = $this->opt->get_defaults();
-					delete_option( WPSSO_OPTIONS_NAME );
-					add_option( WPSSO_OPTIONS_NAME, $this->options, null, 'yes' );
-					$this->debug->log( 'default options have been added to the database' );
-				}
-				$this->debug->log( 'exiting early: init_plugin() to follow' );
-				return;	// no need to continue, init_plugin() will handle the rest
-			}
-
-			/*
-			 * remaining object classes
-			 */
 			$this->cache = new SucomCache( $this );			// object and file caching
 			$this->style = new SucomStyle( $this );			// admin styles
 			$this->script = new SucomScript( $this );		// admin jquery tooltips
@@ -164,6 +136,32 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			} else $this->pro = new WpssoAddonPro( $this );
 
 			do_action( $this->cf['lca'].'_init_addon' );
+
+			/*
+			 * check and create default options
+			 *
+			 * execute after all objects have been defines, so hooks into 'ngfb_get_defaults' are available
+			 */
+			if ( is_multisite() && ( ! is_array( $this->site_options ) || empty( $this->site_options ) ) )
+				$this->site_options = $this->opt->get_site_defaults();
+
+			if ( $activate == true || ( 
+				! empty( $_GET['action'] ) && $_GET['action'] == 'activate-plugin' &&
+				! empty( $_GET['plugin'] ) && $_GET['plugin'] == WPSSO_PLUGINBASE ) ) {
+
+				$this->debug->log( 'plugin activation detected' );
+
+				if ( ! is_array( $this->options ) || empty( $this->options ) ||
+					( defined( 'WPSSO_RESET_ON_ACTIVATE' ) && WPSSO_RESET_ON_ACTIVATE ) ) {
+
+					$this->options = $this->opt->get_defaults();
+					delete_option( WPSSO_OPTIONS_NAME );
+					add_option( WPSSO_OPTIONS_NAME, $this->options, null, 'yes' );
+					$this->debug->log( 'default options have been added to the database' );
+				}
+				$this->debug->log( 'exiting early: init_plugin() to follow' );
+				return;	// no need to continue, init_plugin() will handle the rest
+			}
 
 			/*
 			 * check and upgrade options if necessary
