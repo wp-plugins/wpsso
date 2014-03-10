@@ -88,8 +88,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '265',
+				'version' => '266',		// increment when changing default options
 				'defaults' => array(
+					'options_filtered' => false,
+					'options_version' => '',
 					'meta_desc_len' => 156,
 					'link_author_field' => '',	// default value set by WpssoOptions::get_defaults()
 					'link_def_author_id' => 0,
@@ -205,7 +207,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'inc_twitter:label3' => 1,
 					'inc_twitter:data4' => 1,
 					'inc_twitter:label4' => 1,
-					'options_version' => '',
 					'plugin_version' => '',
 					'plugin_tid' => '',
 					'plugin_preserve' => 0,
@@ -263,6 +264,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'wp_cm_yim_enabled' => 1,
 				),
 				'site_defaults' => array(
+					'options_filtered' => false,
 					'options_version' => '',
 					'plugin_version' => '',
 					'plugin_tid' => '',
@@ -440,7 +442,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					return true;
 				}
 			}
-			return false;
+			return $loaded;
 		}
 	}
 }
