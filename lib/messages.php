@@ -194,13 +194,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Image and Video' settings
 						 */
 						case 'tooltip-og_img_dimensions':
-							$text = 'The dimension of images used in the Open Graph / Rich Pin meta tags. The width and height must be 
-							greater than '.$this->p->cf['head']['min_img_dim'].'x'.$this->p->cf['head']['min_img_dim'].', 
-							and preferably smaller than 1500x1500
-							(the defaults is '.$this->p->opt->get_defaults( 'og_img_width' ).'x'.$this->p->opt->get_defaults( 'og_img_height' ).', '.
+							$text = 'The image dimensions used in the Open Graph / Rich Pin meta tags (defaults is '.
+							$this->p->opt->get_defaults( 'og_img_width' ).'x'.$this->p->opt->get_defaults( 'og_img_height' ).' '.
 							( $this->p->opt->get_defaults( 'og_img_crop' ) == 0 ? 'un' : '' ).'cropped). 
-							Facebook recommends an image size of 1200x630, 600x315 as a minimum, and will ignore any images smaller than 200x200.
-							Your original images in the WordPress Media Library and/or NextGEN Gallery should be larger than your chosen image dimensions.';
+							Facebook recommends 1200x630 cropped, and 600x315 as a minimum.
+							<strong>1200x1200 cropped provides the greatest comptibility with all social websites 
+							(Facebook, G+, Pinterest, etc.)</strong>. Note that original images in the WordPress Media Library and/or 
+							NextGEN Gallery must be larger than your chosen image dimensions.';
 							break;
 						case 'tooltip-og_def_img_id':
 							$text = 'The ID number and location of your default image (example: 123). The <em>Default Image ID</em> 

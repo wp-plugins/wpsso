@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.3.1',		// plugin version
+			'version' => '2.3.2',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -105,8 +105,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_site_description' => '',
 					'og_publisher_url' => '',
 					'og_art_section' => '',
-					'og_img_width' => 1200,
-					'og_img_height' => 1200,
+					'og_img_width' => 800,
+					'og_img_height' => 800,
 					'og_img_crop' => 1,
 					'og_img_max' => 1,
 					'og_vid_max' => 1,

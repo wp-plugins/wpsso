@@ -70,6 +70,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) )
 					if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
 						define( 'NGFB_META_TAGS_DISABLE', true );
+
+			do_action( $this->p->cf['lca'].'_init_check', $this->active_plugins );
 		}
 
 		public function get_active() {
