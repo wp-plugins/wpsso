@@ -203,18 +203,18 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							NextGEN Gallery must be larger than your chosen image dimensions.';
 							break;
 						case 'tooltip-og_def_img_id':
-							$text = 'The ID number and location of your default image (example: 123). The <em>Default Image ID</em> 
+							$text = 'The ID number and location of your default image (example: 123). The Default Image ID 
 							will be used as a fallback for Posts and Pages that do not have any images <em>featured</em>, 
-							<em>attached</em>, or in their content. The Image ID number for images in the 
+							<em>attached</em>, or &lt;img/&gt; HTML tags in their content. The Image ID number for images in the 
 							WordPress Media Library can be found in the URL when editing an image (post=123 in the URL, for example). 
 							The NextGEN Gallery Image IDs are easier to find -- it\'s the number in the first column when viewing a Gallery.';
 							break;
 						case 'tooltip-og_def_img_url':
-							$text = 'You can also specify a <em>Default Image URL</em> (including the http:// prefix) instead of choosing a 
-							<em>Default Image ID</em>. This allows you to use an image outside of a managed collection (WordPress Media Library or NextGEN Gallery). 
-							The image should be at least '.$this->p->cf['head']['min_img_dim'].'x'.$this->p->cf['head']['min_img_dim'].' or more in width and height. 
-							If both the <em>Default Image ID</em> and <em>Default Image URL</em> are defined, the <em>Default Image ID</em>
-							will take precedence.';
+							$text = 'You can enter a Default Image URL (including the http:// prefix) instead of choosing a 
+							Default Image ID (if a Default Image ID is specified, this field will be disabled).
+							In this way, you could use an image outside of a managed collection (WordPress Media Library or NextGEN Gallery). 
+							The image should be at least '.$this->p->cf['head']['min_img_dim'].'x'.$this->p->cf['head']['min_img_dim'].' 
+							or more in width and height (1200x1200 is recommended).';
 							break;
 						case 'tooltip-og_def_img_on_index':
 							$text = 'Check this option if you would like to use the default image on index webpages (<strong>non-static</strong> 
@@ -273,7 +273,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-og_page_title_tag':
 							$text = 'Add the title of the <em>Page</em> to the Open Graph / Rich Pin article tags and Hashtag list (default is unchecked). 
-							If the <em>Add Page Ancestor Tags</em> option is checked, all the titles of the ancestor Pages will be added as well. 
+							If the Add Page Ancestor Tags option is checked, all the titles of the ancestor Pages will be added as well. 
 							This option works well if the title of your Pages are short (one or two words) and subject-oriented.';
 							break;
 						case 'tooltip-og_page_parent_tags':
@@ -298,10 +298,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-og_author_field':
 							$text = 'Select a profile field to use in the \'article:author\' Open Graph / Rich Pin meta tag(s).
 							The preferred and default value is the author\'s Facebook URL (recommended setting). 
-							See the Publisher settings Google tab bellow for an <em>Author Link URL</em> option, which is used by Google Search.';
+							See the Publisher settings Google tab bellow for an Author Link URL option, which is used by Google Search.';
 							break;
 						case 'tooltip-og_author_fallback':
-							$text = 'If the <em>Author Profile URL</em> (and the <em>Author Link URL</em> in the Google Settings below) 
+							$text = 'If the Author Profile URL (and the Author Link URL in the Google Settings below) 
 							is not a valid URL, then '.$this->p->cf['full'].' can fallback to using the author index on this 
 							website (\''.trailingslashit( site_url() ).'author/username\' for example). 
 							Uncheck this option to disable the fallback feature (default is unchecked).';
@@ -311,23 +311,23 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							If you have several authors on your website, you should probably leave this option set to <em>[none]</em> (the default).';
 							break;
 						case 'tooltip-og_def_author_on_index':
-							$text = 'Check this option if you would like to force the <em>Default Author</em> on index webpages 
+							$text = 'Check this option if you would like to force the Default Author on index webpages 
 							(<strong>non-static</strong> homepage, archives, categories, author, etc.). If this option is checked, 
-							index webpages will be labeled as a an \'article\' with authorship attributed to the <em>Default Author</em>
-							(default is unchecked). If the <em>Default Author</em> is <em>[none]</em>, then the index webpages will be 
+							index webpages will be labeled as a an \'article\' with authorship attributed to the Default Author
+							(default is unchecked). If the Default Author is <em>[none]</em>, then the index webpages will be 
 							labeled as a \'website\'.';
 							break;
 						case 'tooltip-og_def_author_on_search':
-							$text = 'Check this option if you would like to force the <em>Default Author</em> on search result webpages as well.
+							$text = 'Check this option if you would like to force the Default Author on search result webpages as well.
 							If this option is checked, search results will be labeled as a an \'article\' with authorship
-							attributed to the <em>Default Author </em> (default is unchecked).';
+							attributed to the Default Author (default is unchecked).';
 							break;
 						case 'tooltip-og_publisher_url':
 							$text = 'The URL of your website\'s social page (usually a Facebook page). 
 							For example, the Publisher Page URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
 							is <a href="https://www.facebook.com/SurniaUlulaCom" target="_blank">https://www.facebook.com/SurniaUlulaCom</a>.
 							The Publisher Page URL will be included on <em>article</em> type webpages (not indexes).
-							See the Google Settings below for a <em>Publisher Link URL</em> for Google.';
+							See the Google Settings below for a Publisher Link URL for Google.';
 							break;
 						/*
 						 * 'Meta Tag List' settings
@@ -399,7 +399,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-plugin_ignore_small_img':
 							$text = $this->p->cf['full'].' will attempt to include images from the img html tags it finds in the content.
 							The img html tags must have a width and height attribute, and their size must be equal or larger than the 
-							<em>Image Dimensions</em> you\'ve entered on the General Settings page. 
+							Image Dimensions you\'ve entered on the General Settings page. 
 							Uncheck this option to include smaller images from the content, Media Library, etc.
 							<strong>Unchecking this option is not advised</strong> - 
 							images that are much too small for some social websites may be included in your meta tags.';
@@ -464,7 +464,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case ( strpos( $idx, 'tooltip-fb_' ) !== false ? true : false ):
 					switch ( $idx ) {
 						case 'tooltip-fb_admins':
-							$text = 'The <em>Facebook Admin(s)</em> user names are used by Facebook to allow access to 
+							$text = 'The Facebook Admin(s) user names are used by Facebook to allow access to 
 							<a href="https://developers.facebook.com/docs/insights/" target="_blank">Facebook Insight</a> data.
 							Note that these are <em>user</em> account names, not Facebook <em>page</em> names.
 							<p>Enter one or more Facebook user names, separated with commas. 
@@ -512,21 +512,21 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-google_def_author_id':
 							$text = 'A default author for webpages missing authorship information (for example, an index webpage without posts). 
 							If you have several authors on your website, you should probably leave this option set to <em>[none]</em> (the default).
-							This option is similar to the Open Graph / Rich Pin <em>Default Author</em>, except that it\'s applied to the Link meta tag instead.';
+							This option is similar to the Open Graph / Rich Pin Default Author, except that it\'s applied to the Link meta tag instead.';
 							break;
 						case 'tooltip-google_def_author_on_index':
-							$text = 'Check this option if you would like to force the <em>Default Author</em> on index webpages 
+							$text = 'Check this option if you would like to force the Default Author on index webpages 
 							(<strong>non-static</strong> homepage, archives, categories, author, etc.).';
 							break;
 						case 'tooltip-google_def_author_on_search':
-							$text = 'Check this option if you would like to force the <em>Default Author</em> on search result webpages as well.';
+							$text = 'Check this option if you would like to force the Default Author on search result webpages as well.';
 							break;
 						case 'tooltip-google_publisher_url':
 							$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ business page for your website</a>, 
 							you may use it\'s URL as the Publisher Link. 
 							For example, the Publisher Link URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
 							is <a href="https://plus.google.com/u/1/103457833348046432604/posts" target="_blank">https://plus.google.com/u/1/103457833348046432604/posts</a>.
-							The <em>Publisher Link URL</em> may take precedence over the <em>Author Link URL</em> in Google\'s search results.';
+							The Publisher Link URL may take precedence over the Author Link URL in Google\'s search results.';
 							break;
 						/*
 						 * Other settings
@@ -633,7 +633,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case ( strpos( $idx, 'tooltip-rp_' ) !== false ? true : false ):
 					switch ( $idx ) {
 						case 'tooltip-rp_author_name':
-							$text = 'Pinterest ignores Facebook-style <em>Author Profile URLs</em> in the \'article:author\'
+							$text = 'Pinterest ignores Facebook-style Author Profile URLs in the \'article:author\'
 							Open Graph / Rich Pin meta tags. An additional \'article:author\' meta tag may be included 
 							when the Pinterest crawler is detected. Select a User\'s Name Format to include for the Pinterest
 							crawler, or \'none\' to disable this feature (the default and recommended value is \'Display Name\').';
@@ -654,7 +654,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					$text = '<strong>You should not modify the contact field names unless you have a specific reason to do so.</strong>
 					As an example, to match the contact field name of a theme or other plugin, you might change \'gplus\' to \'googleplus\'.
 					If you change the Facebook or Google+ field names, please make sure to update the Open Graph 
-					<em>Author Profile URL</em> and Google <em>Author Link URL</em> options in the '.
+					Author Profile URL and Google Author Link URL options in the '.
 					$this->p->util->get_admin_url( 'general', 'General Settings' ).' as well.';
 					break;
 				case 'tooltip-wp-cm-field-name':
@@ -730,8 +730,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.
 					'.$this->p->cf['full'].' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags 
 					(along with the Twitter social sharing button).
-					<strong>You should not modify the <em>Contact Field Name</em> unless you have a very good reason to do so.</strong>
-					The <em>Profile Contact Label</em> on the other hand, is for <strong>display purposes only</strong>, and its text can be changed as you wish.
+					<strong>You should not modify the Contact Field Name unless you have a very good reason to do so.</strong>
+					The Profile Contact Label on the other hand, is for <strong>display purposes only</strong>, and its text can be changed as you wish.
 					Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying these
 					contact fields in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
 					target="_blank">get_the_author_meta()</a> for examples).</p>

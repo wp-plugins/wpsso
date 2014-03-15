@@ -51,10 +51,10 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 				$this->p->cf['opt']['defaults']['og_author_field'] = empty( $this->p->options['plugin_cm_fb_name'] ) ? 
 					$this->p->cf['opt']['defaults']['plugin_cm_fb_name'] : $this->p->options['plugin_cm_fb_name'];
-
+	
 				// add description meta tag if no known SEO plugin was detected
 				$this->p->cf['opt']['defaults']['inc_description'] = empty( $this->p->is_avail['seo']['*'] ) ? 1 : 0;
-
+	
 				// check for default values from network admin settings
 				if ( is_multisite() && is_array( $this->p->site_options ) ) {
 					foreach ( $this->p->site_options as $key => $val ) {
@@ -151,8 +151,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 							'\' and \''.$this->p->cf['opt']['defaults']['tc_prod_def_d2'].'\').' );
 					}
 				}
-				if ( $this->p->is_avail['aop'] === true && empty( $this->p->options['plugin_tid'] ) )
-					$this->p->notice->nag( $this->p->msgs->get( 'pro-activate-nag' ) );
+				if ( $this->p->is_avail['aop'] === true && 
+					empty( $this->p->options['plugin_tid'] ) )
+						$this->p->notice->nag( $this->p->msgs->get( 'pro-activate-nag' ) );
 			}
 			return $opts;
 		}
@@ -180,11 +181,23 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			}
 
 			/*
-			 * Adjust dependent options
-			 * All options (site and meta as well) are sanitized here, so use array_key_exists() on all tests
+			 * Adjust dependent options -- All options (site and meta as well) are sanitized here, 
+			 * so use array_key_exists() on all tests
 			 */
+			if ( array_key_exists( 'og_def_img_id', $opts ) &&
+				! empty( $opts['og_def_img_id'] ) ) {
+				$opts['og_def_img_url'] = '';
+				$opts['og_def_img_url:is'] = 'disabled';
+			}
+
 			if ( ! $this->p->check->is_aop() )
 				$opts['plugin_file_cache_hrs'] = 0;
+
+			if ( array_key_exists( 'plugin_google_api_key', $opts ) &&
+				empty( $opts['plugin_google_api_key'] ) ) {
+				$opts['plugin_google_shorten'] = 0;
+				$opts['plugin_google_shorten:is'] = 'disabled';
+			}
 
 			// og_desc_len must be at least 156 chars (defined in config)
 			if ( array_key_exists( 'og_desc_len', $opts ) && 
@@ -194,7 +207,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			if ( array_key_exists( 'plugin_tid', $opts ) ) {
 				if ( empty( $opts['plugin_tid'] ) )
 					delete_option( $this->p->cf['lca'].'_umsg' );
-				elseif ( $opts['plugin_tid'] !== $this->p->options['plugin_tid'] ) 
+				elseif ( $opts['plugin_tid'] !== $this->p->options['plugin_tid'] )
 					delete_option( $this->p->cf['lca'].'_utime' );
 			}
 			return $opts;
@@ -242,6 +255,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 		}
 
 		public function filter_option_type( $ret, $key ) {
+			if ( ! empty( $ret ) )
+				return $ret;
+
 			switch ( $key ) {
 				// twitter-style usernames (prepend with an at)
 				case 'tc_site':
@@ -284,7 +300,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					return 'imgdim';
 					break;
 
-				// must be texturized
+				// must be texturized 
 				case 'og_title_sep':
 					return 'textured';
 					break;
@@ -296,19 +312,18 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 				// text strings that can be blank
 				case 'og_art_section':
-				case 'fb_app_id':
 				case 'og_title':
 				case 'og_desc':
 				case 'og_site_name':
 				case 'og_site_description':
 				case 'meta_desc':
+				case 'fb_app_id':
 				case 'tc_desc':
 				case 'plugin_cf_vid_url':
 					return 'okblank';
 					break;
 
 				// options that cannot be blank
-				case ( preg_match( '/^(plugin|wp)_cm_[a-z]+_(name|label)$/', $key ) ? true : false ):
 				case 'link_author_field':
 				case 'og_img_id_pre': 
 				case 'og_def_img_id_pre': 
@@ -316,9 +331,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'rp_author_name':
 				case 'fb_lang': 
 				case 'plugin_tid:use':
+				case ( preg_match( '/^(plugin|wp)_cm_[a-z]+_(name|label)$/', $key ) ? true : false ):
 					return 'notblank';
 					break;
-
 			}
 			return $ret;
 		}
