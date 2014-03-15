@@ -180,7 +180,7 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 * Changed the default Open Graph 'Image Dimensions' from 1200x1200 cropped to 800x800 cropped.
 * Disabled the Default Image URL option when a Default Image ID has been specified.
-* Updated a few help messages in lib/messages.php
+* Updated a few help messages in lib/messages.php.
 
 = Version 2.3.1 =
 
@@ -229,6 +229,10 @@ WPSSO can recognize and parse standard object / iframe embed code, but some them
 * **Fixed** flushing of transient cache for sharing buttons on Post / Page updates.
 
 == Upgrade Notice ==
+
+= 2.3.2 =
+
+Changed default Open Graph 'Image Dimensions' from 1200x1200 to 800x800 cropped, disabled Default Image URL when a Default Image ID has been specified, updated a few help messages.
 
 = 2.3.1 =
 
