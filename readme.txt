@@ -179,6 +179,8 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 = Version 2.3.2 =
 
 * Changed the default Open Graph 'Image Dimensions' from 1200x1200 cropped to 800x800 cropped.
+* Disabled the Default Image URL option when a Default Image ID has been specified.
+* Updated a few help messages in lib/messages.php
 
 = Version 2.3.1 =
 
