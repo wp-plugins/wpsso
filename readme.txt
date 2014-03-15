@@ -8,7 +8,7 @@ Requires At Least: 3.0
 Tested Up To: 3.8.1
 Stable Tag: 2.3.2
 
-Improves your Click-Through-Rate (CTR) on Social Websites and Google Search
+Improves ranking and Click-Through-Rate (CTR) on Social Websites and Google Search &mdash; FAST and Full Featured
 
 == Description ==
 
