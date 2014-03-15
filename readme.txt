@@ -142,7 +142,8 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a>
 		<div>A list of available PHP constants for the WPSSO plugin.</div></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a>
+		<div>A few debugging and problem solving techniques for the WPSSO plugin for WordPress.</div></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/">Integration Notes</a>
 	<ul>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a></li>
@@ -184,49 +185,12 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 = Version 2.3.1 =
 
-This version includes two small improvements that are worth mentioning; The default Open Graph Image Dimensions used to be 1200x630px, in consideration of Facebook’s documented preferences, but this was less than ideal for G+ and Pinterest, for example. The new Image Dimension defaults are 1200x1200px, which should be a good compromise — make sure your original images are large enough. If not, you can reduce the Image Dimension value, but your images may not feature as prominently when posted to facebook. The class method used to generate default option values has also been improved by calling the option filter just once. And if you’re on a multisite, the plugin will now generate a default set of option values when you create a new blog.
-
 * Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are created and/or activated.
 * Added a notice error message if / when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
 * Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information (Pro version).
 * Changed the default Open Graph Image Dimensions from 1200x630 cropped to 1200x1200 cropped.
 * Changed the update check schedule from every 12 hours to every 24 hours.
 * Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
-
-= Version 2.2 =
-
-Pinterest Rich Pins have adopted the Open Graph standard, except for the 'article:author' meta tag value. The Open Graph standard expects the 'article:author' to be a profile URL or profile ID, where-as Pinterest expects a person's name instead (and ignores any URL values). To correct this incompatibility, a new Pinterest publisher settings tab has been added to the SSO General settings page, with an option to include an author's name specifically for the Pinterest crawler. The default value includes the author's 'Display Name', but you may also choose the author's 'First and Last Names' or 'Nickname' instead.
-
-If you use a full-page caching front-end or plugin (Quick Cache, etc.), see the [Performance Tuning](http://surniaulula.com/codex/plugins/wpsso/notes/performance-tuning/) notes about caches and Pinterest meta tags.
-
-* Added a new Pinterest publisher settings tab, along with a new 'Author Name Format' option.
-* Changed the 'wpsso_load_lib' action to a filter (returning true or false).
-* Improved the 'wpsso_load_lib' filter for compatibility with future addon plugins.
-* Added support for NextGEN Gallery's 'href_link' image attribute to determine the correct image ID (Pro version).
-* Added an 'wpsso_get_content_img_data_ngg_pid' filter to fetch image information for NGG image attributes (Pro version).
-
-= Version 2.1.3 =
-
-* Added support for YouTube's old video embed code.
-
-= Version 2.1.2 =
-
-* **Fixed** checks for the `WPSSO_META_TAGS_DISABLE` and `WPSSO_OPEN_GRAPH_DISABLE` constants.
-
-= Version 2.1.1 =
-
-* **Fixed** missing check for the 'plugin_filter_lang' option to enable/disable the WP Locale Language addon (Pro version).
-* Improved error message reporting for permission issues accessing the cache folder.
-
-= Version 2.1 =
-
-WPSSO can recognize and parse standard object / iframe embed code, but some themes and plugins offer a custom field for video URLs, which is then used to create custom / non-standard embed code. Version 2.1 includes a new 'Video URL Custom Field' option on the Advanced settings page, under the Custom Settings tab, where you can enter the name of such a custom field. If found, the video URL will be used to retrieve information on that video, just like if it was found embedded in the content. Typically, the custom field name will start with an underscore, and the default 'Video URL Custom Field' name is "_format_video_embed" (which may or may not be supported by your theme, or may be known under a different name).
-
-* Added an 'Video URL Custom Field' option to include a video URL from a theme's custom field (Pro version).
-* Added new 'wpsso_post_cache_transients' and 'wpsso_post_cache_objects' filters, called when a Post or Page is updated.
-* Moved the Vimeo and Yahoo APIs to Pro version addons.
-* **Fixed** false positive on the Custom Post Meta addon status (GPL version).
-* **Fixed** flushing of transient cache for sharing buttons on Post / Page updates.
 
 == Upgrade Notice ==
 
@@ -237,24 +201,4 @@ Changed default Open Graph 'Image Dimensions' from 1200x1200 to 800x800 cropped,
 = 2.3.1 =
 
 Added default options when creating a new multisite blog, added check for wp_remote_get() errors, changed the default Open Graph image size to 1200x1200 cropped.
-
-= 2.2 =
-
-Added Pinterest-specific option for 'article:author' meta tag (see Changelog), and small code improvements for NextGEN Gallery.
-
-= 2.1.3 =
-
-Added support for YouTube's old embed code.
-
-= 2.1.2 =
-
-Fixed checks for a few constants that disable features.
-
-= 2.1.1 =
-
-Fixed missing check for the 'plugin_filter_lang' option to enable/disable the WP Locale Language addon (Pro version).
-
-= 2.1 =
-
-Added a new 'Video URL Custom Field' option, fixed transient cache expiration on Post / Page updates.
 
