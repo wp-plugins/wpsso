@@ -176,6 +176,12 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
+= Version 2.3.2 =
+
+* Changed the default Open Graph 'Image Dimensions' from 1200x1200 cropped to 800x800 cropped.
+* Disabled the Default Image URL option when a Default Image ID has been specified.
+* Updated a few help messages in lib/messages.php
+
 = Version 2.3.1 =
 
 This version includes two small improvements that are worth mentioning; The default Open Graph Image Dimensions used to be 1200x630px, in consideration of Facebook’s documented preferences, but this was less than ideal for G+ and Pinterest, for example. The new Image Dimension defaults are 1200x1200px, which should be a good compromise — make sure your original images are large enough. If not, you can reduce the Image Dimension value, but your images may not feature as prominently when posted to facebook. The class method used to generate default option values has also been improved by calling the option filter just once. And if you’re on a multisite, the plugin will now generate a default set of option values when you create a new blog.
