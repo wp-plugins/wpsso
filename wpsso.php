@@ -6,7 +6,7 @@ Author: Jean-Sebastien Morisset
 Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
-Description: Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Search — A Fast and Full Featured Plugin! 
+Description: Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Search - A Fast and Full Featured Plugin! 
 Version: 2.3.2
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
