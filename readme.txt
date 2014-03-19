@@ -14,10 +14,6 @@ Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Sear
 
 WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head section of WordPress webpages for **improved Google Search results / ranking and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and other social websites**.
 
-<blockquote>
-WPSSO is a fork (child) of the excellent <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have many of the same great features, but WPSSO strives to be a little smaller and faster by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO is often preferred for websites that already have a set of social sharing buttons.
-</blockquote>
-
 = Summary of Features =
 
 * Adds Facebook / Google+ / LinkedIn / etc. Open Graph, Pinterest Rich Pin, and Twitter Card meta tags.
@@ -34,6 +30,10 @@ WPSSO is a fork (child) of the excellent <a href="http://wordpress.org/plugins/n
   * bbPress
   * BuddyPress
   * Slideshare, Vimeo, Wistia, Youtube APIs
+
+<blockquote>
+<p>WPSSO is a fork (child) of the excellent <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have many of the same great features, but WPSSO strives to be a little smaller and faster by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO is often preferred for websites that already have a set of social sharing buttons.</p>
+</blockquote>
 
 = Complete Meta Tags =
 
