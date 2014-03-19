@@ -204,25 +204,52 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-og_def_img_id':
 							$text = 'The ID number and location of your default image (example: 123). The Default Image ID 
-							will be used as a fallback for Posts and Pages that do not have any images <em>featured</em>, 
+							will be used as a <strong>fallback for Posts and Pages that do not have any images</strong> <em>featured</em>, 
 							<em>attached</em>, or &lt;img/&gt; HTML tags in their content. The Image ID number for images in the 
 							WordPress Media Library can be found in the URL when editing an image (post=123 in the URL, for example). 
 							The NextGEN Gallery Image IDs are easier to find -- it\'s the number in the first column when viewing a Gallery.';
 							break;
 						case 'tooltip-og_def_img_url':
 							$text = 'You can enter a Default Image URL (including the http:// prefix) instead of choosing a 
-							Default Image ID (if a Default Image ID is specified, this field will be disabled).
-							In this way, you could use an image outside of a managed collection (WordPress Media Library or NextGEN Gallery). 
+							Default Image ID (if a Default Image ID is specified, the Default Image URL option will be disabled).
+							Using an image URL allow you to use an image outside of a managed collection (WordPress Media Library or NextGEN Gallery). 
 							The image should be at least '.$this->p->cf['head']['min_img_dim'].'x'.$this->p->cf['head']['min_img_dim'].' 
-							or more in width and height (1200x1200 is recommended).';
+							or more in width and height (1200x1200px is recommended).
+							The Default Image ID or URL is used as a <strong>fallback for Posts and Pages that do not have any images</strong> 
+							<em>featured</em>, <em>attached</em>, or &lt;img/&gt; HTML tags in their content.';
 							break;
 						case 'tooltip-og_def_img_on_index':
-							$text = 'Check this option if you would like to use the default image on index webpages (<strong>non-static</strong> 
-							homepage, archives, categories, author, etc.). If you leave this unchecked, '.$this->p->cf['full'].' will attempt to 
-							use image(s) from the first entry on the webpage (default is checked).';
+							$text = 'Check this option to use the default image on index webpages (<strong>non-static</strong> homepage, archives, categories). 
+							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, then 
+							<strong>no image will be included in the meta tags</strong>.
+							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							will use image(s) from the first entry on the webpage (default is checked).';
 							break;
 						case 'tooltip-og_def_img_on_search':
-							$text = 'Check this option if you would like to use the default image on search result webpages as well (default is checked).';
+							$text = 'Check this option to use the default image on search results.
+							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, then 
+							<strong>no image will be included in the meta tags</strong>. 
+							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							will use image(s) returned in the search results (default is unchecked).';
+							break;
+						case 'tooltip-og_def_vid_url':
+							$text = 'The Default Video URL is used as a <strong>fallback value for Posts and Pages 
+							that do not have any videos</strong> in their content. Do not specify a Default Video URL
+							<strong>unless you want to include video information in all your Posts and Pages</strong>.';
+							break;
+						case 'tooltip-og_def_vid_on_index':
+							$text = 'Check this option to use the default video on index webpages (<strong>non-static</strong> homepage, archives, categories). 
+							If this option is <em>checked</em>, but a Default Video URL has not been defined, then 
+							<strong>no video will be included in the meta tags</strong> (this is usually preferred).
+							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							will use video(s) from the first entry on the webpage (default is checked).';
+							break;
+						case 'tooltip-og_def_vid_on_search':
+							$text = 'Check this option to use the default video on search results.
+							If this option is <em>checked</em>, but a Default Video URL has not been defined, then 
+							<strong>no video will be included in the meta tags</strong>.
+							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							will use video(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_ngg_tags':
 							$text = 'If the <em>featured</em> image in a Post or Page is from a NextGEN Gallery, then add that image\'s tags to the 

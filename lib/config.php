@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.3.2',		// plugin version
+			'version' => '2.4rc1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -88,7 +88,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '266',		// increment when changing default options
+				'version' => '267',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -115,7 +115,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_def_img_id' => '',
 					'og_def_img_url' => '',
 					'og_def_img_on_index' => 1,
-					'og_def_img_on_search' => 1,
+					'og_def_img_on_search' => 0,
+					'og_def_vid_url' => '',
+					'og_def_vid_on_index' => 1,
+					'og_def_vid_on_search' => 0,
 					'og_def_author_id' => 0,
 					'og_def_author_on_index' => 0,
 					'og_def_author_on_search' => 0,

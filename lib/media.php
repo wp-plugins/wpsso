@@ -78,16 +78,20 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 		public function get_post_images( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true ) {
 			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'post_id' => $post_id, 'check_dupes' => $check_dupes ) );
 			$og_ret = array();
+
 			$num_remains = $this->num_remains( $og_ret, $num );
 			$og_ret = array_merge( $og_ret, $this->get_meta_image( $num_remains, $size_name, $post_id, $check_dupes ) );
+
 			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
 				$num_remains = $this->num_remains( $og_ret, $num );
 				$og_ret = array_merge( $og_ret, $this->get_featured( $num_remains, $size_name, $post_id, $check_dupes ) );
 			}
+
 			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
 				$num_remains = $this->num_remains( $og_ret, $num );
 				$og_ret = array_merge( $og_ret, $this->get_attached_images( $num_remains, $size_name, $post_id, $check_dupes ) );
 			}
+
 			return $og_ret;
 		}
 
@@ -328,14 +332,15 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 			if ( $pid > 0 ) {
 				$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
+				$this->p->debug->log( 'using default img pid = '.$pid );
 				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'],
 					$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
 			}
 
 			if ( empty( $og_image['og:image'] ) && ! empty( $url ) ) {
+				$this->p->debug->log( 'using default img url = '.$url );
 				$og_image = array();	// clear all array values
 				$og_image['og:image'] = $url;
-				$this->p->debug->log( 'using default img url = '.$og_image['og:image'] );
 			}
 
 			if ( ! empty( $og_image['og:image'] ) && 
@@ -492,18 +497,35 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 		public function get_meta_video( $num = 0, $post_id, $check_dupes = true ) {
 			$this->p->debug->args( array( 'num' => $num, 'post_id' => $post_id, 'check_dupes' => $check_dupes ) );
 			$og_ret = array();
+			if ( empty( $post_id ) || 
+				! isset( $this->p->addons['util']['postmeta'] ) )
+					return $og_ret;
 
-			if ( empty( $post_id ) || ! isset( $this->p->addons['util']['postmeta'] ) )
-				return $og_ret;
+			$url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_vid_url' );
+			if ( ! empty( $url ) && 
+				( $check_dupes == false || $this->p->util->is_uniq_url( $url ) ) ) {
 
-			$video_url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_vid_url' );
+				$this->p->debug->log( 'found custom meta video url = '.$url );
+				$og_video = $this->get_video_info( $url );
+				if ( empty( $og_video ) )	// fallback to the original custom video URL
+					$og_video['og:video'] = $url;
+				if ( $this->p->util->push_max( $og_ret, $og_video, $num ) ) 
+					return $og_ret;
+			}
+			return $og_ret;
+		}
 
-			if ( ! empty( $video_url ) && 
-				( $check_dupes == false || $this->p->util->is_uniq_url( $video_url ) ) ) {
-				$this->p->debug->log( 'found custom meta video url = "'.$video_url.'"' );
-				$og_video = $this->get_video_info( $video_url );
-				if ( empty( $og_video ) )	// fallback to custom video URL
-					$og_video['og:video'] = $video_url;
+		public function get_default_video( $num = 0, $check_dupes = true ) {
+			$this->p->debug->args( array( 'num' => $num, 'check_dupes' => $check_dupes ) );
+			$og_ret = array();
+			$url = empty( $this->p->options['og_def_vid_url'] ) ? '' : $this->p->options['og_def_vid_url'];
+			if ( ! empty( $url ) && 
+				( $check_dupes == false || $this->p->util->is_uniq_url( $url ) ) ) {
+
+				$this->p->debug->log( 'using default video url = '.$url );
+				$og_video = $this->get_video_info( $url );
+				if ( empty( $og_video ) )	// fallback to the original custom video URL
+					$og_video['og:video'] = $url;
 				if ( $this->p->util->push_max( $og_ret, $og_video, $num ) ) 
 					return $og_ret;
 			}

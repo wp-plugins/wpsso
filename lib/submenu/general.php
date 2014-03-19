@@ -31,8 +31,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 		public function show_metabox_opengraph() {
 			$metabox = 'og';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
-				'media' => 'Image and Video',
-				'general' => 'Title and Description',
+				'webpage' => 'Title and Description',
+				'images' => 'Images',
+				'videos' => 'Videos',
 				'author' => 'Authorship' ) );
 			$rows = array();
 			foreach ( $tabs as $key => $title )
@@ -63,49 +64,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 				$user_ids[$user->ID] = $user->display_name;
 			$user_ids[0] = 'none';
 			switch ( $metabox.'-'.$key ) {
-				case 'og-media':
-					$img_id_pre = array( 'wp' => 'Media Library' );
-					if ( $this->p->is_avail['media']['ngg'] == true ) 
-						$img_id_pre['ngg'] = 'NextGEN Gallery';
-
-					$rows[] = $this->p->util->th( 'Image Dimensions', 'highlight', 'og_img_dimensions' ).
-					'<td>Width '.$this->form->get_input( 'og_img_width', 'short' ).' x '.
-					'Height '.$this->form->get_input( 'og_img_height', 'short' ).' &nbsp; '.
-					'Crop '.$this->form->get_checkbox( 'og_img_crop' ).'</td>';
-	
-					$rows[] = $this->p->util->th( 'Default Image ID', 'highlight', 'og_def_img_id' ).
-					'<td>'.$this->form->get_input( 'og_def_img_id', 'short' ).' in the '.
-					$this->form->get_select( 'og_def_img_id_pre', $img_id_pre ).'</td>';
-	
-					$rows[] = $this->p->util->th( 'Default Image URL', null, 'og_def_img_url' ).
-					'<td>'.$this->form->get_input( 'og_def_img_url', 'wide' ).'</td>';
-	
-					$rows[] = $this->p->util->th( 'Default Image on Indexes', null, 'og_def_img_on_index' ).
-					'<td>'.$this->form->get_checkbox( 'og_def_img_on_index' ).'</td>';
-	
-					$rows[] = $this->p->util->th( 'Default Image on Search Results', null, 'og_def_img_on_search' ).
-					'<td>'.$this->form->get_checkbox( 'og_def_img_on_search' ).'</td>';
-	
-					if ( $this->p->is_avail['media']['ngg'] === true ) {
-						$rows[] = $this->p->util->th( 'Add Tags from NGG Featured Image', null, 'og_ngg_tags' ).
-						( isset( $this->p->addons['media']['ngg'] ) ?
-							'<td>'.$this->form->get_checkbox( 'og_ngg_tags' ).'</td>' :
-							'<td class="blank">'.$this->form->get_fake_checkbox( 'og_ngg_tags' ).'</td>' );
-					} else $rows[] = $this->form->get_hidden( 'og_ngg_tags' );
-	
-					$rows[] = $this->p->util->th( 'Maximum Images', null, 'og_img_max' ).
-					'<td>'.$this->form->get_select( 'og_img_max', 
-						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
-	
-					$rows[] = $this->p->util->th( 'Maximum Videos', null, 'og_vid_max' ).
-					'<td>'.$this->form->get_select( 'og_vid_max', 
-						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
-	
-					$rows[] = $this->p->util->th( 'Use HTTPS for Video APIs', null, 'og_vid_https' ).
-					'<td>'.$this->form->get_checkbox( 'og_vid_https' ).'</td>';
-					break;
-
-				case 'og-general':
+				case 'og-webpage':
 					$rows[] = $this->p->util->th( 'Website Topic', 'highlight', 'og_art_section' ).
 					'<td>'.$this->form->get_select( 'og_art_section', $this->p->util->get_topics() ).'</td>';
 
@@ -136,6 +95,59 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 	
 					$rows[] = $this->p->util->th( 'Content Begins at First Paragraph', null, 'og_desc_strip' ).
 					'<td>'.$this->form->get_checkbox( 'og_desc_strip' ).'</td>';
+					break;
+
+				case 'og-images':
+					$img_id_pre = array( 'wp' => 'Media Library' );
+					if ( $this->p->is_avail['media']['ngg'] == true ) 
+						$img_id_pre['ngg'] = 'NextGEN Gallery';
+
+					$rows[] = $this->p->util->th( 'Image Dimensions', 'highlight', 'og_img_dimensions' ).
+					'<td>Width '.$this->form->get_input( 'og_img_width', 'short' ).' x '.
+					'Height '.$this->form->get_input( 'og_img_height', 'short' ).' &nbsp; '.
+					'Crop '.$this->form->get_checkbox( 'og_img_crop' ).'</td>';
+	
+					$rows[] = $this->p->util->th( 'Default Image ID', 'highlight', 'og_def_img_id' ).
+					'<td>'.$this->form->get_input( 'og_def_img_id', 'short' ).' in the '.
+					$this->form->get_select( 'og_def_img_id_pre', $img_id_pre ).'</td>';
+	
+					$rows[] = $this->p->util->th( 'Default Image URL', null, 'og_def_img_url' ).
+					'<td>'.$this->form->get_input( 'og_def_img_url', 'wide' ).'</td>';
+	
+					$rows[] = $this->p->util->th( 'Use Default Image on Indexes', null, 'og_def_img_on_index' ).
+					'<td>'.$this->form->get_checkbox( 'og_def_img_on_index' ).'</td>';
+	
+					$rows[] = $this->p->util->th( 'Use Default Image on Search Results', null, 'og_def_img_on_search' ).
+					'<td>'.$this->form->get_checkbox( 'og_def_img_on_search' ).'</td>';
+	
+					if ( $this->p->is_avail['media']['ngg'] === true ) {
+						$rows[] = $this->p->util->th( 'Add Tags from NGG Featured Image', null, 'og_ngg_tags' ).
+						( isset( $this->p->addons['media']['ngg'] ) ?
+							'<td>'.$this->form->get_checkbox( 'og_ngg_tags' ).'</td>' :
+							'<td class="blank">'.$this->form->get_fake_checkbox( 'og_ngg_tags' ).'</td>' );
+					} else $rows[] = $this->form->get_hidden( 'og_ngg_tags' );
+	
+					$rows[] = $this->p->util->th( 'Maximum Images', null, 'og_img_max' ).
+					'<td>'.$this->form->get_select( 'og_img_max', 
+						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
+					break;
+
+				case 'og-videos':
+					$rows[] = $this->p->util->th( 'Default Video URL', null, 'og_def_vid_url' ).
+					'<td>'.$this->form->get_input( 'og_def_vid_url', 'wide' ).'</td>';
+	
+					$rows[] = $this->p->util->th( 'Use Default Video on Indexes', null, 'og_def_vid_on_index' ).
+					'<td>'.$this->form->get_checkbox( 'og_def_vid_on_index' ).'</td>';
+	
+					$rows[] = $this->p->util->th( 'Use Default Video on Search Results', null, 'og_def_vid_on_search' ).
+					'<td>'.$this->form->get_checkbox( 'og_def_vid_on_search' ).'</td>';
+	
+					$rows[] = $this->p->util->th( 'Maximum Videos', null, 'og_vid_max' ).
+					'<td>'.$this->form->get_select( 'og_vid_max', 
+						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
+	
+					$rows[] = $this->p->util->th( 'Use HTTPS for Video APIs', null, 'og_vid_https' ).
+					'<td>'.$this->form->get_checkbox( 'og_vid_https' ).'</td>';
 					break;
 
 				case 'og-author':

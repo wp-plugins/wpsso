@@ -205,7 +205,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			// run filter before saving to transient cache
 			$og = apply_filters( $this->p->cf['lca'].'_og', $og, $use_post );
 
-			if ( $this->p->is_avail['cache']['transient'] ) {
+			if ( ! empty( $this->p->is_avail['cache']['transient'] ) ) {
 				set_transient( $cache_id, $og, $this->p->cache->object_expire );
 				$this->p->debug->log( $cache_type.': og array saved to transient '.$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
 			}
@@ -214,15 +214,25 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 		public function get_all_videos( $num = 0, $post_id, $check_dupes = true ) {
 			$this->p->debug->args( array( 'num' => $num, 'post_id' => $post_id, 'check_dupes' => $check_dupes ) );
-
 			$og_ret = array();
+
+			// check for index-type webpages with og_def_vid_on_index enabled to force a default video
+			if ( ( ! empty( $this->p->options['og_def_vid_on_index'] ) && ( is_home() || is_archive() ) && ! is_author() ) ||
+				( ! empty( $this->p->options['og_def_vid_on_search'] ) && is_search() ) ) {
+
+				$num_remains = $this->p->media->num_remains( $og_ret, $num );
+				$og_ret = array_merge( $og_ret, 
+					$this->p->media->get_default_video( $num_remains, $check_dupes ) );
+				return $og_ret;	// stop here and return the video array
+			}
+
 			if ( ! empty( $post_id ) ) {	// post id should be > 0 for post meta
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
 				$og_ret = array_merge( $og_ret, 
 					$this->p->media->get_meta_video( $num_remains, $post_id, $check_dupes ) );
 			}
 
-			// if we haven't reached the limit of images yet, keep going
+			// if we haven't reached the limit of videos yet, keep going
 			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
 				$og_ret = array_merge( $og_ret, 
@@ -234,8 +244,8 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 		public function get_all_images( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true ) {
 			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'post_id' => $post_id, 'check_dupes' => $check_dupes ) );
-
 			$og_ret = array();
+
 			// check for an attachment page
 			if ( ! empty( $post_id ) && is_attachment( $post_id ) ) {	// post id should be > 0 for attachment pages
 				$og_image = array();
@@ -252,7 +262,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				return $og_ret;
 			}
 
-			// check for attachment page without an image, or index-type pages with og_def_img_on_index enabled to force a default image
+			// check for index-type webpages with og_def_img_on_index enabled to force a default image
 			if ( ( ! empty( $this->p->options['og_def_img_on_index'] ) && ( is_home() || is_archive() ) && ! is_author() ) ||
 				( ! empty( $this->p->options['og_def_img_on_search'] ) && is_search() ) ) {
 
@@ -309,4 +319,5 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 		}
 	}
 }
+
 ?>

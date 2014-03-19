@@ -94,6 +94,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					return $title;
 				}
 				$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+
 				if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
 					$title = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_title' );
 					if ( ! empty( $title ) )

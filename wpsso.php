@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Search - A Fast and Full Featured Plugin! 
-Version: 2.3.2
+Version: 2.4rc1
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -75,14 +75,16 @@ if ( ! class_exists( 'Wpsso' ) ) {
 
 			load_plugin_textdomain( WPSSO_TEXTDOM, false, dirname( WPSSO_PLUGINBASE ).'/languages/' );
 			$this->set_objects();
-			if ( $this->debug->is_on() === true ) {
-				foreach ( array( 'wp_head', 'wp_footer' ) as $action ) {
-					foreach ( array( 1, 9999 ) as $prio )
+			if ( $this->debug->is_on() === true )
+				foreach ( array( 'wp_head', 'wp_footer', 'admin_head', 'admin_footer' ) as $action )
+					foreach ( array( 1, 9999 ) as $prio ) {
 						add_action( $action, create_function( '', 
-							"echo '<!-- ".$this->cf['lca']." add_action( \'$action\' ) priority $prio test = PASSED -->\n';" ), $prio );
-				}
-			}
+							'echo "<!-- '.$this->cf['lca'].' add_action( \''.$action.'\' ) priority '.$prio.' test = PASSED -->\n";' ), $prio );
+						add_action( $action, array( &$this, 'show_debug_html' ), $prio );
+					}
 		}
+
+		public function show_debug_html() { $this->debug->show_html(); }
 
 		// called by activate_plugin() as well
 		public function set_objects( $activate = false ) {
