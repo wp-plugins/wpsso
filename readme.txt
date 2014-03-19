@@ -14,7 +14,9 @@ Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Sear
 
 WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head section of WordPress webpages for **improved Google Search results / ranking and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and other social websites**.
 
-WPSSO is a fork of the excellent [NGFB Open Graph+](http://wordpress.org/plugins/nextgen-facebook/) plugin &ndash; they have many of the same great features, but WPSSO strives to be a little smaller and faster by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening).
+<blockquote>
+WPSSO is a fork (child) of the excellent <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have many of the same great features, but WPSSO strives to be a little smaller and faster by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO is often preferred for websites that already have a set of social sharing buttons.
+</blockquote>
 
 = Summary of Features =
 
@@ -181,7 +183,7 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
-= Version 2.4rc1 =
+= Version 2.4rc2 =
 
 * Split the 'Image and Video' General settings tab into an 'Images' and 'Videos' settings tab.
 * Added the 'Default Video URL', 'Use Default Video on Indexes', and 'Use Default Video on Search Results' options.
@@ -191,6 +193,7 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 * Changed update hook from 'site_transient_update_plugins' to 'pre_set_site_transient_update_plugins'.
 * Added debugging messages to `SucomUpdate::inject_update()` method.
 * Added hooks into 'wp_head', 'wp_footer', 'admin_head', and 'admin_footer' to print the debug log.
+* Changed the image resize crop value from 1/0 to true/false.
 
 = Version 2.3.2 =
 
