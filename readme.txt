@@ -144,14 +144,18 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 		<div>A list of available PHP constants for the WPSSO plugin.</div></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a>
 		<div>A few debugging and problem solving techniques for the WPSSO plugin for WordPress.</div></li>
+	<li><a href="http://surniaulula.com/codex/plugins/nextgen-facebook/filters/">Filters</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/">Integration Notes</a>
 	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a>
+			<div>BuddyPress specific integration issues, and a few possible techniques to overcome them.</div></li>
 	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/multisite-network-support/">Multisite / Network Support</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/performance-tuning/">Performance Tuning</a>
 		<div>WPSSO is highly optimized, but you may still improve page load times by a few milliseconds by considering the following suggestions.</div></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/resources-and-contacts/">Resources and Contacts</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/nextgen-facebook/notes/working-with-image-attachments/">Working with Image Attachments</a>
+		<div>A selection of plugins available to manage WordPress image attachments.</div></li>
 </ul>
 
 == Screenshots ==
@@ -176,6 +180,16 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 20. Screenshot 18 : An Example Twitter 'Product' Card from a WooCommerce Product Page
 
 == Changelog ==
+
+= Version 2.4rc1 =
+
+* Split the 'Image and Video' General settings tab into an 'Images' and 'Videos' settings tab.
+* Added the 'Default Video URL', 'Use Default Video on Indexes', and 'Use Default Video on Search Results' options.
+* Added check for 'og_def_img_on_index' and 'og_def_img_on_search' options for Twitter Card meta tags.
+* Added a `WpssoMedia::get_default_video()` method.
+* Added an 'wpsso_the_object' filter to modify the return of post objects.
+* Changed update hook from 'site_transient_update_plugins' to 'pre_set_site_transient_update_plugins'.
+* Added debugging messages to `SucomUpdate::inject_update()` method.
 
 = Version 2.3.2 =
 
