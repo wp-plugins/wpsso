@@ -146,7 +146,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 	
 						$this->p->notice->inf( 'An eCommerce plugin has been detected. Please update Twitter\'s
 							<em>Product Card Default 2nd Attribute</em> option values on the '.
-							$this->p->util->get_admin_url( 'general', 'General settings page' ). ' 
+							$this->p->util->get_admin_url( 'general#sucom-tab_pub_twitter', 'General settings page' ). ' 
 							(to something else than \''.$this->p->cf['opt']['defaults']['tc_prod_def_l2'].
 							'\' and \''.$this->p->cf['opt']['defaults']['tc_prod_def_d2'].'\').' );
 					}

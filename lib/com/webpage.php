@@ -152,7 +152,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$term = get_queried_object();
 					$title = $term->name;
 					$cat_parents = get_category_parents( $term->term_id, false, ' '.$this->p->options['og_title_sep'].' ', false );
-
 					if ( is_wp_error( $cat_parents ) )
 						$this->p->debug->log( 'get_category_parents() returned WP_Error object.' );
 					else {

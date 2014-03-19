@@ -55,15 +55,19 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			global $_wp_additional_image_sizes;
 			if ( is_integer( $size_name ) ) return;
 			if ( is_array( $size_name ) ) return;
+
 			if ( isset( $_wp_additional_image_sizes[$size_name]['width'] ) )
 				$width = intval( $_wp_additional_image_sizes[$size_name]['width'] );
 			else $width = get_option( $size_name.'_size_w' );
+
 			if ( isset( $_wp_additional_image_sizes[$size_name]['height'] ) )
 				$height = intval( $_wp_additional_image_sizes[$size_name]['height'] );
 			else $height = get_option( $size_name.'_size_h' );
+
 			if ( isset( $_wp_additional_image_sizes[$size_name]['crop'] ) )
 				$crop = intval( $_wp_additional_image_sizes[$size_name]['crop'] );
-			else $crop = get_option( $size_name.'_crop' ) == 1 ? 1 : 0;
+			else $crop = get_option( $size_name.'_crop' ) ? true : false;
+
 			return array( 'width' => $width, 'height' => $height, 'crop' => $crop );
 		}
 

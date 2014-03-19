@@ -181,7 +181,7 @@ Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Fac
 
 == Changelog ==
 
-= Version 2.4rc1 =
+= Version 2.4rc2 =
 
 * Split the 'Image and Video' General settings tab into an 'Images' and 'Videos' settings tab.
 * Added the 'Default Video URL', 'Use Default Video on Indexes', and 'Use Default Video on Search Results' options.
