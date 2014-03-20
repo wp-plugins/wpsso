@@ -32,7 +32,7 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
   * Slideshare, Vimeo, Wistia, Youtube APIs
 
 <blockquote>
-<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
+<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.007 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
 </blockquote>
 
 = Complete Meta Tags =
