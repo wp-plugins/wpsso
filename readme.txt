@@ -185,7 +185,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 = Version 2.4rc3 =
 
-* Split the existing 'Image and Video' General settings tab into seperate 'Images' and 'Videos' settings tabs.
+* Split the existing 'Image and Video' General settings tab into separate 'Images' and 'Videos' settings tabs.
 * Added 'Default Video URL', 'Use Default Video on Indexes', and 'Use Default Video on Search Results' options.
 * Added a missing check for 'og_def_img_on_index' and 'og_def_img_on_search' options for Twitter Card meta tags (Pro version).
 * Added a new `WpssoMedia::get_default_video()` method.
