@@ -153,7 +153,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 							$attach_ids[] = $attach->ID;
 					}
 					rsort( $attach_ids, SORT_NUMERIC ); 
-					$this->p->debug->log( 'found '.count( $attach_ids ).' attached images for post id '.$post_id );
+					$this->p->debug->log( 'found '.count( $attach_ids ).' attached images for post_id '.$post_id );
 					$attach_ids = apply_filters( $this->p->cf['lca'].'_attached_image_ids', $attach_ids, $post_id );
 					foreach ( $attach_ids as $pid ) {
 						$og_image = array();

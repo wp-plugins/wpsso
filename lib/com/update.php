@@ -14,6 +14,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 	
 		private $p;
 		private static $umsg = null;
+		private static $option_name = '';
 	
 		public $json_url = '';
 		public $json_expire = 3600;	// cache retrieved update json for 1 hour
@@ -23,7 +24,6 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		public $cron_hook = 'plugin_updates';
 		public $sched_hours = 24;
 		public $sched_name = 'every24hours';
-		public $option_name = '';
 		public $update_timestamp = '';
 	
 		public function __construct( &$plugin ) {
@@ -39,7 +39,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			$this->cron_hook = 'plugin_updates-'.$this->slug;			// plugin_updates-nextgen-facebook
 			$this->sched_hours = $this->p->cf['update_hours'];			// 24
 			$this->sched_name = 'every'.$this->sched_hours.'hours';			// every24hours
-			$this->option_name = 'external_updates-'.$this->slug;			// external_updates-nextgen-facebook
+			self::$option_name = 'external_updates-'.$this->slug;			// external_updates-nextgen-facebook
 			$this->install_hooks();
 		}
 
@@ -50,6 +50,19 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 					self::$umsg = false;
 			}
 			return self::$umsg;
+		}
+
+		public static function get_option( $idx = '' ) {
+			if ( ! empty( self::$option_name ) ) {
+				$option_data = get_site_option( self::$option_name );
+				if ( ! empty( $idx ) ) {
+					if ( is_object( $option_data->update ) &&
+						isset( $option_data->update->$idx ) )
+							return $option_data->update->$idx;
+					else return false;
+				} else return $option_data;
+			}
+			return false;
 		}
 
 		public function install_hooks() {
@@ -92,9 +105,9 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			if ( isset( $updates->response[$this->plugin_base] ) )
 				unset( $updates->response[$this->plugin_base] );	// nextgen-facebook/nextgen-facebook.php
 
-			$option_data = get_site_option( $this->option_name );
+			$option_data = get_site_option( self::$option_name );
 			if ( empty( $option_data ) )
-				$this->p->debug->log( $this->option_name.' option value is empty' );
+				$this->p->debug->log( self::$option_name.' option value is empty' );
 			elseif ( ! is_object( $option_data->update ) )
 				$this->p->debug->log( '$option_data->update is not an object' );
 			elseif ( empty( $option_data->update ) )
@@ -117,7 +130,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 	
 		public function check_for_updates() {
-			$option_data = get_site_option( $this->option_name );
+			$option_data = get_site_option( self::$option_name );
 			if ( empty( $option_data ) ) {
 				$option_data = new StdClass;
 				$option_data->lastCheck = 0;
@@ -126,11 +139,11 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			}
 			$option_data->lastCheck = time();
 			$option_data->checkedVersion = $this->get_installed_version();
-			$option_data->update = $this->get_update();
-			update_site_option( $this->option_name, $option_data );
+			$option_data->update = $this->get_update_data();
+			update_site_option( self::$option_name, $option_data );
 		}
 	
-		public function get_update() {
+		public function get_update_data() {
 			$plugin_data = $this->get_json();
 			if ( empty( $plugin_data ) ) 
 				return null;
@@ -315,15 +328,17 @@ if ( ! class_exists( 'SucomPluginUpdate' ) ) {
 			else return null;
 		}
 	
-		public static function from_plugin_data($data){
+		public static function from_plugin_data( $data ){
 			$plugin_update = new SucomPluginUpdate();
 			$fields = array(
 				'id', 
 				'slug', 
+				'qty_used', 
 				'version', 
 				'homepage', 
 				'download_url', 
-				'upgrade_notice');
+				'upgrade_notice'
+			);
 			foreach( $fields as $field )
 				$plugin_update->$field = $data->$field;
 			return $plugin_update;
@@ -334,10 +349,12 @@ if ( ! class_exists( 'SucomPluginUpdate' ) ) {
 			$fields = array(
 				'id' => 'id',
 				'slug' => 'slug',
+				'qty_used' => 'qty_used',
 				'new_version' => 'version',
 				'url' => 'homepage',
 				'package' => 'download_url',
-				'upgrade_notice' => 'upgrade_notice');
+				'upgrade_notice' => 'upgrade_notice'
+			);
 			foreach ( $fields as $new_field => $old_field ) {
 				if ( isset( $this->$old_field ) )
 					$data->$new_field = $this->$old_field;

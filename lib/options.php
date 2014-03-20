@@ -305,7 +305,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					return 'textured';
 					break;
 
-				// must be alpha-numeric uppercase
+				// must be alpha-numeric uppercase (hyphens and periods allowed as well)
 				case 'plugin_tid':
 					return 'anucase';
 					break;

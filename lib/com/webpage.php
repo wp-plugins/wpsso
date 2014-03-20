@@ -125,7 +125,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				if ( is_singular() || $use_post !== false ) {
 	
 					$this->p->debug->log( 'use_post = '.( $use_post ? 'true' : 'false' ) );
-					$this->p->debug->log( 'is_singular() = '.( is_singular() ? 'true' : 'false' ) );
 
 					if ( is_singular() ) {
 						$title = wp_title( $this->p->options['og_title_sep'], false, 'right' );
@@ -266,7 +265,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 							if ( $filter_removed )
 								$this->p->sharing->add_buttons_filter( 'get_the_excerpt' );
 						}
-					} 
+					} else $this->p->debug->log( 'no post_excerpt for post_id '.$post_id );
 
 					// if there's no excerpt, then fallback to the content
 					if ( empty( $desc ) )

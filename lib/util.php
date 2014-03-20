@@ -178,9 +178,10 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			$option_type = apply_filters( $this->p->cf['lca'].'_option_type', false, $key );
 			$reset_msg = __( 'resetting the option to its default value.', WPSSO_TEXTDOM );
 			$charset = get_bloginfo( 'charset' );
+
+			// pre-filter most values to remove html
 			switch ( $option_type ) {
-				// don't remove / encode html tags from css, js, etc.
-				case 'code':
+				case 'code':	// don't remove / encode html tags from css, js, etc.
 					break;
 				default:
 					$val = stripslashes( $val );
@@ -188,27 +189,32 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					$val = htmlentities( $val, ENT_QUOTES, $charset, false );	// double_encode = false
 					break;
 			}
+
 			switch ( $option_type ) {
 				case 'atname':	// twitter-style usernames (prepend with an at)
 					$val = substr( preg_replace( '/[^a-z0-9_]/', '', strtolower( $val ) ), 0, 15 );
 					if ( ! empty( $val ) ) 
 						$val = '@'.$val;
 					break;
+
 				case 'urlbase':	// strip leading urls off facebook usernames
 					$val = preg_replace( '/(http|https):\/\/[^\/]*?\//', '', $val );
 					break;
+
 				case 'url':	// must be a url
 					if ( ! empty( $val ) && strpos( $val, '://' ) === false ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' must be a URL'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
+
 				case 'numeric':	// must be numeric (blank or zero is ok)
 					if ( ! empty( $val ) && ! is_numeric( $val ) ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' must be numeric'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
+
 				case 'posnum':	// integer options that must be 1 or more (not zero)
 				case 'imgdim':	// image dimensions, subject to minimum value (typically, at least 200px)
 					if ( $option_type == 'imgdim' )
@@ -220,19 +226,23 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 						$val = $def_val;
 					}
 					break;
+
 				case 'textured':	// must be texturized 
 					$val = trim( wptexturize( ' '.$val.' ' ) );
 					break;
-				case 'anucase':	// must be alpha-numeric uppercase
-					if ( ! empty( $val ) && preg_match( '/[^A-Z0-9]/', $val ) ) {
+
+				case 'anucase':	// must be alpha-numeric uppercase (hyphens and periods allowed as well)
+					if ( ! empty( $val ) && preg_match( '/[^A-Z0-9\-\.]/', $val ) ) {
 						$this->p->notice->inf( '\''.$val.'\' is not an accepted value for option \''.$key.'\''.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
+
 				case 'okblank':	// text strings that can be blank
 					if ( ! empty( $val ) )
 						$val = trim( $val );
 					break;
+
 				case 'code':	// options that cannot be blank
 				case 'notblank':
 					if ( empty( $val ) ) {
@@ -240,6 +250,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 						$val = $def_val;
 					}
 					break;
+
 				case 'checkbox':	// everything else is a 1/0 checkbox option 
 				default:
 					// make sure the default option is also 1/0, just in case
