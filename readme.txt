@@ -183,33 +183,44 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
-= Version 2.4rc3 =
+= Version 2.4rc4 =
 
-* Split the existing 'Image and Video' General settings tab into separate 'Images' and 'Videos' settings tabs.
-* Added 'Default Video URL', 'Use Default Video on Indexes', and 'Use Default Video on Search Results' options.
-* Added a missing check for 'og_def_img_on_index' and 'og_def_img_on_search' options for Twitter Card meta tags (Pro version).
-* Added a new `WpssoMedia::get_default_video()` method.
-* Added a new 'wpsso_the_object' filter to modify the return of post objects.
-* Changed the update hook from 'site_transient_update_plugins' to 'pre_set_site_transient_update_plugins' (Pro version).
-* Added debugging messages to the `SucomUpdate::inject_update()` method (Pro version).
-* Added hooks into 'wp_head', 'wp_footer', 'admin_head', and 'admin_footer' to print the debug log.
-* Added reporting on the number of licenses assigned (Pro version).
-* Changed the image resize crop value from 1/0 to true/false.
+* Bugfixes
+  * Fixed missing check for 'og_def_img_on_index' and 'og_def_img_on_search' options for Twitter Card meta tags (Pro version).
+
+* Enhancement
+  * Split the existing 'Image and Video' General settings tab into separate 'Images' and 'Videos' settings tabs.
+  * Added 'Default Video URL', 'Use Default Video on Indexes', and 'Use Default Video on Search Results' options.
+  * Added a new `WpssoMedia::get_default_video()` method.
+  * Added a new 'wpsso_the_object' filter to modify the return of post objects.
+  * Changed the update hook from 'site_transient_update_plugins' to 'pre_set_site_transient_update_plugins' (Pro version).
+  * Added debugging messages to the `SucomUpdate::inject_update()` method (Pro version).
+  * Added hooks into 'wp_head', 'wp_footer', 'admin_head', and 'admin_footer' to print the debug log.
+  * Added reporting on the number of licenses assigned (Pro version).
+  * Changed the image resize crop value from 1/0 to true/false.
 
 = Version 2.3.2 =
 
-* Changed the default Open Graph 'Image Dimensions' from 1200x1200 cropped to 800x800 cropped.
-* Disabled the Default Image URL option when a Default Image ID has been specified.
-* Updated a few help messages in lib/messages.php.
+* Bugfixes
+  * *None*
+
+* Enhancement
+  * Changed the default Open Graph 'Image Dimensions' from 1200x1200 cropped to 800x800 cropped.
+  * Disabled the Default Image URL option when a Default Image ID has been specified.
+  * Updated a few help messages in lib/messages.php.
 
 = Version 2.3.1 =
 
-* Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are created and/or activated.
-* Added a notice error message if / when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
-* Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information (Pro version).
-* Changed the default Open Graph Image Dimensions from 1200x630 cropped to 1200x1200 cropped.
-* Changed the update check schedule from every 12 hours to every 24 hours.
-* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
+* Bugfixes
+  * *None*
+
+* Enhancement
+  * Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are created and/or activated.
+  * Added a notice error message if / when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
+  * Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information (Pro version).
+  * Changed the default Open Graph Image Dimensions from 1200x630 cropped to 1200x1200 cropped.
+  * Changed the update check schedule from every 12 hours to every 24 hours.
+  * Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 == Upgrade Notice ==
 
