@@ -55,7 +55,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 		// called from Tumblr, Pinterest, and Twitter classes
 		public function get_caption( $type = 'title', $length = 200, $use_post = true, $use_cache = true, $add_hashtags = true ) {
-
+			$this->p->debug->args( array( 'type' => $type, 'length' => $length, 'use_post' => $use_post, 'use_cache' => $use_cache, 'add_hashtags' => $add_hashtags ) );
 			switch( strtolower( $type ) ) {
 				case 'title' :
 					$caption = $this->get_title( $length, '...', 
@@ -81,7 +81,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 		}
 
 		public function get_title( $textlen = 70, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = false ) {
-
+			$this->p->debug->args( array( 'textlen' => $textlen, 'trailing' => $trailing, 'use_post' => $use_post, 'use_cache' => $use_cache, 'add_hashtags' => $add_hashtags ) );
 			$title = false;
 			$parent_title = '';
 			$paged_suffix = '';
@@ -94,7 +94,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					return $title;
 				}
 				$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
-
 				if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
 					$title = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_title' );
 					if ( ! empty( $title ) )
@@ -123,9 +122,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			if ( empty( $title ) ) {
 				// $obj and $post_id are defined above, with the same test, so we should be good
 				if ( is_singular() || $use_post !== false ) {
-	
-					$this->p->debug->log( 'use_post = '.( $use_post ? 'true' : 'false' ) );
-
 					if ( is_singular() ) {
 						$title = wp_title( $this->p->options['og_title_sep'], false, 'right' );
 						$this->p->debug->log( 'wp_title() = "'.$title.'"' );

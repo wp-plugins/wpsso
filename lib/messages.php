@@ -33,7 +33,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case ( strpos( $idx, 'tooltip-side-' ) !== false ? true : false ):
 					switch ( $idx ) {
 						case 'tooltip-side-debug-messages':
-							$text = 'Debug code is loaded when the \'Add Hidden Debug Info\' option is checked, or one of the available 
+							$text = 'Debug code is loaded when the \'Add Hidden Debug HTML Messages\' option is checked, or one of the available 
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">debugging 
 							constants</a> is defined.';
 							break;

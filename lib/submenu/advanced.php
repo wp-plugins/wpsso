@@ -78,7 +78,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					$rows[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_preserve' ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Add Hidden Debug Info', null, 'plugin_debug' ).
+					$rows[] = $this->p->util->th( 'Add Hidden Debug HTML Messages', null, 'plugin_debug' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_debug' ).'</td>';
 
 					// check if multisite option forces the plugin_tid value
