@@ -183,7 +183,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
-= Version 2.4rc4 =
+= Version 2.4.0 =
 
 * Bugfixes
 	* Fixed missing check for 'og_def_img_on_index' and 'og_def_img_on_search' options for Twitter Card meta tags (Pro version).
@@ -221,6 +221,10 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 	* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 == Upgrade Notice ==
+
+= 2.4.0 =
+
+Fixed the 'twitter:title' value in admin interface, fixed missing Default Image use for Twitter Cards, added new default video options, added license use status (Pro version).
 
 = 2.3.2 =
 

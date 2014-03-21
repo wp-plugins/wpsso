@@ -735,15 +735,15 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Notes</a>,
 						and / or <a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new Support Ticket</a>.</p>';
 					else
-						$text .= '<p><strong>Need help with the GPL version?</strong>
+						$text .= '<p><strong>Need help with the Free (GPL) version?</strong>
 						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">FAQs</a>, 
 						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Notes</a>, 
 						and / or visit the <a href="'.$this->p->cf['url']['support'].'" target="_blank">Support Forum</a> on WordPress.org.</p>';
 					break;
 				case 'tid-info':
 					$text = '<p>'.$this->p->cf['full'].' must be active in order to check for Pro version updates.
-					If you de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the GPL version. 
-					Always update the Pro version when it is active. If you accidentally re-install the GPL version, your Authentication ID
+					If you de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the Free (GPL) version. 
+					Always update the Pro version when it is active. If you accidentally re-install the Free (GPL) version, your Authentication ID
 					will always allow you to upgrade back to the Pro version easily.</p>';
 					break;
 				case 'taglist-info':
