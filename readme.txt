@@ -49,7 +49,7 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 
 = 3rd Party Integration =
 
-Aside from the additional support for Twitter Cards, the main difference between the GPL and Pro versions is the integration of 3rd party plugins and services.
+Aside from the additional support for Twitter Cards, the main difference between the Free (GPL) and Pro versions is the integration of 3rd party plugins and services.
 
 **Images and Videos**
 
@@ -122,7 +122,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/w3c-says-there-is-no-attribute-property/">W3C says “there is no attribute ‘property’”</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/what-about-google-search-and-google-plus/">What about Google Search and Google Plus?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/what-features-of-nextgen-gallery-are-supported/">What features of NextGEN Gallery are supported?</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/what-is-the-difference-between-the-gpl-and-pro-versions/">What is the difference between the GPL and Pro versions?</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/what-is-the-difference-between-the-gpl-and-pro-versions/">What is the difference between the Free (GPL) and Pro versions?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/where-do-i-start/">Where do I start?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-arent-pins-from-my-website-posting-rich/">Why aren’t Pins from my website posting Rich?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-do-my-facebook-shares-have-small-images/">Why do my Facebook shares have small images?</a></li>
@@ -140,7 +140,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/">About Pro Addons</a>
 	<ul>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a>
-			<div>An example showing the difference in meta tags between the WPSSO GPL version, which does not support video APIs or Twitter Cards, and the Pro version which does.</div></li>
+			<div>An example showing the difference in meta tags between the WPSSO Free (GPL) version, which does not support video APIs or Twitter Cards, and the Pro version which does.</div></li>
 	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a>
 		<div>A list of available PHP constants for the WPSSO plugin.</div></li>
@@ -188,7 +188,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 * Bugfixes
 	* Fixed missing check for 'og_def_img_on_index' and 'og_def_img_on_search' options for Twitter Card meta tags (Pro version).
 	* Fixed an incorrect 'twitter:title' value when in the admin interface, by adding a missing `$use_post` argument to `SucomWebpage::get_title()` in the Twitter Card addon (Pro version).
-* Enhancement
+* Enhancements
 	* Split the existing 'Image and Video' General settings tab into separate 'Images' and 'Videos' settings tabs.
 	* Added 'Default Video URL', 'Use Default Video on Indexes', and 'Use Default Video on Search Results' options.
 	* Added a new `WpssoMedia::get_default_video()` method.
@@ -203,7 +203,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 * Bugfixes
 	* *None*
-* Enhancement
+* Enhancements
 	* Changed the default Open Graph 'Image Dimensions' from 1200x1200 cropped to 800x800 cropped.
 	* Disabled the Default Image URL option when a Default Image ID has been specified.
 	* Updated a few help messages in lib/messages.php.
@@ -212,7 +212,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 * Bugfixes
 	* *None*
-* Enhancement
+* Enhancements
 	* Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are created and/or activated.
 	* Added a notice error message if / when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
 	* Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information (Pro version).
