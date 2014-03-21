@@ -20,16 +20,16 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 * Configurable image sizes and content descriptions for different contexts.
 * Configurable contact fields for author meta tags and user profile pages.
 * Integrates with 3rd party plugins and services for additional image, video, product, and content information:
-  * NextGEN Gallery
-  * JetPack Photon
-  * WordPress SEO by Yoast
-  * All in One SEO Pack
-  * WooCommerce
-  * MarketPress
-  * WP e-Commerce
-  * bbPress
-  * BuddyPress
-  * Slideshare, Vimeo, Wistia, Youtube APIs
+	* NextGEN Gallery
+	* JetPack Photon
+	* WordPress SEO by Yoast
+	* All in One SEO Pack
+	* WooCommerce
+	* MarketPress
+	* WP e-Commerce
+	* bbPress
+	* BuddyPress
+	* Slideshare, Vimeo, Wistia, Youtube APIs
 
 <blockquote>
 <p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.007 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
@@ -186,41 +186,42 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 = Version 2.4rc4 =
 
 * Bugfixes
-  * Fixed missing check for 'og_def_img_on_index' and 'og_def_img_on_search' options for Twitter Card meta tags (Pro version).
+	* Fixed missing check for 'og_def_img_on_index' and 'og_def_img_on_search' options for Twitter Card meta tags (Pro version).
+	* Fixed an incorrect 'twitter:title' value when in the admin interface, by adding a missing `$use_post` argument to `SucomWebpage::get_title()` in the Twitter Card addon (Pro version).
 
 * Enhancement
-  * Split the existing 'Image and Video' General settings tab into separate 'Images' and 'Videos' settings tabs.
-  * Added 'Default Video URL', 'Use Default Video on Indexes', and 'Use Default Video on Search Results' options.
-  * Added a new `WpssoMedia::get_default_video()` method.
-  * Added a new 'wpsso_the_object' filter to modify the return of post objects.
-  * Changed the update hook from 'site_transient_update_plugins' to 'pre_set_site_transient_update_plugins' (Pro version).
-  * Added debugging messages to the `SucomUpdate::inject_update()` method (Pro version).
-  * Added hooks into 'wp_head', 'wp_footer', 'admin_head', and 'admin_footer' to print the debug log.
-  * Added reporting on the number of licenses assigned (Pro version).
-  * Changed the image resize crop value from 1/0 to true/false.
+	* Split the existing 'Image and Video' General settings tab into separate 'Images' and 'Videos' settings tabs.
+	* Added 'Default Video URL', 'Use Default Video on Indexes', and 'Use Default Video on Search Results' options.
+	* Added a new `WpssoMedia::get_default_video()` method.
+	* Added a new 'wpsso_the_object' filter to modify the return of post objects.
+	* Changed the update hook from 'site_transient_update_plugins' to 'pre_set_site_transient_update_plugins' (Pro version).
+	* Added debugging messages to the `SucomUpdate::inject_update()` method (Pro version).
+	* Added hooks into 'wp_head', 'wp_footer', 'admin_head', and 'admin_footer' to print the debug log.
+	* Added reporting on the number of licenses assigned (Pro version).
+	* Changed the image resize crop value from 1/0 to true/false.
 
 = Version 2.3.2 =
 
 * Bugfixes
-  * *None*
+	* *None*
 
 * Enhancement
-  * Changed the default Open Graph 'Image Dimensions' from 1200x1200 cropped to 800x800 cropped.
-  * Disabled the Default Image URL option when a Default Image ID has been specified.
-  * Updated a few help messages in lib/messages.php.
+	* Changed the default Open Graph 'Image Dimensions' from 1200x1200 cropped to 800x800 cropped.
+	* Disabled the Default Image URL option when a Default Image ID has been specified.
+	* Updated a few help messages in lib/messages.php.
 
 = Version 2.3.1 =
 
 * Bugfixes
-  * *None*
+	* *None*
 
 * Enhancement
-  * Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are created and/or activated.
-  * Added a notice error message if / when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
-  * Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information (Pro version).
-  * Changed the default Open Graph Image Dimensions from 1200x630 cropped to 1200x1200 cropped.
-  * Changed the update check schedule from every 12 hours to every 24 hours.
-  * Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
+	* Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are created and/or activated.
+	* Added a notice error message if / when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
+	* Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information (Pro version).
+	* Changed the default Open Graph Image Dimensions from 1200x630 cropped to 1200x1200 cropped.
+	* Changed the update check schedule from every 12 hours to every 24 hours.
+	* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 == Upgrade Notice ==
 
