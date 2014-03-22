@@ -32,7 +32,7 @@ if ( ! class_exists( 'WpssoSitesubmenuNetwork' ) && class_exists( 'WpssoAdmin' )
 
 		public function show_metabox_network() {
 			echo '<table class="sucom-setting">';
-			foreach ( $this->get_rows( 'network', 'activation' ) as $row )
+			foreach ( $this->get_rows( 'network', 'settings' ) as $row )
 				echo '<tr>'.$row.'</tr>';
 			echo '</table>';
 		}
@@ -44,29 +44,29 @@ if ( ! class_exists( 'WpssoSitesubmenuNetwork' ) && class_exists( 'WpssoAdmin' )
 				'empty' => 'If Value is Empty', 
 				'force' => 'Force This Value',
 			);
+			// generic tooltip message for site option use
 			$use_msg = esc_attr( 'Individual sites / blogs may use this value as a default when the plugin is first activated, 
 			if the current site / blog option value is blank, or force every site / blog to use this value (disabling editing of this field).' );
 
 			switch ( $metabox.'-'.$key ) {
-				case 'network-activation' :
-					if ( $this->p->is_avail['aop'] )
-						$pro_msg = 'After purchasing a Pro version license, an email will be sent to you with a unique Authentication ID 
-						and installation instructions. Enter the Authentication ID here, to define a value for all sites within the network,
-						or enter the Authentication ID(s) individually on each site\'s Advanced settings page. Note that the default site / blog 
-						must be licensed to allow Pro version updates from the Network Admin interface.';
-					else
-						$pro_msg = 'After purchasing the Pro version, an email will be sent to you with a unique Authentication ID 
-						and installation instructions. Enter the Authentication ID here, to define a value for all sites within the network,
-						or enter the Authentication ID(s) individually on each site\'s Advanced settings page. Note that the default site / blog 
-						must be licensed to allow Pro version updates from the Network Admin interface.
-						Once the default site / blog is licensed, an update for '.$this->p->cf['full'].' will appear on the 
-						<a href="'.get_admin_url( null, 'update-core.php' ).'">WordPress Updates</a> page. 
-						Update the \''.$this->p->cf['full'].'\' plugin to download and activate the Pro version.';
-		
-					$ret[] = $this->p->util->th( 'Pro Version Authentication ID', 'highlight', null, $pro_msg ).
-					'<td>'.$this->form->get_input( 'plugin_tid' ).'</td>'.
-					'<td>All Sites Use <img src="'.WPSSO_URLPATH.'images/question-mark.png" class="sucom_tooltip'.'" alt="'.
-					$use_msg.'" /> '.$this->form->get_select( 'plugin_tid:use', $use ).'</td>';
+				case 'network-settings' :
+					// retrieve information on license use, if any
+					$qty_used = class_exists( 'SucomUpdate' ) ? 
+						SucomUpdate::get_option( 'qty_used' ) : false;
+
+					$ret[] = $this->p->util->th( $this->p->cf['uca'].' Pro Authentication ID', 'highlight', 'plugin_tid_network' ).
+					'<td nowrap><p>'.$this->form->get_input( 'plugin_tid', 'mono' ).
+						( empty( $qty_used ) ? '' : ' &nbsp;'.$qty_used.' Licenses Assigned</p>' ).'</td>'.
+					'<td nowrap>Site Use <img src="'.WPSSO_URLPATH.'images/question-mark.png" class="sucom_tooltip'.'" alt="'.$use_msg.'" /> '.
+						$this->form->get_select( 'plugin_tid:use', $use, 'medium' ).'</td>';
+
+					$ret[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
+					'<td nowrap>'.$this->form->get_input( 'plugin_object_cache_exp', 'short' ).' seconds</td>'.
+					'<td nowrap>Site Use <img src="'.WPSSO_URLPATH.'images/question-mark.png" class="sucom_tooltip'.'" alt="'.$use_msg.'" /> '.
+						$this->form->get_select( 'plugin_object_cache_exp:use', $use, 'medium' ).'</td>';
+
+					break;
+
 					break;
 
 			}

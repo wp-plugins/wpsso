@@ -198,6 +198,8 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 	* Added hooks into 'wp_head', 'wp_footer', 'admin_head', and 'admin_footer' to print the debug log.
 	* Added reporting on the number of licenses assigned (Pro version).
 	* Changed the image resize crop value from 1/0 to true/false.
+	* Added a 'Object Cache Expiry' option to the multisite Network admin settings page.
+	* Increased the default object cache expiry value from 3600 to 7200 seconds.
 
 = Version 2.3.2 =
 
