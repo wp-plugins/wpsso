@@ -81,18 +81,13 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					$rows[] = $this->p->util->th( 'Add Hidden Debug HTML Messages', null, 'plugin_debug' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_debug' ).'</td>';
 
-					// check if multisite option forces the plugin_tid value
-					if ( is_multisite() && ! empty( $this->p->site_options['plugin_tid:use'] ) && 
-						$this->p->site_options['plugin_tid:use'] == 'force' )
-							$input = $this->form->get_fake_input( 'plugin_tid', 'mono' );
-					else $input = $this->form->get_input( 'plugin_tid', 'mono' );
-
 					// retrieve information on license use, if any
 					$qty_used = class_exists( 'SucomUpdate' ) ? 
 						SucomUpdate::get_option( 'qty_used' ) : false;
 
 					$rows[] = $this->p->util->th( $this->p->cf['uca'].' Pro Authentication ID', null, 'plugin_tid' ).
-						'<td><p>'.$input.( empty( $qty_used ) ? '' : ' &nbsp;'.$qty_used.' Licenses Assigned</p>' ).'</td>';
+					'<td nowrap><p>'.$this->form->get_input( 'plugin_tid', 'mono' ).
+						( empty( $qty_used ) ? '' : ' &nbsp;'.$qty_used.' Licenses Assigned</p>' ).'</td>';
 
 					// if the pro version code is available, show information about keeping it active for updates
 					if ( $this->p->is_avail['aop'] )

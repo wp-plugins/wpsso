@@ -391,6 +391,17 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 								for '.$this->p->cf['full'].' will appear on the <a href="'.get_admin_url( null, 'update-core.php' ).'">WordPress 
 								Updates</a> page. Update the \''.$this->p->cf['full'].'\' plugin to download and activate the Pro version.';
 							break;
+						case 'tooltip-plugin_tid_network':
+							$text = 'After purchasing a Pro version license, an email is sent with a unique Authentication ID and installation instructions. 
+							Enter the Authentication ID here, to define a value for all sites within the network, or enter the Authentication ID(s) 
+							individually on each site\'s Advanced settings page. 
+							<strong>Note that the default site / blog must be licensed to allow for plugin updates</strong>.';
+
+							if ( ! $this->p->is_avail['aop'] )
+								$text = 'When the default site / blog is licensed, an update for '.$this->p->cf['full'].
+								' will appear on the <a href="'.get_admin_url( null, 'update-core.php' ).'">WordPress Updates</a> page. 
+								Update the plugin to download and activate the Pro version.';
+							break;
 						case 'tooltip-plugin_preserve':
 							$text = 'Check this option if you would like to preserve all '.$this->p->cf['full'].
 							' settings when you <em>uninstall</em> the plugin (default is unchecked).';
@@ -456,17 +467,17 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'File and Object Cache' settings
 						 */
 						case 'tooltip-plugin_object_cache_exp':
-							$text = $this->p->cf['full'].' saves filtered / rendered content to a non-persistant cache 
+							$text = $this->p->cf['full'].' saves filtered and rendered content to a non-persistant cache 
 							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>), 
-							and Open Graph, Rich Pin, Twitter Card meta tags, and sharing buttons to a persistant (aka 
-							<a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. 
-							The default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).' seconds, and the minimum value is 
-							1 second (such a low value is not recommended).';
+							and Open Graph / Rich Pin, Twitter Card meta tags to a persistant 
+							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. 
+							The default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).' seconds, 
+							and the minimum value is 1 second (such a low value is not recommended).';
 							break;
 						case 'tooltip-plugin_file_cache_hrs':
 							$text = $this->p->cf['full'].' can save social sharing JavaScript and images to a cache folder, 
 							providing URLs to these cached files instead of the originals. 
-							A value of 0 Hours (the default) disables the file caching feature. 
+							A value of 0 hours (the default) disables the file caching feature. 
 							If your hosting infrastructure performs reasonably well, this option can improve page load times significantly.
 							All social sharing images and javascripts will be cached, except for the Facebook JavaScript SDK, 
 							which does not work correctly when cached.';
