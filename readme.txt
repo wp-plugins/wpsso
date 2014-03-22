@@ -55,6 +55,7 @@ An example of [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3
 * `0.0393` secs - bbPress v2.5.3 (No Forums or Topics)
 * `0.0405` secs - WooCommerce v2.1.5 (No Products)
 * `0.0572` secs - SEO Ultimate v7.6.2
+* `0.0579` secs - Facebook v1.5.5
 * `0.0656` secs - BuddyPress v1.9.2 (No Activities)
 * `0.1051` secs - WordPress SEO v1.5.2.5
 
