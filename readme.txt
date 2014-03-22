@@ -52,7 +52,7 @@ Profiler)](http://wordpress.org/plugins/p3-profiler/) results, using [WP Test
 Data](http://wptest.io/) and plugin defaults:
 
 * `0.0107` secs - All in One SEO Pack v2.1.4
-* `0.0124` secs - WPSSO Free (GPL) v2.4.0
+* `0.0124` secs - **WPSSO Free (GPL) v2.4.0**
 * `0.0179` secs - NGFB Open Graph+ Free (GPL) v7.4.0
 * `0.0393` secs - bbPress v2.5.3 (No Forums or Topics)
 * `0.0405` secs - WooCommerce v2.1.5 (No Products)
