@@ -760,8 +760,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'taglist-info':
 					$text = '<p>'.$this->p->cf['full'].' will add the following Facebook and Open Graph meta tags to your webpages. 
 					If your theme or another plugin already generates one or more of these meta tags, you may uncheck them here to 
-					prevent duplicates from being added (for example, the "description" meta tag is unchecked by default if any 
-					known SEO plugin was detected).</p>';
+					prevent duplicates from being added (for example, the "description" meta tag is unchecked if a known SEO plugin 
+					is detected).</p>';
 					break;
 				case 'cm-info':
 					$text = '<p>The following options allow you to customize the contact field names and labels shown on the
