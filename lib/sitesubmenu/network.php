@@ -28,6 +28,12 @@ if ( ! class_exists( 'WpssoSitesubmenuNetwork' ) && class_exists( 'WpssoAdmin' )
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 			add_meta_box( $this->pagehook.'_network', 'Network-Wide Settings', array( &$this, 'show_metabox_network' ), $this->pagehook, 'normal' );
+			add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_network', array( &$this, 'add_class_postbox_network' ) );
+		}
+
+		public function add_class_postbox_network( $classes ) {
+			array_push( $classes, 'admin_postbox_network' );
+			return $classes;
 		}
 
 		public function show_metabox_network() {
