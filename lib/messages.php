@@ -705,7 +705,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'pro-feature-msg':
 					if ( $this->p->is_avail['aop'] == true )
 						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Purchase 
-						additional licence(s) to enable Pro version features</p>';
+						additional licence(s) to enable Pro version features and options</p>';
 					else
 						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Upgrade 
 						to the Pro version to enable the following options</a></p>';

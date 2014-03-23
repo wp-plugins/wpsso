@@ -306,7 +306,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			if ( $textlen > 0 ) {
 				if ( ! empty( $hashtags ) ) 
 					$textlen = $textlen - strlen( $hashtags ) -1;
-				$desc = $this->p->util->limit_text_length( $desc, $textlen, '...' );
+				$desc = $this->p->util->limit_text_length( $desc, $textlen, '...' );	// runs cleanup_html_tags()
 			} else $desc = $this->p->util->cleanup_html_tags( $desc );
 
 			if ( ! empty( $hashtags ) ) 
