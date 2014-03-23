@@ -32,7 +32,7 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 	* Slideshare, Vimeo, Wistia, Youtube APIs
 
 <blockquote>
-<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.007 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
+<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.006 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
 </blockquote>
 
 = Complete Meta Tags =
@@ -46,6 +46,18 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 **WPSSO is fast and tuned for performance**, and unlike most plugins, makes full use of all available caching techniques (persistent / non-persistent object and disk caching).
 
 **WPSSO only loads the library files and object classes it needs**, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
+
+An example of [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/) results, using [WP Test Data](http://wptest.io/) and default plugin settings:
+
+* `0.0107` secs - All in One SEO Pack v2.1.4
+* `0.0124` secs - **WPSSO Free (GPL) v2.4.0**
+* `0.0179` secs - NGFB Open Graph+ Free (GPL) v7.4.0
+* `0.0393` secs - bbPress v2.5.3 (No Forums or Topics)
+* `0.0405` secs - WooCommerce v2.1.5 (No Products)
+* `0.0572` secs - SEO Ultimate v7.6.2
+* `0.0579` secs - Facebook v1.5.5
+* `0.0656` secs - BuddyPress v1.9.2 (No Activities)
+* `0.1051` secs - WordPress SEO v1.5.2.5
 
 = 3rd Party Integration =
 
@@ -198,6 +210,8 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 	* Added hooks into 'wp_head', 'wp_footer', 'admin_head', and 'admin_footer' to print the debug log.
 	* Added reporting on the number of licenses assigned (Pro version).
 	* Changed the image resize crop value from 1/0 to true/false.
+	* Added a 'Object Cache Expiry' option to the multisite Network admin settings page.
+	* Increased the default object cache expiry value from 3600 to 7200 seconds.
 
 = Version 2.3.2 =
 
