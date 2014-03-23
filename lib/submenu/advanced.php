@@ -94,16 +94,6 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 						$rows[] = '<th></th><td>'.$this->p->msgs->get( 'tid-info' ).'</td>';
 					break;
 
-				case 'plugin-content':
-					$rows[] = $this->p->util->th( 'Apply Content Filters', null, 'plugin_filter_content' ).
-					'<td>'.$this->form->get_checkbox( 'plugin_filter_content' ).'</td>';
-					break;
-
-				case 'plugin-cache':
-					$rows[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
-					'<td nowrap>'.$this->form->get_input( 'plugin_object_cache_exp', 'short' ).' seconds</td>';
-					break;
-
 				case 'cm-custom' :
 					if ( ! $this->p->check->is_aop() )
 						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
@@ -112,7 +102,6 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					$this->p->util->th( 'Show', 'left checkbox' ).
 					$this->p->util->th( 'Contact Field Name', 'left medium', 'custom-cm-field-name' ).
 					$this->p->util->th( 'Profile Contact Label', 'left wide' );
-
 					$sorted_opt_pre = $this->p->cf['opt']['pre'];
 					ksort( $sorted_opt_pre );
 					foreach ( $sorted_opt_pre as $id => $pre ) {
@@ -151,7 +140,6 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					$this->p->util->th( 'Show', 'left checkbox' ).
 					$this->p->util->th( 'Contact Field Name', 'left medium', 'wp-cm-field-name' ).
 					$this->p->util->th( 'Profile Contact Label', 'left wide' );
-
 					$sorted_wp_contact = $this->p->cf['wp']['cm'];
 					ksort( $sorted_wp_contact );
 					foreach ( $sorted_wp_contact as $id => $name ) {
