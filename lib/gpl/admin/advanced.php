@@ -17,12 +17,16 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			$this->p->util->add_plugin_filters( $this, array( 
 				'plugin_content_rows' => 2,
 				'plugin_custom_rows' => 2,
+				'plugin_cache_rows' => 2,
 				'taglist_tags_rows' => 2,
-			), 50 );
+			), 20 );
 		}
 
 		public function filter_plugin_content_rows( $rows, $form ) {
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
+			$rows[] = $this->p->util->th( 'Apply Content Filters', null, 'plugin_filter_content' ).
+			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_filter_content' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
 			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_filter_excerpt' ).'</td>';
@@ -72,6 +76,16 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			'<td class="blank">'.$form->get_hidden( 'plugin_cf_vid_url' ).
 			$this->p->options['plugin_cf_vid_url'].'</td>';
 			
+			return $rows;
+		}
+
+		public function filter_plugin_cache_rows( $rows, $form ) {
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
+			$rows[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
+			'<td class="blank">'.$form->get_hidden( 'plugin_object_cache_exp' ).
+			$this->p->options['plugin_object_cache_exp'].' seconds</td>';
+
 			return $rows;
 		}
 
