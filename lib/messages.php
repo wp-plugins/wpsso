@@ -708,7 +708,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						additional licence(s) to enable Pro version features</p>';
 					else
 						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Upgrade 
-						to the Pro version to enable the following features</a></p>';
+						to the Pro version to enable the following options</a></p>';
 					break;
 				case 'pro-activate-nag':
 					// in multisite, only show the activation message on our own plugin pages
