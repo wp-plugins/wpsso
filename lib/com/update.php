@@ -67,6 +67,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 
 		public function install_hooks() {
 			add_filter( 'plugins_api', array( &$this, 'inject_data' ), 100, 3 );
+			add_filter( 'set_site_transient_update_plugins', array( &$this, 'inject_update' ), 100, 1 );
 			add_filter( 'pre_set_site_transient_update_plugins', array( &$this, 'inject_update' ), 100, 1 );
 
 			// in a multisite environment, each site checks for updates
