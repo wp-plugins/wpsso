@@ -142,7 +142,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			/*
 			 * check and create the default options array
 			 *
-			 * execute after all objects have been defines, so hooks into 'ngfb_get_defaults' are available
+			 * execute after all objects have been defines, so hooks into 'wpsso_get_defaults' are available
 			 */
 			if ( is_multisite() && ( ! is_array( $this->site_options ) || empty( $this->site_options ) ) )
 				$this->site_options = $this->opt->get_site_defaults();
