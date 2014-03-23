@@ -78,7 +78,6 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 		public function filter_taglist_tags_rows( $rows, $form ) {
 			$og_cols = 4;
 			$cells = array();
-			$rows = array( '<td colspan="'.($og_cols * 2).'" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>' );
 			foreach ( $this->p->opt->get_defaults() as $opt => $val ) {
 				if ( preg_match( '/^inc_(.*)$/', $opt, $match ) ) {
 					$cells[] = '<td class="taglist blank checkbox">'.
