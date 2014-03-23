@@ -23,7 +23,7 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) ) {
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Enable Twitter Cards', 'highlight', 'tc_enable' ).
-			'<td class="blank">'.$form->get_fake_checkbox( 'tc_enable' ).'</td>';
+			'<td class="blank">'.$form->get_hidden( 'tc_enable' ).'<input type="checkbox" disabled="disabled" /></td>';
 
 			$rows[] = $this->p->util->th( 'Maximum Description Length', null, 'tc_desc_len' ).
 			'<td class="blank">'.$form->get_hidden( 'tc_desc_len' ).
