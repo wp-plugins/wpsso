@@ -16,20 +16,39 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 
 = Summary of Features =
 
-* Adds Facebook / Google+ / LinkedIn / etc. Open Graph, Pinterest Rich Pin, and Twitter Card meta tags.
-* Configurable image sizes and content descriptions for different contexts.
-* Configurable contact fields for author meta tags and user profile pages.
-* Integrates with 3rd party plugins and services for additional image, video, product, and content information:
-	* NextGEN Gallery
-	* JetPack Photon
-	* WordPress SEO by Yoast
-	* All in One SEO Pack
-	* WooCommerce
-	* MarketPress - WordPress eCommerce
-	* WP e-Commerce
-	* bbPress
-	* BuddyPress
-	* Slideshare, Vimeo, Wistia, Youtube APIs
+* Free (GPL) Version
+	* Adds Open Graph / Rich Pin meta tags (Facebook, Google+, LinkedIn, Pinterest).
+	* Configurable image sizes, title and description lengths for different contexts (Facebook, Google, etc.).
+	* Optional fallback to a default image and video for index and search webpages.
+	* Validation of source image dimensions to provide accurate images for the social websites.
+	* Auto-generation of innacurate / missing WordPress image sizes.
+	* Support for embedded videos (iframe and/or object HTML tags).
+	* Fully render content (including shortcodes) for accurate description texts.
+	* Include author and publisher profile URLs for Facebook and Google Search.
+	* Include hashtags from Post / Page WordPress Tags.
+	* Include the author's name for Pinterest Rich Pins.
+	* Uses object and transient cache for fastest execution speed.
+	* Provides Facebook, Google+ and Twitter URL profile contact fields.
+	* Includes a Google / SEO description meta tag if a known SEO plugin is not detected.
+	* Validation tools and meta tag preview information on admin edit pages.
+
+* Pro Version
+	* Adds Twitter Card meta tags (Summary, Large Image Summary, Photo, Gallery, Player, and Product).
+	* Additional image sizes for each type of Twitter Card.
+	* Additional profile contact fields with configurable label and field names.
+	* Custom meta tag values (topic, description, image, video, etc.) for each Post, Page, and custom post type.
+	* Ability to turn off / exclude specific Google / SEO, Open Graph and Twitter Card meta tags.
+	* Integrates with 3rd party plugins and services for additional image, video, product, and content information:
+		* NextGEN Gallery
+		* JetPack Photon
+		* WordPress SEO by Yoast
+		* All in One SEO Pack
+		* WooCommerce
+		* MarketPress - WordPress eCommerce
+		* WP e-Commerce
+		* bbPress
+		* BuddyPress
+		* Slideshare, Vimeo, Wistia, Youtube APIs
 
 <blockquote>
 <p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.006 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
