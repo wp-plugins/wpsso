@@ -21,8 +21,9 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 * Adds Open Graph / Rich Pin meta tags (Facebook, Google+, LinkedIn, Pinterest, etc.).
 * Configurable image sizes, title and description lengths for different contexts.
 * Optional fallback to a default image and video for index and search webpages.
-* Validation of source image dimensions to provide accurate images for the social websites.
-* Auto-generation of innacurate / missing WordPress image sizes.
+* Uses featured, attached, gallery shortcode, and/or HTML image tags in content.
+* Validation of image dimensions to provide accurate images for social websites.
+* Auto-regeneration of innacurate / missing WordPress image sizes using image IDs.
 * Support for embedded videos (iframe and/or object HTML tags).
 * Fully render content (including shortcodes) for accurate description texts.
 * Include author and publisher profile URLs for Facebook and Google Search.
