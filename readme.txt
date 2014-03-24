@@ -47,13 +47,12 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 
 **WPSSO only loads the library files and object classes it needs**, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
-<blockquote>
-<p>A sample of <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a> PHP code execution metrics using <a href="http://wptest.io/">WP Test Data</a>, and the default settings of a few popular plugins:</p>
+<p>A sample of <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a> PHP code execution speeds using <a href="http://wptest.io/">WP Test Data</a>, and the default settings of a few popular plugins:</p>
 <ul>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
-	<li><strong>0.0124</strong> secs - <strong>WPSSO Free (GPL) v2.4.0</strong></li>
+	<li><strong>0.0124</strong> secs - <strong>WordPress Social Sharing Optimization (WPSSO) v2.4.0</strong></li>
 	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
-	<li><strong>0.0179</strong> secs - NGFB Open Graph+ Free (GPL) v7.4.0</li>
+	<li><strong>0.0179</strong> secs - NGFB Open Graph+ v7.4.0</li>
 	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
 	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (<em>No Forums or Topics</em>)</li>
 	<li><strong>0.0405</strong> secs - WooCommerce v2.1.5 (<em>No Products</em>)</li>
@@ -62,7 +61,6 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	<li><strong>0.0656</strong> secs - BuddyPress v1.9.2 (<em>No Activities</em>)</li>
 	<li><strong>0.1051</strong> secs - WordPress SEO v1.5.2.5</li>
 </ul>
-</blockquote>
 
 = 3rd Party Integration =
 
