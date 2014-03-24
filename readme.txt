@@ -33,7 +33,7 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 * Includes a Google / SEO description meta tag if a known SEO plugin is not detected.
 * Validation tools and meta tag preview information on admin edit pages.
 
-**Pro (Power User) Version**
+**Pro / Power-User Version**
 
 * Adds Twitter Card meta tags (Summary, Large Image Summary, Photo, Gallery, Player, and Product).
 * Additional image sizes for each type of Twitter Card.
