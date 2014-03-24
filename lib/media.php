@@ -269,15 +269,15 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					( ! empty( $size_info['crop'] ) && ( ! $is_sufficient_width || ! $is_sufficient_height ) ) ) {
 
 					if ( is_admin() )
-						$this->p->notice->err( 'Media Library image id '.$pid.' rejected: '.
-							$img_width.'x'.$img_height.' is too small for the '.$size_name.' image dimensions setting '.
+						$this->p->notice->err( 'Media Library image id '.$pid.' rejected - '.
+							$img_width.'x'.$img_height.' too small for '.$size_name.' image dimensions setting '.
 							'('.$size_info['width'].'x'.$size_info['height'].( empty( $size_info['crop'] ) ? '' : ' cropped' ).'). '.
-							'You must upload a larger version of the original image, or adjust the '.$size_name.' image dimensions setting.' );
+							'Upload a larger image, or adjust the '.$size_name.' image dimensions setting.' );
 
 					$this->p->debug->log( 'exiting early: returned image dimensions'.
-						' ('.$img_width.'x'.$img_height.') smaller than'.
-						' ('.$size_info['width'].'x'.$size_info['height'].
-						( empty( $size_info['crop'] ) ? '' : ' cropped' ).')' );
+						' '.$img_width.'x'.$img_height.' smaller than'.
+						' '.$size_info['width'].'x'.$size_info['height'].
+						( empty( $size_info['crop'] ) ? '' : ' cropped' ) );
 
 					return $ret_empty;
 				} else $this->p->debug->log( 'returned image dimensions ('.$img_width.'x'.$img_height.') are sufficient' );
@@ -442,7 +442,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 							} else {
 								if ( is_admin() && $this->p->debug->is_on() === true )
-									$this->p->notice->err( 'Image '.$og_image['og:image'].' rejected: width / height missing or too small for '.$size_name.'.' );
+									$this->p->notice->err( 'Image '.$og_image['og:image'].' rejected - width / height missing or too small for '.$size_name.'.' );
 								$this->p->debug->log( 'image rejected: width / height attributes missing or too small for '.$size_name.' size.' );
 								$og_image = array();
 							}

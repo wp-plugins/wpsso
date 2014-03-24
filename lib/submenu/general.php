@@ -46,7 +46,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 			$metabox = 'pub';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
 				'facebook' => 'Facebook',
-				'google' => 'Google',
+				'google' => 'Google / SEO',
 				'pinterest' => 'Pinterest',
 				'twitter' => 'Twitter',
 			) );

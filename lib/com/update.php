@@ -67,8 +67,9 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 
 		public function install_hooks() {
 			add_filter( 'plugins_api', array( &$this, 'inject_data' ), 100, 3 );
-			add_filter( 'set_site_transient_update_plugins', array( &$this, 'inject_update' ), 100, 1 );
-			add_filter( 'pre_set_site_transient_update_plugins', array( &$this, 'inject_update' ), 100, 1 );
+			add_filter( 'transient_update_plugins', array( &$this, 'inject_update' ), 1000, 1 );
+			add_filter( 'site_transient_update_plugins', array( &$this, 'inject_update' ), 1000, 1 );
+			add_filter( 'pre_site_transient_update_plugins', array( &$this, 'enable_update' ), 1000, 1 );
 
 			// in a multisite environment, each site checks for updates
 			if ( $this->sched_hours > 0 ) {
@@ -98,15 +99,24 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			}
 			return $result;
 		}
-	
-		public function inject_update( $updates ) {
+
+		// if updates have been disabled and/or manipulated (ie. $updates is not false), 
+		// then re-enable by including our update data (if a new version is present)
+		public function enable_update( $updates = false ) {
+			if ( $updates !== false )
+				$updates = $this->inject_update( $updates );
+			return $updates;
+		}
+
+		public function inject_update( $updates = false ) {
 			$this->p->debug->mark();
 
 			// remove existing plugin information to make sure it is correct
 			if ( isset( $updates->response[$this->plugin_base] ) )
-				unset( $updates->response[$this->plugin_base] );	// nextgen-facebook/nextgen-facebook.php
+				unset( $updates->response[$this->plugin_base] );	// wpsso/wpsso.php
 
 			$option_data = get_site_option( self::$option_name );
+
 			if ( empty( $option_data ) )
 				$this->p->debug->log( self::$option_name.' option value is empty' );
 			elseif ( ! is_object( $option_data->update ) )

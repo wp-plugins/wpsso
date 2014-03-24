@@ -181,53 +181,56 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			return $html;
 		}
 
-		private function get_single_meta( $name, $val = '', $cmt = '' ) {
+		private function get_single_meta( $property, $content = '', $cmt_prefix = '' ) {
 			$html = '';
 
-			if ( empty( $this->p->options['inc_'.$name] ) ) {
-				$this->p->debug->log( 'meta '.$name.' is disabled (skipped)' );
+			if ( empty( $this->p->options['inc_'.$property] ) ) {
+				$this->p->debug->log( 'meta '.$property.' is disabled (skipped)' );
 				return $html;
-			} elseif ( $val === -1 ) {
-				$this->p->debug->log( 'meta '.$name.' is -1 (skipped)' );
+			} elseif ( $content === -1 ) {
+				$this->p->debug->log( 'meta '.$property.' is -1 (skipped)' );
 				return $html;
 			// ignore all empty non-open graph meta tags, 
 			// and open-graph meta tags as well if the option allows
-			} elseif ( ( $val === '' || $val === null ) && 
-				( preg_match( '/^description|fb:|twitter:/', $name ) || 
+			} elseif ( ( $content === '' || $content === null ) && 
+				( preg_match( '/^description|fb:|twitter:/', $property ) || 
 					empty( $this->p->options['og_empty_tags'] ) ) ) {
 
-				$this->p->debug->log( 'meta '.$name.' is empty (skipped)' );
+				$this->p->debug->log( 'meta '.$property.' is empty (skipped)' );
 				return $html;
-			} elseif ( is_object( $val ) ) {
-				$this->p->debug->log( 'meta '.$name.' value is an object (skipped)' );
+			} elseif ( is_object( $content ) ) {
+				$this->p->debug->log( 'meta '.$property.' value is an object (skipped)' );
 				return $html;
 			}
 
 			$charset = get_bloginfo( 'charset' );
-			$val = htmlentities( $val, ENT_QUOTES, $charset, false );	// double_encode = false
+			$content = htmlentities( $content, ENT_QUOTES, $charset, false );	// double_encode = false
 
-			$this->p->debug->log( 'meta '.$name.' = "'.$val.'"' );
-			if ( $cmt ) $html .= "<!-- $cmt -->";
+			$this->p->debug->log( 'meta '.$property.' = "'.$content.'"' );
+			if ( $cmt_prefix ) $html .= "<!-- $cmt_prefix -->";
 
-			// by default, return <meta property="" content=""> html tags
-			// the description and twitter card tags are exceptions
-			if ( $name == 'description' || strpos( $name, 'twitter:' ) === 0 )
-				$html .= '<meta name="'.$name.'" content="'.$val.'" />'."\n";
+			/*
+			 * return <meta property="" content=""> html tags by default
+			 * description and twitter card tags are exceptions
+			 */
+			if ( $property == 'description' || strpos( $property, 'twitter:' ) === 0 )
+				$html .= '<meta name="'.$property.'" content="'.$content.'" />'."\n";
 
-			elseif ( ( $name == 'og:image' || $name == 'og:video' ) && 
-				strpos( $val, 'https:' ) === 0 && ! empty( $this->p->options['inc_'.$name] ) ) {
+			elseif ( ( $property == 'og:image' || $property == 'og:video' ) && 
+				strpos( $content, 'https:' ) === 0 && ! empty( $this->p->options['inc_'.$property] ) ) {
 
-				$http_url = preg_replace( '/^https:/', 'http:', $val );
-				$html .= '<meta property="'.$name.'" content="'.$http_url.'" />'."\n";
+				$http_url = preg_replace( '/^https:/', 'http:', $content );
+				$html .= '<meta property="'.$property.'" content="'.$http_url.'" />'."\n";
 
 				// add an additional secure_url meta tag
-				if ( $cmt ) $html .= "<!-- $cmt -->";
-				$html .= '<meta property="'.$name.':secure_url" content="'.$val.'" />'."\n";
+				if ( $cmt_prefix ) $html .= "<!-- $cmt_prefix -->";
+				$html .= '<meta property="'.$property.':secure_url" content="'.$content.'" />'."\n";
 
-			} else $html .= '<meta property="'.$name.'" content="'.$val.'" />'."\n";
+			} else $html .= '<meta property="'.$property.'" content="'.$content.'" />'."\n";
 
 			return $html;
 		}
 	}
 }
+
 ?>
