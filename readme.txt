@@ -64,7 +64,7 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 
 = Excellent Performance =
 
-**WPSSO is fast and tuned for performance**, and unlike most plugins, makes full use of all available caching techniques (persistent / non-persistent object and disk caching).
+**WPSSO is fast and tuned for performance**, and makes full use of all available caching techniques (persistent / non-persistent object and disk caching).
 
 **WPSSO only loads the library files and object classes it needs**, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
