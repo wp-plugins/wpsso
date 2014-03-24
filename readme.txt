@@ -47,7 +47,7 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 
 **WPSSO only loads the library files and object classes it needs**, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
-<p>A sample of <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a> PHP code execution speeds using <a href="http://wptest.io/">WP Test Data</a>, and the default settings of a few popular plugins:</p>
+<p>An example of PHP code execution speeds from <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a>, using <a href="http://wptest.io/">WP Test Data</a> and the default settings of a few popular plugins:</p>
 <ul>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
 	<li><strong>0.0124</strong> secs - <strong>WordPress Social Sharing Optimization (WPSSO) v2.4.0</strong></li>
