@@ -14,7 +14,7 @@ Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Sear
 
 WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head section of WordPress webpages for **improved Google Search results / ranking and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and other social websites**.
 
-= Summary of Features =
+= Summary List of Features =
 
 **Free (GPL) Version**
 
