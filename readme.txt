@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.8.1
-Stable Tag: 2.4.0
+Stable Tag: 2.4.1
 
 Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Search &mdash; A Fast, Reliable and Full Featured Plugin!
 
@@ -223,10 +223,11 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 = Version 2.4.1 =
 
 * Bugfixes
-        * Re-added the 'site_transient_update_plugins' filter to return update information (Pro version).
+        * Re-added the 'site_transient_update_plugins' hook to return update information (Pro version).
 
 * Enhancements
         * Modified the 'pre_site_transient_update_plugins' hook to re-introduce update information for NGFB Open Graph+, in cases where it has been used to disable plugin updates (Pro version).
+        * Added a second 'transient_update_plugins' hook to return update information (Pro version).
 	* Renamed several variables in the `WpssoHead::get_single_meta()` method for clarity.
 	* A few minor changes to informational and debug messages.
 
@@ -270,6 +271,10 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 	* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 == Upgrade Notice ==
+
+= 2.4.1 =
+
+This version fixes a potential issue with updating to the Pro version, and includes a few minor changes to informational and debug messages.
 
 = 2.4.0 =
 
