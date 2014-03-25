@@ -274,7 +274,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 = 2.4.1 =
 
-This version fixes a potential issue with updating to the Pro version, and includes a few minor changes to informational and debug messages.
+Fixed a potential issue with update filter hooks, includes a few minor changes to informational and debug messages.
 
 = 2.4.0 =
 
