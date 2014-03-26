@@ -222,6 +222,13 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
+= Version 2.4.2 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Added support for WordPress SEO v1.5+ `WPSEO_Options::get_all()` method (Pro version).
+
 = Version 2.4.1 =
 
 * Bugfixes
