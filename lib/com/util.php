@@ -474,11 +474,12 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		}
 
 		public function get_max_nums( $post_id ) {
+			$this->p->debug->args( array( 'post_id' => $post_id ) );
 			$og_max = array();
 			foreach ( array( 'og_vid_max', 'og_img_max' ) as $max_name ) {
 				$num_meta = false;
 				if ( ! empty( $post_id ) && 
-					array_key_exists( 'postmeta', $this->p->addons ) )
+					array_key_exists( 'postmeta', $this->p->addons['util'] ) )
 						$num_meta = $this->p->addons['util']['postmeta']->get_options( $post_id, $max_name );
 				if ( $num_meta !== false ) {
 					$og_max[$max_name] = $num_meta;

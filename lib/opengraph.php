@@ -164,7 +164,9 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			// get all videos
 			// check first, to add video preview images
 			if ( ! array_key_exists( 'og:video', $og ) ) {
-				if ( $og_max['og_vid_max'] > 0 ) {
+				if ( empty( $og_max['og_vid_max'] ) )
+					$this->p->debug->log( 'videos disabled: maximum videos = 0' );
+				else {
 					$og['og:video'] = $this->get_all_videos( $og_max['og_vid_max'], $post_id );
 					if ( is_array( $og['og:video'] ) ) {
 						foreach ( $og['og:video'] as $val ) {
@@ -174,18 +176,20 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 							}
 						}
 					}
-				} else $this->p->debug->log( 'videos disabled: maximum videos = 0' );
+				} 
 			}
 
 			// get all images
 			if ( ! array_key_exists( 'og:image', $og ) ) {
-				if ( $og_max['og_img_max'] > 0 ) {
+				if ( empty( $og_max['og_img_max'] ) ) 
+					$this->p->debug->log( 'images disabled: maximum images = 0' );
+				else {
 					$og['og:image'] = $this->get_all_images( $og_max['og_img_max'], 
 						$this->p->cf['lca'].'-opengraph', $post_id );
 					if ( empty( $og['og:image'] ) && $has_video_image === false )
 							$og['og:image'] = $this->p->media->get_default_image( $og_max['og_img_max'], 
 								$this->p->cf['lca'].'-opengraph' );
-				} else $this->p->debug->log( 'images disabled: maximum images = 0' );
+				} 
 			}
 
 			// only a few opengraph meta tags are allowed to be empty
