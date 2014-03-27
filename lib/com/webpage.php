@@ -124,10 +124,10 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				if ( is_singular() || $use_post !== false ) {
 					if ( is_singular() ) {
 						$title = wp_title( $this->p->options['og_title_sep'], false, 'right' );
-						$this->p->debug->log( 'wp_title() = "'.$title.'"' );
+						$this->p->debug->log( 'is_singular: wp_title() = "'.$title.'"' );
 					} elseif ( ! empty( $post_id ) ) {
 						$title = get_the_title( $post_id );
-						$this->p->debug->log( 'get_the_title() = "'.$title.'"' );
+						$this->p->debug->log( 'have post_id: get_the_title() = "'.$title.'"' );
 					}
 
 					// get the parent's title if no seo package is installed
@@ -139,7 +139,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 					// use separator on right for compatibility with aioseo
 					$title = wp_title( $this->p->options['og_title_sep'], false, 'right' );
-					$this->p->debug->log( 'seo wp_title() = "'.$title.'"' );
+					$this->p->debug->log( 'have seo: wp_title() = "'.$title.'"' );
 	
 				// category title, with category parents
 				} elseif ( is_category() ) { 
@@ -148,7 +148,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$title = $term->name;
 					$cat_parents = get_category_parents( $term->term_id, false, ' '.$this->p->options['og_title_sep'].' ', false );
 					if ( is_wp_error( $cat_parents ) )
-						$this->p->debug->log( 'get_category_parents() returned WP_Error object.' );
+						$this->p->debug->log( 'get_category_parents() returned WP_Error object' );
 					else {
 						$this->p->debug->log( 'get_category_parents() = "'.$cat_parents.'"' );
 						if ( ! empty( $cat_parents ) ) {
@@ -165,13 +165,13 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					 *	author page = the public name of the user 
 					 */
 					$title = wp_title( $this->p->options['og_title_sep'], false, 'right' );
-					$this->p->debug->log( 'wp_title() = "'.$title.'"' );
+					$this->p->debug->log( 'default: wp_title() = "'.$title.'"' );
 				}
 	
 				// just in case
 				if ( empty( $title ) ) {
 					$title = get_bloginfo( 'name', 'display' );
-					$this->p->debug->log( 'get_bloginfo() = "'.$title.'"' );
+					$this->p->debug->log( 'las resort: get_bloginfo() = "'.$title.'"' );
 				}
 			}
 
@@ -204,9 +204,11 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 		}
 
 		public function get_description( $textlen = 156, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = true ) {
-
+			$this->p->debug->args( array( 'textlen' => $textlen, 'trailing' => $trailing, 'use_post' => $use_post, 'use_cache' => $use_cache, 'add_hashtags' => $add_hashtags ) );
 			$desc = false;
 			$hashtags = '';
+			$post_id = 0;
+
 			if ( is_singular() || $use_post !== false ) {
 				if ( ( $obj = $this->p->util->get_the_object( $use_post ) ) === false ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
@@ -242,8 +244,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			if ( empty( $desc ) ) {
 				// $obj and $post_id are defined above, with the same test, so we should be good
 				if ( is_singular() || $use_post !== false ) {
-					$this->p->debug->log( 'use_post = '.( $use_post ? 'true' : 'false' ) );
-	
 					// use the excerpt, if we have one
 					if ( has_excerpt( $post_id ) ) {
 						$desc = $obj->post_excerpt;

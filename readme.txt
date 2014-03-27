@@ -222,7 +222,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
-= Version 2.4.2 =
+= Version 2.4.2dev1 =
 
 * Bugfixes
 	* *None*
