@@ -171,7 +171,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				// just in case
 				if ( empty( $title ) ) {
 					$title = get_bloginfo( 'name', 'display' );
-					$this->p->debug->log( 'las resort: get_bloginfo() = "'.$title.'"' );
+					$this->p->debug->log( 'last resort: get_bloginfo() = "'.$title.'"' );
 				}
 			}
 

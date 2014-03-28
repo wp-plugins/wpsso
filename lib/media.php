@@ -196,7 +196,6 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					$img_meta = wp_get_attachment_metadata( $pid );
 	
 					if ( empty( $img_meta['sizes'][$size_name] ) ) {
-						$this->p->debug->log( $size_name.' size not defined in the image meta' );
 						$is_accurate_width = false;
 						$is_accurate_height = false;
 					} else {
@@ -208,8 +207,10 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 					if ( ( empty( $size_info['crop'] ) && ( ! $is_accurate_width && ! $is_accurate_height ) ) ||
 						( ! empty( $size_info['crop'] ) && ( ! $is_accurate_width || ! $is_accurate_height ) ) ) {
-	
-						$this->p->debug->log( 'image metadata ('.
+
+						if ( empty( $img_meta['sizes'][$size_name] ) )
+							$this->p->debug->log( $size_name.' size not defined in the image meta' );
+						else $this->p->debug->log( 'image metadata ('.
 							( empty( $img_meta['sizes'][$size_name]['width'] ) ? 0 : $img_meta['sizes'][$size_name]['width'] ).'x'.
 							( empty( $img_meta['sizes'][$size_name]['height'] ) ? 0 : $img_meta['sizes'][$size_name]['height'] ).') does not match '.
 							$size_name.' ('.$size_info['width'].'x'.$size_info['height'].( empty( $size_info['crop'] ) ? '' : ' cropped' ).')' );
@@ -218,7 +219,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 						$resized = image_make_intermediate_size( $fullsizepath, $size_info['width'], $size_info['height'], $size_info['crop'] );
 						$this->p->debug->log( 'image_make_intermediate_size() reported '.( $resized === false ? 'failure' : 'success' ) );
 						if ( $resized !== false ) {
-						$img_meta['sizes'][$size_name] = $resized;
+							$img_meta['sizes'][$size_name] = $resized;
 							wp_update_attachment_metadata( $pid, $img_meta );
 						}
 					}
