@@ -208,7 +208,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					if ( ( empty( $size_info['crop'] ) && ( ! $is_accurate_width && ! $is_accurate_height ) ) ||
 						( ! empty( $size_info['crop'] ) && ( ! $is_accurate_width || ! $is_accurate_height ) ) ) {
 
-						if ( $this->debug->is_on() ) {
+						if ( $this->p->debug->is_on() ) {
 							if ( empty( $img_meta['sizes'][$size_name] ) )
 								$this->p->debug->log( $size_name.' size not defined in the image meta' );
 							else $this->p->debug->log( 'image metadata ('.
