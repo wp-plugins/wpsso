@@ -222,6 +222,16 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
+= Version 2.4.2dev2 =
+
+* Bugfixes
+	* Fixed the `get_max_nums()` method to return the maximum image/video option values from the Custom Settings (Pro version).
+	* Fixed Twitter Card images to use the maximum number of images value (from defaults and Custom Settings) (Pro version).
+	* Fixed JetPack Photon addon error when required image size is missing (Pro version).
+* Enhancements
+	* Added support for WordPress SEO v1.5+ `WPSEO_Options::get_all()` method (Pro version).
+	* Improved the `WpssoMedia::get_attachment_image_src()` method image size checks.
+
 = Version 2.4.1 =
 
 * Bugfixes
