@@ -210,7 +210,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				return;
 
 			$conflict_log_prefix =  __( 'plugin conflict detected', WPSSO_TEXTDOM ) . ' - ';
-			$conflict_err_prefix =  __( 'Plugin conflict detected', WPSSO_TEXTDOM ) . ' -- ';
+			$conflict_err_prefix =  __( 'Plugin conflict detected', WPSSO_TEXTDOM ) . ' - ';
 
 			// PHP
 			if ( empty( $this->p->is_avail['mbdecnum'] ) ) {
