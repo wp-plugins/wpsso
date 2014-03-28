@@ -185,109 +185,83 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					else $this->p->debug->log( 'ngg addon is not available: image id '.$attr_value.' ignored' ); 
 					return $ret_empty; 
 				}
-			} else {
-				if ( ! wp_attachment_is_image( $pid ) ) {
-					$this->p->debug->log( 'exiting early: attachment '.$pid.' is not an image' ); 
-					return $ret_empty; 
-				}
-
-				list( $img_url, $img_width, $img_height ) = apply_filters( $this->p->cf['lca'].'_image_downsize', 
-					image_downsize( $pid, $size_name ), $pid, $size_name );
-				$this->p->debug->log( 'image_downsize() = '.$img_url.' ('.$img_width.'x'.$img_height.')' );
-	
-				// make sure the returned image size matches the size we requested, if not then possibly resize the image
-				// we do this because image_downsize() does not always return accurate image sizes
-
-				if ( strpos( $size_name, $this->p->cf['lca'].'-' ) !== false ) {	// only resize our own custom image sizes
-					if ( ! empty( $this->p->options['plugin_auto_img_resize'] ) ) {	// the 'Auto-Resize Images' option must be checked
-	
-						// get the actual image sizes from the metadata array
-						$img_meta = wp_get_attachment_metadata( $pid );
-		
-						// are our intermediate image sizes correct in the metadata array?
-						if ( empty( $img_meta['sizes'][$size_name] ) ) {
-							$this->p->debug->log( $size_name.' size not defined in the image meta' );
-							$is_accurate_width = false;
-							$is_accurate_height = false;
-						} else {
-							$is_accurate_width = ! empty( $img_meta['sizes'][$size_name]['width'] ) &&
-								$img_meta['sizes'][$size_name]['width'] == $size_info['width'] ? true : false;
-							$is_accurate_height = ! empty( $img_meta['sizes'][$size_name]['height'] ) &&
-								$img_meta['sizes'][$size_name]['height'] == $size_info['height'] ? true : false;
-						}
-	
-						// just in case
-						if ( empty( $img_meta['width'] ) || empty( $img_meta['height'] ) ) {
-							$this->p->debug->log( 'wp_get_attachment_metadata() returned empty original image sizes' );
-		
-						// if the original (full size) image is too small, get the full size image URL instead
-						} elseif ( $img_meta['width'] < $size_info['width'] && $img_meta['height'] < $size_info['height'] ) {
-		
-							$this->p->debug->log( 'original image ('.$img_meta['width'].'x'.$img_meta['height'].
-								') smaller than '.$size_name.' ('.$size_info['width'].'x'.$size_info['height'].
-								( empty( $size_info['crop'] ) ? '' : ' cropped' ).') - fetching "full" image size url' );
-		
-							list( $img_url, $img_width, $img_height ) = apply_filters( $this->p->cf['lca'].'_image_downsize',
-								image_downsize( $pid, 'full' ), $pid, 'full' );
-							$this->p->debug->log( 'image_downsize() = '.$img_url.' ('.$img_width.'x'.$img_height.')' );
-		
-						// wordpress returns image sizes based on the information in the metadata array
-						// check to see if our intermediate image sizes are correct in the metadata array
-						} elseif ( ( empty( $size_info['crop'] ) && ( ! $is_accurate_width && ! $is_accurate_height ) ) ||
-							( ! empty( $size_info['crop'] ) && ( ! $is_accurate_width || ! $is_accurate_height ) ) ) {
-		
-							$this->p->debug->log( 'image metadata ('.
-								( empty( $img_meta['sizes'][$size_name]['width'] ) ? 0 : $img_meta['sizes'][$size_name]['width'] ).'x'.
-								( empty( $img_meta['sizes'][$size_name]['height'] ) ? 0 : $img_meta['sizes'][$size_name]['height'] ).') does not match '.
-								$size_name.' ('.$size_info['width'].'x'.$size_info['height'].( empty( $size_info['crop'] ) ? '' : ' cropped' ).')' );
-		
-							$fullsizepath = get_attached_file( $pid );
-							$resized = image_make_intermediate_size( $fullsizepath, $size_info['width'], $size_info['height'], $size_info['crop'] );
-							$this->p->debug->log( 'image_make_intermediate_size() reported '.( $resized === false ? 'failure' : 'success' ) );
-		
-							// update the image metadata 
-							if ( $resized !== false ) {
-								$img_meta['sizes'][$size_name] = $resized;
-								wp_update_attachment_metadata( $pid, $img_meta );
-								// request the image size again to validate
-								list( $img_url, $img_width, $img_height ) = apply_filters( $this->p->cf['lca'].'_image_downsize',
-									image_downsize( $pid, $size_name ), $pid, $size_name );
-								$this->p->debug->log( 'image_downsize() = '.$img_url.' ('.$img_width.'x'.$img_height.')' );
-							}
-						}
-					} else $this->p->debug->log( 'image_make_intermediate_size() skipped: plugin_auto_img_resize option is disabled' );
-				}
-				if ( empty( $img_url ) )
-					$this->p->debug->log( 'exiting early: returned image_downsize() url is empty' );
+			} elseif ( ! wp_attachment_is_image( $pid ) ) {
+				$this->p->debug->log( 'exiting early: attachment '.$pid.' is not an image' ); 
+				return $ret_empty; 
 			}
-			if ( empty( $img_url ) )
+
+			if ( strpos( $size_name, $this->p->cf['lca'].'-' ) !== false ) {	// only resize our own custom image sizes
+				if ( ! empty( $this->p->options['plugin_auto_img_resize'] ) ) {	// 'Auto-Resize Images' option must be enabled
+
+					$img_meta = wp_get_attachment_metadata( $pid );
+	
+					if ( empty( $img_meta['sizes'][$size_name] ) ) {
+						$this->p->debug->log( $size_name.' size not defined in the image meta' );
+						$is_accurate_width = false;
+						$is_accurate_height = false;
+					} else {
+						$is_accurate_width = ! empty( $img_meta['sizes'][$size_name]['width'] ) &&
+							$img_meta['sizes'][$size_name]['width'] == $size_info['width'] ? true : false;
+						$is_accurate_height = ! empty( $img_meta['sizes'][$size_name]['height'] ) &&
+							$img_meta['sizes'][$size_name]['height'] == $size_info['height'] ? true : false;
+					}
+
+					if ( ( empty( $size_info['crop'] ) && ( ! $is_accurate_width && ! $is_accurate_height ) ) ||
+						( ! empty( $size_info['crop'] ) && ( ! $is_accurate_width || ! $is_accurate_height ) ) ) {
+	
+						$this->p->debug->log( 'image metadata ('.
+							( empty( $img_meta['sizes'][$size_name]['width'] ) ? 0 : $img_meta['sizes'][$size_name]['width'] ).'x'.
+							( empty( $img_meta['sizes'][$size_name]['height'] ) ? 0 : $img_meta['sizes'][$size_name]['height'] ).') does not match '.
+							$size_name.' ('.$size_info['width'].'x'.$size_info['height'].( empty( $size_info['crop'] ) ? '' : ' cropped' ).')' );
+	
+						$fullsizepath = get_attached_file( $pid );
+						$resized = image_make_intermediate_size( $fullsizepath, $size_info['width'], $size_info['height'], $size_info['crop'] );
+						$this->p->debug->log( 'image_make_intermediate_size() reported '.( $resized === false ? 'failure' : 'success' ) );
+						if ( $resized !== false ) {
+						$img_meta['sizes'][$size_name] = $resized;
+							wp_update_attachment_metadata( $pid, $img_meta );
+						}
+					}
+				} else $this->p->debug->log( 'image metadata check skipped: plugin_auto_img_resize option is disabled' );
+			}
+
+			list( $img_url, $img_width, $img_height ) = apply_filters( $this->p->cf['lca'].'_image_downsize', 
+				image_downsize( $pid, $size_name ), $pid, $size_name );
+			$this->p->debug->log( 'image_downsize() = '.$img_url.' ('.$img_width.'x'.$img_height.')' );
+
+			if ( empty( $img_url ) ) {
+				$this->p->debug->log( 'exiting early: returned image_downsize() url is empty' );
 				return $ret_empty;
+			}
 
 			if ( ! empty( $this->p->options['plugin_ignore_small_img'] ) ) {
+
 				$is_sufficient_width = $img_width >= $size_info['width'] ? true : false;
 				$is_sufficient_height = $img_height >= $size_info['height'] ? true : false;
 
 				if ( ( empty( $size_info['crop'] ) && ( ! $is_sufficient_width && ! $is_sufficient_height ) ) ||
 					( ! empty( $size_info['crop'] ) && ( ! $is_sufficient_width || ! $is_sufficient_height ) ) ) {
 
+					$size_too_small_text = ' too small for '.$size_name.' dimensions ('.$size_info['width'].'x'.$size_info['height'].
+						( empty( $size_info['crop'] ) ? '' : ' cropped' ).'). ';
+
+					$img_meta = wp_get_attachment_metadata( $pid );
+					if ( $img_meta['width'] < $size_info['width'] && $img_meta['height'] < $size_info['height'] )
+						$rejected_text = 'image id '.$pid.' rejected - original image '.$img_meta['width'].'x'.$img_meta['height'].$size_too_small_text;
+					else $rejected_text = 'image id '.$pid.' rejected - '.$img_width.'x'.$img_height.$size_too_small_text;
+				
+					$this->p->debug->log( 'exiting early: '.$rejected_text );
 					if ( is_admin() )
-						$this->p->notice->err( 'Media Library image id '.$pid.' rejected - '.
-							$img_width.'x'.$img_height.' too small for '.$size_name.' image dimensions setting '.
-							'('.$size_info['width'].'x'.$size_info['height'].( empty( $size_info['crop'] ) ? '' : ' cropped' ).'). '.
-							'Upload a larger image, or adjust the '.$size_name.' image dimensions setting.' );
-
-					$this->p->debug->log( 'exiting early: returned image dimensions'.
-						' '.$img_width.'x'.$img_height.' smaller than'.
-						' '.$size_info['width'].'x'.$size_info['height'].
-						( empty( $size_info['crop'] ) ? '' : ' cropped' ) );
-
+						$this->p->notice->err( 'Media Library '.$rejected_text.
+							' Upload a larger image, or adjust the '.$size_name.' image dimensions setting.');
 					return $ret_empty;
+
 				} else $this->p->debug->log( 'returned image dimensions ('.$img_width.'x'.$img_height.') are sufficient' );
 			}
 
-			if ( ! empty( $img_url ) && 
-				( $check_dupes == false || $this->p->util->is_uniq_url( $img_url ) ) )
-					return array( apply_filters( $this->p->cf['lca'].'_rewrite_url', $img_url ), $img_width, $img_height, $img_cropped );
+			if ( $check_dupes == false || $this->p->util->is_uniq_url( $img_url ) )
+				return array( apply_filters( $this->p->cf['lca'].'_rewrite_url', $img_url ), 
+					$img_width, $img_height, $img_cropped );
 
 			return $ret_empty;
 		}
