@@ -222,7 +222,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
-= Version 2.4.2dev2 =
+= Version 2.4.2 =
 
 * Bugfixes
 	* Fixed the `get_max_nums()` method to return the maximum image/video option values from the Custom Settings (Pro version).
@@ -282,6 +282,10 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 	* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 == Upgrade Notice ==
+
+= 2.4.2 =
+
+Fixed custom setting max image/video use, fixed JetPack Photon addon error when image sizes doesn't exist, improved image resizing method.
 
 = 2.4.1 =
 
