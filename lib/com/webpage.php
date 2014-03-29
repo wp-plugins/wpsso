@@ -287,8 +287,8 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$desc = category_description();
 					if ( empty( $desc ) )
 						$desc = sprintf( '%s Category', single_cat_title( '', false ) ); 
-				}
-				elseif ( is_day() ) 
+				
+				} elseif ( is_day() ) 
 					$desc = sprintf( 'Daily Archives for %s', get_the_date() );
 				elseif ( is_month() ) 
 					$desc = sprintf( 'Monthly Archives for %s', get_the_date('F Y') );
@@ -298,9 +298,13 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			// if there's still no description, then fallback to a generic version
 			if ( empty( $desc ) ) {
-				if ( ! empty( $this->p->options['og_site_description'] ) )
+				if ( ! empty( $this->p->options['og_site_description'] ) ) {
+					$this->p->debug->log( 'description is empty - custom site description' );
 					$desc = $this->p->options['og_site_description'];
-				else $desc = get_bloginfo( 'description', 'display' );
+				} else {
+					$this->p->debug->log( 'description is empty - using blog description' );
+					$desc = get_bloginfo( 'description', 'display' );
+				}
 			}
 
 			if ( $textlen > 0 ) {
@@ -314,6 +318,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			$charset = get_bloginfo( 'charset' );
 			$desc = htmlentities( $desc, ENT_QUOTES, $charset, false );	// double_encode = false
+			$this->p->debug->log( 'pre-filter description = "'.$desc.'"' );
 			return apply_filters( $this->p->cf['lca'].'_description', $desc );
 		}
 
