@@ -58,7 +58,7 @@ if ( ! class_exists( 'WpssoSitesubmenuNetwork' ) && class_exists( 'WpssoAdmin' )
 				case 'network-settings' :
 					// retrieve information on license use, if any
 					$qty_used = class_exists( 'SucomUpdate' ) ? 
-						SucomUpdate::get_option( 'qty_used' ) : false;
+						SucomUpdate::get_option( $this->p->cf['lca'], 'qty_used' ) : false;
 
 					$ret[] = $this->p->util->th( $this->p->cf['uca'].' Pro Authentication ID', 'highlight', 'plugin_tid_network' ).
 					'<td nowrap><p>'.$this->form->get_input( 'plugin_tid', 'mono' ).

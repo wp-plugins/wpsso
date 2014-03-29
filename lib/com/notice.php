@@ -13,6 +13,7 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 	class SucomNotice {
 
 		private $p;
+		private $lca;
 		private $log = array(
 			'err' => array(),
 			'inf' => array(),
@@ -22,6 +23,8 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
+			$this->lca = empty( $this->p->cf['lca'] ) ? 
+				'sucom' : $this->p->cf['lca'];
 
 			add_action( 'all_admin_notices', array( &$this, 'admin_notices' ) );
 		}
@@ -37,7 +40,7 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 				$user_id = get_current_user_id();			// since wp 3.0
 				if ( empty( $user_id ) )				// exclude wp-cron and/or empty user ids
 					$user = false;
-				$msg_opt = $this->p->cf['lca'].'_notices_'.$type;	// the option name
+				$msg_opt = $this->lca.'_notices_'.$type;	// the option name
 				if ( $user == true )					// get the message array from the user table
 					$msg_arr = get_user_option( $msg_opt, $user_id );
 				else $msg_arr = get_option( $msg_opt );			// get the message array from the options table
@@ -57,7 +60,7 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 
 		public function trunc( $type ) {
 			$user_id = get_current_user_id();	// since wp 3.0
-			$msg_opt = $this->p->cf['lca'].'_notices_'.$type;
+			$msg_opt = $this->lca.'_notices_'.$type;
 			// delete doesn't always work, so set an empty value first
 			if ( get_option( $msg_opt ) ) {
 				update_option( $msg_opt, array() );
@@ -74,7 +77,7 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 			$all_nag_msgs = '';
 			foreach ( array( 'nag', 'err', 'inf' ) as $type ) {
 				$user_id = get_current_user_id();	// since wp 3.0
-				$msg_opt = $this->p->cf['lca'].'_notices_'.$type;
+				$msg_opt = $this->lca.'_notices_'.$type;
 				$msg_arr = array_unique( array_merge( 
 					(array) get_option( $msg_opt ), 
 					(array) get_user_option( $msg_opt, $user_id ), 
@@ -83,14 +86,13 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 				$this->trunc( $type );
 				if ( $type == 'err' ) {
 					if ( class_exists( 'SucomUpdate' ) &&
-						( $umsg = SucomUpdate::get_umsg( $this->p->cf['lca'] ) ) !== false )
+						( $umsg = SucomUpdate::get_umsg( $this->lca ) ) !== false )
 							$msg_arr[] = $umsg;
 				}
 				if ( ! empty( $msg_arr ) ) {
-					if ( $type == 'nag' ) {
-						echo '
-						<style type="text/css">
-							.sucom-update-nag {
+					if ( $type == 'nag' ) 
+						echo '<style type="text/css">
+							.'.$this->lca.'-update-nag {
 								display:block;
 								line-height:1.4em;
 								background-image: url("'.constant( $this->p->cf['uca'].'_URLPATH' ).'images/background.jpg");
@@ -100,19 +102,19 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 								padding:10px 40px 10px 40px;
 								margin-top:0;
 							}
-							.sucom-update-nag p,
-							.sucom-update-nag ul {
+							.'.$this->lca.'-update-nag p,
+							.'.$this->lca.'-update-nag ul {
 								max-width:900px;
 								margin:15px auto 15px auto;
 								text-align:center;
 							}
-							.sucom-update-nag li {
+							.'.$this->lca.'-update-nag li {
 								list-style:circle outside none;
 								text-align:left;
 								margin:5px 0 5px 20px;
 							}
 						</style>';
-					}
+
 					foreach ( $msg_arr as $msg ) {
 						if ( ! empty( $msg ) )
 							switch ( $type ) {
@@ -132,7 +134,7 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 				}
 			}
 			if ( ! empty( $all_nag_msgs ) )
-				echo '<div class="update-nag sucom-update-nag">', $all_nag_msgs, '</div>', "\n";
+				echo '<div class="update-nag '.$this->lca.'-update-nag">', $all_nag_msgs, '</div>', "\n";
 		}
 	}
 }
