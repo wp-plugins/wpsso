@@ -208,18 +208,20 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 5. Screenshot 5 : An Example Google Search Result showing Author Profile Info
 6. Screenshot 6 : An Example LinkedIn Share
 7. Screenshot 7 : An Example Pinterest Image Pin
-8. Screenshot 8 : An Example StumbleUpon Share
-9. Screenshot 9 : An Example Tumblr 'Link' Share
-10. Screenshot 10 : An Example Tumblr 'Photo' Share
-11. Screenshot 11 : An Example Tumblr 'Video' Share
-12. Screenshot 12 : An Example Twitter 'Summary' Card
-13. Screenshot 13 : An Example Twitter 'Large Image Summary' Card
-14. Screenshot 14 : An Example Twitter 'Photo' Card
-15. Screenshot 15 : An Example Twitter 'Gallery' Card
-16. Screenshot 16 : An Example Twitter 'Product' Card
-17. Screenshot 17 : SSO General Settings Page
-18. Screenshot 18 : SSO Advanced Settings Page
-19. Screenshot 19 : Post / Page SSO Custom Settings
+8. Screenshot 8 : An Example Pinterest Product Pin
+9. Screenshot 9 : An Example Pinterest Product Pin (Zoomed)
+10. Screenshot 10 : An Example StumbleUpon Share
+11. Screenshot 11 : An Example Tumblr 'Link' Share
+12. Screenshot 12 : An Example Tumblr 'Photo' Share
+13. Screenshot 13 : An Example Tumblr 'Video' Share
+14. Screenshot 14 : An Example Twitter 'Summary' Card
+15. Screenshot 15 : An Example Twitter 'Large Image Summary' Card
+16. Screenshot 16 : An Example Twitter 'Photo' Card
+17. Screenshot 17 : An Example Twitter 'Gallery' Card
+18. Screenshot 18 : An Example Twitter 'Product' Card
+19. Screenshot 19 : SSO General Settings Page
+20. Screenshot 20 : SSO Advanced Settings Page
+21. Screenshot 21 : Post / Page SSO Custom Settings
 
 == Changelog ==
 
