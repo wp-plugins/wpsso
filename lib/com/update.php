@@ -13,8 +13,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 	class SucomUpdate {
 	
 		private $p;
-		private static $umsg = null;
-		private static $option_name = '';
+		private static $c = array();
 	
 		public $json_url = '';
 		public $json_expire = 3600;	// cache retrieved update json for 1 hour
@@ -33,28 +32,28 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			if ( ! empty( $this->p->options['plugin_tid'] ) )
 				$this->json_url = $this->p->cf['url']['pro_update'].'?tid='.$this->p->options['plugin_tid'];
 
-			$this->lca = $this->p->cf['lca'];					// lowercase acronym
+			$this->lca = $this->p->cf['lca'];					// ngfb
 			$this->slug = $this->p->cf['slug'];					// nextgen-facebook
 			$this->plugin_base = constant( $this->p->cf['uca'].'_PLUGINBASE' );	// nextgen-facebook/nextgen-facebook.php
 			$this->cron_hook = 'plugin_updates-'.$this->slug;			// plugin_updates-nextgen-facebook
 			$this->sched_hours = $this->p->cf['update_hours'];			// 24
 			$this->sched_name = 'every'.$this->sched_hours.'hours';			// every24hours
-			self::$option_name = 'external_updates-'.$this->slug;			// external_updates-nextgen-facebook
+			self::$c[$this->lca.'_onam'] = 'external_updates-'.$this->slug;		// external_updates-nextgen-facebook
 			$this->install_hooks();
 		}
 
 		public static function get_umsg( $lca ) {
-			if ( self::$umsg === null ) {
-				self::$umsg = base64_decode( get_option( $lca.'_umsg' ) );
-				if ( empty( self::$umsg ) )
-					self::$umsg = false;
+			if ( ! array_key_exists( $lca.'_umsg', self::$c ) ) {
+				self::$c[$lca.'_umsg'] = base64_decode( get_option( $lca.'_umsg' ) );
+				if ( empty( self::$c[$lca.'_umsg'] ) )
+					self::$c[$lca.'_umsg'] = false;
 			}
-			return self::$umsg;
+			return self::$c[$lca.'_umsg'];
 		}
 
-		public static function get_option( $idx = '' ) {
-			if ( ! empty( self::$option_name ) ) {
-				$option_data = get_site_option( self::$option_name );
+		public static function get_option( $lca, $idx = '' ) {
+			if ( ! empty( self::$c[$lca.'_onam'] ) ) {
+				$option_data = get_site_option( self::$c[$lca.'_onam'] );
 				if ( ! empty( $idx ) ) {
 					if ( is_object( $option_data->update ) &&
 						isset( $option_data->update->$idx ) )
@@ -109,20 +108,16 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 
 		public function inject_update( $updates = false ) {
-			$this->p->debug->mark();
-
 			// remove existing plugin information to make sure it is correct
 			if ( isset( $updates->response[$this->plugin_base] ) )
 				unset( $updates->response[$this->plugin_base] );	// wpsso/wpsso.php
-
-			$option_data = get_site_option( self::$option_name );
-
+			$option_data = get_site_option( self::$c[$this->lca.'_onam'] );
 			if ( empty( $option_data ) )
-				$this->p->debug->log( self::$option_name.' option value is empty' );
-			elseif ( ! is_object( $option_data->update ) )
-				$this->p->debug->log( '$option_data->update is not an object' );
+				$this->p->debug->log( 'update option is empty' );
 			elseif ( empty( $option_data->update ) )
-				$this->p->debug->log( '$option_data->update is empty' );
+				$this->p->debug->log( 'no update information' );
+			elseif ( ! is_object( $option_data->update ) )
+				$this->p->debug->log( 'update property is not an object' );
 			elseif ( version_compare( $option_data->update->version, $this->get_installed_version(), '>' ) ) {
 				$updates->response[$this->plugin_base] = $option_data->update->json_to_wp();
 				$this->p->debug->log( $updates->response[$this->plugin_base], 2 );
@@ -141,7 +136,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 	
 		public function check_for_updates() {
-			$option_data = get_site_option( self::$option_name );
+			$option_data = get_site_option( self::$c[$this->lca.'_onam'] );
 			if ( empty( $option_data ) ) {
 				$option_data = new StdClass;
 				$option_data->lastCheck = 0;
@@ -151,7 +146,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			$option_data->lastCheck = time();
 			$option_data->checkedVersion = $this->get_installed_version();
 			$option_data->update = $this->get_update_data();
-			update_site_option( self::$option_name, $option_data );
+			update_site_option( self::$c[$this->lca.'_onam'], $option_data );
 		}
 	
 		public function get_update_data() {
@@ -214,10 +209,10 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				! empty( $result['body'] ) ) {
 	
 				if ( ! empty( $result['headers']['x-smp-error'] ) ) {
-					self::$umsg = json_decode( $result['body'] );
-					update_option( $this->lca.'_umsg', base64_encode( self::$umsg ) );
+					self::$c[$this->lca.'_umsg'] = json_decode( $result['body'] );
+					update_option( $this->lca.'_umsg', base64_encode( self::$c[$this->lca.'_umsg'] ) );
 				} else {
-					self::$umsg = false;
+					self::$c[$this->lca.'_umsg'] = false;
 					delete_option( $this->lca.'_umsg' );
 					$plugin_data = SucomPluginData::from_json( $result['body'] );
 				}
