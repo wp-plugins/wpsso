@@ -216,10 +216,10 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 13. Screenshot 13 : An Example Twitter 'Large Image Summary' Card
 14. Screenshot 14 : An Example Twitter 'Photo' Card
 15. Screenshot 15 : An Example Twitter 'Gallery' Card
-16. Screenshot 16 : An Example Twitter 'Product' Card from a WooCommerce Product Page
+16. Screenshot 16 : An Example Twitter 'Product' Card
 17. Screenshot 17 : SSO General Settings Page
 18. Screenshot 18 : SSO Advanced Settings Page
-19. Screenshot 18 : Post / Page SSO Custom Settings
+19. Screenshot 19 : Post / Page SSO Custom Settings
 
 == Changelog ==
 
