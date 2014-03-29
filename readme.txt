@@ -201,15 +201,15 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Screenshots ==
 
-1. Screenshot 1 : An Example Facebook Link Share
-2. Screenshot 2 : An Example Facebook Video Share
-3. Screenshot 3 : An Example Google+ Link Share
-4. Screenshot 4 : An Example Google+ Video Share
-5. Screenshot 5 : An Example Google Search Result showing Author Profile Info
-6. Screenshot 6 : An Example LinkedIn Share
-7. Screenshot 7 : An Example Pinterest Image Pin
-8. Screenshot 8 : An Example Pinterest Product Pin
-9. Screenshot 9 : An Example Pinterest Product Pin (Zoomed)
+01. Screenshot 1 : An Example Facebook Link Share
+02. Screenshot 2 : An Example Facebook Video Share
+03. Screenshot 3 : An Example Google+ Link Share
+04. Screenshot 4 : An Example Google+ Video Share
+05. Screenshot 5 : An Example Google Search Result showing Author Profile Info
+06. Screenshot 6 : An Example LinkedIn Share
+07. Screenshot 7 : An Example Pinterest Image Pin
+08. Screenshot 8 : An Example Pinterest Product Pin
+09. Screenshot 9 : An Example Pinterest Product Pin (Zoomed)
 10. Screenshot 10 : An Example StumbleUpon Share
 11. Screenshot 11 : An Example Tumblr 'Link' Share
 12. Screenshot 12 : An Example Tumblr 'Photo' Share
