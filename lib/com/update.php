@@ -15,8 +15,6 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		private $p;
 		private static $c = array();
 	
-		public $json_url = '';
-		public $json_expire = 3600;	// cache retrieved update json for 1 hour
 		public $lca = 'plugin';
 		public $slug = '';
 		public $base = '';
@@ -24,21 +22,25 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		public $sched_hours = 24;
 		public $sched_name = 'every24hours';
 		public $update_timestamp = '';
+		public $json_url = '';
+		public $json_expire = 3600;	// cache retrieved update json for 1 hour
 	
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
 
+			$this->lca = empty( $this->p->cf['lca'] ) ? 'sucom' : $this->p->cf['lca'];	// ngfb
+			$this->slug = $this->p->cf['slug'];						// nextgen-facebook
+			$this->plugin_base = constant( $this->p->cf['uca'].'_PLUGINBASE' );		// nextgen-facebook/nextgen-facebook.php
+			$this->cron_hook = 'plugin_updates-'.$this->slug;				// plugin_updates-nextgen-facebook
+			$this->sched_hours = $this->p->cf['update_hours'];				// 24
+			$this->sched_name = 'every'.$this->sched_hours.'hours';				// every24hours
+
+			self::$c[$this->lca.'_onam'] = 'external_updates-'.$this->slug;			// external_updates-nextgen-facebook
+
 			if ( ! empty( $this->p->options['plugin_tid'] ) )
 				$this->json_url = $this->p->cf['url']['pro_update'].'?tid='.$this->p->options['plugin_tid'];
 
-			$this->lca = $this->p->cf['lca'];					// ngfb
-			$this->slug = $this->p->cf['slug'];					// nextgen-facebook
-			$this->plugin_base = constant( $this->p->cf['uca'].'_PLUGINBASE' );	// nextgen-facebook/nextgen-facebook.php
-			$this->cron_hook = 'plugin_updates-'.$this->slug;			// plugin_updates-nextgen-facebook
-			$this->sched_hours = $this->p->cf['update_hours'];			// 24
-			$this->sched_name = 'every'.$this->sched_hours.'hours';			// every24hours
-			self::$c[$this->lca.'_onam'] = 'external_updates-'.$this->slug;		// external_updates-nextgen-facebook
 			$this->install_hooks();
 		}
 

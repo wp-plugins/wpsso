@@ -56,11 +56,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				}
 			}
 
-			if ( ( $obj = $this->p->util->get_the_object( $use_post ) ) === false ) {
-				$this->p->debug->log( 'exiting early: invalid object type' );
-				return array();
-			} else $this->p->debug->log( 'get_the_object('.$use_post.') = '.$obj->ID );
-
+			$obj = $this->p->util->get_the_object( $use_post );
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			$post_type = '';
 			$has_video_image = false;

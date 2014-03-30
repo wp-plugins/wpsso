@@ -149,7 +149,6 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$obj = get_post( $use_post );
 
 			$obj = apply_filters( $this->p->cf['lca'].'_the_object', $obj, $use_post );
-
 			if ( $obj === false || ! is_object( $obj ) )
 				return false;
 			else return $obj;

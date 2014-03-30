@@ -83,10 +83,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		// input array should be from transient cache
 		public function get_header_html( $meta = array(), $use_post = false ) {
 		
-			if ( ( $obj = $this->p->util->get_the_object( $use_post ) ) === false ) {
-				$this->p->debug->log( 'exiting early: invalid object type' );
-				return;
-			}
+			$obj = $this->p->util->get_the_object( $use_post );
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			$this->p->debug->log( 'using post_id '.$post_id );
 		
