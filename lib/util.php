@@ -79,7 +79,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			case 'pending':
 			case 'private':
 			case 'publish':
-				$lang = get_locale();
+				$lang = SucomUtil::get_locale();
 				$cache_type = 'object cache';
 				$sharing_url = $this->p->util->get_sharing_url( $post_id );
 

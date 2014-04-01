@@ -20,7 +20,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 		}
 
 		public function get( $idx = '', $atts = null, $class = '' ) {
-
 			$text = is_array( $atts ) || is_object( $atts ) ? '' : $atts;
 			$idx = sanitize_title_with_dashes( $idx );
 			if ( strpos( $idx, 'tooltip-' ) !== false && empty( $class ) )
@@ -123,7 +122,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 */
 						 case 'tooltip-postmeta-og_art_section':
 							$text = 'A custom topic for this '.$ptn.', different from the default 
-							Website Topic chosen in the General Settings.';
+							Website Topic chosen in the General settings.';
 						 	break;
 						 case 'tooltip-postmeta-og_title':
 							$text = 'A custom title for the Open Graph, Rich Pin, Twitter Card meta tags (all Twitter Card formats), 
@@ -277,17 +276,19 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							The Pro version also allows you to select a custom Topic for each individual Post and Page.';
 							break;
 						case 'tooltip-og_site_name':
-							$text = 'By default, the Site Title from the <a href="'.get_admin_url( null, 'options-general.php' ).'">WordPress General Settings</a>
-							page is used for the Open Graph, Rich Pin site name (\'og:site_name\' meta tag). You may override the default Site Title value here.';
+							$text = 'The Site Title is used for the Open Graph / Rich Pin site name (og:site_name) meta tag. 
+							You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Site Title</a> value here.';
 							break;
 						case 'tooltip-og_site_description':
-							$text = 'By default, the Tagline in the <a href="'.get_admin_url( null, 'options-general.php' ).'">WordPress General Settings</a>
-							page is used as a description for the index home page, and as fallback for the Open Graph, Rich Pin 
-							description field (\'og:description\' meta tag). You may override that default value here.';
+							$text = 'The Tagline is used as a description for the <em>index</em> (non-static) home page, 
+							and as a fallback for the Open Graph / Rich Pin description (og:description) meta tag. 
+							You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Tagline</a> value here,
+							to provide a longer and more complete description of your website.';
 							break;
 						case 'tooltip-og_title_sep':
-							$text = 'One or more characters used to separate values (category parent names, page numbers, etc.) 
-							within the Open Graph / Rich Pin title string (default is \''.$this->p->opt->get_defaults( 'og_title_sep' ).'\').';
+							$text = 'One or more characters used to separate values (category parent names, page numbers, etc.) within the 
+							Open Graph / Rich Pin title string (the default is a hyphen \''.$this->p->opt->get_defaults( 'og_title_sep' ).'\'
+							character).';
 							break;
 						case 'tooltip-og_title_len':
 							$text = 'The maximum length of text used in the Open Graph / Rich Pin title tag 
@@ -437,7 +438,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-plugin_ignore_small_img':
 							$text = $this->p->cf['full'].' will attempt to include images from the img html tags it finds in the content.
 							The img html tags must have a width and height attribute, and their size must be equal or larger than the 
-							Image Dimensions you\'ve entered on the General Settings page. 
+							Image Dimensions you\'ve entered on the General settings page. 
 							Uncheck this option to include smaller images from the content, Media Library, etc.
 							<strong>Unchecking this option is not advised</strong> - 
 							images that are much too small for some social websites may be included in your meta tags.';
@@ -693,7 +694,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					As an example, to match the contact field name of a theme or other plugin, you might change \'gplus\' to \'googleplus\'.
 					If you change the Facebook or Google+ field names, please make sure to update the Open Graph 
 					Author Profile URL and Google Author Link URL options in the '.
-					$this->p->util->get_admin_url( 'general', 'General Settings' ).' as well.';
+					$this->p->util->get_admin_url( 'general', 'General settings' ).' as well.';
 					break;
 				case 'tooltip-wp-cm-field-name':
 					$text = 'The built-in WordPress contact field names cannot be changed.';
@@ -793,6 +794,12 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 
 			}
+			if ( is_array( $atts ) && $atts['is_locale'] === true )
+				$text .= ' This option is localized &mdash; you may change the WordPress admin locale with 
+				<a href="http://wordpress.org/plugins/polylang/" target="_blank">Polylang</a>,
+				<a href="http://wordpress.org/plugins/wp-native-dashboard/" target="_blank">WP Native Dashboard</a>, 
+				etc., to define alternate values for different languages.';
+
 			if ( strpos( $idx, 'tooltip-' ) !== false && ! empty( $text ) )
 				return '<img src="'.WPSSO_URLPATH.'images/question-mark.png" width="14" height="14" class="'.
 					$class.'" alt="'.esc_attr( $text ).'" />';

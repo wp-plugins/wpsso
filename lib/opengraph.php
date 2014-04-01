@@ -43,7 +43,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 			if ( $this->p->is_avail['cache']['transient'] ) {
 				$cache_salt = __METHOD__.'('.apply_filters( $this->p->cf['lca'].'_og_cache_salt', 
-					'lang:'.get_locale().'_sharing_url:'.$sharing_url, $use_post ).')';
+					'lang:'.SucomUtil::get_locale().'_sharing_url:'.$sharing_url, $use_post ).')';
 				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
 				$this->p->debug->log( $cache_type.': og array transient salt '.$cache_salt );
@@ -76,8 +76,10 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				$og['og:locale'] = $lang;
 
 			if ( ! array_key_exists( 'og:site_name', $og ) ) {
-				if ( ! empty( $this->p->options['og_site_name'] ) )
-					$og['og:site_name'] = $this->p->options['og_site_name'];
+				// allow fallback if locale specific option does not exist
+				$key = SucomUtil::get_locale_key( 'og_site_name', $this->p->options );
+				if ( ! empty( $this->p->options[$key] ) )
+					$og['og:site_name'] = $this->p->options[$key];
 				else $og['og:site_name'] = get_bloginfo( 'name', 'display' );
 			}
 

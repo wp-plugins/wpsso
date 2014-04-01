@@ -15,31 +15,34 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		private $p;
 		private static $c = array();
 	
-		public $lca = 'plugin';
+		public $lca = '';
 		public $slug = '';
 		public $base = '';
-		public $cron_hook = 'plugin_updates';
+		public $cron_hook = '';
 		public $sched_hours = 24;
 		public $sched_name = 'every24hours';
-		public $update_timestamp = '';
+		public $opt_name = '';
 		public $json_url = '';
 		public $json_expire = 3600;	// cache retrieved update json for 1 hour
-	
-		public function __construct( &$plugin ) {
+		public $update_timestamp = '';
+
+		public function __construct( &$plugin, $lca, $slug, $plugin_base, $update_url ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
+			$this->lca = $lca;								// ngfb
+			$this->slug = $slug;								// nextgen-facebook
+			$this->plugin_base = $plugin_base;						// nextgen-facebook/nextgen-facebook.php
+			$this->cron_hook = 'plugin_updates-'.$slug;					// plugin_updates-nextgen-facebook
+			$this->opt_name = self::$c[$lca.'_opt_name'] = 'external_updates-'.$slug;	// external_updates-nextgen-facebook
 
-			$this->lca = empty( $this->p->cf['lca'] ) ? 'sucom' : $this->p->cf['lca'];	// ngfb
-			$this->slug = $this->p->cf['slug'];						// nextgen-facebook
-			$this->plugin_base = constant( $this->p->cf['uca'].'_PLUGINBASE' );		// nextgen-facebook/nextgen-facebook.php
-			$this->cron_hook = 'plugin_updates-'.$this->slug;				// plugin_updates-nextgen-facebook
-			$this->sched_hours = $this->p->cf['update_hours'];				// 24
-			$this->sched_name = 'every'.$this->sched_hours.'hours';				// every24hours
-
-			self::$c[$this->lca.'_onam'] = 'external_updates-'.$this->slug;			// external_updates-nextgen-facebook
+			if ( ! empty( $this->p->cf['update_hours'] ) ) {
+				$this->sched_hours = $this->p->cf['update_hours'];			// 24
+				$this->sched_name = 'every'.$this->sched_hours.'hours';			// every24hours
+			}
 
 			if ( ! empty( $this->p->options['plugin_tid'] ) )
-				$this->json_url = $this->p->cf['url']['pro_update'].'?tid='.$this->p->options['plugin_tid'];
+				$this->json_url = $update_url.'?tid='.$this->p->options['plugin_tid'];
+			else $this->p->debug->log( 'missing option value: plugin_tid' );
 
 			$this->install_hooks();
 		}
@@ -54,8 +57,8 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 
 		public static function get_option( $lca, $idx = '' ) {
-			if ( ! empty( self::$c[$lca.'_onam'] ) ) {
-				$option_data = get_site_option( self::$c[$lca.'_onam'] );
+			if ( ! empty( self::$c[$lca.'_opt_name'] ) ) {
+				$option_data = get_site_option( self::$c[$lca.'_opt_name'] );
 				if ( ! empty( $idx ) ) {
 					if ( is_object( $option_data->update ) &&
 						isset( $option_data->update->$idx ) )
@@ -67,6 +70,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 
 		public function install_hooks() {
+			$this->p->debug->mark();
 			add_filter( 'plugins_api', array( &$this, 'inject_data' ), 100, 3 );
 			add_filter( 'transient_update_plugins', array( &$this, 'inject_update' ), 1000, 1 );
 			add_filter( 'site_transient_update_plugins', array( &$this, 'inject_update' ), 1000, 1 );
@@ -83,17 +87,14 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 					wp_clear_scheduled_hook( $this->cron_hook );
 				}
 				// add schedule if it doesn't exist
-				if ( ! defined('WP_INSTALLING') && ! wp_next_scheduled( $this->cron_hook ) ) {
-					// remove old schedule name (if it exists)
-					if ( wp_get_schedule( 'pcfu_updates-'.$this->slug ) )
-						wp_clear_scheduled_hook( 'pcfu_updates-'.$this->slug );
+				if ( ! defined('WP_INSTALLING') && ! wp_next_scheduled( $this->cron_hook ) )
 					wp_schedule_event( time(), $this->sched_name, $this->cron_hook );	// since wp 2.1.0
-				}
 			} else wp_clear_scheduled_hook( $this->cron_hook );
 		}
 	
 		public function inject_data( $result, $action = null, $args = null ) {
-		    	if ( $action == 'plugin_information' && isset( $args->slug ) && $args->slug == $this->slug ) {
+		    	if ( $action == 'plugin_information' && 
+				isset( $args->slug ) && $args->slug == $this->slug ) {
 				$plugin_data = $this->get_json();
 				if ( ! empty( $plugin_data ) ) 
 					return $plugin_data->json_to_wp();
@@ -113,7 +114,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			// remove existing plugin information to make sure it is correct
 			if ( isset( $updates->response[$this->plugin_base] ) )
 				unset( $updates->response[$this->plugin_base] );	// wpsso/wpsso.php
-			$option_data = get_site_option( self::$c[$this->lca.'_onam'] );
+			$option_data = get_site_option( $this->opt_name );
 			if ( empty( $option_data ) )
 				$this->p->debug->log( 'update option is empty' );
 			elseif ( empty( $option_data->update ) )
@@ -138,7 +139,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 	
 		public function check_for_updates() {
-			$option_data = get_site_option( self::$c[$this->lca.'_onam'] );
+			$option_data = get_site_option( $this->opt_name );
 			if ( empty( $option_data ) ) {
 				$option_data = new StdClass;
 				$option_data->lastCheck = 0;
@@ -148,7 +149,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			$option_data->lastCheck = time();
 			$option_data->checkedVersion = $this->get_installed_version();
 			$option_data->update = $this->get_update_data();
-			update_site_option( self::$c[$this->lca.'_onam'], $option_data );
+			update_site_option( $this->opt_name, $option_data );
 		}
 	
 		public function get_update_data() {

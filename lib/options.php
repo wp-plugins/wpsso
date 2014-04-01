@@ -173,12 +173,17 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					unset( $opts[$key] );
 			*/
 
-			// add missing options and sanitize values
-			foreach ( $def_opts as $key => $def_val ) {
+			// add missing options 
+			foreach ( $def_opts as $key => $def_val )
 				if ( ! empty( $key ) && ! array_key_exists( $key, $opts ) )
 					$opts[$key] = $def_val;
-				else $opts[$key] = $this->p->util->sanitize_option_value( $key, $opts[$key], $def_val );
-			}
+
+			// sanitize values
+			foreach ( $opts as $key => $val )
+				if ( ! empty( $key ) ) {
+					$def_val = array_key_exists( $key, $def_opts ) ? $def_opts[$key] : '';
+					$opts[$key] = $this->p->util->sanitize_option_value( $key, $val, $def_val );
+				}
 
 			/*
 			 * Adjust dependent options -- All options (site and meta as well) are sanitized here, 
@@ -257,6 +262,10 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 		public function filter_option_type( $ret, $key ) {
 			if ( ! empty( $ret ) )
 				return $ret;
+
+			// remove localization for more generic match
+			if ( strpos( $key, '#' ) !== false )
+				$key = preg_replace( '/#.*$/', '', $key );
 
 			switch ( $key ) {
 				// twitter-style usernames (prepend with an at)

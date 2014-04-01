@@ -298,12 +298,18 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			// if there's still no description, then fallback to a generic version
 			if ( empty( $desc ) ) {
-				if ( ! empty( $this->p->options['og_site_description'] ) ) {
-					$this->p->debug->log( 'description is empty - custom site description' );
-					$desc = $this->p->options['og_site_description'];
-				} else {
-					$this->p->debug->log( 'description is empty - using blog description' );
-					$desc = get_bloginfo( 'description', 'display' );
+				if ( is_admin() && $obj->post_status == 'auto-draft' )
+					$this->p->debug->log( 'post_status is auto-draft - using empty description' );
+				else {
+					// allow fallback if locale specific option does not exist
+					$key = SucomUtil::get_locale_key( 'og_site_description', $this->p->options );
+					if ( ! empty( $this->p->options[$key] ) ) {
+						$this->p->debug->log( 'description is empty - custom site description ('.$key.')' );
+						$desc = $this->p->options[$key];
+					} else {
+						$this->p->debug->log( 'description is empty - using blog description' );
+						$desc = get_bloginfo( 'description', 'display' );
+					}
 				}
 			}
 
@@ -341,7 +347,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			if ( $filter_content == true ) {
 				if ( $this->p->is_avail['cache']['object'] ) {
 					// if the post id is 0, then add the sharing url to ensure a unique salt string
-					$cache_salt = __METHOD__.'(lang:'.get_locale().'_post:'.$post_id.'_'.$filter_name.
+					$cache_salt = __METHOD__.'(lang:'.SucomUtil::get_locale().'_post:'.$post_id.'_'.$filter_name.
 						( empty( $post_id ) ? '_sharing_url:'.$this->p->util->get_sharing_url( $use_post ) : '' ).')';
 					$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 					$cache_type = 'object cache';

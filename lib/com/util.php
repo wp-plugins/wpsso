@@ -13,7 +13,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 	class SucomUtil {
 
 		private static $crawler_name = false;
-		private static $urls_found = array();	// array to detect duplicate images, etc.
+
+		private $urls_found = array();	// array to detect duplicate images, etc.
 
 		protected $p;
 
@@ -63,6 +64,38 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return is_numeric( implode( array_keys( $arr ) ) ) ? false : true;
 		}
 
+		public static function get_locale( $ret = 'current' ) {
+			$lang = false;
+			switch ( $ret ) {
+				case 'default':
+					if ( function_exists( 'pll_default_language' ) )
+						$lang = pll_default_language( 'locale' );
+					if ( empty( $lang ) )
+						$lang = ( defined( 'WPLANG' ) && WPLANG ) ? WPLANG : 'en_US';
+					break;
+				default:
+					if ( function_exists( 'pll_current_language' ) )
+						$lang = pll_current_language( 'locale' );
+					if ( empty( $lang ) )
+						$lang = get_locale();
+					break;
+			}
+			return $lang;
+		}
+
+		// localize the options array key
+		public static function get_locale_key( $key, &$opts = false ) {
+			$default = self::get_locale( 'default' );
+			$ret = ( self::get_locale() !== $default ) ? $key.'#'.self::get_locale() : $key;
+
+			// fallback if options array provided and language key does not exist
+			if ( is_array( $opts ) && $ret !== $key ) {
+				if ( ! array_key_exists( $ret, $opts ) )
+					return $key;
+			}
+			return $ret;
+		}
+
 		public static function preg_grep_keys( $preg, $arr, $invert = false, $replace = false ) {
 			if ( ! is_array( $arr ) ) 
 				return false;
@@ -105,12 +138,12 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		}
 
 		public function reset_urls_found() {
-			self::$urls_found = array();
+			$this->urls_found = array();
 			return;
 		}
 
 		public function get_urls_found() {
-			return self::$urls_found;
+			return $this->urls_found;
 		}
 
 		public function is_uniq_url( $url = '' ) {
@@ -124,8 +157,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			if ( ! preg_match( '/[a-z]+:\/\//i', $url ) )
 				$this->p->debug->log( 'incomplete url given: '.$url );
 
-			if ( empty( self::$urls_found[$url] ) ) {
-				self::$urls_found[$url] = 1;
+			if ( empty( $this->urls_found[$url] ) ) {
+				$this->urls_found[$url] = 1;
 				return true;
 			} else {
 				$this->p->debug->log( 'duplicate url rejected: '.$url ); 
@@ -434,8 +467,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		public function delete_expired_transients( $all = false ) { 
 			global $wpdb, $_wp_using_ext_object_cache;
-			if ( $_wp_using_ext_object_cache ) 
-				return; 
+			if ( $_wp_using_ext_object_cache && 
+				$all === false ) 
+					return; 
 			$deleted = 0;
 			$time = isset ( $_SERVER['REQUEST_TIME'] ) ? (int) $_SERVER['REQUEST_TIME'] : time() ; 
 			$dbquery = 'SELECT option_name FROM '.$wpdb->options.' WHERE option_name LIKE \'_transient_timeout_'.$this->p->cf['lca'].'_%\'';
@@ -525,8 +559,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				else $tooltip_idx = 'tooltip-'.$id;
 				$tooltip_text = $this->p->msgs->get( $tooltip_idx, $atts );	// text is esc_attr()
 			}
-			return '<th'.
-				( empty( $class ) ? '' : ' class="'.$class.'"' ).
+			if ( is_array( $atts ) && $atts['is_locale'] === true )
+				$title .= ' <span style="font-weight:normal;">('.self::get_locale().')</span>';
+			return '<th'.( empty( $class ) ? '' : ' class="'.$class.'"' ).
 				( empty( $id ) ? '' : ' id="'.$id.'"' ).'><p>'.$title.
 				( empty( $tooltip_text ) ? '' : $tooltip_text ).'</p></th>';
 		}

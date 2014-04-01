@@ -184,7 +184,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				( empty( $placeholder ) ? '' : ' placeholder="'.$placeholder.'"'.
 					' onFocus="if ( this.value == \'\' ) this.value = \''.esc_js( $placeholder ).'\';"'.
 					' onBlur="if ( this.value == \''.esc_js( $placeholder ).'\' ) this.value = \'\';"' ).
-				'>'.esc_attr( $value ).'</textarea>';
+				'>'.stripslashes( esc_attr( $value ) ).'</textarea>';
 			return $html;
 		}
 

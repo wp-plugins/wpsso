@@ -68,11 +68,13 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[] = $this->p->util->th( 'Website Topic', 'highlight', 'og_art_section' ).
 					'<td>'.$this->form->get_select( 'og_art_section', $this->p->util->get_topics() ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Site Name', null, 'og_site_name' ).
-					'<td>'.$this->form->get_input( 'og_site_name', null, null, null, get_bloginfo( 'name', 'display' ) ).'</td>';
+					$rows[] = $this->p->util->th( 'Site Name', null, 'og_site_name', array( 'is_locale' => true ) ).
+					'<td>'.$this->form->get_input( SucomUtil::get_locale_key( 'og_site_name' ), 
+						null, null, null, get_bloginfo( 'name', 'display' ) ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Site Description', null, 'og_site_description' ).
-					'<td>'.$this->form->get_input( 'og_site_description', 'wide', null, null, get_bloginfo( 'description', 'display' ) ).'</td>';
+					$rows[] = $this->p->util->th( 'Site Description', null, 'og_site_description', array( 'is_locale' => true ) ).
+					'<td>'.$this->form->get_textarea( SucomUtil::get_locale_key( 'og_site_description' ), 
+						null, null, null, get_bloginfo( 'description', 'display' ) ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Title Separator', null, 'og_title_sep' ).
 					'<td>'.$this->form->get_input( 'og_title_sep', 'short' ).'</td>';

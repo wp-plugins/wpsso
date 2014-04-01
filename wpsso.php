@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Search - A Fast and Full Featured Plugin! 
-Version: 2.4.2
+Version: 2.4.3dev1
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */
@@ -199,7 +199,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			if ( ! empty( $this->options['plugin_tid'] ) ) {
 				add_filter( $this->cf['lca'].'_ua_plugin', array( &$this, 'filter_ua_plugin' ), 10, 1 );
 				add_filter( $this->cf['lca'].'_installed_version', array( &$this, 'filter_installed_version' ), 10, 1 );
-				$this->update = new SucomUpdate( $this );
+				$this->update = new SucomUpdate( $this, $this->cf['lca'], $this->cf['slug'], WPSSO_PLUGINBASE, $this->cf['url']['pro_update'] );
 				if ( is_admin() ) {
 					// if update_hours * 2 has passed without an update, then force one now
 					$last_update = get_option( $this->cf['lca'].'_utime' );
