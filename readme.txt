@@ -22,7 +22,7 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 * Configurable image sizes, title and description lengths for different contexts.
 * Optional fallback to a default image and video for index and search webpages.
 * Uses featured, attached, gallery shortcode, and/or HTML image tags in content.
-* Validation of image dimensions to provide accurate images for social websites.
+* Validation of image dimensions to provide accurate media for social websites.
 * Auto-regeneration of innacurate / missing WordPress image sizes using image IDs.
 * Support for embedded videos (iframe and/or object HTML tags).
 * Fully render content (including shortcodes) for accurate description texts.
@@ -33,6 +33,7 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 * Provides Facebook, Google+ and Twitter URL profile contact fields.
 * Includes a Google / SEO description meta tag if a known SEO plugin is not detected.
 * Validation tools and meta tag preview information on admin edit pages.
+* Localized / multilingual Site Title and (default) Description.
 
 **Pro / Power-User Version**
 
@@ -225,6 +226,16 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
+= Version 2.4.3dev1 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Localized the "Site Name" and "Site Description" options on the SSO General settings page.
+	* Added support for locale (language) values from the [Polylang](http://wordpress.org/plugins/polylang/) plugin functions.
+	* Added `SucomUtil::get_locale()` and `SucomUtil::get_locale_key()` static methods.
+	* Modified some `SucomUpdate` class construct parameters and variable definitions (Pro version).
+
 = Version 2.4.2 =
 
 * Bugfixes
@@ -285,6 +296,10 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 	* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 == Upgrade Notice ==
+
+= 2.4.3dev1 =
+
+Localized the "Site Name" and "Site Description" options, added support for Polylang locale functions.
 
 = 2.4.2 =
 
