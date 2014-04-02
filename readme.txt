@@ -43,17 +43,22 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 * Custom meta tag values (topic, description, image, video, etc.) for each Post, Page, and custom post type.
 * Ability to turn off / exclude specific Google / SEO, Open Graph and Twitter Card meta tags.
 * Integrates with 3rd party plugins and services for additional image, video, product, and content information:
-	* All in One SEO Pack
-	* bbPress
-	* BuddyPress
-	* JetPack Photon
-	* NextGEN Gallery
-	* MarketPress - WordPress eCommerce
-	* Polylang
-	* Slideshare, Vimeo, Wistia, Youtube APIs
-	* WooCommerce
-	* WordPress SEO by Yoast
-	* WP e-Commerce
+	* Plugins
+		* All in One SEO Pack
+		* bbPress
+		* BuddyPress
+		* JetPack Photon
+		* NextGEN Gallery
+		* MarketPress - WordPress eCommerce
+		* Polylang
+		* WooCommerce
+		* WordPress SEO by Yoast
+		* WP e-Commerce
+	* Service APIs
+		* Slideshare
+		* Vimeo
+		* Wistia
+		* Youtube
 
 <blockquote>
 <p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.006 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
