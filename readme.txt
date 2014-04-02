@@ -1,7 +1,7 @@
 === WordPress Social Sharing Optimization ===
 Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
-Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, tumblr, stumbleupon, widget, language, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube
+Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, tumblr, stumbleupon, widget, language, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube, polylang
 License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
@@ -21,19 +21,19 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 * Adds Open Graph / Rich Pin meta tags (Facebook, Google+, LinkedIn, Pinterest, etc.).
 * Configurable image sizes, title and description lengths for different contexts.
 * Optional fallback to a default image and video for index and search webpages.
-* Uses featured, attached, gallery shortcode, and/or HTML image tags in content.
-* Validation of image dimensions to provide accurate media for social websites.
-* Auto-regeneration of innacurate / missing WordPress image sizes using image IDs.
-* Support for embedded videos (iframe and/or object HTML tags).
-* Fully render content (including shortcodes) for accurate description texts.
-* Include author and publisher profile URLs for Facebook and Google Search.
-* Include hashtags from Post / Page WordPress Tags.
-* Include the author's name for Pinterest Rich Pins.
-* Uses object and transient cache for fastest execution speed.
-* Provides Facebook, Google+ and Twitter URL profile contact fields.
+* Supports featured, attached, gallery shortcode, and/or HTML image tags in content.
+* Validates of image dimensions to provide accurate media for social websites.
+* Auto-regeneration of innacurate / missing WordPress image sizes.
+* Support for embedded videos (iframe and object HTML tags).
+* Fully renders content (including shortcodes) for accurate description texts.
+* Includes author and publisher profile URLs for Facebook and Google Search.
+* Includes hashtags from Post / Page WordPress Tags.
+* Includes the author's name for Pinterest Rich Pins.
+* Uses object and transient caches to provide incredibly fast execution speeds.
 * Includes a Google / SEO description meta tag if a known SEO plugin is not detected.
-* Validation tools and meta tag preview information on admin edit pages.
-* Localized / multilingual Site Title and (default) Description.
+* Provides Facebook, Google+ and Twitter URL profile contact fields.
+* Validation tools and special meta tag preview tabs on admin edit pages.
+* Customizable *multilingual* Site Title and (default) Description texts.
 
 **Pro / Power-User Version**
 
@@ -43,16 +43,17 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 * Custom meta tag values (topic, description, image, video, etc.) for each Post, Page, and custom post type.
 * Ability to turn off / exclude specific Google / SEO, Open Graph and Twitter Card meta tags.
 * Integrates with 3rd party plugins and services for additional image, video, product, and content information:
-	* NextGEN Gallery
-	* JetPack Photon
-	* WordPress SEO by Yoast
 	* All in One SEO Pack
-	* WooCommerce
-	* MarketPress - WordPress eCommerce
-	* WP e-Commerce
 	* bbPress
 	* BuddyPress
+	* JetPack Photon
+	* NextGEN Gallery
+	* MarketPress - WordPress eCommerce
+	* Polylang
 	* Slideshare, Vimeo, Wistia, Youtube APIs
+	* WooCommerce
+	* WordPress SEO by Yoast
+	* WP e-Commerce
 
 <blockquote>
 <p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.006 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
@@ -226,13 +227,13 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
-= Version 2.4.3dev1 =
+= Version 2.4.3dev2 =
 
 * Bugfixes
 	* *None*
 * Enhancements
 	* Localized the "Site Name" and "Site Description" options on the SSO General settings page.
-	* Added support for locale (language) values from the [Polylang](http://wordpress.org/plugins/polylang/) plugin functions.
+	* Added support for locale values from the [Polylang](http://wordpress.org/plugins/polylang/) plugin (Pro version).
 	* Added `SucomUtil::get_locale()` and `SucomUtil::get_locale_key()` static methods.
 	* Modified some `SucomUpdate` class construct parameters and variable definitions (Pro version).
 
@@ -297,9 +298,9 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Upgrade Notice ==
 
-= 2.4.3dev1 =
+= 2.4.3dev2 =
 
-Localized the "Site Name" and "Site Description" options, added support for Polylang locale functions.
+Localized the "Site Name" and "Site Description" options, added support for the Polylang plugin (Pro version).
 
 = 2.4.2 =
 
