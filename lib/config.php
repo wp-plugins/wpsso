@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.4.3dev1',		// plugin version
+			'version' => '2.4.3dev2',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'cca' => 'Wpsso',		// camelcase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
@@ -66,6 +66,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'head' => array(
 						'twittercard' => 'Twitter Cards',
 					),
+					'lang' => array(
+						'polylang' => 'Polylang',
+					),
 					'media' => array(
 						'ngg' => 'NextGEN Gallery',
 						'photon' => 'Jetpack Photon',
@@ -82,7 +85,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'buddypress' => 'BuddyPress',
 					),
 					'util' => array(
-						'language' => 'WP Locale Language',
+						'language' => 'Publisher Language',
 						'postmeta' => 'Custom Post Meta',
 					),
 				),

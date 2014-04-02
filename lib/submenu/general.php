@@ -180,7 +180,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_input( 'fb_app_id' ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Default Language', null, 'fb_lang' ).
-					'<td>'.$this->form->get_select( 'fb_lang', SucomUtil::get_lang( 'facebook' ) ).'</td>';
+					'<td>'.$this->form->get_select( 'fb_lang', SucomUtil::get_pub_lang( 'facebook' ) ).'</td>';
 					break;
 
 				case 'pub-google':

@@ -28,9 +28,10 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		}
 
 		// add filters to this plugin
-		public function add_plugin_filters( &$class, $filters, $prio = 10 ) {
+		public function add_plugin_filters( &$class, $filters, $prio = 10, $prefix = '' ) {
+			$prefix = $prefix === '' ? $this->p->cf['lca'] : $prefix;
 			foreach ( $filters as $name => $num ) {
-				$filter = $this->p->cf['lca'].'_'.$name;
+				$filter = $prefix.'_'.$name;
 				$method = 'filter_'.$name;
 				add_filter( $filter, array( &$class, $method ), $prio, $num );
 				$this->p->debug->log( 'filter for '.$filter.' added', 2 );

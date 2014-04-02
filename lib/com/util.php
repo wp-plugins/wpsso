@@ -64,36 +64,31 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return is_numeric( implode( array_keys( $arr ) ) ) ? false : true;
 		}
 
-		public static function get_locale( $ret = 'current' ) {
-			$lang = false;
-			switch ( $ret ) {
+		// argument can also be a numeric post ID, to return the language of that post
+		public static function get_locale( $get = 'current' ) {
+			switch ( $get ) {
 				case 'default':
-					if ( function_exists( 'pll_default_language' ) )
-						$lang = pll_default_language( 'locale' );
-					if ( empty( $lang ) )
-						$lang = ( defined( 'WPLANG' ) && WPLANG ) ? WPLANG : 'en_US';
+					$lang = ( defined( 'WPLANG' ) && WPLANG ) ? WPLANG : 'en_US';
 					break;
 				default:
-					if ( function_exists( 'pll_current_language' ) )
-						$lang = pll_current_language( 'locale' );
-					if ( empty( $lang ) )
-						$lang = get_locale();
+					$lang = get_locale();
 					break;
 			}
-			return $lang;
+			return apply_filters( 'sucom_locale', $lang, $get );
 		}
 
 		// localize the options array key
-		public static function get_locale_key( $key, &$opts = false ) {
+		public static function get_locale_key( $key, &$opts = false, $post_id = 0 ) {
 			$default = self::get_locale( 'default' );
-			$ret = ( self::get_locale() !== $default ) ? $key.'#'.self::get_locale() : $key;
+			$new_key = self::get_locale( $post_id ) !== $default ?
+				$key.'#'.self::get_locale( $post_id ) : $key;
 
-			// fallback if options array provided and language key does not exist
-			if ( is_array( $opts ) && $ret !== $key ) {
-				if ( ! array_key_exists( $ret, $opts ) )
-					return $key;
+			// fallback if the locale option key does not exist in the array
+			if ( is_array( $opts ) && $new_key !== $key ) {
+				if ( ! array_key_exists( $new_key, $opts ) )
+					return $key;	// may contain an empty value - that's ok
 			}
-			return $ret;
+			return $new_key;
 		}
 
 		public static function preg_grep_keys( $preg, $arr, $invert = false, $replace = false ) {
@@ -229,9 +224,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			} else {
 				if ( is_search() )
 					$url = get_search_link();
-				elseif ( is_front_page() )
-					$url = home_url( '/' );
-				elseif ( $this->is_posts_page() )
+				elseif ( is_front_page() ) {
+					$url = apply_filters( $this->p->cf['lca'].'_home_url', home_url( '/' ) );
+				} elseif ( $this->is_posts_page() )
 					$url = get_permalink( get_option( 'page_for_posts' ) );
 				elseif ( is_tax() || is_tag() || is_category() ) {
 					$term = get_queried_object();
@@ -559,7 +554,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				else $tooltip_idx = 'tooltip-'.$id;
 				$tooltip_text = $this->p->msgs->get( $tooltip_idx, $atts );	// text is esc_attr()
 			}
-			if ( is_array( $atts ) && $atts['is_locale'] === true )
+			if ( is_array( $atts ) && ! empty( $atts['is_locale'] ) )
 				$title .= ' <span style="font-weight:normal;">('.self::get_locale().')</span>';
 			return '<th'.( empty( $class ) ? '' : ' class="'.$class.'"' ).
 				( empty( $id ) ? '' : ' id="'.$id.'"' ).'><p>'.$title.
@@ -628,9 +623,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $merged;
 		}
 
-		public static function get_lang( $lang = '' ) {
+		public static function get_pub_lang( $pub = '' ) {
 			$ret = array();
-			switch ( $lang ) {
+			switch ( $pub ) {
 				case 'fb' :
 				case 'facebook' :
 					$ret = array(

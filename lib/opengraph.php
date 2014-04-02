@@ -63,21 +63,26 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			$og_max = $this->p->util->get_max_nums( $post_id );
 			$og = apply_filters( $this->p->cf['lca'].'_og_seed', array(), $use_post );
 
-			$lang = empty( $this->p->options['fb_lang'] ) ? 'en_US' : $this->p->options['fb_lang'];
-			$lang = apply_filters( $this->p->cf['lca'].'_lang', $lang, SucomUtil::get_lang( 'facebook' ) );
-
 			if ( ! array_key_exists( 'fb:admins', $og ) )
 				$og['fb:admins'] = $this->p->options['fb_admins'];
 
 			if ( ! array_key_exists( 'fb:app_id', $og ) )
 				$og['fb:app_id'] = $this->p->options['fb_app_id'];
 
-			if ( ! array_key_exists( 'og:locale', $og ) )
+			if ( ! array_key_exists( 'og:locale', $og ) ) {
+				// get the current or configured language for og:locale
+				$lang = empty( $this->p->options['fb_lang'] ) ? 
+					SucomUtil::get_locale( $post_id ) : $this->p->options['fb_lang'];
+
+				$lang = apply_filters( $this->p->cf['lca'].'_lang', 
+					$lang, SucomUtil::get_pub_lang( 'facebook' ), $post_id );
+
 				$og['og:locale'] = $lang;
+			}
 
 			if ( ! array_key_exists( 'og:site_name', $og ) ) {
-				// allow fallback if locale specific option does not exist
-				$key = SucomUtil::get_locale_key( 'og_site_name', $this->p->options );
+				// pass options array to allow fallback if locale option does not exist
+				$key = SucomUtil::get_locale_key( 'og_site_name', $this->p->options, $post_id );
 				if ( ! empty( $this->p->options[$key] ) )
 					$og['og:site_name'] = $this->p->options[$key];
 				else $og['og:site_name'] = get_bloginfo( 'name', 'display' );
@@ -153,10 +158,10 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 					$og['article:section'] = $this->p->webpage->get_section( $post_id );
 
 				if ( ! array_key_exists( 'article:published_time', $og ) )
-					$og['article:published_time'] = get_the_date('c');
+					$og['article:published_time'] = trim( get_the_date('c') );
 
 				if ( ! array_key_exists( 'article:modified_time', $og ) )
-					$og['article:modified_time'] = get_the_modified_date('c');
+					$og['article:modified_time'] = trim( get_the_modified_date('c') );
 			}
 
 			// get all videos

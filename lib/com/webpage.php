@@ -301,8 +301,8 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				if ( is_admin() && $obj->post_status == 'auto-draft' )
 					$this->p->debug->log( 'post_status is auto-draft - using empty description' );
 				else {
-					// allow fallback if locale specific option does not exist
-					$key = SucomUtil::get_locale_key( 'og_site_description', $this->p->options );
+					// pass options array to allow fallback if locale option does not exist
+					$key = SucomUtil::get_locale_key( 'og_site_description', $this->p->options, $post_id );
 					if ( ! empty( $this->p->options[$key] ) ) {
 						$this->p->debug->log( 'description is empty - custom site description ('.$key.')' );
 						$desc = $this->p->options[$key];

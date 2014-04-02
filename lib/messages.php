@@ -65,11 +65,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							Custom values van be entered for Open Graph, Rich Pin, and Twitter Card meta tags, along with custom social sharing
 							text and meta tag validation tools.';
 							break;
-						case 'tooltip-side-wp-locale-language':
-							$text = $this->p->cf['full_pro'].' can use the WordPress locale to dynmically adjust the language for the Open Graph 
-							and Rich Pin meta tags'.( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
-							'. If your website or webpages are available in multiple languages, this can be a useful feature.
-							Uncheck to ignore the WordPress locale and use all default language settings.'; 
+						case 'tooltip-side-publisher-language':
+							$text = $this->p->cf['full_pro'].' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
+							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
+							'. If your website is available in multiple languages, this can be a useful feature.';
 							break;
 						case 'tooltip-side-twitter-cards':
 							$text = 'Twitter Cards extend the standard Open Graph and Rich Pin meta tags with content-specific information for image galleries, 
@@ -423,7 +422,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							Check this option if you use shortcodes in your excerpt, for example.';
 							break;
 						case 'tooltip-plugin_filter_lang':
-							return self::get( 'tooltip-side-wp-locale-language' );
+							$text = $this->p->cf['full_pro'].' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
+							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
+							'. If your website is available in multiple languages, this can be a useful feature.
+							Uncheck this option to ignore the WordPress locale and always use the configured language.'; 
 							break;
 						case 'tooltip-plugin_shortcodes':
 							$text = 'Enable the '.$this->p->cf['full'].' shortcode features (default is checked).';
@@ -794,7 +796,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 
 			}
-			if ( is_array( $atts ) && $atts['is_locale'] === true )
+			if ( is_array( $atts ) && ! empty( $atts['is_locale'] ) )
 				$text .= ' This option is localized &mdash; you may change the WordPress admin locale with 
 				<a href="http://wordpress.org/plugins/polylang/" target="_blank">Polylang</a>,
 				<a href="http://wordpress.org/plugins/wp-native-dashboard/" target="_blank">WP Native Dashboard</a>, 

@@ -439,11 +439,11 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 		}
 
 		// called by TwitterCard class to build the Gallery Card
-		public function get_gallery_images( $num = 0, $size_name = 'large', $want_this = 'gallery', $check_dupes = false ) {
-			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'want_this' => $want_this, 'check_dupes' => $check_dupes ) );
+		public function get_gallery_images( $num = 0, $size_name = 'large', $get = 'gallery', $check_dupes = false ) {
+			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'get' => $get, 'check_dupes' => $check_dupes ) );
 			global $post;
 			$og_ret = array();
-			if ( $want_this == 'gallery' ) {
+			if ( $get == 'gallery' ) {
 				if ( empty( $post ) ) { 
 					$this->p->debug->log( 'exiting early: empty post object' ); 
 					return $og_ret;
@@ -469,7 +469,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			}
 			// check for ngg gallery
 			if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->addons['media']['ngg'] ) ) {
-				$og_ret = $this->p->addons['media']['ngg']->get_gallery_images( $num , $size_name, $want_this, $check_dupes );
+				$og_ret = $this->p->addons['media']['ngg']->get_gallery_images( $num , $size_name, $get, $check_dupes );
 				if ( $this->p->util->is_maxed( $og_ret, $num ) )
 					return $og_ret;
 			}
