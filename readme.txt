@@ -12,7 +12,7 @@ Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Sear
 
 == Description ==
 
-WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head section of WordPress webpages for **improved Google Search ranking and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and other social websites**.
+WordPress Social Sharing Optimization (WPSSO) provides the information that social websites need to **improve Google Search ranking and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and other social websites**.
 
 = Summary List of Features =
 
@@ -61,7 +61,7 @@ WordPress Social Sharing Optimization (WPSSO) adds HTML meta tags to the head se
 		* Youtube Videos and Playlists
 
 <blockquote>
-<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NGFB Open Graph+</a> plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.006 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
+<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NextGEN Facebook Open Graph+</a> (NGFB) plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.006 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
 </blockquote>
 
 = Complete Meta Tags =
@@ -79,9 +79,9 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 <p>An example of PHP code execution speeds from <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a>, using <a href="http://wptest.io/">WP Test Data</a> and the default settings of a few popular plugins:</p>
 <ul>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
-	<li><strong>0.0120</strong> secs - <strong>WordPress Social Sharing Optimization (WPSSO)</strong> v2.4.2</li>
+	<li><strong>0.0120</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.2</li>
 	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
-	<li><strong>0.0180</strong> secs - NGFB Open Graph+ v7.4.2</li>
+	<li><strong>0.0180</strong> secs - NextGEN Facebook Open Graph+ (NGFB) v7.4.2</li>
 	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
 	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (<em>No Forums or Topics</em>)</li>
 	<li><strong>0.0405</strong> secs - WooCommerce v2.1.5 (<em>No Products</em>)</li>
@@ -148,7 +148,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/install-the-plugin/">Install the Plugin</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/uninstall-the-plugin/">Uninstall the Plugin</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/migrate-from-ngfb-open-graph-to-wpsso/">Migrate from NGFB Open Graph+ to WPSSO</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/migrate-from-ngfb-open-graph-to-wpsso/">Migrate from NGFB to WPSSO</a></li>
 </ul>
 
 == Frequently Asked Questions ==
@@ -257,7 +257,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 * Bugfixes
 	* Re-added the 'site_transient_update_plugins' hook to return update information (Pro version).
 * Enhancements
-	* Modified the 'pre_site_transient_update_plugins' hook to re-introduce update information for NGFB Open Graph+, in cases where it has been used to disable plugin updates (Pro version).
+	* Modified the 'pre_site_transient_update_plugins' hook to re-introduce update information for WPSSO, in cases where it has been used to disable plugin updates (Pro version).
 	* Added a second 'transient_update_plugins' hook to return update information (Pro version).
 	* Renamed several variables in the `WpssoHead::get_single_meta()` method for clarity.
 	* A few minor changes to informational and debug messages.
