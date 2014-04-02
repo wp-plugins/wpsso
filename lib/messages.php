@@ -61,7 +61,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
 							break;
 						case 'tooltip-side-custom-post-meta':
-							$text = 'The Custom Post Meta feature adds an SSO Custom Settings metabox to the Post and Page editing pages.
+							$text = 'The Custom Post Meta feature adds an '.$this->p->cf['menu'].' Custom Settings metabox to the Post and Page editing pages.
 							Custom values van be entered for Open Graph, Rich Pin, and Twitter Card meta tags, along with custom social sharing
 							text and meta tag validation tools.';
 							break;

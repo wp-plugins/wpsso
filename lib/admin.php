@@ -429,9 +429,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					switch ( $id ) {
 						case 'bbpress':
 						case 'buddypress':
-							$features[$name]['tooltip'] .= ' '.$name.' support also provides social sharing buttons 
-							that can be enabled from the SSO '.$this->p->util->get_admin_url( 'sharing',
-							'Social Sharing settings' ).' page.';
+							$features[$name]['tooltip'] .= ' '.$name.' support also provides social sharing buttons that can be enabled from the '.
+							$this->p->util->get_admin_url( 'sharing', $this->p->cf['menu'].' Sharing settings' ).' page.';
 							break;
 					}
 				}
@@ -472,7 +471,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					( empty( $class ) ? '' : ' class="'.$class.'"' ).'><img src="'.WPSSO_URLPATH.
 					'images/'.$img.'" width="12" height="12" /></td>';
 
-			ksort( $feature );
+			uksort( $feature, 'strcasecmp' );
 			$first = key( $feature );
 			foreach ( $feature as $name => $arr ) {
 				if ( array_key_exists( 'class', $arr ) )
