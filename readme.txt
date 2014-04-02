@@ -12,7 +12,7 @@ Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Sear
 
 == Description ==
 
-= Get Control Over Your Social Content! =
+= Finally Get Control Over Your Social Content! =
 
 WordPress Social Sharing Optimization (WPSSO) provides the information that social websites need to **improve Google Search ranking and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and other social websites**.
 
