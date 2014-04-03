@@ -254,12 +254,14 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							Open Graph / Rich Pin tag list (default is unchecked).';
 							break;
 						case 'tooltip-og_img_max':
-							$text = 'The maximum number of images to list in the Open Graph / Rich Pin meta property tags -- this includes 
-							the <em>featured</em> or <em>attached</em> images, and any images found in the Post or Page content.
-							If you select \'0\', then no images will be listed in the Open Graph / Rich Pin meta tags.';
+							$text = 'The maximum number of images to list in the Open Graph / Rich Pin meta tags -- 
+							this includes the <em>featured</em> or <em>attached</em> images, and any images found in the Post or Page content.
+							If you select \'0\', then no images will be listed in the Open Graph / Rich Pin meta tags (<strong>not recommended</strong>).
+							If no images are listed in your meta tags, then social websites may choose an unsuitable image from your webpage
+							(including headers, sidebars, etc.).';
 							break;
 						case 'tooltip-og_vid_max':
-							$text = 'The maximum number of videos, found in the Post or Page content, to include in the Open Graph / Rich Pin meta property tags. 
+							$text = 'The maximum number of videos, found in the Post or Page content, to include in the Open Graph / Rich Pin meta tags. 
 							If you select \'0\', then no videos will be listed in the Open Graph / Rich Pin meta tags.';
 							break;
 						case 'tooltip-og_vid_https':
