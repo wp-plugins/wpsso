@@ -116,6 +116,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 **WPSSO loads only the library files and object classes it needs**, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
+<blockquote>
 <p>An example of PHP code execution speeds from <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a>, using <a href="http://wptest.io/">WP Test Data</a> and the default settings of a few popular plugins:</p>
 <ul>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
@@ -130,6 +131,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 	<li><strong>0.0656</strong> secs - BuddyPress v1.9.2 (<em>No Activities</em>)</li>
 	<li><strong>0.1051</strong> secs - WordPress SEO v1.5.2.5</li>
 </ul>
+</blockquote>
 
 <small><em>Tests executed on a VPS with SSDs and 6GB ram, APC opcode/object cache, WordPress v3.8.1, P3 v1.4.1 configured with opcode optimization enabled (improves accuracy).</em></small>
 
