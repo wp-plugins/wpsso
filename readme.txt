@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.8.1
-Stable Tag: 2.4.2
+Stable Tag: 2.4.3
 
 Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Search &mdash; A Fast, Reliable and Full Featured Plugin!
 
