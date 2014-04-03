@@ -72,29 +72,6 @@ WPSSO adds Facebook / [Open Graph](http://ogp.me/), [Pinterest Rich Pins](http:/
 
 WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/types/summary-card), [Large Image Summary](https://dev.twitter.com/docs/cards/large-image-summary-card), [Photo](https://dev.twitter.com/docs/cards/types/photo-card), [Gallery](https://dev.twitter.com/docs/cards/types/gallery-card), [Player](https://dev.twitter.com/docs/cards/types/player-card) and [Product](https://dev.twitter.com/docs/cards/types/product-card) Twitter Cards &ndash; *including configurable image sizes for each card type*.
 
-= Excellent Performance =
-
-**WPSSO is fast and tuned for performance**, and makes full use of all available caching techniques (persistent / non-persistent object and disk caching).
-
-**WPSSO loads only the library files and object classes it needs**, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
-
-<p>An example of PHP code execution speeds from <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a>, using <a href="http://wptest.io/">WP Test Data</a> and the default settings of a few popular plugins:</p>
-<ul>
-	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
-	<li><strong>0.0120</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.2</li>
-	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
-	<li><strong>0.0180</strong> secs - NextGEN Facebook Open Graph + (NGFB) v7.4.2</li>
-	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
-	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (<em>No Forums or Topics</em>)</li>
-	<li><strong>0.0405</strong> secs - WooCommerce v2.1.5 (<em>No Products</em>)</li>
-	<li><strong>0.0572</strong> secs - SEO Ultimate v7.6.2</li>
-	<li><strong>0.0579</strong> secs - Facebook v1.5.5</li>
-	<li><strong>0.0656</strong> secs - BuddyPress v1.9.2 (<em>No Activities</em>)</li>
-	<li><strong>0.1051</strong> secs - WordPress SEO v1.5.2.5</li>
-</ul>
-
-<small><em>Tests executed on a VPS with SSDs and 6GB ram, APC opcode/object cache, WordPress v3.8.1, P3 v1.4.1 configured with opcode optimization enabled (improves accuracy).</em></small>
-
 = 3rd Party Integration =
 
 Aside from the additional support for Twitter Cards, the main difference between the Free and Pro versions is the integration of 3rd party plugins and services.
@@ -132,6 +109,29 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 * Twitter 
 * Yahoo IM
 * YouTube
+
+= Excellent Performance =
+
+**WPSSO is fast and tuned for performance**, and makes full use of all available caching techniques (persistent / non-persistent object and disk caching).
+
+**WPSSO loads only the library files and object classes it needs**, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
+
+<p>An example of PHP code execution speeds from <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a>, using <a href="http://wptest.io/">WP Test Data</a> and the default settings of a few popular plugins:</p>
+<ul>
+	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
+	<li><strong>0.0120</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.2</li>
+	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
+	<li><strong>0.0180</strong> secs - NextGEN Facebook Open Graph + (NGFB) v7.4.2</li>
+	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
+	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (<em>No Forums or Topics</em>)</li>
+	<li><strong>0.0405</strong> secs - WooCommerce v2.1.5 (<em>No Products</em>)</li>
+	<li><strong>0.0572</strong> secs - SEO Ultimate v7.6.2</li>
+	<li><strong>0.0579</strong> secs - Facebook v1.5.5</li>
+	<li><strong>0.0656</strong> secs - BuddyPress v1.9.2 (<em>No Activities</em>)</li>
+	<li><strong>0.1051</strong> secs - WordPress SEO v1.5.2.5</li>
+</ul>
+
+<small><em>Tests executed on a VPS with SSDs and 6GB ram, APC opcode/object cache, WordPress v3.8.1, P3 v1.4.1 configured with opcode optimization enabled (improves accuracy).</em></small>
 
 = Clean Uninstall =
 
