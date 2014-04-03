@@ -140,12 +140,17 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 			// if the page is an article, then define the other article meta tags
 			if ( array_key_exists( 'og:type', $og ) && $og['og:type'] == 'article' ) {
+
 				if ( ( is_singular() || $use_post !== false ) && 
 					! array_key_exists( 'article:author', $og ) ) {
 
 					if ( ! empty( $obj->post_author ) )
 						$og['article:author'] = $this->p->user->get_article_author( $obj->post_author );
-					else $og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
+					else {
+						$this->p->debug->log( 'post author property is empty' );
+						if ( ! empty( $this->p->options['og_def_author_id'] ) )
+							$og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
+					}
 				}
 
 				if ( ! array_key_exists( 'article:publisher', $og ) )

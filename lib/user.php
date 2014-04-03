@@ -99,13 +99,15 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		public function get_article_author( $author_id ) {
 			$ret = array();
 			if ( ! empty( $author_id ) ) {
-				$ret[] = $this->p->user->get_author_url( $author_id, 
+				$ret[] = $this->get_author_url( $author_id, 
 					$this->p->options['og_author_field'] );
 
+				// add the author's name if this is the Pinterest crawler
 				if ( SucomUtil::crawler_name( 'pinterest' ) === true )
-					$ret[] = $this->p->user->get_author_name( $author_id, 
+					$ret[] = $this->get_author_name( $author_id, 
 						$this->p->options['rp_author_name'] );
-			}
+
+			} $this->p->debug->log( 'invalid author_id provided' );
 			return $ret;
 		}
 
@@ -147,10 +149,13 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 					// if empty or not a url, then fallback to the author index page,
 					// if the requested field is the opengraph or link author field
 					if ( empty( $url ) || ! preg_match( '/:\/\//', $url ) ) {
+						$this->p->debug->log( 'url value from author meta is invalid' );
 						if ( ( $field_id == $this->p->options['og_author_field'] || 
 							$field_id == $this->p->options['link_author_field'] ) && 
-							$this->p->options['og_author_fallback'] )
+							$this->p->options['og_author_fallback'] ) {
+								$this->p->debug->log( 'fetching the author index page url as fallback' );
 								$url = get_author_posts_url( $author_id );
+						}
 					}
 					break;
 			}
