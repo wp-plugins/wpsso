@@ -234,7 +234,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
-= Version 2.4.3dev2 =
+= Version 2.4.3rc1 =
 
 * Bugfixes
 	* *None*
@@ -305,7 +305,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Upgrade Notice ==
 
-= 2.4.3dev2 =
+= 2.4.3rc1 =
 
 Localized the "Site Name" and "Site Description" options, added support for the Polylang plugin (Pro version).
 
