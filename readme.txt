@@ -12,7 +12,7 @@ Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Sear
 
 == Description ==
 
-WordPress Social Sharing Optimization (WPSSO) provides the information that social websites need to improve **Google Search rank, and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more**.
+WordPress Social Sharing Optimization (WPSSO) provides information that social websites need to improve **Google Search rank and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more**.
 
 = Quick List of Features =
 
@@ -22,8 +22,8 @@ WordPress Social Sharing Optimization (WPSSO) provides the information that soci
 * Configurable image sizes, title and description lengths for different contexts.
 * Optional fallback to a default image and video for index and search webpages.
 * Supports featured, attached, gallery shortcode, and/or HTML image tags in content.
-* Validates of image dimensions to provide accurate media for social websites.
-* Auto-regeneration of innacurate / missing WordPress image sizes.
+* Validates image dimensions to provide accurate media for social websites.
+* Auto-regeneration of inaccurate / missing WordPress image sizes.
 * Support for embedded videos (iframe and object HTML tags).
 * Fully renders content (including shortcodes) for accurate description texts.
 * Includes author and publisher profile URLs for Facebook and Google Search.
