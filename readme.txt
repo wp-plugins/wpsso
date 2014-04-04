@@ -108,7 +108,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 * Yahoo IM
 * YouTube
 
-= Excellent Performance =
+= Proven Performance =
 
 **WPSSO is fast and tuned for performance**, and makes full use of all available caching techniques (persistent / non-persistent object and disk caching).
 
