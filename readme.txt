@@ -144,7 +144,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Installation ==
 
-= How-To =
+= Installation and How-Tos =
 
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/install-the-plugin/">Install the Plugin</a></li>
