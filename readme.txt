@@ -233,6 +233,14 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
+= Version 2.4.4dev1 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Added the schema itemprop description meta tag.
+	* Modified the Meta Tag List on the Advanced settings page to include the type as well (property, name, itemprop, etc.).
+
 = Version 2.4.3 =
 
 * Bugfixes
