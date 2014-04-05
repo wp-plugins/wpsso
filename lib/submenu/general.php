@@ -185,7 +185,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 				case 'pub-google':
 					$rows[] = $this->p->util->th( 'Description Length', null, 'google_desc_len' ).
-					'<td>'.$this->form->get_input( 'meta_desc_len', 'short' ).' characters or less</td>';
+					'<td>'.$this->form->get_input( 'seo_desc_len', 'short' ).' characters or less</td>';
 
 					$rows[] = $this->p->util->th( 'Author Link URL', null, 'google_author_field' ).
 					'<td>'.$this->form->get_select( 'link_author_field', $this->author_contact_fields() ).'</td>';

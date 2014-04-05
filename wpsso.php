@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: WPSSO
+Plugin Name: WordPress Social Sharing Optimization
 Plugin URI: http://surniaulula.com/extend/plugins/wpsso/
 Author: Jean-Sebastien Morisset
 Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
-Description: Improves Ranking and Click-Through-Rate (CTR) on Social Websites and Google Search - A Fast and Full Featured Plugin! 
-Version: 2.4.3
+Description: Improve Ranking and Click-Through-Rate (CTR) on Social Websites and Google Search - A Fast, Reliable and Full Featured Plugin! 
+Version: 2.4.4dev1
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */

@@ -90,13 +90,13 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 		}
 
 		public function filter_taglist_tags_rows( $rows, $form ) {
-			$og_cols = 4;
+			$og_cols = 3;
 			$cells = array();
 			foreach ( $this->p->opt->get_defaults() as $opt => $val ) {
-				if ( preg_match( '/^inc_(.*)$/', $opt, $match ) ) {
-					$cells[] = '<td class="taglist blank checkbox">'.
-						$form->get_fake_checkbox( $opt ).'</td>'.
-						'<th class="taglist">'.$match[1].'</th>'."\n";
+				if ( preg_match( '/^meta_([^_]+)_(.+)$/', $opt, $match ) ) {
+					$cells[] = '<td class="taglist blank checkbox">'.$form->get_fake_checkbox( $opt ).'</td>'.
+						'<td clsss="taglist">'.$match[1].'</td>'.
+						'<th class="taglist">'.$match[2].'</th>'."\n";
 				}
 			}
 			$col_rows = array();

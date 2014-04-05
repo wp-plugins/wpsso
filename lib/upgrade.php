@@ -31,6 +31,12 @@ if ( ! class_exists( 'WpssoOptionsUpgrade' ) && class_exists( 'WpssoOptions' ) )
 
 			// custom value changes for regular options
 			if ( $options_name == constant( $this->p->cf['uca'].'_OPTIONS_NAME' ) ) {
+
+				// remove the old inc_* options
+				foreach ( $opts as $key => $val )
+					if ( strpos( $key, 'inc_' ) === 0 )
+						unset( $opts[$key] );
+
 				if ( $opts['options_version'] <= 260 &&
 					$opts['og_img_width'] == 1200 &&
 					$opts['og_img_height'] == 630 &&

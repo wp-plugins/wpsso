@@ -32,8 +32,8 @@ if ( ! class_exists( 'WpssoAdminPostmeta' ) ) {
 			$rows[] = $this->p->util->th( 'Default Description', 'medium', 'postmeta-og_desc', $post_info ).
 			'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['og_desc_len'], '...', true ).'</td>';
 	
-			$rows[] = $this->p->util->th( 'Google / SEO Description', 'medium', 'postmeta-meta_desc', $post_info ).
-			'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['meta_desc_len'], '...', true, true, false ).	// no hashtags
+			$rows[] = $this->p->util->th( 'Google / SEO Description', 'medium', 'postmeta-seo_desc', $post_info ).
+			'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...', true, true, false ).	// no hashtags
 			'</td>';
 
 			$rows[] = $this->p->util->th( 'Twitter Card Description', 'medium', 'postmeta-tc_desc', $post_info ).

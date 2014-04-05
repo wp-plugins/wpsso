@@ -104,18 +104,12 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$html .= '" />'."\n";
 
 			/*
-			 * Meta name / property tags
+			 * Schema meta tags
 			 */
-			if ( ! empty( $this->p->options['inc_description'] ) ) {
-				if ( ! array_key_exists( 'description', $meta ) ) {
-					if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
-						$meta['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'meta_desc' );
-					if ( empty( $meta['description'] ) )
-						$meta['description'] = $this->p->webpage->get_description( $this->p->options['meta_desc_len'], '...',
-							$use_post, true, false );	// use_post = false, use_cache = true, add_hashtags = false
-				}
-			}
-			$meta = apply_filters( $this->p->cf['lca'].'_meta', $meta );
+			$meta_schema = array();
+			if ( array_key_exists( 'og:description', $meta ) )
+				$meta_schema['description'] = $meta['og:description'];
+			$meta_schema = apply_filters( $this->p->cf['lca'].'_meta_schema', $meta_schema );
 
 			/*
 			 * Link rel tags
@@ -152,78 +146,106 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$link_rel = apply_filters( $this->p->cf['lca'].'_link_rel', $link_rel );
 
 			/*
-			 * Print the arrays as html
+			 * Additional meta name / property tags
+			 */
+			if ( ! empty( $this->p->options['meta_name_description'] ) ) {
+				if ( ! array_key_exists( 'description', $meta ) ) {
+					if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
+						$meta['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'seo_desc' );
+					if ( empty( $meta['description'] ) )
+						$meta['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...',
+							$use_post, true, false );	// use_post = false, use_cache = true, add_hashtags = false
+				}
+			}
+			$meta = apply_filters( $this->p->cf['lca'].'_meta', $meta );
+
+			/*
+			 * Print all the link / meta arrays as HTML
 			 */
 			foreach ( $link_rel as $key => $val )
 				if ( ! empty( $val ) )
 					$html .= '<link rel="'.$key.'" href="'.$val.'" />'."\n";
 
-			$this->p->debug->log( count( $meta ).' meta to process' );
-			foreach ( $meta as $first_name => $first_val ) {			// 1st-dimension array (associative)
-				if ( is_array( $first_val ) ) {
-					if ( empty( $first_val ) )
-						$html .= $this->get_single_meta( $first_name );	// possibly show an empty tag (depends on og_empty_tags value)
-					else {
-						foreach ( $first_val as $second_num => $second_val ) {			// 2nd-dimension array
-							if ( SucomUtil::is_assoc( $second_val ) ) {
-								ksort( $second_val );
-								foreach ( $second_val as $third_name => $third_val )	// 3rd-dimension array (associative)
-									$html .= $this->get_single_meta( $third_name, $third_val, $first_name.':'.( $second_num + 1 ) );
-							} else $html .= $this->get_single_meta( $first_name, $second_val, $first_name.':'.( $second_num + 1 ) );
-						}
-					}
-				} else $html .= $this->get_single_meta( $first_name, $first_val );
-			}
+			$html .= $this->get_meta_for_type( 'itemprop', $meta_schema );
+			$html .= $this->get_meta_for_type( 'property', $meta );
 			$html .= "<!-- ".$this->p->cf['lca']." meta tags end -->\n";
 			return $html;
 		}
 
-		private function get_single_meta( $property, $content = '', $cmt_prefix = '' ) {
+	
+		private function get_meta_for_type( $type = 'property', $meta ) {
+			$this->p->debug->log( count( $meta ).' meta '.$type.' to process' );
+			$this->p->debug->log( $meta );
 			$html = '';
+			foreach ( $meta as $f_name => $f_val ) {					// 1st-dimension array (associative)
+				if ( is_array( $f_val ) ) {
+					if ( empty( $f_val ) )
+						$html .= $this->get_single_meta( $type, $f_name );	// possibly show an empty tag (depends on og_empty_tags value)
+					else {
+						foreach ( $f_val as $s_num => $s_val ) {		// 2nd-dimension array
+							if ( SucomUtil::is_assoc( $s_val ) ) {
+								ksort( $s_val );
+								foreach ( $s_val as $t_name => $t_val )	// 3rd-dimension array (associative)
+									$html .= $this->get_single_meta( $type, $t_name, $t_val, $f_name.':'.( $s_num + 1 ) );
+							} else $html .= $this->get_single_meta( $type, $f_name, $s_val, $f_name.':'.( $s_num + 1 ) );
+						}
+					}
+				} else $html .= $this->get_single_meta( $type, $f_name, $f_val );
+			}
+			return $html;
+		}
 
-			if ( empty( $this->p->options['inc_'.$property] ) ) {
-				$this->p->debug->log( 'meta '.$property.' is disabled (skipped)' );
+		private function get_single_meta( $type = 'property', $prop_val, $content = '', $comment = '' ) {
+
+			// known exceptions for the property $type
+			if ( $type === 'property' && 
+				( $prop_val === 'description' || 
+					strpos( $prop_val, 'twitter:' ) === 0 ) )
+						$type = 'name';
+
+			$html = '';
+			$log_pre = 'meta '.$type.' '.$prop_val;
+
+			if ( empty( $this->p->options['meta_'.$type.'_'.$prop_val] ) ) {
+				$this->p->debug->log( $log_pre.' is disabled (skipped)' );
 				return $html;
+
 			} elseif ( $content === -1 ) {
-				$this->p->debug->log( 'meta '.$property.' is -1 (skipped)' );
+				$this->p->debug->log( $log_pre.' is -1 (skipped)' );
 				return $html;
-			// ignore all empty non-open graph meta tags, 
-			// and open-graph meta tags as well if the option allows
+
+			// ignore empty values, except for open graph (og, article, etc.) meta tags when og_empty_tags option is checked
 			} elseif ( ( $content === '' || $content === null ) && 
-				( preg_match( '/^description|fb:|twitter:/', $property ) || 
+				( preg_match( '/^description|fb:|twitter:/', $prop_val ) || 
 					empty( $this->p->options['og_empty_tags'] ) ) ) {
 
-				$this->p->debug->log( 'meta '.$property.' is empty (skipped)' );
+				$this->p->debug->log( $log_pre.' is empty (skipped)' );
 				return $html;
+
 			} elseif ( is_object( $content ) ) {
-				$this->p->debug->log( 'meta '.$property.' value is an object (skipped)' );
+				$this->p->debug->log( $log_pre.' value is an object (skipped)' );
 				return $html;
 			}
 
 			$charset = get_bloginfo( 'charset' );
 			$content = htmlentities( $content, ENT_QUOTES, $charset, false );	// double_encode = false
 
-			$this->p->debug->log( 'meta '.$property.' = "'.$content.'"' );
-			if ( $cmt_prefix ) $html .= "<!-- $cmt_prefix -->";
+			$this->p->debug->log( 'meta '.$type.' '.$prop_val.' = "'.$content.'"' );
+			if ( $comment ) 
+				$html .= "<!-- $comment -->";
 
-			/*
-			 * return <meta property="" content=""> html tags by default
-			 * description and twitter card tags are exceptions
-			 */
-			if ( $property == 'description' || strpos( $property, 'twitter:' ) === 0 )
-				$html .= '<meta name="'.$property.'" content="'.$content.'" />'."\n";
-
-			elseif ( ( $property == 'og:image' || $property == 'og:video' ) && 
-				strpos( $content, 'https:' ) === 0 && ! empty( $this->p->options['inc_'.$property] ) ) {
+			// add an additional secure_url meta tag for open graph images and videos
+			if ( ( $prop_val === 'og:image' || $prop_val === 'og:video' ) && 
+				strpos( $content, 'https:' ) === 0 && 
+				! empty( $this->p->options['meta_'.$type.'_'.$prop_val.':secure_url'] ) ) {
 
 				$http_url = preg_replace( '/^https:/', 'http:', $content );
-				$html .= '<meta property="'.$property.'" content="'.$http_url.'" />'."\n";
+				$html .= '<meta '.$type.'="'.$prop_val.'" content="'.$http_url.'" />'."\n";
+				if ( $comment ) 
+					$html .= "<!-- $comment -->";
+				$html .= '<meta '.$type.'="'.$prop_val.':secure_url" content="'.$content.'" />'."\n";
 
-				// add an additional secure_url meta tag
-				if ( $cmt_prefix ) $html .= "<!-- $cmt_prefix -->";
-				$html .= '<meta property="'.$property.':secure_url" content="'.$content.'" />'."\n";
-
-			} else $html .= '<meta property="'.$property.'" content="'.$content.'" />'."\n";
+			} else $html .= '<meta '.$type.'="'.$prop_val.'" content="'.$content.'" />'."\n";
 
 			return $html;
 		}
