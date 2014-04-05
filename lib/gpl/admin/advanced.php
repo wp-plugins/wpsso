@@ -94,11 +94,13 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			$cells = array();
 			foreach ( $this->p->opt->get_defaults() as $opt => $val ) {
 				if ( preg_match( '/^meta_([^_]+)_(.+)$/', $opt, $match ) ) {
-					$cells[] = '<td class="taglist blank checkbox">'.$form->get_fake_checkbox( $opt ).'</td>'.
+					$cells[] = '<!-- '.$match[1].' '.$match[2].' -->'.
+						'<td class="checkbox blank">'.$form->get_fake_checkbox( $opt ).'</td>'.
 						'<td clsss="taglist">'.$match[1].'</td>'.
 						'<th class="taglist">'.$match[2].'</th>'."\n";
 				}
 			}
+			sort( $cells );
 			$col_rows = array();
 			$per_col = ceil( count( $cells ) / $og_cols );
 			foreach ( $cells as $num => $cell ) {
