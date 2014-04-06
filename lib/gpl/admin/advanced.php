@@ -93,7 +93,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			$og_cols = 3;
 			$cells = array();
 			foreach ( $this->p->opt->get_defaults() as $opt => $val ) {
-				if ( preg_match( '/^meta_([^_]+)_(.+)$/', $opt, $match ) ) {
+				if ( preg_match( '/^add_meta_([^_]+)_(.+)$/', $opt, $match ) ) {
 					$cells[] = '<!-- '.$match[1].' '.$match[2].' -->'.
 						'<td class="checkbox blank">'.$form->get_fake_checkbox( $opt ).'</td>'.
 						'<td clsss="taglist">'.$match[1].'</td>'.

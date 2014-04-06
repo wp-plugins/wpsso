@@ -293,7 +293,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 
 == Changelog ==
 
-= Version 2.4.4dev1 =
+= Version 2.4.4 =
 
 * Bugfixes
 	* *None*

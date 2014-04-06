@@ -7,7 +7,7 @@ Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Description: Improve your shared content on social websites and Google Search for better exposure, higher ranking and click-through-rates (CTR)
-Version: 2.4.4dev1
+Version: 2.4.4
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 */

@@ -53,7 +53,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					$this->p->cf['opt']['defaults']['plugin_cm_fb_name'] : $this->p->options['plugin_cm_fb_name'];
 	
 				// add description meta tag if no known SEO plugin was detected
-				$this->p->cf['opt']['defaults']['meta_name_description'] = empty( $this->p->is_avail['seo']['*'] ) ? 1 : 0;
+				$this->p->cf['opt']['defaults']['add_meta_name_description'] = empty( $this->p->is_avail['seo']['*'] ) ? 1 : 0;
 	
 				// check for default values from network admin settings
 				if ( is_multisite() && is_array( $this->p->site_options ) ) {
@@ -109,9 +109,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				}
 
 				if ( ! empty( $this->p->is_avail['seo']['*'] ) &&
-					array_key_exists( 'meta_name_description', $opts ) ) {
-					$opts['meta_name_description'] = 0;
-					$opts['meta_name_description:is'] = 'disabled';
+					array_key_exists( 'add_meta_name_description', $opts ) ) {
+					$opts['add_meta_name_description'] = 0;
+					$opts['add_meta_name_description:is'] = 'disabled';
 				}
 			} else {
 				if ( $opts === false )

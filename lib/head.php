@@ -148,7 +148,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			/*
 			 * Additional meta name / property tags
 			 */
-			if ( ! empty( $this->p->options['meta_name_description'] ) ) {
+			if ( ! empty( $this->p->options['add_meta_name_description'] ) ) {
 				if ( ! array_key_exists( 'description', $meta ) ) {
 					if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
 						$meta['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'seo_desc' );
@@ -206,7 +206,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$html = '';
 			$log_pre = 'meta '.$type.' '.$prop_val;
 
-			if ( empty( $this->p->options['meta_'.$type.'_'.$prop_val] ) ) {
+			if ( empty( $this->p->options['add_meta_'.$type.'_'.$prop_val] ) ) {
 				$this->p->debug->log( $log_pre.' is disabled (skipped)' );
 				return $html;
 
@@ -237,7 +237,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			// add an additional secure_url meta tag for open graph images and videos
 			if ( ( $prop_val === 'og:image' || $prop_val === 'og:video' ) && 
 				strpos( $content, 'https:' ) === 0 && 
-				! empty( $this->p->options['meta_'.$type.'_'.$prop_val.':secure_url'] ) ) {
+				! empty( $this->p->options['add_meta_'.$type.'_'.$prop_val.':secure_url'] ) ) {
 
 				$http_url = preg_replace( '/^https:/', 'http:', $content );
 				$html .= '<meta '.$type.'="'.$prop_val.'" content="'.$http_url.'" />'."\n";
