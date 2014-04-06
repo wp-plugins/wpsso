@@ -172,7 +172,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 **WPSSO loads only the library files and object classes it needs**, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
-<p>PHP code execution results from <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a>, using <a href="http://wptest.io/">WP Test Data</a> and the default settings of a few popular plugins:</p>
+**Example execution results from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/)**, using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
 
 <ul>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
