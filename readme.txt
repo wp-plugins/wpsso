@@ -8,7 +8,7 @@ Requires At Least: 3.0
 Tested Up To: 3.8.1
 Stable Tag: 2.4.3
 
-Improve ranking and click-through-rate (CTR) on social websites and Google Search &mdash; A fast, reliable and full featured plugin!
+Improves ranking and click-through-rate (CTR) on social websites and Google Search &mdash; A fast, reliable and full featured plugin!
 
 == Description ==
 
