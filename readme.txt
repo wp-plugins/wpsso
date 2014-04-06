@@ -68,9 +68,65 @@ Improves shared content on social websites and Google Search for higher ranking 
 
 = Complete Meta Tags =
 
-WPSSO adds Facebook / [Open Graph](http://ogp.me/), [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), [Twitter Cards](https://dev.twitter.com/docs/cards), and [Search Engine Optimization](http://en.wikipedia.org/wiki/Search_engine_optimization) meta tags to the head section of webpages. These meta tags are used by Google Search and most Social Websites to describe and display your content correctly (title, description, hashtags, images, videos, product, author profile / authorship, publisher, etc.). [See a few examples from Google Search / Google+, Facebook, Twitter, Pinterest, StumbleUpon, Tumblr, and others](/extend/plugins/wpsso/screenshots/). 
+WPSSO adds Facebook / [Open Graph](http://ogp.me/), [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), [Twitter Cards](https://dev.twitter.com/docs/cards), and [Search Engine Optimization](http://en.wikipedia.org/wiki/Search_engine_optimization) meta tags to the head section of webpages. These meta tags are used by Google Search and most social websites to describe and display your content correctly (title, description, hashtags, images, videos, product, author profile / authorship, publisher, etc.). [See a few examples from Google Search / Google+, Facebook, Twitter, Pinterest, StumbleUpon, Tumblr, and others](/extend/plugins/wpsso/screenshots/). 
 
 WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/types/summary-card), [Large Image Summary](https://dev.twitter.com/docs/cards/large-image-summary-card), [Photo](https://dev.twitter.com/docs/cards/types/photo-card), [Gallery](https://dev.twitter.com/docs/cards/types/gallery-card), [Player](https://dev.twitter.com/docs/cards/types/player-card) and [Product](https://dev.twitter.com/docs/cards/types/product-card) Twitter Cards &ndash; *including configurable image sizes for each card type*.
+
+* **Google / SEO Meta Tags**
+	* description
+* **Open Graph Meta Tags**
+	* article:author
+	* article:publisher
+	* article:published_time
+	* article:modified_time
+	* article:section
+	* article:tag
+	* fb:admins
+	* fb:app_id
+	* og:description
+	* og:image
+	* og:image:secure_url
+	* og:image:width
+	* og:image:height
+	* og:locale
+	* og:site_name
+	* og:title
+	* og:type
+	* og:url
+	* og:video
+	* og:video:secure_url
+	* og:video:width
+	* og:video:height
+	* og:video:type
+	* product:price:amount
+	* product:price:currency
+	* product:availability
+* **Schema Meta Tags**
+	* description
+* **Twitter Card Meta Tags**
+	* twitter:card
+	* twitter:creator
+	* twitter:data1
+	* twitter:data2
+	* twitter:data3
+	* twitter:data4
+	* twitter:description
+	* twitter:image
+	* twitter:image:width
+	* twitter:image:height
+	* twitter:image0
+	* twitter:image1
+	* twitter:image2
+	* twitter:image3
+	* twitter:label1
+	* twitter:label2
+	* twitter:label3
+	* twitter:label4
+	* twitter:player
+	* twitter:player:width
+	* twitter:player:height
+	* twitter:site
+	* twitter:title
 
 = 3rd Party Integration =
 
