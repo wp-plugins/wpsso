@@ -3,17 +3,17 @@ Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
 Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, tumblr, stumbleupon, widget, language, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube, polylang
 License: GPLv3
-License URI: http://surniaulula.com/wp-content/plugins/wpsso/license/gpl.txt
+License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.8.1
 Stable Tag: 2.4.3
 
-Improves shared content on social websites and Google Search for higher ranking and click-through-rates (CTR) - fast, reliable, and full featured
+Improve your shared content on social websites and Google Search for better exposure, higher ranking and click-through-rates (CTR)
 
 == Description ==
 
 <blockquote>
-<p>WordPress Social Sharing Optimization (WPSSO) <strong>provides the information that social websites need</strong> to improve <strong>Google Search rank</strong> and <strong>sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more</strong>.</p>
+<p>WordPress Social Sharing Optimization (WPSSO) <strong>provides the information that social websites need</strong> to improve Google Search ranking and social engagement on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more.</p>
 </blockquote>
 
 = Quick List of Features =
