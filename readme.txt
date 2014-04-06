@@ -105,8 +105,8 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* product:availability
 * **Schema Meta Tags**
 	* description
-* **Twitter Card Meta Tags**
-	* twitter:card
+* **Twitter Card Meta Tags** (Pro version)
+	* twitter:card (Summary, Large Image Summary, Photo, Gallery, Player and Product)
 	* twitter:creator
 	* twitter:data1
 	* twitter:data2
