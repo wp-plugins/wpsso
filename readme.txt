@@ -8,11 +8,11 @@ Requires At Least: 3.0
 Tested Up To: 3.8.1
 Stable Tag: 2.4.3
 
-Improve Ranking and Click-Through-Rate (CTR) on Social Websites and Google Search &mdash; A Fast, Reliable and Full Featured Plugin!
+Improve ranking and click-through-rate (CTR) on social websites and Google Search &mdash; A fast, reliable and full featured plugin!
 
 == Description ==
 
-WordPress Social Sharing Optimization (WPSSO) provides information that social websites need to improve **Google Search rank and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more**.
+WordPress Social Sharing Optimization (WPSSO) **provides information that social websites need** to improve **Google Search rank and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more**.
 
 = Quick List of Features =
 
