@@ -6,7 +6,7 @@ Author: Jean-Sebastien Morisset
 Author URI: http://surniaulula.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
-Description: Improves shared content on social websites and Google Search for higher ranking and click-through-rates (CTR) - A fast, reliable, and full featured plugin!
+Description: Improve your shared content on social websites and Google Search for better exposure, higher ranking and click-through-rates (CTR)
 Version: 2.4.4dev1
 
 Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
