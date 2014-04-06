@@ -13,7 +13,7 @@ Improves ranking and click-through-rate (CTR) on social websites and Google Sear
 == Description ==
 
 <blockquote>
-<p>WordPress Social Sharing Optimization (WPSSO) <strong>provides information that social websites need</strong> to improve <strong>Google Search rank and sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more</strong>.</p>
+<p>WordPress Social Sharing Optimization (WPSSO) <strong>provides the information that social websites need</strong> to improve <strong>Google Search rank</strong> and <strong>sharing on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more</strong>.</p>
 </blockquote>
 
 = Quick List of Features =
