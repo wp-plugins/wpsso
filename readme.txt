@@ -72,8 +72,10 @@ WPSSO adds Facebook / [Open Graph](http://ogp.me/), [Pinterest Rich Pins](http:/
 
 WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/types/summary-card), [Large Image Summary](https://dev.twitter.com/docs/cards/large-image-summary-card), [Photo](https://dev.twitter.com/docs/cards/types/photo-card), [Gallery](https://dev.twitter.com/docs/cards/types/gallery-card), [Player](https://dev.twitter.com/docs/cards/types/player-card) and [Product](https://dev.twitter.com/docs/cards/types/product-card) Twitter Cards &ndash; *including configurable image sizes for each card type*.
 
-* **Google / SEO Meta Tags**
+* **Google / SEO Link and Meta Tags**
+	* author
 	* description
+	* publisher
 * **Open Graph Meta Tags**
 	* article:author
 	* article:publisher
