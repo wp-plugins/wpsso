@@ -382,7 +382,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$cache_salt = __METHOD__.'(file:'.$this->p->cf['url']['readme'].')';
 				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
-				$this->p->debug->log( $cache_type.': plugin_info transient salt '.$cache_salt );
+				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
 				$plugin_info = get_transient( $cache_id );
 				if ( is_array( $plugin_info ) ) {
 					$this->p->debug->log( $cache_type.': plugin_info retrieved from transient '.$cache_id );

@@ -58,7 +58,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					return;
 				}
 				if ( isset( $obj->ID ) && $obj->post_status === 'publish' && $obj->filter === 'edit' ) {
-					$html = $this->p->head->get_header_html( $this->p->og->get_array( $obj->ID ), $obj->ID );
+					$html = $this->p->head->get_header_html( $obj->ID );
 					$this->p->debug->show_html( null, 'debug log' );
 					$html = preg_replace( '/<!--.*-->/Us', '', $html );
 					preg_match_all( '/<(\w+) (\w+)="([^"]*)" (\w+)="([^"]*)"[ \/]*>/', $html, $this->header_tags, PREG_SET_ORDER );

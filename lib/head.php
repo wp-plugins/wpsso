@@ -17,7 +17,19 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
+			$this->p->util->add_plugin_filters( $this, array( 
+				'head_cache_salt' => 2,		// modify the cache salt for certain crawlers
+			) );
 			add_action( 'wp_head', array( &$this, 'add_header' ), WPSSO_HEAD_PRIORITY );
+		}
+
+		public function filter_head_cache_salt( $salt, $use_post = false ) {
+			switch ( SucomUtil::crawler_name() ) {
+				case 'pinterest':
+					$salt .= '_crawler:'.SucomUtil::crawler_name();
+					break;
+			}
+			return $salt;
 		}
 
 		// called by WP wp_head action
@@ -44,11 +56,10 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 						$this->p->debug->log( $function.'() = true' );
 			}
 			if ( $this->p->is_avail['metatags'] ) {
-				if ( $this->p->is_avail['opengraph'] )
-					echo $this->get_header_html( $this->p->og->get_array() );
-				else echo $this->get_header_html();
+				echo $this->get_header_html();
 			} else echo "\n<!-- ".$this->p->cf['lca']." meta tags are disabled -->\n";
 
+			// include additional information when debug mode is on
 			if ( $this->p->debug->is_on() ) {
 				$defined_constants = get_defined_constants( true );
 				$defined_constants['user']['WPSSO_NONCE'] = '********';
@@ -81,21 +92,30 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 		// called from add_header() and the work/header.php template
 		// input array should be from transient cache
-		public function get_header_html( $meta = array(), $use_post = false ) {
-		
+		public function get_header_html( $use_post = false, $read_cache = true ) {
+			$html = false;
+			$sharing_url = $this->p->util->get_sharing_url( $use_post );
 			$obj = $this->p->util->get_the_object( $use_post );
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
-			$this->p->debug->log( 'using post_id '.$post_id );
-		
+
+			if ( $this->p->is_avail['cache']['transient'] ) {
+				$cache_salt = __METHOD__.'('.apply_filters( $this->p->cf['lca'].'_head_cache_salt', 
+					'lang:'.SucomUtil::get_locale().'_post:'.$post_id.'_url:'.$sharing_url, $use_post ).')';
+				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
+				$cache_type = 'object cache';
+				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
+				if ( $read_cache ) {
+					$html = get_transient( $cache_id );
+					if ( $html !== false ) {
+						$this->p->debug->log( $cache_type.': html retrieved from transient '.$cache_id );
+						return $html;
+					}
+				}
+			}
+
 			$html = "\n<!-- ".$this->p->cf['lca']." meta tags begin -->\n";
 			if ( $this->p->is_avail['aop'] )
 				$html .= "<!-- updates: ".$this->p->cf['url']['pro_update']." -->\n";
-
-			// show the array structure before the html block
-			if ( $this->p->debug->is_on() ) {
-				$html .= $this->p->debug->get_html( print_r( $meta, true ), 'open graph array' );
-				$html .= $this->p->debug->get_html( print_r( $this->p->util->get_urls_found(), true ), 'media urls found' );
-			}
 
 			$html .= '<meta name="generator" content="'.$this->p->cf['full'].' '.$this->p->cf['version'];
 			if ( $this->p->check->is_aop() ) $html .= 'L';
@@ -104,26 +124,32 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$html .= '" />'."\n";
 
 			/*
+			 * Open Graph and Twitter Card meta tags
+			 */
+			if ( $this->p->is_avail['opengraph'] )
+				$meta_og = $this->p->og->get_array( $use_post );
+
+			/*
 			 * Schema meta tags
 			 */
 			$meta_schema = array();
-			if ( array_key_exists( 'og:description', $meta ) )
-				$meta_schema['description'] = $meta['og:description'];
+			if ( array_key_exists( 'og:description', $meta_og ) )
+				$meta_schema['description'] = $meta_og['og:description'];
 			$meta_schema = apply_filters( $this->p->cf['lca'].'_meta_schema', $meta_schema );
 
 			/*
-			 * Link rel tags
+			 * Link Relation tags
 			 */
 			$link_rel = array();
-			if ( array_key_exists( 'link_rel:publisher', $meta ) ) {
-				$link_rel['publisher'] = $meta['link_rel:publisher'];
-				unset ( $meta['link_rel:publisher'] );
+			if ( array_key_exists( 'link_rel:publisher', $meta_og ) ) {
+				$link_rel['publisher'] = $meta_og['link_rel:publisher'];
+				unset ( $meta_og['link_rel:publisher'] );
 			} elseif ( ! empty( $this->p->options['link_publisher_url'] ) )
 				$link_rel['publisher'] = $this->p->options['link_publisher_url'];
 
-			if ( array_key_exists( 'link_rel:author', $meta ) ) {
-				$link_rel['author'] = $meta['link_rel:author'];
-				unset ( $meta['link_rel:author'] );
+			if ( array_key_exists( 'link_rel:author', $meta_og ) ) {
+				$link_rel['author'] = $meta_og['link_rel:author'];
+				unset ( $meta_og['link_rel:author'] );
 			} else {
 				// check for single/attachment page, or admin editing page
 				if ( is_singular() || $use_post !== false ) {
@@ -149,15 +175,15 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 * Additional meta name / property tags
 			 */
 			if ( ! empty( $this->p->options['add_meta_name_description'] ) ) {
-				if ( ! array_key_exists( 'description', $meta ) ) {
+				if ( ! array_key_exists( 'description', $meta_og ) ) {
 					if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
-						$meta['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'seo_desc' );
-					if ( empty( $meta['description'] ) )
-						$meta['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...',
+						$meta_og['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'seo_desc' );
+					if ( empty( $meta_og['description'] ) )
+						$meta_og['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...',
 							$use_post, true, false );	// use_post = false, use_cache = true, add_hashtags = false
 				}
 			}
-			$meta = apply_filters( $this->p->cf['lca'].'_meta', $meta );
+			$meta_og = apply_filters( $this->p->cf['lca'].'_meta_og', $meta_og );
 
 			/*
 			 * Print all the link / meta arrays as HTML
@@ -167,8 +193,14 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					$html .= '<link rel="'.$key.'" href="'.$val.'" />'."\n";
 
 			$html .= $this->get_meta_for_type( 'itemprop', $meta_schema );
-			$html .= $this->get_meta_for_type( 'property', $meta );
+			$html .= $this->get_meta_for_type( 'property', $meta_og );
 			$html .= "<!-- ".$this->p->cf['lca']." meta tags end -->\n";
+			$html = apply_filters( $this->p->cf['lca'].'_header_html', $html, $use_post );
+
+			if ( ! empty( $this->p->is_avail['cache']['transient'] ) ) {
+				set_transient( $cache_id, $html, $this->p->cache->object_expire );
+				$this->p->debug->log( $cache_type.': head html saved to transient '.$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
+			}
 			return $html;
 		}
 

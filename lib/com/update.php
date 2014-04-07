@@ -175,7 +175,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				$cache_salt = __METHOD__.'(update_url:'.$update_url.'_site_url:'.$site_url.')';
 				$cache_id = $this->lca.'_'.md5( $cache_salt );		// use lca prefix for plugin clear cache
 				$cache_type = 'object cache';
-				$this->p->debug->log( $cache_type.': plugin data transient salt '.$cache_salt );
+				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
 				$last_update = get_option( $this->lca.'_utime' );
 				if ( $read_cache && $last_update !== false ) {
 					$plugin_data = get_transient( $cache_id );
