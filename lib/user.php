@@ -17,10 +17,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
-
 			add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ) );
 			add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ) );
-
 			add_filter( 'user_contactmethods', array( &$this, 'add_contact_methods' ), 20, 1 );
 		}
 

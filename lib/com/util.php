@@ -283,8 +283,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			// facebook javascript does not work when hosted locally
 			if ( preg_match( '/:\/\/connect.facebook.net/', $url ) ) 
 				return $url;
-			return ( apply_filters( $this->p->cf['lca'].'_rewrite_url',
-				$this->p->cache->get( $url ) ) );
+			return ( apply_filters( $this->p->cf['lca'].'_rewrite_url', $this->p->cache->get( $url ) ) );
 		}
 
 		public function fix_relative_url( $url = '' ) {
