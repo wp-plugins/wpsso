@@ -80,7 +80,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			register_setting( $this->p->cf['lca'].'_setting', WPSSO_OPTIONS_NAME, array( &$this, 'sanitize_options' ) );
 		} 
 
-		public function set_readme( $expire_secs = 0 ) {
+		public function set_readme( $expire_secs ) {
 			if ( empty( $this->readme ) )
 				$this->readme = $this->p->util->parse_readme( $expire_secs );
 		}
@@ -235,7 +235,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					switch ( $_GET['action'] ) {
 						case 'check_for_updates' : 
 							if ( ! empty( $this->p->options['plugin_tid'] ) ) {
-								$this->p->admin->set_readme( 0 );
+								$this->readme = '';
 								$this->p->update->check_for_updates();
 								$this->p->notice->inf( __( 'Plugin update information has been checked and updated.', WPSSO_TEXTDOM ) );
 							}

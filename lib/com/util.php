@@ -371,10 +371,10 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return trim( $text );
 		}
 
-		public function parse_readme( $expire_secs = 0 ) {
+		public function parse_readme( $expire_secs ) {
 			$this->p->debug->args( array( 'expire_secs' => $expire_secs ) );
 			$readme = '';
-			$use_local = false;	// fetch readme from wordpress.org by default
+			$get_remote = true;	// fetch readme from wordpress.org by default
 			$plugin_info = array();
 
 			if ( $this->p->is_avail['cache']['transient'] ) {
@@ -387,15 +387,15 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 					$this->p->debug->log( $cache_type.': plugin_info retrieved from transient '.$cache_id );
 					return $plugin_info;
 				}
-			} else $use_local = true;	// use local if we cannot cache the readme
+			} else $get_remote = false;	// use local if transient cache is disabled
 
 			// get remote readme.txt file
-			if ( ! $use_local )
+			if ( $get_remote === true && $expire_secs > 0 )
 				$readme = $this->p->cache->get( $this->p->cf['url']['readme'], 'raw', 'file', $expire_secs );
 
 			// fallback to local readme.txt file
 			if ( empty( $readme ) && $fh = @fopen( constant( $this->p->cf['uca'].'_PLUGINDIR' ).'readme.txt', 'rb' ) ) {
-				$use_local = true;
+				$get_remote = false;
 				$readme = fread( $fh, filesize( constant( $this->p->cf['uca'].'_PLUGINDIR' ).'readme.txt' ) );
 				fclose( $fh );
 			}
@@ -405,7 +405,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$plugin_info = $parser->parse_readme_contents( $readme );
 
 				// remove possibly inaccurate information from local file
-				if ( $use_local ) {
+				if ( $get_remote !== true ) {
 					foreach ( array( 'stable_tag', 'upgrade_notice' ) as $key )
 						if ( array_key_exists( $key, $plugin_info ) )
 							unset( $plugin_info[$key] );
