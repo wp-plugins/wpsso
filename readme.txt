@@ -299,7 +299,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
-= Version 2.4.4 =
+= Version 2.4.4rc1 =
 
 * Bugfixes
 	* *None*
@@ -307,6 +307,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added the schema itemprop description meta tag.
 	* Modified the Meta Tag List on the Advanced settings page to include the type as well (property, name, itemprop, etc.).
 	* Renamed the 'inc_*' option prefix to 'add_meta_name_*' and 'add_meta_property_*' to allow for the new schema option name(s).
+	* Replaced the Open Graph array transient cache by a header HTML transient cache object (which includes all the meta tags).
+	* Removed the Open Graph array argument to `WpssoHead::get_header_html()` (fetching the Open Graph array within the method instead).
 
 = Version 2.4.3 =
 
