@@ -300,6 +300,7 @@ Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author
 * Enhancements
 	* Added the schema itemprop description meta tag.
 	* Modified the Meta Tag List on the Advanced settings page to include the type as well (property, name, itemprop, etc.).
+	* Renamed the 'inc_*' option prefix to 'add_meta_name_*' and 'add_meta_property_*' to allow for the new schema option name(s).
 
 = Version 2.4.3 =
 
