@@ -63,7 +63,7 @@ Improve your shared content on social websites and Google Search for better expo
 		* Youtube Videos and Playlists
 
 <blockquote>
-<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NextGEN Facebook</a> (NGFB) plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.006 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
+<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NextGEN Facebook</a> (NGFB) plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.008 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
 </blockquote>
 
 = Complete Meta Tags =
@@ -181,11 +181,11 @@ WPSSO loads only the library files and object classes it needs, keeping it small
 Example execution times from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
 
 <ul>
+	<li><strong>0.0105</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.4</li>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
-	<li><strong>0.0120</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.2</li>
 	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
-	<li><strong>0.0180</strong> secs - NextGEN Facebook (NGFB) v7.4.2</li>
-	<li><strong>0.0190</strong> secs - Contact Form 7 v3.7.2</li>
+	<li><strong>0.0180</strong> secs - NextGEN Facebook (NGFB) v7.4.4</li>
+	<li><strong>0.0189</strong> secs - Contact Form 7 v3.7.2</li>
 	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
 	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (<em>No Forums or Topics</em>)</li>
 	<li><strong>0.0405</strong> secs - WooCommerce v2.1.5 (<em>No Products</em>)</li>
