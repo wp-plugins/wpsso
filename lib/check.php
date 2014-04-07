@@ -97,7 +97,9 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) &&
 				class_exists( $this->p->cf['lca'].'opengraph' ) ? true : false;
 
-			$ret['aop'] = self::$a = file_exists( WPSSO_PLUGINDIR.'lib/pro/addon.php' ) &&
+			$ret['aop'] = self::$a = ( ! defined( 'WPSSO_PRO_ADDON_DISABLE' ) ||
+				( defined( 'WPSSO_PRO_ADDON_DISABLE' ) && ! WPSSO_PRO_ADDON_DISABLE ) ) &&
+				file_exists( WPSSO_PLUGINDIR.'lib/pro/addon.php' ) &&
 				class_exists( $this->p->cf['lca'].'addonpro' ) ? true : false;
 
 			foreach ( $this->p->cf['cache'] as $name => $val ) {
