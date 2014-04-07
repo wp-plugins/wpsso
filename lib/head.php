@@ -216,7 +216,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 			// ignore empty values, except for open graph (og, article, etc.) meta tags when og_empty_tags option is checked
 			} elseif ( ( $content === '' || $content === null ) && 
-				( preg_match( '/^description|fb:|twitter:/', $prop_val ) || 
+				( preg_match( '/^description|twitter:/', $prop_val ) || 
 					empty( $this->p->options['og_empty_tags'] ) ) ) {
 
 				$this->p->debug->log( $log_pre.' is empty (skipped)' );
