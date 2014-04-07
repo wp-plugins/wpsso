@@ -174,11 +174,11 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Proven Performance =
 
-**WPSSO is fast and coded for performance**, and makes full use of all available caching techniques (persistent / non-persistent object and disk caching).
+WPSSO is fast and coded for performance, making full use of all available caching techniques (persistent / non-persistent object and disk caching).
 
-**WPSSO loads only the library files and object classes it needs**, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
+WPSSO loads only the library files and object classes it needs, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
-**Example execution results from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/)**, using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
+Example execution times from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
 
 <ul>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
@@ -198,11 +198,11 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Clean Uninstall =
 
-**Try the WPSSO plugin with complete confidence** - when uninstalled, WPSSO removes *all* traces of itself from the database (options, site options, user and post meta, transients, etc.).
+Try the WPSSO plugin with complete confidence &mdash; when uninstalled, WPSSO removes *all* traces of itself from the database (options, site options, user and post meta, transients, etc.).
 
 = Great Support =
 
-**WPSSO support and development is on-going**. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
+WPSSO support and development is on-going. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
 
 **Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Facebook](https://www.facebook.com/SurniaUlulaCom), and [Twitter](https://twitter.com/surniaululacom), and [YouTube](http://www.youtube.com/user/SurniaUlulaCom)**.
 
