@@ -174,35 +174,37 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Proven Performance =
 
-**WPSSO is fast and coded for performance**, and makes full use of all available caching techniques (persistent / non-persistent object and disk caching).
+WPSSO is fast and coded for performance, making full use of all available caching techniques (persistent / non-persistent object and disk caching).
 
-**WPSSO loads only the library files and object classes it needs**, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
+WPSSO loads only the library files and object classes it needs, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
-**Example execution results from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/)**, using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
+Example execution times from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
 
 <ul>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
 	<li><strong>0.0120</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.2</li>
 	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
 	<li><strong>0.0180</strong> secs - NextGEN Facebook (NGFB) v7.4.2</li>
+	<li><strong>0.0190</strong> secs - Contact Form 7 v3.7.2</li>
 	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
 	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (<em>No Forums or Topics</em>)</li>
 	<li><strong>0.0405</strong> secs - WooCommerce v2.1.5 (<em>No Products</em>)</li>
 	<li><strong>0.0572</strong> secs - SEO Ultimate v7.6.2</li>
 	<li><strong>0.0579</strong> secs - Facebook v1.5.5</li>
 	<li><strong>0.0656</strong> secs - BuddyPress v1.9.2 (<em>No Activities</em>)</li>
-	<li><strong>0.1051</strong> secs - WordPress SEO v1.5.2.5</li>
+	<li><strong>0.1051</strong> secs - WordPress SEO by Yoast v1.5.2.5</li>
+	<li><strong>0.1980</strong> secs - JetPack by WordPress.com v2.9.2</li>
 </ul>
 
 <p><small><em>Tests executed on a VPS with SSDs and 6GB ram, APC opcode/object cache, WordPress v3.8.1, P3 v1.4.1 configured with opcode optimization enabled (improves accuracy).</em></small></p>
 
 = Clean Uninstall =
 
-**Try the WPSSO plugin with complete confidence** - when uninstalled, WPSSO removes *all* traces of itself from the database (options, site options, user and post meta, transients, etc.).
+Try the WPSSO plugin with complete confidence &mdash; when uninstalled, WPSSO removes *all* traces of itself from the database (options, site options, user and post meta, transients, etc.).
 
 = Great Support =
 
-**WPSSO support and development is on-going**. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
+WPSSO support and development is on-going. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
 
 **Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Facebook](https://www.facebook.com/SurniaUlulaCom), and [Twitter](https://twitter.com/surniaululacom), and [YouTube](http://www.youtube.com/user/SurniaUlulaCom)**.
 

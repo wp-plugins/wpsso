@@ -381,7 +381,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			echo '<td colspan="2">'.$this->p->cf['version'].' (';
 			if ( $this->p->is_avail['aop'] ) 
 				echo __( 'Pro', WPSSO_TEXTDOM );
-			else echo __( 'GPL', WPSSO_TEXTDOM );
+			else echo __( 'Free', WPSSO_TEXTDOM );
 			echo ')</td></tr>';
 			echo '<tr><th class="side">'.__( 'Stable', WPSSO_TEXTDOM ).':</th><td colspan="2">'.$stable_tag.'</td></tr>';
 			echo '<tr><th class="side">'.__( 'Latest', WPSSO_TEXTDOM ).':</th><td colspan="2">'.$latest_version.'</td></tr>';

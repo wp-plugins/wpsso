@@ -176,20 +176,21 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			 * configure class properties based on plugin settings
 			 */
 			$this->cache->object_expire = $this->options['plugin_object_cache_exp'];
-			if ( $this->debug->is_on( 'wp' ) === true ) 
-				$this->cache->file_expire = WPSSO_DEBUG_FILE_EXP;
-			else $this->cache->file_expire = $this->options['plugin_file_cache_hrs'] * 60 * 60;
+			if ( ! empty( $this->options['plugin_file_cache_hrs'] ) ) {
+				if ( $this->debug->is_on( 'wp' ) === true ) 
+					$this->cache->file_expire = WPSSO_DEBUG_FILE_EXP;	// reduce to 300 seconds
+				else $this->cache->file_expire = $this->options['plugin_file_cache_hrs'] * 60 * 60;
+			} else $this->cache->file_expire = 0;	// just in case
 			$this->is_avail['cache']['file'] = $this->cache->file_expire > 0 ? true : false;
 
-			// set the object cache expiration value
+			// disable the transient and object cache ONLY if the html debug mode is on
 			if ( $this->debug->is_on( 'html' ) === true ) {
 				foreach ( array( 'object', 'transient' ) as $name ) {
 					$constant_name = 'WPSSO_'.strtoupper( $name ).'_CACHE_DISABLE';
 					$this->is_avail['cache'][$name] = defined( $constant_name ) && ! constant( $constant_name ) ? true : false;
 				}
 				$cache_msg = 'object cache '.( $this->is_avail['cache']['object'] ? 'could not be' : 'is' ).
-					' disabled, and transient cache '.( $this->is_avail['cache']['transient'] ? 'could not be' : 'is' ).
-					' disabled.';
+					' disabled, and transient cache '.( $this->is_avail['cache']['transient'] ? 'could not be' : 'is' ).' disabled.';
 				$this->debug->log( 'HTML debug mode active: '.$cache_msg );
 				$this->notice->inf( 'HTML debug mode active &ndash; '.$cache_msg.' '.
 					__( 'Informational messages are being added to webpages as hidden HTML comments.', WPSSO_TEXTDOM ) );

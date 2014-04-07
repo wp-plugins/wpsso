@@ -348,11 +348,11 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				if ( $this->p->is_avail['cache']['object'] ) {
 					// if the post id is 0, then add the sharing url to ensure a unique salt string
 					$cache_salt = __METHOD__.'(lang:'.SucomUtil::get_locale().'_post:'.$post_id.'_'.$filter_name.
-						( empty( $post_id ) ? '_sharing_url:'.$this->p->util->get_sharing_url( $use_post ) : '' ).')';
+						( empty( $post_id ) ? '_url:'.$this->p->util->get_sharing_url( $use_post ) : '' ).')';
 					$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 					$cache_type = 'object cache';
 					if ( $use_cache === true ) {
-						$this->p->debug->log( $cache_type.': '.$filter_name.' content wp_cache salt '.$cache_salt );
+						$this->p->debug->log( $cache_type.': wp_cache salt '.$cache_salt );
 						$content = wp_cache_get( $cache_id, __METHOD__ );
 						if ( $content !== false ) {
 							$this->p->debug->log( $cache_type.': '.$filter_name.' content retrieved from wp_cache '.$cache_id );
