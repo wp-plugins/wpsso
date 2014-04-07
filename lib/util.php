@@ -85,9 +85,9 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				$sharing_url = $this->p->util->get_sharing_url( $post_id );
 
 				$transients = array(
-					'WpssoOpengraph::get_array' => array( 
-						'lang:'.$lang.'_sharing_url:'.$sharing_url,
-						'lang:'.$lang.'_sharing_url:'.$sharing_url.'_crawler:pinterest',
+					'WpssoHead::get_header_html' => array( 
+						'lang:'.$lang.'_post:'.$post_id.'_url:'.$sharing_url,
+						'lang:'.$lang.'_post:'.$post_id.'_url:'.$sharing_url.'_crawler:pinterest',
 					),
 				);
 				$transients = apply_filters( $this->p->cf['lca'].'_post_cache_transients', $transients, $post_id, $lang, $sharing_url );
@@ -137,7 +137,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				$cache_salt = __METHOD__.'('.WPSSO_TOPICS_LIST.')';
 				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
-				$this->p->debug->log( $cache_type.': topics array transient salt '.$cache_salt );
+				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
 				$topics = get_transient( $cache_id );
 				if ( is_array( $topics ) ) {
 					$this->p->debug->log( $cache_type.': topics array retrieved from transient '.$cache_id );
@@ -166,7 +166,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					! empty( $this->p->options[$pre.'_height'] ) ) {
 					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$suf.
 						' ('.$this->p->options[$pre.'_width'].'x'.$this->p->options[$pre.'_height'].
-						( empty( $this->p->options[$pre.'_crop'] ) ? '' : ' cropped' ).') added' );
+						( empty( $this->p->options[$pre.'_crop'] ) ? '' : ' cropped' ).') added', 2 );
 					add_image_size( $this->p->cf['lca'].'-'.$suf, 
 						$this->p->options[$pre.'_width'], 
 						$this->p->options[$pre.'_height'], 
