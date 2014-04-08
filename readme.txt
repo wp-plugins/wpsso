@@ -184,7 +184,7 @@ Example execution times from [P3 (Plugin Performance Profiler)](http://wordpress
 	<li><strong>0.0105</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.4</li>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
 	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
-	<li><strong>0.0180</strong> secs - NextGEN Facebook (NGFB) v7.4.4</li>
+	<li><strong>0.0175</strong> secs - NextGEN Facebook (NGFB) v7.4.4</li>
 	<li><strong>0.0189</strong> secs - Contact Form 7 v3.7.2</li>
 	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
 	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (<em>No Forums or Topics</em>)</li>
