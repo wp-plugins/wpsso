@@ -151,8 +151,8 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 							'\' and \''.$this->p->cf['opt']['defaults']['tc_prod_def_d2'].'\').' );
 					}
 				}
-				if ( $this->p->is_avail['aop'] === true && 
-					empty( $this->p->options['plugin_tid'] ) )
+				if ( $this->p->is_avail['aop'] === true && empty( $this->p->options['plugin_tid'] ) && 
+					( empty( $this->p->options['plugin_tid:is'] ) || $this->p->options['plugin_tid:is'] !== 'disabled' ) )
 						$this->p->notice->nag( $this->p->msgs->get( 'pro-activate-nag' ) );
 			}
 			return $opts;
