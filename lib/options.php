@@ -165,54 +165,51 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			if ( empty( $def_opts ) || ! is_array( $def_opts ) )
 				return $opts;
 
-			/*
-			// unset options that no longer exist
-			foreach ( $opts as $key => $val )
-				// if the key isn't in the default options, then remove it
-				if ( ! empty( $key ) && ! array_key_exists( $key, $def_opts ) )
-					unset( $opts[$key] );
-			*/
-
-			// add missing options 
+			// add any missing options from the default options
 			foreach ( $def_opts as $key => $def_val )
 				if ( ! empty( $key ) && ! array_key_exists( $key, $opts ) )
 					$opts[$key] = $def_val;
 
 			// sanitize values
-			foreach ( $opts as $key => $val )
-				if ( ! empty( $key ) ) {
+			foreach ( $opts as $key => $val ) {
+				if ( preg_match( '/:is$/', $key ) )	// don't save option states
+					unset( $opts[$key] );
+				elseif ( ! empty( $key ) ) {
 					$def_val = array_key_exists( $key, $def_opts ) ? $def_opts[$key] : '';
 					$opts[$key] = $this->p->util->sanitize_option_value( $key, $val, $def_val );
 				}
-
-			/*
-			 * Adjust dependent options -- All options (site and meta as well) are sanitized here, 
-			 * so use array_key_exists() on all tests
-			 */
-			if ( array_key_exists( 'og_def_img_id', $opts ) &&
-				! empty( $opts['og_def_img_id'] ) ) {
-				$opts['og_def_img_url'] = '';
-				$opts['og_def_img_url:is'] = 'disabled';
 			}
 
-			if ( ! $this->p->check->is_aop() )
-				$opts['plugin_file_cache_hrs'] = 0;
+			/* Adjust Dependent Options
+			 *
+			 * All options (site and meta as well) are sanitized
+			 * here, so use always isset() or array_key_exists() on
+			 * all tests to make sure additional / unnecessary
+			 * options are not created.
+			 */
+			if ( ! empty( $opts['og_def_img_id'] ) &&
+				! empty( $opts['og_def_img_url'] ) )
+					$opts['og_def_img_url'] = '';
 
-			if ( array_key_exists( 'plugin_google_api_key', $opts ) &&
+			if ( isset( $opts['plugin_file_cache_hrs'] ) &&
+				! $this->p->check->is_aop() )
+					$opts['plugin_file_cache_hrs'] = 0;
+
+			if ( isset( $opts['plugin_google_api_key'] ) &&
 				empty( $opts['plugin_google_api_key'] ) ) {
 				$opts['plugin_google_shorten'] = 0;
 				$opts['plugin_google_shorten:is'] = 'disabled';
 			}
 
 			// og_desc_len must be at least 156 chars (defined in config)
-			if ( array_key_exists( 'og_desc_len', $opts ) && 
+			if ( isset( $opts['og_desc_len'] ) && 
 				$opts['og_desc_len'] < $this->p->cf['head']['min_desc_len'] ) 
 					$opts['og_desc_len'] = $this->p->cf['head']['min_desc_len'];
 
-			if ( array_key_exists( 'plugin_tid', $opts ) ) {
+			if ( isset( $opts['plugin_tid'] ) ) {
 				if ( empty( $opts['plugin_tid'] ) )
 					delete_option( $this->p->cf['lca'].'_umsg' );
-				elseif ( $opts['plugin_tid'] !== $this->p->options['plugin_tid'] )
+				if ( $opts['plugin_tid'] !== $this->p->options['plugin_tid'] )
 					delete_option( $this->p->cf['lca'].'_utime' );
 			}
 			return $opts;

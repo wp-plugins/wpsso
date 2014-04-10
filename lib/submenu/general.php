@@ -114,7 +114,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$this->form->get_select( 'og_def_img_id_pre', $img_id_pre ).'</td>';
 	
 					$rows[] = $this->p->util->th( 'Default Image URL', null, 'og_def_img_url' ).
-					'<td>'.$this->form->get_input( 'og_def_img_url', 'wide' ).'</td>';
+					'<td>'.( empty( $this->p->options['og_def_img_id'] ) ? 
+						$this->form->get_input( 'og_def_img_url', 'wide' ) :
+						$this->form->get_fake_input( 'og_def_img_url', 'wide' ) ).'</td>';
 	
 					$rows[] = $this->p->util->th( 'Use Default Image on Indexes', null, 'og_def_img_on_index' ).
 					'<td>'.$this->form->get_checkbox( 'og_def_img_on_index' ).'</td>';

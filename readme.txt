@@ -299,10 +299,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
-= Version 2.4.4rc2 =
+= Version 2.4.4rc3 =
 
 * Bugfixes
-	* *None*
+	* The Default Image URL could be disabled permanently in some situations. Fixed by removing stateful option names before saving the settings.
 * Enhancements
 	* Added the schema itemprop description meta tag.
 	* Modified the Meta Tag List on the Advanced settings page to include the type as well (property, name, itemprop, etc.).
