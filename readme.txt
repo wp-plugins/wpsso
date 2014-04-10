@@ -299,16 +299,18 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
-= Version 2.4.4rc3 =
+= Version 2.4.4 =
 
 * Bugfixes
-	* The Default Image URL could be disabled permanently in some situations. Fixed by removing stateful option names before saving the settings.
+	* Added missing 'plugin_object_cache_exp' option to the network / multisite settings defaults.
+	* The 'Default Image URL' option could be disabled permanently in some situations. Fixed by removing stateful option names before saving the settings.
 * Enhancements
-	* Added the schema itemprop description meta tag.
+	* Added the schema itemprop 'description' meta tag.
 	* Modified the Meta Tag List on the Advanced settings page to include the type as well (property, name, itemprop, etc.).
 	* Renamed the 'inc_' option prefix to 'add_meta_name_' and 'add_meta_property_' to allow for the new schema option name(s).
 	* Replaced the Open Graph array transient cache by a header HTML transient cache object (which includes all the meta tags).
 	* Removed the Open Graph array argument to `WpssoHead::get_header_html()` (fetching the Open Graph array within the method instead).
+	* Added new multisite-specific constants to override 'forced' options.
 
 = Version 2.4.3 =
 
@@ -380,6 +382,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 == Upgrade Notice ==
+
+= 2.4.3 =
+
+Fixed 'Default Image URL' option field enable/disable toggling, added schema 'description' meta tag, new Meta Tag List format, improved meta tag object caching.
 
 = 2.4.3 =
 

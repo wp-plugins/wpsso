@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.4.4rc3',		// plugin version
+			'version' => '2.4.4',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -234,7 +234,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_add_to_attachment' => 1,
 					'plugin_verify_certs' => 0,
 					'plugin_file_cache_hrs' => 0,
-					'plugin_object_cache_exp' => 7200,	// 2 hours
+					'plugin_object_cache_exp' => 21600,	// 6 hours
 					'plugin_cm_fb_name' => 'facebook', 
 					'plugin_cm_fb_label' => 'Facebook URL', 
 					'plugin_cm_fb_enabled' => 1,
@@ -275,6 +275,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_version' => '',
 					'plugin_tid' => '',
 					'plugin_tid:use' => 'default',
+					'plugin_object_cache_exp' => 21600,	// 6 hours
+					'plugin_object_cache_exp:use' => 'default',
 				),
 				'pre' => array(
 					'facebook' => 'fb', 
