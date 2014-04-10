@@ -5,7 +5,7 @@ Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, goog
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
-Tested Up To: 3.8.1
+Tested Up To: 3.8.2
 Stable Tag: 2.4.3
 
 Improve your shared content on social websites and Google Search for better exposure, higher ranking and click-through-rates (CTR)
@@ -299,10 +299,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
-= Version 2.4.4rc1 =
+= Version 2.4.4rc3 =
 
 * Bugfixes
-	* *None*
+	* The Default Image URL could be disabled permanently in some situations. Fixed by removing stateful option names before saving the settings.
 * Enhancements
 	* Added the schema itemprop description meta tag.
 	* Modified the Meta Tag List on the Advanced settings page to include the type as well (property, name, itemprop, etc.).
