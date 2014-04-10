@@ -63,7 +63,7 @@ Improve your shared content on social websites and Google Search for better expo
 		* Youtube Videos and Playlists
 
 <blockquote>
-<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NextGEN Facebook</a> (NGFB) plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.008 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
+<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NextGEN Facebook</a> (NGFB) plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.0070 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons. <a href="http://surniaulula.com/2014/04/07/how-fast-is-wpsso-compared-to-other-plugins/">How Fast is WPSSO Compared to Other Plugins?</a></p>
 </blockquote>
 
 = Complete Meta Tags =
