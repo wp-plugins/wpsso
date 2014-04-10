@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.8.2
-Stable Tag: 2.4.3
+Stable Tag: 2.4.4
 
 Improve your shared content on social websites and Google Search for better exposure, higher ranking and click-through-rates (CTR)
 
