@@ -187,7 +187,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			if ( $this->debug->is_on( 'html' ) === true ) {
 				foreach ( array( 'object', 'transient' ) as $name ) {
 					$constant_name = 'WPSSO_'.strtoupper( $name ).'_CACHE_DISABLE';
-					$this->is_avail['cache'][$name] = defined( $constant_name ) && ! constant( $constant_name ) ? true : false;
+					$this->is_avail['cache'][$name] = defined( $constant_name ) && 
+						! constant( $constant_name ) ? true : false;
 				}
 				$cache_msg = 'object cache '.( $this->is_avail['cache']['object'] ? 'could not be' : 'is' ).
 					' disabled, and transient cache '.( $this->is_avail['cache']['transient'] ? 'could not be' : 'is' ).' disabled.';
@@ -267,6 +268,13 @@ if ( ! class_exists( 'Wpsso' ) ) {
 									if ( empty( $this->options[$key] ) )
 										$this->options[$key] = $this->site_options[$key];
 									break;
+							}
+
+							// check for constant over-rides
+							if ( function_exists( 'get_current_blog_id' ) ) {
+								$constant_name = 'WPSSO_OPTIONS_'.get_current_blog_id().'_'.strtoupper( $key );
+								if ( defined( $constant_name ) )
+									$this->options[$key] = constant( $constant_name );
 							}
 						}
 					}

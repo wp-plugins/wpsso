@@ -80,7 +80,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			register_setting( $this->p->cf['lca'].'_setting', WPSSO_OPTIONS_NAME, array( &$this, 'sanitize_options' ) );
 		} 
 
-		public function set_readme( $expire_secs = 0 ) {
+		public function set_readme( $expire_secs ) {
 			if ( empty( $this->readme ) )
 				$this->readme = $this->p->util->parse_readme( $expire_secs );
 		}
@@ -235,7 +235,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					switch ( $_GET['action'] ) {
 						case 'check_for_updates' : 
 							if ( ! empty( $this->p->options['plugin_tid'] ) ) {
-								$this->p->admin->set_readme( 0 );
+								$this->readme = '';
 								$this->p->update->check_for_updates();
 								$this->p->notice->inf( __( 'Plugin update information has been checked and updated.', WPSSO_TEXTDOM ) );
 							}
@@ -264,13 +264,26 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$this->p->admin->submenu[$this->menu_id]->add_meta_boxes();
 
 			if ( empty( $this->p->options['plugin_tid'] ) || ! $this->p->check->is_aop() ) {
-				add_meta_box( $this->pagehook.'_purchase', __( 'Pro Version', WPSSO_TEXTDOM ), array( &$this, 'show_metabox_purchase' ), $this->pagehook, 'side' );
-				add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_purchase', array( &$this, 'add_class_postbox_highlight_side' ) );
-				$this->p->user->reset_metabox_prefs( $this->pagehook, array( 'purchase' ), null, 'side', true );
+				add_meta_box( $this->pagehook.'_purchase', __( 'Pro Version', WPSSO_TEXTDOM ), 
+					array( &$this, 'show_metabox_purchase' ), $this->pagehook, 'side' );
+				add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_purchase', 
+					array( &$this, 'add_class_postbox_highlight_side' ) );
+				$this->p->user->reset_metabox_prefs( $this->pagehook, 
+					array( 'purchase' ), null, 'side', true );
 			}
-			add_meta_box( $this->pagehook.'_info', __( 'Version Information', WPSSO_TEXTDOM ), array( &$this, 'show_metabox_info' ), $this->pagehook, 'side' );
-			add_meta_box( $this->pagehook.'_status', __( 'Plugin Features', WPSSO_TEXTDOM ), array( &$this, 'show_metabox_status' ), $this->pagehook, 'side' );
-			add_meta_box( $this->pagehook.'_help', __( 'Help and Support', WPSSO_TEXTDOM ), array( &$this, 'show_metabox_help' ), $this->pagehook, 'side' );
+
+			add_meta_box( $this->pagehook.'_rating', __( 'Would You Recommend '.WpssoConfig::get_config( 'full' ).'?', WPSSO_TEXTDOM ), 
+				array( &$this, 'show_metabox_rating' ), $this->pagehook, 'side' );
+
+			add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_rating', 
+				array( &$this, 'add_class_postbox_highlight_side' ) );
+
+			add_meta_box( $this->pagehook.'_info', __( 'Version Information', WPSSO_TEXTDOM ), 
+				array( &$this, 'show_metabox_info' ), $this->pagehook, 'side' );
+			add_meta_box( $this->pagehook.'_status', __( 'Plugin Features', WPSSO_TEXTDOM ), 
+				array( &$this, 'show_metabox_status' ), $this->pagehook, 'side' );
+			add_meta_box( $this->pagehook.'_help', __( 'Help and Support', WPSSO_TEXTDOM ), 
+				array( &$this, 'show_metabox_help' ), $this->pagehook, 'side' );
 		}
 
 		public function show_page() {
@@ -490,14 +503,21 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		public function show_metabox_purchase() {
 			echo '<table class="sucom-setting"><tr><td>';
 			echo $this->p->msgs->get( 'side-purchase' );
-			echo '<p>Thank you,</p>';
-			echo '<p class="sig">js.</p>';
 			echo '<p class="centered">';
 			echo $this->form->get_button( 
 				( $this->p->is_avail['aop'] ? 
 					__( 'Purchase a Pro License', WPSSO_TEXTDOM ) :
 					__( 'Purchase the Pro Version', WPSSO_TEXTDOM ) ), 
 				'button-primary', null, $this->p->cf['url']['purchase'], true );
+			echo '</p></td></tr></table>';
+		}
+
+		public function show_metabox_rating() {
+			echo '<table class="sucom-setting"><tr><td>';
+			echo $this->p->msgs->get( 'side-rating' );
+			echo '<p class="centered">';
+			echo $this->form->get_button( 'Rate the Plugin', 
+				'button-primary', null, $this->p->cf['url']['review'], true );
 			echo '</p></td></tr></table>';
 		}
 

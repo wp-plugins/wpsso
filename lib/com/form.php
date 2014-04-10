@@ -164,7 +164,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 		}
 
 		public function get_fake_input( $name, $class = '', $id = '' ) {
-			return $this->get_hidden( $name ).'<input type="text" disabled="disabled"'.
+			return '<input type="text" disabled="disabled"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
 				( empty( $id ) ? '' : ' id="'.$id.'"' ).
 				' value="'.esc_attr( $this->options[$name] ).'" />';

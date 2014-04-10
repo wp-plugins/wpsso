@@ -18,7 +18,7 @@ if ( ! class_exists( 'SucomCache' ) ) {
 		public $base_url = '/cache/';
 		public $verify_certs = false;
 		public $file_expire = 0;
-		public $object_expire = 60;
+		public $object_expire = 3600;
 		public $timeout = 10;		// wait 10 seconds for a completed transaction
 		public $connect_timeout = 5;	// wait 5 seconds for a connection
 		public $ignore_time = 300;
@@ -45,14 +45,14 @@ if ( ! class_exists( 'SucomCache' ) ) {
 			if ( $this->p->is_avail['curl'] !== true ) {
 				$this->p->debug->log( 'exiting early: curl is not available' );
 				return $return == 'url' ? $url : false;
+
 			} elseif ( defined( $this->p->cf['uca'].'_CURL_DISABLE' ) && 
 				constant( $this->p->cf['uca'].'_CURL_DISABLE' ) ) {
 				$this->p->debug->log( 'exiting early: curl has been disabled' );
 				return $return == 'url' ? $url : false;
-			} elseif ( empty( $file_expire ) && 
-				$cache_name === 'file' &&
-				$this->p->is_avail['cache']['file'] !== true )
-					return $return == 'url' ? $url : false;
+
+			} elseif ( empty( $file_expire ) && $cache_name === 'file' )
+				return $return === 'url' ? $url : false;
 
 			$get_url = preg_replace( '/#.*$/', '', $url );	// remove the fragment
 			$url_path = parse_url( $get_url, PHP_URL_PATH );
@@ -71,6 +71,7 @@ if ( ! class_exists( 'SucomCache' ) ) {
 			$cache_url = $this->base_url.$cache_id.$url_ext.$url_frag;
 			$cache_data = false;
 
+			// return immediately if the cache contains what we need
 			switch ( $return ) {
 				case 'raw':
 					$cache_data = $this->get_cache_data( $cache_salt, $cache_name, $url_ext, $expire_secs );
@@ -213,9 +214,7 @@ if ( ! class_exists( 'SucomCache' ) ) {
 					$this->p->debug->log( $cache_type.': filename salt '.$cache_salt );
 					$file_expire = $expire_secs === false ? $this->file_expire : $expire_secs;
 
-					if ( $this->p->is_avail['aop'] !== true && ! is_admin() )
-						$this->p->debug->log( 'file cache disabled: must be pro or admin.' );
-					elseif ( ! file_exists( $cache_file ) )
+					if ( ! file_exists( $cache_file ) )
 						$this->p->debug->log( $cache_file.' does not exist yet.' );
 					elseif ( ! is_readable( $cache_file ) )
 						$this->p->notice->err( $cache_file.' is not readable.', true );
@@ -272,9 +271,7 @@ if ( ! class_exists( 'SucomCache' ) ) {
 					$this->p->debug->log( $cache_type.': filename salt '.$cache_salt );
 					if ( ! is_dir( $this->base_dir ) ) 
 						mkdir( $this->base_dir );
-					if ( $this->p->is_avail['aop'] !== true && ! is_admin() )
-						$this->p->debug->log( 'file cache disabled: must be pro or admin.' );
-					elseif ( ! is_writable( $this->base_dir ) )
+					if ( ! is_writable( $this->base_dir ) )
 						$this->p->notice->err( $this->base_dir.' is not writable.', true );
 					else {
 						if ( ! $fh = @fopen( $cache_file, 'wb' ) )

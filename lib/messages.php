@@ -720,26 +720,20 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					if ( ! is_multisite() || ( is_multisite() && preg_match( '/^.*\?page='.$this->p->cf['lca'].'-/', $_SERVER['REQUEST_URI'] ) ) ) {
 						$url = $this->p->util->get_admin_url( 'advanced' );
 						$text = '<p>The '.$this->p->cf['full'].' Authentication ID option value is empty.<br/>
-						To activate Pro version features, and allow the plugin to authenticate itself for updates,<br/>
-						<a href="'.$url.'">enter the unique Authenticaton ID you receive following your purchase
-						on the Advanced Settings page</a>.</p>';
+						To enable Pro version features, and allow the plugin to authenticate itself for future updates,<br/>
+						<a href="'.$url.'">please enter the unique Authenticaton ID you received on the '.
+						$this->p->cf['menu'].' Advanced settings page</a>.</p>';
 					}
 					break;
-				case 'upgrade-nag':
-					$text .= '<center><p style="font-size:1.15em;margin:5px 0;">Would you recommend '.WpssoConfig::get_config( 'full' ).'?</p>
-					<p style="font-size:1.05em;margin:5px 0;"><a href="'.$this->p->cf['url']['review'].'" target="_blank">Rate the plugin and 
-					share your opinion on wordpress.org</a>.</p><p style="font-family:cursive;font-size:1.3em;margin:5px 0;">Thank you!</p></center>';
-					break;
 				case 'side-purchase':
-					$text = '<p>Developing and supporting the '.$this->p->cf['full'].' plugin takes most of my work days (and week-ends).
-					If you compare this plugin with others, I think you\'ll find that the result was worth all the hard work and long hours.
-					If you would like to show your appreciation, and access the full range of features this plugin offers, please purchase ';
-					if ( $this->p->is_avail['aop'] == true )
-						$text .= 'a Pro version license.</p>';
-					else $text .= 'the Pro version.</p>';
+					$text = '<p>The Pro version can be purchased and '.( $this->p->is_avail['aop'] == true ? 'licensed' : 'upgraded' ).
+					' within a few <em>seconds</em> following your purchase. Pro version licenses do not expire, and there are 
+					no recurring / yearly fees for updates and support. Do you have any questions or concerns about licensing? 
+					<a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new Support Ticket</a> and we will be happy to assist you.';
 					break;
-				case 'side-thankyou':
-					$text = '<p>Thank you for your purchase. I hope '.$this->p->cf['full'].' will exceed all of your expectations for many years to come.</p>';
+				case 'side-rating':
+					$text .= '<p>Please <a href="'.$this->p->cf['url']['review'].'" target="_blank">rate the plugin on WordPress.org</a>.
+					We appreciate all the positive feedback, and it encourages us to keep going. :)</p>';
 					break;
 				case 'side-help':
 					$text = '<p>Individual option boxes (like this one) can be opened / closed by clicking on their title bar, 

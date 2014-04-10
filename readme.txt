@@ -5,7 +5,7 @@ Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, goog
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
-Tested Up To: 3.8.1
+Tested Up To: 3.8.2
 Stable Tag: 2.4.3
 
 Improve your shared content on social websites and Google Search for better exposure, higher ranking and click-through-rates (CTR)
@@ -63,7 +63,7 @@ Improve your shared content on social websites and Google Search for better expo
 		* Youtube Videos and Playlists
 
 <blockquote>
-<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NextGEN Facebook</a> (NGFB) plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.006 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
+<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NextGEN Facebook</a> (NGFB) plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.008 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons.</p>
 </blockquote>
 
 = Complete Meta Tags =
@@ -181,11 +181,11 @@ WPSSO loads only the library files and object classes it needs, keeping it small
 Example execution times from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
 
 <ul>
+	<li><strong>0.0105</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.4</li>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
-	<li><strong>0.0120</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.2</li>
 	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
-	<li><strong>0.0180</strong> secs - NextGEN Facebook (NGFB) v7.4.2</li>
-	<li><strong>0.0190</strong> secs - Contact Form 7 v3.7.2</li>
+	<li><strong>0.0175</strong> secs - NextGEN Facebook (NGFB) v7.4.4</li>
+	<li><strong>0.0189</strong> secs - Contact Form 7 v3.7.2</li>
 	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
 	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (<em>No Forums or Topics</em>)</li>
 	<li><strong>0.0405</strong> secs - WooCommerce v2.1.5 (<em>No Products</em>)</li>
@@ -302,11 +302,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Version 2.4.4 =
 
 * Bugfixes
-	* *None*
+	* Added missing 'plugin_object_cache_exp' option to the network / multisite settings defaults.
+	* The 'Default Image URL' option could be disabled permanently in some situations. Fixed by removing stateful option names before saving the settings.
 * Enhancements
-	* Added the schema itemprop description meta tag.
+	* Added the schema itemprop 'description' meta tag.
 	* Modified the Meta Tag List on the Advanced settings page to include the type as well (property, name, itemprop, etc.).
-	* Renamed the 'inc_*' option prefix to 'add_meta_name_*' and 'add_meta_property_*' to allow for the new schema option name(s).
+	* Renamed the 'inc_' option prefix to 'add_meta_name_' and 'add_meta_property_' to allow for the new schema option name(s).
+	* Replaced the Open Graph array transient cache by a header HTML transient cache object (which includes all the meta tags).
+	* Removed the Open Graph array argument to `WpssoHead::get_header_html()` (fetching the Open Graph array within the method instead).
+	* Added new multisite-specific constants to override 'forced' options.
 
 = Version 2.4.3 =
 
@@ -378,6 +382,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 == Upgrade Notice ==
+
+= 2.4.3 =
+
+Fixed 'Default Image URL' option field enable/disable toggling, added schema 'description' meta tag, new Meta Tag List format, improved meta tag object caching.
 
 = 2.4.3 =
 
