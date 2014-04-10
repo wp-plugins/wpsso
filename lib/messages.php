@@ -277,11 +277,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							The Pro version also allows you to select a custom Topic for each individual Post and Page.';
 							break;
 						case 'tooltip-og_site_name':
-							$text = 'The Site Title is used for the Open Graph / Rich Pin site name (og:site_name) meta tag. 
+							$text = 'The WordPress Site Title is used for the Open Graph / Rich Pin site name (og:site_name) meta tag. 
 							You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Site Title</a> value here.';
 							break;
 						case 'tooltip-og_site_description':
-							$text = 'The Tagline is used as a description for the <em>index</em> (non-static) home page, 
+							$text = 'The WordPress Tagline is used as a description for the <em>index</em> (non-static) home page, 
 							and as a fallback for the Open Graph / Rich Pin description (og:description) meta tag. 
 							You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Tagline</a> value here,
 							to provide a longer and more complete description of your website.';
