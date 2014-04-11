@@ -67,11 +67,11 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 				$opts = $this->p->options;
 				foreach ( $opts as $key => $val ) {
-					switch ( $key ) {
-						case ( strpos( $key, 'buttons_css_' ) ):
-						case ( strpos( $key, 'buttons_js_' ) ):
-						case ( preg_match( '/_key$/', $key ) ? true : false ):
-						case 'plugin_tid':
+					switch ( true ) {
+						case ( strpos( $key, 'buttons_css_' ) !== false ):
+						case ( strpos( $key, 'buttons_js_' ) !== false ):
+						case ( preg_match( '/_key$/', $key ) ):
+						case ( $key === 'plugin_tid' ):
 							$opts[$key] = '********';
 					}
 				}
