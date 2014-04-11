@@ -78,10 +78,10 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		}
 
 		// localize the options array key
-		public static function get_locale_key( $key, &$opts = false, $post_id = 0 ) {
+		public static function get_locale_key( $key, &$opts = false, $get = 'current' ) {
 			$default = self::get_locale( 'default' );
-			$new_key = self::get_locale( $post_id ) !== $default ?
-				$key.'#'.self::get_locale( $post_id ) : $key;
+			$new_key = self::get_locale( $get ) !== $default ?
+				$key.'#'.self::get_locale( $get ) : $key;
 
 			// fallback if the locale option key does not exist in the array
 			if ( is_array( $opts ) && $new_key !== $key ) {
