@@ -26,29 +26,29 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		public static function crawler_name( $id = '' ) {
 			if ( self::$crawler_name === false ) {	// optimize perf - only check once
 				$str = $_SERVER['HTTP_USER_AGENT'];
-				switch ( $str ) {
+				switch ( true ) {
 					// "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
-					case ( strpos( $str, 'facebookexternalhit/' ) === 0 ? true : false ):
+					case ( strpos( $str, 'facebookexternalhit/' ) === 0 ):
 						self::$crawler_name = 'facebook';
 						break;
 	
 					// "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
-					case ( strpos( $str, 'compatible; Googlebot/' ) !== false ? true : false ):
+					case ( strpos( $str, 'compatible; Googlebot/' ) !== false ):
 						self::$crawler_name = 'google';
 						break;
 	
 					// "Pinterest/0.1 +http://pinterest.com/"
-					case ( strpos( $str, 'Pinterest/' ) === 0 ? true : false ):
+					case ( strpos( $str, 'Pinterest/' ) === 0 ):
 						self::$crawler_name = 'pinterest';
 						break;
 	
 					// "Twitterbot/1.0"
-					case ( strpos( $str, 'Twitterbot/' ) === 0 ? true : false ):
+					case ( strpos( $str, 'Twitterbot/' ) === 0 ):
 						self::$crawler_name = 'twitter';
 						break;
 	
 					// "W3C_Validator/1.3 http://validator.w3.org/services"
-					case ( strpos( $str, 'W3C_Validator/' ) === 0 ? true : false ):
+					case ( strpos( $str, 'W3C_Validator/' ) === 0 ):
 						self::$crawler_name = 'w3c';
 						break;
 				}
@@ -64,10 +64,10 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return is_numeric( implode( array_keys( $arr ) ) ) ? false : true;
 		}
 
-		// argument can also be a numeric post ID, to return the language of that post
+		// argument can also be a numeric post ID to return the language of that post (from the 'sucom_locale' filter)
 		public static function get_locale( $get = 'current' ) {
-			switch ( $get ) {
-				case 'default':
+			switch ( true ) {
+				case ( $get === 'default' ):
 					$lang = ( defined( 'WPLANG' ) && WPLANG ) ? WPLANG : 'en_US';
 					break;
 				default:
