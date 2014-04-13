@@ -8,12 +8,12 @@ Requires At Least: 3.0
 Tested Up To: 3.8.2
 Stable Tag: 2.4.4
 
-Improve your shared content on social websites and Google Search for better exposure, higher ranking and click-through-rates (CTR)
+Improve the appearance, ranking, and social engagement of your social shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc.
 
 == Description ==
 
 <blockquote>
-<p>WordPress Social Sharing Optimization (WPSSO) <strong>provides the information that social websites need</strong> to improve Google Search ranking and social engagement on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more.</p>
+<p>WordPress Social Sharing Optimization (WPSSO) <strong>provides the information that social websites need</strong> to improve Google Search ranking and social engagement on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more. An essential plugin for <em>every</em> WordPress website!</p>
 </blockquote>
 
 = Quick List of Features =
