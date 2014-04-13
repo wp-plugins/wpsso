@@ -18,12 +18,31 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! class_exists( 'Wpsso' ) ) {
 
 	class Wpsso {
+		/*
+		 * Class Object Variables
+		 */
+		public $admin;			// WpssoAdmin (admin menus and page loader)
+		public $cache;			// SucomCache (object and file caching)
+		public $debug;			// SucomDebug or WpssoNoDebug
+		public $gpl;			// WpssoAddonGpl
+		public $head;			// WpssoHead
+		public $media;			// WpssoMedia (images, videos, etc.)
+		public $msgs;			// WpssoMessages (admin tooltip messages)
+		public $notice;			// SucomNotice
+		public $og;			// WpssoOpenGraph (extends SucomOpengraph)
+		public $opt;			// WpssoOptions
+		public $pro;			// WpssoAddonPro
+		public $reg;			// WpssoRegister
+		public $script;			// SucomScript (admin jquery tooltips)
+		public $style;			// SucomStyle (admin styles)
+		public $update;			// SucomUpdate
+		public $user;			// WpssoUser (contact methods and metabox prefs)
+		public $util;			// WpssoUtil (extends SucomUtil)
+		public $webpage;		// SucomWebpage (title, desc, etc., plus shortcodes)
 
-		// class object variables
-		public $debug, $util, $notice, $opt, $user, $media, $meta,
-			$style, $script, $cache, $admin, $head, $og, $webpage,
-			$sharing, $seo, $gpl, $pro, $update, $reg, $msgs;
-
+		/*
+		 * Reference Variables (config, options, addon objects, etc.)
+		 */
 		public $cf = array();		// config array defined in construct method
 		public $is_avail = array();	// assoc array for other plugin checks
 		public $options = array();	// individual blog/site options
