@@ -8,7 +8,7 @@ Requires At Least: 3.0
 Tested Up To: 3.8.2
 Stable Tag: 2.4.4
 
-Improve the appearance, ranking, and social engagement of your social shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc.
+Improve the Appearance, Ranking, and Social Engagement of your social shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc.
 
 == Description ==
 
