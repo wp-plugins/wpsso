@@ -383,7 +383,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
-= 2.4.3 =
+= 2.4.4 =
 
 Fixed 'Default Image URL' option field enable/disable toggling, added schema 'description' meta tag, new Meta Tag List format, improved meta tag object caching.
 
