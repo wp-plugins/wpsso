@@ -63,7 +63,7 @@ Improve the Appearance, Ranking, and Social Engagement of your social shares on 
 		* Youtube Videos and Playlists
 
 <blockquote>
-<p>WPSSO is a fork (child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NextGEN Facebook</a> (NGFB) plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.0070 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons. <a href="http://surniaulula.com/2014/04/07/how-fast-is-wpsso-compared-to-other-plugins/">How Fast is WPSSO Compared to Other Plugins?</a></p>
+<p>WPSSO is a fork (aka child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NextGEN Facebook</a> (NGFB) plugin &ndash; they have the same author, many of the same great features, but WPSSO strives to be a little <strong>smaller and faster</strong> by removing the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.0070 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons. 
 </blockquote>
 
 = Complete Meta Tags =
@@ -174,11 +174,11 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Proven Performance =
 
-WPSSO is fast and coded for performance, making full use of all available caching techniques (persistent / non-persistent object and disk caching).
+WPSSO is fast and coded for performance, making full use of all available caching techniques (persistent / non-persistent object and disk caching). WPSSO loads only the library files and object classes it needs, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
-WPSSO loads only the library files and object classes it needs, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
+**How Fast is WPSSO Compared to Other Plugins?**
 
-Example execution times from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
+Here are some example execution times from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
 
 <ul>
 	<li><strong>0.0105</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.4</li>
