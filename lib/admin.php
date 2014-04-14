@@ -273,7 +273,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					array( 'purchase' ), null, 'side', true );
 			}
 
-			add_meta_box( $this->pagehook.'_rating', __( 'Would You Recommend '.WpssoConfig::get_config( 'full' ).'?', WPSSO_TEXTDOM ), 
+			add_meta_box( $this->pagehook.'_rating', __( 'Recommend '.WpssoConfig::get_config( 'full' ), WPSSO_TEXTDOM ), 
 				array( &$this, 'show_metabox_rating' ), $this->pagehook, 'side' );
 
 			add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_rating', 
