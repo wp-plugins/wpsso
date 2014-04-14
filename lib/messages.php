@@ -283,7 +283,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-og_site_description':
 							$text = 'The WordPress Tagline is used as a description for the <em>index</em> (non-static) home page, 
 							and as a fallback for the Open Graph / Rich Pin description (og:description) meta tag. 
-							You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Tagline</a> value here,
+							You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Tagline</a> value here
 							to provide a longer and more complete description of your website.';
 							break;
 						case 'tooltip-og_title_sep':
@@ -732,8 +732,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					<a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new Support Ticket</a> and we will be happy to assist you.';
 					break;
 				case 'side-rating':
-					$text .= '<p>Please <a href="'.$this->p->cf['url']['review'].'" target="_blank">rate the plugin on WordPress.org</a>.
-					We appreciate all the positive feedback, and it encourages us to keep going. :)</p>';
+					$text .= '<p>Do you have a moment?
+					Please <a href="'.$this->p->cf['url']['review'].'" target="_blank">rate the plugin on WordPress.org</a>.
+					We appreciate your feedback, and it encourages us to keep going! :)</p>';
 					break;
 				case 'side-help':
 					$text = '<p>Individual option boxes (like this one) can be opened / closed by clicking on their title bar, 
