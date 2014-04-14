@@ -16,7 +16,6 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 	 * gpl/addons.php or pro/addons.php.
 	 *
 	 */
-
 	class WpssoPostmeta {
 
 		protected $p;
