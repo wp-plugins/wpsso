@@ -6,7 +6,7 @@
  * Author URI: http://surniaulula.com/
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl.txt
- * Description: Improve your shared content on social websites and Google Search for better exposure, higher ranking and click-through-rates (CTR)
+ * Description: Improve the Appearance, Ranking, and Social Engagement of your social shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc.
  * Requires At Least: 3.0
  * Tested Up To: 3.8.2
  * Version: 2.4.4
