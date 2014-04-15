@@ -62,17 +62,13 @@ Improve the Appearance, Ranking, and Social Engagement of your social shares on 
 		* Wistia Videos
 		* Youtube Videos and Playlists
 
-<blockquote>
-<p>WPSSO is a fork (aka child) of the popular <a href="http://wordpress.org/plugins/nextgen-facebook/">NextGEN Facebook</a> (NGFB) plugin &ndash; they have the same author, many of the same excellent features, but WPSSO is packaged without the sharing buttons and their related features (shortcodes, widgets, stylesheets, javascript caching, and url shortening). WPSSO has 25% less code, is 0.0070 secs faster per page load, and is often preferred for websites that already have (or don't need) a set of sharing buttons. 
-</blockquote>
-
 = Complete Meta Tags =
 
 WPSSO adds Facebook / [Open Graph](http://ogp.me/), [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), [Twitter Cards](https://dev.twitter.com/docs/cards), and [Search Engine Optimization](http://en.wikipedia.org/wiki/Search_engine_optimization) meta tags to the head section of webpages. These meta tags are used by Google Search and most social websites to describe and display your content correctly (title, description, hashtags, images, videos, product, author profile / authorship, publisher, etc.).
 
-<blockquote>
+<ul>
 <p><a href="http://surniaulula.com/extend/plugins/nextgen-facebook/screenshots/">See examples from Google Search, Google+, Facebook, Twitter, Pinterest, StumbleUpon, Tumblr, etc. &mdash; along with Screenshots from the NGFB Settings pages</a>.</p>
-</blockquote>
+</ul>
 
 WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/types/summary-card), [Large Image Summary](https://dev.twitter.com/docs/cards/large-image-summary-card), [Photo](https://dev.twitter.com/docs/cards/types/photo-card), [Gallery](https://dev.twitter.com/docs/cards/types/gallery-card), [Player](https://dev.twitter.com/docs/cards/types/player-card) and [Product](https://dev.twitter.com/docs/cards/types/product-card) Twitter Cards &ndash; *including configurable image sizes for each card type*.
 
@@ -176,9 +172,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 WPSSO is fast and coded for performance, making full use of all available caching techniques (persistent / non-persistent object and disk caching). WPSSO loads only the library files and object classes it needs, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
-<strong><em>How Fast is WPSSO Compared to Other Plugins?</em></strong> Very Fast.
-
-Here are example execution times from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
+<strong><em>How Fast is WPSSO Compared to Other Plugins?</em></strong> Very Fast. Example execution times from [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a few popular plugins:
 
 <ul>
 	<li><strong>0.0105</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.4.4</li>
