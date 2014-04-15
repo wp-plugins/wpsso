@@ -253,7 +253,11 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 		<div>A list of available PHP constants for the WPSSO plugin.</div></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a>
 		<div>A few debugging and problem solving techniques for the WPSSO plugin for WordPress.</div></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/">Filters</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/">Filters</a>
+	<ul>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/webpage/">Webpage</a>
+			<div>WPSSO filters to modify and return information about the webpage (title, description, tags, etc.).</div></liv>
+	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/">Integration Notes</a>
 	<ul>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a>
