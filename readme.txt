@@ -246,28 +246,28 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/">About Pro Addons</a>
 	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a><br/>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a> &mdash;
 			<div>An example showing the difference in meta tags between the WPSSO Free version, which does not support video APIs or Twitter Cards, and the Pro version which does.</div></li>
 	</ul></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a><br/>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a> &mdash;
 		<div>A list of available PHP constants for the WPSSO plugin.</div></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a><br/>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a> &mdash;
 		<div>A few debugging and problem solving techniques for the WPSSO plugin for WordPress.</div></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/">Filters</a>
 	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/webpage/">Webpage</a><br/>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/webpage/">Webpage</a> &mdash;
 			<div>Filters for WPSSO to modify and return information about the webpage (title, description, tags, etc.).</div></liv>
 	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/">Integration Notes</a>
 	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a><br/>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a> &mdash;
 			<div>BuddyPress specific integration issues, and a few possible techniques to overcome them.</div></li>
 	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/multisite-network-support/">Multisite / Network Support</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/performance-tuning/">Performance Tuning</a><br/>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/performance-tuning/">Performance Tuning</a> &mdash;
 		<div>WPSSO is highly optimized, but you may still improve page load times by a few milliseconds by considering the following suggestions.</div></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/resources-and-contacts/">Resources and Contacts</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/working-with-image-attachments/">Working with Image Attachments</a><br/>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/working-with-image-attachments/">Working with Image Attachments</a> &mdash;
 		<div>A selection of plugins available to manage WordPress image attachments.</div></li>
 </ul>
 
