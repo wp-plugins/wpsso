@@ -461,17 +461,17 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			if ( empty( $this->p->options['og_desc_hashtags'] ) ) 
 				return;
 
-			$text = apply_filters( $this->p->cf['lca'].'_hashtags_seed', '', $post_id );
-			if ( ! empty( $text ) )
-				$this->p->debug->log( 'hashtags seed = "'.$text.'"' );
+			$hashtags = apply_filters( $this->p->cf['lca'].'_hashtags_seed', '', $post_id );
+			if ( ! empty( $hashtags ) )
+				$this->p->debug->log( 'hashtags seed = "'.$hashtags.'"' );
 			else {
 				$tags = array_slice( $this->get_tags( $post_id ), 0, $this->p->options['og_desc_hashtags'] );
 				if ( ! empty( $tags ) ) {
-					$text = '#'.trim( implode( ' #', preg_replace( '/ /', '', $tags ) ) );
-					$this->p->debug->log( 'hashtags = "'.$text.'"' );
+					$hashtags = '#'.trim( implode( ' #', preg_replace( '/ /', '', $tags ) ) );
+					$this->p->debug->log( 'hashtags = "'.$hashtags.'"' );
 				}
 			}
-			return apply_filters( $this->p->cf['lca'].'_hashtags', $text, $post_id );
+			return apply_filters( $this->p->cf['lca'].'_hashtags', $hashtags, $post_id );
 		}
 
 		public function get_tags( $post_id ) {
