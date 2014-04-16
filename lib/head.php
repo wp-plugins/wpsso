@@ -115,7 +115,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			}
 
 			/**
-			 * Define the author_id (if any)
+			 * Define an author_id, if possible
 			 */
 			if ( is_singular() || $use_post !== false ) {
 				if ( ! empty( $obj->post_author ) )
