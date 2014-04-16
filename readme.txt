@@ -366,27 +366,6 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a 'Object Cache Expiry' option to the multisite Network admin settings page.
 	* Increased the default object cache expiry value from 3600 to 7200 seconds.
 
-= Version 2.3.2 =
-
-* Bugfixes
-	* *None*
-* Enhancements
-	* Changed the default Open Graph 'Image Dimensions' from 1200x1200 cropped to 800x800 cropped.
-	* Disabled the Default Image URL option when a Default Image ID has been specified.
-	* Updated a few help messages in lib/messages.php.
-
-= Version 2.3.1 =
-
-* Bugfixes
-	* *None*
-* Enhancements
-	* Added action hooks for 'wpmu_new_blog' and 'wpmu_activate_blog' to install default options (if necessary) when **multisite** blogs are created and/or activated.
-	* Added a notice error message if / when the WordPress `wp_remote_get()` function (used when checking for updates) returns an error (Pro version).
-	* Changed the update filter hook priorities from 10 to 100 in order to avoid 3rd party filters from modifying the update information (Pro version).
-	* Changed the default Open Graph Image Dimensions from 1200x630 cropped to 1200x1200 cropped.
-	* Changed the update check schedule from every 12 hours to every 24 hours.
-	* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
-
 == Upgrade Notice ==
 
 = 2.4.5 =
@@ -412,12 +391,4 @@ Fixed a potential issue with update filter hooks, includes a few minor changes t
 = 2.4.0 =
 
 Fixed the 'twitter:title' value in admin interface, fixed missing Default Image use for Twitter Cards, added new default video options, added license use status (Pro version).
-
-= 2.3.2 =
-
-Changed default Open Graph 'Image Dimensions' from 1200x1200 to 800x800 cropped, disabled Default Image URL when a Default Image ID has been specified, updated a few help messages.
-
-= 2.3.1 =
-
-Added default options when creating a new multisite blog, added check for wp_remote_get() errors, changed the default Open Graph image size to 1200x1200 cropped.
 
