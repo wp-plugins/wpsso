@@ -246,6 +246,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/">About Pro Addons</a>
 	<ul>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/jetpack-photon/">Jetpack Photon</a> &mdash;
+			<div>The Jetpack Photon Addon for WPSSO re-introduces the missing width and height values for WPSSO image sizes.</div></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a> &mdash;
 			<div>An example showing the difference in meta tags between the WPSSO Free version, which does not support video APIs or Twitter Cards, and the Pro version which does.</div></li>
 	</ul></li>
