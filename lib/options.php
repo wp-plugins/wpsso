@@ -283,7 +283,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					break;
 
 				// must be numeric (blank or zero is ok)
-				case 'link_def_author_id':
+				case 'seo_def_author_id':
 				case 'og_desc_hashtags': 
 				case 'og_img_max':
 				case 'og_vid_max':
