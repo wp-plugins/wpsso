@@ -189,6 +189,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[] = $this->p->util->th( 'Description Length', null, 'google_desc_len' ).
 					'<td>'.$this->form->get_input( 'seo_desc_len', 'short' ).' characters or less</td>';
 
+					$rows[] = $this->p->util->th( 'Author Name Format', null, 'google_author_name' ).
+					'<td>'.$this->form->get_select( 'seo_author_name', $this->author_name_fields() ).'</td>';
+	
 					$rows[] = $this->p->util->th( 'Author Link URL', null, 'google_author_field' ).
 					'<td>'.$this->form->get_select( 'link_author_field', $this->author_contact_fields() ).'</td>';
 

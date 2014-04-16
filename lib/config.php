@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.4.4.1',		// plugin version
+			'version' => '2.4.5',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -90,12 +90,13 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '273',		// increment when changing default options
+				'version' => '274',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
-					'seo_desc_len' => 156,
-					'link_author_field' => '',	// default value set by WpssoOptions::get_defaults()
+					'seo_desc_len' => 156,			// meta name="description" maximum text length
+					'seo_author_name' => 'display_name',	// meta name="author" format
+					'link_author_field' => '',		// default value set by WpssoOptions::get_defaults()
 					'link_def_author_id' => 0,
 					'link_def_author_on_index' => 0,
 					'link_def_author_on_search' => 0,
@@ -127,7 +128,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_ngg_tags' => 0,
 					'og_page_parent_tags' => 0,
 					'og_page_title_tag' => 0,
-					'og_author_field' => '',	// default value set by WpssoOptions::get_defaults()
+					'og_author_field' => '',		// default value set by WpssoOptions::get_defaults()
 					'og_author_fallback' => 0,
 					'og_title_sep' => '-',
 					'og_title_len' => 70,
@@ -159,7 +160,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					// product card
 					'tc_prod_width' => 300,
 					'tc_prod_height' => 300,
-					'tc_prod_crop' => 1,    // prefers square product images
+					'tc_prod_crop' => 1,   			 // prefers square product images
 					'tc_prod_def_l2' => 'Location',
 					'tc_prod_def_d2' => 'Unknown',
 					'add_meta_property_fb:admins' => 1,
@@ -211,6 +212,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'add_meta_name_twitter:label3' => 1,
 					'add_meta_name_twitter:data4' => 1,
 					'add_meta_name_twitter:label4' => 1,
+					'add_meta_name_author' => 1,
 					'add_meta_name_description' => 0,
 					'add_meta_itemprop_description' => 1,
 					'plugin_version' => '',

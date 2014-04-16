@@ -547,6 +547,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
 							(the default is '.$this->p->opt->get_defaults( 'seo_desc_len' ).' characters).';
 							break;
+						case 'tooltip-google_author_name':
+							$text = 'Select an Author Name Format for the "author" meta tag, or \'none\' to disable this feature 
+							(the default and recommended value is \'Display Name\').';
+							break;
 						case 'tooltip-google_author_field':
 							$text = $this->p->cf['full'].' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
 							These are not Open Graph / Rich Pin meta property tags - they are used primarily by Google\'s search engine 
@@ -677,9 +681,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					switch ( $idx ) {
 						case 'tooltip-rp_author_name':
 							$text = 'Pinterest ignores Facebook-style Author Profile URLs in the \'article:author\'
-							Open Graph / Rich Pin meta tags. An additional \'article:author\' meta tag may be included 
-							when the Pinterest crawler is detected. Select a User\'s Name Format to include for the Pinterest
-							crawler, or \'none\' to disable this feature (the default and recommended value is \'Display Name\').';
+							Open Graph / Rich Pin meta tags. An <em>additional</em> \'article:author\' meta tag may be included 
+							when the Pinterest crawler is detected. Select an Author Name Format, or \'none\' to disable this feature 
+							(the default and recommended value is \'Display Name\').';
 							break;
 						/*
 						 * Other settings

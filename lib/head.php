@@ -141,39 +141,52 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 * Link Relation tags
 			 */
 			$link_rel = array();
-			if ( array_key_exists( 'link_rel:publisher', $meta_og ) ) {
-				$link_rel['publisher'] = $meta_og['link_rel:publisher'];
-				unset ( $meta_og['link_rel:publisher'] );
-			} elseif ( ! empty( $this->p->options['link_publisher_url'] ) )
+			if ( ! empty( $this->p->options['link_publisher_url'] ) )
 				$link_rel['publisher'] = $this->p->options['link_publisher_url'];
 
-			if ( array_key_exists( 'link_rel:author', $meta_og ) ) {
-				$link_rel['author'] = $meta_og['link_rel:author'];
-				unset ( $meta_og['link_rel:author'] );
-			} else {
-				// check for single/attachment page, or admin editing page
-				if ( is_singular() || $use_post !== false ) {
-					if ( ! empty( $obj->post_author ) )
-						$link_rel['author'] = $this->p->user->get_author_url( $obj->post_author, 
-							$this->p->options['link_author_field'] );
-					elseif ( ! empty( $this->p->options['link_def_author_id'] ) )
-						$link_rel['author'] = $this->p->user->get_author_url( $this->p->options['link_def_author_id'], 
-							$this->p->options['link_author_field'] );
-
-				// check for default author info on indexes and searches
-				} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
-					! is_search() && ! empty( $this->p->options['link_def_author_on_index'] ) && ! empty( $this->p->options['link_def_author_id'] ) )
-					|| ( is_search() && ! empty( $this->p->options['link_def_author_on_search'] ) && ! empty( $this->p->options['link_def_author_id'] ) ) ) {
-
+			// check for single / attachment page, or admin editing page
+			if ( is_singular() || $use_post !== false ) {
+				if ( ! empty( $obj->post_author ) )
+					$link_rel['author'] = $this->p->user->get_author_url( $obj->post_author, 
+						$this->p->options['link_author_field'] );
+				elseif ( ! empty( $this->p->options['link_def_author_id'] ) )
 					$link_rel['author'] = $this->p->user->get_author_url( $this->p->options['link_def_author_id'], 
 						$this->p->options['link_author_field'] );
-				}
+
+			// check for default author info on indexes and searches
+			} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
+				! is_search() && ! empty( $this->p->options['link_def_author_on_index'] ) && ! empty( $this->p->options['link_def_author_id'] ) ) || 
+					( is_search() && ! empty( $this->p->options['link_def_author_on_search'] ) && ! empty( $this->p->options['link_def_author_id'] ) ) ) {
+
+				$link_rel['author'] = $this->p->user->get_author_url( $this->p->options['link_def_author_id'], 
+					$this->p->options['link_author_field'] );
 			}
 			$link_rel = apply_filters( $this->p->cf['lca'].'_link_rel', $link_rel );
 
 			/*
 			 * Additional meta name / property tags
 			 */
+			if ( ! empty( $this->p->options['add_meta_name_author'] ) ) {
+				if ( ! array_key_exists( 'author', $meta_og ) ) {
+					// check for single / attachment page, or admin editing page
+					if ( is_singular() || $use_post !== false ) {
+						if ( ! empty( $obj->post_author ) )
+							$meta_og['author'] = $this->p->user->get_author_name( $obj->post_author, 
+								$this->p->options['seo_author_name'] );
+						elseif ( ! empty( $this->p->options['link_def_author_id'] ) )
+							$meta_og['author'] = $this->p->user->get_author_name( $this->p->options['link_def_author_id'], 
+								$this->p->options['seo_author_name'] );
+		
+					// check for default author info on indexes and searches
+					} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
+						! is_search() && ! empty( $this->p->options['link_def_author_on_index'] ) && ! empty( $this->p->options['link_def_author_id'] ) ) || 
+							( is_search() && ! empty( $this->p->options['link_def_author_on_search'] ) && ! empty( $this->p->options['link_def_author_id'] ) ) ) {
+		
+						$meta_og['author'] = $this->p->user->get_author_name( $this->p->options['link_def_author_id'], 
+							$this->p->options['seo_author_name'] );
+					}
+				}
+			}
 			if ( ! empty( $this->p->options['add_meta_name_description'] ) ) {
 				if ( ! array_key_exists( 'description', $meta_og ) ) {
 					if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
@@ -231,9 +244,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 			// known exceptions for the property $type
 			if ( $type === 'property' && 
-				( $prop_val === 'description' || 
-					strpos( $prop_val, 'twitter:' ) === 0 ) )
-						$type = 'name';
+				( $prop_val === 'author' || $prop_val === 'description' || strpos( $prop_val, 'twitter:' ) === 0 ) )
+					$type = 'name';
 
 			$html = '';
 			$log_pre = 'meta '.$type.' '.$prop_val;
