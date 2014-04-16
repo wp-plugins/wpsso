@@ -8,7 +8,7 @@
  * License URI: http://www.gnu.org/licenses/gpl.txt
  * Description: Improve the Appearance, Ranking, and Social Engagement of your social shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc.
  * Requires At Least: 3.0
- * Tested Up To: 3.8.2
+ * Tested Up To: 3.9
  * Version: 2.4.5
  * 
  * Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
