@@ -297,6 +297,14 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.4.5 =
+
+* Bugfixes
+	* Added a extra check for missing information returned by `wp_get_attachment_metadata()` for original / full-size image dimensions.
+* Enhancements
+	* Added a new 'Author Name Format' option under the Google / SEO Publisher settings tab (the default is the user's Display Name value).
+	* Added a new 'author' meta tag (different from 'article:author') for Facebook to display the author's name bellow shares.
+
 = Version 2.4.4 =
 
 * Bugfixes
@@ -380,6 +388,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 == Upgrade Notice ==
+
+= 2.4.5 =
+
+Added a extra check for missing information returned by `wp_get_attachment_metadata()`, added an 'Author Name Format' option for the new 'author' meta tag (different from 'article:author').
 
 = 2.4.4 =
 
