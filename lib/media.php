@@ -195,16 +195,19 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 					$img_meta = wp_get_attachment_metadata( $pid );
 	
-					if ( empty( $img_meta['sizes'][$size_name] ) ) {
+					if ( empty( $img_meta['sizes'][$size_name] ) ) {	// does the image metadata contain our image sizes?
 						$is_accurate_width = false;
 						$is_accurate_height = false;
 					} else {
+						// is the width and height in the image metadata accurate?
 						$is_accurate_width = ! empty( $img_meta['sizes'][$size_name]['width'] ) &&
 							$img_meta['sizes'][$size_name]['width'] == $size_info['width'] ? true : false;
 						$is_accurate_height = ! empty( $img_meta['sizes'][$size_name]['height'] ) &&
 							$img_meta['sizes'][$size_name]['height'] == $size_info['height'] ? true : false;
 					}
 
+					// depending on cropping, one or both sides of the image must be accurate
+					// if not, attempt to create a resized image by calling image_make_intermediate_size()
 					if ( ( empty( $size_info['crop'] ) && ( ! $is_accurate_width && ! $is_accurate_height ) ) ||
 						( ! empty( $size_info['crop'] ) && ( ! $is_accurate_width || ! $is_accurate_height ) ) ) {
 
@@ -237,11 +240,14 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				return $ret_empty;
 			}
 
+			// check for resulting image dimenions that may be too small
 			if ( ! empty( $this->p->options['plugin_ignore_small_img'] ) ) {
 
 				$is_sufficient_width = $img_width >= $size_info['width'] ? true : false;
 				$is_sufficient_height = $img_height >= $size_info['height'] ? true : false;
 
+				// depending on cropping, one or both sides of the image must be large enough / sufficient
+				// return an empty array after showing an appropriate warning
 				if ( ( empty( $size_info['crop'] ) && ( ! $is_sufficient_width && ! $is_sufficient_height ) ) ||
 					( ! empty( $size_info['crop'] ) && ( ! $is_sufficient_width || ! $is_sufficient_height ) ) ) {
 
@@ -249,8 +255,11 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 						( empty( $size_info['crop'] ) ? '' : ' cropped' ).'). ';
 
 					$img_meta = wp_get_attachment_metadata( $pid );
-					if ( $img_meta['width'] < $size_info['width'] && $img_meta['height'] < $size_info['height'] )
-						$rejected_text = 'image id '.$pid.' rejected - original image '.$img_meta['width'].'x'.$img_meta['height'].$size_too_small_text;
+
+					if ( ! empty( $img_meta['width'] ) && ! empty( $img_meta['height'] ) &&
+						$img_meta['width'] < $size_info['width'] && $img_meta['height'] < $size_info['height'] )
+							$rejected_text = 'image id '.$pid.' rejected - original image '.
+								$img_meta['width'].'x'.$img_meta['height'].$size_too_small_text;
 					else $rejected_text = 'image id '.$pid.' rejected - '.$img_width.'x'.$img_height.$size_too_small_text;
 				
 					$this->p->debug->log( 'exiting early: '.$rejected_text );

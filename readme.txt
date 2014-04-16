@@ -297,6 +297,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.4.4.1 =
+
+* Bugfixes
+	* Added a extra check for missing information returned by `wp_get_attachment_metadata()` for original / full-size image dimensions.
+* Enhancements
+	* *None*
+
 = Version 2.4.4 =
 
 * Bugfixes
@@ -380,6 +387,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Changed the `WpssoOptions::get_defaults()` method to filter the default options only once.
 
 == Upgrade Notice ==
+
+= 2.4.4.1 =
+
+Added a extra check for missing information returned by `wp_get_attachment_metadata()` for original / full-size image dimensions.
 
 = 2.4.4 =
 
