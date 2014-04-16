@@ -549,7 +549,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-google_author_name':
 							$text = 'Select an Author Name Format for the "author" meta tag, or \'none\' to disable this feature 
-							(the default and recommended value is \'Display Name\').';
+							(the default and recommended value is \'Display Name\'). Facebook uses the "author" meta tag value to
+							credit the webpage author on timeline shares.';
 							break;
 						case 'tooltip-google_author_field':
 							$text = $this->p->cf['full'].' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
