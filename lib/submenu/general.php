@@ -196,13 +196,13 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_select( 'link_author_field', $this->author_contact_fields() ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Default Author when Missing', null, 'google_def_author_id' ).
-					'<td>'.$this->form->get_select( 'link_def_author_id', $user_ids, null, null, true ).'</td>';
+					'<td>'.$this->form->get_select( 'seo_def_author_id', $user_ids, null, null, true ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Use Default Author on Indexes', null, 'google_def_author_on_index' ).
-					'<td>'.$this->form->get_checkbox( 'link_def_author_on_index' ).'</td>';
+					'<td>'.$this->form->get_checkbox( 'seo_def_author_on_index' ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Default Author on Search Results', null, 'google_def_author_on_search' ).
-					'<td>'.$this->form->get_checkbox( 'link_def_author_on_search' ).'</td>';
+					'<td>'.$this->form->get_checkbox( 'seo_def_author_on_search' ).'</td>';
 			
 					$rows[] = $this->p->util->th( 'Publisher Link URL', 'highlight', 'google_publisher_url' ).
 					'<td>'.$this->form->get_input( 'link_publisher_url', 'wide' ).'</td>';

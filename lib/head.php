@@ -97,6 +97,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$sharing_url = $this->p->util->get_sharing_url( $use_post );
 			$obj = $this->p->util->get_the_object( $use_post );
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+			$author_id = 0;
 
 			if ( $this->p->is_avail['cache']['transient'] ) {
 				$cache_salt = __METHOD__.'('.apply_filters( $this->p->cf['lca'].'_head_cache_salt', 
@@ -113,6 +114,65 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				}
 			}
 
+			/**
+			 * Define the author_id (if any)
+			 */
+			if ( is_singular() || $use_post !== false ) {
+				if ( ! empty( $obj->post_author ) )
+					$author_id = $obj->post_author;
+				elseif ( ! empty( $this->p->options['seo_def_author_id'] ) )
+					$author_id = $this->p->options['seo_def_author_id'];
+			} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
+				! is_search() && ! empty( $this->p->options['seo_def_author_on_index'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) || 
+					( is_search() && ! empty( $this->p->options['seo_def_author_on_search'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) )
+						$author_id = $this->p->options['seo_def_author_id'];
+
+			/**
+			 * Open Graph and Twitter Card meta tags
+			 */
+			if ( $this->p->is_avail['opengraph'] )
+				$meta_og = $this->p->og->get_array( $use_post );
+
+			/**
+			 * Schema meta tags
+			 */
+			$meta_schema = array();
+			if ( isset( $meta_og['og:description'] ) )
+				$meta_schema['description'] = $meta_og['og:description'];
+
+			$meta_schema = apply_filters( $this->p->cf['lca'].'_meta_schema', $meta_schema );
+
+			/**
+			 * Link Relation tags
+			 */
+			$link_rel = array();
+			if ( ! empty( $this->p->options['link_publisher_url'] ) )
+				$link_rel['publisher'] = $this->p->options['link_publisher_url'];
+
+			if ( ! empty( $author_id ) )
+				$link_rel['author'] = $this->p->user->get_author_url( $author_id, $this->p->options['link_author_field'] );
+
+			$link_rel = apply_filters( $this->p->cf['lca'].'_link_rel', $link_rel );
+
+			/**
+			 * Additional meta name / property tags
+			 */
+			if ( ! empty( $this->p->options['add_meta_name_author'] ) && ! isset( $meta_og['author'] ) )
+				$meta_og['author'] = $this->p->user->get_author_name( $author_id, $this->p->options['seo_author_name'] );
+
+			if ( ! empty( $this->p->options['add_meta_name_description'] ) && ! isset( $meta_og['description'] ) ) {
+				if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
+					$meta_og['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'seo_desc' );
+
+				if ( empty( $meta_og['description'] ) )
+					$meta_og['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...',
+						$use_post, true, false );	// use_post = false, use_cache = true, add_hashtags = false
+			}
+			$meta_og = apply_filters( $this->p->cf['lca'].'_meta_og', $meta_og );
+
+			/**
+			 * Print all the link and meta arrays as HTML
+			 */
 			$html = "\n<!-- ".$this->p->cf['lca']." meta tags begin -->\n";
 			if ( $this->p->is_avail['aop'] )
 				$html .= "<!-- updates: ".$this->p->cf['url']['pro_update']." -->\n";
@@ -123,84 +183,6 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			else $html .= 'G';
 			$html .= '" />'."\n";
 
-			/*
-			 * Open Graph and Twitter Card meta tags
-			 */
-			if ( $this->p->is_avail['opengraph'] )
-				$meta_og = $this->p->og->get_array( $use_post );
-
-			/*
-			 * Schema meta tags
-			 */
-			$meta_schema = array();
-			if ( array_key_exists( 'og:description', $meta_og ) )
-				$meta_schema['description'] = $meta_og['og:description'];
-			$meta_schema = apply_filters( $this->p->cf['lca'].'_meta_schema', $meta_schema );
-
-			/*
-			 * Link Relation tags
-			 */
-			$link_rel = array();
-			if ( ! empty( $this->p->options['link_publisher_url'] ) )
-				$link_rel['publisher'] = $this->p->options['link_publisher_url'];
-
-			// check for single / attachment page, or admin editing page
-			if ( is_singular() || $use_post !== false ) {
-				if ( ! empty( $obj->post_author ) )
-					$link_rel['author'] = $this->p->user->get_author_url( $obj->post_author, 
-						$this->p->options['link_author_field'] );
-				elseif ( ! empty( $this->p->options['link_def_author_id'] ) )
-					$link_rel['author'] = $this->p->user->get_author_url( $this->p->options['link_def_author_id'], 
-						$this->p->options['link_author_field'] );
-
-			// check for default author info on indexes and searches
-			} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
-				! is_search() && ! empty( $this->p->options['link_def_author_on_index'] ) && ! empty( $this->p->options['link_def_author_id'] ) ) || 
-					( is_search() && ! empty( $this->p->options['link_def_author_on_search'] ) && ! empty( $this->p->options['link_def_author_id'] ) ) ) {
-
-				$link_rel['author'] = $this->p->user->get_author_url( $this->p->options['link_def_author_id'], 
-					$this->p->options['link_author_field'] );
-			}
-			$link_rel = apply_filters( $this->p->cf['lca'].'_link_rel', $link_rel );
-
-			/*
-			 * Additional meta name / property tags
-			 */
-			if ( ! empty( $this->p->options['add_meta_name_author'] ) ) {
-				if ( ! array_key_exists( 'author', $meta_og ) ) {
-					// check for single / attachment page, or admin editing page
-					if ( is_singular() || $use_post !== false ) {
-						if ( ! empty( $obj->post_author ) )
-							$meta_og['author'] = $this->p->user->get_author_name( $obj->post_author, 
-								$this->p->options['seo_author_name'] );
-						elseif ( ! empty( $this->p->options['link_def_author_id'] ) )
-							$meta_og['author'] = $this->p->user->get_author_name( $this->p->options['link_def_author_id'], 
-								$this->p->options['seo_author_name'] );
-		
-					// check for default author info on indexes and searches
-					} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
-						! is_search() && ! empty( $this->p->options['link_def_author_on_index'] ) && ! empty( $this->p->options['link_def_author_id'] ) ) || 
-							( is_search() && ! empty( $this->p->options['link_def_author_on_search'] ) && ! empty( $this->p->options['link_def_author_id'] ) ) ) {
-		
-						$meta_og['author'] = $this->p->user->get_author_name( $this->p->options['link_def_author_id'], 
-							$this->p->options['seo_author_name'] );
-					}
-				}
-			}
-			if ( ! empty( $this->p->options['add_meta_name_description'] ) ) {
-				if ( ! array_key_exists( 'description', $meta_og ) ) {
-					if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
-						$meta_og['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'seo_desc' );
-					if ( empty( $meta_og['description'] ) )
-						$meta_og['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...',
-							$use_post, true, false );	// use_post = false, use_cache = true, add_hashtags = false
-				}
-			}
-			$meta_og = apply_filters( $this->p->cf['lca'].'_meta_og', $meta_og );
-
-			/*
-			 * Print all the link / meta arrays as HTML
-			 */
 			foreach ( $link_rel as $key => $val )
 				if ( ! empty( $val ) )
 					$html .= '<link rel="'.$key.'" href="'.$val.'" />'."\n";

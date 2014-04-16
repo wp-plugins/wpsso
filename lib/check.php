@@ -57,8 +57,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 						$ret = remove_action( 'wpseo_head', array( $wpseo_front, 'publisher' ), $prio );
 				}
 
-				if ( ! empty( $this->p->options['link_def_author_id'] ) &&
-					! empty( $this->p->options['link_def_author_on_index'] ) ) {
+				if ( ! empty( $this->p->options['seo_def_author_id'] ) &&
+					! empty( $this->p->options['seo_def_author_on_index'] ) ) {
 					global $wpseo_front;
 					if ( is_object( $wpseo_front ) && ( $prio = has_action( 'wpseo_head', array( $wpseo_front, 'author' ) ) ) )
 						$ret = remove_action( 'wpseo_head', array( $wpseo_front, 'author' ), $prio );
