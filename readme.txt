@@ -306,7 +306,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 = Version 2.4.5 =
 
-[Complete Release Notes on Surnia Ulula](http://surniaulula.com/2014/04/16/wpsso-v2-4-5-and-ngfb-v7-4-5/)
+[See the complete Release Notes on Surnia Ulula](http://surniaulula.com/2014/04/16/wpsso-v2-4-5-and-ngfb-v7-4-5/)
 
 * Bugfixes
 	* Added a extra check for missing / corrupted metadata returned by `wp_get_attachment_metadata()` for original / full-size image dimensions.
