@@ -255,10 +255,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 		<div>A list of available PHP constants for the WPSSO plugin.</div></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a> &mdash;
 		<div>A few debugging and problem solving techniques for the WPSSO plugin for WordPress.</div></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/">Filters</a>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/">Filters</a> &mdash;
+		<div>Several filters are available within WPSSO to manipulate text (title, description, content, etc.) and array (tags, open graph, etc.) values.</div>
 	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/webpage/">Webpage</a> &mdash;
-			<div>Filters for WPSSO to modify and return information about the webpage (title, description, tags, etc.).</div></liv>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/open-graph/">Open Graph Filters</a> &mdash;
+			<div>Filters used to modify and return the Open Graph array.</div></liv>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/twitter-card/">Twitter Card Filters</a> &mdash;
+			<div>Filters used to modify and return the Twitter Card array.</div></liv>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/webpage/">Webpage Filters</a> &mdash;
+			<div>Filters to modify and return information about the webpage (title, description, tags, etc.).</div></liv>
 	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/">Integration Notes</a>
 	<ul>
