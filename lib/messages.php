@@ -548,9 +548,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							(the default is '.$this->p->opt->get_defaults( 'seo_desc_len' ).' characters).';
 							break;
 						case 'tooltip-google_author_name':
-							$text = 'Select an Author Name Format for the "author" meta tag, or \'none\' to disable this feature 
-							(the default and recommended value is \'Display Name\'). Facebook uses the "author" meta tag value to
-							credit the webpage author on timeline shares.';
+							$text = 'Select an Author Name Format for the "author" meta tag, or \'[none]\' to disable this feature 
+							(the recommended value is \'Display Name\'). Facebook uses the "author" meta tag value to credit the webpage 
+							author on timeline shares, but the Facebook Debugger will show a warning.';
 							break;
 						case 'tooltip-google_author_field':
 							$text = $this->p->cf['full'].' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
@@ -683,7 +683,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-rp_author_name':
 							$text = 'Pinterest ignores Facebook-style Author Profile URLs in the \'article:author\'
 							Open Graph / Rich Pin meta tags. An <em>additional</em> \'article:author\' meta tag may be included 
-							when the Pinterest crawler is detected. Select an Author Name Format, or \'none\' to disable this feature 
+							when the Pinterest crawler is detected. Select an Author Name Format, or \'[none]\' to disable this feature 
 							(the default and recommended value is \'Display Name\').';
 							break;
 						/*
