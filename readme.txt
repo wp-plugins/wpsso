@@ -253,18 +253,21 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/jetpack-photon/">Jetpack Photon</a></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a></li>
 	</ul></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/contact-information/">Contact Information and Feeds</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/">Developer Resources</a></li>
+	<ul>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/constants/">Constants</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/">Filters</a>
+		<ul>
+			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/open-graph/">Open Graph Filters</a></li>
+			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/twitter-card/">Twitter Card Filters</a></li>
+			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/webpage/">Webpage Filters</a></li>
+		</ul></li>
+	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/multisite-network-support/">Multisite / Network Support</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/performance-tuning/">Performance Tuning</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/resources-and-contacts/">Resources and Contacts</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/working-with-image-attachments/">Working with Image Attachments</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/">WPSSO Filters</a></li>
-	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/open-graph/">Open Graph Filters</a></li>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/twitter-card/">Twitter Card Filters</a></li>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/webpage/">Webpage Filters</a></li>
-	</ul></li>
 </ul>
 
 == Screenshots ==
