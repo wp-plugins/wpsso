@@ -204,7 +204,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Installation ==
 
-= Installation and How-Tos =
+= [Installation and Setup](http://surniaulula.com/codex/plugins/wpsso/installation/) =
 
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/">A Setup Guide</a></li>
