@@ -219,7 +219,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Frequently Asked Questions ==
 
-= Frequently Asked Questions =
+= [Frequently Asked Questions](http://surniaulula.com/codex/plugins/wpsso/faq/) =
 
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/can-i-use-the-pro-version-on-multiple-websites/">Can I use the Pro version on multiple websites?</a></li>
