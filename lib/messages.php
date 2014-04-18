@@ -550,7 +550,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-google_author_name':
 							$text = 'Select an Author Name Format for the "author" meta tag, or \'[none]\' to disable this feature 
 							(the recommended value is \'Display Name\'). Facebook uses the "author" meta tag value to credit the webpage 
-							author on timeline shares, but the Facebook Debugger will show a warning.';
+							author on timeline shares, but the Facebook Debugger will show a warning (thus it is disabled by default).';
 							break;
 						case 'tooltip-google_author_field':
 							$text = $this->p->cf['full'].' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
@@ -571,9 +571,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-google_publisher_url':
 							$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ business page for your website</a>, 
-							you may use it\'s URL as the Publisher Link. 
-							For example, the Publisher Link URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
-							is <a href="https://plus.google.com/u/1/103457833348046432604/posts" target="_blank">https://plus.google.com/u/1/103457833348046432604/posts</a>.
+							you may use it\'s URL as the Publisher Link URL. For example, the Publisher Link URL for 
+							<a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is 
+							<a href="https://plus.google.com/+SurniaUlula/posts" target="_blank">https://plus.google.com/+SurniaUlula/posts</a>.
 							The Publisher Link URL may take precedence over the Author Link URL in Google\'s search results.';
 							break;
 						/*
