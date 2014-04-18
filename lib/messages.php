@@ -571,9 +571,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-google_publisher_url':
 							$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ business page for your website</a>, 
-							you may use it\'s URL as the Publisher Link. 
-							For example, the Publisher Link URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
-							is <a href="https://plus.google.com/u/1/103457833348046432604/posts" target="_blank">https://plus.google.com/u/1/103457833348046432604/posts</a>.
+							you may use it\'s URL as the Publisher Link URL. For example, the Publisher Link URL for 
+							<a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is 
+							<a href="https://plus.google.com/+SurniaUlula/posts" target="_blank">https://plus.google.com/+SurniaUlula/posts</a>.
 							The Publisher Link URL may take precedence over the Author Link URL in Google\'s search results.';
 							break;
 						/*
