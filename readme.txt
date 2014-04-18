@@ -204,7 +204,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Installation ==
 
-= <a href="http://surniaulula.com/codex/plugins/wpsso/installation/">Installation and Setup</a> =
+= Installation and Setup =
 
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/">A Setup Guide</a></li>
@@ -219,7 +219,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Frequently Asked Questions ==
 
-= <a href="http://surniaulula.com/codex/plugins/wpsso/faq/">Frequently Asked Questions</a> =
+= Frequently Asked Questions =
 
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/can-i-use-the-pro-version-on-multiple-websites/">Can I use the Pro version on multiple websites?</a></li>
@@ -255,7 +255,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/contact-information/">Contact Information and Feeds</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/">Developer Resources</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/">Developer Resources</a>
 	<ul>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/constants/">Constants</a></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/">Filters</a>
