@@ -207,9 +207,14 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Installation and How-Tos =
 
 <ul>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/install-the-plugin/">Install the Plugin</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/uninstall-the-plugin/">Uninstall the Plugin</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/how-to/migrate-from-ngfb-open-graph-to-wpsso/">Migrate from NGFB to WPSSO</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/">A Setup Guide</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation-to/install-the-plugin/">Install the Plugin</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/integration/">Integration Notes</a>
+	<ul>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/integration/buddypress-integration/">BuddyPress Integration</a></li>
+	</ul></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/uninstall-the-plugin/">Uninstall the Plugin</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/migrate-from-ngfb-open-graph-to-wpsso/">Migrate from NGFB to WPSSO</a></li>
 </ul>
 
 == Frequently Asked Questions ==
@@ -230,7 +235,6 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/what-about-google-search-and-google-plus/">What about Google Search and Google Plus?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/what-features-of-nextgen-gallery-are-supported/">What features of NextGEN Gallery are supported?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/what-is-the-difference-between-the-free-and-pro-versions/">What is the difference between the Free and Pro versions?</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/where-do-i-start/">Where do I start?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-arent-pins-from-my-website-posting-rich/">Why aren’t Pins from my website posting Rich?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-do-my-facebook-shares-have-small-images/">Why do my Facebook shares have small images?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-does-facebook-play-videos-instead-of-linking-them/">Why does Facebook play videos instead of linking them?</a></li>
@@ -241,40 +245,25 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-is-the-open-graph-title-the-same-for-every-webpage/">Why is the Open Graph title the same for every webpage?</a></li>
 </ul>
 
-== Other / Additional Notes ==
+== Other Notes ==
 
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/">About Pro Addons</a>
 	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/jetpack-photon/">Jetpack Photon</a> &mdash;
-			<div>The Jetpack Photon Addon for WPSSO re-introduces the missing width and height values for WPSSO image sizes.</div></li>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a> &mdash;
-			<div>An example showing the difference in meta tags between the WPSSO Free version, which does not support video APIs or Twitter Cards, and the Pro version which does.</div></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/jetpack-photon/">Jetpack Photon</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a></li>
 	</ul></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a> &mdash;
-		<div>A list of available PHP constants for the WPSSO plugin.</div></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a> &mdash;
-		<div>A few debugging and problem solving techniques for the WPSSO plugin for WordPress.</div></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/">Integration Notes</a>
-	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/integration-notes/buddypress-integration/">BuddyPress Integration</a> &mdash;
-			<div>BuddyPress specific integration issues, and a few possible techniques to overcome them.</div></li>
-	</ul></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/">Constants</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/multisite-network-support/">Multisite / Network Support</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/performance-tuning/">Performance Tuning</a> &mdash;
-		<div>WPSSO is highly optimized, but you may still improve page load times by a few milliseconds by considering the following suggestions.</div></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/performance-tuning/">Performance Tuning</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/resources-and-contacts/">Resources and Contacts</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/working-with-image-attachments/">Working with Image Attachments</a> &mdash;
-		<div>A selection of plugins available to manage WordPress image attachments.</div></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/">WPSSO Filters</a> &mdash;
-		<div>Several filters are available within WPSSO to manipulate text (title, description, content, etc.) and array (tags, open graph, etc.) values.</div>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/working-with-image-attachments/">Working with Image Attachments</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/">WPSSO Filters</a></li>
 	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/open-graph/">Open Graph Filters</a> &mdash;
-			<div>Filters used to modify and return the Open Graph array.</div></liv>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/twitter-card/">Twitter Card Filters</a> &mdash;
-			<div>Filters used to modify and return the Twitter Card array.</div></liv>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/webpage/">Webpage Filters</a> &mdash;
-			<div>Filters to modify and return information about the webpage (title, description, tags, etc.).</div></liv>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/open-graph/">Open Graph Filters</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/twitter-card/">Twitter Card Filters</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/filters/webpage/">Webpage Filters</a></li>
 	</ul></li>
 </ul>
 
