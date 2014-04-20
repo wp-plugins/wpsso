@@ -303,10 +303,11 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * Bugfixes
 	* *None*
 * Enhancements
-	* Added a test for `is_tax()` to fetch a description for custom taxonomy objects.
 	* Added WooCommerce product tags to the description hashtag lists (Pro version).
 	* Added WooCommerce product tags and categories to Twitter Product Card labels (Pro version).
 	* Added a new Pro addon for Easy Digital Downloads products (Pro version).
+	* Added a test for `is_tax()` to fetch a description for custom taxonomy objects.
+	* Renamed the SucomUtil class `get_the_object()` method to `get_post_object()`.
 
 = Version 2.4.5 =
 
