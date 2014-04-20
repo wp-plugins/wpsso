@@ -161,6 +161,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			}
 		}
 
+		// on archives and taxonomies, this will return the first post object
 		public function get_the_object( $use_post = false ) {
 			$obj = false;
 			if ( $use_post === false ) {

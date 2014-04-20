@@ -298,7 +298,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
-= Version 2.4.6dev1 =
+= Version 2.4.6dev2 =
 
 * Bugfixes
 	* *None*

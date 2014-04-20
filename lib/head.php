@@ -42,6 +42,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					'is_archive',
 					'is_category',
 					'is_tag',
+					'is_tax',
 					'is_home',
 					'is_search',
 					'is_singular',
