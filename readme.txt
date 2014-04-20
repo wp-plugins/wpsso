@@ -51,6 +51,7 @@ Sharing buttons don't provide information about your content &mdash; HTML meta t
 		* All in One SEO Pack
 		* bbPress
 		* BuddyPress
+		* Easy Digital Downloads
 		* JetPack Photon
 		* NextGEN Gallery
 		* MarketPress - WordPress eCommerce
@@ -148,7 +149,7 @@ WPSSO (Pro version) integrates with [WordPress SEO by Yoast](http://wordpress.or
 
 **eCommerce Products**
 
-WPSSO (Pro version) also supports [WooCommerce v1 and v2](http://wordpress.org/plugins/woocommerce/), [MarketPress - WordPress eCommerce](http://wordpress.org/plugins/wordpress-ecommerce/) and [WP e-Commerce](http://wordpress.org/plugins/wp-e-commerce/) product pages, creating appropriate meta tags for [Facebook Products](https://developers.facebook.com/docs/payments/product/), [Twitter Product Cards](https://dev.twitter.com/docs/cards/types/product-card) and [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), including variations and additional / custom images.
+WPSSO (Pro version) also supports [Easy Digital Downloads](http://wordpress.org/plugins/easy-digital-downloads/), [MarketPress - WordPress eCommerce](http://wordpress.org/plugins/wordpress-ecommerce/), [WooCommerce v1 and v2](http://wordpress.org/plugins/woocommerce/), and [WP e-Commerce](http://wordpress.org/plugins/wp-e-commerce/) product pages, creating appropriate meta tags for [Facebook Products](https://developers.facebook.com/docs/payments/product/), [Twitter Product Cards](https://dev.twitter.com/docs/cards/types/product-card) and [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), including variations and additional / custom images.
 
 **Forums and Social**
 
