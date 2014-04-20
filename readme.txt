@@ -303,9 +303,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * Bugfixes
 	* *None*
 * Enhancements
-	* Added WooCommerce product tags to description hashtag lists (Pro version).
+	* Added a test for `is_tax()` to fetch a description for custom taxonomy objects.
+	* Added WooCommerce product tags to the description hashtag lists (Pro version).
 	* Added WooCommerce product tags and categories to Twitter Product Card labels (Pro version).
-	* Added a new EDD addon for Easy Digital Downloads products (Pro version).
+	* Added a new Pro addon for Easy Digital Downloads products (Pro version).
 
 = Version 2.4.5 =
 
