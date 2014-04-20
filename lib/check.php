@@ -124,13 +124,17 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 						/*
 						 * 3rd Party Plugins
 						 */
-						case 'ecom-woocommerce':
-							$chk['class'] = 'Woocommerce';
-							$chk['plugin'] = 'woocommerce/woocommerce.php';
+						case 'ecom-edd':
+							$chk['class'] = 'Easy_Digital_Downloads'; 
+							$chk['plugin'] = 'easy-digital-downloads/easy-digital-downloads.php';
 							break;
 						case 'ecom-marketpress':
 							$chk['class'] = 'MarketPress'; 
 							$chk['plugin'] = 'wordpress-ecommerce/marketpress.php';
+							break;
+						case 'ecom-woocommerce':
+							$chk['class'] = 'Woocommerce';
+							$chk['plugin'] = 'woocommerce/woocommerce.php';
 							break;
 						case 'ecom-wpecommerce':
 							$chk['class'] = 'WP_eCommerce';

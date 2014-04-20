@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.4.5',		// plugin version
+			'version' => '2.4.6dev1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -55,8 +55,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'postmeta' => 'Custom Post Meta',
 					),
 					'ecom' => array(
-						'woocommerce' => 'WooCommerce',
+						'edd' => 'Easy Digital Downloads',
 						'marketpress' => 'MarketPress',
+						'woocommerce' => 'WooCommerce',
 						'wpecommerce' => 'WP e-Commerce',
 					),
 					'forum' => array(
