@@ -24,7 +24,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 		}
 
 		public function get_array( $use_post = false ) {
-			$obj = $this->p->util->get_the_object( $use_post );
+			$obj = $this->p->util->get_post_object( $use_post );
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			$post_type = '';
 			$has_video_image = false;

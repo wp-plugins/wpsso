@@ -162,7 +162,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		}
 
 		// on archives and taxonomies, this will return the first post object
-		public function get_the_object( $use_post = false ) {
+		public function get_post_object( $use_post = false ) {
 			$obj = false;
 			if ( $use_post === false ) {
 				$obj = get_queried_object();
@@ -200,7 +200,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		public function get_sharing_url( $use_post = false, $add_page = true, $source_id = '' ) {
 			$url = false;
 			if ( is_singular() || $use_post !== false ) {
-				if ( ( $obj = $this->get_the_object( $use_post ) ) === false ) {
+				if ( ( $obj = $this->get_post_object( $use_post ) ) === false ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return $url;
 				}

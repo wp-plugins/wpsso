@@ -81,7 +81,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->p->debug->show_html( null, 'debug log' );
 				$this->p->debug->show_html( $opts, 'wpsso settings' );
 
-				if ( ( $obj = $this->p->util->get_the_object() ) !== false ) {
+				if ( ( $obj = $this->p->util->get_post_object() ) !== false ) {
 					$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 					if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
 						$post_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
@@ -96,7 +96,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		public function get_header_html( $use_post = false, $read_cache = true ) {
 			$html = false;
 			$sharing_url = $this->p->util->get_sharing_url( $use_post );
-			$obj = $this->p->util->get_the_object( $use_post );
+			$obj = $this->p->util->get_post_object( $use_post );
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			$author_id = 0;
 

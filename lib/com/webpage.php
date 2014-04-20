@@ -89,7 +89,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			$post_id = 0;
 
 			if ( is_singular() || $use_post !== false ) {
-				if ( ( $obj = $this->p->util->get_the_object( $use_post ) ) === false ) {
+				if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return $title;
 				}
@@ -210,7 +210,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			$post_id = 0;
 
 			if ( is_singular() || $use_post !== false ) {
-				if ( ( $obj = $this->p->util->get_the_object( $use_post ) ) === false ) {
+				if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return $desc;
 				}
@@ -286,9 +286,9 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$desc = sprintf( '%s Category', single_cat_title( '', false ) ); 
 				
 				} elseif ( is_tax() ) { 
-					$obj = get_queried_object();
-					if ( ! empty( $obj->description ) )
-						$desc = $obj->description;
+					$term = get_queried_object();
+					if ( ! empty( $term->description ) )
+						$desc = $term->description;
 
 				} elseif ( is_day() ) 
 					$desc = sprintf( 'Daily Archives for %s', get_the_date() );
@@ -334,7 +334,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			$this->p->debug->args( array( 'use_post' => $use_post, 'use_cache' => $use_cache ) );
 			$content = false;
 
-			if ( ( $obj = $this->p->util->get_the_object( $use_post ) ) === false ) {
+			if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
 				$this->p->debug->log( 'exiting early: invalid object type' );
 				return $content;
 			}
