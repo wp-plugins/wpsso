@@ -105,7 +105,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 					$ret[] = $this->get_author_name( $author_id, 
 						$this->p->options['rp_author_name'] );
 
-			} $this->p->debug->log( 'invalid author_id provided' );
+			} else $this->p->debug->log( 'author_id provided is empty' );
 			return $ret;
 		}
 

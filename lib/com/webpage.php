@@ -89,7 +89,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			$post_id = 0;
 
 			if ( is_singular() || $use_post !== false ) {
-				if ( ( $obj = $this->p->util->get_the_object( $use_post ) ) === false ) {
+				if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return $title;
 				}
@@ -210,7 +210,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			$post_id = 0;
 
 			if ( is_singular() || $use_post !== false ) {
-				if ( ( $obj = $this->p->util->get_the_object( $use_post ) ) === false ) {
+				if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return $desc;
 				}
@@ -272,22 +272,24 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$desc = preg_replace( '/^.*?<p>/i', '', $desc );	// question mark makes regex un-greedy
 		
 				} elseif ( is_author() ) { 
-					$this->p->debug->log( 'is_author() = true' );
 					$author = get_query_var( 'author_name' ) ?  get_userdata( get_query_var( 'author' ) ) : get_user_by( 'slug', get_query_var( 'author_name' ) );
 					$desc = empty( $author->description ) ? sprintf( 'Authored by %s', $author->display_name ) : $author->description;
 			
 				} elseif ( is_tag() ) {
-					$this->p->debug->log( 'is_tag() = true' );
 					$desc = tag_description();
 					if ( empty( $desc ) )
 						$desc = sprintf( 'Tagged with %s', single_tag_title( '', false ) );
 			
 				} elseif ( is_category() ) { 
-					$this->p->debug->log( 'is_category() = true' );
 					$desc = category_description();
 					if ( empty( $desc ) )
 						$desc = sprintf( '%s Category', single_cat_title( '', false ) ); 
 				
+				} elseif ( is_tax() ) { 
+					$term = get_queried_object();
+					if ( ! empty( $term->description ) )
+						$desc = $term->description;
+
 				} elseif ( is_day() ) 
 					$desc = sprintf( 'Daily Archives for %s', get_the_date() );
 				elseif ( is_month() ) 
@@ -332,7 +334,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			$this->p->debug->args( array( 'use_post' => $use_post, 'use_cache' => $use_cache ) );
 			$content = false;
 
-			if ( ( $obj = $this->p->util->get_the_object( $use_post ) ) === false ) {
+			if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
 				$this->p->debug->log( 'exiting early: invalid object type' );
 				return $content;
 			}

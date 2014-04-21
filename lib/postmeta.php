@@ -37,7 +37,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				return;
 
 			// get the current object / post type
-			if ( ( $obj = $this->p->util->get_the_object() ) === false ) {
+			if ( ( $obj = $this->p->util->get_post_object() ) === false ) {
 				$this->p->debug->log( 'exiting early: invalid object type' );
 				return;
 			}
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 
 		public function set_header_tags() {
 			if ( $this->p->is_avail['opengraph'] && empty( $this->header_tags ) ) {
-				if ( ( $obj = $this->p->util->get_the_object() ) === false ) {
+				if ( ( $obj = $this->p->util->get_post_object() ) === false ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return;
 				}
