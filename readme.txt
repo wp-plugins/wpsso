@@ -252,10 +252,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 == Other Notes ==
 
 <ul>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/">About Pro Addons</a>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/">About Pro Addons</a>
 	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/jetpack-photon/">Jetpack Photon</a></li>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/about-pro-addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/jetpack-photon/">Jetpack Photon</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a></li>
 	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/contact-information/">Contact Information and Feeds</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a></li>
