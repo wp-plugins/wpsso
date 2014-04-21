@@ -738,9 +738,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					<a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new Support Ticket</a> and we will be happy to assist you.';
 					break;
 				case 'side-rating':
-					$text .= '<p><a href="'.$this->p->cf['url']['review'].'" target="_blank">Please rate '.WpssoConfig::get_config( 'full' ).
-					' on WordPress.org</a>. This helps other WordPress users find stable and well supported plugins, along with encouraging us
-					to keep investing in '.WpssoConfig::get_config( 'full' ).' and its community.</p><p>Thank you.</p>';
+					$text .= '<p>Would you like to help other WordPress site owners find this plugin?
+					<a href="'.$this->p->cf['url']['review'].'" target="_blank">Rate the '.WpssoConfig::get_config( 'full' ).' plugin on WordPress.org</a>.
+					Your rating will help other WordPress users find stable and well supported plugins &mdash; and encourage us to keep working on and
+					improving '.WpssoConfig::get_config( 'full' ).'!</p><p>Thank you. :)</p>';
 					break;
 				case 'side-help':
 					$text = '<p>Individual option boxes (like this one) can be opened / closed by clicking on their title bar, 
