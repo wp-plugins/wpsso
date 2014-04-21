@@ -463,10 +463,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							include the Custom Settings metabox on their admin pages, check the appropriate option(s) here.';
 							break;
 						case 'tooltip-plugin_cf_vid_url':
-							$text = 'If your theme (or another plugin) provides a custom field for embedded video URLs, 
-							you may enter that custom field name here. If a custom field matching that name is found, 
-							it\'s value will be used for the Video URL in the '.$this->p->cf['menu'].' Custom Settings
-							for Posts and Pages. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'".';
+							$text = 'If your theme or another plugin provides a custom field for embedded video URLs, 
+							you may enter its custom field name (aka, the "post meta option name") here.
+							If a custom field matching that name is found, it\'s value will be used for the Video URL in the '.
+							$this->p->cf['menu'].' Custom Settings for Posts and Pages. 
+							The default value is \''.$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'\'.';
 							break;
 						/*
 						 * 'File and Object Cache' settings
