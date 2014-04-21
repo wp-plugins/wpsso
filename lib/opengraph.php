@@ -31,13 +31,13 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			$og_max = $this->p->util->get_max_nums( $post_id );
 			$og = apply_filters( $this->p->cf['lca'].'_og_seed', array(), $use_post );
 
-			if ( ! array_key_exists( 'fb:admins', $og ) )
+			if ( ! isset( $og['fb:admins'] ) )
 				$og['fb:admins'] = $this->p->options['fb_admins'];
 
-			if ( ! array_key_exists( 'fb:app_id', $og ) )
+			if ( ! isset( $og['fb:app_id'] ) )
 				$og['fb:app_id'] = $this->p->options['fb_app_id'];
 
-			if ( ! array_key_exists( 'og:locale', $og ) ) {
+			if ( ! isset( $og['og:locale'] ) ) {
 				// get the current or configured language for og:locale
 				$lang = empty( $this->p->options['fb_lang'] ) ? 
 					SucomUtil::get_locale( $post_id ) : $this->p->options['fb_lang'];
@@ -48,7 +48,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				$og['og:locale'] = $lang;
 			}
 
-			if ( ! array_key_exists( 'og:site_name', $og ) ) {
+			if ( ! isset( $og['og:site_name'] ) ) {
 				// pass options array to allow fallback if locale option does not exist
 				$key = SucomUtil::get_locale_key( 'og_site_name', $this->p->options, $post_id );
 				if ( ! empty( $this->p->options[$key] ) )
@@ -56,17 +56,17 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				else $og['og:site_name'] = get_bloginfo( 'name', 'display' );
 			}
 
-			if ( ! array_key_exists( 'og:url', $og ) )
+			if ( ! isset( $og['og:url'] ) )
 				$og['og:url'] = $this->p->util->get_sharing_url( $use_post, true, 
 					$this->p->util->get_source_id( 'opengraph' ) );
 
-			if ( ! array_key_exists( 'og:title', $og ) )
+			if ( ! isset( $og['og:title'] ) )
 				$og['og:title'] = $this->p->webpage->get_title( $this->p->options['og_title_len'], '...', $use_post );
 
-			if ( ! array_key_exists( 'og:description', $og ) )
+			if ( ! isset( $og['og:description'] ) )
 				$og['og:description'] = $this->p->webpage->get_description( $this->p->options['og_desc_len'], '...', $use_post );
 
-			if ( ! array_key_exists( 'og:type', $og ) ) {
+			if ( ! isset( $og['og:type'] ) ) {
 
 				// singular posts/pages are articles by default
 				// check post_type for exceptions (like product pages)
@@ -100,7 +100,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 						( is_search() && ! empty( $this->p->options['og_def_author_on_search'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) ) {
 	
 					$og['og:type'] = 'article';
-					if ( ! array_key_exists( 'article:author', $og ) )
+					if ( ! isset( $og['article:author'] ) )
 						$og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
 
 				// default for everything else is 'website'
@@ -108,9 +108,9 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			}
 
 			// if the page is an article, then define the other article meta tags
-			if ( array_key_exists( 'og:type', $og ) && $og['og:type'] == 'article' ) {
+			if ( isset( $og['og:type'] ) && $og['og:type'] == 'article' ) {
 
-				if ( ! array_key_exists( 'article:author', $og ) ) {
+				if ( ! isset( $og['article:author'] ) ) {
 					if ( is_singular() || $use_post !== false ) {
 						if ( ! empty( $obj->post_author ) )
 							$og['article:author'] = $this->p->user->get_article_author( $obj->post_author );
@@ -119,25 +119,25 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 					}
 				}
 
-				if ( ! array_key_exists( 'article:publisher', $og ) )
+				if ( ! isset( $og['article:publisher'] ) )
 					$og['article:publisher'] = $this->p->options['og_publisher_url'];
 
-				if ( ! array_key_exists( 'article:tag', $og ) )
+				if ( ! isset( $og['article:tag'] ) )
 					$og['article:tag'] = $this->p->webpage->get_tags( $post_id );
 
-				if ( ! array_key_exists( 'article:section', $og ) )
+				if ( ! isset( $og['article:section'] ) )
 					$og['article:section'] = $this->p->webpage->get_section( $post_id );
 
-				if ( ! array_key_exists( 'article:published_time', $og ) )
+				if ( ! isset( $og['article:published_time'] ) )
 					$og['article:published_time'] = trim( get_the_date('c') );
 
-				if ( ! array_key_exists( 'article:modified_time', $og ) )
+				if ( ! isset( $og['article:modified_time'] ) )
 					$og['article:modified_time'] = trim( get_the_modified_date('c') );
 			}
 
 			// get all videos
 			// check first, to add video preview images
-			if ( ! array_key_exists( 'og:video', $og ) ) {
+			if ( ! isset( $og['og:video'] ) ) {
 				if ( empty( $og_max['og_vid_max'] ) )
 					$this->p->debug->log( 'videos disabled: maximum videos = 0' );
 				else {
@@ -154,7 +154,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			}
 
 			// get all images
-			if ( ! array_key_exists( 'og:image', $og ) ) {
+			if ( ! isset( $og['og:image'] ) ) {
 				if ( empty( $og_max['og_img_max'] ) ) 
 					$this->p->debug->log( 'images disabled: maximum images = 0' );
 				else {

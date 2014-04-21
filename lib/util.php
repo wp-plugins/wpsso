@@ -42,15 +42,18 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			foreach ( $add_to_prefixes as $prefix ) {
 				foreach ( $this->get_post_types( $prefix ) as $post_type ) {
 					$option_name = $prefix.'_add_to_'.$post_type->name;
-					if ( ! array_key_exists( $option_name, $opts ) ) {
+					$filter_name = $this->p->cf['lca'].'_add_to_options_'.$post_type->name;
+					if ( ! isset( $opts[$option_name] ) ) {	
 						switch ( $post_type->name ) {
+							case 'download':
 							case 'product':
-								$opts[$option_name] = 1;
+								$def_val = 1;
 								break;
 							default:
-								$opts[$option_name] = 0;
+								$def_val = 0;
 								break;
 						}
+						$opts[$option_name] = apply_filters( $filter_name, $def_val );
 					}
 				}
 			}

@@ -44,7 +44,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			if ( ! isset( $this->p->cf['opt']['defaults']['options_filtered'] ) ||
 				$this->p->cf['opt']['defaults']['options_filtered'] !== true ) {
 
-				$this->p->cf['opt']['defaults'] = $this->p->util->push_add_to_options( $this->p->cf['opt']['defaults'], array( 'plugin' ) );
+				$this->p->cf['opt']['defaults'] = $this->p->util->push_add_to_options( $this->p->cf['opt']['defaults'] );
 
 				$this->p->cf['opt']['defaults']['link_author_field'] = empty( $this->p->options['plugin_cm_gp_name'] ) ? 
 					$this->p->cf['opt']['defaults']['plugin_cm_gp_name'] : $this->p->options['plugin_cm_gp_name'];
@@ -66,9 +66,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 						}
 					}
 				}
-				$this->p->cf['opt']['defaults'] = apply_filters( 
-					$this->p->cf['lca'].'_get_defaults', 
-					$this->p->cf['opt']['defaults'] );
+				$this->p->cf['opt']['defaults'] = apply_filters( $this->p->cf['lca'].'_get_defaults', $this->p->cf['opt']['defaults'] );
 				$this->p->cf['opt']['defaults']['options_filtered'] = true;
 				$this->p->cf['opt']['defaults']['options_version'] = $this->p->cf['opt']['version'];
 				$this->p->cf['opt']['defaults']['plugin_version'] = $this->p->cf['version'];
@@ -109,10 +107,13 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				}
 
 				if ( ! empty( $this->p->is_avail['seo']['*'] ) &&
-					array_key_exists( 'add_meta_name_description', $opts ) ) {
+					isset( $opts['add_meta_name_description'] ) ) {
 					$opts['add_meta_name_description'] = 0;
 					$opts['add_meta_name_description:is'] = 'disabled';
 				}
+
+				// add any missing 'plugin_add_to' options for current post types
+				$this->p->util->push_add_to_options( $opts );
 			} else {
 				if ( $opts === false )
 					$opts_err_msg = 'could not find an entry for '.$options_name.' in';
