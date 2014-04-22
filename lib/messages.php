@@ -120,8 +120,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Header Meta Tags' settings
 						 */
 						 case 'tooltip-postmeta-og_art_section':
-							$text = 'A custom topic for this '.$ptn.', different from the default 
-							Website Topic chosen in the General settings.';
+							$text = 'A custom topic, different from the default \'Article Topic\' selected in the General settings.
+							The Open Graph \'og:type\' meta tag must be an \'article\' to enable this option.
+							The value will be used in the \'article:section\' Open Graph / Rich Pin meta tag.
+							Select \'[none]\' if you prefer to exclude the \'article:section\' meta tag.';
 						 	break;
 						 case 'tooltip-postmeta-og_title':
 							$text = 'A custom title for the Open Graph, Rich Pin, Twitter Card meta tags (all Twitter Card formats), 
@@ -272,7 +274,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 */
 						case 'tooltip-og_art_section':
 							$text = 'The topic that best describes the Posts and Pages on your website.
-							This name will be used in the \'article:section\' Open Graph / Rich Pin meta tag. 
+							This value will be used in the \'article:section\' Open Graph / Rich Pin meta tag. 
 							Select \'[none]\' if you prefer to exclude the \'article:section\' meta tag.
 							The Pro version also allows you to select a custom Topic for each individual Post and Page.';
 							break;

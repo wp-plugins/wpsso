@@ -81,17 +81,22 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $this->get_radio( $name, $values, $class, $id, $is_assoc, true );
 		}
 
-		public function get_select( $name, $values = array(), $class = '', $id = '', $is_assoc = false ) {
-			if ( empty( $name ) || ! is_array( $values ) ) return;
-			if ( $is_assoc == false ) $is_assoc = SucomUtil::is_assoc( $values );
+		public function get_select( $name, $values = array(), $class = '', $id = '', $is_assoc = false, $disabled = false ) {
+			if ( empty( $name ) || ! is_array( $values ) ) 
+				return;
+			if ( $is_assoc === false ) 
+				$is_assoc = SucomUtil::is_assoc( $values );
 			$html = '<select name="'.$this->options_name.'['.$name.']"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? '' : ' id="'.$id.'"' ).'>';
+				( empty( $id ) ? '' : ' id="'.$id.'"' ).
+				( $disabled === true ? ' disabled="disabled"' : '' ).'>';
 			foreach ( $values as $val => $desc ) {
 				// if the array is NOT associative (so regular numered array), 
 				// then the description is used as the saved value as well
-				if ( $is_assoc == false ) $val = $desc;
-				if ( $val == -1 ) $desc = '(value from settings)';
+				if ( $is_assoc == false ) 
+					$val = $desc;
+				if ( $val == -1 ) 
+					$desc = '(value from settings)';
 				else {
 					switch ( $name ) {
 						case 'og_img_max': if ( $desc === 0 ) $desc .= ' (no images)'; break;

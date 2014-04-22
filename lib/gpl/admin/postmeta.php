@@ -23,7 +23,7 @@ if ( ! class_exists( 'WpssoAdminPostmeta' ) ) {
 
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
-			$rows[] = $this->p->util->th( 'Topic', 'medium', 'postmeta-og_art_section', $post_info ).
+			$rows[] = $this->p->util->th( 'Article Topic', 'medium', 'postmeta-og_art_section', $post_info ).
 			'<td class="blank">'.$this->p->options['og_art_section'].'</td>';
 
 			$rows[] = $this->p->util->th( 'Default Title', 'medium', 'postmeta-og_title', $post_info ). 
