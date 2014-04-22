@@ -65,7 +65,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 			$user_ids[0] = 'none';
 			switch ( $metabox.'-'.$key ) {
 				case 'og-webpage':
-					$rows[] = $this->p->util->th( 'Website Topic', 'highlight', 'og_art_section' ).
+					$rows[] = $this->p->util->th( 'Article Topic', 'highlight', 'og_art_section' ).
 					'<td>'.$this->form->get_select( 'og_art_section', $this->p->util->get_topics() ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Site Name', null, 'og_site_name', array( 'is_locale' => true ) ).

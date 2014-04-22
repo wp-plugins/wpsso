@@ -60,6 +60,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					$html = $this->p->head->get_header_html( $obj->ID );
 					$this->p->debug->show_html( null, 'debug log' );
 					$html = preg_replace( '/<!--.*-->/Us', '', $html );
+					$this->post_info['og_type'] = preg_match( '/<meta property="og:type" content="([^"]*)"[ \/]*>/', $html, $m ) ? $m[1] : '';
 					preg_match_all( '/<(\w+) (\w+)="([^"]*)" (\w+)="([^"]*)"[ \/]*>/', $html, $this->header_tags, PREG_SET_ORDER );
 				}
 			}
@@ -69,7 +70,8 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			$opts = $this->get_options( $post->ID );	// sanitize when saving, not reading
 			$def_opts = $this->get_defaults();
 			$post_type = get_post_type_object( $post->post_type );	// since 3.0
-			$post_info = array( 'ptn' => ucfirst( $post_type->name ), 'id' => $post->ID );
+			$this->post_info['ptn'] = ucfirst( $post_type->name );
+			$this->post_info['id'] = $post->ID;
 			$this->form = new SucomForm( $this->p, WPSSO_META_NAME, $opts, $def_opts );
 			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
 
@@ -84,8 +86,8 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 
 			$rows = array();
 			foreach ( $tabs as $key => $title )
-				$rows[$key] = array_merge( $this->get_rows( $metabox, $key, $post_info ), 
-					apply_filters( $this->p->cf['lca'].'_'.$metabox.'_'.$key.'_rows', array(), $this->form, $post_info ) );
+				$rows[$key] = array_merge( $this->get_rows( $metabox, $key, $this->post_info ), 
+					apply_filters( $this->p->cf['lca'].'_'.$metabox.'_'.$key.'_rows', array(), $this->form, $this->post_info ) );
 			$this->p->util->do_tabs( $metabox, $tabs, $rows );
 		}
 
