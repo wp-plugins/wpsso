@@ -13,10 +13,8 @@ Improve the Appearance, Ranking, and Social Engagement of your social shares on 
 == Description ==
 
 <blockquote>
-<p>WordPress Social Sharing Optimization (WPSSO) <strong>provides the information that search engines and social websites need</strong> to improve Google Search ranking and social engagement on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more. An essential plugin for <em>every</em> WordPress website!</p>
+<p>HTML meta tags provide information about your content, not the sharing buttons! <strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; using sharing buttons, browser extensions, or URLs pasted directly on social websites. WordPress Social Sharing Optimization (WPSSO) <strong>provides the information search engines and social websites need</strong> to improve Google Search ranking and social engagement on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and many more.
 </blockquote>
-
-Sharing buttons don't provide information about your content &mdash; HTML meta tags in your webpage do. **Make sure social websites present your content in the best possible way, no matter *how* your webpage is shared** &mdash; using sharing buttons, browser extensions, or URLs pasted directly on social websites.
 
 = Quick List of Features =
 
@@ -38,7 +36,7 @@ Sharing buttons don't provide information about your content &mdash; HTML meta t
 * Provides Facebook, Google+ and Twitter URL profile contact fields.
 * Validation tools and special meta tag preview tabs on admin edit pages.
 * Customizable *multilingual* Site Title and (default) Description texts.
-* Contextual help for every plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
+* Contextual help for *every* plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
 
 **Pro / Power-User Version**
 
