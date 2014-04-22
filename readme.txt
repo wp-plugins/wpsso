@@ -38,6 +38,7 @@ Sharing buttons don't provide information about your content &mdash; HTML meta t
 * Provides Facebook, Google+ and Twitter URL profile contact fields.
 * Validation tools and special meta tag preview tabs on admin edit pages.
 * Customizable *multilingual* Site Title and (default) Description texts.
+* Contextual help for every option and [comprehensive plugin documentation](http://surniaulula.com/codex/plugins/wpsso/).
 
 **Pro / Power-User Version**
 
@@ -46,7 +47,7 @@ Sharing buttons don't provide information about your content &mdash; HTML meta t
 * Additional profile contact fields with configurable label and field names.
 * Custom settings and meta tag values for each Post, Page, and custom post type.
 * Options to exclude specific Google / SEO, Open Graph, and Twitter Card meta tags.
-* Integrates with 3rd party plugins and services for additional image, video, product, and content information:
+* Integrates with 3rd party plugins and services for additional image, video, product, and content information (see [About Pro Addons](http://surniaulula.com/codex/plugins/wpsso/notes/addons/) and [Integration Notes](http://surniaulula.com/codex/plugins/wpsso/installation/integration/) for details):
 	* Plugins
 		* All in One SEO Pack
 		* bbPress
@@ -217,8 +218,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	<ul>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/integration/buddypress-integration/">BuddyPress Integration</a></li>
 	</ul></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/migrate-from-ngfb/">Migrate from NGFB</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/uninstall-the-plugin/">Uninstall the Plugin</a></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/migrate-from-ngfb-open-graph-to-wpsso/">Migrate from NGFB to WPSSO</a></li>
 </ul>
 
 == Frequently Asked Questions ==
