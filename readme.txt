@@ -315,6 +315,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a new Pro addon for Easy Digital Downloads products (Pro version).
 	* Added a test for `is_tax()` to fetch a description for custom taxonomy objects.
 	* Renamed the SucomUtil class `get_the_object()` method to `get_post_object()`.
+	* Added the 'twitter:domain' meta tag, used by Twitter in place of the 'View on web' text (Pro version).
 
 = Version 2.4.5 =
 
