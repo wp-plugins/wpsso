@@ -38,7 +38,7 @@ Sharing buttons don't provide information about your content &mdash; HTML meta t
 * Provides Facebook, Google+ and Twitter URL profile contact fields.
 * Validation tools and special meta tag preview tabs on admin edit pages.
 * Customizable *multilingual* Site Title and (default) Description texts.
-* Contextual help for every option and [comprehensive plugin documentation](http://surniaulula.com/codex/plugins/wpsso/).
+* Contextual help for every plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
 
 **Pro / Power-User Version**
 
