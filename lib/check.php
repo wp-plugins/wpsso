@@ -45,7 +45,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				if ( is_object( $wpseo_og ) && ( $prio = has_action( 'wpseo_head', array( $wpseo_og, 'opengraph' ) ) ) )
 					$ret = remove_action( 'wpseo_head', array( $wpseo_og, 'opengraph' ), $prio );
 
-				if ( ! empty( $this->p->options['tc_enable'] ) ) {
+				if ( ! empty( $this->p->options['tc_enable'] ) && $this->is_aop() ) {
 					global $wpseo_twitter;
 					if ( is_object( $wpseo_twitter ) && ( $prio = has_action( 'wpseo_head', array( $wpseo_twitter, 'twitter' ) ) ) )
 						$ret = remove_action( 'wpseo_head', array( $wpseo_twitter, 'twitter' ), $prio );
@@ -249,7 +249,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 						sprintf( __( 'Please uncheck the \'<em>Open Graph meta data</em>\' Facebook option in the <a href="%s">Yoast WordPress SEO plugin Social settings</a>.', WPSSO_TEXTDOM ), 
 							get_admin_url( null, 'admin.php?page=wpseo_social' ) ) );
 				}
-				if ( ! empty( $this->p->options['tc_enable'] ) && ! empty( $opts['twitter'] ) ) {
+				if ( ! empty( $this->p->options['tc_enable'] ) && $this->is_aop() && ! empty( $opts['twitter'] ) ) {
 					$this->p->debug->log( $conflict_log_prefix.'wpseo twitter meta data option is enabled' );
 					$this->p->notice->err( $conflict_err_prefix.
 						sprintf( __( 'Please uncheck the \'<em>Twitter Card meta data</em>\' Twitter option in the <a href="%s">Yoast WordPress SEO plugin Social settings</a>.', WPSSO_TEXTDOM ), 
