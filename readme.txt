@@ -304,7 +304,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
-= Version 2.4.7dev1 =
+= Version 2.4.7dev2 =
 
 * Bugfixes
 	* Removed a warning in the Free version when Twitter Cards are enabled in WordPress SEO (the Free version does not provide Twitter Cards, so no conflict exists).
