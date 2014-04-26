@@ -57,11 +57,14 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					return;
 				}
 				if ( isset( $obj->ID ) && $obj->post_status === 'publish' && $obj->filter === 'edit' ) {
-					$html = $this->p->head->get_header_html( $obj->ID );
+					$this->header_tags = $this->p->head->get_header_array( $obj->ID );
 					$this->p->debug->show_html( null, 'debug log' );
-					$html = preg_replace( '/<!--.*-->/Us', '', $html );
-					$this->post_info['og_type'] = preg_match( '/<meta property="og:type" content="([^"]*)"[ \/]*>/', $html, $m ) ? $m[1] : '';
-					preg_match_all( '/<(\w+) (\w+)="([^"]*)" (\w+)="([^"]*)"[ \/]*>/', $html, $this->header_tags, PREG_SET_ORDER );
+					foreach ( $this->header_tags as $tag ) {
+						if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {
+							$this->post_info['og_type'] = $tag[5];
+							break;
+						}
+					}
 				}
 			}
 		}

@@ -23,7 +23,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 			add_meta_box( $this->pagehook.'_plugin', 'Plugin Settings', array( &$this, 'show_metabox_plugin' ), $this->pagehook, 'normal' );
 			add_meta_box( $this->pagehook.'_contact', 'Profile Contact Methods', array( &$this, 'show_metabox_contact' ), $this->pagehook, 'normal' );
-			add_meta_box( $this->pagehook.'_taglist', 'Meta Tag List', array( &$this, 'show_metabox_taglist' ), $this->pagehook, 'normal' );
+			add_meta_box( $this->pagehook.'_taglist', 'Header HTML Tag List', array( &$this, 'show_metabox_taglist' ), $this->pagehook, 'normal' );
 		}
 
 		public function show_metabox_plugin() {
@@ -59,16 +59,10 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			$metabox = 'taglist';
 			echo '<table class="sucom-setting" style="padding-bottom:0;"><tr><td>'.
 			$this->p->msgs->get( $metabox.'-info' ).'</td></tr></table>';
-			echo '<table class="sucom-setting" style="padding-bottom:0;">';
+			echo '<table class="sucom-setting" style="margin-bottom:10px;">';
 			foreach ( apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tags_rows', array(), $this->form ) as $num => $row ) 
 				echo '<tr>', $row, '</tr>';
 			echo '</table>';
-			echo '<table class="sucom-setting"><tr>';
-			echo $this->p->util->th( 'Include Empty og:* Meta Tags', null, 'og_empty_tags' );
-			echo '<td'.( $this->p->check->is_aop() ? '>'.$this->form->get_checkbox( 'og_empty_tags' ) :
-				' class="blank checkbox">'.$this->form->get_fake_checkbox( 'og_empty_tags' ) ).'</td>';
-			echo '<td width="100%"></td></tr></table>';
-
 		}
 
 		protected function get_rows( $metabox, $key ) {

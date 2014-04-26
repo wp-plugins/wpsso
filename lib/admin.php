@@ -54,7 +54,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		// load all submenu classes into the $this->submenu array
 		private function set_objects() {
-			$libs = array( 'setting', 'submenu' );
+			$libs = array( 'submenu', 'setting' );	// setting must be last to extend submenu/advanced
 			if ( is_multisite() )
 				$libs[] = 'sitesubmenu';
 			foreach ( $libs as $sub ) {

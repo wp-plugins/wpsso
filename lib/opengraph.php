@@ -23,13 +23,13 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				' xmlns:fb="http://ogp.me/ns/fb#"';
 		}
 
-		public function get_array( $use_post = false ) {
+		public function get_array( &$og = array(), $use_post = false ) {
 			$obj = $this->p->util->get_post_object( $use_post );
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			$post_type = '';
 			$has_video_image = false;
 			$og_max = $this->p->util->get_max_nums( $post_id );
-			$og = apply_filters( $this->p->cf['lca'].'_og_seed', array(), $use_post );
+			$og = apply_filters( $this->p->cf['lca'].'_og_seed', $og, $use_post );
 
 			if ( ! isset( $og['fb:admins'] ) )
 				$og['fb:admins'] = $this->p->options['fb_admins'];

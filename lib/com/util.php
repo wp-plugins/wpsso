@@ -91,7 +91,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $new_key;
 		}
 
-		public static function preg_grep_keys( $preg, $arr, $invert = false, $replace = false ) {
+		public static function preg_grep_keys( $preg, &$arr, $invert = false, $replace = false ) {
 			if ( ! is_array( $arr ) ) 
 				return false;
 			$invert = $invert == false ? 

@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.4.6',		// plugin version
+			'version' => '2.4.7dev1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -136,7 +136,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_desc_len' => 300,
 					'og_desc_hashtags' => 3,
 					'og_desc_strip' => 0,
-					'og_empty_tags' => 0,
 					'rp_author_name' => 'display_name',	// rich-pin specific article:author
 					'tc_enable' => 1,
 					'tc_site' => '',
@@ -164,6 +163,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'tc_prod_crop' => 1,   			 // prefers square product images
 					'tc_prod_def_l2' => 'Location',
 					'tc_prod_def_d2' => 'Unknown',
+					// enable/disable header html tags
+					'add_link_rel_author' => 1,
+					'add_link_rel_publisher' => 1,
 					'add_meta_property_fb:admins' => 1,
 					'add_meta_property_fb:app_id' => 1,
 					'add_meta_property_og:locale' => 1,
@@ -217,6 +219,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'add_meta_name_author' => 1,
 					'add_meta_name_description' => 0,
 					'add_meta_itemprop_description' => 1,
+					// advanced plugin options
 					'plugin_version' => '',
 					'plugin_tid' => '',
 					'plugin_preserve' => 0,
@@ -263,6 +266,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cm_skype_name' => 'skype', 
 					'plugin_cm_skype_label' => 'Skype Username', 
 					'plugin_cm_skype_enabled' => 0,
+					// wordpress contact methods
 					'wp_cm_aim_name' => 'aim', 
 					'wp_cm_aim_label' => 'AIM', 
 					'wp_cm_aim_enabled' => 1,

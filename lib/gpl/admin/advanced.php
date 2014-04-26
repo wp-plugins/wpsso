@@ -89,15 +89,17 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			return $rows;
 		}
 
-		public function filter_taglist_tags_rows( $rows, $form ) {
-			$og_cols = 3;
+		public function filter_taglist_tags_rows( $rows, $form, $tag = '[^_]+' ) {
+			$og_cols = 2;
 			$cells = array();
 			foreach ( $this->p->opt->get_defaults() as $opt => $val ) {
-				if ( preg_match( '/^add_meta_([^_]+)_(.+)$/', $opt, $match ) ) {
-					$cells[] = '<!-- '.$match[1].' '.$match[2].' -->'.
+				if ( preg_match( '/^add_('.$tag.')_([^_]+)_(.+)$/', $opt, $match ) ) {
+					$highlight = $opt === 'add_meta_name_description' ? ' highlight' : '';
+					$cells[] = '<!-- '.( implode( ' ', $match ) ).' -->'.
 						'<td class="checkbox blank">'.$form->get_fake_checkbox( $opt ).'</td>'.
-						'<td clsss="taglist">'.$match[1].'</td>'.
-						'<th class="taglist">'.$match[2].'</th>'."\n";
+						'<td class="xshort'.$highlight.'">'.$match[1].'</td>'.
+						'<td class="taglist'.$highlight.'">'.$match[2].'</td>'.
+						'<th class="taglist'.$highlight.'">'.$match[3].'</th>'."\n";
 				}
 			}
 			sort( $cells );
