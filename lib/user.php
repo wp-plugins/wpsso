@@ -97,13 +97,11 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		public function get_article_author( $author_id ) {
 			$ret = array();
 			if ( ! empty( $author_id ) ) {
-				$ret[] = $this->get_author_url( $author_id, 
-					$this->p->options['og_author_field'] );
+				$ret[] = $this->get_author_url( $author_id, $this->p->options['og_author_field'] );
 
 				// add the author's name if this is the Pinterest crawler
 				if ( SucomUtil::crawler_name( 'pinterest' ) === true )
-					$ret[] = $this->get_author_name( $author_id, 
-						$this->p->options['rp_author_name'] );
+					$ret[] = $this->get_author_name( $author_id, $this->p->options['rp_author_name'] );
 
 			} else $this->p->debug->log( 'author_id provided is empty' );
 			return $ret;

@@ -97,7 +97,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				// check for default author info on indexes and searches
 				} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
 					! is_search() && ! empty( $this->p->options['og_def_author_on_index'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) || 
-						( is_search() && ! empty( $this->p->options['og_def_author_on_search'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) ) {
+					( is_search() && ! empty( $this->p->options['og_def_author_on_search'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) ) {
 	
 					$og['og:type'] = 'article';
 					if ( ! isset( $og['article:author'] ) )
@@ -115,7 +115,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 						if ( ! empty( $obj->post_author ) )
 							$og['article:author'] = $this->p->user->get_article_author( $obj->post_author );
 						elseif ( ! empty( $this->p->options['og_def_author_id'] ) )
-								$og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
+							$og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
 					}
 				}
 
@@ -158,9 +158,11 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				if ( empty( $og_max['og_img_max'] ) ) 
 					$this->p->debug->log( 'images disabled: maximum images = 0' );
 				else {
-					$og['og:image'] = $this->get_all_images( $og_max['og_img_max'], 
-						$this->p->cf['lca'].'-opengraph', $post_id );
-					if ( empty( $og['og:image'] ) && $has_video_image === false )
+					$og['og:image'] = $this->get_all_images( $og_max['og_img_max'], $this->p->cf['lca'].'-opengraph', $post_id );
+
+					// if there's no image, and no video preview image, then add the default image for non-index webpages
+					if ( empty( $og['og:image'] ) && $has_video_image === false &&
+						( is_singular() || $use_post !== false ) )
 							$og['og:image'] = $this->p->media->get_default_image( $og_max['og_img_max'], 
 								$this->p->cf['lca'].'-opengraph' );
 				} 
@@ -227,20 +229,18 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				// if an attachment is not an image, then use the default image instead
 				if ( empty( $og_ret ) ) {
 					$num_remains = $this->p->media->num_remains( $og_ret, $num );
-					$og_ret = array_merge( $og_ret, 
-						$this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
+					$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
 				} else $og_ret = array_merge( $og_ret, $og_image );
 
 				return $og_ret;
 			}
 
-			// check for index-type webpages with og_def_img_on_index enabled to force a default image
+			// check for index webpages with og_def_img_on_index or og_def_img_on_search enabled to force a default image
 			if ( ( ! empty( $this->p->options['og_def_img_on_index'] ) && ( is_home() || is_archive() ) && ! is_author() ) ||
 				( ! empty( $this->p->options['og_def_img_on_search'] ) && is_search() ) ) {
 
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				$og_ret = array_merge( $og_ret, 
-					$this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
+				$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
 				return $og_ret;	// stop here and return the image array
 			}
 

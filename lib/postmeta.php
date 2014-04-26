@@ -126,7 +126,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 						accept query arguments &ndash; copy-paste the following sharing URL into the validation input field. 
 						To enable the display of Twitter Card information in tweets, you must submit a URL for each type of card you provide
 						(Summary, Summary with Large Image, Photo, Gallery, Player, and/or Product card).</p>'.
-						$this->form->get_text( get_permalink( $post_info['id'] ), 'wide' ).'</td>
+						'<p>'.$this->form->get_text( get_permalink( $post_info['id'] ), 'wide' ).'</p></td>
 
 						<td class="validate">'.$this->form->get_button( 'Validate Twitter Card', 'button-secondary', null, 
 						'https://dev.twitter.com/docs/cards/validation/validator', true ).'</td>';
