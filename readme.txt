@@ -304,6 +304,17 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.4.7dev1 =
+
+* Bugfixes
+	* Removed a warning in the Free version when Twitter Cards are enabled in WordPress SEO (the Free version does not provide Twitter Cards, so no conflict exists).
+* Enhancements
+	* Code refactoring for several WpssoHead class methods, allowing for future coding of category/tag/taxonomy custom settings.
+	* Added a new `get_header_array()` method, and moved most of the code from `get_header_html()` into this new method.
+	* Renamed the 'Meta Tag List' metabox on the Advanced settings page to 'Header HTML Tag List'.
+	* Added 'link rel author' and 'link rel publisher' checkboxed to the 'Header HTML Tag List' options.
+	* Removed the 'Include Empty og:* Meta Tags' option / feature.
+
 = Version 2.4.6 =
 
 [See the complete Release Notes on Surnia Ulula](http://surniaulula.com/wpsso-v2-4-6-and-ngfb-v7-4-6/)
