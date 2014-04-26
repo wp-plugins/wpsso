@@ -91,7 +91,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '276',		// increment when changing default options
+				'version' => '278',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -216,6 +216,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'add_meta_name_twitter:label3' => 1,
 					'add_meta_name_twitter:data4' => 1,
 					'add_meta_name_twitter:label4' => 1,
+					'add_meta_name_generator' => 1,
 					'add_meta_name_author' => 1,
 					'add_meta_name_description' => 0,
 					'add_meta_itemprop_description' => 1,
