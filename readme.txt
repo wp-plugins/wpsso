@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.9
-Stable Tag: 2.4.6
+Stable Tag: 2.4.7
 
 Improve the Appearance, Ranking, and Social Engagement of your social shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc.
 
@@ -83,7 +83,7 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 * **Facebook Meta Tags**
 	* fb:admins
 	* fb:app_id
-* **Open Graph Meta Tags**
+* **Open Graph / Rich Pin Meta Tags**
 	* article:author
 	* article:publisher
 	* article:published_time
