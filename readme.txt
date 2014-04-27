@@ -304,20 +304,21 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
-= Version 2.4.7dev2 =
+= Version 2.4.7 =
+
+[See the complete Release Notes on Surnia Ulula](http://surniaulula.com/wpsso-v2-4-7-and-ngfb-v7-4-7/)
 
 * Bugfixes
+	* Fixed CSS for the Custom Settings metabox to re-enable on hover highlight for the 'Header Tags Preview' tab. 
 	* Removed a warning in the Free version when Twitter Cards are enabled in WordPress SEO (the Free version does not provide Twitter Cards, so no conflict exists).
 * Enhancements
-	* Code refactoring for several WpssoHead class methods, allowing for future coding of category/tag/taxonomy custom settings.
+	* **[Code refactoring](http://en.wikipedia.org/wiki/Code_refactoring) for several WpssoHead class methods**, allowing for future coding of category / tag / taxonomy custom settings.
 	* Added a new `get_header_array()` method, and moved most of the code from `get_header_html()` into this new method.
-	* Renamed the 'Meta Tag List' metabox on the Advanced settings page to 'Header HTML Tag List'.
-	* Added 'link rel author' and 'link rel publisher' checkboxed to the 'Header HTML Tag List' options.
+	* Renamed the 'Meta Tag List' metabox on the Advanced settings page to 'Header Tags List'.
+	* Added 'link rel author' and 'link rel publisher' checkboxed to the 'Header Tags List' options.
 	* Removed the 'Include Empty og:* Meta Tags' option / feature.
 
 = Version 2.4.6 =
-
-[See the complete Release Notes on Surnia Ulula](http://surniaulula.com/wpsso-v2-4-6-and-ngfb-v7-4-6/)
 
 * Bugfixes
 	* *None*
@@ -399,6 +400,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Increased the default object cache expiry value from 3600 to 7200 seconds.
 
 == Upgrade Notice ==
+
+= 2.4.7 =
+
+Code refactoring for future category / tag / taxonomy custom settings, minor fixes for CSS and warning message (Free version).
 
 = 2.4.6 =
 
