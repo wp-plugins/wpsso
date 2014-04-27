@@ -82,7 +82,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
 				'header' => 'Header Meta Tags', 
 				'tools' => 'Validation Tools',
-				'tags' => 'Meta Tags Preview' ) );
+				'tags' => 'Header Tags Preview' ) );
 
 			if ( empty( $this->p->is_avail['opengraph'] ) )
 				unset( $tabs['tags'] );
@@ -145,7 +145,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 								'<td class="wide">'.( strpos( $m[5], 'http' ) === 0 ? '<a href="'.$m[5].'">'.$m[5].'</a>' : $m[5] ).'</td>';
 						}
 						sort( $rows );
-					} else $rows[] = '<td><p class="centered">The Meta Tags Preview will be available when the '.$post_info['ptn'].
+					} else $rows[] = '<td><p class="centered">The Header Tags Preview will be available when the '.$post_info['ptn'].
 						' is published with public visibility.</p></td>';
 					break; 
 			}

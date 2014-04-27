@@ -23,7 +23,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 			add_meta_box( $this->pagehook.'_plugin', 'Plugin Settings', array( &$this, 'show_metabox_plugin' ), $this->pagehook, 'normal' );
 			add_meta_box( $this->pagehook.'_contact', 'Profile Contact Methods', array( &$this, 'show_metabox_contact' ), $this->pagehook, 'normal' );
-			add_meta_box( $this->pagehook.'_taglist', 'Header HTML Tag List', array( &$this, 'show_metabox_taglist' ), $this->pagehook, 'normal' );
+			add_meta_box( $this->pagehook.'_taglist', 'Header Tags List', array( &$this, 'show_metabox_taglist' ), $this->pagehook, 'normal' );
 		}
 
 		public function show_metabox_plugin() {
