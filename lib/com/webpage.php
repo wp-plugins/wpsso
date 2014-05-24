@@ -175,8 +175,8 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				}
 			}
 
-			// trim excess separator
-			$title = preg_replace( '/ \\'.$this->p->options['og_title_sep'].' *$/', '', $title );
+			$title = $this->p->util->cleanup_html_tags( $title );	// strip html tags before removing separator
+			$title = preg_replace( '/ \\'.$this->p->options['og_title_sep'].' *$/', '', $title );	// trim excess separator
 
 			if ( $textlen > 0 ) {
 				// seo-like title modifications
@@ -189,10 +189,12 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$textlen = $textlen - strlen( $paged_suffix ) - 1;
 					}
 				}
-				if ( ! empty( $parent_title ) ) $textlen = $textlen - strlen( $parent_title ) - 3;
-				if ( ! empty( $hashtags ) ) $textlen = $textlen - strlen( $hashtags ) - 1;
+				if ( ! empty( $parent_title ) ) 
+					$textlen = $textlen - strlen( $parent_title ) - 3;
+				if ( ! empty( $hashtags ) ) 
+					$textlen = $textlen - strlen( $hashtags ) - 1;
 				$title = $this->p->util->limit_text_length( $title, $textlen, $trailing );
-			} $title = $this->p->util->cleanup_html_tags( $title );
+			}
 
 			if ( ! empty( $parent_title ) ) $title .= ' ('.$parent_title.')';
 			if ( ! empty( $paged_suffix ) ) $title .= ' '.$paged_suffix;
