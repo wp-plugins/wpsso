@@ -54,39 +54,53 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 		}
 
 		// called from Tumblr, Pinterest, and Twitter classes
-		public function get_caption( $type = 'title', $length = 200, $use_post = true, $use_cache = true, $add_hashtags = true ) {
-			$this->p->debug->args( array( 'type' => $type, 'length' => $length, 'use_post' => $use_post, 'use_cache' => $use_cache, 'add_hashtags' => $add_hashtags ) );
-			switch( strtolower( $type ) ) {
-				case 'title' :
-					$caption = $this->get_title( $length, '...', 
-						$use_post, $use_cache, $add_hashtags );
+		public function get_caption( $type = 'title', $length = 200, $use_post = true, $use_cache = true, $add_hashtags = true, $encode = true ) {
+			$this->p->debug->args( array( 
+				'type' => $type, 
+				'length' => $length, 
+				'use_post' => $use_post, 
+				'use_cache' => $use_cache, 
+				'add_hashtags' => $add_hashtags,
+				'encode' => $encode ) );
+			$caption = '';
+			$separator = html_entity_decode( $this->p->options['og_title_sep'], ENT_QUOTES, get_bloginfo( 'charset' ) );
+
+			// request all values un-encoded, then encode once we have the complete caption text
+			switch ( strtolower( $type ) ) {
+				case 'title':
+					$caption = $this->get_title( $length, '...', $use_post, $use_cache, $add_hashtags, false );
 					break;
-				case 'excerpt' :
-					$caption = $this->get_description( $length, '...', 
-						$use_post, $use_cache, $add_hashtags );
+				case 'excerpt':
+					$caption = $this->get_description( $length, '...', $use_post, $use_cache, $add_hashtags, false );
 					break;
-				case 'both' :
-					$title = $this->get_title( null, null, $use_post, $use_cache, false );
-					$caption = $title.' '.$this->p->options['og_title_sep'].' '.
-						$this->get_description( $length - strlen( $title ) - 2, '...', 
-							$use_post, $use_cache, $add_hashtags );
-					break;
-				default :
-					$caption = '';
+				case 'both':
+					$prefix = $this->get_title( null, null, $use_post, $use_cache, false, false ).' '.$separator.' ';
+					$caption = $prefix.$this->get_description( $length - strlen( $prefix ), '...', $use_post, $use_cache, $add_hashtags, false );
 					break;
 			}
-			// title and description htmlentities already encoded
-			return apply_filters( $this->p->cf['lca'].'_caption', $caption, $type, $length, 
-				$use_post, $use_cache, $add_hashtags );
+
+			if ( $encode === true )
+				$caption = htmlentities( $caption, ENT_QUOTES, get_bloginfo( 'charset' ), false );	// double_encode = false
+
+			return apply_filters( $this->p->cf['lca'].'_caption', $caption, $type, $length, $use_post, $use_cache, $add_hashtags, $encode );
 		}
 
-		public function get_title( $textlen = 70, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = false ) {
-			$this->p->debug->args( array( 'textlen' => $textlen, 'trailing' => $trailing, 'use_post' => $use_post, 'use_cache' => $use_cache, 'add_hashtags' => $add_hashtags ) );
+		public function get_title( $textlen = 70, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = false, $encode = true ) {
+			$this->p->debug->args( array( 
+				'textlen' => $textlen, 
+				'trailing' => $trailing, 
+				'use_post' => $use_post, 
+				'use_cache' => $use_cache, 
+				'add_hashtags' => $add_hashtags,
+				'encode' => $encode ) );
 			$title = false;
 			$parent_title = '';
 			$paged_suffix = '';
 			$hashtags = '';
 			$post_id = 0;
+			$separator = $encode === true ? 
+				$this->p->options['og_title_sep'] : 	// option value is stored encoded
+				html_entity_decode( $this->p->options['og_title_sep'], ENT_QUOTES, get_bloginfo( 'charset' ) );
 
 			if ( is_singular() || $use_post !== false ) {
 				if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
@@ -123,7 +137,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				// $obj and $post_id are defined above, with the same test, so we should be good
 				if ( is_singular() || $use_post !== false ) {
 					if ( is_singular() ) {
-						$title = wp_title( $this->p->options['og_title_sep'], false, 'right' );
+						$title = wp_title( $separator, false, 'right' );
 						$this->p->debug->log( 'is_singular: wp_title() = "'.$title.'"' );
 					} elseif ( ! empty( $post_id ) ) {
 						$title = get_the_title( $post_id );
@@ -138,7 +152,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				} elseif ( $this->p->is_avail['seo']['*'] == true ) {
 
 					// use separator on right for compatibility with aioseo
-					$title = wp_title( $this->p->options['og_title_sep'], false, 'right' );
+					$title = wp_title( $separator, false, 'right' );
 					$this->p->debug->log( 'have seo: wp_title() = "'.$title.'"' );
 	
 				// category title, with category parents
@@ -146,14 +160,14 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 					$term = get_queried_object();
 					$title = $term->name;
-					$cat_parents = get_category_parents( $term->term_id, false, ' '.$this->p->options['og_title_sep'].' ', false );
+					$cat_parents = get_category_parents( $term->term_id, false, ' '.$separator.' ', false );
 					if ( is_wp_error( $cat_parents ) )
 						$this->p->debug->log( 'get_category_parents() returned WP_Error object' );
 					else {
 						$this->p->debug->log( 'get_category_parents() = "'.$cat_parents.'"' );
 						if ( ! empty( $cat_parents ) ) {
 							$title = $cat_parents;
-							$title = preg_replace( '/\.\.\. \\'.$this->p->options['og_title_sep'].' /', '... ', $title );
+							$title = preg_replace( '/\.\.\. \\'.$separator.' /', '... ', $title );
 						}
 					}
 	
@@ -164,7 +178,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					 *	category = the name of the category 
 					 *	author page = the public name of the user 
 					 */
-					$title = wp_title( $this->p->options['og_title_sep'], false, 'right' );
+					$title = wp_title( $separator, false, 'right' );
 					$this->p->debug->log( 'default: wp_title() = "'.$title.'"' );
 				}
 	
@@ -175,16 +189,16 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				}
 			}
 
-			$title = $this->p->util->cleanup_html_tags( $title );	// strip html tags before removing separator
-			$title = preg_replace( '/ \\'.$this->p->options['og_title_sep'].' *$/', '', $title );	// trim excess separator
+			$title = $this->p->util->cleanup_html_tags( $title );					// strip html tags before removing separator
+			$title = preg_replace( '/ \\'.$separator.' *$/', '', $title );	// trim excess separator
 
 			if ( $textlen > 0 ) {
 				// seo-like title modifications
 				if ( $this->p->is_avail['seo']['*'] === false ) {
 					$paged = get_query_var( 'paged' );
 					if ( $paged > 1 ) {
-						if ( ! empty( $this->p->options['og_title_sep'] ) )
-							$paged_suffix .= $this->p->options['og_title_sep'].' ';
+						if ( ! empty( $separator ) )
+							$paged_suffix .= $separator.' ';
 						$paged_suffix .= sprintf( 'Page %s', $paged );
 						$textlen = $textlen - strlen( $paged_suffix ) - 1;
 					}
@@ -196,17 +210,30 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				$title = $this->p->util->limit_text_length( $title, $textlen, $trailing );
 			}
 
-			if ( ! empty( $parent_title ) ) $title .= ' ('.$parent_title.')';
-			if ( ! empty( $paged_suffix ) ) $title .= ' '.$paged_suffix;
-			if ( ! empty( $hashtags ) ) $title .= ' '.$hashtags;
+			if ( ! empty( $parent_title ) ) 
+				$title .= ' ('.$parent_title.')';
 
-			$charset = get_bloginfo( 'charset' );
-			$title = htmlentities( $title, ENT_QUOTES, $charset, false );	// double_encode = false
+			if ( ! empty( $paged_suffix ) ) 
+				$title .= ' '.$paged_suffix;
+
+			if ( ! empty( $hashtags ) ) 
+				$title .= ' '.$hashtags;
+
+			if ( $encode === true )
+				$title = htmlentities( $title, ENT_QUOTES, get_bloginfo( 'charset' ), false );	// double_encode = false
+			else $title = html_entity_decode( $title, ENT_QUOTES, get_bloginfo( 'charset' ) );	// just in case
+
 			return apply_filters( $this->p->cf['lca'].'_title', $title );
 		}
 
-		public function get_description( $textlen = 156, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = true ) {
-			$this->p->debug->args( array( 'textlen' => $textlen, 'trailing' => $trailing, 'use_post' => $use_post, 'use_cache' => $use_cache, 'add_hashtags' => $add_hashtags ) );
+		public function get_description( $textlen = 156, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = true, $encode = true ) {
+			$this->p->debug->args( array( 
+				'textlen' => $textlen, 
+				'trailing' => $trailing, 
+				'use_post' => $use_post, 
+				'use_cache' => $use_cache, 
+				'add_hashtags' => $add_hashtags, 
+				'encode' => $encode ) );
 			$desc = false;
 			$hashtags = '';
 			$post_id = 0;
@@ -326,14 +353,18 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			if ( ! empty( $hashtags ) ) 
 				$desc .= ' '.$hashtags;
 
-			$charset = get_bloginfo( 'charset' );
-			$desc = htmlentities( $desc, ENT_QUOTES, $charset, false );	// double_encode = false
+			if ( $encode === true )
+				$desc = htmlentities( $desc, ENT_QUOTES, get_bloginfo( 'charset' ), false );	// double_encode = false
+			else $desc = html_entity_decode( $desc, ENT_QUOTES, get_bloginfo( 'charset' ) );	// just in case
+
 			$this->p->debug->log( 'pre-filter description = "'.$desc.'"' );
 			return apply_filters( $this->p->cf['lca'].'_description', $desc );
 		}
 
 		public function get_content( $use_post = true, $use_cache = true ) {
-			$this->p->debug->args( array( 'use_post' => $use_post, 'use_cache' => $use_cache ) );
+			$this->p->debug->args( array( 
+				'use_post' => $use_post, 
+				'use_cache' => $use_cache ) );
 			$content = false;
 
 			if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {

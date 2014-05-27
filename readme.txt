@@ -304,6 +304,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.4.10 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Added an $encode parameter to the SucomWebpage class get_caption(), get_title(), and get_description() methods.
+
 = Version 2.4.9 =
 
 * Bugfixes
@@ -319,8 +326,6 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* *None*
 
 = Version 2.4.7 =
-
-[See the complete Release Notes on Surnia Ulula](http://surniaulula.com/wpsso-v2-4-7-and-ngfb-v7-4-7/)
 
 * Bugfixes
 	* Fixed CSS for the Custom Settings metabox to re-enable on hover highlight for the 'Header Tags Preview' tab. 
@@ -414,6 +419,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Increased the default object cache expiry value from 3600 to 7200 seconds.
 
 == Upgrade Notice ==
+
+= 2.4.10 =
+
+Added an $encode parameter to the SucomWebpage class get_caption(), get_title(), and get_description() methods.
 
 = 2.4.9 =
 

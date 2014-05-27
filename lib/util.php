@@ -181,7 +181,6 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		public function sanitize_option_value( $key, $val, $def_val ) {
 			$option_type = apply_filters( $this->p->cf['lca'].'_option_type', false, $key );
 			$reset_msg = __( 'resetting the option to its default value.', WPSSO_TEXTDOM );
-			$charset = get_bloginfo( 'charset' );
 
 			// pre-filter most values to remove html
 			switch ( $option_type ) {
@@ -190,7 +189,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				default:
 					$val = stripslashes( $val );
 					$val = wp_filter_nohtml_kses( $val );
-					$val = htmlentities( $val, ENT_QUOTES, $charset, false );	// double_encode = false
+					$val = htmlentities( $val, ENT_QUOTES, get_bloginfo( 'charset' ), false );	// double_encode = false
 					break;
 			}
 
