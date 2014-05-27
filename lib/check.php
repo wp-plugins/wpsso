@@ -309,11 +309,11 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			 * Other Conflicting Plugins
 			 */
 
-			// NGFB Open Graph+
+			// NextGEN Facebook (NGFB)
 			if ( class_exists( 'Ngfb' ) || in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) ) {
                                 $this->p->debug->log( $conflict_log_prefix.'ngfbog plugin is active' );
                                 $this->p->notice->err( $conflict_err_prefix. 
-					sprintf( __( 'Please <a href="%s">deactivate the NGFB Open Graph+ plugin</a> to prevent duplicate and conflicting features.', WPSSO_TEXTDOM ), 
+					sprintf( __( 'Please <a href="%s">deactivate the NextGEN Facebook (NGFB) plugin</a> to prevent duplicate and conflicting features.', WPSSO_TEXTDOM ), 
 						get_admin_url( null, 'plugins.php' ) ) );
                         }
 
