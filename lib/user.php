@@ -12,14 +12,68 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 
 	class WpssoUser {
 
-		private $p;
+		protected $p;
+		protected $form;
+		protected $header_tags = array();
+		protected $post_info = array();
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
+			add_action( 'admin_init', array( &$this, 'add_metaboxes' ) );
+			add_action( 'show_user_profile', array( $this, 'show_metabox' ) );
+			add_action( 'edit_user_profile', array( $this, 'show_metabox' ) );
 			add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ) );
-			add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ) );
+			add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ) ); 
+
 			add_filter( 'user_contactmethods', array( &$this, 'add_contact_methods' ), 20, 1 );
+		}
+
+		public function add_metaboxes() {
+			if ( ! is_admin() )
+				return;
+
+			add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_usermeta' ), 'profile', 'normal', 'high' );
+		}
+
+		public function show_metabox( $user ) {
+			if ( ! current_user_can( 'edit_user', $user->ID ) )
+				return;
+
+			$screen = get_current_screen();
+			$page = $screen->id;
+
+			echo '<div id="poststuff">';
+			do_meta_boxes( 'profile', 'normal', $user );
+			echo '</div>';
+		}
+
+		public function show_usermeta( $user ) {
+			$opts = $this->get_options( $user->ID );
+			$def_opts = $this->get_defaults();
+			$screen = get_current_screen();
+			$this->post_info['ptn'] = $page = $screen->id;
+
+			$this->form = new SucomForm( $this->p, WPSSO_META_NAME, $opts, $def_opts );
+			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
+
+			$metabox = 'user';
+			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
+				'header' => 'Header Meta Tags' ) );
+
+			if ( empty( $this->p->is_avail['opengraph'] ) )
+				unset( $tabs['tags'] );
+
+			$rows = array();
+			foreach ( $tabs as $key => $title )
+				$rows[$key] = array_merge( $this->get_rows( $metabox, $key, $this->post_info ), 
+					apply_filters( $this->p->cf['lca'].'_'.$metabox.'_'.$key.'_rows', array(), $this->form, $this->post_info ) );
+			$this->p->util->do_tabs( $metabox, $tabs, $rows );
+		}
+
+		protected function get_rows( $metabox, $key, $post_info ) {
+			$rows = array();
+			return $rows;
 		}
 
 		public function add_contact_methods( $fields = array() ) { 
@@ -56,7 +110,6 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		public function sanitize_contact_methods( $user_id ) {
-
 			if ( ! current_user_can( 'edit_user', $user_id ) )
 				return;
 
@@ -253,11 +306,20 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			return $opts;
 		}
 
+		public function get_defaults( $idx = '' ) {
+			if ( ! empty( $idx ) ) return false;
+			else return array();
+		}
+
 		public function save_options( $opts = array(), $user_id = false ) {
 			$user_id = $user_id === false ? 
 				get_current_user_id() : $user_id;
 			update_user_option( $user_id, WPSSO_OPTIONS_NAME, 
 				array_unique( $opts ), true );
+		}
+
+		protected function get_nonce() {
+			return plugin_basename( __FILE__ );
 		}
 	}
 }

@@ -210,10 +210,9 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Installation ==
 
-= Installation and Setup =
+= Install and Uninstall =
 
 <ul>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/">A Setup Guide</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation-to/install-the-plugin/">Install the Plugin</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/integration/">Integration Notes</a>
 	<ul>
@@ -221,6 +220,12 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/migrate-from-ngfb/">Migrate from NGFB</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/uninstall-the-plugin/">Uninstall the Plugin</a></li>
+</ul>
+
+= Setup =
+
+<ul>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/">A Setup Guide</a></li>
 </ul>
 
 == Frequently Asked Questions ==

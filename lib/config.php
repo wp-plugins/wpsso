@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.4.10',		// plugin version
+			'version' => '2.5.0dev1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -91,7 +91,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '278',		// increment when changing default options
+				'version' => '279',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -237,6 +237,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_wistia_api' => 1,
 					'plugin_youtube_api' => 1,
 					'plugin_cf_vid_url' => '_format_video_embed',
+					'plugin_add_to_user' => 1,
 					'plugin_add_to_post' => 1,
 					'plugin_add_to_page' => 1,
 					'plugin_add_to_attachment' => 1,

@@ -61,7 +61,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
 							break;
 						case 'tooltip-side-custom-post-meta':
-							$text = 'The Custom Post Meta feature adds an '.$this->p->cf['menu'].' Custom Settings metabox to the Post and Page editing pages.
+							$text = 'The Custom Post Meta feature adds a Social Settings metabox to the Post and Page editing pages.
 							Custom values van be entered for Open Graph, Rich Pin, and Twitter Card meta tags, along with custom social sharing
 							text and meta tag validation tools.';
 							break;
@@ -444,25 +444,25 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							images that are much too small for some social websites may be included in your meta tags.';
 							break;
 						case 'tooltip-plugin_embedded_media':
-							$text = 'Check the Post and Page content, along with the Custom Settings, for embedded media URLs 
+							$text = 'Check the Post and Page content, along with the custom Social Settings, for embedded media URLs 
 							from supported media providers (Youtube, Wistia, etc.). If a supported URL is found, an API connection 
 							to the provider will be made to retrieve information about the media (preview image, flash player url,
 							oembed player url, video width / height, etc.).';
 							break;
 						/*
-						 * 'Custom Settings' settings
+						 * 'Social Settings' settings
 						 */
 						case 'tooltip-plugin_add_to':
-							$text = 'The Custom Settings metabox, which allows you to enter custom Open Graph values (among other options), 
-							is available on the Posts, Pages, Media, and Product admin pages by default. 
+							$text = 'The Social Settings metabox, which allows you to enter custom Open Graph values (among other options), 
+							is available on the User, Posts, Pages, Media, and Product admin pages by default. 
 							If your theme (or another plugin) supports additional custom post types, and you would like to 
-							include the Custom Settings metabox on their admin pages, check the appropriate option(s) here.';
+							include the Social Settings metabox on their admin pages, check the appropriate option(s) here.';
 							break;
 						case 'tooltip-plugin_cf_vid_url':
-							$text = 'If your theme or another plugin provides a custom field for embedded video URLs, 
+							$text = 'If your theme (or another plugin) provides a custom field for embedded video URLs, 
 							you may enter its custom field name (aka, the "post meta option name") here.
-							If a custom field matching that name is found, it\'s value will be used for the Video URL in the '.
-							$this->p->cf['menu'].' Custom Settings for Posts and Pages. 
+							If a custom field matching that name is found, it\'s value will be used for the Video URL in the
+							Social Settings metabox for Posts and Pages. 
 							The default value is \''.$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'\'.';
 							break;
 						/*

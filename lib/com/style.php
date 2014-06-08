@@ -29,6 +29,8 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 			wp_register_style( 'sucom_metabox_tabs', $url_path.'css/com/metabox-tabs.min.css', false, $this->p->cf['version'] );
 
 			switch ( $hook ) {
+				case 'user-edit.php' :
+				case 'profile.php' :
 				case 'post.php' :
 				case 'post-new.php' :
 					wp_enqueue_style( 'sucom_table_setting' );

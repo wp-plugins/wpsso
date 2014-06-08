@@ -45,7 +45,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 
 			if ( ! empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ) {
 				// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-				add_meta_box( WPSSO_META_NAME, $this->p->cf['menu'].' Custom Settings', 
+				add_meta_box( WPSSO_META_NAME, 'Social Settings', 
 					array( &$this, 'show_metabox_postmeta' ), $post_type->name, 'advanced', 'high' );
 			}
 		}
@@ -75,6 +75,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			$post_type = get_post_type_object( $post->post_type );	// since 3.0
 			$this->post_info['ptn'] = ucfirst( $post_type->name );
 			$this->post_info['id'] = $post->ID;
+
 			$this->form = new SucomForm( $this->p, WPSSO_META_NAME, $opts, $def_opts );
 			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
 

@@ -62,14 +62,15 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 		}
 
 		public function filter_plugin_custom_rows( $rows, $form ) {
-			$checkboxes = '';
+			$checkboxes = '<p>'.$form->get_fake_checkbox( 'plugin_add_to_user' ).' User Profile</p>';
+
 			foreach ( $this->p->util->get_post_types( 'plugin' ) as $post_type )
 				$checkboxes .= '<p>'.$form->get_fake_checkbox( 'plugin_add_to_'.$post_type->name ).' '.
 					$post_type->label.' '.( empty( $post_type->description ) ? '' : '('.$post_type->description.')' ).'</p>';
 
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
-			$rows[] = $this->p->util->th( 'Show Custom Settings on', null, 'plugin_add_to' ).
+			$rows[] = $this->p->util->th( 'Show Social Settings on', null, 'plugin_add_to' ).
 			'<td class="blank">'.$checkboxes.'</td>';
 			
 			$rows[] = $this->p->util->th( 'Video URL Custom Field', null, 'plugin_cf_vid_url' ).
