@@ -468,4 +468,3 @@ Fixed a potential issue with update filter hooks, includes a few minor changes t
 = 2.4.0 =
 
 Fixed the 'twitter:title' value in admin interface, fixed missing Default Image use for Twitter Cards, added new default video options, added license use status (Pro version).
-
