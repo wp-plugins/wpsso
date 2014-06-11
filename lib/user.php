@@ -16,6 +16,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		protected $form;
 		protected $header_tags = array();
 		protected $post_info = array();
+		protected $user_id = 0;
+		protected $author = '';
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
@@ -24,29 +26,89 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		protected function add_actions() {
-		}
+			add_filter( 'user_contactmethods', array( &$this, 'add_contact_methods' ), 20, 1 );
 
-		public function add_metaboxes() {
+			// everything bellow is for the admin interface
+
 			if ( ! is_admin() )
 				return;
 
-			add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_usermeta' ), 'profile', 'normal', 'high' );
+			if ( $this->p->is_avail['opengraph'] )
+				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
+
+			add_action( 'admin_init', array( &$this, 'add_metaboxes' ) );
+			add_action( 'show_user_profile', array( &$this, 'show_metabox' ) );
+			add_action( 'edit_user_profile', array( &$this, 'show_metabox' ) );
+			add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ) );
+			add_action( 'edit_user_profile_update', array( &$this, 'save_options' ) );
+			add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ) ); 
+			add_action( 'personal_options_update', array( &$this, 'save_options' ) ); 
+
+			$this->p->util->add_plugin_filters( $this, array( 
+				'title' => 1,
+				'description_seed' => 1,
+				'sharing_url' => 1,
+			) );
+		}
+
+		public function filter_title( $title ) {
+			return $this->get_author_info( 'title', $title );
+		}
+
+		public function filter_description_seed( $desc ) {
+			return $this->get_author_info( 'desc' );
+		}
+
+		public function filter_sharing_url( $url ) {
+			return $this->get_author_info( 'url' );
+		}
+
+		private function get_author_info( $return, $value = '' ) {
+			$screen = get_current_screen();
+			$page = $screen->id;
+			switch ( $page ) {
+				case 'user-edit':
+				case 'profile':
+					$user_id = empty( $_GET['user_id'] ) ? get_current_user_id() : $_GET['user_id'];
+					$author = get_userdata( $user_id );
+					switch ( $return ) {
+						case 'title':
+							$separator = html_entity_decode( $this->p->options['og_title_sep'], ENT_QUOTES, get_bloginfo( 'charset' ) );
+							return $author->display_name.' '.$separator.' '.$value;
+							break;
+						case 'desc':
+						case 'description':
+							return empty( $author->description ) ? sprintf( 'Authored by %s', $author->display_name ) : $author->description;
+							break;
+						case 'url':
+							return get_author_posts_url( $user_id );
+							break;
+					}
+					break;
+			}
+			return $value;
+		}
+
+		public function add_metaboxes() {
+			add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_usermeta' ), 'user', 'normal', 'high' );
 		}
 
 		public function set_header_tags() {
 			$screen = get_current_screen();
 			$page = $screen->id;
-
-			if ( $this->p->is_avail['opengraph'] && empty( $this->header_tags ) && 
-				( $page === 'user-edit' || $page === 'profile' ) ) {
-
-				$this->header_tags = $this->p->head->get_header_array( false );
-				$this->p->debug->show_html( null, 'debug log' );
-				foreach ( $this->header_tags as $tag ) {
-					if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {
-						$this->post_info['og_type'] = $tag[5];
+			if ( $this->p->is_avail['opengraph'] && empty( $this->header_tags ) ) {
+				switch ( $page ) {
+					case 'user-edit':
+					case 'profile':
+						$this->header_tags = $this->p->head->get_header_array( false );
+						$this->p->debug->show_html( null, 'debug log' );
+						foreach ( $this->header_tags as $tag ) {
+							if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {
+								$this->post_info['og_type'] = $tag[5];
+								break;
+							}
+						}
 						break;
-					}
 				}
 			}
 		}
@@ -55,11 +117,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			if ( ! current_user_can( 'edit_user', $user->ID ) )
 				return;
 
-			$screen = get_current_screen();
-			$page = $screen->id;
-
 			echo '<div id="poststuff">';
-			do_meta_boxes( 'profile', 'normal', $user );
+			do_meta_boxes( 'user', 'normal', $user );
 			echo '</div>';
 		}
 
@@ -178,7 +237,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		public function get_article_author( $author_id ) {
 			$ret = array();
 			if ( ! empty( $author_id ) ) {
-				$ret[] = $this->get_author_url( $author_id, $this->p->options['og_author_field'] );
+				$ret[] = $this->get_author_website_url( $author_id, $this->p->options['og_author_field'] );
 
 				// add the author's name if this is the Pinterest crawler
 				if ( SucomUtil::crawler_name( 'pinterest' ) === true )
@@ -212,7 +271,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		// called from head and opengraph classes
-		public function get_author_url( $author_id, $field_id = 'url' ) {
+		public function get_author_website_url( $author_id, $field_id = 'url' ) {
 			$url = '';
 			switch ( $field_id ) {
 				case 'none':
@@ -333,6 +392,10 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		public function get_defaults( $idx = '' ) {
 			if ( ! empty( $idx ) ) return false;
 			else return array();
+		}
+
+		public function save_options( $user_id = false ) {
+			return;
 		}
 
 		protected function get_nonce() {

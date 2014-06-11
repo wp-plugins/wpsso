@@ -252,7 +252,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					( ! empty( $size_info['crop'] ) && ( ! $is_sufficient_width || ! $is_sufficient_height ) ) ) {
 
 					$size_too_small_text = ' too small for '.$size_name.' dimensions ('.$size_info['width'].'x'.$size_info['height'].
-						( empty( $size_info['crop'] ) ? '' : ' cropped' ).'). ';
+						( empty( $size_info['crop'] ) ? '' : ' cropped' ).')';
 
 					$img_meta = wp_get_attachment_metadata( $pid );
 
@@ -265,7 +265,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					$this->p->debug->log( 'exiting early: '.$rejected_text );
 					if ( is_admin() )
 						$this->p->notice->err( 'Media Library '.$rejected_text.
-							' Upload a larger image, or adjust the '.$size_name.' image dimensions setting.');
+							'. Upload a larger image, or adjust the '.$size_name.' image dimensions setting.');
 					return $ret_empty;
 
 				} else $this->p->debug->log( 'returned image dimensions ('.$img_width.'x'.$img_height.') are sufficient' );

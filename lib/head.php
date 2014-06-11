@@ -163,7 +163,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 */
 			$link_rel = array();
 			if ( ! empty( $author_id ) )
-				$link_rel['author'] = $this->p->addons['util']['user']->get_author_url( $author_id, $this->p->options['link_author_field'] );
+				$link_rel['author'] = $this->p->addons['util']['user']->get_author_website_url( $author_id, $this->p->options['link_author_field'] );
 
 			if ( ! empty( $this->p->options['link_publisher_url'] ) )
 				$link_rel['publisher'] = $this->p->options['link_publisher_url'];

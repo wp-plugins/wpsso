@@ -237,6 +237,8 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			$desc = false;
 			$hashtags = '';
 			$post_id = 0;
+			$screen = '';
+			$page = ''; 
 
 			if ( is_singular() || $use_post !== false ) {
 				if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
@@ -329,7 +331,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			// if there's still no description, then fallback to a generic version
 			if ( empty( $desc ) ) {
-				if ( is_admin() && $obj->post_status == 'auto-draft' )
+				if ( is_admin() && ! empty( $obj->post_status ) && $obj->post_status == 'auto-draft' )
 					$this->p->debug->log( 'post_status is auto-draft - using empty description' );
 				else {
 					// pass options array to allow fallback if locale option does not exist

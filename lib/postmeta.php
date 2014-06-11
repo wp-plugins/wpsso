@@ -30,6 +30,20 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		}
 
 		protected function add_actions() {
+
+			// everything bellow is for the admin interface
+
+			if ( ! is_admin() )
+				return;
+
+			if ( $this->p->is_avail['opengraph'] )
+				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
+
+			add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
+			add_action( 'save_post', array( &$this, 'save_options' ), 10 );
+			add_action( 'edit_attachment', array( &$this, 'save_options' ), 10 );
+			add_action( 'save_post', array( &$this, 'flush_cache' ), 20 );
+			add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 20 );
 		}
 
 		public function add_metaboxes() {
@@ -186,6 +200,10 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		public function get_defaults( $idx = '' ) {
 			if ( ! empty( $idx ) ) return false;
 			else return array();
+		}
+
+		public function save_options( $post_id ) {
+			return;
 		}
 
 		public function flush_cache( $post_id ) {
