@@ -220,7 +220,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		private function author_contact_fields() {
 			return array_merge( array( 'none' => '' ), 	// make sure [none] is first
-				$this->p->user->add_contact_methods( array( 
+				$this->p->addons['util']['user']->add_contact_methods( array( 
 					'author' => 'Author Index', 
 					'url' => 'Website'
 				) )

@@ -223,7 +223,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		public function load_page() {
 			wp_enqueue_script( 'postbox' );
 			$upload_dir = wp_upload_dir();	// returns assoc array with path info
-			$user_opts = $this->p->user->get_options();
+			$user_opts = $this->p->addons['util']['user']->get_options();
 
 			if ( ! empty( $_GET['action'] ) ) {
 
@@ -269,15 +269,15 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					array( &$this, 'show_metabox_purchase' ), $this->pagehook, 'side' );
 				add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_purchase', 
 					array( &$this, 'add_class_postbox_highlight_side' ) );
-				$this->p->user->reset_metabox_prefs( $this->pagehook, array( 'purchase' ), null, 'side', true );
-				$this->p->user->reset_metabox_prefs( $this->pagehook, array( 'rating' ), 'closed', 'side', true );
+				$this->p->addons['util']['user']->reset_metabox_prefs( $this->pagehook, array( 'purchase' ), null, 'side', true );
+				$this->p->addons['util']['user']->reset_metabox_prefs( $this->pagehook, array( 'rating' ), 'closed', 'side', true );
 			}
 
 			add_meta_box( $this->pagehook.'_rating', __( 'Help Other WordPress Users', WPSSO_TEXTDOM ), 
 				array( &$this, 'show_metabox_rating' ), $this->pagehook, 'side' );
 			add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_rating', 
 				array( &$this, 'add_class_postbox_highlight_side' ) );
-			$this->p->user->reset_metabox_prefs( $this->pagehook, array( 'rating' ), 'closed', 'side' );
+			$this->p->addons['util']['user']->reset_metabox_prefs( $this->pagehook, array( 'rating' ), 'closed', 'side' );
 
 			add_meta_box( $this->pagehook.'_info', __( 'Version Information', WPSSO_TEXTDOM ), 
 				array( &$this, 'show_metabox_info' ), $this->pagehook, 'side' );

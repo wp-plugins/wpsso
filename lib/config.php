@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.5.0dev1',		// plugin version
+			'version' => '2.5.0dev2',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -43,9 +43,11 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'general' => 'General',
 						'advanced' => 'Advanced',
 						'postmeta' => 'Custom Post Meta',
+						'user' => 'Custom User Meta',
 					),
 					'util' => array(
 						'postmeta' => 'Custom Post Meta',
+						'user' => 'Custom User Meta',
 					),
 				),
 				'pro' => array(
@@ -53,6 +55,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'general' => 'General Settings',
 						'advanced' => 'Advanced Settings',
 						'postmeta' => 'Custom Post Meta',
+						'user' => 'Custom User Meta',
 					),
 					'ecom' => array(
 						'edd' => 'Easy Digital Downloads',
@@ -87,6 +90,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'util' => array(
 						'language' => 'Publisher Language',
 						'postmeta' => 'Custom Post Meta',
+						'user' => 'Custom User Meta',
 					),
 				),
 			),
@@ -427,8 +431,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			require_once( $plugin_dir.'lib/check.php' );
 			require_once( $plugin_dir.'lib/util.php' );
 			require_once( $plugin_dir.'lib/options.php' );
-			require_once( $plugin_dir.'lib/user.php' );
 			require_once( $plugin_dir.'lib/postmeta.php' );
+			require_once( $plugin_dir.'lib/user.php' );
 			require_once( $plugin_dir.'lib/media.php' );
 			require_once( $plugin_dir.'lib/head.php' );
 

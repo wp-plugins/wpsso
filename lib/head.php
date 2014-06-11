@@ -146,7 +146,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			if ( ! isset( $meta_og['author'] ) &&
 				isset( $this->p->options['seo_author_name'] ) && 
 				$this->p->options['seo_author_name'] !== 'none' )
-					$meta_og['author'] = $this->p->user->get_author_name( $author_id, $this->p->options['seo_author_name'] );
+					$meta_og['author'] = $this->p->addons['util']['user']->get_author_name( $author_id, $this->p->options['seo_author_name'] );
 
 			if ( ! isset( $meta_og['description'] ) ) {
 				if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
@@ -163,7 +163,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 */
 			$link_rel = array();
 			if ( ! empty( $author_id ) )
-				$link_rel['author'] = $this->p->user->get_author_url( $author_id, $this->p->options['link_author_field'] );
+				$link_rel['author'] = $this->p->addons['util']['user']->get_author_url( $author_id, $this->p->options['link_author_field'] );
 
 			if ( ! empty( $this->p->options['link_publisher_url'] ) )
 				$link_rel['publisher'] = $this->p->options['link_publisher_url'];

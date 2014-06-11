@@ -20,13 +20,10 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
-			add_action( 'admin_init', array( &$this, 'add_metaboxes' ) );
-			add_action( 'show_user_profile', array( $this, 'show_metabox' ) );
-			add_action( 'edit_user_profile', array( $this, 'show_metabox' ) );
-			add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ) );
-			add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ) ); 
+			$this->add_actions();
+		}
 
-			add_filter( 'user_contactmethods', array( &$this, 'add_contact_methods' ), 20, 1 );
+		protected function add_actions() {
 		}
 
 		public function add_metaboxes() {
@@ -34,6 +31,24 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				return;
 
 			add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_usermeta' ), 'profile', 'normal', 'high' );
+		}
+
+		public function set_header_tags() {
+			$screen = get_current_screen();
+			$page = $screen->id;
+
+			if ( $this->p->is_avail['opengraph'] && empty( $this->header_tags ) && 
+				( $page === 'user-edit' || $page === 'profile' ) ) {
+
+				$this->header_tags = $this->p->head->get_header_array( false );
+				$this->p->debug->show_html( null, 'debug log' );
+				foreach ( $this->header_tags as $tag ) {
+					if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {
+						$this->post_info['og_type'] = $tag[5];
+						break;
+					}
+				}
+			}
 		}
 
 		public function show_metabox( $user ) {
@@ -49,8 +64,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		public function show_usermeta( $user ) {
-			$opts = $this->get_options( $user->ID );
 			$def_opts = $this->get_defaults();
+			$opts = $this->get_options( $user->ID );
 			$screen = get_current_screen();
 			$this->post_info['ptn'] = $page = $screen->id;
 
@@ -59,7 +74,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 
 			$metabox = 'user';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
-				'header' => 'Header Meta Tags' ) );
+				'header' => 'Header Meta Tags',
+				'tags' => 'Header Tags Preview' ) );
 
 			if ( empty( $this->p->is_avail['opengraph'] ) )
 				unset( $tabs['tags'] );
@@ -73,6 +89,18 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 
 		protected function get_rows( $metabox, $key, $post_info ) {
 			$rows = array();
+			switch ( $metabox.'-'.$key ) {
+				case 'user-tags':	
+					foreach ( $this->header_tags as $m ) {
+						$rows[] = '<th class="xshort">'.$m[1].'</th>'.
+							'<th class="xshort">'.$m[2].'</th>'.
+							'<td class="short">'.$m[3].'</td>'.
+							'<th class="xshort">'.$m[4].'</th>'.
+							'<td class="wide">'.( strpos( $m[5], 'http' ) === 0 ? '<a href="'.$m[5].'">'.$m[5].'</a>' : $m[5] ).'</td>';
+					}
+					sort( $rows );
+					break; 
+			}
 			return $rows;
 		}
 
@@ -297,13 +325,9 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			}
 		}
 
-		public function get_options( $user_id = false ) {
-			$user_id = $user_id === false ? 
-				get_current_user_id() : $user_id;
-			$opts = get_user_option( WPSSO_OPTIONS_NAME, $user_id );
-			if ( ! is_array( $opts ) )
-				$opts = array();
-			return $opts;
+		public function get_options( $user_id = false, $idx = '' ) {
+			if ( ! empty( $idx ) ) return false;
+			else return array();
 		}
 
 		public function get_defaults( $idx = '' ) {
@@ -311,16 +335,10 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			else return array();
 		}
 
-		public function save_options( $opts = array(), $user_id = false ) {
-			$user_id = $user_id === false ? 
-				get_current_user_id() : $user_id;
-			update_user_option( $user_id, WPSSO_OPTIONS_NAME, 
-				array_unique( $opts ), true );
-		}
-
 		protected function get_nonce() {
 			return plugin_basename( __FILE__ );
 		}
 	}
 }
+
 ?>

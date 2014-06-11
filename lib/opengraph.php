@@ -101,7 +101,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 	
 					$og['og:type'] = 'article';
 					if ( ! isset( $og['article:author'] ) )
-						$og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
+						$og['article:author'] = $this->p->addons['util']['user']->get_article_author( $this->p->options['og_def_author_id'] );
 
 				// default for everything else is 'website'
 				} else $og['og:type'] = 'website';
@@ -113,9 +113,9 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				if ( ! isset( $og['article:author'] ) ) {
 					if ( is_singular() || $use_post !== false ) {
 						if ( ! empty( $obj->post_author ) )
-							$og['article:author'] = $this->p->user->get_article_author( $obj->post_author );
+							$og['article:author'] = $this->p->addons['util']['user']->get_article_author( $obj->post_author );
 						elseif ( ! empty( $this->p->options['og_def_author_id'] ) )
-							$og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
+							$og['article:author'] = $this->p->addons['util']['user']->get_article_author( $this->p->options['og_def_author_id'] );
 					}
 				}
 
