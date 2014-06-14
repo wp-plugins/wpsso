@@ -177,9 +177,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_checkbox( 'og_def_author_on_search' ).' defines search webpages as articles</td>';
 
 					$rows[] = $this->p->util->th( 'Gravatar Images for Author Indexes', null, 'og_author_gravatar' ).
-					'<td>'.( $this->p->check->is_aop() ? 
-						$this->form->get_checkbox( 'plugin_gravatar_api' ) : 
-						$this->form->get_fake_checkbox( 'plugin_gravatar_api' ) ).'</td>';
+					( $this->p->check->is_aop() ? 
+						'<td>'.$this->form->get_checkbox( 'plugin_gravatar_api' ) : 
+						'<td class="blank">'.$this->form->get_fake_checkbox( 'plugin_gravatar_api' ) ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Article Publisher Page URL', 'highlight', 'og_publisher_url' ).
 					'<td>'.$this->form->get_input( 'og_publisher_url', 'wide' ).'</td>';

@@ -49,7 +49,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
-		public function get_fake_checkbox( $name, $check = array( '1', '0' ), $class = '', $id = '' ) {
+		public function get_fake_checkbox( $name, $check = array( 1, 0 ), $class = '', $id = '' ) {
 			return $this->get_checkbox( $name, $check, $class, $id, true );
 		}
 
