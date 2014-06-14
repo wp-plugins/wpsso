@@ -310,6 +310,25 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.5.0rc2 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Renamed the 'Custom Settings' metabox to 'Social Settings'.
+	* Renamed the `$this->p->user` object variable to `$this->p->addons['util']['user']`.
+	* Added an `WpssoUtilUser` addon class that extends `WpssoUser`.
+	* Added an 'Author Gravatar' addon to include Gravatar images in author index pages (Pro version).
+	* Added a 'Gravatar Images for Author Indexes' option on the General settings page.
+	* Added a 'Force Default Image on Author Index' option on the General settings page.
+	* Added a 'Force Default Video on Author Index' option on the General settings page.
+	* Added a 'Show Social Settings on: User Profile' option on the Advanced settings page.
+	* Added a `get_author_image()` method to the `WpssoMedia` class.
+	* Added a `get_author_object()` method to the `SucomUtil` class.
+	* Changed several `is_author()` checks to include support for admin side pages.
+	* Added the `lib/gpl/admin/user.php` and `lib/gpl/util/user.php` library files.
+	* Added the `lib/pro/admin/user.php`, `lib/pro/util/user.php`, and `lib/pro/media/gravatar.php` library files (Pro version).
+
 = Version 2.4.10 =
 
 * Bugfixes
