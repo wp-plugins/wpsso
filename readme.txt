@@ -61,6 +61,7 @@ Improve the Appearance, Ranking, and Social Engagement of your social shares on 
 		* WordPress SEO by Yoast
 		* WP e-Commerce
 	* Service APIs
+		* Gravatar Images
 		* Slideshare Presentations
 		* Vimeo Videos
 		* Wistia Videos
