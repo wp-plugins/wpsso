@@ -16,8 +16,6 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		protected $form;
 		protected $header_tags = array();
 		protected $post_info = array();
-		protected $user_id = 0;
-		protected $author = '';
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
@@ -28,65 +26,18 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		protected function add_actions() {
 			add_filter( 'user_contactmethods', array( &$this, 'add_contact_methods' ), 20, 1 );
 
-			// everything bellow is for the admin interface
+			if ( is_admin() ) {
+				if ( $this->p->is_avail['opengraph'] )
+					add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
 
-			if ( ! is_admin() )
-				return;
-
-			if ( $this->p->is_avail['opengraph'] )
-				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
-
-			add_action( 'admin_init', array( &$this, 'add_metaboxes' ) );
-			add_action( 'show_user_profile', array( &$this, 'show_metabox' ) );
-			add_action( 'edit_user_profile', array( &$this, 'show_metabox' ) );
-			add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ) );
-			add_action( 'edit_user_profile_update', array( &$this, 'save_options' ) );
-			add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ) ); 
-			add_action( 'personal_options_update', array( &$this, 'save_options' ) ); 
-
-			$this->p->util->add_plugin_filters( $this, array( 
-				'title' => 1,
-				'description_seed' => 1,
-				'sharing_url' => 1,
-			) );
-		}
-
-		public function filter_title( $title ) {
-			return $this->get_author_info( 'title', $title );
-		}
-
-		public function filter_description_seed( $desc ) {
-			return $this->get_author_info( 'desc' );
-		}
-
-		public function filter_sharing_url( $url ) {
-			return $this->get_author_info( 'url' );
-		}
-
-		private function get_author_info( $return, $value = '' ) {
-			$screen = get_current_screen();
-			$page = $screen->id;
-			switch ( $page ) {
-				case 'user-edit':
-				case 'profile':
-					$user_id = empty( $_GET['user_id'] ) ? get_current_user_id() : $_GET['user_id'];
-					$author = get_userdata( $user_id );
-					switch ( $return ) {
-						case 'title':
-							$separator = html_entity_decode( $this->p->options['og_title_sep'], ENT_QUOTES, get_bloginfo( 'charset' ) );
-							return $author->display_name.' '.$separator.' '.$value;
-							break;
-						case 'desc':
-						case 'description':
-							return empty( $author->description ) ? sprintf( 'Authored by %s', $author->display_name ) : $author->description;
-							break;
-						case 'url':
-							return get_author_posts_url( $user_id );
-							break;
-					}
-					break;
+				add_action( 'admin_init', array( &$this, 'add_metaboxes' ) );
+				add_action( 'show_user_profile', array( &$this, 'show_metabox' ) );
+				add_action( 'edit_user_profile', array( &$this, 'show_metabox' ) );
+				add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ) );
+				add_action( 'edit_user_profile_update', array( &$this, 'save_options' ) );
+				add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ) ); 
+				add_action( 'personal_options_update', array( &$this, 'save_options' ) ); 
 			}
-			return $value;
 		}
 
 		public function add_metaboxes() {
@@ -126,7 +77,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			$def_opts = $this->get_defaults();
 			$opts = $this->get_options( $user->ID );
 			$screen = get_current_screen();
-			$this->post_info['ptn'] = $page = $screen->id;
+			$this->post_info['ptn'] = $page = ucfirst( $screen->id );
+			$this->post_info['id'] = false;
 
 			$this->form = new SucomForm( $this->p, WPSSO_META_NAME, $opts, $def_opts );
 			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
@@ -134,6 +86,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			$metabox = 'user';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
 				'header' => 'Header Meta Tags',
+				'tools' => 'Validation Tools',
 				'tags' => 'Header Tags Preview' ) );
 
 			if ( empty( $this->p->is_avail['opengraph'] ) )
@@ -146,9 +99,13 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			$this->p->util->do_tabs( $metabox, $tabs, $rows );
 		}
 
-		protected function get_rows( $metabox, $key, $post_info ) {
+		protected function get_rows( $metabox, $key, &$post_info ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
+				case 'user-tools':
+					$rows = $this->p->addons['util']['postmeta']->get_rows_validation_tools( $this->form, $post_info );
+					break; 
+
 				case 'user-tags':	
 					foreach ( $this->header_tags as $m ) {
 						$rows[] = '<th class="xshort">'.$m[1].'</th>'.

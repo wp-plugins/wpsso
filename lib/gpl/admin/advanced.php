@@ -44,10 +44,10 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_widgets' ).'</td>';
 			}
 
-			$rows[] =  $this->p->util->th( 'Auto-Resize Images', null, 'plugin_auto_img_resize' ).
+			$rows[] =  $this->p->util->th( 'Auto-Resize Media Images', null, 'plugin_auto_img_resize' ).
 			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_auto_img_resize' ).'</td>';
 
-			$rows[] =  $this->p->util->th( 'Ignore Small Images', null, 'plugin_ignore_small_img' ).
+			$rows[] =  $this->p->util->th( 'Ignore Small Images in Content', null, 'plugin_ignore_small_img' ).
 			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_ignore_small_img' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Check for Embedded Media', null, 'plugin_embedded_media' ).

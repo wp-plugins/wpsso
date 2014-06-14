@@ -130,10 +130,15 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					$author_id = $obj->post_author;
 				elseif ( ! empty( $this->p->options['seo_def_author_id'] ) )
 					$author_id = $this->p->options['seo_def_author_id'];
+
+			} elseif ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
+				$author = $this->p->util->get_author_object();
+				$author_id = $author->ID;
+
 			} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
 				! is_search() && ! empty( $this->p->options['seo_def_author_on_index'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) || 
-					( is_search() && ! empty( $this->p->options['seo_def_author_on_search'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) )
-						$author_id = $this->p->options['seo_def_author_id'];
+				( is_search() && ! empty( $this->p->options['seo_def_author_on_search'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) )
+					$author_id = $this->p->options['seo_def_author_id'];
 
 			/**
 			 * Open Graph, Twitter Card, and SEO meta tags
@@ -148,14 +153,10 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->p->options['seo_author_name'] !== 'none' )
 					$meta_og['author'] = $this->p->addons['util']['user']->get_author_name( $author_id, $this->p->options['seo_author_name'] );
 
-			if ( ! isset( $meta_og['description'] ) ) {
-				if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
-					$meta_og['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'seo_desc' );
-
-				if ( empty( $meta_og['description'] ) )
-					$meta_og['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...',
-						$use_post, true, false );	// use_post = false, use_cache = true, add_hashtags = false
-			}
+			if ( ! isset( $meta_og['description'] ) )
+				$meta_og['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...',
+					$use_post, true, false, true, 'seo_desc' );	// add_hashtags = false
+		
 			$meta_og = apply_filters( $this->p->cf['lca'].'_meta_og', $meta_og );
 
 			/**

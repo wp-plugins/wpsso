@@ -109,45 +109,14 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			$this->p->util->do_tabs( $metabox, $tabs, $rows );
 		}
 
-		protected function get_rows( $metabox, $key, $post_info ) {
+		protected function get_rows( $metabox, $key, &$post_info ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
 				case 'meta-tools':
 					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
-
-						$rows[] = $this->p->util->th( 'Facebook Debugger' ).'<td class="validate"><p>Refresh the Facebook cache and 
-						validate the Open Graph / Rich Pin meta tags for this '.$post_info['ptn'].'. Facebook, Pinterest, LinkedIn, Google+,
-						and most social websites use these Open Graph meta tags. The Facebook Debugger remains the most stable and reliable 
-						method to verify Open Graph meta tags.</p>
-						<p><strong>Please note that you may have to click the "Debug" button once or twice to refresh Facebook\'s cache</strong>.</p></td>
-
-						<td class="validate">'.$this->form->get_button( 'Validate Open Graph', 'button-secondary', null, 
-						'https://developers.facebook.com/tools/debug/og/object?q='.urlencode( get_permalink( $post_info['id'] ) ), true ).'</td>';
-			
-						$rows[] = $this->p->util->th( 'Google Structured Data Testing Tool' ).'<td class="validate"><p>Verify that Google can 
-						correctly parse your structured data markup (meta tags, Schema, and Microdata markup) and display it in search results.
-						Most of the information extracted from the meta tags can be found in the rdfa-node / property section of the results.</p></td>
-
-						<td class="validate">'.$this->form->get_button( 'Validate Data Markup', 'button-secondary', null, 
-						'http://www.google.com/webmasters/tools/richsnippets?q='.urlencode( get_permalink( $post_info['id'] ) ), true ).'</td>';
-			
-						$rows[] = $this->p->util->th( 'Pinterest Rich Pin Validator' ).'<td class="validate"><p>Validate the Open Graph / Rich Pin 
-						meta tags, and apply to have them displayed on Pinterest.</p></td>
-
-						<td class="validate">'.$this->form->get_button( 'Validate Rich Pins', 'button-secondary', null, 
-						'http://developers.pinterest.com/rich_pins/validator/?link='.urlencode( get_permalink( $post_info['id'] ) ), true ).'</td>';
-			
-						$rows[] = $this->p->util->th( 'Twitter Card Validator' ).'<td class="validate"><p>The Twitter Card Validator does not 
-						accept query arguments &ndash; copy-paste the following sharing URL into the validation input field. 
-						To enable the display of Twitter Card information in tweets, you must submit a URL for each type of card you provide
-						(Summary, Summary with Large Image, Photo, Gallery, Player, and/or Product card).</p>'.
-						'<p>'.$this->form->get_text( get_permalink( $post_info['id'] ), 'wide' ).'</p></td>
-
-						<td class="validate">'.$this->form->get_button( 'Validate Twitter Card', 'button-secondary', null, 
-						'https://dev.twitter.com/docs/cards/validation/validator', true ).'</td>';
-		
-					} else $rows[] = '<td><p class="centered">The Validation Tools will be available when the '.$post_info['ptn'].
-						' is published with public visibility.</p></td>';
+						$rows = $this->get_rows_validation_tools( $this->form, $post_info );
+					} else $rows[] = '<td><p class="centered">The Validation Tools will be available when the '
+						.$post_info['ptn'].' is published with public visibility.</p></td>';
 					break; 
 
 				case 'meta-tags':	
@@ -164,6 +133,43 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 						' is published with public visibility.</p></td>';
 					break; 
 			}
+			return $rows;
+		}
+
+		public function get_rows_validation_tools( &$form, &$post_info ) {
+			$rows = array();
+
+			$rows[] = $this->p->util->th( 'Facebook Debugger' ).'<td class="validate"><p>Refresh the Facebook cache and 
+			validate the Open Graph / Rich Pin meta tags for this '.$post_info['ptn'].'. Facebook, Pinterest, LinkedIn, Google+,
+			and most social websites use these Open Graph meta tags. The Facebook Debugger remains the most stable and reliable 
+			method to verify Open Graph meta tags.</p>
+			<p><strong>Please note that you may have to click the "Debug" button several times to refresh Facebook\'s cache</strong>.</p></td>
+
+			<td class="validate">'.$form->get_button( 'Validate Open Graph', 'button-secondary', null, 
+			'https://developers.facebook.com/tools/debug/og/object?q='.urlencode( $this->p->util->get_sharing_url( $post_info['id'] ) ), true ).'</td>';
+
+			$rows[] = $this->p->util->th( 'Google Structured Data Testing Tool' ).'<td class="validate"><p>Verify that Google can 
+			correctly parse your structured data markup (meta tags, Schema, and Microdata markup) and display it in search results.
+			Most of the information extracted from the meta tags can be found in the rdfa-node / property section of the results.</p></td>
+
+			<td class="validate">'.$form->get_button( 'Validate Data Markup', 'button-secondary', null, 
+			'http://www.google.com/webmasters/tools/richsnippets?q='.urlencode( $this->p->util->get_sharing_url( $post_info['id'] ) ), true ).'</td>';
+
+			$rows[] = $this->p->util->th( 'Pinterest Rich Pin Validator' ).'<td class="validate"><p>Validate the Open Graph / Rich Pin 
+			meta tags, and apply to have them displayed on Pinterest.</p></td>
+
+			<td class="validate">'.$form->get_button( 'Validate Rich Pins', 'button-secondary', null, 
+			'http://developers.pinterest.com/rich_pins/validator/?link='.urlencode( $this->p->util->get_sharing_url( $post_info['id'] ) ), true ).'</td>';
+
+			$rows[] = $this->p->util->th( 'Twitter Card Validator' ).'<td class="validate"><p>The Twitter Card Validator does not 
+			accept query arguments &ndash; copy-paste the following sharing URL into the validation input field. 
+			To enable the display of Twitter Card information in tweets, you must submit a URL for each type of card you provide
+			(Summary, Summary with Large Image, Photo, Gallery, Player, and/or Product card).</p>'.
+			'<p>'.$form->get_text( $this->p->util->get_sharing_url( $post_info['id'] ), 'wide' ).'</p></td>
+
+			<td class="validate">'.$form->get_button( 'Validate Twitter Card', 'button-secondary', null, 
+			'https://dev.twitter.com/docs/cards/validation/validator', true ).'</td>';
+
 			return $rows;
 		}
 

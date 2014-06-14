@@ -76,6 +76,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							clients, allowing you to better feature your content. The Twitter Cards addon can be enabled from the '.
 							$this->p->util->get_admin_url( 'general', 'General settings page' ).'.';
 							break;
+						case 'tooltip-side-author-gravatar':
+							$text = 'Include Gravatar image URLs in the meta tags for author index webpages. Enable or disable this option from the '.
+							$this->p->util->get_admin_url( 'general#sucom-tab_og_author', 'General settings page' ).'.';
+							break;
 						case 'tooltip-side-slideshare-api':
 							$text = 'If the embedded Slideshare Presentations option on the '.
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
@@ -111,6 +115,35 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 
 				/*
+				 * User Meta settings
+				 */
+				case ( strpos( $idx, 'tooltip-user-' ) !== false ? true : false ):
+					$ptn = empty( $atts['ptn'] ) ? 'Post' : $atts['ptn'];
+					switch ( $idx ) {
+						/*
+						 * 'Header Meta Tags' settings
+						 */
+						 case 'tooltip-user-og_title':
+							$text = 'A custom title for the Open Graph, Rich Pin, Twitter Card meta tags (all Twitter Card formats), 
+							and possibly the Pinterest, Tumblr, and Twitter sharing caption / text, depending on some option 
+							settings.';
+						 	break;
+						 case 'tooltip-user-og_desc':
+							$text = 'A custom description for the Open Graph, Rich Pin meta tags, and the fallback description 
+							for all other meta tags '.( empty( $this->p->is_avail['ssb'] ) ? '' : ' and social sharing buttons' ).'. '.
+							'The default description value is based on the biographical info, if one is available.
+							Update and save this description to change the default value of all other description fields.';
+						 	break;
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_tooltip_user', $text, $idx, $atts );
+							break;
+					}
+					break;
+
+				/*
 				 * Post Meta settings
 				 */
 				case ( strpos( $idx, 'tooltip-postmeta-' ) !== false ? true : false ):
@@ -132,11 +165,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 	break;
 						 case 'tooltip-postmeta-og_desc':
 							$text = 'A custom description for the Open Graph, Rich Pin meta tags, and the fallback description 
-							for all other meta tags and social sharing buttons.
-							The default description value is based on the content, or excerpt if one is available, 
+							for all other meta tags '.( empty( $this->p->is_avail['ssb'] ) ? '' : ' and social sharing buttons' ).'. '.
+							'The default description value is based on the content, or excerpt if one is available, 
 							and is refreshed when the (draft or published) '.$ptn.' is saved.
-							Update and save this description to change the default value of all other meta tag and 
-							social sharing button descriptions.';
+							Update and save this description to change the default value of all other description fields.';
 						 	break;
 						 case 'tooltip-postmeta-seo_desc':
 							$text = 'A custom description for the Google Search / SEO description meta tag.
@@ -152,10 +184,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							and Tumblr social sharing buttons.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_url':
-							$text = 'A custom image URL, instead of an Image ID, to include first in the Open Graph, Rich Pin, 
+							$text = 'A custom image URL (instead of an Image ID) to include first in the Open Graph, Rich Pin, 
 							and \'Large Image Summary\' Twitter Card meta tags. Please make sure your custom image
 							is large enough, or it may be ignored by the social website(s). Facebook recommends 
-							an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200.';
+							an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200.
+							This field is disabled if an Image ID has been specified.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_url':
 							$text = 'A custom Video URL to include first in the Open Graph, Rich Pin, and \'Player\' Twitter Card meta tags'.
@@ -219,16 +252,24 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							<em>featured</em>, <em>attached</em>, or &lt;img/&gt; HTML tags in their content.';
 							break;
 						case 'tooltip-og_def_img_on_index':
-							$text = 'Check this option to use the default image on index webpages (<strong>non-static</strong> homepage, archives, categories). 
-							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, then 
-							<strong>no image will be included in the meta tags</strong>.
+							$text = 'Check this option to force the default image on index webpages 
+							(<strong>non-static</strong> homepage, archives, categories). 
+							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
+							then <strong>no image will be included in the meta tags</strong>.
 							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
 							will use image(s) from the first entry on the webpage (default is checked).';
 							break;
+						case 'tooltip-og_def_img_on_author':
+							$text = 'Check this option to force the default image on author index webpages.
+							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
+							then <strong>no image will be included in the meta tags</strong>. 
+							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							will use image(s) returned in the search results (default is unchecked).';
+							break;
 						case 'tooltip-og_def_img_on_search':
-							$text = 'Check this option to use the default image on search results.
-							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, then 
-							<strong>no image will be included in the meta tags</strong>. 
+							$text = 'Check this option to force the default image on search results.
+							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
+							then <strong>no image will be included in the meta tags</strong>. 
 							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
 							will use image(s) returned in the search results (default is unchecked).';
 							break;
@@ -238,16 +279,24 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							<strong>unless you want to include video information in all your Posts and Pages</strong>.';
 							break;
 						case 'tooltip-og_def_vid_on_index':
-							$text = 'Check this option to use the default video on index webpages (<strong>non-static</strong> homepage, archives, categories). 
+							$text = 'Check this option to force the default video on index webpages 
+							(<strong>non-static</strong> homepage, archives, categories). 
 							If this option is <em>checked</em>, but a Default Video URL has not been defined, then 
 							<strong>no video will be included in the meta tags</strong> (this is usually preferred).
 							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
 							will use video(s) from the first entry on the webpage (default is checked).';
 							break;
+						case 'tooltip-og_def_vid_on_author':
+							$text = 'Check this option to force the default video on author index webpages.
+							If this option is <em>checked</em>, but a Default Video URL has not been defined, 
+							then <strong>no video will be included in the meta tags</strong>.
+							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							will use video(s) returned in the search results (default is unchecked).';
+							break;
 						case 'tooltip-og_def_vid_on_search':
-							$text = 'Check this option to use the default video on search results.
-							If this option is <em>checked</em>, but a Default Video URL has not been defined, then 
-							<strong>no video will be included in the meta tags</strong>.
+							$text = 'Check this option to force the default video on search results.
+							If this option is <em>checked</em>, but a Default Video URL has not been defined, 
+							then <strong>no video will be included in the meta tags</strong>.
 							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
 							will use video(s) returned in the search results (default is unchecked).';
 							break;
@@ -353,6 +402,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							If this option is checked, search results will be labeled as a an \'article\' with authorship
 							attributed to the Default Author (default is unchecked).';
 							break;
+						case 'tooltip-og_author_gravatar':
+							$text = 'Check this option to include Gravatar image URLs in the meta tags for author index webpages.
+							If the \'Force Default Image on Author Index\' option is also enabled (on the previous \'Images\' tab), 
+							that option will take precedence over this one.';
+							break;
 						case 'tooltip-og_publisher_url':
 							$text = 'The URL of your website\'s social page (usually a Facebook page). 
 							For example, the Publisher Page URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
@@ -436,12 +490,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							WordPress Media Library (default is checked).';
 							break;
 						case 'tooltip-plugin_ignore_small_img':
-							$text = $this->p->cf['full'].' will attempt to include images from the img html tags it finds in the content.
-							The img html tags must have a width and height attribute, and their size must be equal or larger than the 
+							$text = $this->p->cf['full'].' will retrieve image URLs from HTML tags in the <strong>content</strong>.
+							The &amp;amp;lt;img/&amp;amp;gt; HTML tags must have a width and height attribute, 
+							and their size must be equal to (or larger) than the 
 							Image Dimensions you\'ve entered on the General settings page. 
-							Uncheck this option to include smaller images from the content, Media Library, etc.
+							Uncheck this option to include smaller images from the content.
 							<strong>Unchecking this option is not advised</strong> - 
-							images that are much too small for some social websites may be included in your meta tags.';
+							images that are too small for some social websites may be included in your meta tags.';
 							break;
 						case 'tooltip-plugin_embedded_media':
 							$text = 'Check the Post and Page content, along with the custom Social Settings, for embedded media URLs 

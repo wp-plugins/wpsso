@@ -13,9 +13,8 @@ if ( ! class_exists( 'SucomForm' ) ) {
 	class SucomForm {
 	
 		private $p;
-		private $options = array();
-		private $defaults = array();
-
+		public $options = array();
+		public $defaults = array();
 		public $options_name;
 
 		public function __construct( &$plugin, $opts_name, &$opts, &$def_opts ) {
@@ -169,10 +168,11 @@ if ( ! class_exists( 'SucomForm' ) ) {
 		}
 
 		public function get_fake_input( $name, $class = '', $id = '' ) {
+			$value = $this->in_options( $name ) ? $this->options[$name] : '';
 			return '<input type="text" disabled="disabled"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
 				( empty( $id ) ? '' : ' id="'.$id.'"' ).
-				' value="'.esc_attr( $this->options[$name] ).'" />';
+				' value="'.esc_attr( $value ).'" />';
 		}
 
 		public function get_textarea( $name, $class = '', $id = '', $len = 0, $placeholder = '' ) {
