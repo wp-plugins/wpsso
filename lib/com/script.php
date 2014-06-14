@@ -29,6 +29,8 @@ if ( ! class_exists( 'SucomScript' ) ) {
 
 			// don't load our javascript where we don't need it
 			switch ( $hook ) {
+				case 'user-edit.php' :
+				case 'profile.php' :
 				case 'post.php' :
 				case 'post-new.php' :
 				case ( preg_match( '/_page_'.$this->p->cf['lca'].'-/', $hook ) ? true : false ) :

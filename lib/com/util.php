@@ -161,6 +161,17 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			}
 		}
 
+		public function get_author_object() {
+			if ( is_author() ) {
+				return get_query_var( 'author_name' ) ? 
+					get_userdata( get_query_var( 'author' ) ) : 
+					get_user_by( 'slug', get_query_var( 'author_name' ) );
+			} elseif ( is_admin() ) {
+				$author_id = empty( $_GET['user_id'] ) ? get_current_user_id() : $_GET['user_id'];
+				return get_userdata( $author_id );
+			} else return false;
+		}
+
 		// on archives and taxonomies, this will return the first post object
 		public function get_post_object( $use_post = false ) {
 			$obj = false;
@@ -183,17 +194,6 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			else return $obj;
 		}
 
-		public function get_meta_sharing_url( $post_id ) {
-			$url = false;
-			if ( empty( $post_id ) || 
-				! array_key_exists( 'postmeta', $this->p->addons ) )
-					return $url;
-			$url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'sharing_url' );
-			if ( ! empty( $url ) )
-				$this->p->debug->log( 'found custom meta sharing url = '.$url );
-			return $url;
-		}
-
 		// use_post = false when used for open graph meta tags and buttons in widget,
 		// true when buttons are added to individual posts on an index webpage
 		// most of this code is from yoast wordpress seo, to try and match its canonical url value
@@ -206,11 +206,12 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				}
 				$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 				if ( ! empty( $post_id ) ) {
-					$url = $this->get_meta_sharing_url( $post_id );
+					if ( isset( $this->p->addons['util']['postmeta'] ) )
+						$url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'sharing_url' );
+					if ( ! empty( $url ) ) 
+						$this->p->debug->log( 'custom postmeta sharing_url = "'.$url.'"' );
+					else $url = get_permalink( $post_id );
 
-					if ( empty( $url ) )
-						$url = get_permalink( $post_id );
-				
 					if ( $add_page && get_query_var( 'page' ) > 1 ) {
 						global $wp_rewrite;
 						$numpages = substr_count( $obj->post_content, '<!--nextpage-->' ) + 1;
@@ -236,9 +237,16 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				}
 				elseif ( function_exists( 'get_post_type_archive_link' ) && is_post_type_archive() )
 					$url = get_post_type_archive_link( get_query_var( 'post_type' ) );
-				elseif ( is_author() )
-					$url = get_author_posts_url( get_query_var( 'author' ), get_query_var( 'author_name' ) );
-				elseif ( is_archive() ) {
+				elseif ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
+					$author = $this->get_author_object();
+					if ( ! empty( $author->ID ) ) {
+						if ( isset( $this->p->addons['util']['user'] ) )
+							$url = $this->p->addons['util']['user']->get_options( $author->ID, 'sharing_url' );
+						if ( ! empty( $url ) ) 
+							$this->p->debug->log( 'custom user sharing_url = "'.$url.'"' );
+						else $url = get_author_posts_url( $author->ID );
+					}
+				} elseif ( is_archive() ) {
 					if ( is_date() ) {
 						if ( is_day() )
 							$url = get_day_link( get_query_var( 'year' ), get_query_var( 'monthnum' ), get_query_var( 'day' ) );

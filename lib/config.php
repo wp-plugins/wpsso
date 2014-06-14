@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.4.10',		// plugin version
+			'version' => '2.5.0rc2',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -43,9 +43,11 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'general' => 'General',
 						'advanced' => 'Advanced',
 						'postmeta' => 'Custom Post Meta',
+						'user' => 'Custom User Meta',
 					),
 					'util' => array(
 						'postmeta' => 'Custom Post Meta',
+						'user' => 'Custom User Meta',
 					),
 				),
 				'pro' => array(
@@ -53,6 +55,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'general' => 'General Settings',
 						'advanced' => 'Advanced Settings',
 						'postmeta' => 'Custom Post Meta',
+						'user' => 'Custom User Meta',
 					),
 					'ecom' => array(
 						'edd' => 'Easy Digital Downloads',
@@ -70,6 +73,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'polylang' => 'Polylang',
 					),
 					'media' => array(
+						'gravatar' => 'Author Gravatar',
 						'ngg' => 'NextGEN Gallery',
 						'photon' => 'Jetpack Photon',
 						'slideshare' => 'Slideshare API',
@@ -87,11 +91,12 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'util' => array(
 						'language' => 'Publisher Language',
 						'postmeta' => 'Custom Post Meta',
+						'user' => 'Custom User Meta',
 					),
 				),
 			),
 			'opt' => array(				// options
-				'version' => '278',		// increment when changing default options
+				'version' => '280',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -119,12 +124,14 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_def_img_id' => '',
 					'og_def_img_url' => '',
 					'og_def_img_on_index' => 1,
+					'og_def_img_on_author' => 0,
 					'og_def_img_on_search' => 0,
 					'og_def_vid_url' => '',
 					'og_def_vid_on_index' => 1,
 					'og_def_vid_on_search' => 0,
 					'og_def_author_id' => 0,
 					'og_def_author_on_index' => 0,
+					'og_def_author_on_author' => 0,
 					'og_def_author_on_search' => 0,
 					'og_ngg_tags' => 0,
 					'og_page_parent_tags' => 0,
@@ -232,11 +239,13 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_widgets' => 1,
 					'plugin_auto_img_resize' => 1,
 					'plugin_ignore_small_img' => 1,
+					'plugin_gravatar_api' => 1,
 					'plugin_slideshare_api' => 1,
 					'plugin_vimeo_api' => 1,
 					'plugin_wistia_api' => 1,
 					'plugin_youtube_api' => 1,
 					'plugin_cf_vid_url' => '_format_video_embed',
+					'plugin_add_to_user' => 1,
 					'plugin_add_to_post' => 1,
 					'plugin_add_to_page' => 1,
 					'plugin_add_to_attachment' => 1,
@@ -426,8 +435,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			require_once( $plugin_dir.'lib/check.php' );
 			require_once( $plugin_dir.'lib/util.php' );
 			require_once( $plugin_dir.'lib/options.php' );
-			require_once( $plugin_dir.'lib/user.php' );
 			require_once( $plugin_dir.'lib/postmeta.php' );
+			require_once( $plugin_dir.'lib/user.php' );
 			require_once( $plugin_dir.'lib/media.php' );
 			require_once( $plugin_dir.'lib/head.php' );
 

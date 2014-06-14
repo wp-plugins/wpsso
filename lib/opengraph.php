@@ -101,7 +101,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 	
 					$og['og:type'] = 'article';
 					if ( ! isset( $og['article:author'] ) )
-						$og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
+						$og['article:author'] = $this->p->addons['util']['user']->get_article_author( $this->p->options['og_def_author_id'] );
 
 				// default for everything else is 'website'
 				} else $og['og:type'] = 'website';
@@ -113,9 +113,9 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				if ( ! isset( $og['article:author'] ) ) {
 					if ( is_singular() || $use_post !== false ) {
 						if ( ! empty( $obj->post_author ) )
-							$og['article:author'] = $this->p->user->get_article_author( $obj->post_author );
+							$og['article:author'] = $this->p->addons['util']['user']->get_article_author( $obj->post_author );
 						elseif ( ! empty( $this->p->options['og_def_author_id'] ) )
-							$og['article:author'] = $this->p->user->get_article_author( $this->p->options['og_def_author_id'] );
+							$og['article:author'] = $this->p->addons['util']['user']->get_article_author( $this->p->options['og_def_author_id'] );
 					}
 				}
 
@@ -192,6 +192,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 			// check for index-type webpages with og_def_vid_on_index enabled to force a default video
 			if ( ( ! empty( $this->p->options['og_def_vid_on_index'] ) && ( is_home() || is_archive() ) && ! is_author() ) ||
+				( ! empty( $this->p->options['og_def_vid_on_author'] ) && is_author() ) ||
 				( ! empty( $this->p->options['og_def_vid_on_search'] ) && is_search() ) ) {
 
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
@@ -237,11 +238,25 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 			// check for index webpages with og_def_img_on_index or og_def_img_on_search enabled to force a default image
 			if ( ( ! empty( $this->p->options['og_def_img_on_index'] ) && ( is_home() || is_archive() ) && ! is_author() ) ||
+				( ! empty( $this->p->options['og_def_img_on_author'] ) && is_author() ) ||
 				( ! empty( $this->p->options['og_def_img_on_search'] ) && is_search() ) ) {
 
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
 				$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
 				return $og_ret;	// stop here and return the image array
+			}
+
+			if ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
+				if ( is_admin() )
+					$author_id = empty( $_GET['user_id'] ) ? get_current_user_id() : $_GET['user_id'];
+				else {
+					$author = get_query_var( 'author_name' ) ? 
+						get_userdata( get_query_var( 'author' ) ) : 
+						get_user_by( 'slug', get_query_var( 'author_name' ) );
+					$author_id = $author->ID;
+				}
+				$num_remains = $this->p->media->num_remains( $og_ret, $num );
+				$og_ret = array_merge( $og_ret, $this->p->media->get_author_image( $num_remains, $size_name, $author_id, $check_dupes ) );
 			}
 
 			// check for custom meta, featured, or attached image(s)

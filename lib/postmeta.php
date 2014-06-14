@@ -23,31 +23,31 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		protected $header_tags = array();
 		protected $post_info = array();
 
-		public function __construct( &$plugin ) {
-			$this->p =& $plugin;
-			$this->p->debug->mark();
-			$this->add_actions();
-		}
-
 		protected function add_actions() {
+
+			// everything bellow is for the admin interface
+
+			if ( is_admin() ) {
+				if ( $this->p->is_avail['opengraph'] )
+					add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
+
+				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
+				add_action( 'save_post', array( &$this, 'save_options' ), 10 );
+				add_action( 'save_post', array( &$this, 'flush_cache' ), 20 );
+				add_action( 'edit_attachment', array( &$this, 'save_options' ), 10 );
+				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 20 );
+			}
 		}
 
 		public function add_metaboxes() {
-			if ( ! is_admin() )
-				return;
-
 			// get the current object / post type
 			if ( ( $obj = $this->p->util->get_post_object() ) === false ) {
 				$this->p->debug->log( 'exiting early: invalid object type' );
 				return;
 			}
 			$post_type = get_post_type_object( $obj->post_type );
-
-			if ( ! empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ) {
-				// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-				add_meta_box( WPSSO_META_NAME, $this->p->cf['menu'].' Custom Settings', 
-					array( &$this, 'show_metabox_postmeta' ), $post_type->name, 'advanced', 'high' );
-			}
+			if ( ! empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) )
+				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_metabox_postmeta' ), $post_type->name, 'advanced', 'high' );
 		}
 
 		public function set_header_tags() {
@@ -75,6 +75,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			$post_type = get_post_type_object( $post->post_type );	// since 3.0
 			$this->post_info['ptn'] = ucfirst( $post_type->name );
 			$this->post_info['id'] = $post->ID;
+
 			$this->form = new SucomForm( $this->p, WPSSO_META_NAME, $opts, $def_opts );
 			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
 
@@ -94,45 +95,14 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			$this->p->util->do_tabs( $metabox, $tabs, $rows );
 		}
 
-		protected function get_rows( $metabox, $key, $post_info ) {
+		protected function get_rows( $metabox, $key, &$post_info ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
 				case 'meta-tools':
 					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
-
-						$rows[] = $this->p->util->th( 'Facebook Debugger' ).'<td class="validate"><p>Refresh the Facebook cache and 
-						validate the Open Graph / Rich Pin meta tags for this '.$post_info['ptn'].'. Facebook, Pinterest, LinkedIn, Google+,
-						and most social websites use these Open Graph meta tags. The Facebook Debugger remains the most stable and reliable 
-						method to verify Open Graph meta tags.</p>
-						<p><strong>Please note that you may have to click the "Debug" button once or twice to refresh Facebook\'s cache</strong>.</p></td>
-
-						<td class="validate">'.$this->form->get_button( 'Validate Open Graph', 'button-secondary', null, 
-						'https://developers.facebook.com/tools/debug/og/object?q='.urlencode( get_permalink( $post_info['id'] ) ), true ).'</td>';
-			
-						$rows[] = $this->p->util->th( 'Google Structured Data Testing Tool' ).'<td class="validate"><p>Verify that Google can 
-						correctly parse your structured data markup (meta tags, Schema, and Microdata markup) and display it in search results.
-						Most of the information extracted from the meta tags can be found in the rdfa-node / property section of the results.</p></td>
-
-						<td class="validate">'.$this->form->get_button( 'Validate Data Markup', 'button-secondary', null, 
-						'http://www.google.com/webmasters/tools/richsnippets?q='.urlencode( get_permalink( $post_info['id'] ) ), true ).'</td>';
-			
-						$rows[] = $this->p->util->th( 'Pinterest Rich Pin Validator' ).'<td class="validate"><p>Validate the Open Graph / Rich Pin 
-						meta tags, and apply to have them displayed on Pinterest.</p></td>
-
-						<td class="validate">'.$this->form->get_button( 'Validate Rich Pins', 'button-secondary', null, 
-						'http://developers.pinterest.com/rich_pins/validator/?link='.urlencode( get_permalink( $post_info['id'] ) ), true ).'</td>';
-			
-						$rows[] = $this->p->util->th( 'Twitter Card Validator' ).'<td class="validate"><p>The Twitter Card Validator does not 
-						accept query arguments &ndash; copy-paste the following sharing URL into the validation input field. 
-						To enable the display of Twitter Card information in tweets, you must submit a URL for each type of card you provide
-						(Summary, Summary with Large Image, Photo, Gallery, Player, and/or Product card).</p>'.
-						'<p>'.$this->form->get_text( get_permalink( $post_info['id'] ), 'wide' ).'</p></td>
-
-						<td class="validate">'.$this->form->get_button( 'Validate Twitter Card', 'button-secondary', null, 
-						'https://dev.twitter.com/docs/cards/validation/validator', true ).'</td>';
-		
-					} else $rows[] = '<td><p class="centered">The Validation Tools will be available when the '.$post_info['ptn'].
-						' is published with public visibility.</p></td>';
+						$rows = $this->get_rows_validation_tools( $this->form, $post_info );
+					} else $rows[] = '<td><p class="centered">The Validation Tools will be available when the '
+						.$post_info['ptn'].' is published with public visibility.</p></td>';
 					break; 
 
 				case 'meta-tags':	
@@ -149,6 +119,43 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 						' is published with public visibility.</p></td>';
 					break; 
 			}
+			return $rows;
+		}
+
+		public function get_rows_validation_tools( &$form, &$post_info ) {
+			$rows = array();
+
+			$rows[] = $this->p->util->th( 'Facebook Debugger' ).'<td class="validate"><p>Refresh the Facebook cache and 
+			validate the Open Graph / Rich Pin meta tags for this '.$post_info['ptn'].'. Facebook, Pinterest, LinkedIn, Google+,
+			and most social websites use these Open Graph meta tags. The Facebook Debugger remains the most stable and reliable 
+			method to verify Open Graph meta tags.</p>
+			<p><strong>Please note that you may have to click the "Debug" button several times to refresh Facebook\'s cache</strong>.</p></td>
+
+			<td class="validate">'.$form->get_button( 'Validate Open Graph', 'button-secondary', null, 
+			'https://developers.facebook.com/tools/debug/og/object?q='.urlencode( $this->p->util->get_sharing_url( $post_info['id'] ) ), true ).'</td>';
+
+			$rows[] = $this->p->util->th( 'Google Structured Data Testing Tool' ).'<td class="validate"><p>Verify that Google can 
+			correctly parse your structured data markup (meta tags, Schema, and Microdata markup) and display it in search results.
+			Most of the information extracted from the meta tags can be found in the rdfa-node / property section of the results.</p></td>
+
+			<td class="validate">'.$form->get_button( 'Validate Data Markup', 'button-secondary', null, 
+			'http://www.google.com/webmasters/tools/richsnippets?q='.urlencode( $this->p->util->get_sharing_url( $post_info['id'] ) ), true ).'</td>';
+
+			$rows[] = $this->p->util->th( 'Pinterest Rich Pin Validator' ).'<td class="validate"><p>Validate the Open Graph / Rich Pin 
+			meta tags, and apply to have them displayed on Pinterest.</p></td>
+
+			<td class="validate">'.$form->get_button( 'Validate Rich Pins', 'button-secondary', null, 
+			'http://developers.pinterest.com/rich_pins/validator/?link='.urlencode( $this->p->util->get_sharing_url( $post_info['id'] ) ), true ).'</td>';
+
+			$rows[] = $this->p->util->th( 'Twitter Card Validator' ).'<td class="validate"><p>The Twitter Card Validator does not 
+			accept query arguments &ndash; copy-paste the following sharing URL into the validation input field. 
+			To enable the display of Twitter Card information in tweets, you must submit a URL for each type of card you provide
+			(Summary, Summary with Large Image, Photo, Gallery, Player, and/or Product card).</p>'.
+			'<p>'.$form->get_text( $this->p->util->get_sharing_url( $post_info['id'] ), 'wide' ).'</p></td>
+
+			<td class="validate">'.$form->get_button( 'Validate Twitter Card', 'button-secondary', null, 
+			'https://dev.twitter.com/docs/cards/validation/validator', true ).'</td>';
+
 			return $rows;
 		}
 
@@ -185,6 +192,10 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		public function get_defaults( $idx = '' ) {
 			if ( ! empty( $idx ) ) return false;
 			else return array();
+		}
+
+		public function save_options( $post_id ) {
+			return;
 		}
 
 		public function flush_cache( $post_id ) {

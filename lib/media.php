@@ -164,7 +164,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 								break;	// end foreach and apply filters
 					}
 			}
-			return apply_filters( $this->p->cf['lca'].'_og_attached_images', $og_ret, $num, $size_name, $post_id, $check_dupes );
+			return apply_filters( $this->p->cf['lca'].'_attached_images', $og_ret, $num, $size_name, $post_id, $check_dupes );
 		}
 
 		public function get_attachment_image_src( $pid, $size_name = 'thumbnail', $check_dupes = true ) {
@@ -252,7 +252,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					( ! empty( $size_info['crop'] ) && ( ! $is_sufficient_width || ! $is_sufficient_height ) ) ) {
 
 					$size_too_small_text = ' too small for '.$size_name.' dimensions ('.$size_info['width'].'x'.$size_info['height'].
-						( empty( $size_info['crop'] ) ? '' : ' cropped' ).'). ';
+						( empty( $size_info['crop'] ) ? '' : ' cropped' ).')';
 
 					$img_meta = wp_get_attachment_metadata( $pid );
 
@@ -265,7 +265,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					$this->p->debug->log( 'exiting early: '.$rejected_text );
 					if ( is_admin() )
 						$this->p->notice->err( 'Media Library '.$rejected_text.
-							' Upload a larger image, or adjust the '.$size_name.' image dimensions setting.');
+							'. Upload a larger image, or adjust the '.$size_name.' image dimensions setting.');
 					return $ret_empty;
 
 				} else $this->p->debug->log( 'returned image dimensions ('.$img_width.'x'.$img_height.') are sufficient' );
@@ -276,6 +276,37 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					$img_width, $img_height, $img_cropped );
 
 			return $ret_empty;
+		}
+
+		public function get_author_image( $num = 0, $size_name = 'thumbnail', $author_id, $check_dupes = true ) {
+			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'author_id' => $author_id, 'check_dupes' => $check_dupes ) );
+			$og_ret = array();
+			$og_image = array();
+
+			if ( empty( $author_id ) || ! isset( $this->p->addons['util']['user'] ) )
+				return $og_ret;
+
+			$pid = $this->p->addons['util']['user']->get_options( $author_id, 'og_img_id' );
+			$pre = $this->p->addons['util']['user']->get_options( $author_id, 'og_img_id_pre' );
+			$img_url = $this->p->addons['util']['user']->get_options( $author_id, 'og_img_url', array( 'size_name' => $size_name ) );
+
+			if ( $pid > 0 ) {
+				$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
+				$this->p->debug->log( 'found custom user image id = '.$pid );
+				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
+					$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
+
+			} elseif ( ! empty( $img_url ) ) {
+				$this->p->debug->log( 'found custom user image url = "'.$img_url.'"' );
+
+				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
+					$og_image['og:image:cropped'] ) = array( $img_url, -1, -1, -1 );
+			}
+
+			if ( ! empty( $og_image['og:image'] ) &&
+				$this->p->util->push_max( $og_ret, $og_image, $num ) )
+					return $og_ret;
+			return $og_ret;
 		}
 
 		public function get_meta_image( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true ) {

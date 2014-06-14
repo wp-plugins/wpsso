@@ -81,7 +81,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->p->debug->show_html( null, 'debug log' );
 				$this->p->debug->show_html( $opts, 'wpsso settings' );
 
-				if ( ( $obj = $this->p->util->get_post_object() ) !== false ) {
+				if ( is_singular() && ( $obj = $this->p->util->get_post_object() ) !== false ) {
 					$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 					if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
 						$post_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
@@ -102,7 +102,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 		public function get_header_array( $use_post = false, $read_cache = true, &$meta_og = array() ) {
 			$obj = $this->p->util->get_post_object( $use_post );
-			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+			$post_id = empty( $obj->ID ) || $use_post === false ? 0 : $obj->ID;
 			$sharing_url = $this->p->util->get_sharing_url( $use_post );
 			$author_id = 0;
 
@@ -130,10 +130,15 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					$author_id = $obj->post_author;
 				elseif ( ! empty( $this->p->options['seo_def_author_id'] ) )
 					$author_id = $this->p->options['seo_def_author_id'];
+
+			} elseif ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
+				$author = $this->p->util->get_author_object();
+				$author_id = $author->ID;
+
 			} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
 				! is_search() && ! empty( $this->p->options['seo_def_author_on_index'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) || 
-					( is_search() && ! empty( $this->p->options['seo_def_author_on_search'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) )
-						$author_id = $this->p->options['seo_def_author_id'];
+				( is_search() && ! empty( $this->p->options['seo_def_author_on_search'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) )
+					$author_id = $this->p->options['seo_def_author_id'];
 
 			/**
 			 * Open Graph, Twitter Card, and SEO meta tags
@@ -146,16 +151,12 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			if ( ! isset( $meta_og['author'] ) &&
 				isset( $this->p->options['seo_author_name'] ) && 
 				$this->p->options['seo_author_name'] !== 'none' )
-					$meta_og['author'] = $this->p->user->get_author_name( $author_id, $this->p->options['seo_author_name'] );
+					$meta_og['author'] = $this->p->addons['util']['user']->get_author_name( $author_id, $this->p->options['seo_author_name'] );
 
-			if ( ! isset( $meta_og['description'] ) ) {
-				if ( ! empty( $post_id ) && ( is_singular() || $use_post !== false ) )
-					$meta_og['description'] = $this->p->addons['util']['postmeta']->get_options( $post_id, 'seo_desc' );
-
-				if ( empty( $meta_og['description'] ) )
-					$meta_og['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...',
-						$use_post, true, false );	// use_post = false, use_cache = true, add_hashtags = false
-			}
+			if ( ! isset( $meta_og['description'] ) )
+				$meta_og['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...',
+					$use_post, true, false, true, 'seo_desc' );	// add_hashtags = false
+		
 			$meta_og = apply_filters( $this->p->cf['lca'].'_meta_og', $meta_og );
 
 			/**
@@ -163,7 +164,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 */
 			$link_rel = array();
 			if ( ! empty( $author_id ) )
-				$link_rel['author'] = $this->p->user->get_author_url( $author_id, $this->p->options['link_author_field'] );
+				$link_rel['author'] = $this->p->addons['util']['user']->get_author_website_url( $author_id, $this->p->options['link_author_field'] );
 
 			if ( ! empty( $this->p->options['link_publisher_url'] ) )
 				$link_rel['publisher'] = $this->p->options['link_publisher_url'];

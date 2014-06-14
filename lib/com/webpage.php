@@ -85,14 +85,15 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			return apply_filters( $this->p->cf['lca'].'_caption', $caption, $type, $length, $use_post, $use_cache, $add_hashtags, $encode );
 		}
 
-		public function get_title( $textlen = 70, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = false, $encode = true ) {
+		public function get_title( $textlen = 70, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = false, $encode = true, $custom = 'og_title' ) {
 			$this->p->debug->args( array( 
 				'textlen' => $textlen, 
 				'trailing' => $trailing, 
 				'use_post' => $use_post, 
 				'use_cache' => $use_cache, 
 				'add_hashtags' => $add_hashtags,
-				'encode' => $encode ) );
+				'encode' => $encode,
+				'custom' => $custom ) );
 			$title = false;
 			$parent_title = '';
 			$paged_suffix = '';
@@ -109,9 +110,18 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				}
 				$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 				if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
-					$title = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_title' );
-					if ( ! empty( $title ) )
-						$this->p->debug->log( 'custom meta title = "'.$title.'"' );
+					$title = $this->p->addons['util']['postmeta']->get_options( $post_id, $custom );
+					if ( ! empty( $title ) ) $this->p->debug->log( 'custom postmeta '.$custom.' = "'.$title.'"' );
+				}
+			} elseif ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
+				$author = $this->p->util->get_author_object();
+				if ( ! empty( $author->ID ) ) {
+					if ( isset( $this->p->addons['util']['user'] ) )
+						$title = $this->p->addons['util']['user']->get_options( $author->ID, $custom );
+					if ( ! empty( $title ) ) 
+						$this->p->debug->log( 'custom user '.$custom.' = "'.$title.'"' );
+					elseif ( is_admin() )	// re-create default wp title on admin side
+						$title = $author->display_name.' '.$separator.' '.$title;
 				}
 			}
 
@@ -124,7 +134,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			// check for hashtags in meta or seed title, remove and then add again after shorten
 			if ( preg_match( '/(.*)(( #[a-z0-9\-]+)+)$/U', $title, $match ) ) {
-				$add_hashtags = true;
 				$title = $match[1];
 				$hashtags = trim( $match[2] );
 			} elseif ( is_singular() || $use_post !== false ) {
@@ -205,7 +214,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				}
 				if ( ! empty( $parent_title ) ) 
 					$textlen = $textlen - strlen( $parent_title ) - 3;
-				if ( ! empty( $hashtags ) ) 
+				if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 					$textlen = $textlen - strlen( $hashtags ) - 1;
 				$title = $this->p->util->limit_text_length( $title, $textlen, $trailing );
 			}
@@ -216,7 +225,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			if ( ! empty( $paged_suffix ) ) 
 				$title .= ' '.$paged_suffix;
 
-			if ( ! empty( $hashtags ) ) 
+			if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 				$title .= ' '.$hashtags;
 
 			if ( $encode === true )
@@ -226,17 +235,20 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			return apply_filters( $this->p->cf['lca'].'_title', $title );
 		}
 
-		public function get_description( $textlen = 156, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = true, $encode = true ) {
+		public function get_description( $textlen = 156, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = true, $encode = true, $custom = 'og_desc' ) {
 			$this->p->debug->args( array( 
 				'textlen' => $textlen, 
 				'trailing' => $trailing, 
 				'use_post' => $use_post, 
 				'use_cache' => $use_cache, 
 				'add_hashtags' => $add_hashtags, 
-				'encode' => $encode ) );
+				'encode' => $encode,
+				'custom' => $custom ) );
 			$desc = false;
 			$hashtags = '';
 			$post_id = 0;
+			$screen = '';
+			$page = ''; 
 
 			if ( is_singular() || $use_post !== false ) {
 				if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
@@ -245,22 +257,29 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				}
 				$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 				if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
-					$desc = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_desc' );
-					if ( ! empty( $desc ) )
-						$this->p->debug->log( 'custom meta description = "'.$desc.'"' );
+					$desc = $this->p->addons['util']['postmeta']->get_options( $post_id, $custom );
+					if ( ! empty( $desc ) ) $this->p->debug->log( 'custom postmeta '.$custom.' = "'.$desc.'"' );
+				}
+			} elseif ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
+				$author = $this->p->util->get_author_object();
+				if ( ! empty( $author->ID ) ) {
+					if ( isset( $this->p->addons['util']['user'] ) )
+						$desc = $this->p->addons['util']['user']->get_options( $author->ID, $custom );
+					if ( ! empty( $desc ) ) 
+						$this->p->debug->log( 'custom user '.$custom.' = "'.$desc.'"' );
+					elseif ( is_admin() )	// re-create default description on admin side
+						$desc = empty( $author->description ) ? sprintf( 'Authored by %s', $author->display_name ) : $author->description;
 				}
 			}
 
 			// get seed if no custom meta description
 			if ( empty( $desc ) ) {
 				$desc = apply_filters( $this->p->cf['lca'].'_description_seed', '', $use_post, $use_cache, $add_hashtags );
-				if ( ! empty( $desc ) )
-					$this->p->debug->log( 'description seed = "'.$desc.'"' );
+				if ( ! empty( $desc ) ) $this->p->debug->log( 'description seed = "'.$desc.'"' );
 			}
 		
 			// check for hashtags in meta or seed description, remove and then add again after shorten
 			if ( preg_match( '/(.*)(( #[a-z0-9\-]+)+)$/U', $desc, $match ) ) {
-				$add_hashtags = true;
 				$desc = $match[1];
 				$hashtags = trim( $match[2] );
 			} elseif ( is_singular() || $use_post !== false ) {
@@ -301,7 +320,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$desc = preg_replace( '/^.*?<p>/i', '', $desc );	// question mark makes regex un-greedy
 		
 				} elseif ( is_author() ) { 
-					$author = get_query_var( 'author_name' ) ?  get_userdata( get_query_var( 'author' ) ) : get_user_by( 'slug', get_query_var( 'author_name' ) );
+					$author = $this->p->util->get_author_object();
 					$desc = empty( $author->description ) ? sprintf( 'Authored by %s', $author->display_name ) : $author->description;
 			
 				} elseif ( is_tag() ) {
@@ -329,7 +348,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			// if there's still no description, then fallback to a generic version
 			if ( empty( $desc ) ) {
-				if ( is_admin() && $obj->post_status == 'auto-draft' )
+				if ( is_admin() && ! empty( $obj->post_status ) && $obj->post_status == 'auto-draft' )
 					$this->p->debug->log( 'post_status is auto-draft - using empty description' );
 				else {
 					// pass options array to allow fallback if locale option does not exist
@@ -345,12 +364,12 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			}
 
 			if ( $textlen > 0 ) {
-				if ( ! empty( $hashtags ) ) 
+				if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 					$textlen = $textlen - strlen( $hashtags ) -1;
 				$desc = $this->p->util->limit_text_length( $desc, $textlen, '...' );	// runs cleanup_html_tags()
 			} else $desc = $this->p->util->cleanup_html_tags( $desc );
 
-			if ( ! empty( $hashtags ) ) 
+			if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 				$desc .= ' '.$hashtags;
 
 			if ( $encode === true )
