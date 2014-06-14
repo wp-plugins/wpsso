@@ -26,9 +26,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			if ( ! isset( $this->p->cf['opt']['site_defaults']['options_filtered'] ) ||
 				$this->p->cf['opt']['site_defaults']['options_filtered'] !== true ) {
 
-				$this->p->cf['opt']['site_defaults'] = apply_filters( 
-					$this->p->cf['lca'].'_get_site_defaults', 
-					$this->p->cf['opt']['site_defaults'] );
+				$this->p->cf['opt']['site_defaults'] = apply_filters( $this->p->cf['lca'].'_get_site_defaults', $this->p->cf['opt']['site_defaults'] );
 				$this->p->cf['opt']['site_defaults']['options_filtered'] = true;
 				$this->p->cf['opt']['site_defaults']['options_version'] = $this->p->cf['opt']['version'];
 				$this->p->cf['opt']['site_defaults']['plugin_version'] = $this->p->cf['version'];

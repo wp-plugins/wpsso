@@ -17,12 +17,6 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		protected $header_tags = array();
 		protected $post_info = array();
 
-		public function __construct( &$plugin ) {
-			$this->p =& $plugin;
-			$this->p->debug->mark();
-			$this->add_actions();
-		}
-
 		protected function add_actions() {
 			add_filter( 'user_contactmethods', array( &$this, 'add_contact_methods' ), 20, 1 );
 
@@ -33,15 +27,16 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				add_action( 'admin_init', array( &$this, 'add_metaboxes' ) );
 				add_action( 'show_user_profile', array( &$this, 'show_metabox' ) );
 				add_action( 'edit_user_profile', array( &$this, 'show_metabox' ) );
-				add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ) );
-				add_action( 'edit_user_profile_update', array( &$this, 'save_options' ) );
-				add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ) ); 
-				add_action( 'personal_options_update', array( &$this, 'save_options' ) ); 
+				add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ), 5 );
+				add_action( 'edit_user_profile_update', array( &$this, 'save_options' ), 10 );
+				add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ), 5 ); 
+				add_action( 'personal_options_update', array( &$this, 'save_options' ), 10 ); 
 			}
 		}
 
 		public function add_metaboxes() {
-			add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_usermeta' ), 'user', 'normal', 'high' );
+			if ( ! empty( $this->p->options['plugin_add_to_user'] ) )
+				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_usermeta' ), 'user', 'normal', 'high' );
 		}
 
 		public function set_header_tags() {
@@ -67,6 +62,9 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		public function show_metabox( $user ) {
 			if ( ! current_user_can( 'edit_user', $user->ID ) )
 				return;
+
+			if ( isset( $_GET['updated'] ) )
+				$this->flush_cache( $user_id );
 
 			echo '<div id="poststuff">';
 			do_meta_boxes( 'user', 'normal', $user );
@@ -353,6 +351,20 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 
 		public function save_options( $user_id = false ) {
 			return;
+		}
+
+		public function flush_cache( $user_id ) {
+			$lang = SucomUtil::get_locale();
+			$post_id = 0;
+			$sharing_url = $this->p->util->get_sharing_url( false );
+			$transients = array(
+				'WpssoHead::get_header_array' => array( 
+					'lang:'.$lang.'_post:'.$post_id.'_url:'.$sharing_url,
+					'lang:'.$lang.'_post:'.$post_id.'_url:'.$sharing_url.'_crawler:pinterest',
+				),
+			);
+			$transients = apply_filters( $this->p->cf['lca'].'_user_cache_transients', $transients, $post_id, $lang, $sharing_url );
+			$this->p->util->flush_cache_objects( $transients );
 		}
 
 		protected function get_nonce() {

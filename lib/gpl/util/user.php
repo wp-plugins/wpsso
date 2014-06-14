@@ -11,6 +11,12 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! class_exists( 'WpssoUtilUser' ) && class_exists( 'WpssoUser' ) ) {
 
 	class WpssoUtilUser extends WpssoUser {
+
+		public function __construct( &$plugin ) {
+			$this->p =& $plugin;
+			$this->p->debug->mark();
+			$this->add_actions();
+		}
 	}
 }
 

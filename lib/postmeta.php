@@ -23,45 +23,31 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		protected $header_tags = array();
 		protected $post_info = array();
 
-		public function __construct( &$plugin ) {
-			$this->p =& $plugin;
-			$this->p->debug->mark();
-			$this->add_actions();
-		}
-
 		protected function add_actions() {
 
 			// everything bellow is for the admin interface
 
-			if ( ! is_admin() )
-				return;
+			if ( is_admin() ) {
+				if ( $this->p->is_avail['opengraph'] )
+					add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
 
-			if ( $this->p->is_avail['opengraph'] )
-				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
-
-			add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
-			add_action( 'save_post', array( &$this, 'save_options' ), 10 );
-			add_action( 'edit_attachment', array( &$this, 'save_options' ), 10 );
-			add_action( 'save_post', array( &$this, 'flush_cache' ), 20 );
-			add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 20 );
+				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
+				add_action( 'save_post', array( &$this, 'save_options' ), 10 );
+				add_action( 'save_post', array( &$this, 'flush_cache' ), 20 );
+				add_action( 'edit_attachment', array( &$this, 'save_options' ), 10 );
+				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 20 );
+			}
 		}
 
 		public function add_metaboxes() {
-			if ( ! is_admin() )
-				return;
-
 			// get the current object / post type
 			if ( ( $obj = $this->p->util->get_post_object() ) === false ) {
 				$this->p->debug->log( 'exiting early: invalid object type' );
 				return;
 			}
 			$post_type = get_post_type_object( $obj->post_type );
-
-			if ( ! empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ) {
-				// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-				add_meta_box( WPSSO_META_NAME, 'Social Settings', 
-					array( &$this, 'show_metabox_postmeta' ), $post_type->name, 'advanced', 'high' );
-			}
+			if ( ! empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) )
+				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_metabox_postmeta' ), $post_type->name, 'advanced', 'high' );
 		}
 
 		public function set_header_tags() {

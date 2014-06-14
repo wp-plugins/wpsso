@@ -9,7 +9,7 @@
  * Description: Improve the Appearance, Ranking, and Social Engagement of your social shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc.
  * Requires At Least: 3.0
  * Tested Up To: 3.9.1
- * Version: 2.5.0rc1
+ * Version: 2.5.0rc2
  * 
  * Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
  */

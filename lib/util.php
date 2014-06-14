@@ -106,33 +106,37 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				);
 				$objects = apply_filters( $this->p->cf['lca'].'_post_cache_objects', $objects, $post_id, $lang, $sharing_url );
 
-				$deleted = 0;
-				foreach ( $transients as $group => $arr ) {
-					foreach ( $arr as $val ) {
-						$cache_salt = $group.'('.$val.')';
-						$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
-						if ( delete_transient( $cache_id ) ) {
-							if ( $this->p->debug->is_on() )
-								$this->p->debug->log( 'flushed transient cache salt: '. $cache_salt );
-							$deleted++;
-						}
-					}
-				}
-				foreach ( $objects as $group => $arr ) {
-					foreach ( $arr as $val ) {
-						$cache_salt = $group.'('.$val.')';
-						$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
-						if ( wp_cache_delete( $cache_id, $group ) ) {
-							if ( $this->p->debug->is_on() )
-								$this->p->debug->log( 'flushed object cache salt: '. $cache_salt );
-							$deleted++;
-						}
-					}
-				}
-				if ( $deleted > 0 && $this->p->debug->is_on() )
-					$this->p->notice->inf( $deleted.' items flushed from object and transient cache for post ID #'.$post_id, true );
+				$this->flush_cache_objects( $transients, $objects );
 				break;
 			}
+		}
+
+		public function flush_cache_objects( &$transients = array(), &$objects = array() ) {
+			$deleted = 0;
+			foreach ( $transients as $group => $arr ) {
+				foreach ( $arr as $val ) {
+					$cache_salt = $group.'('.$val.')';
+					$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
+					if ( delete_transient( $cache_id ) ) {
+						if ( $this->p->debug->is_on() )
+							$this->p->debug->log( 'flushed transient cache salt: '. $cache_salt );
+						$deleted++;
+					}
+				}
+			}
+			foreach ( $objects as $group => $arr ) {
+				foreach ( $arr as $val ) {
+					$cache_salt = $group.'('.$val.')';
+					$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
+					if ( wp_cache_delete( $cache_id, $group ) ) {
+						if ( $this->p->debug->is_on() )
+							$this->p->debug->log( 'flushed object cache salt: '. $cache_salt );
+						$deleted++;
+					}
+				}
+			}
+			if ( $deleted > 0 && $this->p->debug->is_on() )
+				$this->p->notice->inf( $deleted.' items flushed from object and transient cache', true );
 		}
 
 		public function get_topics() {

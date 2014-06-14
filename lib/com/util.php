@@ -238,7 +238,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				elseif ( function_exists( 'get_post_type_archive_link' ) && is_post_type_archive() )
 					$url = get_post_type_archive_link( get_query_var( 'post_type' ) );
 				elseif ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
-					$author = $this->p->util->get_author_object();
+					$author = $this->get_author_object();
 					if ( ! empty( $author->ID ) ) {
 						if ( isset( $this->p->addons['util']['user'] ) )
 							$url = $this->p->addons['util']['user']->get_options( $author->ID, 'sharing_url' );

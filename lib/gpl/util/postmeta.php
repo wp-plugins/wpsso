@@ -11,6 +11,12 @@ if ( ! defined( 'ABSPATH' ) )
 if ( ! class_exists( 'WpssoUtilPostmeta' ) && class_exists( 'WpssoPostmeta' ) ) {
 
 	class WpssoUtilPostmeta extends WpssoPostmeta {
+
+		public function __construct( &$plugin ) {
+			$this->p =& $plugin;
+			$this->p->debug->mark();
+			$this->add_actions();
+		}
 	}
 }
 

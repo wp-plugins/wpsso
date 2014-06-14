@@ -121,7 +121,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					if ( ! empty( $title ) ) 
 						$this->p->debug->log( 'custom user '.$custom.' = "'.$title.'"' );
 					elseif ( is_admin() )	// re-create default wp title on admin side
-						$title = $author->display_name.' '.$separator.' '.$value;
+						$title = $author->display_name.' '.$separator.' '.$title;
 				}
 			}
 
@@ -134,7 +134,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			// check for hashtags in meta or seed title, remove and then add again after shorten
 			if ( preg_match( '/(.*)(( #[a-z0-9\-]+)+)$/U', $title, $match ) ) {
-				$add_hashtags = true;
 				$title = $match[1];
 				$hashtags = trim( $match[2] );
 			} elseif ( is_singular() || $use_post !== false ) {
@@ -215,7 +214,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				}
 				if ( ! empty( $parent_title ) ) 
 					$textlen = $textlen - strlen( $parent_title ) - 3;
-				if ( ! empty( $hashtags ) ) 
+				if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 					$textlen = $textlen - strlen( $hashtags ) - 1;
 				$title = $this->p->util->limit_text_length( $title, $textlen, $trailing );
 			}
@@ -226,7 +225,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			if ( ! empty( $paged_suffix ) ) 
 				$title .= ' '.$paged_suffix;
 
-			if ( ! empty( $hashtags ) ) 
+			if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 				$title .= ' '.$hashtags;
 
 			if ( $encode === true )
@@ -281,7 +280,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 		
 			// check for hashtags in meta or seed description, remove and then add again after shorten
 			if ( preg_match( '/(.*)(( #[a-z0-9\-]+)+)$/U', $desc, $match ) ) {
-				$add_hashtags = true;
 				$desc = $match[1];
 				$hashtags = trim( $match[2] );
 			} elseif ( is_singular() || $use_post !== false ) {
@@ -366,12 +364,12 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			}
 
 			if ( $textlen > 0 ) {
-				if ( ! empty( $hashtags ) ) 
+				if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 					$textlen = $textlen - strlen( $hashtags ) -1;
 				$desc = $this->p->util->limit_text_length( $desc, $textlen, '...' );	// runs cleanup_html_tags()
 			} else $desc = $this->p->util->cleanup_html_tags( $desc );
 
-			if ( ! empty( $hashtags ) ) 
+			if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 				$desc .= ' '.$hashtags;
 
 			if ( $encode === true )
