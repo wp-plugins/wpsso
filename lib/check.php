@@ -251,23 +251,29 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				if ( ! empty( $opts['opengraph'] ) ) {
 					$this->p->debug->log( $conflict_log_prefix.'wpseo opengraph meta data option is enabled' );
 					$this->p->notice->err( $conflict_err_prefix.
-						sprintf( __( 'Please uncheck the \'<em>Open Graph meta data</em>\' Facebook option in the '.
-							'<a href="%s">Yoast WordPress SEO plugin Social settings</a>.', WPSSO_TEXTDOM ), 
+						sprintf( __( 'Please uncheck the \'<em>Add Open Graph meta data</em>\' Facebook option in the '.
+							'<a href="%s">Yoast WordPress SEO: Social</a> settings.', WPSSO_TEXTDOM ), 
 							get_admin_url( null, 'admin.php?page=wpseo_social' ) ) );
 				}
 				if ( ! empty( $this->p->options['tc_enable'] ) && $this->is_aop() && ! empty( $opts['twitter'] ) ) {
 					$this->p->debug->log( $conflict_log_prefix.'wpseo twitter meta data option is enabled' );
 					$this->p->notice->err( $conflict_err_prefix.
-						sprintf( __( 'Please uncheck the \'<em>Twitter Card meta data</em>\' Twitter option in the '.
-							'<a href="%s">Yoast WordPress SEO plugin Social settings</a>.', WPSSO_TEXTDOM ), 
+						sprintf( __( 'Please uncheck the \'<em>Add Twitter Card meta data</em>\' Twitter option in the '.
+							'<a href="%s">Yoast WordPress SEO: Social</a> settings.', WPSSO_TEXTDOM ), 
 							get_admin_url( null, 'admin.php?page=wpseo_social' ) ) );
 				}
-
+				if ( ! empty( $opts['googleplus'] ) ) {
+					$this->p->debug->log( $conflict_log_prefix.'wpseo googleplus meta data option is enabled' );
+					$this->p->notice->err( $conflict_err_prefix.
+						sprintf( __( 'Please uncheck the \'<em>Add Google+ specific post meta data</em>\' Google+ option in the '.
+							'<a href="%s">Yoast WordPress SEO: Social</a> settings.', WPSSO_TEXTDOM ), 
+							get_admin_url( null, 'admin.php?page=wpseo_social' ) ) );
+				}
 				if ( ! empty( $this->p->options['link_publisher_url'] ) && ! empty( $opts['plus-publisher'] ) ) {
 					$this->p->debug->log( $conflict_log_prefix.'wpseo google plus publisher option is defined' );
 					$this->p->notice->err( $conflict_err_prefix.
 						sprintf( __( 'Please remove the \'<em>Google Publisher Page</em>\' value entered in the '.
-							'<a href="%s">Yoast WordPress SEO plugin Social settings</a>.', WPSSO_TEXTDOM ), 
+							'<a href="%s">Yoast WordPress SEO: Social</a> settings.', WPSSO_TEXTDOM ), 
 							get_admin_url( null, 'admin.php?page=wpseo_social' ) ) );
 				}
 			}
