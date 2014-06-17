@@ -345,10 +345,12 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'form' => array(
+				'tooltip_class' => 'sucom_tooltip',
 				'max_desc_hashtags' => 10,
 				'max_media_items' => 20,
 				'file_cache_hours' => array( 0, 1, 3, 6, 9, 12, 24, 36, 48, 72, 168 ),
-				'tooltip_class' => 'sucom_tooltip',
+				'js_locations' => array( 'none' => '', 'header' => 'Header', 'footer' => 'Footer' ),
+				'caption_types' => array( 'none' => '', 'title' => 'Title Only', 'excerpt' => 'Excerpt Only', 'both' => 'Title and Excerpt' ),
 			),
 			'head' => array(
 				'min_img_dim' => 200,

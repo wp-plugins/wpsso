@@ -12,18 +12,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 	class WpssoAdmin {
 	
-		protected $js_locations = array(
-			'header' => 'Header',
-			'footer' => 'Footer',
-		);
-
-		protected $captions = array(
-			'none' => '',
-			'title' => 'Title Only',
-			'excerpt' => 'Excerpt Only',
-			'both' => 'Title and Excerpt',
-		);
-
 		protected $p;
 		protected $menu_id;
 		protected $menu_name;
