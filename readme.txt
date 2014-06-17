@@ -262,6 +262,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/">About Pro Addons</a>
 	<ul>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/author-gravatar/">Author Gravatar</a></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/easy-digital-downloads/">Easy Digital Downloads</a></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/jetpack-photon/">Jetpack Photon</a></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a></li>
