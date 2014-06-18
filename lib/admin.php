@@ -258,14 +258,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_purchase', 
 					array( &$this, 'add_class_postbox_highlight_side' ) );
 				$this->p->addons['util']['user']->reset_metabox_prefs( $this->pagehook, array( 'purchase' ), null, 'side', true );
-				$this->p->addons['util']['user']->reset_metabox_prefs( $this->pagehook, array( 'rating' ), 'closed', 'side', true );
 			}
-
-			add_meta_box( $this->pagehook.'_rating', __( 'Help Other WordPress Users', WPSSO_TEXTDOM ), 
-				array( &$this, 'show_metabox_rating' ), $this->pagehook, 'side' );
-			add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_rating', 
-				array( &$this, 'add_class_postbox_highlight_side' ) );
-			$this->p->addons['util']['user']->reset_metabox_prefs( $this->pagehook, array( 'rating' ), 'closed', 'side' );
 
 			add_meta_box( $this->pagehook.'_info', __( 'Version Information', WPSSO_TEXTDOM ), 
 				array( &$this, 'show_metabox_info' ), $this->pagehook, 'side' );
@@ -498,15 +491,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					__( 'Purchase a Pro License', WPSSO_TEXTDOM ) :
 					__( 'Purchase the Pro Version', WPSSO_TEXTDOM ) ), 
 				'button-primary', null, $this->p->cf['url']['purchase'], true );
-			echo '</p></td></tr></table>';
-		}
-
-		public function show_metabox_rating() {
-			echo '<table class="sucom-setting"><tr><td>';
-			echo $this->p->msgs->get( 'side-rating' );
-			echo '<p class="centered">';
-			echo $this->form->get_button( 'Rate the Plugin', 
-				'button-primary', null, $this->p->cf['url']['review'], true );
 			echo '</p></td></tr></table>';
 		}
 
