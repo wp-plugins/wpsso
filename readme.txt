@@ -13,7 +13,7 @@ Improve the Appearance, Ranking, and Social Engagement of your social shares on 
 == Description ==
 
 <blockquote>
-<p>HTML meta tags provide information about your content, not the sharing buttons. <strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites.</p>
+<p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites. HTML meta tags provide information about your content, not the sharing buttons.</p>
 </blockquote>
 
 <p>WordPress Social Sharing Optimization (WPSSO) <strong>provides the information search engines and social websites need</strong> to improve Google Search ranking and social engagement on Facebook, Google+, Twitter, LinkedIn, Pinterest, and many more.</p>
