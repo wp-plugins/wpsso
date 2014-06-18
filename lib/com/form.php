@@ -102,7 +102,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 						case 'og_vid_max': if ( $desc === 0 ) $desc .= ' (no videos)'; break;
 						default: if ( $desc === '' || $desc === 'none' ) $desc = '[none]'; break;
 					}
-					if ( $this->in_defaults( $name ) && $val == $this->defaults[$name] ) 
+					if ( $this->in_defaults( $name ) && $val === $this->defaults[$name] )
 						$desc .= ' (default)';
 				}
 				$html .= '<option value="'.esc_attr( $val ).'"';
