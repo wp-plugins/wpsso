@@ -105,6 +105,8 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 				// default for everything else is 'website'
 				} else $og['og:type'] = 'website';
+
+				$og['og:type'] = apply_filters( $this->p->cf['lca'].'_og_type', $og['og:type'], $use_post );
 			}
 
 			// if the page is an article, then define the other article meta tags
