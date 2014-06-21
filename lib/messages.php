@@ -786,7 +786,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					$text = '<p>The Pro version can be purchased and '.( $this->p->is_avail['aop'] == true ? 'licensed' : 'upgraded' ).
 					' within a few <em>seconds</em> following your purchase. Pro version licenses do not expire, and there are 
 					no recurring / yearly fees for updates and support. Do you have any questions or concerns about licensing? 
-					<a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new Support Ticket</a> and we will be happy to assist you.';
+					<a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new support ticket</a> and we will be happy to assist you.';
 					break;
 				case 'side-help':
 					$text = '<p>Individual option boxes (like this one) can be opened / closed by clicking on their title bar, 
@@ -796,7 +796,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						$text .= '<p><strong>Need help with the Pro version?</strong>
 						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">FAQs</a>, 
 						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Notes</a>,
-						and / or <a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new Support Ticket</a>.</p>';
+						and / or <a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">submit a new support ticket</a>.</p>';
 					else
 						$text .= '<p><strong>Need help with the Free version?</strong>
 						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">FAQs</a>, 
