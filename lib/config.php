@@ -321,7 +321,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'url' => array(
-				'review' => 'http://wordpress.org/support/view/plugin-reviews/wpsso',
+				'review' => 'http://wordpress.org/support/view/plugin-reviews/wpsso#postform',
 				'readme' => 'http://plugins.svn.wordpress.org/wpsso/trunk/readme.txt',
 				'setup' => 'http://plugins.svn.wordpress.org/wpsso/trunk/setup.html',
 				'changelog' => 'http://wordpress.org/plugins/wpsso/changelog/',
