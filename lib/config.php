@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.5.0',		// plugin version
+			'version' => '2.5.2dev1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -33,7 +33,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'submenu' => array (
 					'general' => 'General',
 					'advanced' => 'Advanced',
-					'about' => 'About',
+					'readme' => 'Read Me',
+					'setup' => 'Setup Guide',
 				),
 				'sitesubmenu' => array(
 					'network' => 'Network',
@@ -322,6 +323,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'url' => array(
 				'review' => 'http://wordpress.org/support/view/plugin-reviews/wpsso',
 				'readme' => 'http://plugins.svn.wordpress.org/wpsso/trunk/readme.txt',
+				'setup' => 'http://plugins.svn.wordpress.org/wpsso/trunk/setup.html',
 				'changelog' => 'http://wordpress.org/plugins/wpsso/changelog/',
 				'purchase' => 'http://plugin.surniaulula.com/extend/plugins/wpsso/',
 				'codex' => 'http://surniaulula.com/codex/plugins/wpsso/',

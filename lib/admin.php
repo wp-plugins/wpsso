@@ -348,9 +348,15 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			//do_meta_boxes( $this->pagehook, 'bottom', null ); 
 
-			if ( $this->menu_id != 'about' )
-				echo $this->get_submit_button();
-
+			switch ( $this->menu_id ) {
+				case 'about':
+				case 'readme':
+				case 'guide':
+					break;
+				default:
+					echo $this->get_submit_button();
+					break;
+			}
 			echo '</form>', "\n";
 		}
 

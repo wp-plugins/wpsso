@@ -8,9 +8,9 @@ Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 if ( ! defined( 'ABSPATH' ) ) 
 	die( 'These aren\'t the droids you\'re looking for...' );
 
-if ( ! class_exists( 'WpssoSubmenuAbout' ) && class_exists( 'WpssoAdmin' ) ) {
+if ( ! class_exists( 'WpssoSubmenuReadme' ) && class_exists( 'WpssoAdmin' ) ) {
 
-	class WpssoSubmenuAbout extends WpssoAdmin {
+	class WpssoSubmenuReadme extends WpssoAdmin {
 
 		public function __construct( &$plugin, $id, $name ) {
 			$this->p =& $plugin;
@@ -31,28 +31,28 @@ if ( ! class_exists( 'WpssoSubmenuAbout' ) && class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		public function show_metabox_description() {
-			echo '<table class="sucom-setting about-metabox"><tr><td>';
+			echo '<table class="sucom-setting readme-metabox"><tr><td>';
 			echo empty( $this->p->admin->readme['sections']['description'] ) ? 
 				'Content not Available' : $this->p->admin->readme['sections']['description'];
 			echo '</td></tr></table>';
 		}
 		
 		public function show_metabox_faq() {
-			echo '<table class="sucom-setting about-metabox"><tr><td>';
+			echo '<table class="sucom-setting readme-metabox"><tr><td>';
 			echo empty( $this->p->admin->readme['sections']['frequently_asked_questions'] ) ?
 				'Content not Available' : $this->p->admin->readme['sections']['frequently_asked_questions'];
 			echo '</td></tr></table>';
 		}
 
 		public function show_metabox_remaining() {
-			echo '<table class="sucom-setting about-metabox"><tr><td>';
+			echo '<table class="sucom-setting readme-metabox"><tr><td>';
 			echo empty( $this->p->admin->readme['remaining_content'] ) ?
 				'Content not Available' : $this->p->admin->readme['remaining_content'];
 			echo '</td></tr></table>';
 		}
 
 		public function show_metabox_changelog() {
-			echo '<table class="sucom-setting about-metabox"><tr><td>';
+			echo '<table class="sucom-setting readme-metabox"><tr><td>';
 			echo empty( $this->p->admin->readme['sections']['changelog'] ) ?
 				'Content not Available' : $this->p->admin->readme['sections']['changelog'];
 			echo '</td></tr></table>';

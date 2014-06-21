@@ -838,6 +838,12 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins (see the Open Graph Settings above).
 					The following settings allow you to manage a few Pinterest-specific options.</p>';
 					break;
+				case 'review-info':
+					$text .= '<p>If you appreciate the quality of this plugin, or the support we provide, please take a moment to
+					<a href="'.$this->p->cf['url']['review'].'" target="_blank">rate the '.WpssoConfig::get_config( 'full' ).' plugin on WordPress.org</a>.
+					Your rating will help other WordPress users find higher quality and better supported plugins &mdash; 
+					and encourage us to keep improving '.WpssoConfig::get_config( 'full' ).' at the same time! Thank you. :)</p>';
+					break;
 				/*
 				 * Other messages
 				 */

@@ -1,0 +1,44 @@
+<p><strong>Have a look at the selection of videos available on <a href="https://www.youtube.com/user/SurniaUlulaCom">Surnia Ulula's Youtube Channel</a></strong>. Familiarize yourself with the difference between meta tags and social buttons -- the first provides information about the webpage to social websites, the other just shares the URL of the current webpage. ;-)</p>
+
+<p><strong>Review the plugin <a href="http://codex.wpsso.surniaulula.com/" target="">Codex</a> on the support website</strong>. WPSSO is a powerful tool, that can detect images and videos from a variety of sources (attached, featured, content, etc.), along with e-commerce product information. It's worth reading some of the most common questions to get an idea of what it can do. Some of the most relevant / popular ones might be:</p>
+
+<h4>FAQ</h4>
+
+<ul>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/can-i-use-other-social-sharing-buttons/">Can I use other social sharing buttons?</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/how-does-wpsso-find-detect-select-images/">How does WPSSO find / detect / select images?</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-doesnt-facebook-show-the-correct-image/">Why doesn’t Facebook show the correct image?</a></li>
+	<li>More <a href="http://codex.wpsso.surniaulula.com/" target="">Frequently Asked Questions</a>...</li>
+</ul>
+
+<h4>Other Notes</h4>
+
+<ul>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/debugging-and-problem-solving/">Debugging and Problem Solving</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/performance-tuning/">Performance Tuning</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/working-with-image-attachments/">Working with Image Attachments</a></li>
+	<li>More <a href="http://notes.wpsso.surniaulula.com/" target="">Notes</a>...</li>
+</ul>
+
+<p><strong>Have your authors enter their Facebook, Google+, and Twitter contact information</strong> on their WordPress user profile page. The WPSSO General settings allow you to enter contact information for the website (Facebook Page, website Twitter account, etc.), but each author's contact information can also appear in the meta tags -- if they complete their user profile. Authors should also update their <a href="https://www.facebook.com/settings?tab=followers">Facebook Follower Settings</a> to enable the Facebook Follow button on their shared content. Additional WordPress profile contact fields can be enabled from the WPSSO Advanced settings page, but WPSSO currently only uses the Facebook, Google+, and Twitter contact fields in the meta tags.</p>
+
+<p><strong>Review the Image Dimensions option on the WPSSO General settings page</strong>. If your original images are large enough, you should set the Open Graph Image Dimensions to 1200x1200 cropped or larger (see the help popup for more information). Images that are at least 1200px wide will be displayed more prominently by Facebook (which uses the image provided by the Open Graph meta tags), so it's worth taking the time to make sure <em>all</em> your original / full-size featured images are at least 1200px in width <em>and</em> height, along with setting an Open Graph Image Dimension of 1200x1200 cropped.</p>
+
+<p><strong>Make sure Twitter Cards are enabled</strong> and review their associated Image Dimension options. The default Image Dimensions should be fine -- you may want to adjust them to match other custom image sizes you may have (to cut down on the number of resized images created on disk).</p>
+
+<p><strong>Submit a few sample Posts and Pages to the <a href="https://developers.facebook.com/tools/debug/">Facebook Debugger</a></strong> to verify the accuracy of your Open Graph meta tags. A link to the Facebook Debugger also available under the Validation Tools tab, in the Custom Settings metabox on Post / Page admin editing pages. Submitting a URL to the Facebook Debugger also clears the Facebook cache, so the link under the Validation Tools tab can be a useful resource.</p>
+
+<p><strong>Submit a Post / Page to the <a href="http://developers.pinterest.com/rich_pins/validator/">Pinterest Rich Pin Validator</a></strong> and request approval for Rich Pins. Pinterest Rich Pins are an extension of Open Graph meta tags, but the Rich Pin Validator can be a little buggy, so double check any errors with the Facebook Debugger to make sure they are actual / real errors. Once approved, you can zoom a Pin to view the Rich Pin information.</p>
+
+<p><strong>Submit a few different Post Types and Pages to the <a href="https://dev.twitter.com/docs/cards/validation/validator">Twitter Card Validator</a></strong> -- each card type must be approved individually, so choose Posts and Pages with featured images, galleries, products, etc. and submit an example of each. Here's a list of supported Twitter Cards, and how WPSSO selects a Twitter Card based on the content.</p>
+
+<ul>
+	<li><strong>Product</strong> : Product information from a supported e-commerce plugin.</li>
+	<li><strong>Player</strong> : An embedded video in the content from YouTube, Vimeo, or Wistia.</li>
+	<li><strong>Gallery Card</strong> : A WordPress Media Library <em>gallery</em> or NextGEN Gallery <em>nggalbum</em>, <em>nggallery</em>, <em>nggtags</em> shortcodes.</li>
+	<li><strong>Photo Card</strong> : A WordPress Attachment Page or NextGEN Gallery ImageBrowser webpage.</li>
+	<li><strong>Large Image Summary Card</strong> : An image defined in the Post or Page WPSSO Custom Settings, a Featured, Attached, or NextGEN Gallery <em>singlepic</em> shortcode image.</li>
+	<li><strong>Summary</strong> : All other webpages.</li>
+</ul>
+
+<p>Links to additional validation tools and services are available in the Custom Settings box on any Post / Page editing page. Facebook caches information about a URL once, so the Facebook Debugger can be a useful tool to refresh its cache (unless the URL has already been shared, in which case the Facebook cache cannot be refreshed).</p>
