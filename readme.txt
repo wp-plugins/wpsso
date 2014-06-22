@@ -318,7 +318,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * Enhancements
 	* Renamed the 'About' settings page to 'Read Me'.
 	* Added a new 'Setup Guide' settings page with [configuration hints and suggestions](http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/).
-	* Added a new 'Welcome' dashboard page, displayed only once, when the plugin or options are updated.
+	* Added a new 'Welcome' dashboard page, displayed only once, when the options are updated or the plugin is activated.
 	
 = Version 2.5.0 =
 
@@ -342,7 +342,11 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
+= 2.5.2 =
+
+Added a new 'Setup Guide' settings page and 'Welcome' dashboard page (displayed only once, when options are updated or the plugin is activated).
+
 = 2.5.0 =
 
-* Added a new 'Social Settings' metabox to the user profile page, and added support for author Gravatar images (Pro version).
+Added a new 'Social Settings' metabox to the user profile page, and added support for author Gravatar images (Pro version).
 
