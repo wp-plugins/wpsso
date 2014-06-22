@@ -76,6 +76,7 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 				wp_die( '<p>'. sprintf( __( 'The %1$s plugin cannot be activated - it requires WordPress %2$s or higher.', WPSSO_TEXTDOM ), 
 					$this->p->cf['full'], $this->p->cf['wp']['min_version'] ).'</p>' );
 			}
+			set_transient( '_'.$this->p->cf['lca'].'_activation_redirect', true, 60 * 60 );
 			$this->p->set_objects( true );
 		}
 

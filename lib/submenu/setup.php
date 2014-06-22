@@ -21,7 +21,7 @@ if ( ! class_exists( 'WpssoSubmenuSetup' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-			add_meta_box( $this->pagehook.'_review', 'Good Plugin and / or Support?', array( &$this, 'show_metabox_review' ), $this->pagehook, 'normal' );
+			add_meta_box( $this->pagehook.'_review', 'Good Plugin and Support?', array( &$this, 'show_metabox_review' ), $this->pagehook, 'normal' );
 			add_meta_box( $this->pagehook.'_guide', 'A Setup Guide', array( &$this, 'show_metabox_guide' ), $this->pagehook, 'normal' );
 		}
 
