@@ -318,6 +318,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * Enhancements
 	* Renamed the 'About' settings page to 'Read Me'.
 	* Added a new 'Setup Guide' settings page with [configuration hints and suggestions](http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/).
+	* Added a new 'Welcome' dashboard page, displayed only once, when the plugin or options are updated.
 	
 = Version 2.5.0 =
 
