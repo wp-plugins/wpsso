@@ -6,7 +6,7 @@
  * Author URI: http://surniaulula.com/
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl.txt
- * Description: Improve the Appearance, Ranking, and Social Engagement of your social shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc.
+ * Description: Improve the appearance, ranking, and social engagement of your social shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc.
  * Requires At Least: 3.0
  * Tested Up To: 3.9.1
  * Version: 2.5.2dev1
