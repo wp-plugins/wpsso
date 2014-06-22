@@ -327,7 +327,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'review' => 'http://wordpress.org/support/view/plugin-reviews/wpsso#postform',
 				'readme' => 'http://plugins.svn.wordpress.org/wpsso/trunk/readme.txt',
 				'setup' => 'http://plugins.svn.wordpress.org/wpsso/trunk/setup.html',
-				'whatsnew' => 'http://plugins.svn.wordpress.org/wpsso/trunk/whatsnew.html',
 				'changelog' => 'http://surniaulula.com/extend/plugins/wpsso/changelog/',
 				'purchase' => 'http://surniaulula.com/extend/plugins/wpsso/',
 				'codex' => 'http://surniaulula.com/codex/plugins/wpsso/',
