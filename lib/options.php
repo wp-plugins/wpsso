@@ -102,6 +102,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 							$this->save_options( $options_name, $opts );
 						}
 					} else $this->save_options( $options_name, $opts );
+					set_transient( '_'.$this->p->cf['lca'].'_activation_redirect', true, 60 * 60 );
 				}
 
 				$opts['add_meta_name_generator'] = 1;

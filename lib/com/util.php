@@ -383,7 +383,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		public function get_remote_content( $url = '', $file = '', $expire_secs = false ) {
 			$content = false;
 			$get_remote = empty( $url ) ? false : true;
-			$expire_secs = $expore_secs === false ? $this->p->cf['update_hours'] * 3600 : $expire_secs;
+			$expire_secs = $expire_secs === false ? $this->p->cf['update_hours'] * 3600 : $expire_secs;
 
 			if ( $this->p->is_avail['cache']['transient'] ) {
 				$cache_salt = __METHOD__.'(url:'.$url.'_file:'.$file.')';

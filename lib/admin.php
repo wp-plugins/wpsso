@@ -31,6 +31,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			add_action( 'admin_init', array( &$this, 'register_setting' ) );
 			add_action( 'admin_menu', array( &$this, 'add_admin_menus' ), -20 );
 			add_action( 'admin_menu', array( &$this, 'add_admin_settings' ), -10 );
+			add_action( 'admin_menu', array( &$this, 'add_admin_dashboards') );
+			add_action( 'admin_head', array( &$this, 'remove_admin_dashboards' ) );
 			add_filter( 'plugin_action_links', array( &$this, 'add_plugin_action_links' ), 10, 2 );
 
 			if ( is_multisite() ) {
@@ -42,7 +44,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		// load all submenu classes into the $this->submenu array
 		private function set_objects() {
-			$libs = array( 'submenu', 'setting' );	// setting must be last to extend submenu/advanced
+			$libs = array( 'dashboard', 'submenu', 'setting' );	// setting must be last to extend submenu/advanced
 			if ( is_multisite() )
 				$libs[] = 'sitesubmenu';
 			foreach ( $libs as $sub ) {
@@ -71,6 +73,33 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		public function set_readme( $expire_secs ) {
 			if ( empty( $this->readme ) )
 				$this->readme = $this->p->util->parse_readme( $expire_secs );
+		}
+
+		public function add_admin_dashboards() {
+			if ( empty( $_GET['page'] ) )
+				return;
+
+			switch ( $_GET['page'] ) {
+				case $this->p->cf['lca'].'-welcome' :
+					$id = 'welcome';
+					$menu_slug = $this->p->cf['lca'].'-'.$id;
+					if ( array_key_exists( $id, $this->submenu ) )
+						$this->submenu[$id]->add_dashboard_page( $menu_slug );
+					break;
+			}
+		}
+
+		public function remove_admin_dashboards() {
+			if ( empty( $_GET['page'] ) )
+				return;
+
+			switch ( $_GET['page'] ) {
+				case $this->p->cf['lca'].'-welcome' :
+					$id = 'welcome';
+					$menu_slug = $this->p->cf['lca'].'-'.$id;
+					remove_submenu_page( 'index.php', $menu_slug );
+					break;
+			}
 		}
 
 		public function add_admin_settings() {
@@ -103,19 +132,30 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 		}
 
+		protected function add_dashboard_page( $menu_slug ) {
+			$this->pagehook = add_dashboard_page( 
+				$this->menu_name, 
+				$this->menu_name, 
+				'manage_options', 
+				$menu_slug, 
+				array( &$this, 'show_single_page' )
+			);
+			add_action( 'load-'.$this->pagehook, array( &$this, 'load_single_page' ) );
+		}
+
 		protected function add_menu_page( $menu_slug ) {
 			global $wp_version;
 			// add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
 			$this->pagehook = add_menu_page( 
-				$this->p->cf['full'].' : '.$this->menu_name, 
+				$this->p->cf['full'].' '.$this->menu_name, 
 				$this->p->cf['menu'], 
 				'manage_options', 
 				$menu_slug, 
-				array( &$this, 'show_page' ), 
+				array( &$this, 'show_form_page' ), 
 				( version_compare( $wp_version, 3.8, '<' ) ? null : 'dashicons-share' ),
 				WPSSO_MENU_PRIORITY
 			);
-			add_action( 'load-'.$this->pagehook, array( &$this, 'load_page' ) );
+			add_action( 'load-'.$this->pagehook, array( &$this, 'load_form_page' ) );
 		}
 
 		protected function add_submenu_page( $parent_slug ) {
@@ -126,9 +166,9 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$this->menu_name, 
 				'manage_options', 
 				$this->p->cf['lca'].'-'.$this->menu_id, 
-				array( &$this, 'show_page' ) 
+				array( &$this, 'show_form_page' ) 
 			);
-			add_action( 'load-'.$this->pagehook, array( &$this, 'load_page' ) );
+			add_action( 'load-'.$this->pagehook, array( &$this, 'load_form_page' ) );
 		}
 
 		// display a settings link on the main plugins page
@@ -208,13 +248,18 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			exit;
 		}
 
-		public function load_page() {
+		public function load_single_page() {
+			wp_enqueue_script( 'postbox' );
+
+			$this->p->admin->submenu[$this->menu_id]->add_meta_boxes();
+		}
+
+		public function load_form_page() {
 			wp_enqueue_script( 'postbox' );
 			$upload_dir = wp_upload_dir();	// returns assoc array with path info
 			$user_opts = $this->p->addons['util']['user']->get_options();
 
 			if ( ! empty( $_GET['action'] ) ) {
-
 				if ( empty( $_GET[ WPSSO_NONCE ] ) )
 					$this->p->debug->log( 'Nonce token validation query field missing.' );
 				elseif ( ! wp_verify_nonce( $_GET[ WPSSO_NONCE ], $this->get_nonce() ) )
@@ -268,10 +313,36 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				array( &$this, 'show_metabox_help' ), $this->pagehook, 'side' );
 		}
 
-		public function show_page() {
+		public function show_single_page() {
+			?>
+			<div class="wrap" id="<?php echo $this->pagehook; ?>">
+				<?php $this->show_follow_icons(); ?>
+				<h2><?php echo $this->menu_name; ?></h2>
+				<div id="poststuff" class="metabox-holder">
+					<div id="post-body" class="">
+						<div id="post-body-content" class="">
+							<?php $this->show_single_content(); ?>
+						</div><!-- .post-body-content -->
+					</div><!-- .post-body -->
+				</div><!-- .metabox-holder -->
+			</div><!-- .wrap -->
+			<script type="text/javascript">
+				//<![CDATA[
+					jQuery(document).ready( 
+						function($) {
+							$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+							postboxes.add_postbox_toggles('<?php echo $this->pagehook; ?>');
+						}
+					);
+				//]]>
+			</script>
+			<?php
+		}
+
+		public function show_form_page() {
 			if ( $this->menu_id !== 'contact' )		// the "settings" page displays its own error messages
 				settings_errors( WPSSO_OPTIONS_NAME );	// display "error" and "updated" messages
-			$this->set_form();				// define form for side boxes and show_form()
+			$this->set_form();				// define form for side boxes and show_form_content()
 			if ( $this->p->debug->is_on() ) {
 				$this->p->debug->show_html( print_r( $this->p->is_avail, true ), 'available features' );
 				$this->p->debug->show_html( print_r( $this->p->check->get_active(), true ), 'active plugins' );
@@ -280,16 +351,16 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			?>
 			<div class="wrap" id="<?php echo $this->pagehook; ?>">
 				<?php $this->show_follow_icons(); ?>
-				<h2><?php echo $this->p->cf['full'].' : '.$this->menu_name; ?></h2>
-				<div id="poststuff" class="metabox-holder <?php echo 'has-right-sidebar'; ?>">
+				<h2><?php echo $this->p->cf['full'].' '.$this->menu_name; ?></h2>
+				<div id="poststuff" class="metabox-holder has-right-sidebar">
 					<div id="side-info-column" class="inner-sidebar">
 						<?php do_meta_boxes( $this->pagehook, 'side', null ); ?>
 					</div><!-- .inner-sidebar -->
 					<div id="post-body" class="has-sidebar">
 						<div id="post-body-content" class="has-sidebar-content">
-							<?php $this->show_form(); ?>
-						</div><!-- .has-sidebar-content -->
-					</div><!-- .has-sidebar -->
+							<?php $this->show_form_content(); ?>
+						</div><!-- .post-body-content -->
+					</div><!-- .post-body -->
 				</div><!-- .metabox-holder -->
 			</div><!-- .wrap -->
 			<script type="text/javascript">
@@ -312,7 +383,11 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			return $classes;
 		}
 
-		protected function show_form() {
+		protected function show_single_content() {
+			do_meta_boxes( $this->pagehook, 'normal', null ); 
+		}
+
+		protected function show_form_content() {
 			if ( ! empty( $this->p->cf['lib']['submenu'][$this->menu_id] ) ) {
 				echo '<form name="wpsso" id="setting" method="post" action="options.php">';
 				echo $this->form->get_hidden( 'options_version', $this->p->cf['opt']['version'] );

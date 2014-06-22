@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.5.2dev1',		// plugin version
+			'version' => '2.5.2dev2',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -27,6 +27,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'transient' => true,
 			),
 			'lib' => array(			// libraries
+				'dashboard' => array (
+					'welcome' => 'Welcome',
+				),
 				'setting' => array (
 					'contact' => 'Contact Methods',
 				),

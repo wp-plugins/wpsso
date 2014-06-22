@@ -839,10 +839,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					The following settings allow you to manage a few Pinterest-specific options.</p>';
 					break;
 				case 'review-info':
-					$text .= '<p>If you appreciate the quality of this plugin or the support we provide, please take a moment to
+					$text .= '<p>If you appreciate the quality of this plugin and / or the support we provide, please take a moment to
 					<a href="'.$this->p->cf['url']['review'].'" target="_blank">rate the '.WpssoConfig::get_config( 'full' ).' plugin on WordPress.org</a>.
-					Your rating will help other WordPress users find higher quality and better supported plugins &mdash; 
-					and encourage us to keep improving '.WpssoConfig::get_config( 'full' ).' at the same time! Thank you. :)</p>';
+					<strong>Your rating will help other WordPress users find higher quality and better supported plugins</strong> &mdash; 
+					and encourage us to keep improving '.WpssoConfig::get_config( 'full' ).' at the same time!</p><p>Thank you. :)</p>';
 					break;
 				/*
 				 * Other messages
