@@ -380,6 +380,37 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return trim( $text );
 		}
 
+		public function get_remote_content( $url = '', $file = '', $expire_secs = false ) {
+			$content = false;
+			$get_remote = empty( $url ) ? false : true;
+			$expire_secs = $expore_secs === false ? $this->p->cf['update_hours'] * 3600 : $expire_secs;
+
+			if ( $this->p->is_avail['cache']['transient'] ) {
+				$cache_salt = __METHOD__.'(url:'.$url.'_file:'.$file.')';
+				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
+				$cache_type = 'object cache';
+				$content = get_transient( $cache_id );
+				if ( $content !== false )
+					return $content;	// no need to save, return now
+			} else $get_remote = false;
+
+			if ( $get_remote === true && $expire_secs > 0 ) {
+				$content = $this->p->cache->get( $url, 'raw', 'file', $expire_secs );
+				if ( empty( $content ) )
+					$get_remote = false;
+			} else $get_remote = false;
+
+			if ( $get_remote === false && ! empty( $file ) && $fh = @fopen( $file, 'rb' ) ) {
+				$content = fread( $fh, filesize( $file ) );
+				fclose( $fh );
+			}
+
+			if ( $this->p->is_avail['cache']['transient'] )
+				set_transient( $cache_id, $content, $this->p->cache->object_expire );
+
+			return $content;
+		}
+
 		public function parse_readme( $expire_secs ) {
 			$this->p->debug->args( array( 'expire_secs' => $expire_secs ) );
 			$readme = '';

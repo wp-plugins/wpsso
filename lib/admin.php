@@ -351,7 +351,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			switch ( $this->menu_id ) {
 				case 'about':
 				case 'readme':
-				case 'guide':
+				case 'setup':
 					break;
 				default:
 					echo $this->get_submit_button();

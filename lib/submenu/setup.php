@@ -32,37 +32,8 @@ if ( ! class_exists( 'WpssoSubmenuSetup' ) && class_exists( 'WpssoAdmin' ) ) {
 		}
 		
 		public function show_metabox_guide() {
-			$content = false;
-			$get_remote = true;
-			$expire_secs = $this->p->cf['update_hours'] * 3600;
-			if ( $this->p->is_avail['cache']['transient'] ) {
-				$cache_salt = __METHOD__.'(file:'.$this->p->cf['url']['setup'].')';
-				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
-				$cache_type = 'object cache';
-				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
-				$content = get_transient( $cache_id );
-				if ( $content !== false )
-					$this->p->debug->log( $cache_type.': setup guide retrieved from transient '.$cache_id );
-			} else $get_remote = false;	// use local if transient cache is disabled
-
-			if ( $content === false && 
-				$get_remote === true && 
-				$expire_secs > 0 )
-					$content = $this->p->cache->get( $this->p->cf['url']['setup'], 'raw', 'file', $expire_secs );
-
-			// fallback to local setup.html file
-			if ( empty( $content ) && 
-				$fh = @fopen( constant( $this->p->cf['uca'].'_PLUGINDIR' ).'setup.html', 'rb' ) ) {
-
-				$get_remote = false;
-				$content = fread( $fh, filesize( constant( $this->p->cf['uca'].'_PLUGINDIR' ).'setup.html' ) );
-				fclose( $fh );
-			}
-
-			if ( $this->p->is_avail['cache']['transient'] ) {
-				set_transient( $cache_id, $content, $this->p->cache->object_expire );
-				$this->p->debug->log( $cache_type.': plugin_info saved to transient '.$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
-			}
+			$content = $this->p->util->get_remote_content( $this->p->cf['url']['setup'],
+				constant( $this->p->cf['uca'].'_PLUGINDIR' ).'setup.html' );
 			echo '<table class="sucom-setting setup-metabox"><tr><td>';
 			echo $content;
 			echo '</td></tr></table>';
