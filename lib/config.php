@@ -46,20 +46,20 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'admin' => array(
 						'general' => 'General',
 						'advanced' => 'Advanced',
-						'postmeta' => 'Custom Post Meta',
-						'user' => 'Custom User Meta',
+						'postmeta' => 'Post Social Settings',
+						'user' => 'User Social Settings',
 					),
 					'util' => array(
-						'postmeta' => 'Custom Post Meta',
-						'user' => 'Custom User Meta',
+						'postmeta' => 'Post Social Settings',
+						'user' => 'User Social Settings',
 					),
 				),
 				'pro' => array(
 					'admin' => array(
 						'general' => 'General Settings',
 						'advanced' => 'Advanced Settings',
-						'postmeta' => 'Custom Post Meta',
-						'user' => 'Custom User Meta',
+						'postmeta' => 'Post Social Settings',
+						'user' => 'User Social Settings',
 					),
 					'ecom' => array(
 						'edd' => 'Easy Digital Downloads',
@@ -94,13 +94,13 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					),
 					'util' => array(
 						'language' => 'Publisher Language',
-						'postmeta' => 'Custom Post Meta',
-						'user' => 'Custom User Meta',
+						'postmeta' => 'Post Social Settings',
+						'user' => 'User Social Settings',
 					),
 				),
 			),
 			'opt' => array(				// options
-				'version' => '284',		// increment when changing default options
+				'version' => '285',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
