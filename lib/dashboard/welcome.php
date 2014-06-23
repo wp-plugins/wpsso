@@ -68,10 +68,12 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 
 		public function welcome_redirect() {
 
-			if ( ! get_transient( '_'.$this->p->cf['lca'].'_activation_redirect' ) )
-				return;
+			if ( ! get_transient( $this->p->cf['lca'].'_activation_redirect' ) &&
+				! get_transient( $this->p->cf['lca'].'_update_redirect' ) )
+					return;
 
-			delete_transient( '_'.$this->p->cf['lca'].'_activation_redirect' );
+			delete_transient( $this->p->cf['lca'].'_activation_redirect' );
+			delete_transient( $this->p->cf['lca'].'_update_redirect' );
 
 			if ( is_network_admin() || 
 				isset( $_GET['activate-multi'] ) || 

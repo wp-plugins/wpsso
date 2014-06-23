@@ -60,10 +60,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).', or disable it completely using an available
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
 							break;
-						case 'tooltip-side-custom-post-meta':
-							$text = 'The Custom Post Meta feature adds a Social Settings metabox to the Post and Page editing pages.
-							Custom values van be entered for Open Graph, Rich Pin, and Twitter Card meta tags, along with custom social sharing
-							text and meta tag validation tools.';
+						case 'tooltip-side-post-social-settings':
+							$text = 'The Post Social Settings feature adds a Social Settings metabox to the Post, Page, and custom post type editing pages.
+							Custom descriptions and images can be entered for Open Graph, Rich Pin, and Twitter Card meta tags.';
+							break;
+						case 'tooltip-side-user-social-settings':
+							$text = 'The User Social Settings feature adds a Social Settings metabox to the user profile pages.
+							Custom descriptions and images can be entered for Open Graph, Rich Pin, and Twitter Card meta tags.';
 							break;
 						case 'tooltip-side-publisher-language':
 							$text = $this->p->cf['full_pro'].' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.

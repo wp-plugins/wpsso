@@ -98,11 +98,10 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 					if ( $options_name == WPSSO_OPTIONS_NAME ) {
 						if ( is_admin() && current_user_can( 'manage_options' ) ) {
-							$this->p->notice->nag( $this->p->msgs->get( 'upgrade-nag' ), true );
 							$this->save_options( $options_name, $opts );
+							set_transient( $this->p->cf['lca'].'_update_redirect', true, 60 * 60 );
 						}
 					} else $this->save_options( $options_name, $opts );
-					set_transient( '_'.$this->p->cf['lca'].'_activation_redirect', true, 60 * 60 );
 				}
 
 				$opts['add_meta_name_generator'] = 1;

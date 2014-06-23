@@ -16,7 +16,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			$this->p =& $plugin;
 			$this->p->util->add_plugin_filters( $this, array( 
 				'plugin_content_rows' => 2,
-				'plugin_custom_rows' => 2,
+				'plugin_social_rows' => 2,
 				'plugin_cache_rows' => 2,
 				'taglist_tags_rows' => 2,
 			), 20 );
@@ -61,7 +61,7 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			return $rows;
 		}
 
-		public function filter_plugin_custom_rows( $rows, $form ) {
+		public function filter_plugin_social_rows( $rows, $form ) {
 			$checkboxes = '<p>'.$form->get_fake_checkbox( 'plugin_add_to_user' ).' User Profile</p>';
 
 			foreach ( $this->p->util->get_post_types( 'plugin' ) as $post_type )

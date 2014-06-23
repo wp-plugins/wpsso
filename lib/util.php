@@ -45,12 +45,14 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					$filter_name = $this->p->cf['lca'].'_add_to_options_'.$post_type->name;
 					if ( ! isset( $opts[$option_name] ) ) {	
 						switch ( $post_type->name ) {
+							/*
 							case 'download':
 							case 'product':
 								$def_val = 1;
 								break;
+							*/
 							default:
-								$def_val = 0;
+								$def_val = 1;
 								break;
 						}
 						$opts[$option_name] = apply_filters( $filter_name, $def_val );
@@ -71,9 +73,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					$include = array( 'public' => true, 'show_ui' => true );
 					break;
 			}
-			$post_types = $include !== false ? 
-				get_post_types( $include, $output ) : array();
-
+			$post_types = $include !== false ?  get_post_types( $include, $output ) : array();
 			return apply_filters( $this->p->cf['lca'].'_post_types', $post_types, $opt_prefix, $output );
 		}
 

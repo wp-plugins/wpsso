@@ -85,7 +85,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 					if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
 						$post_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
-						$this->p->debug->show_html( $post_opts, 'wpsso post_id '.$post_id.' custom settings' );
+						$this->p->debug->show_html( $post_opts, 'wpsso post_id '.$post_id.' social settings' );
 					}
 				}
 			}
