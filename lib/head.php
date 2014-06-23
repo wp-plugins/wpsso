@@ -102,7 +102,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 		public function get_header_array( $use_post = false, $read_cache = true, &$meta_og = array() ) {
 			$obj = $this->p->util->get_post_object( $use_post );
-			$post_id = empty( $obj->ID ) || $use_post === false ? 0 : $obj->ID;
+			$post_id = empty( $obj->ID ) || 
+				( ! is_singular() && $use_post === false ) ? 0 : $obj->ID;
 			$sharing_url = $this->p->util->get_sharing_url( $use_post );
 			$author_id = 0;
 

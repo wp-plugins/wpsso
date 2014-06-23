@@ -135,7 +135,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					}
 				}
 			}
-			if ( $deleted > 0 && $this->p->debug->is_on() )
+			if ( $this->p->debug->is_on() )
 				$this->p->notice->inf( $deleted.' items flushed from object and transient cache', true );
 		}
 
