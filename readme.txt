@@ -314,7 +314,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Version 2.5.2 =
 
 * Bugfixes
-	* *None*
+	* Fixed the post ID reference for header transient objects.
 * Enhancements
 	* Renamed the 'About' settings page to 'Read Me'.
 	* Added a new 'Setup Guide' settings page with [configuration hints and suggestions](http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/).
