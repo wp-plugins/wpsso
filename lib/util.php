@@ -115,23 +115,27 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			$deleted = 0;
 			foreach ( $transients as $group => $arr ) {
 				foreach ( $arr as $val ) {
-					$cache_salt = $group.'('.$val.')';
-					$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
-					if ( delete_transient( $cache_id ) ) {
-						if ( $this->p->debug->is_on() )
-							$this->p->debug->log( 'flushed transient cache salt: '. $cache_salt );
-						$deleted++;
+					if ( ! empty( $val ) ) {
+						$cache_salt = $group.'('.$val.')';
+						$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
+						if ( delete_transient( $cache_id ) ) {
+							if ( $this->p->debug->is_on() )
+								$this->p->debug->log( 'flushed transient cache salt: '. $cache_salt );
+							$deleted++;
+						}
 					}
 				}
 			}
 			foreach ( $objects as $group => $arr ) {
 				foreach ( $arr as $val ) {
-					$cache_salt = $group.'('.$val.')';
-					$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
-					if ( wp_cache_delete( $cache_id, $group ) ) {
-						if ( $this->p->debug->is_on() )
-							$this->p->debug->log( 'flushed object cache salt: '. $cache_salt );
-						$deleted++;
+					if ( ! empty( $val ) ) {
+						$cache_salt = $group.'('.$val.')';
+						$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
+						if ( wp_cache_delete( $cache_id, $group ) ) {
+							if ( $this->p->debug->is_on() )
+								$this->p->debug->log( 'flushed object cache salt: '. $cache_salt );
+							$deleted++;
+						}
 					}
 				}
 			}
