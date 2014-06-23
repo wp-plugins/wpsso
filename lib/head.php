@@ -56,6 +56,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					if ( function_exists( $function ) && $function() )
 						$this->p->debug->log( $function.'() = true' );
 			}
+
 			if ( $this->p->is_avail['metatags'] ) {
 				echo $this->get_header_html();
 			} else echo "\n<!-- ".$this->p->cf['lca']." meta tags are disabled -->\n";
@@ -81,6 +82,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->p->debug->show_html( null, 'debug log' );
 				$this->p->debug->show_html( $opts, 'wpsso settings' );
 
+				// on singular webpages, show the custom social settings
 				if ( is_singular() && ( $obj = $this->p->util->get_post_object() ) !== false ) {
 					$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 					if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
@@ -102,7 +104,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 		public function get_header_array( $use_post = false, $read_cache = true, &$meta_og = array() ) {
 			$obj = $this->p->util->get_post_object( $use_post );
-			$post_id = empty( $obj->ID ) || ( ! is_singular() && $use_post === false ) ? 0 : $obj->ID;
+			$post_id = empty( $obj->ID ) || 
+				( ! is_singular() && $use_post === false ) ? 0 : $obj->ID;
 			$sharing_url = $this->p->util->get_sharing_url( $use_post );
 			$author_id = 0;
 
