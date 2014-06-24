@@ -184,7 +184,7 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 	<li><strong>0.0105</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.5.2</li>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
 	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
-	<li><strong>0.0175</strong> secs - NextGEN Facebook (NGFB) v7.5.2</li>
+	<li><strong>0.0164</strong> secs - NextGEN Facebook (NGFB) v7.5.2</li>
 	<li><strong>0.0189</strong> secs - Contact Form 7 v3.7.2</li>
 	<li><strong>0.0230</strong> secs - Easy Digital Downloads v1.9.8 (No Products)</li>
 	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
