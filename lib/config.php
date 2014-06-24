@@ -342,7 +342,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'size' => 32,
 				'src' => array(
 					'facebook.png' => 'https://www.facebook.com/SurniaUlulaCom',
-					'gplus.png' => 'https://plus.google.com/b/112667121431724484705/112667121431724484705/posts',
+					'gplus.png' => 'https://plus.google.com/+SurniaUlula/',
 					'linkedin.png' => 'https://www.linkedin.com/in/jsmoriss',
 					'twitter.png' => 'https://twitter.com/surniaululacom',
 					'youtube.png' => 'https://www.youtube.com/user/SurniaUlulaCom',
