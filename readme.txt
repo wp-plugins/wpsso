@@ -8,7 +8,7 @@ Requires At Least: 3.0
 Tested Up To: 3.9.1
 Stable Tag: 2.5.0
 
-Improve the appearance, ranking, and social engagement of your social shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc.
+Improve the appearance, ranking, and social engagement of shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, and other social sites.
 
 == Description ==
 
@@ -207,7 +207,7 @@ Try the WPSSO plugin with complete confidence &mdash; when uninstalled, WPSSO re
 
 WPSSO support and development is on-going. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
 
-**Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula?rel=author), [Facebook](https://www.facebook.com/SurniaUlulaCom), and [Twitter](https://twitter.com/surniaululacom), and [YouTube](http://www.youtube.com/user/SurniaUlulaCom)**.
+**Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula/?rel=author), [Facebook](https://www.facebook.com/SurniaUlulaCom), and [Twitter](https://twitter.com/surniaululacom), and [YouTube](http://www.youtube.com/user/SurniaUlulaCom)**.
 
 == Installation ==
 
