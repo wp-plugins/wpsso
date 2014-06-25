@@ -14,7 +14,18 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
-			$this->p->util->add_img_sizes_from_opts( array( 'og_img' => 'opengraph' ) );
+			switch ( SucomUtil::crawler_name() ) {
+				case 'pinterest':
+					$this->p->util->add_img_sizes_from_opts( array( 
+						'rp_img' => 'opengraph'
+					) );
+					break;
+				default:
+					$this->p->util->add_img_sizes_from_opts( array( 
+						'og_img' => 'opengraph'
+					) );
+					break;
+			}
 			add_filter( 'language_attributes', array( &$this, 'add_doctype' ) );
 		}
 

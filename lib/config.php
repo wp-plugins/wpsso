@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.5.2',		// plugin version
+			'version' => '2.5.3dev1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -100,7 +100,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '285',		// increment when changing default options
+				'version' => '286',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -148,6 +148,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_desc_hashtags' => 3,
 					'og_desc_strip' => 0,
 					'rp_author_name' => 'display_name',	// rich-pin specific article:author
+					'rp_img_width' => 800,
+					'rp_img_height' => 800,
+					'rp_img_crop' => 0,
 					'tc_enable' => 1,
 					'tc_site' => '',
 					'tc_desc_len' => 200,

@@ -741,6 +741,15 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							when the Pinterest crawler is detected. Select an Author Name Format, or \'[none]\' to disable this feature 
 							(the default and recommended value is \'Display Name\').';
 							break;
+						case 'tooltip-rp_img_dimensions':
+							$text = 'The image dimensions specifically for Rich Pin meta tags when the Pinterest crawler is detected
+							(defaults is '.$this->p->opt->get_defaults( 'rp_img_width' ).'x'.$this->p->opt->get_defaults( 'rp_img_height' ).' '.
+							( $this->p->opt->get_defaults( 'rp_img_crop' ) == 0 ? 'un' : '' ).'cropped). 
+							Images in the Open Graph meta tags are usually cropped, where-as images on Pinterest often look
+							better in their original aspect ratio (aka uncropped).
+							Note that original images in the WordPress Media Library and/or 
+							NextGEN Gallery must be larger than your chosen image dimensions.';
+							break;
 						/*
 						 * Other settings
 						 */
@@ -832,14 +841,15 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY</strong><br/>
 					(enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>).</p>';
 					break;
-				case 'sharing-buttons-info':
-					$text = '<p>The following social sharing buttons can be added to the content, excerpt, and/or enabled within the '.
-					$this->p->cf['menu'].' Sharing Buttons widget as well (see the <a href="'.
-					get_admin_url( null, 'widgets.php' ).'">widgets admin page</a>).</p>';
+				case 'sharing-include-info':
+					$text = '<p>The buttons enabled bellow (along with those in the widget) can be included or excluded from specific webpage types.
+					This does not apply to the shortcode and function buttons, which are displayed (or not) based on their parameter settings.</p>';
 					break;
 				case 'pub-pinterest-info':
-					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins (see the Open Graph Settings above).
-					The following settings allow you to manage a few Pinterest-specific options.</p>';
+					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins (see above).
+					The following options allow you to manage and/or override some of the Open Graph defaults.
+					Please note that if you use a full-page caching plugin or front-end caching service, it should detected the Pinterest 
+					crawler and bypass the cache (so customized / different meta tags can be provided to the crawler).</p>';
 					break;
 				case 'review-info':
 					$text .= '<p>If you appreciate the quality of this plugin and / or the support we provide, please take a moment to

@@ -204,6 +204,24 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 							$img_meta['sizes'][$size_name]['width'] == $size_info['width'] ? true : false;
 						$is_accurate_height = ! empty( $img_meta['sizes'][$size_name]['height'] ) &&
 							$img_meta['sizes'][$size_name]['height'] == $size_info['height'] ? true : false;
+
+						// if not cropped, make sure the resized image respects the original aspect ratio
+						if ( $is_accurate_width && $is_accurate_height && empty( $size_info['crop'] ) ) {
+							if ( $img_meta['width'] > $img_meta['height'] ) {
+								$ratio = $img_meta['width'] / $size_info['width'];
+								$check = 'height';
+							} else {
+								$ratio = $img_meta['height'] / $size_info['height'];
+								$check = 'width';
+							}
+							$should_be = (int) round( $img_meta[$check] / $ratio );
+							// allow for a +/-1 pixel difference
+							if ( $img_meta['sizes'][$size_name][$check] < ( $should_be - 1 ) ||
+								$img_meta['sizes'][$size_name][$check] > ( $should_be + 1 ) ) {
+									$is_accurate_width = false;
+									$is_accurate_height = false;
+							}
+						}
 					}
 
 					// depending on cropping, one or both sides of the image must be accurate

@@ -46,9 +46,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 			$metabox = 'pub';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
 				'facebook' => 'Facebook',
-				'google' => 'Google / SEO',
-				'pinterest' => 'Pinterest',
-				'twitter' => 'Twitter',
+				'google' => 'Google+ and Search',
+				'pinterest' => 'Pinterest Rich Pins',
+				'twitter' => 'Twitter Cards',
 			) );
 			$rows = array();
 			foreach ( $tabs as $key => $title )
@@ -104,7 +104,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					if ( $this->p->is_avail['media']['ngg'] == true ) 
 						$img_id_pre['ngg'] = 'NextGEN Gallery';
 
-					$rows[] = $this->p->util->th( 'Open Graph Image Dimensions', 'highlight', 'og_img_dimensions' ).
+					$rows[] = $this->p->util->th( 'Image Dimensions', 'highlight', 'og_img_dimensions' ).
 					'<td>Width '.$this->form->get_input( 'og_img_width', 'short' ).' x '.
 					'Height '.$this->form->get_input( 'og_img_height', 'short' ).' &nbsp; '.
 					'Crop '.$this->form->get_checkbox( 'og_img_crop' ).'</td>';
@@ -221,6 +221,12 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 				case 'pub-pinterest':
 					$rows[] = '<td colspan="2" style="padding-bottom:10px;">'.$this->p->msgs->get( 'pub-pinterest-info' ).'</td>';
+
+					$rows[] = $this->p->util->th( 'Image Dimensions', null, 'rp_img_dimensions' ).
+					'<td>Width '.$this->form->get_input( 'rp_img_width', 'short' ).' x '.
+					'Height '.$this->form->get_input( 'rp_img_height', 'short' ).' &nbsp; '.
+					'Crop '.$this->form->get_checkbox( 'rp_img_crop' ).'</td>';
+	
 					$rows[] = $this->p->util->th( 'Author Name Format', null, 'rp_author_name' ).
 					'<td>'.$this->form->get_select( 'rp_author_name', $this->author_name_fields() ).'</td>';
 	
