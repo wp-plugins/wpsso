@@ -311,6 +311,14 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.5.3 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Added an 'Image Dimensions' option in the Pinterest publisher settings tab.
+	* Added an additional check for images sizes returned by WordPress to validate the aspect ratio of uncropped images. WordPress has an unfortunate habit of returning images that are "close enough" and may return cropped images when an uncropped image was requested.
+
 = Version 2.5.2 =
 
 * Bugfixes
