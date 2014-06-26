@@ -12,18 +12,20 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 	class WpssoOpengraph extends SucomOpengraph {
 
+		protected $size_name = '';
+
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
+			$this->p->util->add_img_sizes_from_opts( array( 
+				'og_img' => 'opengraph',
+				'rp_img' => 'opengraph-rp',
+			) );
 			switch ( SucomUtil::crawler_name() ) {
 				case 'pinterest':
-					$this->p->util->add_img_sizes_from_opts( array( 
-						'rp_img' => 'opengraph'
-					) );
+					$this->size_name = $this->p->cf['lca'].'-opengraph-rp';
 					break;
 				default:
-					$this->p->util->add_img_sizes_from_opts( array( 
-						'og_img' => 'opengraph'
-					) );
+					$this->size_name = $this->p->cf['lca'].'-opengraph';
 					break;
 			}
 			add_filter( 'language_attributes', array( &$this, 'add_doctype' ) );
@@ -171,13 +173,12 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				if ( empty( $og_max['og_img_max'] ) ) 
 					$this->p->debug->log( 'images disabled: maximum images = 0' );
 				else {
-					$og['og:image'] = $this->get_all_images( $og_max['og_img_max'], $this->p->cf['lca'].'-opengraph', $post_id );
+					$og['og:image'] = $this->get_all_images( $og_max['og_img_max'], $this->size_name, $post_id );
 
 					// if there's no image, and no video preview image, then add the default image for non-index webpages
 					if ( empty( $og['og:image'] ) && $has_video_image === false &&
 						( is_singular() || $use_post !== false ) )
-							$og['og:image'] = $this->p->media->get_default_image( $og_max['og_img_max'], 
-								$this->p->cf['lca'].'-opengraph' );
+							$og['og:image'] = $this->p->media->get_default_image( $og_max['og_img_max'], $this->size_name );
 				} 
 			}
 

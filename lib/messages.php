@@ -849,10 +849,12 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					This does not apply to the shortcode and function buttons, which are displayed (or not) based on their parameter settings.</p>';
 					break;
 				case 'pub-pinterest-info':
-					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins (see above).
-					The following options allow you to manage and/or override some of the Open Graph defaults.
-					Please note that if you use a full-page caching plugin or front-end caching service, 
-					it should detect the Pinterest crawler and bypass the cache (so different meta tags can be provided to the crawler).</p>';
+					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins.
+					These options allow you to manage and/or override some Pinterest-specific Open Graph settings.
+					Please note that if you use a full-page caching plugin, or front-end caching service, 
+					it should detect the Pinterest crawler user-agent and bypass the cache, 
+					so that different meta tags can be provided to the crawler 
+					(for example, look for a "<em>User-Agent Exclusion Pattern</em>" option and add "Pinterest/" to that list).</p>';
 					break;
 				case 'review-info':
 					$text .= '<p>If you appreciate the quality of this plugin and / or the support we provide, please take a moment to
