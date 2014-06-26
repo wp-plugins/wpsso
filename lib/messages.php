@@ -235,8 +235,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							( $this->p->opt->get_defaults( 'og_img_crop' ) == 0 ? 'un' : '' ).'cropped). 
 							Facebook recommends 1200x630 cropped, and 600x315 as a minimum.
 							<strong>1200x1200 cropped provides the greatest comptibility with all social websites 
-							(Facebook, G+, Pinterest, etc.)</strong>. Note that original images in the WordPress Media Library and/or 
-							NextGEN Gallery must be larger than your chosen image dimensions.';
+							(Facebook, Google+, etc.)</strong>. Note that original images in the WordPress Media Library and/or 
+							NextGEN Gallery should be larger than your chosen image dimensions.';
 							break;
 						case 'tooltip-og_def_img_id':
 							$text = 'The ID number and location of your default image (example: 123). The Default Image ID 
@@ -364,7 +364,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							to the Open Graph / Rich Pin article tags and Hashtag list (default is unchecked).';
 							break;
 						case 'tooltip-og_desc_hashtags':
-							$text = 'The maximum number of tag names (not their slugs), converted to hashtags, to include in the 
+							$text = 'The maximum number of tag names (converted to hashtags) to include in the 
 							Open Graph / Rich Pin description, tweet text, and social captions.
 							Each tag name is converted to lowercase with any whitespaces removed. 
 							Select \'0\' to disable the additiona of hashtags.';
@@ -379,9 +379,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Authorship' settings
 						 */
 						case 'tooltip-og_author_field':
-							$text = 'Select a profile field to use in the \'article:author\' Open Graph / Rich Pin meta tag(s).
-							The preferred and default value is the author\'s Facebook URL (recommended setting). 
-							See the Publisher settings Google tab bellow for an Author Link URL option, which is used by Google Search.';
+							$text = 'Select which field to use from the author\'s profile for the 
+							Open Graph / Rich Pin \'article:author\' meta tag(s).
+							The preferred (and default) setting is the Facebook URL field.';
 							break;
 						case 'tooltip-og_author_fallback':
 							$text = 'If the Author Profile URL (and the Author Link URL in the Google Settings below) 
@@ -603,14 +603,17 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							(the default is '.$this->p->opt->get_defaults( 'seo_desc_len' ).' characters).';
 							break;
 						case 'tooltip-google_author_name':
-							$text = 'Select an Author Name Format for the "author" meta tag, or \'[none]\' to disable this feature 
-							(the recommended value is \'Display Name\'). Facebook uses the "author" meta tag value to credit the webpage 
-							author on timeline shares, but the Facebook Debugger will show a warning (thus it is disabled by default).';
+							$text = 'Select an Author Name Format for the "author" meta tag, or \'none\' to disable this feature 
+							(the recommended value is \'Display Name\'). Facebook uses the "author" meta tag value to credit the 
+							author on timeline shares, but the <strong>Facebook Debugger will show a warning</strong>
+							&mdash; thus it is disabled by default. Now that you know about the false warning from the Facebook
+							Debugger, you should set this option to \'Display Name\'. ;-)';
 							break;
 						case 'tooltip-google_author_field':
 							$text = $this->p->cf['full'].' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
-							These are not Open Graph / Rich Pin meta property tags - they are used primarily by Google\'s search engine 
-							to associate Google+ profiles with search results.';
+							These are not Open Graph / Rich Pin meta property tags &mdash; they are used primarily by Google\'s search engine 
+							to associate Google+ profiles with search results. Select which field to use from the author\'s profile
+							for the <em>author</em> link tag.';
 							break;
 						case 'tooltip-google_def_author_id':
 							$text = 'A default author for webpages missing authorship information (for example, an index webpage without posts). 
@@ -848,8 +851,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'pub-pinterest-info':
 					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins (see above).
 					The following options allow you to manage and/or override some of the Open Graph defaults.
-					Please note that if you use a full-page caching plugin or front-end caching service, it should detected the Pinterest 
-					crawler and bypass the cache (so customized / different meta tags can be provided to the crawler).</p>';
+					Please note that if you use a full-page caching plugin or front-end caching service, 
+					it should detect the Pinterest crawler and bypass the cache (so different meta tags can be provided to the crawler).</p>';
 					break;
 				case 'review-info':
 					$text .= '<p>If you appreciate the quality of this plugin and / or the support we provide, please take a moment to

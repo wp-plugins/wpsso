@@ -85,21 +85,25 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[] = $this->p->util->th( 'Description Length', null, 'og_desc_len' ).
 					'<td>'.$this->form->get_input( 'og_desc_len', 'short' ).' characters or less</td>';
 
+					$rows[] = $this->p->util->th( 'Hashtags in Description', null, 'og_desc_hashtags' ).
+					'<td>'.$this->form->get_select( 'og_desc_hashtags', 
+						range( 0, $this->p->cf['form']['max_desc_hashtags'] ), 'short', null, true ).' tag names</td>';
+
 					$rows[] = $this->p->util->th( 'Add Page Title in Tags', null, 'og_page_title_tag' ).
 					'<td>'.$this->form->get_checkbox( 'og_page_title_tag' ).'</td>';
 	
 					$rows[] = $this->p->util->th( 'Add Page Ancestor Tags', null, 'og_page_parent_tags' ).
 					'<td>'.$this->form->get_checkbox( 'og_page_parent_tags' ).'</td>';
 	
-					$rows[] = $this->p->util->th( 'Number of Hashtags to Include', null, 'og_desc_hashtags' ).
-					'<td>'.$this->form->get_select( 'og_desc_hashtags', 
-						range( 0, $this->p->cf['form']['max_desc_hashtags'] ), 'short', null, true ).' tag names</td>';
-	
 					$rows[] = $this->p->util->th( 'Content Begins at First Paragraph', null, 'og_desc_strip' ).
 					'<td>'.$this->form->get_checkbox( 'og_desc_strip' ).'</td>';
 					break;
 
 				case 'og-images':
+					$rows[] = $this->p->util->th( 'Max Images to Include', null, 'og_img_max' ).
+					'<td>'.$this->form->get_select( 'og_img_max', 
+						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
+
 					$img_id_pre = array( 'wp' => 'Media Library' );
 					if ( $this->p->is_avail['media']['ngg'] == true ) 
 						$img_id_pre['ngg'] = 'NextGEN Gallery';
@@ -134,12 +138,13 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 							'<td class="blank">'.$this->form->get_fake_checkbox( 'og_ngg_tags' ).'</td>' );
 					} else $rows[] = $this->form->get_hidden( 'og_ngg_tags' );
 	
-					$rows[] = $this->p->util->th( 'Maximum Images to Include', null, 'og_img_max' ).
-					'<td>'.$this->form->get_select( 'og_img_max', 
-						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
 					break;
 
 				case 'og-videos':
+					$rows[] = $this->p->util->th( 'Max Videos to Include', null, 'og_vid_max' ).
+					'<td>'.$this->form->get_select( 'og_vid_max', 
+						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
+	
 					$rows[] = $this->p->util->th( 'Default Video URL', null, 'og_def_vid_url' ).
 					'<td>'.$this->form->get_input( 'og_def_vid_url', 'wide' ).'</td>';
 	
@@ -152,16 +157,15 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[] = $this->p->util->th( 'Force Default Video on Search Results', null, 'og_def_vid_on_search' ).
 					'<td>'.$this->form->get_checkbox( 'og_def_vid_on_search' ).'</td>';
 	
-					$rows[] = $this->p->util->th( 'Maximum Videos to Include', null, 'og_vid_max' ).
-					'<td>'.$this->form->get_select( 'og_vid_max', 
-						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
-	
 					$rows[] = $this->p->util->th( 'Use HTTPS for Video API Calls', null, 'og_vid_https' ).
 					'<td>'.$this->form->get_checkbox( 'og_vid_https' ).'</td>';
 					break;
 
 				case 'og-author':
-					$rows[] = $this->p->util->th( 'Author Profile URL', null, 'og_author_field' ).
+					$rows[] = $this->p->util->th( 'Article Publisher Page URL', 'highlight', 'og_publisher_url' ).
+					'<td>'.$this->form->get_input( 'og_publisher_url', 'wide' ).'</td>';
+
+					$rows[] = $this->p->util->th( 'Author Profile URL Field', null, 'og_author_field' ).
 					'<td>'.$this->form->get_select( 'og_author_field', $this->author_contact_fields() ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Fallback to Author Index URL', null, 'og_author_fallback' ).
@@ -180,9 +184,6 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					( $this->p->check->is_aop() ? 
 						'<td>'.$this->form->get_checkbox( 'plugin_gravatar_api' ) : 
 						'<td class="blank">'.$this->form->get_fake_checkbox( 'plugin_gravatar_api' ) ).'</td>';
-
-					$rows[] = $this->p->util->th( 'Article Publisher Page URL', 'highlight', 'og_publisher_url' ).
-					'<td>'.$this->form->get_input( 'og_publisher_url', 'wide' ).'</td>';
 					break;
 
 				case 'pub-facebook':
@@ -200,7 +201,10 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[] = $this->p->util->th( 'Description Length', null, 'google_desc_len' ).
 					'<td>'.$this->form->get_input( 'seo_desc_len', 'short' ).' characters or less</td>';
 
-					$rows[] = $this->p->util->th( 'Author Name Format', null, 'google_author_name' ).
+					$rows[] = $this->p->util->th( 'Publisher Link URL', 'highlight', 'google_publisher_url' ).
+					'<td>'.$this->form->get_input( 'link_publisher_url', 'wide' ).'</td>';
+
+					$rows[] = $this->p->util->th( 'Author Name Format', 'highlight', 'google_author_name' ).
 					'<td>'.$this->form->get_select( 'seo_author_name', $this->author_name_fields() ).'</td>';
 	
 					$rows[] = $this->p->util->th( 'Author Link URL', null, 'google_author_field' ).
@@ -214,15 +218,12 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 					$rows[] = $this->p->util->th( 'Default Author on Search Results', null, 'google_def_author_on_search' ).
 					'<td>'.$this->form->get_checkbox( 'seo_def_author_on_search' ).'</td>';
-			
-					$rows[] = $this->p->util->th( 'Publisher Link URL', 'highlight', 'google_publisher_url' ).
-					'<td>'.$this->form->get_input( 'link_publisher_url', 'wide' ).'</td>';
 					break;
 
 				case 'pub-pinterest':
 					$rows[] = '<td colspan="2" style="padding-bottom:10px;">'.$this->p->msgs->get( 'pub-pinterest-info' ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Image Dimensions', null, 'rp_img_dimensions' ).
+					$rows[] = $this->p->util->th( 'Image Dimensions', 'highlight', 'rp_img_dimensions' ).
 					'<td>Width '.$this->form->get_input( 'rp_img_width', 'short' ).' x '.
 					'Height '.$this->form->get_input( 'rp_img_height', 'short' ).' &nbsp; '.
 					'Crop '.$this->form->get_checkbox( 'rp_img_crop' ).'</td>';
