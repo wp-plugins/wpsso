@@ -279,7 +279,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 		<ul>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/">Examples</a>
 			<ul>
-				<li><a href="http://surniaulula.com/codex/plugins/nextgen-facebook/notes/developer/filters/examples/modify-the-title-value/">Modify the Title Value</a></li>
+				<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/modify-the-title-value/">Modify the Title Value</a></li>
 			</ul></li>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/media/">Media Filters</a></li>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/open-graph/">Open Graph Filters</a></li>
@@ -364,3 +364,4 @@ Added a new 'Setup Guide' settings page and 'Welcome' dashboard page (displayed 
 = 2.5.0 =
 
 Added a new 'Social Settings' metabox to the user profile page, and added support for author Gravatar images (Pro version).
+
