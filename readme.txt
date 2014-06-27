@@ -364,4 +364,3 @@ Added a new 'Setup Guide' settings page and 'Welcome' dashboard page (displayed 
 = 2.5.0 =
 
 Added a new 'Social Settings' metabox to the user profile page, and added support for author Gravatar images (Pro version).
-
