@@ -23,13 +23,13 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-			add_meta_box( $this->pagehook.'_review', 'Good Plugin and Support?', array( &$this, 'show_metabox_review' ), $this->pagehook, 'normal' );
+			add_meta_box( $this->pagehook.'_review', 'Useful Plugin?', array( &$this, 'show_metabox_review' ), $this->pagehook, 'normal' );
 			add_meta_box( $this->pagehook.'_welcome', $this->p->cf['full'].' version '.$this->p->cf['version'], array( &$this, 'show_metabox_welcome' ), $this->pagehook, 'normal' );
 		}
 
 		public function show_metabox_review() {
-			echo '<table class="sucom-setting setup-metabox"><tr><td>';
-			echo $this->p->msgs->get( 'review-info' );
+			echo '<table class="sucom-setting welcome-metabox"><tr><td>';
+			echo $this->p->msgs->get( 'info-review' );
 			echo '</td></tr></table>';
 		}
 		

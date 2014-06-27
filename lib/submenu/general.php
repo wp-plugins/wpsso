@@ -221,7 +221,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					break;
 
 				case 'pub-pinterest':
-					$rows[] = '<td colspan="2" style="padding-bottom:10px;">'.$this->p->msgs->get( 'pub-pinterest-info' ).'</td>';
+					$rows[] = '<td colspan="2" style="padding-bottom:10px;">'.$this->p->msgs->get( 'info-pub-pinterest' ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Image Dimensions', 'highlight', 'rp_img_dimensions' ).
 					'<td>Width '.$this->form->get_input( 'rp_img_width', 'short' ).' x '.
