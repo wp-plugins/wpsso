@@ -18,7 +18,7 @@ Display your content in the best possible way on Facebook, Twitter, Pinterest, G
 
 <p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
 
-<p>Use WPSSO on its own, in combination with sharing buttons, or extend and improve an existing SEO solution.</p>
+<p>Use WPSSO on its own, in combination with sharing buttons, or extend and improve an existing SEO solution or plugin.</p>
 
 = Quick List of Features =
 
