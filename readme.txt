@@ -357,6 +357,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
+= 2.5.3 =
+
+Adds a new 'Image Dimensions' option on the Pinterest publisher settings tab.
+
 = 2.5.2 =
 
 Added a new 'Setup Guide' settings page and 'Welcome' dashboard page (displayed only once, when options are updated or the plugin is activated).
