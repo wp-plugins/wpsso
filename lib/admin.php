@@ -515,21 +515,20 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$this->show_plugin_status( $features, ( $this->p->check->is_aop() ? '' : 'blank' ) );
 
 			$action_buttons = '';
+			if ( empty( $this->p->cf['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
+				$action_buttons .= $this->form->get_button( __( 'Clear All Cache', WPSSO_TEXTDOM ), 
+					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_all_cache' ),
+						$this->get_nonce(), WPSSO_NONCE ) ).' ';
+
 			if ( ! empty( $this->p->options['plugin_tid'] ) )
 				$action_buttons .= $this->form->get_button( __( 'Check for Updates', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=check_for_updates' ), 
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';
 
-			// don't offer the 'Clear All Cache' and 'Reset Metaboxes' buttons on network admin pages
-			if ( empty( $this->p->cf['lib']['sitesubmenu'][$this->menu_id] ) ) {
-				$action_buttons .= $this->form->get_button( __( 'Clear All Cache', WPSSO_TEXTDOM ), 
-					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_all_cache' ),
-						$this->get_nonce(), WPSSO_NONCE ) ).' ';
-
+			if ( empty( $this->p->cf['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
 				$action_buttons .= $this->form->get_button( __( 'Reset Metaboxes', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_metabox_prefs' ),
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';
-			}
 
 			if ( ! empty( $action_buttons ) )
 				echo '<tr><td colspan="2" class="actions">'.$action_buttons.'</td></tr>';

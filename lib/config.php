@@ -105,7 +105,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'options_filtered' => false,
 					'options_version' => '',
 					'seo_desc_len' => 156,			// meta name="description" maximum text length
-					'seo_author_name' => '',		// meta name="author" format
+					'seo_author_name' => 'none',		// meta name="author" format
 					'seo_def_author_id' => 0,
 					'seo_def_author_on_index' => 0,
 					'seo_def_author_on_search' => 0,
@@ -117,7 +117,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_site_name' => '',
 					'og_site_description' => '',
 					'og_publisher_url' => '',
-					'og_art_section' => '',
+					'og_art_section' => 'none',
 					'og_img_width' => 800,
 					'og_img_height' => 800,
 					'og_img_crop' => 1,

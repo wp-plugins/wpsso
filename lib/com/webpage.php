@@ -198,9 +198,13 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				}
 			}
 
-			$title = $this->p->util->cleanup_html_tags( $title );					// strip html tags before removing separator
+			$title = $this->p->util->cleanup_html_tags( $title );		// strip html tags before removing separator
 			$title = preg_replace( '/ \\'.$separator.' *$/', '', $title );	// trim excess separator
 
+			// apply title filter before adjusting it's length
+			$title = apply_filters( $this->p->cf['lca'].'_title_pre_limit', $title );
+
+			// check title against string length limits
 			if ( $textlen > 0 ) {
 				// seo-like title modifications
 				if ( $this->p->is_avail['seo']['*'] === false ) {
@@ -216,7 +220,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$textlen = $textlen - strlen( $parent_title ) - 3;
 				if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 					$textlen = $textlen - strlen( $hashtags ) - 1;
-				$title = $this->p->util->limit_text_length( $title, $textlen, $trailing );
+				$title = $this->p->util->limit_text_length( $title, $textlen, $trailing, false );	// don't run cleanup_html_tags()
 			}
 
 			if ( ! empty( $parent_title ) ) 
@@ -235,7 +239,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			return apply_filters( $this->p->cf['lca'].'_title', $title );
 		}
 
-		public function get_description( $textlen = 156, $trailing = '', $use_post = false, $use_cache = true, $add_hashtags = true, $encode = true, $custom = 'og_desc' ) {
+		public function get_description( $textlen = 156, $trailing = '...', $use_post = false, $use_cache = true, $add_hashtags = true, $encode = true, $custom = 'og_desc' ) {
 			$this->p->debug->args( array( 
 				'textlen' => $textlen, 
 				'trailing' => $trailing, 
@@ -362,12 +366,17 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					}
 				}
 			}
+			
+			$desc = $this->p->util->cleanup_html_tags( $desc );
+
+			// apply description filter before adjusting it's length
+			$desc = apply_filters( $this->p->cf['lca'].'_description_pre_limit', $desc );
 
 			if ( $textlen > 0 ) {
 				if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 					$textlen = $textlen - strlen( $hashtags ) -1;
-				$desc = $this->p->util->limit_text_length( $desc, $textlen, '...' );	// runs cleanup_html_tags()
-			} else $desc = $this->p->util->cleanup_html_tags( $desc );
+				$desc = $this->p->util->limit_text_length( $desc, $textlen, $trailing, false );	// don't run cleanup_html_tags()
+			}
 
 			if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 				$desc .= ' '.$hashtags;
@@ -376,7 +385,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				$desc = htmlentities( $desc, ENT_QUOTES, get_bloginfo( 'charset' ), false );	// double_encode = false
 			else $desc = html_entity_decode( $desc, ENT_QUOTES, get_bloginfo( 'charset' ) );	// just in case
 
-			$this->p->debug->log( 'pre-filter description = "'.$desc.'"' );
 			return apply_filters( $this->p->cf['lca'].'_description', $desc );
 		}
 

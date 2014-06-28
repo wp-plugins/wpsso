@@ -346,11 +346,12 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return mb_decode_numericentity( $entity, $convmap, 'UTF-8' );
 		}
 
-		public function limit_text_length( $text, $textlen = 300, $trailing = '' ) {
+		public function limit_text_length( $text, $textlen = 300, $trailing = '', $cleanup = true ) {
 			$charset = get_bloginfo( 'charset' );
 			$text = html_entity_decode( self::decode_utf8( $text ), ENT_QUOTES, $charset );
 			$text = preg_replace( '/<\/p>/i', ' ', $text);					// replace end of paragraph with a space
-			$text = $this->cleanup_html_tags( $text );					// remove any remaining html tags
+			if ( $cleanup === true )
+				$text = $this->cleanup_html_tags( $text );				// remove any remaining html tags
 			if ( $textlen > 0 ) {
 				if ( strlen( $trailing ) > $textlen )
 					$trailing = substr( $trailing, 0, $textlen );			// trim the trailing string, if too long

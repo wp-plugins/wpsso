@@ -8,15 +8,17 @@ Requires At Least: 3.0
 Tested Up To: 3.9.1
 Stable Tag: 2.5.2
 
-Improve the appearance, ranking, and social engagement of shares on Facebook, Twitter, Pinterest, Google+, LinkedIn, and other social sites.
+Display your content in the best possible way on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc - no matter how your webpage is shared!
 
 == Description ==
 
 <blockquote>
-<p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites. HTML meta tags provide information about your content, not the sharing buttons.</p>
+<p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites.</p>
 </blockquote>
 
-<p>WordPress Social Sharing Optimization (WPSSO) <strong>provides the information search engines and social websites need</strong> to improve Google Search ranking and social engagement on Facebook, Google+, Twitter, LinkedIn, Pinterest, and many more.</p>
+<p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
+
+<p>Use WPSSO on its own, in combination with sharing buttons, or extend and improve an existing SEO solution or plugin.</p>
 
 = Quick List of Features =
 
@@ -275,6 +277,11 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/constants/">Constants</a></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/">Filters</a>
 		<ul>
+			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/">Examples</a>
+			<ul>
+				<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/modify-the-title-value/">Modify the Title Value</a></li>
+			</ul></li>
+			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/media/">Media Filters</a></li>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/open-graph/">Open Graph Filters</a></li>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/twitter-card/">Twitter Card Filters</a></li>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/webpage/">Webpage Filters</a></li>

@@ -98,12 +98,22 @@ if ( ! class_exists( 'SucomForm' ) ) {
 					$desc = '(value from settings)';
 				else {
 					switch ( $name ) {
-						case 'og_img_max': if ( $desc === 0 ) $desc .= ' (no images)'; break;
-						case 'og_vid_max': if ( $desc === 0 ) $desc .= ' (no videos)'; break;
-						default: if ( $desc === '' || $desc === 'none' ) $desc = '[none]'; break;
+						case 'og_img_max': 
+							if ( $desc === 0 ) 
+								$desc .= ' (no images)'; 
+							break;
+						case 'og_vid_max': 
+							if ( $desc === 0 ) 
+								$desc .= ' (no videos)'; 
+							break;
+						default: 
+							if ( $desc === '' || $desc === 'none' ) 
+								$desc = '[none]'; 
+							break;
 					}
-					if ( $this->in_defaults( $name ) && $val === $this->defaults[$name] )
-						$desc .= ' (default)';
+					if ( $this->in_defaults( $name ) && 
+						$val === $this->defaults[$name] )
+							$desc .= ' (default)';
 				}
 				$html .= '<option value="'.esc_attr( $val ).'"';
 				if ( $this->in_options( $name ) )

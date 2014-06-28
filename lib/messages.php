@@ -779,13 +779,70 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				/*
 				 * Misc informational messages
 				 */
+				case ( strpos( $idx, 'info-' ) !== false ? true : false ):
+					switch ( $idx ) {
+						case 'info-tid':
+							$text = '<p>'.$this->p->cf['full'].' must be active in order to check for Pro version updates.
+							If you de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the Free version. 
+							Always update the Pro version when it is active. If you accidentally re-install the Free version, your Authentication ID
+							will always allow you to upgrade back to the Pro version easily.</p>';
+							break;
+						case 'info-review':
+							$text .= '<p>If you appreciate the features or quality of this plugin, and/or the support we provide, please take a moment to
+							<a href="'.$this->p->cf['url']['review'].'" target="_blank">rate the '.WpssoConfig::get_config( 'full' ).' plugin on WordPress.org</a>.</p>
+							<p><strong>Your rating will help other WordPress users find higher quality and better supported plugins</strong> &mdash; 
+							<em>and encourage us to keep improving '.WpssoConfig::get_config( 'full' ).' as well!</em> :)</p>
+							<p>Thank you,</p>
+							<p class="sig">js.</p>';
+							break;
+						case 'info-pub-pinterest':
+							$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins.
+							These options allow you to manage and/or override some Pinterest-specific Open Graph settings.
+							Please note that if you use a full-page caching plugin, or front-end caching service, 
+							it should detect the Pinterest crawler user-agent and bypass the cache, 
+							so that different meta tags can be provided to the crawler 
+							(for example, look for a "<em>User-Agent Exclusion Pattern</em>" option and add "Pinterest/" to that list).</p>';
+							break;
+						case 'info-taglist':
+							$text = '<p>'.$this->p->cf['full'].' will add the following Google / SEO, Facebook, Open Graph, Schema, 
+							and Twitter Card HTML tags to the <code>head</code> section of your webpages. 
+							If your theme or another plugin already generates one or more of these HTML tags, you can uncheck them here 
+							to prevent duplicates from being added (as an example, the "meta name description" HTML tag is automatically 
+							unchecked if a known SEO plugin is detected).</p>';
+							break;
+						case 'info-cm':
+							$text = '<p>The following options allow you to customize the contact field names and labels shown on the
+							<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.
+							'.$this->p->cf['full'].' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags 
+							(along with the Twitter social sharing button).
+							<strong>You should not modify the Contact Field Name unless you have a very good reason to do so.</strong>
+							The Profile Contact Label on the other hand, is for <strong>display purposes only</strong>, and its text can be changed as you wish.
+							Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying these
+							contact fields in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
+							target="_blank">get_the_author_meta()</a> for examples).</p>
+							<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY</strong><br/>
+							(enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>).</p>';
+							break;
+						case 'info-sharing-include':
+							$text = '<p>The buttons enabled bellow (along with those in the widget) can be included or excluded from specific webpage types.
+							This does not apply to the shortcode and function buttons, which are displayed (or not) based on their parameter settings.</p>';
+							break;
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $this->p->cf['lca'].'_messages_info', $text, $idx );
+							break;
+					}
+					break;
+
 				case 'pro-feature-msg':
 					if ( $this->p->is_avail['aop'] == true )
-						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Purchase 
-						additional licence(s) to enable Pro version features and options</p>';
+						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" 
+						target="_blank">Purchase additional licence(s) to enable Pro version features and options</p>';
 					else
-						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" target="_blank">Upgrade 
-						to the Pro version to enable the following options</a></p>';
+						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" 
+						target="_blank">Upgrade to the Pro version to enable the following options</a></p>';
 					break;
 				case 'pro-activate-nag':
 					// in multisite, only show the activation message on our own plugin pages
@@ -800,8 +857,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'side-purchase':
 					$text = '<p>The Pro version can be purchased and '.( $this->p->is_avail['aop'] == true ? 'licensed' : 'upgraded' ).
 					' within a few <em>seconds</em> following your purchase. Pro version licenses do not expire, and there are 
-					no recurring / yearly fees for updates and support. Do you have any questions or concerns about licensing? 
-					<a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new support ticket</a> and we will be happy to assist you.';
+					no recurring or yearly fees for updates and support. Do you have any questions or concerns about licensing? 
+					<a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new support ticket</a> 
+					and we will be happy to assist you.';
 					break;
 				case 'side-help':
 					$text = '<p>Individual option boxes (like this one) can be opened / closed by clicking on their title bar, 
@@ -817,50 +875,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">FAQs</a>, 
 						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Notes</a>, 
 						and / or visit the <a href="'.$this->p->cf['url']['support'].'" target="_blank">Support Forum</a> on WordPress.org.</p>';
-					break;
-				case 'tid-info':
-					$text = '<p>'.$this->p->cf['full'].' must be active in order to check for Pro version updates.
-					If you de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the Free version. 
-					Always update the Pro version when it is active. If you accidentally re-install the Free version, your Authentication ID
-					will always allow you to upgrade back to the Pro version easily.</p>';
-					break;
-				case 'taglist-info':
-					$text = '<p>'.$this->p->cf['full'].' will add the following Google / SEO, Facebook, Open Graph, Schema, 
-					and Twitter Card HTML tags to the <code>head</code> section of your webpages. 
-					If your theme or another plugin already generates one or more of these HTML tags, you can uncheck them here 
-					to prevent duplicates from being added (as an example, the "meta name description" HTML tag is automatically 
-					unchecked if a known SEO plugin is detected).</p>';
-					break;
-				case 'cm-info':
-					$text = '<p>The following options allow you to customize the contact field names and labels shown on the
-					<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.
-					'.$this->p->cf['full'].' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags 
-					(along with the Twitter social sharing button).
-					<strong>You should not modify the Contact Field Name unless you have a very good reason to do so.</strong>
-					The Profile Contact Label on the other hand, is for <strong>display purposes only</strong>, and its text can be changed as you wish.
-					Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying these
-					contact fields in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
-					target="_blank">get_the_author_meta()</a> for examples).</p>
-					<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY</strong><br/>
-					(enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>).</p>';
-					break;
-				case 'sharing-include-info':
-					$text = '<p>The buttons enabled bellow (along with those in the widget) can be included or excluded from specific webpage types.
-					This does not apply to the shortcode and function buttons, which are displayed (or not) based on their parameter settings.</p>';
-					break;
-				case 'pub-pinterest-info':
-					$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins.
-					These options allow you to manage and/or override some Pinterest-specific Open Graph settings.
-					Please note that if you use a full-page caching plugin, or front-end caching service, 
-					it should detect the Pinterest crawler user-agent and bypass the cache, 
-					so that different meta tags can be provided to the crawler 
-					(for example, look for a "<em>User-Agent Exclusion Pattern</em>" option and add "Pinterest/" to that list).</p>';
-					break;
-				case 'review-info':
-					$text .= '<p>If you appreciate the quality of this plugin and / or the support we provide, please take a moment to
-					<a href="'.$this->p->cf['url']['review'].'" target="_blank">rate the '.WpssoConfig::get_config( 'full' ).' plugin on WordPress.org</a>.
-					<strong>Your rating will help other WordPress users find higher quality and better supported plugins</strong> &mdash; 
-					and encourage us to keep improving '.WpssoConfig::get_config( 'full' ).' at the same time!</p><p>Thank you. :)</p>';
 					break;
 				/*
 				 * Other messages

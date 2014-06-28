@@ -51,14 +51,14 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					apply_filters( $this->p->cf['lca'].'_'.$metabox.'_'.$key.'_rows', array(), $this->form ) );
 
 			echo '<table class="sucom-setting" style="padding-bottom:0"><tr><td>'.
-			$this->p->msgs->get( $metabox.'-info' ).'</td></tr></table>';
+			$this->p->msgs->get( 'info-'.$metabox ).'</td></tr></table>';
 			$this->p->util->do_tabs( $metabox, $tabs, $rows );
 		}
 
 		public function show_metabox_taglist() {
 			$metabox = 'taglist';
 			echo '<table class="sucom-setting" style="padding-bottom:0;"><tr><td>'.
-			$this->p->msgs->get( $metabox.'-info' ).'</td></tr></table>';
+			$this->p->msgs->get( 'info-'.$metabox ).'</td></tr></table>';
 			echo '<table class="sucom-setting" style="margin-bottom:10px;">';
 			foreach ( apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tags_rows', array(), $this->form ) as $num => $row ) 
 				echo '<tr>', $row, '</tr>';
@@ -83,9 +83,8 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					'<td nowrap><p>'.$this->form->get_input( 'plugin_tid', 'mono' ).
 						( empty( $qty_used ) ? '' : ' &nbsp;'.$qty_used.' Licenses Assigned</p>' ).'</td>';
 
-					// if the pro version code is available, show information about keeping it active for updates
 					if ( $this->p->is_avail['aop'] )
-						$rows[] = '<th></th><td>'.$this->p->msgs->get( 'tid-info' ).'</td>';
+						$rows[] = '<th></th><td>'.$this->p->msgs->get( 'info-tid' ).'</td>';
 					break;
 
 				case 'cm-custom' :
