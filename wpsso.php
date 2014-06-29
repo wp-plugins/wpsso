@@ -49,7 +49,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		public $is_avail = array();	// assoc array for other plugin checks
 		public $options = array();	// individual blog/site options
 		public $site_options = array();	// multisite options
-		public $addons = array();	// pro addons
+		public $addons = array();	// pro and gpl addons
 
 		/**
 		 * Wpsso Constructor
