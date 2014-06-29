@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 3.9.1
-Stable Tag: 2.5.2
+Stable Tag: 2.5.3
 
 Display your content in the best possible way on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc - no matter how your webpage is shared!
 
@@ -17,8 +17,6 @@ Display your content in the best possible way on Facebook, Twitter, Pinterest, G
 </blockquote>
 
 <p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
-
-<p>Use WPSSO on its own, in combination with sharing buttons, or extend and improve an existing SEO solution or plugin.</p>
 
 = Quick List of Features =
 
@@ -356,6 +354,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a new 'Social Settings' metabox to the user profile page (Pro version).
 
 == Upgrade Notice ==
+
+= 2.5.3 =
+
+Adds a new 'Image Dimensions' option on the Pinterest publisher settings tab.
 
 = 2.5.2 =
 
