@@ -31,24 +31,26 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			$rows[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
 			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_filter_excerpt' ).'</td>';
 
-			$rows[] = $this->p->util->th( 'Language uses WP Locale', null, 'plugin_filter_lang' ).
-			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_filter_lang' ).'</td>';
+			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = $this->p->util->th( 'Language uses WP Locale', null, 'plugin_filter_lang' ).
+				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_filter_lang' ).'</td>';
 
-			if ( ! empty( $this->p->cf['lib']['shortcode'] ) ) {
-				$rows[] = $this->p->util->th( 'Enable Shortcode(s)', 'highlight', 'plugin_shortcodes' ).
-				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_shortcodes' ).'</td>';
+				if ( ! empty( $this->p->cf['lib']['shortcode'] ) ) {
+					$rows[] = $this->p->util->th( 'Enable Shortcode(s)', 'highlight', 'plugin_shortcodes' ).
+					'<td class="blank">'.$form->get_fake_checkbox( 'plugin_shortcodes' ).'</td>';
+				}
+	
+				if ( ! empty( $this->p->cf['lib']['widget'] ) ) {
+					$rows[] = $this->p->util->th( 'Enable Widget(s)', 'highlight', 'plugin_widgets' ).
+					'<td class="blank">'.$form->get_fake_checkbox( 'plugin_widgets' ).'</td>';
+				}
+	
+				$rows[] =  $this->p->util->th( 'Auto-Resize Media Images', null, 'plugin_auto_img_resize' ).
+				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_auto_img_resize' ).'</td>';
+	
+				$rows[] =  $this->p->util->th( 'Ignore Small Images in Content', null, 'plugin_ignore_small_img' ).
+				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_ignore_small_img' ).'</td>';
 			}
-
-			if ( ! empty( $this->p->cf['lib']['widget'] ) ) {
-				$rows[] = $this->p->util->th( 'Enable Widget(s)', 'highlight', 'plugin_widgets' ).
-				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_widgets' ).'</td>';
-			}
-
-			$rows[] =  $this->p->util->th( 'Auto-Resize Media Images', null, 'plugin_auto_img_resize' ).
-			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_auto_img_resize' ).'</td>';
-
-			$rows[] =  $this->p->util->th( 'Ignore Small Images in Content', null, 'plugin_ignore_small_img' ).
-			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_ignore_small_img' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Check for Embedded Media', null, 'plugin_embedded_media' ).
 			'<td class="blank">'.
@@ -73,9 +75,11 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			$rows[] = $this->p->util->th( 'Show Social Settings on', null, 'plugin_add_to' ).
 			'<td class="blank">'.$checkboxes.'</td>';
 			
-			$rows[] = $this->p->util->th( 'Video URL Custom Field', null, 'plugin_cf_vid_url' ).
-			'<td class="blank">'.$form->get_hidden( 'plugin_cf_vid_url' ).
-			$this->p->options['plugin_cf_vid_url'].'</td>';
+			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = $this->p->util->th( 'Video URL Custom Field', null, 'plugin_cf_vid_url' ).
+				'<td class="blank">'.$form->get_hidden( 'plugin_cf_vid_url' ).
+				$this->p->options['plugin_cf_vid_url'].'</td>';
+			}
 			
 			return $rows;
 		}

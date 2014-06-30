@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.5.3',		// plugin version
+			'version' => '2.5.4dev1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'slug' => 'wpsso',
@@ -28,7 +28,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			),
 			'lib' => array(			// libraries
 				'dashboard' => array (
-					'welcome' => 'Welcome',
+					'welcome' => 'Welcome to the WordPress Social Sharing Optimization (WPSSO) plugin!',
 				),
 				'setting' => array (
 					'contact' => 'Contact Methods',
@@ -41,6 +41,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 				'sitesubmenu' => array(
 					'network' => 'Network',
+					'readme' => 'Read Me',
+					'setup' => 'Setup Guide',
+					'whatsnew' => 'What\'s New',
 				),
 				'gpl' => array(
 					'admin' => array(
@@ -100,7 +103,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '287',		// increment when changing default options
+				'version' => '289',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -237,6 +240,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					// advanced plugin options
 					'plugin_version' => '',
 					'plugin_tid' => '',
+					'plugin_display' => 'basic',
 					'plugin_preserve' => 0,
 					'plugin_debug' => 0,
 					'plugin_filter_content' => 1,
@@ -359,6 +363,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'file_cache_hours' => array( 0, 1, 3, 6, 9, 12, 24, 36, 48, 72, 168 ),
 				'js_locations' => array( 'none' => '', 'header' => 'Header', 'footer' => 'Footer' ),
 				'caption_types' => array( 'none' => '', 'title' => 'Title Only', 'excerpt' => 'Excerpt Only', 'both' => 'Title and Excerpt' ),
+				'display_options' => array( 'basic' => 'Basic Plugin Options', 'all' => 'All Plugin Options' ),
 			),
 			'head' => array(
 				'min_img_dim' => 200,

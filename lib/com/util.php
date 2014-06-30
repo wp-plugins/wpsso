@@ -622,7 +622,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			echo '</ul>';
 			foreach ( $tabs as $key => $title ) {
 				$href_key = $class_tab.$prefix.'_'.$key;
-				echo '<div class="', $class_tab, ( empty( $prefix ) ? '' : ' '.$class_tab.$prefix ), ' ', $href_key, '">';
+				echo '<div class="display_', $this->p->options['plugin_display'], ' ', $class_tab, 
+					( empty( $prefix ) ? '' : ' '.$class_tab.$prefix ), ' ', $href_key, '">';
 				echo '<table class="sucom-setting">';
 				if ( ! empty( $tab_rows[$key] ) && is_array( $tab_rows[$key] ) )
 					foreach ( $tab_rows[$key] as $num => $row ) 

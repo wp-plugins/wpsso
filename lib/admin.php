@@ -316,8 +316,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		public function show_single_page() {
 			?>
 			<div class="wrap" id="<?php echo $this->pagehook; ?>">
-				<?php $this->show_follow_icons(); ?>
-				<h2><?php echo $this->menu_name; ?></h2>
+				<h2>
+					<?php $this->show_follow_icons(); ?>
+					<?php echo $this->menu_name; ?>
+				</h2>
 				<div id="poststuff" class="metabox-holder">
 					<div id="post-body" class="">
 						<div id="post-body-content" class="">
@@ -350,8 +352,15 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 			?>
 			<div class="wrap" id="<?php echo $this->pagehook; ?>">
-				<?php $this->show_follow_icons(); ?>
-				<h2><?php echo $this->p->cf['full'].' '.$this->menu_name; ?></h2>
+				<h2>
+					<?php $this->show_follow_icons(); ?>
+					<div class="display_options_info">
+						<?php echo $this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_activation', 
+							$this->p->cf['form']['display_options'][$this->p->options['plugin_display']] ); ?>
+						Displayed
+					</div>
+					<?php echo $this->p->cf['full'].' &ndash; '.$this->menu_name; ?>
+				</h2>
 				<div id="poststuff" class="metabox-holder has-right-sidebar">
 					<div id="side-info-column" class="inner-sidebar">
 						<?php do_meta_boxes( $this->pagehook, 'side', null ); ?>
@@ -521,7 +530,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';
 
 			if ( ! empty( $this->p->options['plugin_tid'] ) )
-				$action_buttons .= $this->form->get_button( __( 'Check for Updates', WPSSO_TEXTDOM ), 
+				$action_buttons .= $this->form->get_button( __( 'Update Check', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=check_for_updates' ), 
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';
 

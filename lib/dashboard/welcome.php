@@ -16,7 +16,7 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 			$this->p =& $plugin;
 			$this->p->debug->mark();
 			$this->menu_id = $id;
-			$this->menu_name = $name.' to '.$this->p->cf['full'].'!';
+			$this->menu_name = $name;
 
 			add_action( 'admin_init', array( &$this, 'welcome_redirect' ), 100 );
 		}
@@ -47,10 +47,6 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 
 		protected function get_rows( $metabox, $key ) {
 			$rows = array();
-			$user_ids = array();
-			foreach ( get_users() as $user ) 
-				$user_ids[$user->ID] = $user->display_name;
-			$user_ids[0] = 'none';
 			switch ( $metabox.'-'.$key ) {
 				case 'welcome-whatsnew':
 					$content = $this->p->util->get_remote_content( '',

@@ -25,32 +25,36 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) ) {
 			$rows[] = $this->p->util->th( 'Enable Twitter Cards', 'highlight', 'tc_enable' ).
 			'<td class="blank">'.$form->get_hidden( 'tc_enable' ).'<input type="checkbox" disabled="disabled" /></td>';
 
-			$rows[] = $this->p->util->th( 'Maximum Description Length', null, 'tc_desc_len' ).
-			'<td class="blank">'.$form->get_hidden( 'tc_desc_len' ).
-			$this->p->options['tc_desc_len'].' characters or less</td>';
+			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = $this->p->util->th( 'Maximum Description Length', null, 'tc_desc_len' ).
+				'<td class="blank">'.$form->get_hidden( 'tc_desc_len' ).
+				$this->p->options['tc_desc_len'].' characters or less</td>';
+			}
 
 			$rows[] = $this->p->util->th( 'Website @username to Follow', 'highlight', 'tc_site' ).
 			'<td class="blank">'.$form->get_hidden( 'tc_site' ).
 			$this->p->options['tc_site'].'</td>';
 
-			$rows[] = $this->p->util->th( '<em>Summary</em> Card Image Dimensions', null, 'tc_sum_dimensions' ).
-			'<td class="blank">'.$this->get_img_dims( 'tc_sum', $form ).'</td>';
-
-			$rows[] = $this->p->util->th( '<em>Large Image</em> Card Image Dimensions', null, 'tc_lrgimg_dimensions' ).
-			'<td class="blank">'.$this->get_img_dims( 'tc_lrgimg', $form ).'</td>';
-
-			$rows[] = $this->p->util->th( '<em>Photo</em> Card Image Dimensions', 'highlight', 'tc_photo_dimensions' ).
-			'<td class="blank">'.$this->get_img_dims( 'tc_photo', $form ).'</td>';
-
-			$rows[] = $this->p->util->th( '<em>Gallery</em> Card Minimum Images', null, 'tc_gal_minimum' ).
-			'<td class="blank">'.$form->get_hidden( 'tc_gal_min' ).
-			$this->p->options['tc_gal_min'].'</td>';
-
-			$rows[] = $this->p->util->th( '<em>Gallery</em> Card Image Dimensions', null, 'tc_gal_dimensions' ).
-			'<td class="blank">'.$this->get_img_dims( 'tc_gal', $form ).'</td>';
-
-			$rows[] = $this->p->util->th( '<em>Product</em> Card Image Dimensions', null, 'tc_prod_dimensions' ).
-			'<td class="blank">'.$this->get_img_dims( 'tc_prod', $form ).'</td>';
+			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = $this->p->util->th( '<em>Summary</em> Card Image Dimensions', null, 'tc_sum_dimensions' ).
+				'<td class="blank">'.$this->get_img_dims( 'tc_sum', $form ).'</td>';
+	
+				$rows[] = $this->p->util->th( '<em>Large Image</em> Card Image Dimensions', null, 'tc_lrgimg_dimensions' ).
+				'<td class="blank">'.$this->get_img_dims( 'tc_lrgimg', $form ).'</td>';
+	
+				$rows[] = $this->p->util->th( '<em>Photo</em> Card Image Dimensions', 'highlight', 'tc_photo_dimensions' ).
+				'<td class="blank">'.$this->get_img_dims( 'tc_photo', $form ).'</td>';
+	
+				$rows[] = $this->p->util->th( '<em>Gallery</em> Card Minimum Images', null, 'tc_gal_minimum' ).
+				'<td class="blank">'.$form->get_hidden( 'tc_gal_min' ).
+				$this->p->options['tc_gal_min'].'</td>';
+	
+				$rows[] = $this->p->util->th( '<em>Gallery</em> Card Image Dimensions', null, 'tc_gal_dimensions' ).
+				'<td class="blank">'.$this->get_img_dims( 'tc_gal', $form ).'</td>';
+	
+				$rows[] = $this->p->util->th( '<em>Product</em> Card Image Dimensions', null, 'tc_prod_dimensions' ).
+				'<td class="blank">'.$this->get_img_dims( 'tc_prod', $form ).'</td>';
+			}
 
 			$rows[] = $this->p->util->th( '<em>Product</em> Card Default 2nd Attribute', null, 'tc_prod_defaults' ).
 			'<td class="blank">'.

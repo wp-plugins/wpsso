@@ -366,8 +366,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-og_desc_hashtags':
 							$text = 'The maximum number of tag names (converted to hashtags) to include in the 
 							Open Graph / Rich Pin description, tweet text, and social captions.
-							Each tag name is converted to lowercase with any whitespaces removed. 
-							Select \'0\' to disable the additiona of hashtags.';
+							Each tag name is converted to lowercase with whitespaces removed. 
+							Select \'0\' to disable the addition of hashtags.';
 							break;
 						case 'tooltip-og_desc_strip':
 							$text = 'For a Page or Post <em>without</em> an excerpt, if this option is checked, 
@@ -407,7 +407,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-og_author_gravatar':
 							$text = 'Check this option to include Gravatar image URLs in the meta tags for author index webpages.
-							If the \'Force Default Image on Author Index\' option is also enabled (on the previous \'Images\' tab), 
+							If the \'Force Default Image on Author Index\' option is also enabled (on the \'Images\' tab), 
 							that option will take precedence over this one.';
 							break;
 						case 'tooltip-og_publisher_url':
@@ -434,6 +434,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						/*
 						 * 'Activate and Update' settings
 						 */
+						case 'tooltip-plugin_display':
+							$text = 'Select the number of options to display on the '.$this->p->cf['full'].' settings pages.
+							The basic view shows only the essential options that are most commonly used.';
+							break;
 						case 'tooltip-plugin_tid':
 							if ( is_multisite() && ! empty( $this->p->site_options['plugin_tid:use'] ) && $this->p->site_options['plugin_tid:use'] == 'force' )
 								$text = 'The Authentication ID value has been locked in the Network Admin settings.';
