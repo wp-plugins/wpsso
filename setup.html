@@ -22,22 +22,24 @@ As mentioned above, the WPSSO settings allow you to enter contact information fo
 if they complete their user profile. 
 Authors should also update their <a href="https://www.facebook.com/settings?tab=followers">Facebook Follower Settings</a> 
 to enable the Facebook Follow button on their shared content. 
-Additional WordPress profile contact fields can be enabled from the WPSSO Advanced settings page, 
-but WPSSO currently uses only the Facebook, Google+, and Twitter contact values in the meta tags.</p>
+If the 'Plugin Settings to Display' option is set to 'All Plugin Options', additional WordPress profile contact fields 
+may be enabled from the WPSSO Advanced settings page, but WPSSO currently uses only the Facebook, Google+, 
+and Twitter contact values in the meta tags.</p>
 </li>
 
 <li>
 <p><strong>Review the Image Dimensions option on the WPSSO General settings page</strong>. 
-If your original images are large enough, you should set the Open Graph Image Dimensions to 1200x1200 cropped or larger 
+If your original images are large enough, you should set the Open Graph Image Dimensions to 1200x1200px cropped or larger 
 (see the option's help popup for more information on Image Dimensions). 
 Images that are at least 1200px wide will be displayed more prominently by Facebook 
 (which uses the image provided by the Open Graph meta tags), so it's worth taking the time to make sure that
 <em>all</em> your original / full-size featured images are at least 1200px in width <em>and</em> height, 
-along with setting an Open Graph Image Dimension of 1200x1200 cropped.</p>
+along with setting an Open Graph Image Dimension of 1200x1200px cropped.</p>
 </li>
 
 <li>
-<p><strong>Make sure Twitter Cards are enabled</strong> and review their associated Image Dimension options. 
+<p><strong>Make sure Twitter Cards are enabled</strong> and,
+if the 'Plugin Settings to Display' option is set to 'All Plugin Options', review the Twitter Cards Image Dimensions options. 
 The default Image Dimensions for Twitter Cards should be fine, but you may want to adjust them to match other 
 custom image sizes you might have (to cut down on the number of resized images created on disk).</p>
 </li>
@@ -64,7 +66,7 @@ Once approved, you can zoom a Pin to view the Rich Pin information.</p>
 <li>
 <p><strong>Submit a few different Post Types and Pages to the 
 <a href="https://dev.twitter.com/docs/cards/validation/validator">Twitter Card Validator</a></strong> -- 
-each card type must be approved individually, so choose Posts and Pages with featured images, galleries, products, etc. 
+<em>each card type must be approved individually</em>, so choose Posts and Pages with featured images, galleries, products, etc. 
 and submit an example of each. Here's a list of supported Twitter Cards, and how WPSSO selects a Twitter Card based on the content.</p>
 
 <ul>
