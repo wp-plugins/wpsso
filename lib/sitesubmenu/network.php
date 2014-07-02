@@ -73,8 +73,6 @@ if ( ! class_exists( 'WpssoSitesubmenuNetwork' ) && class_exists( 'WpssoAdmin' )
 
 					break;
 
-					break;
-
 			}
 			return $ret;
 		}

@@ -59,10 +59,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		protected function get_rows( $metabox, $key ) {
 			$rows = array();
-			$user_ids = array();
-			foreach ( get_users() as $user ) 
-				$user_ids[$user->ID] = $user->display_name;
-			$user_ids[0] = 'none';
+			$this->form->user_ids = $this->p->addons['util']['user']->get_display_names();
+			$this->form->author_contact_fields = $this->p->addons['util']['user']->get_contact_fields();
+
 			switch ( $metabox.'-'.$key ) {
 				case 'og-webpage':
 					$rows[] = $this->p->util->th( 'Article Topic', 'highlight', 'og_art_section' ).
@@ -79,38 +78,16 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[] = $this->p->util->th( 'Title Separator', null, 'og_title_sep' ).
 					'<td>'.$this->form->get_input( 'og_title_sep', 'short' ).'</td>';
 
-					if ( $this->p->options['plugin_display'] == 'all' ) {
-						$rows[] = $this->p->util->th( 'Title Length', null, 'og_title_len' ).
-						'<td>'.$this->form->get_input( 'og_title_len', 'short' ).' characters or less</td>';
-
-						$rows[] = $this->p->util->th( 'Description Length', null, 'og_desc_len' ).
-						'<td>'.$this->form->get_input( 'og_desc_len', 'short' ).' characters or less</td>';
-					}
-
-					$rows[] = $this->p->util->th( 'Hashtags in Description', null, 'og_desc_hashtags' ).
-					'<td>'.$this->form->get_select( 'og_desc_hashtags', 
-						range( 0, $this->p->cf['form']['max_desc_hashtags'] ), 'short', null, true ).' tag names</td>';
-
-					if ( $this->p->options['plugin_display'] == 'all' ) {
-						$rows[] = $this->p->util->th( 'Add Page Title in Tags', null, 'og_page_title_tag' ).
-						'<td>'.$this->form->get_checkbox( 'og_page_title_tag' ).'</td>';
-		
-						$rows[] = $this->p->util->th( 'Add Page Ancestor Tags', null, 'og_page_parent_tags' ).
-						'<td>'.$this->form->get_checkbox( 'og_page_parent_tags' ).'</td>';
-		
-						$rows[] = $this->p->util->th( 'Content Begins at First Paragraph', null, 'og_desc_strip' ).
-						'<td>'.$this->form->get_checkbox( 'og_desc_strip' ).'</td>';
-					}
 					break;
 
 				case 'og-images':
-					$rows[] = $this->p->util->th( 'Max Images to Include', null, 'og_img_max' ).
-					'<td>'.$this->form->get_select( 'og_img_max', 
-						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
-
 					$img_id_pre = array( 'wp' => 'Media Library' );
 					if ( $this->p->is_avail['media']['ngg'] == true ) 
 						$img_id_pre['ngg'] = 'NextGEN Gallery';
+
+					$rows[] = $this->p->util->th( 'Max Images to Include', null, 'og_img_max' ).
+					'<td>'.$this->form->get_select( 'og_img_max', 
+						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Image Dimensions', 'highlight', 'og_img_dimensions' ).
 					'<td>Width '.$this->form->get_input( 'og_img_width', 'short' ).' x '.
@@ -126,22 +103,6 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 						$this->form->get_input( 'og_def_img_url', 'wide' ) :
 						$this->form->get_fake_input( 'og_def_img_url', 'wide' ) ).'</td>';
 	
-					$rows[] = $this->p->util->th( 'Force Default Image on Indexes', null, 'og_def_img_on_index' ).
-					'<td>'.$this->form->get_checkbox( 'og_def_img_on_index' ).'</td>';
-	
-					$rows[] = $this->p->util->th( 'Force Default Image on Author Index', null, 'og_def_img_on_author' ).
-					'<td>'.$this->form->get_checkbox( 'og_def_img_on_author' ).'</td>';
-	
-					$rows[] = $this->p->util->th( 'Force Default Image on Search Results', null, 'og_def_img_on_search' ).
-					'<td>'.$this->form->get_checkbox( 'og_def_img_on_search' ).'</td>';
-	
-					if ( $this->p->is_avail['media']['ngg'] === true ) {
-						$rows[] = $this->p->util->th( 'Add Tags from NGG Featured Image', null, 'og_ngg_tags' ).
-						( isset( $this->p->addons['media']['ngg'] ) ?
-							'<td>'.$this->form->get_checkbox( 'og_ngg_tags' ).'</td>' :
-							'<td class="blank">'.$this->form->get_fake_checkbox( 'og_ngg_tags' ).'</td>' );
-					} else $rows[] = $this->form->get_hidden( 'og_ngg_tags' );
-	
 					break;
 
 				case 'og-videos':
@@ -149,48 +110,12 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_select( 'og_vid_max', 
 						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
 	
-					if ( $this->p->options['plugin_display'] == 'all' ) {
-						$rows[] = $this->p->util->th( 'Default Video URL', null, 'og_def_vid_url' ).
-						'<td>'.$this->form->get_input( 'og_def_vid_url', 'wide' ).'</td>';
-		
-						$rows[] = $this->p->util->th( 'Force Default Video on Indexes', null, 'og_def_vid_on_index' ).
-						'<td>'.$this->form->get_checkbox( 'og_def_vid_on_index' ).'</td>';
-		
-						$rows[] = $this->p->util->th( 'Force Default Video on Author Index', null, 'og_def_vid_on_author' ).
-						'<td>'.$this->form->get_checkbox( 'og_def_vid_on_author' ).'</td>';
-		
-						$rows[] = $this->p->util->th( 'Force Default Video on Search Results', null, 'og_def_vid_on_search' ).
-						'<td>'.$this->form->get_checkbox( 'og_def_vid_on_search' ).'</td>';
-		
-						$rows[] = $this->p->util->th( 'Use HTTPS for Video API Calls', null, 'og_vid_https' ).
-						'<td>'.$this->form->get_checkbox( 'og_vid_https' ).'</td>';
-					}
 					break;
 
 				case 'og-author':
 					$rows[] = $this->p->util->th( 'Article Publisher Page URL', 'highlight', 'og_publisher_url' ).
 					'<td>'.$this->form->get_input( 'og_publisher_url', 'wide' ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Author Profile URL Field', null, 'og_author_field' ).
-					'<td>'.$this->form->get_select( 'og_author_field', $this->author_contact_fields() ).'</td>';
-
-					if ( $this->p->options['plugin_display'] == 'all' ) {
-						$rows[] = $this->p->util->th( 'Fallback to Author Index URL', null, 'og_author_fallback' ).
-						'<td>'.$this->form->get_checkbox( 'og_author_fallback' ).'</td>';
-
-						$rows[] = $this->p->util->th( 'Default Author when Missing', null, 'og_def_author_id' ).
-						'<td>'.$this->form->get_select( 'og_def_author_id', $user_ids, null, null, true ).'</td>';
-		
-						$rows[] = $this->p->util->th( 'Force Default Author on Indexes', null, 'og_def_author_on_index' ).
-						'<td>'.$this->form->get_checkbox( 'og_def_author_on_index' ).' defines index webpages as articles</td>';
-		
-						$rows[] = $this->p->util->th( 'Default Author on Search Results', null, 'og_def_author_on_search' ).
-						'<td>'.$this->form->get_checkbox( 'og_def_author_on_search' ).' defines search webpages as articles</td>';
-					}
-
-					$rows[] = $this->p->util->th( 'Gravatar Images for Authors', null, 'og_author_gravatar' ).
-					( $this->p->check->is_aop() ? '<td>'.$this->form->get_checkbox( 'plugin_gravatar_api' ) : 
-						'<td class="blank">'.$this->form->get_fake_checkbox( 'plugin_gravatar_api' ) ).'</td>';
 					break;
 
 				case 'pub-facebook':
@@ -205,30 +130,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					break;
 
 				case 'pub-google':
-					if ( $this->p->options['plugin_display'] == 'all' ) {
-						$rows[] = $this->p->util->th( 'Description Length', null, 'google_desc_len' ).
-						'<td>'.$this->form->get_input( 'seo_desc_len', 'short' ).' characters or less</td>';
-					}
-
 					$rows[] = $this->p->util->th( 'Publisher Link URL', 'highlight', 'google_publisher_url' ).
 					'<td>'.$this->form->get_input( 'link_publisher_url', 'wide' ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Author Name Format', 'highlight', 'google_author_name' ).
-					'<td>'.$this->form->get_select( 'seo_author_name', $this->author_name_fields() ).'</td>';
-	
-					$rows[] = $this->p->util->th( 'Author Link URL', null, 'google_author_field' ).
-					'<td>'.$this->form->get_select( 'link_author_field', $this->author_contact_fields() ).'</td>';
-
-					if ( $this->p->options['plugin_display'] == 'all' ) {
-						$rows[] = $this->p->util->th( 'Default Author when Missing', null, 'google_def_author_id' ).
-						'<td>'.$this->form->get_select( 'seo_def_author_id', $user_ids, null, null, true ).'</td>';
-	
-						$rows[] = $this->p->util->th( 'Force Default Author on Indexes', null, 'google_def_author_on_index' ).
-						'<td>'.$this->form->get_checkbox( 'seo_def_author_on_index' ).'</td>';
-	
-						$rows[] = $this->p->util->th( 'Default Author on Search Results', null, 'google_def_author_on_search' ).
-						'<td>'.$this->form->get_checkbox( 'seo_def_author_on_search' ).'</td>';
-					}
 					break;
 
 				case 'pub-pinterest':
@@ -239,30 +143,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'Height '.$this->form->get_input( 'rp_img_height', 'short' ).' &nbsp; '.
 					'Crop '.$this->form->get_checkbox( 'rp_img_crop' ).'</td>';
 	
-					$rows[] = $this->p->util->th( 'Author Name Format', null, 'rp_author_name' ).
-					'<td>'.$this->form->get_select( 'rp_author_name', $this->author_name_fields() ).'</td>';
-	
 					break;
 			}
 			return $rows;
-		}
-
-		private function author_contact_fields() {
-			return array_merge( array( 'none' => '' ), 	// make sure [none] is first
-				$this->p->addons['util']['user']->add_contact_methods( array( 
-					'author' => 'Author Index', 
-					'url' => 'Website'
-				) )
-			);
-		}
-
-		private function author_name_fields() {
-			return array( 
-				'none' => '',
-				'fullname' => 'First and Last Names',
-				'display_name' => 'Display Name',
-				'nickname' => 'Nickname',
-			);
 		}
 	}
 }

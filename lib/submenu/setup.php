@@ -21,16 +21,9 @@ if ( ! class_exists( 'WpssoSubmenuSetup' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-			add_meta_box( $this->pagehook.'_review', 'Useful Plugin?', array( &$this, 'show_metabox_review' ), $this->pagehook, 'normal' );
 			add_meta_box( $this->pagehook.'_guide', 'Setup Guide', array( &$this, 'show_metabox_guide' ), $this->pagehook, 'normal' );
 		}
 
-		public function show_metabox_review() {
-			echo '<table class="sucom-setting setup-metabox"><tr><td>';
-			echo $this->p->msgs->get( 'info-review' );
-			echo '</td></tr></table>';
-		}
-		
 		public function show_metabox_guide() {
 			$content = $this->p->util->get_remote_content( $this->p->cf['url']['setup'],
 				constant( $this->p->cf['uca'].'_PLUGINDIR' ).'setup.html' );

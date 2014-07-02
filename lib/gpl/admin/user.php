@@ -42,8 +42,10 @@ if ( ! class_exists( 'WpssoAdminUser' ) ) {
 			$rows[] = $this->p->util->th( 'Image URL', 'medium', 'postmeta-og_img_url', $post_info ).
 			'<td class="blank">&nbsp;</td>';
 
-			$rows[] = $this->p->util->th( 'Sharing URL', 'medium', 'postmeta-sharing_url', $post_info ).
-			'<td class="blank">'.$this->p->util->get_sharing_url( false ).'</td>';
+			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = $this->p->util->th( 'Sharing URL', 'medium', 'postmeta-sharing_url', $post_info ).
+				'<td class="blank">'.$this->p->util->get_sharing_url( false ).'</td>';
+			}
 
 			return $rows;
 		}

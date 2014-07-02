@@ -48,16 +48,17 @@ if ( ! class_exists( 'WpssoAdminPostmeta' ) ) {
 			$rows[] = $this->p->util->th( 'Video URL', 'medium', 'postmeta-og_vid_url', $post_info ).
 			'<td class="blank">&nbsp;</td>';
 
-			$rows[] = $this->p->util->th( 'Maximum Images', 'medium', 'postmeta-og_img_max', $post_info ).
-			'<td class="blank">'.$this->p->options['og_img_max'].'</td>';
-
-			$rows[] = $this->p->util->th( 'Maximum Videos', 'medium', 'postmeta-og_vid_max', $post_info ).
-			'<td class="blank">'.$this->p->options['og_vid_max'].'</td>';
-
-			$rows[] = $this->p->util->th( 'Sharing URL', 'medium', 'postmeta-sharing_url', $post_info ).
-			'<td class="blank">'.( get_post_status( $post_info['id'] ) == 'publish' ? 
-				$this->p->util->get_sharing_url( true ) :
-				'<p>The Sharing URL will be available when the '.$post_info['ptn'].' is published.</p>' ).'</td>';
+			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = $this->p->util->th( 'Maximum Images', 'medium', 'postmeta-og_img_max', $post_info ).
+				'<td class="blank">'.$this->p->options['og_img_max'].'</td>';
+	
+				$rows[] = $this->p->util->th( 'Maximum Videos', 'medium', 'postmeta-og_vid_max', $post_info ).
+				'<td class="blank">'.$this->p->options['og_vid_max'].'</td>';
+	
+				$rows[] = $this->p->util->th( 'Sharing URL', 'medium', 'postmeta-sharing_url', $post_info ).
+				'<td class="blank">'.( get_post_status( $post_info['id'] ) == 'publish' ? $this->p->util->get_sharing_url( true ) :
+					'<p><em>The Sharing URL will be available when the '.$post_info['ptn'].' is published.</p>' ).'</em></td>';
+			}
 
 			return $rows;
 		}

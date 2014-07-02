@@ -323,7 +323,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * Enhancements
 	* Added the "Read Me", "Setup Guide", and "What's New" setting pages to the Network Admin menu.
 	* Added a new 'Plugin Settings to Display' option to select between a set of 'Basic Plugin Options' and 'All Plugin Options'.
-	* Improved the CSS to add more space between the various plugin option fields.
+	* Improved the CSS to add more space between the various plugin option fields (props patrickd his suggestion).
+	* Moved the management of several non-essential options to the Pro version.
 
 = Version 2.5.3 =
 

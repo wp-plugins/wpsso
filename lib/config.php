@@ -38,6 +38,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'advanced' => 'Advanced',
 					'readme' => 'Read Me',
 					'setup' => 'Setup Guide',
+					'whatsnew' => 'What\'s New',
 				),
 				'sitesubmenu' => array(
 					'network' => 'Network',

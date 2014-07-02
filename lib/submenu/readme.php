@@ -21,41 +21,47 @@ if ( ! class_exists( 'WpssoSubmenuReadme' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-			add_meta_box( $this->pagehook.'_description', 'Description', array( &$this, 'show_metabox_description' ), $this->pagehook, 'normal' );
-			add_meta_box( $this->pagehook.'_faq', 'FAQ', array( &$this, 'show_metabox_faq' ), $this->pagehook, 'normal' );
-			add_meta_box( $this->pagehook.'_remaining', 'Other Notes', array( &$this, 'show_metabox_remaining' ), $this->pagehook, 'normal' );
-			add_meta_box( $this->pagehook.'_changelog', 'Changelog', array( &$this, 'show_metabox_changelog' ), $this->pagehook, 'normal' );
-
-			// these metabox ids should be closed by default
-			$this->p->addons['util']['user']->reset_metabox_prefs( $this->pagehook, array( 'description', 'changelog', 'rating' ), 'closed' );
+			add_meta_box( $this->pagehook.'_readme', 'Read Me', array( &$this, 'show_metabox_readme' ), $this->pagehook, 'normal' );
 		}
 
-		public function show_metabox_description() {
-			echo '<table class="sucom-setting readme-metabox"><tr><td>';
-			echo empty( $this->p->admin->readme['sections']['description'] ) ? 
-				'Content not Available' : $this->p->admin->readme['sections']['description'];
-			echo '</td></tr></table>';
+		public function show_metabox_readme() {
+			$metabox = 'readme';
+			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
+				'description' => 'Description',
+				'faq' => 'FAQ',
+				'notes' => 'Other Notes',
+				'changelog' => 'Changelog' ) );
+			$rows = array();
+			foreach ( $tabs as $key => $title )
+				$rows[$key] = array_merge( $this->get_rows( $metabox, $key ), 
+					apply_filters( $this->p->cf['lca'].'_'.$metabox.'_'.$key.'_rows', array(), $this->form ) );
+			$this->p->util->do_tabs( $metabox, $tabs, $rows );
 		}
 		
-		public function show_metabox_faq() {
-			echo '<table class="sucom-setting readme-metabox"><tr><td>';
-			echo empty( $this->p->admin->readme['sections']['frequently_asked_questions'] ) ?
-				'Content not Available' : $this->p->admin->readme['sections']['frequently_asked_questions'];
-			echo '</td></tr></table>';
-		}
+		protected function get_rows( $metabox, $key ) {
+			$rows = array();
+			switch ( $metabox.'-'.$key ) {
+				case 'readme-description':
+					$rows[] = '<td>'.( empty( $this->p->admin->readme['sections']['description'] ) ? 
+						'Content not Available' : $this->p->admin->readme['sections']['description'] ).'</td>';
+					break;
 
-		public function show_metabox_remaining() {
-			echo '<table class="sucom-setting readme-metabox"><tr><td>';
-			echo empty( $this->p->admin->readme['remaining_content'] ) ?
-				'Content not Available' : $this->p->admin->readme['remaining_content'];
-			echo '</td></tr></table>';
-		}
+				case 'readme-faq':
+					$rows[] = '<td>'.( empty( $this->p->admin->readme['sections']['frequently_asked_questions'] ) ?
+						'Content not Available' : $this->p->admin->readme['sections']['frequently_asked_questions'] ).'</td>';
+					break;
 
-		public function show_metabox_changelog() {
-			echo '<table class="sucom-setting readme-metabox"><tr><td>';
-			echo empty( $this->p->admin->readme['sections']['changelog'] ) ?
-				'Content not Available' : $this->p->admin->readme['sections']['changelog'];
-			echo '</td></tr></table>';
+				case 'readme-notes':
+					$rows[] = '<td>'.( empty( $this->p->admin->readme['remaining_content'] ) ?
+						'Content not Available' : $this->p->admin->readme['remaining_content'] ).'</td>';
+					break;
+
+				case 'readme-changelog':
+					$rows[] = '<td>'.( empty( $this->p->admin->readme['sections']['changelog'] ) ?
+						'Content not Available' : $this->p->admin->readme['sections']['changelog'] ).'</td>';
+					break;
+			}
+			return $rows;
 		}
 	}
 }

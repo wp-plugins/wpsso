@@ -25,8 +25,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 					add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
 
 				add_action( 'admin_init', array( &$this, 'add_metaboxes' ) );
-				add_action( 'show_user_profile', array( &$this, 'show_metabox' ) );
-				add_action( 'edit_user_profile', array( &$this, 'show_metabox' ) );
+				add_action( 'show_user_profile', array( &$this, 'show_metabox' ), 20 );
+				add_action( 'edit_user_profile', array( &$this, 'show_metabox' ), 20 );
 				add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ), 5 );
 				add_action( 'edit_user_profile_update', array( &$this, 'save_options' ), 10 );
 				add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ), 5 ); 
@@ -118,6 +118,18 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			return $rows;
 		}
 
+		public function get_contact_fields( $fields = array() ) { 
+			return array_merge( 
+				array( 'none' => '[none]' ), 	// make sure none is first
+				$this->add_contact_methods( 
+					array( 
+						'author' => 'Author Index', 
+						'url' => 'Website'
+					)
+				)
+			);
+		}
+
 		public function add_contact_methods( $fields = array() ) { 
 			// loop through each social website option prefix
 			if ( ! empty( $this->p->cf['opt']['pre'] ) && is_array( $this->p->cf['opt']['pre'] ) ) {
@@ -200,6 +212,14 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 
 			} else $this->p->debug->log( 'author_id provided is empty' );
 			return $ret;
+		}
+
+		public function get_display_names() {
+			$user_ids = array();
+			foreach ( get_users() as $user ) 
+				$user_ids[$user->ID] = $user->display_name;
+			$user_ids[0] = 'none';
+			return $user_ids;
 		}
 
 		// called from head and opengraph classes

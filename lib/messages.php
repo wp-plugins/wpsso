@@ -824,8 +824,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying these
 							contact fields in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
 							target="_blank">get_the_author_meta()</a> for examples).</p>
-							<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY</strong><br/>
-							(enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>).</p>';
+							<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY.</strong><br/>
+							Enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.</p>';
 							break;
 						case 'info-sharing-include':
 							$text = '<p>The buttons enabled bellow (along with those in the widget) can be included or excluded from specific webpage types.
@@ -843,10 +843,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'pro-feature-msg':
 					if ( $this->p->is_avail['aop'] == true )
 						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" 
-						target="_blank">Purchase additional licence(s) to enable Pro version features and options</p>';
+						target="_blank">Purchase additional licence(s) to modify the following options and enable Pro addons</p>';
 					else
 						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" 
-						target="_blank">Upgrade to the Pro version to enable the following options</a></p>';
+						target="_blank">Purchase the Pro version to modify the following options and get the Pro addons</a></p>';
 					break;
 				case 'pro-activate-nag':
 					// in multisite, only show the activation message on our own plugin pages

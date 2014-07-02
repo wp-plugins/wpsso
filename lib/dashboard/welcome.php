@@ -28,7 +28,7 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 		}
 
 		public function show_metabox_review() {
-			echo '<table class="sucom-setting welcome-metabox"><tr><td>';
+			echo '<table class="sucom-setting review-metabox"><tr><td>';
 			echo $this->p->msgs->get( 'info-review' );
 			echo '</td></tr></table>';
 		}

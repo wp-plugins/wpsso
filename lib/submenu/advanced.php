@@ -22,9 +22,9 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 			add_meta_box( $this->pagehook.'_plugin', 'Plugin Settings', array( &$this, 'show_metabox_plugin' ), $this->pagehook, 'normal' );
+			add_meta_box( $this->pagehook.'_contact', 'Profile Contact Methods', array( &$this, 'show_metabox_contact' ), $this->pagehook, 'normal' );
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
-				add_meta_box( $this->pagehook.'_contact', 'Profile Contact Methods', array( &$this, 'show_metabox_contact' ), $this->pagehook, 'normal' );
 				add_meta_box( $this->pagehook.'_taglist', 'Header Tags List', array( &$this, 'show_metabox_taglist' ), $this->pagehook, 'normal' );
 			}
 		}
@@ -73,7 +73,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			switch ( $metabox.'-'.$key ) {
 				case 'plugin-activation':
 					// retrieve information on license use, if any
-					$qty_used = class_exists( 'SucomUpdate' ) ? 
+					$qty_used = class_exists( 'SucomUpdate' ) ?
 						SucomUpdate::get_option( $this->p->cf['lca'], 'qty_used' ) : false;
 
 					$rows[] = $this->p->util->th( 'Plugin Settings to Display', 'highlight', 'plugin_display' ).
@@ -111,21 +111,28 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 							ucfirst( $id ) : $this->p->cf['lib']['website'][$id];
 						$name = $name == 'GooglePlus' ? 'Google+' : $name;
 
-						// not all social websites have a contact method field
-						if ( array_key_exists( $cm_opt.'enabled', $this->p->options ) ) {
-							if ( $this->p->check->is_aop() ) {
-								$rows[] = $this->p->util->th( $name, 'medium' ).
-								'<td class="checkbox">'.$this->form->get_checkbox( $cm_opt.'enabled' ).'</td>'.
-								'<td>'.$this->form->get_input( $cm_opt.'name', 'medium' ).'</td>'.
-								'<td>'.$this->form->get_input( $cm_opt.'label' ).'</td>';
-							} else {
-								$rows[] = $this->p->util->th( $name, 'medium' ).
-								'<td class="blank checkbox">'.$this->form->get_fake_checkbox( $cm_opt.'enabled' ).'</td>'.
-								'<td class="blank medium">'.$this->form->get_hidden( $cm_opt.'name' ).
-								$this->p->options[$cm_opt.'name'].'</td>'.
-								'<td class="blank">'.$this->form->get_hidden( $cm_opt.'label' ).
-								$this->p->options[$cm_opt.'label'].'</td>';
-							}
+						switch ( $id ) {
+							case 'facebook':
+							case 'gplus':
+							case 'twitter':
+							case ( $this->p->options['plugin_display'] === 'all' ? true : false ):
+								// not all social websites have a contact method field
+								if ( array_key_exists( $cm_opt.'enabled', $this->p->options ) ) {
+									if ( $this->p->check->is_aop() ) {
+										$rows[] = $this->p->util->th( $name, 'medium' ).
+										'<td class="checkbox">'.$this->form->get_checkbox( $cm_opt.'enabled' ).'</td>'.
+										'<td>'.$this->form->get_input( $cm_opt.'name', 'medium' ).'</td>'.
+										'<td>'.$this->form->get_input( $cm_opt.'label' ).'</td>';
+									} else {
+										$rows[] = $this->p->util->th( $name, 'medium' ).
+										'<td class="blank checkbox">'.$this->form->get_fake_checkbox( $cm_opt.'enabled' ).'</td>'.
+										'<td class="blank medium">'.$this->form->get_hidden( $cm_opt.'name' ).
+										$this->p->options[$cm_opt.'name'].'</td>'.
+										'<td class="blank">'.$this->form->get_hidden( $cm_opt.'label' ).
+										$this->p->options[$cm_opt.'label'].'</td>';
+									}
+								}
+								break;
 						}
 					
 					}
