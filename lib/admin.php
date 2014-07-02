@@ -365,12 +365,12 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					<?php 
 					$this->show_follow_icons();
 					echo '<div class="display_options_info">';
-					echo $this->p->cf['form']['display_options'][$this->p->options['plugin_display']].' | ';
+					echo '<strong>'.$this->p->cf['form']['display_options'][$this->p->options['plugin_display']].'</strong>';
 
 					$next_key = SucomUtil::next_key( $this->p->options['plugin_display'], $this->p->cf['form']['display_options'] );
-					echo '<a href="'.wp_nonce_url( $this->p->util->get_admin_url( '?action=change_display_options&display_options='.$next_key ),
-						$this->get_nonce(), WPSSO_NONCE ).'">Display '.$this->p->cf['form']['display_options'][$next_key].'</a>';
-
+					if ( $next_key !== false )
+						echo ' | <a href="'.wp_nonce_url( $this->p->util->get_admin_url( '?action=change_display_options&display_options='.$next_key ),
+							$this->get_nonce(), WPSSO_NONCE ).'">Display '.$this->p->cf['form']['display_options'][$next_key].'</a>';
 					echo '</div>';
 					echo $this->p->cf['full'].' &ndash; '.$this->menu_name;
 					?>
