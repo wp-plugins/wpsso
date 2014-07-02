@@ -316,7 +316,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
-= Version 2.5.4 =
+= Version 2.5.4 (Upcoming) =
 
 * Bugfixes
 	* *None*
