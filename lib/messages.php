@@ -843,27 +843,25 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'pro-feature-msg':
 					if ( $this->p->is_avail['aop'] == true )
 						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" 
-						target="_blank">Purchase additional licence(s) to modify the following options and enable Pro addons</p>';
+						target="_blank">Purchase Pro version licence(s) to access the following options and enable Pro addon features</a></p>';
 					else
 						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" 
-						target="_blank">Purchase the Pro version to modify the following options and get the Pro addons</a></p>';
+						target="_blank">Purchase the Pro version plugin to access the following options and enable Pro addon features</a></p>';
 					break;
 				case 'pro-activate-nag':
-					// in multisite, only show the activation message on our own plugin pages
-					if ( ! is_multisite() || ( is_multisite() && preg_match( '/^.*\?page='.$this->p->cf['lca'].'-/', $_SERVER['REQUEST_URI'] ) ) ) {
-						$url = $this->p->util->get_admin_url( 'advanced' );
+					$url = $this->p->util->get_admin_url( 'advanced' );
+					//if ( is_multisite() && strpos( $_SERVER['REQUEST_URI'], '?page='.$this->p->cf['lca'].'-' ) !== false )
+					if ( ! is_multisite() )
 						$text = '<p>The '.$this->p->cf['full'].' Authentication ID option value is empty.<br/>
-						To enable Pro version features, and allow the plugin to authenticate itself for future updates,<br/>
-						<a href="'.$url.'">please enter the unique Authenticaton ID you received on the '.
+						To enable Pro version features and allow the plugin to authenticate itself for future updates,<br/>
+						<a href="'.$url.'">enter the unique Authenticaton ID you received by email on the '.
 						$this->p->cf['menu'].' Advanced settings page</a>.</p>';
-					}
+
 					break;
 				case 'side-purchase':
-					$text = '<p>The Pro version can be purchased and '.( $this->p->is_avail['aop'] == true ? 'licensed' : 'upgraded' ).
-					' within a few <em>seconds</em> following your purchase. Pro version licenses do not expire, and there are 
-					no recurring or yearly fees for updates and support. Do you have any questions or concerns about licensing? 
-					<a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">Submit a new support ticket</a> 
-					and we will be happy to assist you.';
+					$text = '<p>'.$this->p->cf['full_pro'].' can be purchased quickly and easily via Paypal
+					&ndash; and '.( $this->p->is_avail['aop'] == true ? 'licensed' : 'installed' ).' immediately following your purchase. 
+					Pro version licenses do not expire and there are no recurring or yearly fees for updates and support.';
 					break;
 				case 'side-help':
 					$text = '<p>Individual option boxes (like this one) can be opened / closed by clicking on their title bar, 

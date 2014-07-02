@@ -104,7 +104,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '289',		// increment when changing default options
+				'version' => '290',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -365,6 +365,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'js_locations' => array( 'none' => '', 'header' => 'Header', 'footer' => 'Footer' ),
 				'caption_types' => array( 'none' => '', 'title' => 'Title Only', 'excerpt' => 'Excerpt Only', 'both' => 'Title and Excerpt' ),
 				'display_options' => array( 'basic' => 'Basic Plugin Options', 'all' => 'All Plugin Options' ),
+				'user_name_fields' => array( 'none' => '[none]', 'fullname' => 'First and Last Names', 'display_name' => 'Display Name', 'nickname' => 'Nickname' ),
 			),
 			'head' => array(
 				'min_img_dim' => 200,
