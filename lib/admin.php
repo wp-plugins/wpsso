@@ -266,26 +266,35 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					$this->p->notice->err( __( 'Nonce token validation failed for plugin action (action ignored).', WPSSO_TEXTDOM ) );
 				else {
 					switch ( $_GET['action'] ) {
-						case 'check_for_updates' : 
+						case 'check_for_updates': 
 							if ( ! empty( $this->p->options['plugin_tid'] ) ) {
 								$this->readme = '';
 								$this->p->update->check_for_updates();
 								$this->p->notice->inf( __( 'Plugin update information has been checked and updated.', WPSSO_TEXTDOM ) );
 							}
 							break;
-						case 'clear_all_cache' : 
+
+						case 'clear_all_cache': 
 							$deleted_cache = $this->p->util->delete_expired_file_cache( true );
 							$deleted_transient = $this->p->util->delete_expired_transients( true );
 							wp_cache_flush();
+
 							if ( function_exists('w3tc_pgcache_flush') ) 
 								w3tc_pgcache_flush();
 							elseif ( function_exists('wp_cache_clear_cache') ) 
 								wp_cache_clear_cache();
+
 							$this->p->notice->inf( __( 'Cached files, WP object cache, transient cache, and any additional caches, '.
 								'like APC, Memcache, Xcache, W3TC, Super Cache, etc. have all been cleared.', WPSSO_TEXTDOM ) );
 							break;
-						case 'clear_metabox_prefs' : 
+
+						case 'clear_metabox_prefs': 
 							WpssoUser::delete_metabox_prefs( get_current_user_id() );
+							break;
+
+						case 'change_display_options': 
+							if ( isset( $this->p->cf['form']['display_options'][$_GET['display_options']] ) )
+								$this->p->options['plugin_display'] = $_GET['display_options'];
 							break;
 					}
 				}
@@ -353,13 +362,18 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			?>
 			<div class="wrap" id="<?php echo $this->pagehook; ?>">
 				<h2>
-					<?php $this->show_follow_icons(); ?>
-					<div class="display_options_info">
-						<?php echo $this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_activation', 
-							$this->p->cf['form']['display_options'][$this->p->options['plugin_display']] ); ?>
-						Displayed
-					</div>
-					<?php echo $this->p->cf['full'].' &ndash; '.$this->menu_name; ?>
+					<?php 
+					$this->show_follow_icons();
+					echo '<div class="display_options_info">';
+					echo $this->p->cf['form']['display_options'][$this->p->options['plugin_display']].' | ';
+
+					$next_key = SucomUtil::next_key( $this->p->options['plugin_display'], $this->p->cf['form']['display_options'] );
+					echo '<a href="'.wp_nonce_url( $this->p->util->get_admin_url( '?action=change_display_options&display_options='.$next_key ),
+						$this->get_nonce(), WPSSO_NONCE ).'">Display '.$this->p->cf['form']['display_options'][$next_key].'</a>';
+
+					echo '</div>';
+					echo $this->p->cf['full'].' &ndash; '.$this->menu_name;
+					?>
 				</h2>
 				<div id="poststuff" class="metabox-holder has-right-sidebar">
 					<div id="side-info-column" class="inner-sidebar">

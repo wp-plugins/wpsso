@@ -58,6 +58,18 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			else return self::$crawler_name;
 		}
 
+		public static function next_key( $needle, $arr, $cycle = true ) {
+			$keys = array_keys( $arr );
+			$pos = array_search( $needle, $keys );
+			if ( $pos !== false ) {
+				if ( isset( $keys[ $pos + 1 ] ) )
+					return $keys[ $pos + 1 ];
+				elseif ( $cycle === true )
+					return $keys[0];
+			}
+			return false;
+		}
+
 		public static function is_assoc( $arr ) {
 			if ( ! is_array( $arr ) ) 
 				return false;
