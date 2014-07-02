@@ -221,6 +221,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 					$textlen = $textlen - strlen( $hashtags ) - 1;
 				$title = $this->p->util->limit_text_length( $title, $textlen, $trailing, false );	// don't run cleanup_html_tags()
+				$title = preg_replace( '/ \\'.$separator.' *('.$trailing.')?$/', $trailing, $title );	// just in case
 			}
 
 			if ( ! empty( $parent_title ) ) 

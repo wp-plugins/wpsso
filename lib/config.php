@@ -48,8 +48,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 				'gpl' => array(
 					'admin' => array(
-						'general' => 'General',
-						'advanced' => 'Advanced',
+						'general' => 'General Settings',
+						'advanced' => 'Advanced Settings',
 						'postmeta' => 'Post Social Settings',
 						'user' => 'User Social Settings',
 					),
