@@ -25,7 +25,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		}
 
 		public function add_doctype( $doctype ) {
-			$obj = $this->p->util->get_post_object( $use_post );
+			$obj = $this->p->util->get_post_object( false );
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			$post_type = '';
 			$item_type = 'Blog';	// default value for non-singular webpages
