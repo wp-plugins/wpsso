@@ -320,6 +320,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 * Bugfixes
 	* Fixed the Basic / All Options switching on the settings page to save the new display preference upon switching.
+	* Added the missing 'itemscope' / 'itemtype' value to the &lt;html&gt; tag for Google+.
 * Enhancements
 	* Added a new Post / Page custom meta 'G+ / Schema Description' field.
 	* Renamed the Post / Page custom meta 'Default Description' field to 'Default / OG Description'.
