@@ -32,8 +32,13 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 		}
 
 		public function add_doctype( $doctype ) {
-			return $doctype.' xmlns:og="http://ogp.me/ns#"'.
-				' xmlns:fb="http://ogp.me/ns/fb#"';
+			foreach ( array(
+				'xmlns:og="http://ogp.me/ns#"',
+				'xmlns:fb="http://ogp.me/ns/fb#"'
+			) as $xmlns )
+				if ( strpos( $doctype, ' '.$xmlns ) === false )
+					$doctype .= ' '.$xmlns;
+			return $doctype;
 		}
 
 		public function get_array( &$og = array(), $use_post = false ) {

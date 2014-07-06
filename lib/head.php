@@ -57,7 +57,10 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 			$item_type = apply_filters( $this->p->cf['lca'].'_item_type', $item_type );
 
-			return $doctype.' itemscope itemtype="http://schema.org/'.$item_type.'"';
+			if ( strpos( $doctype, ' itemscope itemtype="http://schema.org/' ) === false )
+				$doctype .= ' itemscope itemtype="http://schema.org/'.$item_type.'"';
+
+			return $doctype;
 		}
 
 		public function filter_head_cache_salt( $salt, $use_post = false ) {
