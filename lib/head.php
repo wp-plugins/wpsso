@@ -20,7 +20,44 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$this->p->util->add_plugin_filters( $this, array( 
 				'head_cache_salt' => 2,		// modify the cache salt for certain crawlers
 			) );
+			add_filter( 'language_attributes', array( &$this, 'add_doctype' ) );
 			add_action( 'wp_head', array( &$this, 'add_header' ), WPSSO_HEAD_PRIORITY );
+		}
+
+		public function add_doctype( $doctype ) {
+			$obj = $this->p->util->get_post_object( $use_post );
+			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+			$post_type = '';
+			$item_type = 'Blog';	// default value for non-singular webpages
+			if ( is_singular() ) {
+				if ( ! empty( $obj->post_type ) )
+					$post_type = $obj->post_type;
+				switch ( $post_type ) {
+					case 'article':
+					case 'book':
+					case 'blog':
+					case 'event':
+					case 'organization':
+					case 'person':
+					case 'product':
+					case 'review':
+					case 'other':
+						$item_type = ucfirst( $post_type );
+						break;
+					case 'local.business':
+						$item_type = 'LocalBusiness';
+						break;
+					default:
+						$item_type = 'Article';
+						break;
+				}
+			} elseif ( ( ! is_search() && ! empty( $this->p->options['og_def_author_on_index'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) || 
+				( is_search() && ! empty( $this->p->options['og_def_author_on_search'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) )
+					$item_type = 'Article';
+
+			$item_type = apply_filters( $this->p->cf['lca'].'_item_type', $item_type );
+
+			return $doctype.' itemscope itemtype="http://schema.org/'.$item_type.'"';
 		}
 
 		public function filter_head_cache_salt( $salt, $use_post = false ) {

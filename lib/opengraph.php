@@ -81,7 +81,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 			if ( ! isset( $og['og:type'] ) ) {
 
-				// singular posts/pages are articles by default
+				// singular posts / pages are articles by default
 				// check post_type for exceptions (like product pages)
 				if ( is_singular() || $use_post !== false ) {
 					if ( ! empty( $obj->post_type ) )
