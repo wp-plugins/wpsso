@@ -137,6 +137,15 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							'The default description value is based on the biographical info, if one is available.
 							Update and save this description to change the default value of all other description fields.';
 						 	break;
+						 case 'tooltip-user-seo_desc':
+							$text = 'A custom description for the Google Search / SEO description meta tag.';
+						 	break;
+						 case 'tooltip-user-schema_desc':
+							$text = 'A custom description for the Google+ schema description meta tag.';
+						 	break;
+						 case 'tooltip-user-tc_desc':
+							$text = 'A custom description for the Twitter Card description meta tag (all Twitter Card formats).';
+						 	break;
 						/*
 						 * Other settings
 						 */
