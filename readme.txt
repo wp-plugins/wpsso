@@ -316,6 +316,19 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.5.5 =
+
+* Bugfixes
+	* Fixed the Basic / All Options switching on the settings page to save the new display preference upon switching.
+	* Added the missing 'itemscope' / 'itemtype' value to the &lt;html&gt; tag for Google+.
+* Enhancements
+	* Added a new Post / Page custom meta 'G+ / Schema Description' field.
+	* Renamed the Post / Page custom meta 'Default Description' field to 'Default / OG Description'.
+	* Renamed the Post / Page custom meta 'Google / SEO Description' field to 'Search / SEO Description'.
+	* Added a new 'G+ / Schema Description Length' option on the "Google+ and Search" settings tab.
+	* Renamed the (undocumented) 'wpsso_meta_og' filter to 'wpsso_meta_name'.
+	* Added the `$encode` and `$custom` variables to the `wpsso_title_seed` and `wpsso_description_seed` filter parameters.
+
 = Version 2.5.4.1 =
 
 * Bugfixes
