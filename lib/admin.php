@@ -295,6 +295,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						case 'change_display_options': 
 							if ( isset( $this->p->cf['form']['display_options'][$_GET['display_options']] ) )
 								$this->p->options['plugin_display'] = $_GET['display_options'];
+							$this->p->opt->save_options( WPSSO_OPTIONS_NAME, $this->p->options );
 							break;
 					}
 				}

@@ -177,6 +177,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'A custom description for the Google Search / SEO description meta tag.
 							The default description value is refreshed when the '.$ptn.' is saved.';
 						 	break;
+						 case 'tooltip-postmeta-schema_desc':
+							$text = 'A custom description for the Google+ / Schema description meta tag.
+							The default description value is refreshed when the '.$ptn.' is saved.';
+						 	break;
 						 case 'tooltip-postmeta-tc_desc':
 							$text = 'A custom description for the Twitter Card description meta tag (all Twitter Card formats).
 							The default description value is refreshed when the '.$ptn.' is saved.';
@@ -601,10 +605,15 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				 */
 				case ( strpos( $idx, 'tooltip-google_' ) !== false ? true : false ):
 					switch ( $idx ) {
-						case 'tooltip-google_desc_len':
+						case 'tooltip-google_seo_desc_len':
 							$text = 'The maximum length of text used for the Google Search / SEO description meta tag.
 							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
 							(the default is '.$this->p->opt->get_defaults( 'seo_desc_len' ).' characters).';
+							break;
+						case 'tooltip-google_schema_desc_len':
+							$text = 'The maximum length of text used for the Google+ / Schema description meta tag.
+							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
+							(the default is '.$this->p->opt->get_defaults( 'schema_desc_len' ).' characters).';
 							break;
 						case 'tooltip-google_author_name':
 							$text = 'Select an Author Name Format for the "author" meta tag, or \'none\' to disable this feature 

@@ -144,23 +144,25 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					$author_id = $this->p->options['seo_def_author_id'];
 
 			/**
-			 * Open Graph, Twitter Card, and SEO meta tags
+			 * Open Graph, Twitter Card
 			 *
 			 * The Twitter Card meta tags are added by the WpssoHeadTwittercard class using an 'wpsso_og' filter hook.
 			 */
 			if ( $this->p->is_avail['opengraph'] )
 				$meta_og = $this->p->og->get_array( $meta_og, $use_post );
 
-			if ( ! isset( $meta_og['author'] ) &&
-				isset( $this->p->options['seo_author_name'] ) && 
+			/**
+			 * Name / SEO meta tags
+			 */
+			$meta_name = array();
+			if ( isset( $this->p->options['seo_author_name'] ) && 
 				$this->p->options['seo_author_name'] !== 'none' )
-					$meta_og['author'] = $this->p->addons['util']['user']->get_author_name( $author_id, $this->p->options['seo_author_name'] );
+					$meta_name['author'] = $this->p->addons['util']['user']->get_author_name( $author_id, $this->p->options['seo_author_name'] );
 
-			if ( ! isset( $meta_og['description'] ) )
-				$meta_og['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], '...',
-					$use_post, true, false, true, 'seo_desc' );	// add_hashtags = false
-		
-			$meta_og = apply_filters( $this->p->cf['lca'].'_meta_og', $meta_og );
+			$meta_name['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], 
+				'...', $use_post, true, false, true, 'seo_desc' );	// add_hashtags = false, custom meta = seo_desc
+
+			$meta_name = apply_filters( $this->p->cf['lca'].'_meta_name', $meta_name );
 
 			/**
 			 * Link relation tags
@@ -178,8 +180,9 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 * Schema meta tags
 			 */
 			$meta_schema = array();
-			if ( isset( $meta_og['og:description'] ) )
-				$meta_schema['description'] = $meta_og['og:description'];
+
+			$meta_schema['description'] = $this->p->webpage->get_description( $this->p->options['og_desc_len'], 
+				'...', $use_post, true, true, true, 'schema_desc' );	// custom meta = schema_desc
 
 			$meta_schema = apply_filters( $this->p->cf['lca'].'_meta_schema', $meta_schema );
 
@@ -191,6 +194,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					$this->p->cf['full'].' '.$this->p->cf['version'].( $this->p->check->is_aop() ? 'L' : 
 						( $this->p->is_avail['aop'] ? 'U' : 'G' ) ) ),
 				$this->get_tag_array( 'link', 'rel', $link_rel ),
+				$this->get_tag_array( 'meta', 'name', $meta_name ),
 				$this->get_tag_array( 'meta', 'itemprop', $meta_schema ),
 				$this->get_tag_array( 'meta', 'property', $meta_og )
 			);

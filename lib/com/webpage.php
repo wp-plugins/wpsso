@@ -127,7 +127,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			// get seed if no custom meta title
 			if ( empty( $title ) ) {
-				$title = apply_filters( $this->p->cf['lca'].'_title_seed', '', $use_post, $use_cache, $add_hashtags );
+				$title = apply_filters( $this->p->cf['lca'].'_title_seed', '', $use_post, $use_cache, $add_hashtags, $encode, $custom );
 				if ( ! empty( $title ) )
 					$this->p->debug->log( 'title seed = "'.$title.'"' );
 			}
@@ -279,7 +279,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			// get seed if no custom meta description
 			if ( empty( $desc ) ) {
-				$desc = apply_filters( $this->p->cf['lca'].'_description_seed', '', $use_post, $use_cache, $add_hashtags );
+				$desc = apply_filters( $this->p->cf['lca'].'_description_seed', '', $use_post, $use_cache, $add_hashtags, $encode, $custom );
 				if ( ! empty( $desc ) ) $this->p->debug->log( 'description seed = "'.$desc.'"' );
 			}
 		

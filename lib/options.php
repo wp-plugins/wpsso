@@ -323,6 +323,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'og_desc':
 				case 'og_site_name':
 				case 'og_site_description':
+				case 'schema_desc':
 				case 'seo_desc':
 				case 'fb_app_id':
 				case 'tc_desc':

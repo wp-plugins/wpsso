@@ -137,8 +137,11 @@ if ( ! class_exists( 'WpssoAdminGeneral' ) ) {
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
-				$rows[] = $this->p->util->th( 'Description Length', null, 'google_desc_len' ).
+				$rows[] = $this->p->util->th( 'Search / SEO Description Length', null, 'google_seo_desc_len' ).
 				'<td class="blank">'.$form->options['seo_desc_len'].' characters or less</td>';
+
+				$rows[] = $this->p->util->th( 'G+ / Schema Description Length', null, 'google_schema_desc_len' ).
+				'<td class="blank">'.$form->options['schema_desc_len'].' characters or less</td>';
 			}
 
 			$rows[] = $this->p->util->th( 'Author Link URL Field', null, 'google_author_field' ).
