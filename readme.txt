@@ -1,4 +1,4 @@
-=== WordPress Social Sharing Optimization ===
+=== WordPress Social Sharing Optimization: Advanced SSO / SMO for Publishers ===
 Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
 Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, easy digital downloads, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube, polylang
@@ -181,10 +181,10 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 <strong><em>How Fast is WPSSO Compared to Other Plugins?</em></strong> Very Fast. A few examples from the [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a some well known plugins:
 
 <ul>
-	<li><strong>0.0105</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.5.2</li>
+	<li><strong>0.0108</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.5.5</li>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
 	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
-	<li><strong>0.0164</strong> secs - NextGEN Facebook (NGFB) v7.5.2</li>
+	<li><strong>0.0176</strong> secs - NextGEN Facebook (NGFB) v7.5.5</li>
 	<li><strong>0.0189</strong> secs - Contact Form 7 v3.7.2</li>
 	<li><strong>0.0230</strong> secs - Easy Digital Downloads v1.9.8 (No Products)</li>
 	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
