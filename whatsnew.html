@@ -4,10 +4,9 @@
 
 <p><strong>Version 2.5.3</strong> adds a new 'Image Dimensions' option on the Pinterest publisher settings tab.</p>
 
-<p><strong>Version 2.5.4</strong> simplifies the settings pages by adding a new 'Plugin Settings to Display' option on the SSO Advanced settings page, 
-and updates the admin-side CSS to improve the layout.
-<strong>The 'Plugin Settings to Display' value is set to 'Basic Plugin Options' by default</strong>, 
-so if you find that some options have disappeared, you can change that option to 'All Plugin Options'.</p>
+<p><strong>Version 2.5.4</strong> simplifies the settings pages by adding a new 'Plugin Settings to Display' option on the SSO Advanced settings page, and updates the admin-side CSS to improve the layout. <strong>The 'Plugin Settings to Display' value is set to 'Basic Plugin Options' by default</strong>, so if you find that some options have disappeared, you can change that option to 'All Plugin Options'.</p>
+
+<p><strong>Version 2.5.5</strong> fixes the Basic / All Option switching not being saved, a missing schema itemtype value for the webpage, and adds a new 'G+ / Schema Description' field in the Social Settings metabox.</p>
 
 <!--more-->
 
@@ -21,6 +20,28 @@ The image shown is provided by the Gravatar addon, and the description value has
 	alt="facebook-author-index-example" width="514" height="558" data-wp-pid="4099" />
 
 <h3>Changelog</h3>
+
+<h4>Version 2.5.5</h4>
+
+<ul>
+<li>Bugfixes
+	<ul>
+	<li>Fixed the Basic / All Options switching feature on the settings pages, to save the new display preference upon switching.</li>
+	<li>Added the missing schema 'itemscope' / 'itemtype' value in the &lt;html&gt; tag for Google+..</li>
+	</ul>
+</li>
+
+<li>Enhancements
+	<ul>
+	<li>Added a new 'G+ / Schema Description Length' option on the "Google+ and Search" settings tab.</li>
+	<li>Added a new 'G+ / Schema Description' field in the Social Settings metabox.</li>
+	<li>Renamed the 'Default Description' field in the Social Settings metabox to 'Default / OG Description'.</li>
+	<li>Renamed the 'Google / SEO Description' field in the Social Settings metabox to 'Search / SEO Description'.</li>
+	<li>Renamed the (not yet documented) 'wpsso_meta_og' filter to 'wpsso_meta_name'.</li>
+	<li>Added the <code>$encode</code> and <code>$custom</code> variables to the 'wpsso_title_seed' and 'wpsso_description_seed' filter parameters.</li>
+	</ul>
+</li>
+</ul>
 
 <h4>Version 2.5.4.1</h4>
 

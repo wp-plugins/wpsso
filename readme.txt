@@ -327,7 +327,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Renamed the 'Default Description' field in the Social Settings metabox to 'Default / OG Description'.
 	* Renamed the 'Google / SEO Description' field in the Social Settings metabox to 'Search / SEO Description'.
 	* Renamed the (not yet documented) 'wpsso_meta_og' filter to 'wpsso_meta_name'.
-	* Added the `$encode` and `$custom` variables to the `wpsso_title_seed` and `wpsso_description_seed` filter parameters.
+	* Added the `$encode` and `$custom` variables to the 'wpsso_title_seed' and 'wpsso_description_seed' filter parameters.
 
 = Version 2.5.4.1 =
 
