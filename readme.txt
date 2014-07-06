@@ -319,7 +319,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Version 2.5.5 =
 
 * Bugfixes
-	* Fixed the Basic / All Options switching on the settings page to save the new display preference.
+	* Fixed the Basic / All Options switching on the settings page to save the new display preference upon switching.
 * Enhancements
 	* Added a new Post / Page custom meta 'G+ / Schema Description' field.
 	* Renamed the Post / Page custom meta 'Default Description' field to 'Default / OG Description'.
