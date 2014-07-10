@@ -8,7 +8,7 @@ Requires At Least: 3.0
 Tested Up To: 3.9.1
 Stable Tag: 2.5.5
 
-Display your content in the best possible way on Facebook, Twitter, Pinterest, Google+, etc. - no matter how your webpage is shared!
+Display your content in the best possible way on Facebook, Google+, Twitter, Pinterest, etc. - no matter how your webpage is shared!
 
 == Description ==
 
@@ -410,3 +410,4 @@ Added a new 'Setup Guide' settings page and 'Welcome' dashboard page (displayed 
 = 2.5.0 =
 
 Added a new 'Social Settings' metabox to the user profile page, and added support for author Gravatar images (Pro version).
+
