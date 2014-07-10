@@ -8,7 +8,7 @@ Requires At Least: 3.0
 Tested Up To: 3.9.1
 Stable Tag: 2.5.5
 
-Display your content in the best possible way on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc - no matter how your webpage is shared!
+Display your content in the best possible way on Facebook, Twitter, Pinterest, Google+, etc. - no matter how your webpage is shared!
 
 == Description ==
 
@@ -16,7 +16,7 @@ Display your content in the best possible way on Facebook, Twitter, Pinterest, G
 <p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites.</p>
 </blockquote>
 
-<p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
+<p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, Pinterest, LinkedIn, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
 
 <strong>Looking for the WPSSO Pro version?</strong> [Upgrade the Free plugin quickly and easily.](http://surniaulula.com/extend/plugins/wpsso/)
 
@@ -24,7 +24,7 @@ Display your content in the best possible way on Facebook, Twitter, Pinterest, G
 
 **Free / Basic Version**
 
-* Adds Open Graph / Rich Pin meta tags (Facebook, Google+, LinkedIn, Pinterest, etc.).
+* Adds Open Graph / Rich Pin meta tags (Facebook, Google+, Pinterest, LinkedIn, etc.).
 * Configurable image sizes, title and description lengths for different contexts.
 * Optional fallback to a default image and video for index and search webpages.
 * Supports featured, attached, gallery shortcode, and/or HTML image tags in content.
@@ -410,3 +410,4 @@ Added a new 'Setup Guide' settings page and 'Welcome' dashboard page (displayed 
 = 2.5.0 =
 
 Added a new 'Social Settings' metabox to the user profile page, and added support for author Gravatar images (Pro version).
+
