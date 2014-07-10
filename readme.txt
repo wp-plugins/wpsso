@@ -144,6 +144,8 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 
 Aside from the additional support for Twitter Cards, the main difference between the Free and Pro versions is the integration of 3rd party plugins and services.
 
+<strong>Looking for WPSSO Pro?</strong> [Upgrade the Free plugin quickly and easily.](http://surniaulula.com/extend/plugins/wpsso/)
+
 **Images and Videos**
 
 WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress Media Library image galleries and embedded videos from Slideshare, Vimeo, Wistia, and Youtube (including their preview images). WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized according to their intended audience (Facebook, Twitter, Pinterest, etc).
