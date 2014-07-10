@@ -18,7 +18,7 @@ Display your content in the best possible way on Facebook, Twitter, Pinterest, G
 
 <p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, LinkedIn, Pinterest, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
 
-<strong>Looking for WPSSO Pro?</strong> [Upgrade the Free plugin quickly and easily.](http://surniaulula.com/extend/plugins/wpsso/)
+<strong>Looking for the WPSSO Pro version?</strong> [Upgrade the Free plugin quickly and easily.](http://surniaulula.com/extend/plugins/wpsso/)
 
 = Quick List of Features =
 
@@ -44,7 +44,7 @@ Display your content in the best possible way on Facebook, Twitter, Pinterest, G
 
 **Pro / Power-User Version**
 
-<strong>Looking for WPSSO Pro?</strong> [Upgrade the Free plugin quickly and easily.](http://surniaulula.com/extend/plugins/wpsso/)
+<strong>Looking for the WPSSO Pro version?</strong> [Upgrade the Free plugin quickly and easily.](http://surniaulula.com/extend/plugins/wpsso/)
 
 * Twitter Card meta tags (Summary, Large Image, Photo, Gallery, Player, and Product).
 * Customizable image dimensions for each Twitter Card type.
@@ -144,7 +144,7 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 
 Aside from the additional support for Twitter Cards, the main difference between the Free and Pro versions is the integration of 3rd party plugins and services.
 
-<strong>Looking for WPSSO Pro?</strong> [Upgrade the Free plugin quickly and easily.](http://surniaulula.com/extend/plugins/wpsso/)
+<strong>Looking for the WPSSO Pro version?</strong> [Upgrade the Free plugin quickly and easily.](http://surniaulula.com/extend/plugins/wpsso/)
 
 **Images and Videos**
 
