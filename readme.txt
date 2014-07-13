@@ -1,4 +1,4 @@
-=== WordPress Social Sharing Optimization: Advanced Content Management for Publishers ===
+=== WordPress Social Sharing Optimization ===
 Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
 Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, easy digital downloads, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube, polylang
@@ -11,6 +11,8 @@ Stable Tag: 2.5.5
 Display your content in the best possible way on Facebook, Google+, Twitter, Pinterest, etc. - no matter how your webpage is shared!
 
 == Description ==
+
+= Advanced Content Management for Publishers =
 
 <blockquote>
 <p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites.</p>
