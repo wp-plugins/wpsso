@@ -22,9 +22,9 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 <strong>Looking for the WPSSO Pro version?</strong> [Upgrade the Free plugin quickly and easily here.](http://surniaulula.com/extend/plugins/wpsso/)
 
-= Industry Reviews =
-
 <blockquote>
+<h4>Industry Reviews</h4>
+
 <p>"<em>If you want to make your content standout from the crowd when it is shared on the social networks, then the plugin we are looking at today is just what you’ve been waiting for.</em>" &mdash; <a href="http://www.indexwp.com/wordpress-social-sharing-optimization-pro-review/">indexwp.com</a></p>
 
 <p>"<em>And after finding it, I’m now a customer. This plugin is invaluable and a real time saver. The fact that it won’t slow my site down either is something that also sold me on it.</em>" &mdash; <a href="http://www.wpkube.com/wpsso-plugin-review/">wpkube.com</a></p>
