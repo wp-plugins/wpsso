@@ -30,6 +30,8 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 "*If you want to get the most out of the social shares your content receives, and ensure your content stands out when it is posted on the various social networks, and listed in the search engines, then this plugin is a great choice that covers all the bases.*" &mdash; [wpmayor.com](http://www.wpmayor.com/wordpress-social-sharing-optimization-pro-plugin-review/)
 
+"*Wherever you are at with the social media marketing strategy for your site, the WP Social Sharing Optimization plugin can help you get better results.*" &mdash; [wplift.com](http://wplift.com/wordpress-social-sharing-optimization)
+
 = Quick List of Features =
 
 **Free / Basic Version**
