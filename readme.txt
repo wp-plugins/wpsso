@@ -25,19 +25,19 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 = WPSSO Reviews =
 
 <blockquote>
-"<em>If you want to make your content standout from the crowd when it is shared on the social networks, then the plugin we are looking at today is just what you’ve been waiting for.</em> &mdash; [indexwp.com](http://www.indexwp.com/wordpress-social-sharing-optimization-pro-review/)
+<p>"<em>If you want to make your content standout from the crowd when it is shared on the social networks, then the plugin we are looking at today is just what you’ve been waiting for.</em> &mdash; [indexwp.com](http://www.indexwp.com/wordpress-social-sharing-optimization-pro-review/)</p>
 </blockquote>
 
 <blockquote>
-"<em>And after finding it, I’m now a customer. This plugin is invaluable and a real time saver. The fact that it won’t slow my site down either is something that also sold me on it.</em>" &mdash; [wpkube.com](http://www.wpkube.com/wpsso-plugin-review/)
+<p>"<em>And after finding it, I’m now a customer. This plugin is invaluable and a real time saver. The fact that it won’t slow my site down either is something that also sold me on it.</em>" &mdash; [wpkube.com](http://www.wpkube.com/wpsso-plugin-review/)</p>
 </blockquote>
 
 <blockquote>
-"<em>If you want to get the most out of the social shares your content receives, and ensure your content stands out when it is posted on the various social networks, and listed in the search engines, then this plugin is a great choice that covers all the bases.</em>" &mdash; [wpmayor.com](http://www.wpmayor.com/wordpress-social-sharing-optimization-pro-plugin-review/)
+<p>"<em>If you want to get the most out of the social shares your content receives, and ensure your content stands out when it is posted on the various social networks, and listed in the search engines, then this plugin is a great choice that covers all the bases.</em>" &mdash; [wpmayor.com](http://www.wpmayor.com/wordpress-social-sharing-optimization-pro-plugin-review/)</p>
 </blockquote>
 
 <blockquote>
-"<em>Wherever you are at with the social media marketing strategy for your site, the WP Social Sharing Optimization plugin can help you get better results.</em>" &mdash; [wplift.com](http://wplift.com/wordpress-social-sharing-optimization)
+<p>"<em>Wherever you are at with the social media marketing strategy for your site, the WP Social Sharing Optimization plugin can help you get better results.</em>" &mdash; [wplift.com](http://wplift.com/wordpress-social-sharing-optimization)</p>
 </blockquote>
 
 = Quick List of Features =
