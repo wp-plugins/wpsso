@@ -24,7 +24,11 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 = WPSSO Reviews =
 
-*"If you want to make your content standout from the crowd when it is shared on the social networks, then the plugin we are looking at today is just what you’ve been waiting for."* &mdash; [indexwp.com](http://www.indexwp.com/wordpress-social-sharing-optimization-pro-review/)
+"*If you want to make your content standout from the crowd when it is shared on the social networks, then the plugin we are looking at today is just what you’ve been waiting for.*" &mdash; [indexwp.com](http://www.indexwp.com/wordpress-social-sharing-optimization-pro-review/)
+
+"*And after finding it, I’m now a customer. This plugin is invaluable and a real time saver. The fact that it won’t slow my site down either is something that also sold me on it.*" &mdash; [wpkube.com](http://www.wpkube.com/wpsso-plugin-review/)
+
+"*If you want to get the most out of the social shares your content receives, and ensure your content stands out when it is posted on the various social networks, and listed in the search engines, then this plugin is a great choice that covers all the bases.*" &mdash; [wpmayor.com](http://www.wpmayor.com/wordpress-social-sharing-optimization-pro-plugin-review/)
 
 = Quick List of Features =
 
