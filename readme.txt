@@ -25,7 +25,7 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 = WPSSO Reviews =
 
 <blockquote>
-<p>"<em>If you want to make your content standout from the crowd when it is shared on the social networks, then the plugin we are looking at today is just what you’ve been waiting for.</em> &mdash; <a href="http://www.indexwp.com/wordpress-social-sharing-optimization-pro-review/">indexwp.com</a></p>
+<p>"<em>If you want to make your content standout from the crowd when it is shared on the social networks, then the plugin we are looking at today is just what you’ve been waiting for.</em>" &mdash; <a href="http://www.indexwp.com/wordpress-social-sharing-optimization-pro-review/">indexwp.com</a></p>
 </blockquote>
 
 <blockquote>
