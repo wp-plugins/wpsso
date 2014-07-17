@@ -20,8 +20,6 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 <p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, Pinterest, LinkedIn, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
 
-<strong>Looking for the WPSSO Pro version?</strong> [Upgrade the Free plugin quickly and easily here.](http://surniaulula.com/extend/plugins/wpsso/)
-
 <blockquote>
 <h4>Industry Reviews</h4>
 
@@ -35,6 +33,8 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 <p>"<em>WPSSO Pro provides a handy tool for your marketing team, and improves your content whenever it’s shared by you or your fans. The free version has a lot of great features and makes a good trial version, but I think that eCommerce sites really benefit from the eCommerce plugin and video integrations (as well as the inclusion of Twitter card support) that the Pro version offers.</em>" &mdash; <a href="http://www.sellwithwp.com/optimized-social-media-wpsso-plugin-review/">sellwithwp.com</a></p>
 </blockquote>
+
+<strong>Looking for the WPSSO Pro version?</strong> [Upgrade the Free plugin quickly and easily here.](http://surniaulula.com/extend/plugins/wpsso/)
 
 = Quick List of Features =
 
