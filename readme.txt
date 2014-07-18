@@ -12,9 +12,7 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 == Description ==
 
-<blockquote>
 <p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites.</p>
-</blockquote>
 
 = Advanced Content Management for Publishers =
 
