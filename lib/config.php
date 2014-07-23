@@ -17,8 +17,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'menu' => 'SSO',		// menu item label
-			'name' => 'WPSSO',		// full plugin name
-			'name_pro' => 'WPSSO Pro',
+			'short' => 'WPSSO',		// full plugin name
+			'short_pro' => 'WPSSO Pro',
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
