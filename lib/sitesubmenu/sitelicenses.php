@@ -47,8 +47,8 @@ if ( ! class_exists( 'WpssoSitesubmenuSitelicenses' ) && class_exists( 'WpssoAdm
 
 				echo '<tr>';
 				if ( empty( $info['purchase'] ) )
-					echo $this->p->util->th( $info['name'] );
-				else echo $this->p->util->th( '<a href="'.$info['purchase'].'" target="_blank">'.$info['name'].'</a>' );
+					echo $this->p->util->th( $info['name'], 'nowrap' );
+				else echo $this->p->util->th( '<a href="'.$info['purchase'].'" target="_blank">'.$info['name'].'</a>', 'nowrap' );
 
 				if ( $this->p->cf['lca'] === $lca || $this->p->check->is_aop() )
 					echo '<td class="medium">'.$this->form->get_input( 'plugin_'.$lca.'_tid', 'medium mono' );
