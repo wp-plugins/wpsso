@@ -77,6 +77,7 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 					$this->p->cf['short'], $this->p->cf['wp']['min_version'] ).'</p>' );
 			}
 			set_transient( $this->p->cf['lca'].'_activation_redirect', true, 60 * 60 );
+			$this->p->set_config();
 			$this->p->set_objects( true );
 		}
 

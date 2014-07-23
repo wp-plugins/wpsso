@@ -67,8 +67,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		 */
 		public function __construct() {
 
-			require_once ( dirname( __FILE__ ).'/lib/config.php' );
-			require_once ( dirname( __FILE__ ).'/lib/register.php' );
+			require_once( dirname( __FILE__ ).'/lib/config.php' );
+			require_once( dirname( __FILE__ ).'/lib/register.php' );
 
 			$this->cf = WpssoConfig::get_config();
 			WpssoConfig::set_constants( __FILE__ );

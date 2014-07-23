@@ -312,7 +312,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'wp_cm_aim_label' => 'AIM', 
 					'wp_cm_aim_enabled' => 1,
 					'wp_cm_jabber_name' => 'jabber', 
-					'wp_cm_jabber_label' => 'Jabber / Google Talk', 
+					'wp_cm_jabber_label' => 'Google Talk', 
 					'wp_cm_jabber_enabled' => 1,
 					'wp_cm_yim_name' => 'yim',
 					'wp_cm_yim_label' => 'Yahoo IM', 
@@ -350,7 +350,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'min_version' => '3.0',		// minimum wordpress version
 				'cm' => array(
 					'aim' => 'AIM',
-					'jabber' => 'Jabber / Google Talk',
+					'jabber' => 'Google Talk',
 					'yim' => 'Yahoo IM',
 				),
 			),
@@ -370,8 +370,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'max_desc_hashtags' => 10,
 				'max_media_items' => 20,
 				'file_cache_hours' => array( 0, 1, 3, 6, 9, 12, 24, 36, 48, 72, 168 ),
-				'js_locations' => array( 'none' => '', 'header' => 'Header', 'footer' => 'Footer' ),
-				'caption_types' => array( 'none' => '', 'title' => 'Title Only', 'excerpt' => 'Excerpt Only', 'both' => 'Title and Excerpt' ),
+				'js_locations' => array( 'none' => '[none]', 'header' => 'Header', 'footer' => 'Footer' ),
+				'caption_types' => array( 'none' => '[none]', 'title' => 'Title Only', 'excerpt' => 'Excerpt Only', 'both' => 'Title and Excerpt' ),
 				'user_name_fields' => array( 'none' => '[none]', 'fullname' => 'First and Last Names', 'display_name' => 'Display Name', 'nickname' => 'Nickname' ),
 				'display_options' => array( 'basic' => 'Basic Plugin Options', 'all' => 'All Plugin Options' ),
 				'site_option_use' => array( 'default' => 'Default Site Value', 'empty' => 'If Value is Empty', 'force' => 'Force This Value' ),
@@ -501,8 +501,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) )
 					require_once( WPSSO_PLUGINDIR.'lib/opengraph.php' );	// extends lib/com/opengraph.php
 
-			if ( file_exists( NGFB_PLUGINDIR.'lib/loader.php' ) )
-				require_once( NGFB_PLUGINDIR.'lib/loader.php' );
+			if ( file_exists( WPSSO_PLUGINDIR.'lib/loader.php' ) )
+				require_once( WPSSO_PLUGINDIR.'lib/loader.php' );
 
 			add_filter( 'wpsso_load_lib', array( 'WpssoConfig', 'load_lib' ), 10, 3 );
 		}

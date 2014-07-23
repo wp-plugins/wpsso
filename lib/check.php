@@ -103,8 +103,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 			$ret['aop'] = self::$aop = ( ! defined( 'WPSSO_PRO_ADDON_DISABLE' ) ||
 				( defined( 'WPSSO_PRO_ADDON_DISABLE' ) && ! WPSSO_PRO_ADDON_DISABLE ) ) &&
-				file_exists( WPSSO_PLUGINDIR.'lib/pro/addon.php' ) &&
-				class_exists( $this->p->cf['lca'].'addonpro' ) ? true : false;
+				file_exists( WPSSO_PLUGINDIR.'lib/pro/head/twittercard.php' ) ? true : false;
 
 			foreach ( $this->p->cf['cache'] as $name => $val ) {
 				$constant_name = 'WPSSO_'.strtoupper( $name ).'_CACHE_DISABLE';
@@ -117,9 +116,12 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 				$ret[$sub] = array();
 				$ret[$sub]['*'] = false;
+
 				foreach ( $lib as $id => $name ) {
+
 					$chk = array();
 					$ret[$sub][$id] = false;	// default value
+
 					switch ( $sub.'-'.$id ) {
 						/*
 						 * 3rd Party Plugins
@@ -306,14 +308,13 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 			// JetPack Photon
 			if ( $this->p->is_avail['media']['photon'] === true && ! $this->is_aop() ) {
+				$purchase_url = $this->p->cf['plugin'][$this->p->cf['lca']]['url']['purchase'];
 				$this->p->debug->log( $conflict_log_prefix.'jetpack photon is enabled' );
 				$this->p->notice->err( $conflict_err_prefix.
 					sprintf( __( 'JetPack Photon cripples the WordPress image size funtions. ', WPSSO_TEXTDOM ).
 						__( 'Please <a href="%s">disable JetPack Photon</a> or <a href="%s">upgrade to the %s version</a> '.
 							'(which includes an addon to fix the crippled functions).', WPSSO_TEXTDOM ), 
-						get_admin_url( null, 'admin.php?page=jetpack' ),
-						$this->p->cf['url']['purchase'],
-						$this->p->cf['full_pro'] ) );
+						get_admin_url( null, 'admin.php?page=jetpack' ), $purchase_url, $this->p->cf['short_pro'] ) );
 			}
 
 			/*
@@ -337,18 +338,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 						__( 'The WooCommerce ShareYourCart Extension does not provide an option to turn off its Open Graph meta tags.', WPSSO_TEXTDOM ).' '.
 						sprintf( __( 'Please disable the extension on the <a href="%s">ShareYourCart Integration Tab</a>.', WPSSO_TEXTDOM ), 
 							get_admin_url( null, 'admin.php?page=woocommerce&tab=integration&section=shareyourcart' ) ) );
-				}
-			}
-
-			// Wordbooker
-			if ( function_exists( 'wordbooker_og_tags' ) ) {
-				$opts = get_option( 'wordbooker_settings' );
-				if ( empty( $opts['wordbooker_fb_disable_og'] ) ) {
-					$this->p->debug->log( $conflict_log_prefix.'wordbooker opengraph is enabled' );
-					$this->p->notice->err( $conflict_err_prefix.
-						sprintf( __( 'Please check the \'<em>Disable in-line production of OpenGraph Tags</em>\' option on the '.
-							'<a href="%s">Wordbooker Options Page</a>.', WPSSO_TEXTDOM ), 
-							get_admin_url( null, 'options-general.php?page=wordbooker' ) ) );
 				}
 			}
 
@@ -383,8 +372,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			}
 		}
 
-		public function is_aop( $lca = false ) {
-			$lca = $lca === false ? $this->p->cf['lca'] : $lca;
+		public function is_aop( $lca = '' ) {
+			$lca = empty( $lca ) ? $this->p->cf['lca'] : $lca;
 			return ( ! empty( $this->p->options['plugin_'.$lca.'_tid'] ) && 
 				( isset( self::$aop ) ? self::$aop : false ) && 
 					class_exists( 'SucomUpdate' ) &&
