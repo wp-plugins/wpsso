@@ -23,12 +23,15 @@ if ( ! class_exists( 'WpssoLoader' ) ) {
 		private function addons() {
 			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
 				$type = $this->p->check->is_aop( $lca ) ? 'pro' : 'gpl';
+				echo $lca.'<br/>';
+				echo SucomUpdate::get_umsg( $lca ).'<br/>';
 				foreach ( $info['lib'][$type] as $sub => $lib ) {
 					if ( $sub === 'admin' && ! is_admin() )
 						continue;
 					foreach ( $lib as $id => $name ) {
 						if ( $this->p->is_avail[$sub][$id] ) {
 							$classname = apply_filters( $lca.'_load_lib', false, "$type/$sub/$id" );
+							echo $classname.'<br/>';
 							if ( $classname !== false && class_exists( $classname ) )
 								$this->p->addons[$sub][$id] = new $classname( $this->p );
 						}
