@@ -22,13 +22,10 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 		}
 
 		private function set_objects() {
-			if ( ! empty( $this->p->cf['lib']['shortcode'] ) && 
-				! empty( $this->p->options['plugin_shortcodes'] ) ) {
-
+			if ( ! empty( $this->p->options['plugin_shortcodes'] ) && ! empty( $this->p->cf['lib']['shortcode'] ) ) {
 				foreach ( $this->p->cf['lib']['shortcode'] as $id => $name ) {
-					$loaded = apply_filters( $this->p->cf['lca'].'_load_lib', false, "shortcode/$id" );
-					$classname = $this->p->cf['lca'].'shortcode'.$id;
-					if ( class_exists( $classname ) )
+					$classname = apply_filters( $this->p->cf['lca'].'_load_lib', false, 'shortcode/'.$id );
+					if ( $classname !== false && class_exists( $classname ) )
 						$this->shortcode[$id] = new $classname( $this->p );
 				}
 			}

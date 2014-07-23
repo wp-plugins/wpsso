@@ -23,16 +23,10 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-			add_meta_box( $this->pagehook.'_review', 'Useful Plugin?', array( &$this, 'show_metabox_review' ), $this->pagehook, 'normal' );
-			add_meta_box( $this->pagehook.'_welcome', $this->p->cf['full'].' version '.$this->p->cf['version'], array( &$this, 'show_metabox_welcome' ), $this->pagehook, 'normal' );
+			add_meta_box( $this->pagehook.'_welcome', $this->p->cf['short'].' version '.$this->p->cf['version'], 
+				array( &$this, 'show_metabox_welcome' ), $this->pagehook, 'normal' );
 		}
 
-		public function show_metabox_review() {
-			echo '<table class="sucom-setting review-metabox"><tr><td>';
-			echo $this->p->msgs->get( 'info-review' );
-			echo '</td></tr></table>';
-		}
-		
 		public function show_metabox_welcome() {
 			$metabox = 'welcome';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
@@ -49,13 +43,16 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
 				case 'welcome-whatsnew':
-					$content = $this->p->util->get_remote_content( '',
-						constant( $this->p->cf['uca'].'_PLUGINDIR' ).'whatsnew.html' );
+					$content = $this->p->msgs->get( 'info-review' ).
+						$this->p->util->get_remote_content( '',
+							constant( $this->p->cf['uca'].'_PLUGINDIR' ).'whatsnew.html' );
 					$rows[] = '<td>'.$content.'</td>';
 					break;
 				case 'welcome-setup':
-					$content = $this->p->util->get_remote_content( $this->p->cf['url']['setup'],
-						constant( $this->p->cf['uca'].'_PLUGINDIR' ).'setup.html' );
+					$setup_url = $this->p->cf['plugin'][$this->p->cf['lca']]['url']['setup'];
+					$content = $this->p->msgs->get( 'info-review' ).
+						$this->p->util->get_remote_content( $setup_url,
+							constant( $this->p->cf['uca'].'_PLUGINDIR' ).'setup.html' );
 					$rows[] = '<td>'.$content.'</td>';
 					break;
 			}
@@ -63,7 +60,6 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 		}
 
 		public function welcome_redirect() {
-
 			if ( ! get_transient( $this->p->cf['lca'].'_activation_redirect' ) &&
 				! get_transient( $this->p->cf['lca'].'_update_redirect' ) )
 					return;

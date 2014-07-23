@@ -21,18 +21,17 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-			add_meta_box( $this->pagehook.'_plugin', 'Plugin Settings', array( &$this, 'show_metabox_plugin' ), $this->pagehook, 'normal' );
+			add_meta_box( $this->pagehook.'_plugin', 'Advanced Settings', array( &$this, 'show_metabox_plugin' ), $this->pagehook, 'normal' );
 			add_meta_box( $this->pagehook.'_contact', 'Profile Contact Methods', array( &$this, 'show_metabox_contact' ), $this->pagehook, 'normal' );
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( $this->p->options['plugin_display'] == 'all' )
 				add_meta_box( $this->pagehook.'_taglist', 'Header Tags List', array( &$this, 'show_metabox_taglist' ), $this->pagehook, 'normal' );
-			}
 		}
 
 		public function show_metabox_plugin() {
 			$metabox = 'plugin';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
-				'activation' => 'Activate and Update',
+				'settings' => 'Plugin Settings',
 				'content' => 'Content and Filters',
 				'social' => 'Social Settings',
 				'cache' => 'File and Object Cache' ) );
@@ -61,7 +60,8 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 		public function show_metabox_taglist() {
 			$metabox = 'taglist';
 			echo '<table class="sucom-setting" style="padding-bottom:0;"><tr><td>'.
-			$this->p->msgs->get( 'info-'.$metabox ).'</td></tr></table>';
+			$this->p->msgs->get( 'info-'.$metabox ).
+			'</td></tr></table>';
 			echo '<table class="sucom-setting" style="margin-bottom:10px;">';
 			foreach ( apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tags_rows', array(), $this->form ) as $num => $row ) 
 				echo '<tr>', $row, '</tr>';
@@ -71,7 +71,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 		protected function get_rows( $metabox, $key ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
-				case 'plugin-activation':
+				case 'plugin-settings':
 					// retrieve information on license use, if any
 					$qty_used = class_exists( 'SucomUpdate' ) ?
 						SucomUpdate::get_option( $this->p->cf['lca'], 'qty_used' ) : false;
@@ -82,15 +82,9 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					$rows[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_preserve' ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Add Hidden Debug HTML Messages', null, 'plugin_debug' ).
+					$rows[] = $this->p->util->th( 'Add Hidden Debug Messages', null, 'plugin_debug' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_debug' ).'</td>';
 
-					$rows[] = $this->p->util->th( $this->p->cf['uca'].' Pro Authentication ID', null, 'plugin_tid' ).
-					'<td nowrap><p>'.$this->form->get_input( 'plugin_tid', 'mono' ).
-						( empty( $qty_used ) ? '' : ' &nbsp;'.$qty_used.' Licenses Assigned</p>' ).'</td>';
-
-					if ( $this->p->is_avail['aop'] )
-						$rows[] = '<th></th><td>'.$this->p->msgs->get( 'info-tid' ).'</td>';
 					break;
 
 				case 'cm-custom' :

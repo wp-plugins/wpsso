@@ -8,18 +8,42 @@ Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 if ( ! defined( 'ABSPATH' ) ) 
 	die( 'These aren\'t the droids you\'re looking for...' );
 
-if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
+if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 
-	class WpssoAdminAdvanced {
+	class WpssoGplAdminAdvanced {
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->util->add_plugin_filters( $this, array( 
+				'plugin_settings_rows' => 2,
 				'plugin_content_rows' => 2,
 				'plugin_social_rows' => 2,
-				'plugin_cache_rows' => 2,
+				'plugin_cache_rows' => 3,
 				'taglist_tags_rows' => 2,
 			), 20 );
+		}
+
+		public function filter_plugin_settings_rows( $rows, $form ) {
+			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
+				$rows[] = $this->p->util->th( 'Use WP Locale for Language', null, 'plugin_filter_lang' ).
+				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_filter_lang' ).'</td>';
+
+				$rows[] =  $this->p->util->th( 'Auto-Resize Media Images', null, 'plugin_auto_img_resize' ).
+				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_auto_img_resize' ).'</td>';
+
+				if ( ! empty( $this->p->cf['lib']['shortcode'] ) ) {
+					$rows[] = $this->p->util->th( 'Enable Shortcode(s)', 'highlight', 'plugin_shortcodes' ).
+					'<td class="blank">'.$form->get_fake_checkbox( 'plugin_shortcodes' ).'</td>';
+				}
+
+				if ( ! empty( $this->p->cf['lib']['widget'] ) ) {
+					$rows[] = $this->p->util->th( 'Enable Widget(s)', 'highlight', 'plugin_widgets' ).
+					'<td class="blank">'.$form->get_fake_checkbox( 'plugin_widgets' ).'</td>';
+				}
+			}	
+			return $rows;
 		}
 
 		public function filter_plugin_content_rows( $rows, $form ) {
@@ -32,22 +56,6 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			'<td class="blank">'.$form->get_fake_checkbox( 'plugin_filter_excerpt' ).'</td>';
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
-				$rows[] = $this->p->util->th( 'Language uses WP Locale', null, 'plugin_filter_lang' ).
-				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_filter_lang' ).'</td>';
-
-				if ( ! empty( $this->p->cf['lib']['shortcode'] ) ) {
-					$rows[] = $this->p->util->th( 'Enable Shortcode(s)', 'highlight', 'plugin_shortcodes' ).
-					'<td class="blank">'.$form->get_fake_checkbox( 'plugin_shortcodes' ).'</td>';
-				}
-	
-				if ( ! empty( $this->p->cf['lib']['widget'] ) ) {
-					$rows[] = $this->p->util->th( 'Enable Widget(s)', 'highlight', 'plugin_widgets' ).
-					'<td class="blank">'.$form->get_fake_checkbox( 'plugin_widgets' ).'</td>';
-				}
-	
-				$rows[] =  $this->p->util->th( 'Auto-Resize Media Images', null, 'plugin_auto_img_resize' ).
-				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_auto_img_resize' ).'</td>';
-	
 				$rows[] =  $this->p->util->th( 'Ignore Small Images in Content', null, 'plugin_ignore_small_img' ).
 				'<td class="blank">'.$form->get_fake_checkbox( 'plugin_ignore_small_img' ).'</td>';
 			}
@@ -84,12 +92,15 @@ if ( ! class_exists( 'WpssoAdminAdvanced' ) ) {
 			return $rows;
 		}
 
-		public function filter_plugin_cache_rows( $rows, $form ) {
-			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+		public function filter_plugin_cache_rows( $rows, $form, $network = false ) {
+			$rows[] = '<td colspan="'.( $network === false ? 2 : 4 ).'" align="center">'.
+				$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
-			'<td class="blank">'.$form->get_hidden( 'plugin_object_cache_exp' ).
-			$this->p->options['plugin_object_cache_exp'].' seconds</td>';
+			'<td nowrap class="blank">'.$form->get_fake_input( 'plugin_object_cache_exp', 'short' ).' seconds</td>'.
+			( $network === false ? '' : $this->p->util->th( 'Site Use', 'site_use' ).
+				'<td class="site_use blank">'.$form->get_select( 'plugin_object_cache_exp:use', 
+					$this->p->cf['form']['site_option_use'], 'site_use', null, true, true ).'</td>' );
 
 			return $rows;
 		}

@@ -112,8 +112,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					switch ( true ) {
 						case ( strpos( $key, 'buttons_css_' ) !== false ):
 						case ( strpos( $key, 'buttons_js_' ) !== false ):
-						case ( preg_match( '/_key$/', $key ) ):
-						case ( $key === 'plugin_tid' ):
+						case ( preg_match( '/_(key|tid)$/', $key ) ):
 							$opts[$key] = '********';
 					}
 				}
@@ -231,8 +230,9 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 */
 			$header_array = array_merge(
 				$this->get_single_tag( 'meta', 'name', 'generator',
-					$this->p->cf['full'].' '.$this->p->cf['version'].( $this->p->check->is_aop() ? 'L' : 
-						( $this->p->is_avail['aop'] ? 'U' : 'G' ) ) ),
+					$this->p->cf['short'].' '.$this->p->cf['version'].
+						( $this->p->check->is_aop() ? 'L' : 
+							( $this->p->is_avail['aop'] ? 'U' : 'G' ) ) ),
 				$this->get_tag_array( 'link', 'rel', $link_rel ),
 				$this->get_tag_array( 'meta', 'name', $meta_name ),
 				$this->get_tag_array( 'meta', 'itemprop', $meta_schema ),

@@ -25,10 +25,11 @@ if ( ! class_exists( 'WpssoSubmenuSetup' ) && class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		public function show_metabox_guide() {
-			$content = $this->p->util->get_remote_content( $this->p->cf['url']['setup'],
-				constant( $this->p->cf['uca'].'_PLUGINDIR' ).'setup.html' );
+			$setup_url = $this->p->cf['plugin'][$this->p->cf['lca']]['url']['setup'];
 			echo '<table class="sucom-setting setup-metabox"><tr><td>';
-			echo $content;
+			echo $this->p->msgs->get( 'info-review' );
+			echo $this->p->util->get_remote_content( $setup_url,
+				constant( $this->p->cf['uca'].'_PLUGINDIR' ).'setup.html' );
 			echo '</td></tr></table>';
 		}
 	}

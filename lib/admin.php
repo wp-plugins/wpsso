@@ -43,16 +43,24 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		// load all submenu classes into the $this->submenu array
+		// the id of each submenu item must be unique
 		private function set_objects() {
-			$libs = array( 'dashboard', 'submenu', 'setting' );	// setting must be last to extend submenu/advanced
+			$menus = array( 
+				'dashboard', 
+				'submenu', 
+				'setting'	// setting must be last to extend submenu/advanced
+			);
 			if ( is_multisite() )
-				$libs[] = 'sitesubmenu';
-			foreach ( $libs as $sub ) {
-				foreach ( $this->p->cf['lib'][$sub] as $id => $name ) {
-					$loaded = apply_filters( $this->p->cf['lca'].'_load_lib', false, "$sub/$id" );
-					$classname = $this->p->cf['lca'].$sub.$id;
-					if ( class_exists( $classname ) )
-						$this->submenu[$id] = new $classname( $this->p, $id, $name );
+				$menus[] = 'sitesubmenu';
+			foreach ( $menus as $sub ) {
+				foreach ( $this->p->cf['plugin'] as $lca => $info ) {
+					if ( ! isset( $info['lib'][$sub] ) )
+						continue;
+					foreach ( $info['lib'][$sub] as $id => $name ) {
+						$classname = apply_filters( $lca.'_load_lib', false, $sub.'/'.$id );
+						if ( $classname !== false && class_exists( $classname ) )
+							$this->submenu[$id] = new $classname( $this->p, $id, $name );
+					}
 				}
 			}
 		}
@@ -115,20 +123,24 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$this->add_admin_menus( $this->p->cf['lib']['sitesubmenu'] );
 		}
 
-		public function add_admin_menus( $libs = array() ) {
-			if ( empty( $libs ) ) 
-				$libs = $this->p->cf['lib']['submenu'];
-			$this->menu_id = key( $libs );
-			$this->menu_name = $libs[$this->menu_id];
+		public function add_admin_menus( $submenus = false ) {
+
+			if ( ! is_array( $submenus ) )
+				$submenus = $this->p->cf['lib']['submenu'];
+
+			$this->menu_id = key( $submenus );
+			$this->menu_name = $submenus[ $this->menu_id ];
+
 			if ( array_key_exists( $this->menu_id, $this->submenu ) ) {
 				$menu_slug = $this->p->cf['lca'].'-'.$this->menu_id;
 				$this->submenu[$this->menu_id]->add_menu_page( $menu_slug );
 			}
-			foreach ( $libs as $id => $name ) {
-				if ( array_key_exists( $id, $this->submenu ) ) {
-					$parent_slug = $this->p->cf['lca'].'-'.$this->menu_id;
+
+			foreach ( $submenus as $id => $name ) {
+				$parent_slug = $this->p->cf['lca'].'-'.$this->menu_id;
+				if ( array_key_exists( $id, $this->submenu ) )
 					$this->submenu[$id]->add_submenu_page( $parent_slug );
-				}
+				else $this->add_submenu_page( $parent_slug, $id, $name );
 			}
 		}
 
@@ -147,7 +159,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			global $wp_version;
 			// add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
 			$this->pagehook = add_menu_page( 
-				$this->p->cf['full'].' '.$this->menu_name, 
+				$this->p->cf['short'].' '.$this->menu_name, 
 				$this->p->cf['menu'], 
 				'manage_options', 
 				$menu_slug, 
@@ -158,17 +170,29 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			add_action( 'load-'.$this->pagehook, array( &$this, 'load_form_page' ) );
 		}
 
-		protected function add_submenu_page( $parent_slug ) {
+		protected function add_submenu_page( $parent_slug, $menu_id = '', $menu_name = '' ) {
+			if ( strpos ( $menu_id, 'separator' ) !== false ) {
+				$menu_title = '<div style="z-index:999;padding:2px 0;margin:0;cursor:default;border-bottom:1px dotted;color:#666;" onclick="return false;"></div>';
+				$menu_slug = '';
+				$page_title = '';
+				$function = '';
+			} else {
+				$menu_title = empty ( $menu_name ) ? $this->menu_name : $menu_name;
+				$menu_slug = $this->p->cf['lca'].'-'.( empty( $menu_id ) ? $this->menu_id : $menu_id );
+				$page_title = $this->p->cf['short'].' : '.$menu_title;
+				$function = array( &$this, 'show_form_page' );
+			}
 			// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
 			$this->pagehook = add_submenu_page( 
 				$parent_slug, 
-				$this->p->cf['full'].' : '.$this->menu_name, 
-				$this->menu_name, 
+				$page_title, 
+				$menu_title, 
 				'manage_options', 
-				$this->p->cf['lca'].'-'.$this->menu_id, 
-				array( &$this, 'show_form_page' ) 
+				$menu_slug, 
+				$function
 			);
-			add_action( 'load-'.$this->pagehook, array( &$this, 'load_form_page' ) );
+			if ( $function )
+				add_action( 'load-'.$this->pagehook, array( &$this, 'load_form_page' ) );
 		}
 
 		// display a settings link on the main plugins page
@@ -180,15 +204,16 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					if ( preg_match( '/>Edit</', $val ) )
 						unset ( $links[$num] );
 				}
-				array_push( $links, '<a href="'.$this->p->cf['url']['faq'].'">'.__( 'FAQ', WPSSO_TEXTDOM ).'</a>' );
-				array_push( $links, '<a href="'.$this->p->cf['url']['notes'].'">'.__( 'Notes', WPSSO_TEXTDOM ).'</a>' );
+				$urls = $this->p->cf['plugin'][$this->p->cf['lca']]['url'];
+				array_push( $links, '<a href="'.$urls['faq'].'">'.__( 'FAQ', WPSSO_TEXTDOM ).'</a>' );
+				array_push( $links, '<a href="'.$urls['notes'].'">'.__( 'Notes', WPSSO_TEXTDOM ).'</a>' );
 				if ( $this->p->is_avail['aop'] ) {
-					array_push( $links, '<a href="'.$this->p->cf['url']['pro_support'].'">'.__( 'Support', WPSSO_TEXTDOM ).'</a>' );
+					array_push( $links, '<a href="'.$urls['pro_support'].'">'.__( 'Support', WPSSO_TEXTDOM ).'</a>' );
 					if ( ! $this->p->check->is_aop() ) 
-						array_push( $links, '<a href="'.$this->p->cf['url']['purchase'].'">'.__( 'Purchase License', WPSSO_TEXTDOM ).'</a>' );
+						array_push( $links, '<a href="'.$urls['purchase'].'">'.__( 'Purchase License', WPSSO_TEXTDOM ).'</a>' );
 				} else {
-					array_push( $links, '<a href="'.$this->p->cf['url']['support'].'">'.__( 'Forum', WPSSO_TEXTDOM ).'</a>' );
-					array_push( $links, '<a href="'.$this->p->cf['url']['purchase'].'">'.__( 'Purchase Pro', WPSSO_TEXTDOM ).'</a>' );
+					array_push( $links, '<a href="'.$url['wp_support'].'">'.__( 'Forum', WPSSO_TEXTDOM ).'</a>' );
+					array_push( $links, '<a href="'.$url['purchase'].'">'.__( 'Purchase Pro', WPSSO_TEXTDOM ).'</a>' );
 				}
 
 			}
@@ -251,7 +276,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		public function load_single_page() {
 			wp_enqueue_script( 'postbox' );
 
-			$this->p->admin->submenu[$this->menu_id]->add_meta_boxes();
+			$this->p->admin->submenu[ $this->menu_id ]->add_meta_boxes();
 		}
 
 		public function load_form_page() {
@@ -267,7 +292,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				else {
 					switch ( $_GET['action'] ) {
 						case 'check_for_updates': 
-							if ( ! empty( $this->p->options['plugin_tid'] ) ) {
+							if ( ! empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) ) {
 								$this->readme = '';
 								$this->p->update->check_for_updates();
 								$this->p->notice->inf( __( 'Plugin update information has been checked and updated.', WPSSO_TEXTDOM ) );
@@ -302,12 +327,12 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 
 			// the plugin information metabox on all settings pages needs this
-			$this->p->admin->set_readme( $this->p->cf['update_hours'] * 3600 );
+			$this->p->admin->set_readme( $this->feed_cache_expire() );
 
 			// add child metaboxes first, since they contain the default reset_metabox_prefs()
-			$this->p->admin->submenu[$this->menu_id]->add_meta_boxes();
+			$this->p->admin->submenu[ $this->menu_id ]->add_meta_boxes();
 
-			if ( empty( $this->p->options['plugin_tid'] ) || ! $this->p->check->is_aop() ) {
+			if ( empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) || ! $this->p->check->is_aop() ) {
 				add_meta_box( $this->pagehook.'_purchase', __( 'Pro Version', WPSSO_TEXTDOM ), 
 					array( &$this, 'show_metabox_purchase' ), $this->pagehook, 'side' );
 				add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_purchase', 
@@ -373,7 +398,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						echo ' | <a href="'.wp_nonce_url( $this->p->util->get_admin_url( '?action=change_display_options&display_options='.$next_key ),
 							$this->get_nonce(), WPSSO_NONCE ).'">Display '.$this->p->cf['form']['display_options'][$next_key].'</a>';
 					echo '</div>';
-					echo $this->p->cf['full'].' &ndash; '.$this->menu_name;
+					echo $this->p->cf['short'].' &ndash; '.$this->menu_name;
 					?>
 				</h2>
 				<div id="poststuff" class="metabox-holder has-right-sidebar">
@@ -432,7 +457,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			// if we're displaying the sharing page, then do the sharing website metaboxes
 			if ( $this->menu_id == 'sharing' ) {
-				foreach ( range( 1, ceil( count( $this->p->admin->submenu[$this->menu_id]->website ) / 2 ) ) as $row ) {
+				foreach ( range( 1, ceil( count( $this->p->admin->submenu[ $this->menu_id ]->website ) / 2 ) ) as $row ) {
 					echo '<div class="website-row">', "\n";
 					foreach ( range( 1, 2 ) as $col ) {
 						$pos_id = 'website-row-'.$row.'-col-'.$col;
@@ -448,9 +473,12 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			//do_meta_boxes( $this->pagehook, 'bottom', null ); 
 
 			switch ( $this->menu_id ) {
-				case 'about':
 				case 'readme':
 				case 'setup':
+				case 'whatsnew':
+				case 'sitereadme':
+				case 'sitesetup':
+				case 'sitewhatsnew':
 					break;
 				default:
 					echo $this->get_submit_button();
@@ -459,14 +487,16 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			echo '</form>', "\n";
 		}
 
-		public function feed_cache_expire( $seconds ) {
-			return $this->p->cf['update_hours'] * 3600;
+		public function feed_cache_expire( $seconds = 0 ) {
+			return empty( $this->p->cf['update_check_hours'] ) ? 
+				86400 : $this->p->cf['update_check_hours'] * 3600;
 		}
 
 		public function show_metabox_info() {
 			$stable_tag = __( 'N/A', WPSSO_TEXTDOM );
 			$latest_version = __( 'N/A', WPSSO_TEXTDOM );
 			$latest_notice = '';
+			$changelog_url = $this->p->cf['plugin'][$this->p->cf['lca']]['url']['changelog'];
 			if ( ! empty( $this->p->admin->readme['stable_tag'] ) ) {
 				$stable_tag = $this->p->admin->readme['stable_tag'];
 				$upgrade_notice = $this->p->admin->readme['upgrade_notice'];
@@ -486,7 +516,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			echo '<tr><th class="side">'.__( 'Stable', WPSSO_TEXTDOM ).':</th><td colspan="2">'.$stable_tag.'</td></tr>';
 			echo '<tr><th class="side">'.__( 'Latest', WPSSO_TEXTDOM ).':</th><td colspan="2">'.$latest_version.'</td></tr>';
 			echo '<tr><td colspan="3" id="latest_notice"><p>'.$latest_notice.'</p>';
-			echo '<p><a href="'.$this->p->cf['url']['changelog'].'" target="_blank">'.__( 'See the Changelog for additional details...', WPSSO_TEXTDOM ).'</a></p>';
+			echo '<p><a href="'.$changelog_url.'" target="_blank">'.__( 'See the Changelog for more details...', WPSSO_TEXTDOM ).'</a></p>';
 			echo '</td></tr>';
 			echo '</table>';
 		}
@@ -513,38 +543,40 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			 */
 			echo '<tr><td><h4>Pro Addons</h4></td></tr>';
 			$features = array();
-			foreach ( $this->p->cf['lib']['pro'] as $sub => $libs ) {
-				if ( $sub === 'admin' )	// skip status for admin menus and tabs
-					continue;
-				foreach ( $libs as $id => $name ) {
-					$off = $this->p->is_avail[$sub][$id] ? 'rec' : 'off';
-					$features[$name] = array( 
-						'status' => class_exists( $this->p->cf['lca'].$sub.$id ) ? 
-							( $this->p->check->is_aop() ? 'on' : $off ) : $off );
-
-					$features[$name]['tooltip'] = 'If the '.$name.' plugin is detected, '.
-						$this->p->cf['full_pro'].' will load a specific integration addon for '.$name.
-						' to improve the accuracy of Open Graph, Rich Pin, and Twitter Card meta tag values.';
-
-					switch ( $id ) {
-						case 'bbpress':
-						case 'buddypress':
-							$features[$name]['tooltip'] .= ' '.$name.' support also provides social sharing buttons that can be enabled from the '.
-							$this->p->util->get_admin_url( 'sharing', $this->p->cf['menu'].' Sharing settings' ).' page.';
-							break;
+			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
+				foreach ( $info['lib']['pro'] as $sub => $libs ) {
+					if ( $sub === 'admin' )	// skip status for admin menus and tabs
+						continue;
+					foreach ( $libs as $id => $name ) {
+						$off = $this->p->is_avail[$sub][$id] ? 'rec' : 'off';
+						$features[$name] = array( 
+							'status' => class_exists( $lca.'pro'.$sub.$id ) ? 
+								( $this->p->check->is_aop() ? 'on' : $off ) : $off );
+	
+						$features[$name]['tooltip'] = 'If the '.$name.' plugin is detected, '.
+							$this->p->cf['short_pro'].' will load a specific integration addon for '.$name.
+							' to improve the accuracy of Open Graph, Rich Pin, and Twitter Card meta tag values.';
+	
+						switch ( $id ) {
+							case 'bbpress':
+							case 'buddypress':
+								$features[$name]['tooltip'] .= ' '.$name.' support also provides social sharing buttons that can be enabled from the '.
+								$this->p->util->get_admin_url( 'sharing', $this->p->cf['menu'].' Sharing settings' ).' page.';
+								break;
+						}
 					}
 				}
+				$features = apply_filters( $lca.'_'.$metabox.'_pro_features', $features );
+				$this->show_plugin_status( $features, ( $this->p->check->is_aop( $lca ) ? '' : 'blank' ) );
 			}
-			$features = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_pro_features', $features );
-			$this->show_plugin_status( $features, ( $this->p->check->is_aop() ? '' : 'blank' ) );
-
+	
 			$action_buttons = '';
 			if ( empty( $this->p->cf['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
 				$action_buttons .= $this->form->get_button( __( 'Clear All Cache', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_all_cache' ),
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';
 
-			if ( ! empty( $this->p->options['plugin_tid'] ) )
+			if ( ! empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) )
 				$action_buttons .= $this->form->get_button( __( 'Update Check', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=check_for_updates' ), 
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';
@@ -587,14 +619,15 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		public function show_metabox_purchase() {
+			$purchase_url = $this->p->cf['plugin'][$this->p->cf['lca']]['url']['purchase'];
 			echo '<table class="sucom-setting"><tr><td>';
 			echo $this->p->msgs->get( 'side-purchase' );
 			echo '<p class="centered">';
 			echo $this->form->get_button( 
 				( $this->p->is_avail['aop'] ? 
-					__( 'Purchase a Pro License', WPSSO_TEXTDOM ) :
-					__( 'Purchase the Pro Version', WPSSO_TEXTDOM ) ), 
-				'button-primary', null, $this->p->cf['url']['purchase'], true );
+					__( 'Purchase Pro License(s)', WPSSO_TEXTDOM ) :
+					__( 'Purchase Pro Version', WPSSO_TEXTDOM ) ), 
+				'button-primary', null, $purchase_url, true );
 			echo '</p></td></tr></table>';
 		}
 
@@ -624,4 +657,5 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 	}
 }
+
 ?>

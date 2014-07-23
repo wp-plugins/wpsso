@@ -15,8 +15,12 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 		private $p;
 		private $active_plugins;
 		private $network_plugins;
-		private static $a = false;
-		private static $n = false;
+		private static $aop = false;
+		private static $mac = array(
+			'seo' => array(
+				'seou' => 'SEO Ultimate',
+			),
+		);
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
@@ -65,7 +69,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				}
 			}
 
-			// disable the ngfb open graph+ meta tags
+			// disable the ngfb meta tags
 			if ( class_exists( 'Ngfb' ) || 
 				in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) )
 					if ( ! defined( 'NGFB_META_TAGS_DISABLE' ) )
@@ -97,7 +101,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) &&
 				class_exists( $this->p->cf['lca'].'opengraph' ) ? true : false;
 
-			$ret['aop'] = self::$a = ( ! defined( 'WPSSO_PRO_ADDON_DISABLE' ) ||
+			$ret['aop'] = self::$aop = ( ! defined( 'WPSSO_PRO_ADDON_DISABLE' ) ||
 				( defined( 'WPSSO_PRO_ADDON_DISABLE' ) && ! WPSSO_PRO_ADDON_DISABLE ) ) &&
 				file_exists( WPSSO_PLUGINDIR.'lib/pro/addon.php' ) &&
 				class_exists( $this->p->cf['lca'].'addonpro' ) ? true : false;
@@ -108,16 +112,12 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 					constant( $constant_name ) ? false : true;
 			}
 
-			$more_avail_checks = array(
-				'seo' => array(
-					'seou' => 'SEO Ultimate',
-				), 
-			);
+			foreach ( SucomUtil::array_merge_recursive_distinct( 
+				$this->p->cf['lib']['pro'], self::$mac ) as $sub => $lib ) {
 
-			foreach ( SucomUtil::array_merge_recursive_distinct( $this->p->cf['lib']['pro'], $more_avail_checks ) as $sub => $libs ) {
 				$ret[$sub] = array();
 				$ret[$sub]['*'] = false;
-				foreach ( $libs as $id => $name ) {
+				foreach ( $lib as $id => $name ) {
 					$chk = array();
 					$ret[$sub][$id] = false;	// default value
 					switch ( $sub.'-'.$id ) {
@@ -322,7 +322,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 			// NextGEN Facebook (NGFB)
 			if ( class_exists( 'Ngfb' ) || in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) ) {
-                                $this->p->debug->log( $conflict_log_prefix.'ngfbog plugin is active' );
+                                $this->p->debug->log( $conflict_log_prefix.'NGFB plugin is active' );
                                 $this->p->notice->err( $conflict_err_prefix. 
 					sprintf( __( 'Please <a href="%s">deactivate the NextGEN Facebook (NGFB) plugin</a> to prevent duplicate and conflicting features.', WPSSO_TEXTDOM ), 
 						get_admin_url( null, 'plugins.php' ) ) );
@@ -383,11 +383,13 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			}
 		}
 
-		public function is_aop() {
-			return ( ! empty( $this->p->options['plugin_tid'] ) &&
-				self::$a && class_exists( 'SucomUpdate' ) &&
-				( $u = SucomUpdate::get_umsg( $this->p->cf['lca'] ) ?
-					self::$n : self::$a ) ) ? $u : self::$n;
+		public function is_aop( $lca = false ) {
+			$lca = $lca === false ? $this->p->cf['lca'] : $lca;
+			return ( ! empty( $this->p->options['plugin_'.$lca.'_tid'] ) && 
+				( isset( self::$aop ) ? self::$aop : false ) && 
+					class_exists( 'SucomUpdate' ) &&
+						( $umsg = SucomUpdate::get_umsg( $lca ) ? 
+							false : self::$aop ) ) ? $umsg : false;
 		}
 	}
 }

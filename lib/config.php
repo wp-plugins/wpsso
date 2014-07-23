@@ -13,98 +13,116 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		private static $cf = array(
-			'version' => '2.5.5',		// plugin version
+			'version' => '2.5.6dev1',		// plugin version
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
-			'slug' => 'wpsso',
 			'menu' => 'SSO',		// menu item label
-			'full' => 'WPSSO',		// full plugin name
-			'full_pro' => 'WPSSO Pro',
-			'update_hours' => 24,		// check for pro updates
-			'cache' => array(
-				'file' => true,
-				'object' => true,
-				'transient' => true,
-			),
-			'lib' => array(			// libraries
-				'dashboard' => array (
-					'welcome' => 'Welcome to the WordPress Social Sharing Optimization (WPSSO) plugin!',
-				),
-				'setting' => array (
-					'contact' => 'Contact Methods',
-				),
-				'submenu' => array (
-					'general' => 'General',
-					'advanced' => 'Advanced',
-					'readme' => 'Read Me',
-					'setup' => 'Setup Guide',
-					'whatsnew' => 'What\'s New',
-				),
-				'sitesubmenu' => array(
-					'network' => 'Network',
-					'readme' => 'Read Me',
-					'setup' => 'Setup Guide',
-					'whatsnew' => 'What\'s New',
-				),
-				'gpl' => array(
-					'admin' => array(
-						'general' => 'General Settings',
-						'advanced' => 'Advanced Settings',
-						'postmeta' => 'Post Social Settings',
-						'user' => 'User Social Settings',
+			'name' => 'WPSSO',		// full plugin name
+			'name_pro' => 'WPSSO Pro',
+			'update_check_hours' => 24,
+			'plugin' => array(
+				'wpsso' => array(
+					'name' => 'WordPress Social Sharing Optimization (WPSSO) Pro',
+					'slug' => 'wpsso',
+					'base' => 'wpsso/wpsso.php',
+					'url' => array(
+						'update' => 'http://update.surniaulula.com/extend/plugins/wpsso/update/',
+						'purchase' => 'http://surniaulula.com/extend/plugins/wpsso/',
+						'review' => 'http://wordpress.org/support/view/plugin-reviews/wpsso#postform',
+						'readme' => 'http://plugins.svn.wordpress.org/wpsso/trunk/readme.txt',
+						'setup' => 'http://plugins.svn.wordpress.org/wpsso/trunk/setup.html',
+						'changelog' => 'http://surniaulula.com/extend/plugins/wpsso/changelog/',
+						'codex' => 'http://surniaulula.com/codex/plugins/wpsso/',
+						'faq' => 'http://surniaulula.com/codex/plugins/wpsso/faq/',
+						'notes' => 'http://surniaulula.com/codex/plugins/wpsso/notes/',
+						'feed' => 'http://surniaulula.com/category/application/wordpress/wp-plugins/wpsso/feed/',
+						'wp_support' => 'http://wordpress.org/support/plugin/wpsso',
+						'pro_support' => 'http://support.wpsso.surniaulula.com/',
+						'pro_ticket' => 'http://ticket.wpsso.surniaulula.com/',
 					),
-					'util' => array(
-						'postmeta' => 'Post Social Settings',
-						'user' => 'User Social Settings',
-					),
-				),
-				'pro' => array(
-					'admin' => array(
-						'general' => 'General Settings',
-						'advanced' => 'Advanced Settings',
-						'postmeta' => 'Post Social Settings',
-						'user' => 'User Social Settings',
-					),
-					'ecom' => array(
-						'edd' => 'Easy Digital Downloads',
-						'marketpress' => 'MarketPress',
-						'woocommerce' => 'WooCommerce',
-						'wpecommerce' => 'WP e-Commerce',
-					),
-					'forum' => array(
-						'bbpress' => 'bbPress',
-					),
-					'head' => array(
-						'twittercard' => 'Twitter Cards',
-					),
-					'lang' => array(
-						'polylang' => 'Polylang',
-					),
-					'media' => array(
-						'gravatar' => 'Author Gravatar',
-						'ngg' => 'NextGEN Gallery',
-						'photon' => 'Jetpack Photon',
-						'slideshare' => 'Slideshare API',
-						'vimeo' => 'Vimeo Video API',
-						'wistia' => 'Wistia Video API',
-						'youtube' => 'YouTube Video / Playlist API',
-					),
-					'seo' => array(
-						'aioseop' => 'All in One SEO Pack',
-						'wpseo' => 'WordPress SEO',
-					),
-					'social' => array(
-						'buddypress' => 'BuddyPress',
-					),
-					'util' => array(
-						'language' => 'Publisher Language',
-						'postmeta' => 'Post Social Settings',
-						'user' => 'User Social Settings',
+					'lib' => array(			// libraries
+						'dashboard' => array (
+							'welcome' => 'Welcome to the WordPress Social Sharing Optimization (WPSSO) plugin!',
+						),
+						'setting' => array (
+							'contact' => 'Contact Methods',
+						),
+						'submenu' => array (
+							'general' => 'General',
+							'advanced' => 'Advanced',
+							'licenses' => 'Licenses',
+							'readme' => 'Read Me',
+							'setup' => 'Setup Guide',
+							'whatsnew' => 'What\'s New',
+						),
+						'sitesubmenu' => array(
+							'siteadvanced' => 'Advanced',
+							'sitelicenses' => 'Licenses',
+							'sitereadme' => 'Read Me',
+							'sitesetup' => 'Setup Guide',
+							'sitewhatsnew' => 'What\'s New',
+						),
+						'gpl' => array(
+							'admin' => array(
+								'general' => 'General Settings',
+								'advanced' => 'Advanced Settings',
+								'postmeta' => 'Post Social Settings',
+								'user' => 'User Social Settings',
+							),
+							'util' => array(
+								'postmeta' => 'Post Social Settings',
+								'user' => 'User Social Settings',
+							),
+						),
+						'pro' => array(
+							'admin' => array(
+								'general' => 'General Settings',
+								'advanced' => 'Advanced Settings',
+								'postmeta' => 'Post Social Settings',
+								'user' => 'User Social Settings',
+							),
+							'ecom' => array(
+								'edd' => 'Easy Digital Downloads',
+								'marketpress' => 'MarketPress',
+								'woocommerce' => 'WooCommerce',
+								'wpecommerce' => 'WP e-Commerce',
+							),
+							'forum' => array(
+								'bbpress' => 'bbPress',
+							),
+							'head' => array(
+								'twittercard' => 'Twitter Cards',
+							),
+							'lang' => array(
+								'polylang' => 'Polylang',
+							),
+							'media' => array(
+								'gravatar' => 'Author Gravatar',
+								'ngg' => 'NextGEN Gallery',
+								'photon' => 'Jetpack Photon',
+								'slideshare' => 'Slideshare API',
+								'vimeo' => 'Vimeo Video API',
+								'wistia' => 'Wistia Video API',
+								'youtube' => 'YouTube Video / Playlist API',
+							),
+							'seo' => array(
+								'aioseop' => 'All in One SEO Pack',
+								'wpseo' => 'WordPress SEO',
+							),
+							'social' => array(
+								'buddypress' => 'BuddyPress',
+							),
+							'util' => array(
+								'language' => 'Publisher Language',
+								'postmeta' => 'Post Social Settings',
+								'user' => 'User Social Settings',
+							),
+						),
 					),
 				),
 			),
 			'opt' => array(				// options
-				'version' => '291',		// increment when changing default options
+				'version' => '294',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -241,7 +259,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'add_meta_itemprop_description' => 1,
 					// advanced plugin options
 					'plugin_version' => '',
-					'plugin_tid' => '',
+					'plugin_wpsso_tid' => '',
 					'plugin_display' => 'basic',
 					'plugin_preserve' => 0,
 					'plugin_debug' => 0,
@@ -262,9 +280,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_add_to_post' => 1,
 					'plugin_add_to_page' => 1,
 					'plugin_add_to_attachment' => 1,
-					'plugin_verify_certs' => 0,
-					'plugin_file_cache_hrs' => 0,
 					'plugin_object_cache_exp' => 21600,	// 6 hours
+					'plugin_file_cache_hrs' => 0,
+					'plugin_verify_certs' => 0,
 					'plugin_cm_fb_name' => 'facebook', 
 					'plugin_cm_fb_label' => 'Facebook URL', 
 					'plugin_cm_fb_enabled' => 1,
@@ -304,10 +322,14 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'options_filtered' => false,
 					'options_version' => '',
 					'plugin_version' => '',
-					'plugin_tid' => '',
-					'plugin_tid:use' => 'default',
+					'plugin_wpsso_tid' => '',
+					'plugin_wpsso_tid:use' => 'default',
 					'plugin_object_cache_exp' => 21600,	// 6 hours
 					'plugin_object_cache_exp:use' => 'default',
+					'plugin_file_cache_hrs' => 0,
+					'plugin_file_cache_hrs:use' => 'default',
+					'plugin_verify_certs' => 0,
+					'plugin_verify_certs:use' => 'default',
 				),
 				'pre' => array(
 					'facebook' => 'fb', 
@@ -332,21 +354,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'yim' => 'Yahoo IM',
 				),
 			),
-			'url' => array(
-				'review' => 'http://wordpress.org/support/view/plugin-reviews/wpsso#postform',
-				'readme' => 'http://plugins.svn.wordpress.org/wpsso/trunk/readme.txt',
-				'setup' => 'http://plugins.svn.wordpress.org/wpsso/trunk/setup.html',
-				'changelog' => 'http://surniaulula.com/extend/plugins/wpsso/changelog/',
-				'purchase' => 'http://surniaulula.com/extend/plugins/wpsso/',
-				'codex' => 'http://surniaulula.com/codex/plugins/wpsso/',
-				'faq' => 'http://surniaulula.com/codex/plugins/wpsso/faq/',
-				'notes' => 'http://surniaulula.com/codex/plugins/wpsso/notes/',
-				'feed' => 'http://surniaulula.com/category/application/wordpress/wp-plugins/wpsso/feed/',
-				'support' => 'http://wordpress.org/support/plugin/wpsso',
-				'pro_support' => 'http://support.wpsso.surniaulula.com/',
-				'pro_ticket' => 'http://ticket.wpsso.surniaulula.com/',
-				'pro_update' => 'http://update.surniaulula.com/extend/plugins/wpsso/update/',
-			),
 			'follow' => array(
 				'size' => 32,
 				'src' => array(
@@ -365,16 +372,36 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'file_cache_hours' => array( 0, 1, 3, 6, 9, 12, 24, 36, 48, 72, 168 ),
 				'js_locations' => array( 'none' => '', 'header' => 'Header', 'footer' => 'Footer' ),
 				'caption_types' => array( 'none' => '', 'title' => 'Title Only', 'excerpt' => 'Excerpt Only', 'both' => 'Title and Excerpt' ),
-				'display_options' => array( 'basic' => 'Basic Plugin Options', 'all' => 'All Plugin Options' ),
 				'user_name_fields' => array( 'none' => '[none]', 'fullname' => 'First and Last Names', 'display_name' => 'Display Name', 'nickname' => 'Nickname' ),
+				'display_options' => array( 'basic' => 'Basic Plugin Options', 'all' => 'All Plugin Options' ),
+				'site_option_use' => array( 'default' => 'Default Site Value', 'empty' => 'If Value is Empty', 'force' => 'Force This Value' ),
 			),
 			'head' => array(
 				'min_img_dim' => 200,
 				'min_desc_len' => 156,
 			),
+			'cache' => array(
+				'file' => true,
+				'object' => true,
+				'transient' => true,
+			),
 		);
 
-		public static function get_config( $idx = '' ) { 
+		// get_config is called very early, so don't apply filters unless instructed
+		public static function get_config( $idx = '', $filter = false ) { 
+
+			if ( ! isset( self::$cf['config_filtered'] ) ||
+				self::$cf['config_filtered'] !== true ) {
+
+				if ( $filter === true ) {
+					self::$cf = apply_filters( self::$cf['lca'].'_get_config', self::$cf );
+					self::$cf['config_filtered'] = true;
+					self::$cf['lib'] = array();
+					foreach ( self::$cf['plugin'] as $lca => $info )
+						self::$cf['lib'] = SucomUtil::array_merge_recursive_distinct( self::$cf['lib'], $info['lib'] );
+				}
+			}
+
 			if ( ! empty( $idx ) ) {
 				if ( array_key_exists( $idx, self::$cf ) )
 					return self::$cf[$idx];
@@ -385,11 +412,12 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 		public static function set_constants( $plugin_filepath ) { 
 
 			$cf = self::get_config();
+			$slug = $cf['plugin'][$cf['lca']]['slug'];
 
 			define( 'WPSSO_FILEPATH', $plugin_filepath );						
 			define( 'WPSSO_PLUGINDIR', trailingslashit( plugin_dir_path( $plugin_filepath ) ) );
 			define( 'WPSSO_PLUGINBASE', plugin_basename( $plugin_filepath ) );
-			define( 'WPSSO_TEXTDOM', $cf['slug'] );
+			define( 'WPSSO_TEXTDOM', $slug );
 			define( 'WPSSO_URLPATH', trailingslashit( plugins_url( '', $plugin_filepath ) ) );
 			define( 'WPSSO_NONCE', md5( WPSSO_PLUGINDIR.'-'.$cf['version'] ) );
 
@@ -441,53 +469,55 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 		public static function require_libs( $plugin_filepath ) {
 			
 			$cf = self::get_config();
-			$plugin_dir = WPSSO_PLUGINDIR;
 
-			require_once( $plugin_dir.'lib/com/util.php' );
-			require_once( $plugin_dir.'lib/com/cache.php' );
-			require_once( $plugin_dir.'lib/com/notice.php' );
-			require_once( $plugin_dir.'lib/com/script.php' );
-			require_once( $plugin_dir.'lib/com/style.php' );
-			require_once( $plugin_dir.'lib/com/webpage.php' );
-			require_once( $plugin_dir.'lib/com/opengraph.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/com/debug.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/com/update.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/com/util.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/com/cache.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/com/notice.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/com/script.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/com/style.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/com/webpage.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/com/opengraph.php' );
 
-			require_once( $plugin_dir.'lib/check.php' );
-			require_once( $plugin_dir.'lib/util.php' );
-			require_once( $plugin_dir.'lib/options.php' );
-			require_once( $plugin_dir.'lib/postmeta.php' );
-			require_once( $plugin_dir.'lib/user.php' );
-			require_once( $plugin_dir.'lib/media.php' );
-			require_once( $plugin_dir.'lib/head.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/check.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/util.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/options.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/postmeta.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/user.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/media.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/head.php' );
 
 			if ( is_admin() ) {
-				require_once( $plugin_dir.'lib/messages.php' );
-				require_once( $plugin_dir.'lib/admin.php' );
-				require_once( $plugin_dir.'lib/com/form.php' );
-				require_once( $plugin_dir.'lib/ext/parse-readme.php' );
+				require_once( WPSSO_PLUGINDIR.'lib/messages.php' );
+				require_once( WPSSO_PLUGINDIR.'lib/admin.php' );
+				require_once( WPSSO_PLUGINDIR.'lib/com/form.php' );
+				require_once( WPSSO_PLUGINDIR.'lib/ext/parse-readme.php' );
 			}
 
 			if ( ( ! defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) || 
 				( defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) && ! WPSSO_OPEN_GRAPH_DISABLE ) ) &&
 				empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) &&
-				file_exists( $plugin_dir.'lib/opengraph.php' ) )
-					require_once( $plugin_dir.'lib/opengraph.php' );	// extends lib/com/opengraph.php
+				file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) )
+					require_once( WPSSO_PLUGINDIR.'lib/opengraph.php' );	// extends lib/com/opengraph.php
 
-			// additional classes are loaded and extended by the pro addon construct
-			if ( file_exists( $plugin_dir.'lib/pro/addon.php' ) )
-				require_once( $plugin_dir.'lib/pro/addon.php' );
+			if ( file_exists( NGFB_PLUGINDIR.'lib/loader.php' ) )
+				require_once( NGFB_PLUGINDIR.'lib/loader.php' );
 
-			add_filter( 'wpsso_load_lib', array( 'WpssoConfig', 'load_lib' ), 10, 2 );
+			add_filter( 'wpsso_load_lib', array( 'WpssoConfig', 'load_lib' ), 10, 3 );
 		}
 
-		public static function load_lib( $loaded = false, $filepath = '' ) {
-			if ( $loaded === false && ! empty( $filepath ) ) {
-				$filepath = WPSSO_PLUGINDIR.'lib/'.$filepath.'.php';
+		public static function load_lib( $ret = false, $filespec = '', $classname = '' ) {
+			if ( $ret === false && ! empty( $filespec ) ) {
+				$filepath = WPSSO_PLUGINDIR.'lib/'.$filespec.'.php';
 				if ( file_exists( $filepath ) ) {
 					require_once( $filepath );
-					return true;
+					if ( empty( $classname ) )
+						return 'wpsso'.str_replace( '/', '', $filespec );
+					else return $classname;
 				}
 			}
-			return $loaded;
+			return $ret;
 		}
 	}
 }

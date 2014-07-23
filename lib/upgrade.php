@@ -12,13 +12,16 @@ if ( ! class_exists( 'WpssoOptionsUpgrade' ) && class_exists( 'WpssoOptions' ) )
 
 	class WpssoOptionsUpgrade extends WpssoOptions {
 
-		private $renamed_site_keys = array();
+		private $renamed_site_keys = array(
+			'plugin_tid' => 'plugin_wpsso_tid',
+		);
 
 		private $renamed_keys = array(
 			'og_img_resize' => 'plugin_auto_img_resize',
 			'link_def_author_id' => 'seo_def_author_id',
 			'link_def_author_on_index' => 'seo_def_author_on_index',
 			'link_def_author_on_search' => 'seo_def_author_on_search',
+			'plugin_tid' => 'plugin_wpsso_tid',
 		);
 
 		protected $p;

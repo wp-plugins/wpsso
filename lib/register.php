@@ -74,19 +74,21 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 				deactivate_plugins( WPSSO_PLUGINBASE );
 				error_log( WPSSO_PLUGINBASE.' requires WordPress '.$this->p->cf['wp']['min_version'].' or higher ('.$wp_version.' reported).' );
 				wp_die( '<p>'. sprintf( __( 'The %1$s plugin cannot be activated - it requires WordPress %2$s or higher.', WPSSO_TEXTDOM ), 
-					$this->p->cf['full'], $this->p->cf['wp']['min_version'] ).'</p>' );
+					$this->p->cf['short'], $this->p->cf['wp']['min_version'] ).'</p>' );
 			}
 			set_transient( $this->p->cf['lca'].'_activation_redirect', true, 60 * 60 );
 			$this->p->set_objects( true );
 		}
 
 		private function deactivate_plugin() {
-			wp_clear_scheduled_hook( 'plugin_updates-'.$this->p->cf['slug'] );
+			$slug = $this->p->cf['plugin'][$this->p->cf['lca']]['slug'];
+			wp_clear_scheduled_hook( 'plugin_updates-'.$slug );
 		}
 
 		private static function uninstall_plugin() {
 			global $wpdb;
 			$cf = WpssoConfig::get_config();
+			$slug = $cf['plugin'][$cf['lca']]['slug'];
 			$options = get_option( $cf['lca'].'_options' );
 
 			if ( empty( $options['plugin_preserve'] ) ) {
@@ -96,7 +98,7 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 			}
 
 			// delete update related options
-			delete_option( 'external_updates-'.$cf['slug'] );
+			delete_option( 'external_updates-'.$slug );
 			delete_option( $cf['lca'].'_umsg' );
 			delete_option( $cf['lca'].'_utime' );
 

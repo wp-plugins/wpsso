@@ -152,9 +152,10 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 							'\' and \''.$this->p->cf['opt']['defaults']['tc_prod_def_d2'].'\').' );
 					}
 				}
-				if ( $this->p->is_avail['aop'] === true && empty( $this->p->options['plugin_tid'] ) && 
-					( empty( $this->p->options['plugin_tid:is'] ) || $this->p->options['plugin_tid:is'] !== 'disabled' ) )
-						$this->p->notice->nag( $this->p->msgs->get( 'pro-activate-nag' ) );
+				if ( $this->p->is_avail['aop'] === true && empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) && 
+					( empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid:is'] ) || 
+						$this->p->options['plugin_'.$this->p->cf['lca'].'_tid:is'] !== 'disabled' ) )
+							$this->p->notice->nag( $this->p->msgs->get( 'pro-activate-nag' ) );
 			}
 			return $opts;
 		}
@@ -207,10 +208,10 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				$opts['og_desc_len'] < $this->p->cf['head']['min_desc_len'] ) 
 					$opts['og_desc_len'] = $this->p->cf['head']['min_desc_len'];
 
-			if ( isset( $opts['plugin_tid'] ) ) {
-				if ( empty( $opts['plugin_tid'] ) )
+			if ( isset( $opts['plugin_'.$this->p->cf['lca'].'_tid'] ) ) {
+				if ( empty( $opts['plugin_'.$this->p->cf['lca'].'_tid'] ) )
 					delete_option( $this->p->cf['lca'].'_umsg' );
-				if ( $opts['plugin_tid'] !== $this->p->options['plugin_tid'] )
+				if ( $opts['plugin_'.$this->p->cf['lca'].'_tid'] !== $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] )
 					delete_option( $this->p->cf['lca'].'_utime' );
 			}
 			return $opts;
@@ -313,7 +314,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					break;
 
 				// must be alpha-numeric uppercase (hyphens and periods allowed as well)
-				case 'plugin_tid':
+				case ( preg_match( '/_tid$/', $key ) ? true : false ):
 					return 'anucase';
 					break;
 
@@ -338,7 +339,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'og_author_field':
 				case 'rp_author_name':
 				case 'fb_lang': 
-				case 'plugin_tid:use':
+				case ( preg_match( '/_tid:use$/', $key ) ? true : false ):
 				case ( preg_match( '/^(plugin|wp)_cm_[a-z]+_(name|label)$/', $key ) ? true : false ):
 					return 'notblank';
 					break;

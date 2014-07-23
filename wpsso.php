@@ -9,7 +9,7 @@
  * Description: Display your content in the best possible way on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc - no matter how your webpage is shared!
  * Requires At Least: 3.0
  * Tested Up To: 3.9.1
- * Version: 2.5.5
+ * Version: 2.5.6dev1
  * 
  * Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
  */
@@ -26,19 +26,17 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		public $admin;			// WpssoAdmin (admin menus and page loader)
 		public $cache;			// SucomCache (object and file caching)
 		public $debug;			// SucomDebug or WpssoNoDebug
-		public $gpl;			// WpssoAddonGpl
 		public $head;			// WpssoHead
+		public $loader;			// WpssoLoader
 		public $media;			// WpssoMedia (images, videos, etc.)
 		public $msgs;			// WpssoMessages (admin tooltip messages)
 		public $notice;			// SucomNotice
 		public $og;			// WpssoOpenGraph (extends SucomOpengraph)
 		public $opt;			// WpssoOptions
-		public $pro;			// WpssoAddonPro
 		public $reg;			// WpssoRegister
 		public $script;			// SucomScript (admin jquery tooltips)
 		public $style;			// SucomStyle (admin styles)
 		public $update;			// SucomUpdate
-		public $user;			// WpssoUser (contact methods and metabox prefs)
 		public $util;			// WpssoUtil (extends SucomUtil)
 		public $webpage;		// SucomWebpage (title, desc, etc., plus shortcodes)
 
@@ -86,7 +84,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 
 		// runs at init priority -1
 		public function set_config() {
-			$this->cf = apply_filters( 'wpsso_get_config', WpssoConfig::get_config() );
+			$this->cf = WpssoConfig::get_config( null, true );
 		}
 
 		// runs at init priority 1
@@ -94,9 +92,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$opts = get_option( WPSSO_OPTIONS_NAME );
 			if ( ! empty( $opts['plugin_widgets'] ) && ! empty( $this->cf['lib']['widget'] ) ) {
 				foreach ( $this->cf['lib']['widget'] as $id => $name ) {
-					$loaded = apply_filters( $this->cf['lca'].'_load_lib', false, "widget/$id" );
-					$classname = __CLASS__.'widget'.$name;
-					if ( class_exists( $classname ) )
+					$classname = apply_filters( $this->cf['lca'].'_load_lib', false, "widget/$id" );
+					if ( $classname !== false && class_exists( $classname ) )
 						register_widget( $classname );
 				}
 			}
@@ -129,15 +126,10 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			 * basic plugin setup (settings, check, debug, notices, utils)
 			 */
 			$this->set_options();
-
-			require_once( WPSSO_PLUGINDIR.'lib/com/debug.php' );
-			if ( ! empty( $this->options['plugin_tid'] ) )
-				require_once( WPSSO_PLUGINDIR.'lib/com/update.php' );
-
 			$this->check = new WpssoCheck( $this );
 			$this->is_avail = $this->check->get_avail();	// uses options
 			if ( $this->is_avail['aop'] ) 
-				$this->cf['full'] = $this->cf['full_pro'];
+				$this->cf['short'] = $this->cf['short_pro'];
 
 			// load and config debug class
 			$html_debug = ! empty( $this->options['plugin_debug'] ) || 
@@ -154,7 +146,6 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$this->style = new SucomStyle( $this );			// admin styles
 			$this->script = new SucomScript( $this );		// admin jquery tooltips
 			$this->webpage = new SucomWebpage( $this );		// title, desc, etc., plus shortcodes
-			$this->user = new WpssoUser( $this );			// contact methods and metabox prefs
 			$this->media = new WpssoMedia( $this );			// images, videos, etc.
 			$this->head = new WpssoHead( $this );			// open graph and twitter card meta tags
 
@@ -167,12 +158,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 				$this->og = new WpssoOpengraph( $this );	// prepare open graph array
 			else $this->og = new SucomOpengraph( $this );		// read open graph html tags
 
-			if ( ! $this->check->is_aop() ||
-				get_option( $this->cf['lca'].'_umsg' ) ||
-				SucomUpdate::get_umsg( $this->cf['lca'] ) ) {
-				require_once( WPSSO_PLUGINDIR.'lib/gpl/addon.php' );
-				$this->gpl = new WpssoAddonGpl( $this );
-			} else $this->pro = new WpssoAddonPro( $this );
+			$this->loader = new WpssoLoader( $this );
 
 			do_action( $this->cf['lca'].'_init_addon' );
 
@@ -213,7 +199,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			 * configure class properties based on plugin settings
 			 */
 			$this->cache->object_expire = $this->options['plugin_object_cache_exp'];
-			if ( ! empty( $this->options['plugin_file_cache_hrs'] ) ) {
+			if ( ! empty( $this->options['plugin_file_cache_hrs'] ) && $this->check->is_aop() ) {
 				if ( $this->debug->is_on( 'wp' ) === true ) 
 					$this->cache->file_expire = WPSSO_DEBUG_FILE_EXP;	// reduce to 300 seconds
 				else $this->cache->file_expire = $this->options['plugin_file_cache_hrs'] * 60 * 60;
@@ -224,8 +210,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			if ( $this->debug->is_on( 'html' ) === true ) {
 				foreach ( array( 'object', 'transient' ) as $name ) {
 					$constant_name = 'WPSSO_'.strtoupper( $name ).'_CACHE_DISABLE';
-					$this->is_avail['cache'][$name] = defined( $constant_name ) && 
-						! constant( $constant_name ) ? true : false;
+					$this->is_avail['cache'][$name] = ( defined( $constant_name ) && 
+						! constant( $constant_name ) ) ? true : false;
 				}
 				$cache_msg = 'object cache '.( $this->is_avail['cache']['object'] ? 'could not be' : 'is' ).
 					' disabled, and transient cache '.( $this->is_avail['cache']['transient'] ? 'could not be' : 'is' ).' disabled.';
@@ -234,17 +220,17 @@ if ( ! class_exists( 'Wpsso' ) ) {
 					__( 'Informational messages are being added to webpages as hidden HTML comments.', WPSSO_TEXTDOM ) );
 			}
 
-			// setup the update checks if we have an Authentication ID
-			if ( ! empty( $this->options['plugin_tid'] ) ) {
-				add_filter( $this->cf['lca'].'_ua_plugin', array( &$this, 'filter_ua_plugin' ), 10, 1 );
-				add_filter( $this->cf['lca'].'_installed_version', array( &$this, 'filter_installed_version' ), 10, 1 );
-				$this->update = new SucomUpdate( $this, $this->cf['lca'], $this->cf['slug'], WPSSO_PLUGINBASE, $this->cf['url']['pro_update'] );
+			if ( ! empty( $this->options['plugin_'.$this->cf['lca'].'_tid'] ) ) {
+				$this->util->add_plugin_filters( $this, array( 'installed_version' => 1, 'ua_plugin' => 1 ) );
+				$this->update = new SucomUpdate( $this, $this->cf['plugin'], $this->cf['update_check_hours'] );
 				if ( is_admin() ) {
-					// if update_hours * 2 has passed without an update, then force one now
-					$last_update = get_option( $this->cf['lca'].'_utime' );
-					if ( empty( $last_update ) || 
-						( ! empty( $this->cf['update_hours'] ) && $last_update + ( $this->cf['update_hours'] * 7200 ) < time() ) )
-							$this->update->check_for_updates();
+					foreach ( $this->cf['plugin'] as $lca => $info ) {
+						$last_update = get_option( $lca.'_utime' );
+						if ( empty( $last_update ) || 
+							( ! empty( $this->cf['update_check_hours'] ) && 
+								$last_update + ( $this->cf['update_check_hours'] * 7200 ) < time() ) )
+									$this->update->check_for_updates( $lca );
+					}
 				}
 			}
 		}

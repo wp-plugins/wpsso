@@ -13,52 +13,37 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 	class SucomUpdate {
 	
 		private $p;
+		private $cron_hook = '';
+		private $sched_hours = 0;
+		private $sched_name = '';
 		private static $c = array();
-	
-		public $lca = '';
-		public $slug = '';
-		public $base = '';
-		public $cron_hook = '';
-		public $sched_hours = 24;
-		public $sched_name = 'every24hours';
-		public $opt_name = '';
-		public $json_url = '';
-		public $json_expire = 3600;	// cache retrieved update json for 1 hour
-		public $update_timestamp = '';
 
-		public function __construct( &$plugin, $lca, $slug, $plugin_base, $update_url ) {
+		public function __construct( &$plugin, &$ext, $hours = 24 ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
-			$this->lca = $lca;								// ngfb
-			$this->slug = $slug;								// nextgen-facebook
-			$this->plugin_base = $plugin_base;						// nextgen-facebook/nextgen-facebook.php
-			$this->cron_hook = 'plugin_updates-'.$slug;					// plugin_updates-nextgen-facebook
-			$this->opt_name = self::$c[$lca.'_opt_name'] = 'external_updates-'.$slug;	// external_updates-nextgen-facebook
-
-			if ( ! empty( $this->p->cf['update_hours'] ) ) {
-				$this->sched_hours = $this->p->cf['update_hours'];			// 24
-				$this->sched_name = 'every'.$this->sched_hours.'hours';			// every24hours
-			}
-
-			if ( ! empty( $this->p->options['plugin_tid'] ) )
-				$this->json_url = $update_url.'?tid='.$this->p->options['plugin_tid'];
-			else $this->p->debug->log( 'missing option value: plugin_tid' );
-
+			$lca = $this->p->cf['lca'];
+			$slug = $this->p->cf['plugin'][$lca]['slug'];				// nextgen-facebook
+			$this->cron_hook = 'plugin_updates-'.$slug;				// plugin_updates-nextgen-facebook
+			$this->sched_hours = ( empty( $hours ) ? 0 : $hours );			// 24
+			$this->sched_name = ( empty( $hours ) ? '' : 'every'.$hours.'hours' );	// every24hours
+			$this->set_config( $ext );
 			$this->install_hooks();
 		}
 
 		public static function get_umsg( $lca ) {
-			if ( ! array_key_exists( $lca.'_umsg', self::$c ) ) {
-				self::$c[$lca.'_umsg'] = base64_decode( get_option( $lca.'_umsg' ) );
-				if ( empty( self::$c[$lca.'_umsg'] ) )
-					self::$c[$lca.'_umsg'] = false;
-			}
-			return self::$c[$lca.'_umsg'];
+			if ( isset( self::$c[$lca] ) ) {
+				if ( ! array_key_exists( 'umsg', self::$c[$lca] ) ) {
+					self::$c[$lca]['umsg'] = base64_decode( get_option( $lca.'_umsg' ) );
+					if ( empty( self::$c[$lca]['umsg'] ) )
+						self::$c[$lca]['umsg'] = false;
+				}
+				return self::$c[$lca]['umsg'];
+			} else return false;
 		}
 
 		public static function get_option( $lca, $idx = '' ) {
-			if ( ! empty( self::$c[$lca.'_opt_name'] ) ) {
-				$option_data = get_site_option( self::$c[$lca.'_opt_name'] );
+			if ( ! empty( self::$c[$lca]['opt_name'] ) ) {
+				$option_data = get_site_option( self::$c[$lca]['opt_name'] );
 				if ( ! empty( $idx ) ) {
 					if ( is_object( $option_data->update ) &&
 						isset( $option_data->update->$idx ) )
@@ -69,6 +54,22 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			return false;
 		}
 
+		public function set_config( &$ext ) {
+			foreach ( $ext as $lca => $info ) {
+				$tid_name = 'plugin_'.$lca.'_tid';					// plugin_ngfb_tid
+				if ( empty( $this->p->options[$tid_name] ) )
+					$this->p->debug->log( 'empty value for '.$tid_name.' option - skipping update config for '.$lca );
+				else self::$c[$lca] = array(
+					'slug' => $info['slug'],					// nextgen-facebook
+					'base' => $info['base'],					// nextgen-facebook/nextgen-facebook.php
+					'opt_name' => 'external_updates-'.$info['slug'],		// external_updates-nextgen-facebook
+					'json_url' => $info['url']['update'].'?tid='.$this->p->options[$tid_name],
+					'expire' => 3600,
+					'utime' => '',
+				);
+			}
+		}
+
 		public function install_hooks() {
 			$this->p->debug->mark();
 			add_filter( 'plugins_api', array( &$this, 'inject_data' ), 100, 3 );
@@ -76,28 +77,29 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			add_filter( 'site_transient_update_plugins', array( &$this, 'inject_update' ), 1000, 1 );
 			add_filter( 'pre_site_transient_update_plugins', array( &$this, 'enable_update' ), 1000, 1 );
 
-			// in a multisite environment, each site checks for updates
-			if ( $this->sched_hours > 0 ) {
+			if ( $this->sched_hours > 0 && ! empty( $this->sched_name ) ) {
 				add_filter( 'cron_schedules', array( &$this, 'custom_schedule' ) );
 				add_action( $this->cron_hook, array( &$this, 'check_for_updates' ) );
+
 				$schedule = wp_get_schedule( $this->cron_hook );
-				// check for schedule mismatch
 				if ( ! empty( $schedule ) && $schedule !== $this->sched_name ) {
 					$this->p->debug->log( 'changing '.$this->cron_hook.' schedule from '.$schedule.' to '.$this->sched_name );
 					wp_clear_scheduled_hook( $this->cron_hook );
 				}
-				// add schedule if it doesn't exist
 				if ( ! defined('WP_INSTALLING') && ! wp_next_scheduled( $this->cron_hook ) )
 					wp_schedule_event( time(), $this->sched_name, $this->cron_hook );	// since wp 2.1.0
 			} else wp_clear_scheduled_hook( $this->cron_hook );
 		}
 	
 		public function inject_data( $result, $action = null, $args = null ) {
-		    	if ( $action == 'plugin_information' && 
-				isset( $args->slug ) && $args->slug == $this->slug ) {
-				$plugin_data = $this->get_json();
-				if ( ! empty( $plugin_data ) ) 
-					return $plugin_data->json_to_wp();
+		    	if ( $action == 'plugin_information' && isset( $args->slug ) ) {
+				foreach ( self::$c as $lca => $info ) {
+					if ( $args->slug === $info['slug'] ) {
+						$plugin_data = $this->get_json( $lca );
+						if ( ! empty( $plugin_data ) ) 
+							return $plugin_data->json_to_wp();
+					}
+				}
 			}
 			return $result;
 		}
@@ -111,19 +113,23 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 
 		public function inject_update( $updates = false ) {
-			// remove existing plugin information to make sure it is correct
-			if ( isset( $updates->response[$this->plugin_base] ) )
-				unset( $updates->response[$this->plugin_base] );	// wpsso/wpsso.php
-			$option_data = get_site_option( $this->opt_name );
-			if ( empty( $option_data ) )
-				$this->p->debug->log( 'update option is empty' );
-			elseif ( empty( $option_data->update ) )
-				$this->p->debug->log( 'no update information' );
-			elseif ( ! is_object( $option_data->update ) )
-				$this->p->debug->log( 'update property is not an object' );
-			elseif ( version_compare( $option_data->update->version, $this->get_installed_version(), '>' ) ) {
-				$updates->response[$this->plugin_base] = $option_data->update->json_to_wp();
-				$this->p->debug->log( $updates->response[$this->plugin_base], 2 );
+			foreach ( self::$c as $lca => $info ) {
+
+				// remove existing plugin information to make sure it is correct
+				if ( isset( $updates->response[$info['base']] ) )
+					unset( $updates->response[$info['base']] );	// nextgen-facebook/nextgen-facebook.php
+
+				$option_data = get_site_option( $info['opt_name'] );
+				if ( empty( $option_data ) )
+					$this->p->debug->log( 'update option is empty' );
+				elseif ( empty( $option_data->update ) )
+					$this->p->debug->log( 'no update information' );
+				elseif ( ! is_object( $option_data->update ) )
+					$this->p->debug->log( 'update property is not an object' );
+				elseif ( version_compare( $option_data->update->version, $this->get_installed_version( $lca ), '>' ) ) {
+					$updates->response[$info['base']] = $option_data->update->json_to_wp();
+					$this->p->debug->log( $updates->response[$info['base']], 2 );
+				}
 			}
 			return $updates;
 		}
@@ -132,51 +138,61 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			if ( $this->sched_hours > 0 ) {
 				$schedule[$this->sched_name] = array(
 					'interval' => $this->sched_hours * 3600,
-					'display' => sprintf('Every %d hours', $this->sched_hours)
+					'display' => sprintf( 'Every %d hours', $this->sched_hours )
 				);
 			}
 			return $schedule;
 		}
 	
-		public function check_for_updates() {
-			$option_data = get_site_option( $this->opt_name );
-			if ( empty( $option_data ) ) {
-				$option_data = new StdClass;
-				$option_data->lastCheck = 0;
-				$option_data->checkedVersion = 0;
-				$option_data->update = null;
+		public function check_for_updates( $lca = '' ) {
+			if ( empty( $lca ) )
+				$plugins =  self::$c;				// check all plugins defined
+			elseif ( isset( self::$c[$lca] ) )
+				$plugins = array( $lca => self::$c[$lca] );	// check only one specific plugin
+			else $plugins = array();
+
+			foreach ( $plugins as $lca => $info ) {
+				$option_data = get_site_option( $info['opt_name'] );
+				if ( empty( $option_data ) ) {
+					$option_data = new StdClass;
+					$option_data->lastCheck = 0;
+					$option_data->checkedVersion = 0;
+					$option_data->update = null;
+				}
+				$option_data->lastCheck = time();
+				$option_data->checkedVersion = $this->get_installed_version( $lca );
+				$option_data->update = $this->get_update_data( $lca );
+				update_site_option( $info['opt_name'], $option_data );
 			}
-			$option_data->lastCheck = time();
-			$option_data->checkedVersion = $this->get_installed_version();
-			$option_data->update = $this->get_update_data();
-			update_site_option( $this->opt_name, $option_data );
 		}
 	
-		public function get_update_data() {
-			$plugin_data = $this->get_json();
+		public function get_update_data( $lca ) {
+			$plugin_data = $this->get_json( $lca );
 			if ( empty( $plugin_data ) ) 
 				return null;
 			return SucomPluginUpdate::from_plugin_data( $plugin_data );
 		}
 	
-		public function get_json( $query = array(), $read_cache = true ) {
+		public function get_json( $lca, $query = array(), $read_cache = true ) {
 			global $wp_version;
-			$update_url = $this->json_url;
 			$site_url = get_bloginfo( 'url' );
-			$query['installed_version'] = $this->get_installed_version();
+			$json_url = empty( self::$c[$lca]['json_url'] ) ? '' : self::$c[$lca]['json_url'];
+			$query = array( 'installed_version' => $this->get_installed_version( $lca ) );
 
-			if ( empty( $update_url ) ) {
-				$this->p->debug->log( 'exiting early: empty update url' );
+			if ( empty( $json_url ) ) {
+				$this->p->debug->log( 'exiting early: empty json_url' );
 				return null;
-			} elseif ( ! empty( $query ) ) 
-				$update_url = add_query_arg( $query, $update_url );
+			}
+			
+			if ( ! empty( $query ) ) 
+				$json_url = add_query_arg( $query, $json_url );
 
 			if ( ! empty( $this->p->is_avail['cache']['transient'] ) ) {
-				$cache_salt = __METHOD__.'(update_url:'.$update_url.'_site_url:'.$site_url.')';
-				$cache_id = $this->lca.'_'.md5( $cache_salt );		// use lca prefix for plugin clear cache
+				$cache_salt = __METHOD__.'(json_url:'.$json_url.'_site_url:'.$site_url.')';
+				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
 				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
-				$last_update = get_option( $this->lca.'_utime' );
+				$last_update = get_option( $lca.'_utime' );
 				if ( $read_cache && $last_update !== false ) {
 					$plugin_data = get_transient( $cache_id );
 					if ( $plugin_data !== false ) {
@@ -186,8 +202,9 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				}
 			}
 
-			$ua = 'WordPress/'.$wp_version.' ('.( apply_filters( $this->lca.'_ua_plugin', 
-				$this->slug.'/'.$query['installed_version'] ) ).'); '.$site_url;
+			$ua = 'WordPress/'.$wp_version.' ('.( apply_filters( $lca.'_ua_plugin', 
+				self::$c[$lca]['slug'].'/'.$query['installed_version'] ) ).'); '.$site_url;
+
 			$options = array(
 				'timeout' => 10, 
 				'user-agent' => $ua,
@@ -198,48 +215,51 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			);
 
 			$plugin_data = null;
-			$result = wp_remote_get( $update_url, $options );
+			$result = wp_remote_get( $json_url, $options );
 			if ( is_wp_error( $result ) ) {
 				if ( isset( $this->p->notice ) && is_object( $this->p->notice ) &&
 					isset( $this->p->debug ) && is_object( $this->p->debug ) &&
 					$this->p->debug->is_on() === true ) {
 
-					$this->p->debug->log( 'update library error: '.$result->get_error_message().'.' );
-					$this->p->notice->err( 'Update library error &ndash; '.$result->get_error_message().'.' );
+					$this->p->debug->log( 'update error: '.$result->get_error_message().'.' );
+					$this->p->notice->err( 'Update error &ndash; '.$result->get_error_message().'.' );
 				}
 			} elseif ( isset( $result['response']['code'] ) && 
 				( $result['response']['code'] == 200 ) && 
 				! empty( $result['body'] ) ) {
 	
 				if ( ! empty( $result['headers']['x-smp-error'] ) ) {
-					self::$c[$this->lca.'_umsg'] = json_decode( $result['body'] );
-					update_option( $this->lca.'_umsg', base64_encode( self::$c[$this->lca.'_umsg'] ) );
+					self::$c[$lca]['umsg'] = json_decode( $result['body'] );
+					update_option( $lca.'_umsg', base64_encode( self::$c[$lca]['umsg'] ) );
 				} else {
-					self::$c[$this->lca.'_umsg'] = false;
-					delete_option( $this->lca.'_umsg' );
+					self::$c[$lca]['umsg'] = false;
+					delete_option( $lca.'_umsg' );
 					$plugin_data = SucomPluginData::from_json( $result['body'] );
 				}
 			}
 
-			$this->update_timestamp = time();
-			update_option( $this->lca.'_utime', $this->update_timestamp );
+			self::$c[$lca]['utime'] = time();
+			update_option( $lca.'_utime', self::$c[$lca]['utime'] );
 
 			if ( ! empty( $this->p->is_avail['cache']['transient'] ) ) {
-				set_transient( $cache_id, ( $plugin_data === null ? '' : $plugin_data ), $this->json_expire );
-				$this->p->debug->log( $cache_type.': plugin data saved to transient '.$cache_id.' ('.$this->json_expire.' seconds)');
+				set_transient( $cache_id, ( $plugin_data === null ? '' : $plugin_data ), self::$c[$lca]['expire'] );
+				$this->p->debug->log( $cache_type.': plugin data saved to transient '.$cache_id.' ('.self::$c[$lca]['expire'].' seconds)');
 			}
 			return $plugin_data;
 		}
 	
-		public function get_installed_version() {
+		public function get_installed_version( $lca ) {
 			$version = 0;
-			if ( ! function_exists( 'get_plugins' ) ) 
-				require_once( ABSPATH.'/wp-admin/includes/plugin.php' );
-			$plugins = get_plugins();
-			if ( array_key_exists( $this->plugin_base, $plugins ) && 
-				array_key_exists( 'Version', $plugins[$this->plugin_base] ) )
-					$version = $plugins[$this->plugin_base]['Version'];
-			return apply_filters( $this->lca.'_installed_version', $version );
+			if ( isset( self::$c[$lca]['base'] ) ) {
+				$base = self::$c[$lca]['base'];
+				if ( ! function_exists( 'get_plugins' ) ) 
+					require_once( ABSPATH.'/wp-admin/includes/plugin.php' );
+				$plugins = get_plugins();
+				if ( array_key_exists( $base, $plugins ) && 
+					array_key_exists( 'Version', $plugins[$base] ) )
+						$version = $plugins[$base]['Version'];
+			}
+			return apply_filters( $lca.'_installed_version', $version );
 		}
 	}
 }

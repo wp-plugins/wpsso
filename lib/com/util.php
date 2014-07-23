@@ -393,10 +393,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return trim( $text );
 		}
 
-		public function get_remote_content( $url = '', $file = '', $expire_secs = false ) {
+		public function get_remote_content( $url = '', $file = '', $expire_secs = 86400 ) {
 			$content = false;
 			$get_remote = empty( $url ) ? false : true;
-			$expire_secs = $expire_secs === false ? $this->p->cf['update_hours'] * 3600 : $expire_secs;
 
 			if ( $this->p->is_avail['cache']['transient'] ) {
 				$cache_salt = __METHOD__.'(url:'.$url.'_file:'.$file.')';
@@ -429,9 +428,10 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			$readme = '';
 			$get_remote = true;	// fetch readme from wordpress.org by default
 			$plugin_info = array();
+			$readme_url = $this->p->cf['plugin'][$this->p->cf['lca']]['url']['readme'];
 
 			if ( $this->p->is_avail['cache']['transient'] ) {
-				$cache_salt = __METHOD__.'(file:'.$this->p->cf['url']['readme'].')';
+				$cache_salt = __METHOD__.'(file:'.$readme_url.')';
 				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
 				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
@@ -444,7 +444,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 			// get remote readme.txt file
 			if ( $get_remote === true && $expire_secs > 0 )
-				$readme = $this->p->cache->get( $this->p->cf['url']['readme'], 'raw', 'file', $expire_secs );
+				$readme = $this->p->cache->get( $readme_url, 'raw', 'file', $expire_secs );
 
 			// fallback to local readme.txt file
 			if ( empty( $readme ) && $fh = @fopen( constant( $this->p->cf['uca'].'_PLUGINDIR' ).'readme.txt', 'rb' ) ) {
@@ -473,10 +473,12 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $plugin_info;
 		}
 
-		public function get_admin_url( $submenu = '', $link_text = '' ) {
+		public function get_admin_url( $submenu = '', $link_text = '', $lca = '' ) {
 			$query = '';
 			$hash = '';
 			$url = '';
+			$lca = empty( $lca ) ? $this->p->cf['lca'] : $lca;
+			$info = $this->p->cf['plugin'][ $lca ];
 
 			if ( strpos( $submenu, '#' ) !== false )
 				list( $submenu, $hash ) = explode( '#', $submenu );
@@ -485,19 +487,19 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 			if ( $submenu == '' ) {
 				$current = $_SERVER['REQUEST_URI'];
-				if ( preg_match( '/^.*\?page='.$this->p->cf['lca'].'-([^&]*).*$/', $current, $match ) )
+				if ( preg_match( '/^.*\?page='.$lca.'-([^&]*).*$/', $current, $match ) )
 					$submenu = $match[1];
-				else $submenu = key( $this->p->cf['lib']['submenu'] );
+				else $submenu = key( $info['lib']['submenu'] );
 			}
 
-			if ( array_key_exists( $submenu, $this->p->cf['lib']['setting'] ) ) {
-				$page = 'options-general.php?page='.$this->p->cf['lca'].'-'.$submenu;
+			if ( array_key_exists( $submenu, $info['lib']['setting'] ) ) {
+				$page = 'options-general.php?page='.$lca.'-'.$submenu;
 				$url = admin_url( $page );
-			} elseif ( array_key_exists( $submenu, $this->p->cf['lib']['submenu'] ) ) {
-				$page = 'admin.php?page='.$this->p->cf['lca'].'-'.$submenu;
+			} elseif ( array_key_exists( $submenu, $info['lib']['submenu'] ) ) {
+				$page = 'admin.php?page='.$lca.'-'.$submenu;
 				$url = admin_url( $page );
-			} elseif ( array_key_exists( $submenu, $this->p->cf['lib']['sitesubmenu'] ) ) {
-				$page = 'admin.php?page='.$this->p->cf['lca'].'-'.$submenu;
+			} elseif ( array_key_exists( $submenu, $info['lib']['sitesubmenu'] ) ) {
+				$page = 'admin.php?page='.$lca.'-'.$submenu;
 				$url = network_admin_url( $page );
 			}
 

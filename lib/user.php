@@ -333,7 +333,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		static function delete_metabox_prefs( $user_id = false ) {
-			$cf = WpssoConfig::get_config();
+			$cf = WpssoConfig::get_config( null, true );
 
 			$parent_slug = 'options-general.php';
 			foreach ( array_keys( $cf['lib']['setting'] ) as $id ) {

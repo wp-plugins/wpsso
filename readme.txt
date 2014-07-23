@@ -334,6 +334,19 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.5.6 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Added a new Licenses settings sub-menu page, for both single and network admin menus.
+	* Renamed the 'Network' multisite sub-menu to 'Advanced'.
+	* Modified the 'wpsso_load_lib' filter to return a class name.
+	* Modified the `SucomUpdate` class construct to receive an *array* of plugin options (as the second argument).
+	* Renamed the 'plugin_tid' option to 'plugin_wpsso_tid'.
+	* Renamed all GPL and Pro class names to start with  'WpssoGpl' or 'WpssoPro'.
+	* Re-structured the `NgfbConfig::$cf` array to support multiple plugin configs (for future WPSSO extension plugins).
+
 = Version 2.5.5 =
 
 * Bugfixes

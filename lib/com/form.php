@@ -179,10 +179,12 @@ if ( ! class_exists( 'SucomForm' ) ) {
 
 		public function get_fake_input( $name, $class = '', $id = '' ) {
 			$value = $this->in_options( $name ) ? $this->options[$name] : '';
-			return '<input type="text" disabled="disabled"'.
+			$html = $this->get_hidden( $name ).
+				'<input type="text" disabled="disabled"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
 				( empty( $id ) ? '' : ' id="'.$id.'"' ).
 				' value="'.esc_attr( $value ).'" />';
+			return $html;
 		}
 
 		public function get_textarea( $name, $class = '', $id = '', $len = 0, $placeholder = '' ) {

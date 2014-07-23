@@ -22,6 +22,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 		public function get( $idx = '', $atts = null, $class = '' ) {
 			$text = is_array( $atts ) || is_object( $atts ) ? '' : $atts;
 			$idx = sanitize_title_with_dashes( $idx );
+			$urls = $this->p->cf['plugin'][$this->p->cf['lca']]['url'];
+
 			if ( strpos( $idx, 'tooltip-' ) !== false && empty( $class ) )
 				$class = $this->p->cf['form']['tooltip_class'];	// default tooltip class
 
@@ -37,7 +39,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							constants</a> is defined.';
 							break;
 						case 'tooltip-side-non-persistant-cache':
-							$text = $this->p->cf['full'].' saves filtered / rendered content to a non-persistant cache
+							$text = $this->p->cf['short'].' saves filtered / rendered content to a non-persistant cache
 							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>) 
 							for re-use within the same page load. You can disable the use of non-persistant cache (not recommended)
 							using one of the available <a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" 
@@ -49,15 +51,16 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							including product prices, images, and other attributes.';
 							break;
 						case 'tooltip-side-pro-update-check':
-							$text = 'When a \'Pro Version Authentication ID\' is entered on the '.$this->p->util->get_admin_url( 'advanced', 
-							'Advanced settings page' ).', a check is scheduled every 12 hours to see if a Pro version update is available.';
+							$text = 'When a Pro version Authentication ID is entered in the '.
+							$this->p->util->get_admin_url( 'licenses', 'Licenses settings' ).',
+							a check is scheduled every 24 hours to see if an update is available.';
 							break;
 						case 'tooltip-side-transient-cache':
-							$text = $this->p->cf['full'].' saves Open Graph, Rich Pin, Twitter Card meta tags, and sharing buttons to a persistant
+							$text = $this->p->cf['short'].' saves Open Graph, Rich Pin, Twitter Card meta tags, etc. to a persistant
 							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
 							$this->p->options['plugin_object_cache_exp'].' seconds (default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).
-							' seconds). You can adjust the Transient Cache expiration value from the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).', or disable it completely using an available
+							' seconds). You can adjust the Transient / Object Cache expiration value in the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).', or disable it completely using an available
 							<a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" target="_blank">constant</a>.';
 							break;
 						case 'tooltip-side-post-social-settings':
@@ -69,7 +72,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							Custom descriptions and images can be entered for Open Graph, Rich Pin, and Twitter Card meta tags.';
 							break;
 						case 'tooltip-side-publisher-language':
-							$text = $this->p->cf['full_pro'].' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
+							$text = $this->p->cf['short_pro'].' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
 							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
 							'. If your website is available in multiple languages, this can be a useful feature.';
 							break;
@@ -84,27 +87,27 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$this->p->util->get_admin_url( 'general#sucom-tab_og_author', 'General settings page' ).'.';
 							break;
 						case 'tooltip-side-slideshare-api':
-							$text = 'If the embedded Slideshare Presentations option on the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
-							$this->p->cf['full_pro'].' will load an integration addon for Slideshare to detect embedded Slideshare 
-							presentations, and retrieve information using Slideshare\'s oEmbed API (media dimentions, preview image, etc).';
+							$text = 'If the embedded Slideshare Presentations option in the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
+							$this->p->cf['short_pro'].' will load an integration addon for Slideshare, to detect embedded Slideshare 
+							presentations and retrieve information using Slideshare\'s oEmbed API (media dimentions, preview image, etc).';
 							break;
 						case 'tooltip-side-vimeo-video-api':
-							$text = 'If the embedded Vimeo Videos option on the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
-							$this->p->cf['full_pro'].' will detect embedded Vimeo 
-							videos, and retrieve information using Vimeo\'s oEmbed API (media dimentions, preview image, etc).';
+							$text = 'If the embedded Vimeo Videos option in the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
+							$this->p->cf['short_pro'].' will load an integration addon for Vimeo, to detect embedded Vimeo 
+							videos and retrieve information using Vimeo\'s oEmbed API (media dimentions, preview image, etc).';
 							break;
 						case 'tooltip-side-wistia-video-api':
-							$text = 'If the embedded Wistia Videos option on the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
-							$this->p->cf['full_pro'].' will load an integration addon for Wistia to detect embedded Wistia 
+							$text = 'If the embedded Wistia Videos option in the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
+							$this->p->cf['short_pro'].' will load an integration addon for Wistia to detect embedded Wistia 
 							videos, and retrieve information using Wistia\'s oEmbed API (media dimentions, preview image, etc).';
 							break;
 						case 'tooltip-side-youtube-video-playlist-api':
-							$text = 'If the embedded Youtube Videos and Playlists option on the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
-							$this->p->cf['full_pro'].' will detect embedded Youtube 
+							$text = 'If the embedded Youtube Videos and Playlists option in the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
+							$this->p->cf['short_pro'].' will detect embedded Youtube 
 							videos and playlists, and retrieve information using Youtube\'s XML and oEmbed APIs
 							(media dimentions, preview image, etc).';
 							break;
@@ -211,7 +214,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Tumblr social sharing button' ).
 							'. If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred 
 							sharing URL, video dimensions, and video preview image. The '.
-							$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_custom', 'Video URL Custom Field' ).
+							$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video URL Custom Field' ).
 							' Advanced option also allows a 3rd-party to provide a Video URL value for this option.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_max':
@@ -272,21 +275,21 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							(<strong>non-static</strong> homepage, archives, categories). 
 							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
 							then <strong>no image will be included in the meta tags</strong>.
-							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
 							will use image(s) from the first entry on the webpage (default is checked).';
 							break;
 						case 'tooltip-og_def_img_on_author':
 							$text = 'Check this option to force the default image on author index webpages.
 							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
 							then <strong>no image will be included in the meta tags</strong>. 
-							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
 							will use image(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_def_img_on_search':
 							$text = 'Check this option to force the default image on search results.
 							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
 							then <strong>no image will be included in the meta tags</strong>. 
-							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
 							will use image(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_def_vid_url':
@@ -299,21 +302,21 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							(<strong>non-static</strong> homepage, archives, categories). 
 							If this option is <em>checked</em>, but a Default Video URL has not been defined, then 
 							<strong>no video will be included in the meta tags</strong> (this is usually preferred).
-							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
 							will use video(s) from the first entry on the webpage (default is checked).';
 							break;
 						case 'tooltip-og_def_vid_on_author':
 							$text = 'Check this option to force the default video on author index webpages.
 							If this option is <em>checked</em>, but a Default Video URL has not been defined, 
 							then <strong>no video will be included in the meta tags</strong>.
-							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
 							will use video(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_def_vid_on_search':
 							$text = 'Check this option to force the default video on search results.
 							If this option is <em>checked</em>, but a Default Video URL has not been defined, 
 							then <strong>no video will be included in the meta tags</strong>.
-							If the option is <em>unchecked</em>, then '.$this->p->cf['full'].' 
+							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
 							will use video(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_ngg_tags':
@@ -398,7 +401,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-og_author_fallback':
 							$text = 'If the Author Profile URL (and the Author Link URL in the Google Settings below) 
-							is not a valid URL, then '.$this->p->cf['full'].' can fallback to using the author index on this 
+							is not a valid URL, then '.$this->p->cf['short'].' can fallback to using the author index on this 
 							website (\''.trailingslashit( site_url() ).'author/username\' for example). 
 							Uncheck this option to disable the fallback feature (default is unchecked).';
 							break;
@@ -445,72 +448,49 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case ( strpos( $idx, 'tooltip-plugin_' ) !== false ? true : false ):
 					switch ( $idx ) {
 						/*
-						 * 'Activate and Update' settings
+						 * 'Plugin Settings' settings
 						 */
 						case 'tooltip-plugin_display':
-							$text = 'Select the number of options to display on the '.$this->p->cf['full'].' settings pages.
+							$text = 'Select the number of options to display on the '.$this->p->cf['short'].' settings pages.
 							The basic view shows only the essential options that are most commonly used.';
 							break;
-						case 'tooltip-plugin_tid':
-							if ( is_multisite() && ! empty( $this->p->site_options['plugin_tid:use'] ) && $this->p->site_options['plugin_tid:use'] == 'force' )
-								$text = 'The Authentication ID value has been locked in the Network Admin settings.';
-							elseif ( $this->p->is_avail['aop'] )
-								$text = 'After purchasing a Pro version license, an email will be sent to you with a unique Authentication ID 
-								and installation instructions. Enter the Authentication ID here to activate the Pro version features.';
-							else
-								$text = 'After purchasing the Pro version, an email will be sent to you with a unique Authentication ID 
-								and installation instructions. Enter this Authentication ID here, and after saving the changes, an update 
-								for '.$this->p->cf['full'].' will appear on the <a href="'.get_admin_url( null, 'update-core.php' ).'">WordPress 
-								Updates</a> page. Update the \''.$this->p->cf['full'].'\' plugin to download and activate the Pro version.';
-							break;
-						case 'tooltip-plugin_tid_network':
-							$text = 'After purchasing a Pro version license, an email is sent with a unique Authentication ID and installation instructions. 
-							Enter the Authentication ID here, to define a value for all sites within the network, or enter the Authentication ID(s) 
-							individually on each site\'s Advanced settings page. 
-							<strong>Note that the default site / blog must be licensed to allow for plugin updates</strong>.';
-
-							if ( ! $this->p->is_avail['aop'] )
-								$text = 'When the default site / blog is licensed, an update for '.$this->p->cf['full'].
-								' will appear on the <a href="'.get_admin_url( null, 'update-core.php' ).'">WordPress Updates</a> page. 
-								Update the plugin to download and activate the Pro version.';
-							break;
 						case 'tooltip-plugin_preserve':
-							$text = 'Check this option if you would like to preserve all '.$this->p->cf['full'].
+							$text = 'Check this option if you would like to preserve all '.$this->p->cf['short'].
 							' settings when you <em>uninstall</em> the plugin (default is unchecked).';
 							break;
 						case 'tooltip-plugin_debug':
-							$text = 'Include hidden debug information with the Open Graph meta tags (default is unchecked).';
+							$text = 'Add hidden debug messages to the HTML of webpages (default is unchecked).';
+							break;
+						case 'tooltip-plugin_filter_lang':
+							$text = $this->p->cf['short_pro'].' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
+							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
+							'. If your website is available in multiple languages, this can be a useful feature.
+							Uncheck this option to ignore the WordPress locale and always use the configured language.'; 
+							break;
+						case 'tooltip-plugin_auto_img_resize':
+							$text = 'Automatically generate missing or incorrect image sizes for previously uploaded images in the 
+							WordPress Media Library (default is checked).';
+							break;
+						case 'tooltip-plugin_shortcodes':
+							$text = 'Enable the '.$this->p->cf['short'].' shortcode features (default is checked).';
+							break;
+						case 'tooltip-plugin_widgets':
+							$text = 'Enable the '.$this->p->cf['short'].' widget features (default is checked).';
 							break;
 						/*
 						 * 'Content and Filters' settings
 						 */
 						case 'tooltip-plugin_filter_content':
 							$text = 'Apply the standard WordPress \'the_content\' filter to render the content text (default is checked).
-							This renders all shortcodes, and allows '.$this->p->cf['full'].' to detect images and 
+							This renders all shortcodes, and allows '.$this->p->cf['short'].' to detect images and 
 							embedded videos that may be provided by these.';
 							break;
 						case 'tooltip-plugin_filter_excerpt':
 							$text = 'Apply the standard WordPress \'get_the_excerpt\' filter to render the excerpt text (default is unchecked).
 							Check this option if you use shortcodes in your excerpt, for example.';
 							break;
-						case 'tooltip-plugin_filter_lang':
-							$text = $this->p->cf['full_pro'].' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
-							'. If your website is available in multiple languages, this can be a useful feature.
-							Uncheck this option to ignore the WordPress locale and always use the configured language.'; 
-							break;
-						case 'tooltip-plugin_shortcodes':
-							$text = 'Enable the '.$this->p->cf['full'].' shortcode features (default is checked).';
-							break;
-						case 'tooltip-plugin_widgets':
-							$text = 'Enable the '.$this->p->cf['full'].' widget features (default is checked).';
-							break;
-						case 'tooltip-plugin_auto_img_resize':
-							$text = 'Automatically generate missing or incorrect image sizes for previously uploaded images in the 
-							WordPress Media Library (default is checked).';
-							break;
 						case 'tooltip-plugin_ignore_small_img':
-							$text = $this->p->cf['full'].' will retrieve image URLs from HTML tags in the <strong>content</strong>.
+							$text = $this->p->cf['short'].' will retrieve image URLs from HTML tags in the <strong>content</strong>.
 							The &amp;amp;lt;img/&amp;amp;gt; HTML tags must have a width and height attribute, 
 							and their size must be equal to (or larger) than the 
 							Image Dimensions you\'ve entered on the General settings page. 
@@ -544,7 +524,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'File and Object Cache' settings
 						 */
 						case 'tooltip-plugin_object_cache_exp':
-							$text = $this->p->cf['full'].' saves filtered and rendered content to a non-persistant cache 
+							$text = $this->p->cf['short'].' saves filtered and rendered content to a non-persistant cache 
 							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>), 
 							and Open Graph / Rich Pin, Twitter Card meta tags to a persistant 
 							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. 
@@ -552,7 +532,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							and the minimum value is 1 second (such a low value is not recommended).';
 							break;
 						case 'tooltip-plugin_file_cache_hrs':
-							$text = $this->p->cf['full'].' can save social sharing JavaScript and images to a cache folder, 
+							$text = $this->p->cf['short'].' can save social sharing JavaScript and images to a cache folder, 
 							providing URLs to these cached files instead of the originals. 
 							A value of 0 hours (the default) disables the file caching feature. 
 							If your hosting infrastructure performs reasonably well, this option can improve page load times significantly.
@@ -632,7 +612,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							Debugger, you should set this option to \'Display Name\'. ;-)';
 							break;
 						case 'tooltip-google_author_field':
-							$text = $this->p->cf['full'].' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
+							$text = $this->p->cf['short'].' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
 							These are not Open Graph / Rich Pin meta property tags &mdash; they are used primarily by Google\'s search engine 
 							to associate Google+ profiles with search results. Select which field to use from the author\'s profile
 							for the <em>author</em> link tag.';
@@ -803,39 +783,68 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				 */
 				case ( strpos( $idx, 'info-' ) !== false ? true : false ):
 					switch ( $idx ) {
-						case 'info-tid':
-							$text = '<p>'.$this->p->cf['full'].' must be active in order to check for Pro version updates.
-							If you de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the Free version. 
-							Always update the Pro version when it is active. If you accidentally re-install the Free version, your Authentication ID
-							will always allow you to upgrade back to the Pro version easily.</p>';
+						case 'info-plugin-tid':
+							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
+							<p>After purchasing Pro version license(s), an email is sent with a unique Authentication 
+							ID and installation / activation instructions. Enter the Authentication ID here to enable Pro version updates. ';
+							if ( empty( $this->p->is_avail['aop'] ) )
+								$text .= 'The Free version is currently installed &mdash; don\'t forget to 
+								update the plugin after entering your Authentication ID. ';
+							$text .= $this->p->cf['short'].' must be active in order to check for Pro version updates.
+							If you accidentally de-activate the plugin, update checks will be made against WordPress.org,
+							and update notices will be for the Free version &mdash; 
+							always update the Pro version when '.$this->p->cf['short'].' is active. 
+							If you accidentally re-install the Free version, your Authentication ID 
+							will provide another update for the Pro version.</p>
+							</blockquote>';
+							break;
+						case 'info-plugin-tid-network':
+							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
+							<p>After purchasing Pro version license(s), an email is sent with a unique Authentication 
+							ID and installation / activation instructions. 
+							Enter the Authentication ID here to define a value for all sites within the network, 
+							or enter the Authentication ID(s) individually on each site\'s Licenses settings page.
+							<strong>Please note that the <em>default</em> site/blog must be licensed in order to update
+							the plugin from the Network admin interface</strong>. ';
+							if ( empty( $this->p->is_avail['aop'] ) )
+								$text .= 'The Free version is currently installed &mdash; don\'t forget to 
+								update the plugin after licensing the <em>default</em> site/blog. ';
+							$text .= '</p>
+							</blockquote>';
 							break;
 						case 'info-review':
-							$text .= '<p>If you appreciate the features or quality of this plugin, and/or the support we provide, please take a moment to
-							<a href="'.$this->p->cf['url']['review'].'" target="_blank">rate the '.WpssoConfig::get_config( 'full' ).' plugin on WordPress.org</a>.</p>
+							$text = '<blockquote style="margin-top:0;">
+							<p>If you appreciate the features or quality of this plugin, and/or the support we provide, please 
+							<a href="'.$urls['review'].'" target="_blank">take a moment to rate the '.
+							WpssoConfig::get_config( 'short' ).' plugin on WordPress.org</a>.</p>
 							<p><strong>Your rating will help other WordPress users find higher quality and better supported plugins</strong> &mdash; 
-							<em>and encourage us to keep improving '.WpssoConfig::get_config( 'full' ).' as well!</em> :)</p>
-							<p>Thank you,</p>
-							<p class="sig">js.</p>';
+							<em>and encourage us to keep improving '.WpssoConfig::get_config( 'short' ).' as well!</em> :)</p>
+							</blockquote>';
 							break;
 						case 'info-pub-pinterest':
-							$text = '<p>Pinterest uses Open Graph meta tags for their Rich Pins.
+							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
+							<p>Pinterest uses Open Graph meta tags for their Rich Pins.
 							These options allow you to manage and/or override some Pinterest-specific Open Graph settings.
-							Please note that if you use a full-page caching plugin, or front-end caching service, 
+							Please note that if you use a full-page caching plugin or front-end caching service, 
 							it should detect the Pinterest crawler user-agent and bypass the cache, 
 							so that different meta tags can be provided to the crawler 
-							(for example, look for a "<em>User-Agent Exclusion Pattern</em>" option and add "Pinterest/" to that list).</p>';
+							(for example, look for a "<em>User-Agent Exclusion Pattern</em>" option and add "Pinterest/" to that list).</p>
+							</blockquote>';
 							break;
 						case 'info-taglist':
-							$text = '<p>'.$this->p->cf['full'].' will add the following Google / SEO, Facebook, Open Graph, Schema, 
+							$text = '<blockquote style="margin-top:0;margin-bottom:0;">
+							<p>'.$this->p->cf['short'].' will add the following Google / SEO, Facebook, Open Graph, Schema, 
 							and Twitter Card HTML tags to the <code>head</code> section of your webpages. 
 							If your theme or another plugin already generates one or more of these HTML tags, you can uncheck them here 
 							to prevent duplicates from being added (as an example, the "meta name description" HTML tag is automatically 
-							unchecked if a known SEO plugin is detected).</p>';
+							unchecked if a known SEO plugin is detected).</p>
+							</blockquote>';
 							break;
 						case 'info-cm':
-							$text = '<p>The following options allow you to customize the contact field names and labels shown on the
+							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
+							<p>The following options allow you to customize the contact field names and labels shown on the
 							<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.
-							'.$this->p->cf['full'].' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags 
+							'.$this->p->cf['short'].' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags 
 							(along with the Twitter social sharing button).
 							<strong>You should not modify the Contact Field Name unless you have a very good reason to do so.</strong>
 							The Profile Contact Label on the other hand, is for <strong>display purposes only</strong>, and its text can be changed as you wish.
@@ -843,11 +852,15 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							contact fields in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
 							target="_blank">get_the_author_meta()</a> for examples).</p>
 							<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY.</strong><br/>
-							Enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.</p>';
+							Enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.</p>
+							</blockquote>';
 							break;
 						case 'info-sharing-include':
-							$text = '<p>The buttons enabled bellow (along with those in the widget) can be included or excluded from specific webpage types.
-							This does not apply to the shortcode and function buttons, which are displayed (or not) based on their parameter settings.</p>';
+							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
+							<p>The buttons enabled bellow (along with those in the widget) can be included or excluded from specific webpage types.
+							This does <em>not</em> apply to the shortcode and function buttons, which are displayed (or not) based on their own
+							parameter options.</p>
+							</blockquote>';
 							break;
 						/*
 						 * Other settings
@@ -858,26 +871,30 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					}
 					break;
 
+				case 'tooltip-site-use':
+					$text = 'Individual sites/blogs may use this option value as a default (when the plugin is first activated),
+					if the current site/blog value is blank, or force every site/blog to use this value (disabling the option).';
+					break;
+
 				case 'pro-feature-msg':
+					/*
 					if ( $this->p->is_avail['aop'] == true )
-						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" 
-						target="_blank">Purchase Pro version licence(s) to access the following options and enable Pro addon features</a></p>';
-					else
-						$text = '<p class="pro-feature-msg"><a href="'.$this->p->cf['url']['purchase'].'" 
-						target="_blank">Purchase the Pro version plugin to access the following options and enable Pro addon features</a></p>';
+						$text = '<p class="pro-feature-msg"><a href="'.$urls['purchase'].'" target="_blank">Purchase Pro version licence(s) 
+							to access the following options and enable Pro addon features</a></p>';
+					else $text = '<p class="pro-feature-msg"><a href="'.$urls['purchase'].'" target="_blank">Purchase the Pro version plugin 
+						to access the following options and enable Pro addon features</a></p>';
+					*/
 					break;
 				case 'pro-activate-nag':
-					$url = $this->p->util->get_admin_url( 'advanced' );
-					//if ( is_multisite() && strpos( $_SERVER['REQUEST_URI'], '?page='.$this->p->cf['lca'].'-' ) !== false )
-					if ( ! is_multisite() )
-						$text = '<p>The '.$this->p->cf['full'].' Authentication ID option value is empty.<br/>
-						To enable Pro version features and allow the plugin to authenticate itself for future updates,<br/>
-						<a href="'.$url.'">enter the unique Authenticaton ID you received by email on the '.
-						$this->p->cf['menu'].' Advanced settings page</a>.</p>';
-
+					if ( ! is_multisite() ) {
+						$text = '<p><strong>The '.$this->p->cf['short'].' Authentication ID option value is empty.<br/>
+						To enable Pro version features, and allow the plugin to authenticate itself for updates,<br/>
+						please '.$this->p->util->get_admin_url( 'licenses', 'enter the unique Authentication ID you received 
+						by email in the Licenses settings' ).'.</strong></p>';
+					}
 					break;
 				case 'side-purchase':
-					$text = '<p>'.$this->p->cf['full_pro'].' can be purchased quickly and easily via Paypal
+					$text = '<p>'.$this->p->cf['short_pro'].' can be purchased quickly and easily via Paypal
 					&ndash; and '.( $this->p->is_avail['aop'] == true ? 'licensed' : 'installed' ).' immediately following your purchase. 
 					Pro version licenses do not expire and there are no recurring or yearly fees for updates and support.';
 					break;
@@ -887,14 +904,14 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					Values in multiple tabs can be edited before clicking the \'Save All Changes\' button.</p>';
 					if ( $this->p->is_avail['aop'] == true )
 						$text .= '<p><strong>Need help with the Pro version?</strong>
-						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">FAQs</a>, 
-						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Notes</a>,
-						and / or <a href="'.$this->p->cf['url']['pro_ticket'].'" target="_blank">submit a new support ticket</a>.</p>';
+						Review the <a href="'.$urls['faq'].'" target="_blank">FAQs</a>, 
+						the <a href="'.$urls['notes'].'" target="_blank">Notes</a>,
+						and / or <a href="'.$urls['pro_ticket'].'" target="_blank">Submit a New Support Ticket</a>.</p>';
 					else
 						$text .= '<p><strong>Need help with the Free version?</strong>
-						Review the <a href="'.$this->p->cf['url']['faq'].'" target="_blank">FAQs</a>, 
-						the <a href="'.$this->p->cf['url']['notes'].'" target="_blank">Notes</a>, 
-						and / or visit the <a href="'.$this->p->cf['url']['support'].'" target="_blank">Support Forum</a> on WordPress.org.</p>';
+						Review the <a href="'.$urls['faq'].'" target="_blank">FAQs</a>, 
+						the <a href="'.$urls['notes'].'" target="_blank">Notes</a>, 
+						and / or visit the <a href="'.$urls['wp_support'].'" target="_blank">Support Forum</a> on WordPress.org.</p>';
 					break;
 				/*
 				 * Other messages
