@@ -230,7 +230,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 */
 			$header_array = array_merge(
 				$this->get_single_tag( 'meta', 'name', 'generator',
-					$this->p->cf['short'].' '.$this->p->cf['version'].
+					$this->p->cf['short'].' '.$this->p->cf['plugin'][$this->p->cf['lca']]['version'].
 						( $this->p->check->is_aop() ? 'L' : 
 							( $this->p->is_avail['aop'] ? 'U' : 'G' ) ) ),
 				$this->get_tag_array( 'link', 'rel', $link_rel ),

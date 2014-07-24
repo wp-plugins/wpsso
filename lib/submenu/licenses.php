@@ -33,13 +33,13 @@ if ( ! class_exists( 'WpssoSubmenuLicenses' ) && class_exists( 'WpssoAdmin' ) ) 
 					SucomUpdate::get_option( $lca, 'qty_used' ) : false;
 
 				echo '<tr>';
-				if ( empty( $info['purchase'] ) )
+				if ( empty( $info['url']['purchase'] ) )
 					echo $this->p->util->th( $info['name'], 'nowrap' );
-				else echo $this->p->util->th( '<a href="'.$info['purchase'].'" target="_blank">'.$info['name'].'</a>', 'nowrap' );
+				else echo $this->p->util->th( '<a href="'.$info['url']['purchase'].'" target="_blank">'.$info['name'].'</a>', 'nowrap' );
 
 				if ( $this->p->cf['lca'] === $lca || $this->p->check->is_aop() )
 					echo '<td class="medium">'.$this->form->get_input( 'plugin_'.$lca.'_tid', 'medium mono' );
-				else echo '<td class="medium blank">'.$this->form->get_fake_input( 'plugin_'.$lca.'_tid', 'medium mono' );
+				else echo '<td class="medium blank">'.$this->form->get_no_input( 'plugin_'.$lca.'_tid', 'medium mono' );
 
 				echo '</td><td>';
 				if ( ! empty( $qty_used ) ) 

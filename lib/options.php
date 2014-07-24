@@ -29,7 +29,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				$this->p->cf['opt']['site_defaults'] = apply_filters( $this->p->cf['lca'].'_get_site_defaults', $this->p->cf['opt']['site_defaults'] );
 				$this->p->cf['opt']['site_defaults']['options_filtered'] = true;
 				$this->p->cf['opt']['site_defaults']['options_version'] = $this->p->cf['opt']['version'];
-				$this->p->cf['opt']['site_defaults']['plugin_version'] = $this->p->cf['version'];
+				$this->p->cf['opt']['site_defaults']['plugin_version'] = $this->p->cf['*']['version'];
 			}
 			if ( ! empty( $idx ) ) {
 				if ( array_key_exists( $idx, $defs ) )
@@ -67,7 +67,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				$this->p->cf['opt']['defaults'] = apply_filters( $this->p->cf['lca'].'_get_defaults', $this->p->cf['opt']['defaults'] );
 				$this->p->cf['opt']['defaults']['options_filtered'] = true;
 				$this->p->cf['opt']['defaults']['options_version'] = $this->p->cf['opt']['version'];
-				$this->p->cf['opt']['defaults']['plugin_version'] = $this->p->cf['version'];
+				$this->p->cf['opt']['defaults']['plugin_version'] = $this->p->cf['*']['version'];
 			}
 			if ( ! empty( $idx ) ) 
 				if ( array_key_exists( $idx, $this->p->cf['opt']['defaults'] ) )
@@ -81,7 +81,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			if ( ! empty( $opts ) && is_array( $opts ) ) {
 
 				// check version in saved options, upgrade if they don't match
-				if ( ( empty( $opts['plugin_version'] ) || $opts['plugin_version'] !== $this->p->cf['version'] ) ||
+				if ( ( empty( $opts['plugin_version'] ) || $opts['plugin_version'] !== $this->p->cf['*']['version'] ) ||
 					( empty( $opts['options_version'] ) || $opts['options_version'] !== $this->p->cf['opt']['version'] ) ) {
 
 					// upgrade the options if options version mismatch
@@ -227,7 +227,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			// mark the new options as current
 			$previous_opts_version = $opts['options_version'];
 			$opts['options_version'] = $this->p->cf['opt']['version'];
-			$opts['plugin_version'] = $this->p->cf['version'];
+			$opts['plugin_version'] = $this->p->cf['*']['version'];
 
 			$opts = apply_filters( $this->p->cf['lca'].'_save_options', $opts, $options_name );
 

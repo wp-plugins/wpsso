@@ -88,9 +88,6 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					break;
 
 				case 'cm-custom' :
-					if ( ! $this->p->check->is_aop() )
-						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
-
 					$rows[] = '<td></td>'.
 					$this->p->util->th( 'Show', 'left checkbox' ).
 					$this->p->util->th( 'Contact Field Name', 'left medium', 'custom-cm-field-name' ).
@@ -101,8 +98,8 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 						$cm_opt = 'plugin_cm_'.$pre.'_';
 
 						// check for the lib website classname for a nice 'display name'
-						$name = empty( $this->p->cf['lib']['website'][$id] ) ? 
-							ucfirst( $id ) : $this->p->cf['lib']['website'][$id];
+						$name = empty( $this->p->cf['*']['lib']['website'][$id] ) ? 
+							ucfirst( $id ) : $this->p->cf['*']['lib']['website'][$id];
 						$name = $name == 'GooglePlus' ? 'Google+' : $name;
 
 						switch ( $id ) {
@@ -119,9 +116,9 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 										'<td>'.$this->form->get_input( $cm_opt.'label' ).'</td>';
 									} else {
 										$rows[] = $this->p->util->th( $name, 'medium' ).
-										'<td class="blank checkbox">'.$this->form->get_fake_checkbox( $cm_opt.'enabled' ).'</td>'.
-										'<td class="blank">'.$this->form->get_fake_input( $cm_opt.'name', 'medium' ).'</td>'.
-										'<td class="blank">'.$this->form->get_fake_input( $cm_opt.'label' ).'</td>';
+										'<td class="blank checkbox">'.$this->form->get_no_checkbox( $cm_opt.'enabled' ).'</td>'.
+										'<td class="blank">'.$this->form->get_no_input( $cm_opt.'name', 'medium' ).'</td>'.
+										'<td class="blank">'.$this->form->get_no_input( $cm_opt.'label' ).'</td>';
 									}
 								}
 								break;
@@ -131,9 +128,6 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					break;
 
 				case 'cm-builtin' :
-					if ( ! $this->p->check->is_aop() )
-						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
-
 					$rows[] = '<td></td>'.
 					$this->p->util->th( 'Show', 'left checkbox' ).
 					$this->p->util->th( 'Contact Field Name', 'left medium', 'wp-cm-field-name' ).
@@ -146,14 +140,14 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 							if ( $this->p->check->is_aop() ) {
 								$rows[] = $this->p->util->th( $name, 'medium' ).
 								'<td class="checkbox">'.$this->form->get_checkbox( $cm_opt.'enabled' ).'</td>'.
-								'<td>'.$this->form->get_fake_input( $cm_opt.'name', 'medium' ).'</td>'.
+								'<td>'.$this->form->get_no_input( $cm_opt.'name', 'medium' ).'</td>'.
 								'<td>'.$this->form->get_input( $cm_opt.'label' ).'</td>';
 							} else {
 								$rows[] = $this->p->util->th( $name, 'medium' ).
 								'<td class="blank checkbox">'.$this->form->get_hidden( $cm_opt.'enabled' ).
-									$this->form->get_fake_checkbox( $cm_opt.'enabled' ).'</td>'.
-								'<td>'.$this->form->get_fake_input( $cm_opt.'name', 'medium' ).'</td>'.
-								'<td class="blank">'.$this->form->get_fake_input( $cm_opt.'label' ).'</td>';
+									$this->form->get_no_checkbox( $cm_opt.'enabled' ).'</td>'.
+								'<td>'.$this->form->get_no_input( $cm_opt.'name', 'medium' ).'</td>'.
+								'<td class="blank">'.$this->form->get_no_input( $cm_opt.'label' ).'</td>';
 							}
 						}
 					}

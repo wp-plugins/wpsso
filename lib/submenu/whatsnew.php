@@ -21,7 +21,13 @@ if ( ! class_exists( 'WpssoSubmenuWhatsnew' ) && class_exists( 'WpssoAdmin' ) ) 
 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-			add_meta_box( $this->pagehook.'_whatsnew', $this->p->cf['short'].' version '.$this->p->cf['version'], array( &$this, 'show_metabox_whatsnew' ), $this->pagehook, 'normal' );
+			add_meta_box( 
+				$this->pagehook.'_whatsnew', 
+				$this->p->cf['short'].' version '.$this->p->cf['plugin'][$this->p->cf['lca']]['version'], 
+				array( &$this, 'show_metabox_whatsnew' ), 
+				$this->pagehook, 
+				'normal'
+			);
 		}
 
 		public function show_metabox_whatsnew() {

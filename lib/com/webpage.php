@@ -22,11 +22,15 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 		}
 
 		private function set_objects() {
-			if ( ! empty( $this->p->options['plugin_shortcodes'] ) && ! empty( $this->p->cf['lib']['shortcode'] ) ) {
-				foreach ( $this->p->cf['lib']['shortcode'] as $id => $name ) {
-					$classname = apply_filters( $this->p->cf['lca'].'_load_lib', false, 'shortcode/'.$id );
-					if ( $classname !== false && class_exists( $classname ) )
-						$this->shortcode[$id] = new $classname( $this->p );
+			if ( ! empty( $this->p->options['plugin_shortcodes'] ) ) {
+				foreach ( $this->cf['plugin'] as $lca => $info ) {
+					if ( isset( $info['lib']['shortcode'] ) && is_array( $info['lib']['shortcode'] ) ) {
+						foreach ( $info['lib']['shortcode'] as $id => $name ) {
+							$classname = apply_filters( $lca.'_load_lib', false, 'shortcode/'.$id );
+							if ( $classname !== false && class_exists( $classname ) )
+								$this->shortcode[$id] = new $classname( $this->p );
+						}
+					}
 				}
 			}
 		}
@@ -449,9 +453,9 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				else $filter_removed = false;
 
 				// remove all of our shortcodes
-				if ( ! empty( $this->p->cf['lib']['shortcode'] ) && 
-					is_array( $this->p->cf['lib']['shortcode'] ) )
-						foreach ( $this->p->cf['lib']['shortcode'] as $id => $name )
+				if ( isset( $this->p->cf['*']['lib']['shortcode'] ) && 
+					is_array( $this->p->cf['*']['lib']['shortcode'] ) )
+						foreach ( $this->p->cf['*']['lib']['shortcode'] as $id => $name )
 							if ( array_key_exists( $id, $this->shortcode ) && 
 								is_object( $this->shortcode[$id] ) )
 									$this->shortcode[$id]->remove();
@@ -471,9 +475,9 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$this->p->sharing->add_buttons_filter( 'the_content' );
 
 				// add our shortcodes back
-				if ( ! empty( $this->p->cf['lib']['shortcode'] ) && 
-					is_array( $this->p->cf['lib']['shortcode'] ) )
-						foreach ( $this->p->cf['lib']['shortcode'] as $id => $name )
+				if ( isset( $this->p->cf['*']['lib']['shortcode'] ) && 
+					is_array( $this->p->cf['*']['lib']['shortcode'] ) )
+						foreach ( $this->p->cf['*']['lib']['shortcode'] as $id => $name )
 							if ( array_key_exists( $id, $this->shortcode ) && 
 								is_object( $this->shortcode[$id] ) )
 									$this->shortcode[$id]->add();

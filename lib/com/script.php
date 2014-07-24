@@ -23,10 +23,27 @@ if ( ! class_exists( 'SucomScript' ) ) {
 
 		public function admin_enqueue_scripts( $hook ) {
 			$url_path = constant( $this->p->cf['uca'].'_URLPATH' );
-			wp_register_script( 'jquery-qtip', $url_path.'js/ext/jquery-qtip.min.js', array( 'jquery' ), '1.0.0-RC3', true );
-			wp_register_script( 'sucom_tooltips', $url_path.'js/com/jquery-tooltips.min.js', array( 'jquery' ), $this->p->cf['version'], true );
-			wp_register_script( 'sucom_postmeta', $url_path.'js/com/jquery-postmeta.min.js', array( 'jquery' ), $this->p->cf['version'], true );
-
+			wp_register_script( 
+				'jquery-qtip', 
+				$url_path.'js/ext/jquery-qtip.min.js', 
+				array( 'jquery' ), 
+				'1.0.0-RC3',
+				true
+			);
+			wp_register_script( 
+				'sucom_tooltips', 
+				$url_path.'js/com/jquery-tooltips.min.js', 
+				array( 'jquery' ), 
+				$this->p->cf['plugin'][$this->p->cf['lca']]['version'], 
+				true
+			);
+			wp_register_script( 
+				'sucom_postmeta', 
+				$url_path.'js/com/jquery-postmeta.min.js',
+				array( 'jquery' ),
+				$this->p->cf['plugin'][$this->p->cf['lca']]['version'],
+				true
+			);
 			// don't load our javascript where we don't need it
 			switch ( $hook ) {
 				case 'user-edit.php' :

@@ -336,13 +336,13 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			$cf = WpssoConfig::get_config( null, true );
 
 			$parent_slug = 'options-general.php';
-			foreach ( array_keys( $cf['lib']['setting'] ) as $id ) {
+			foreach ( array_keys( $cf['*']['lib']['setting'] ) as $id ) {
 				$menu_slug = $cf['lca'].'-'.$id;
 				self::delete_metabox_pagehook( $user_id, $menu_slug, $parent_slug );
 			}
 
-			$parent_slug = $cf['lca'].'-'.key( $cf['lib']['submenu'] );
-			foreach ( array_keys( $cf['lib']['submenu'] ) as $id ) {
+			$parent_slug = $cf['lca'].'-'.key( $cf['*']['lib']['submenu'] );
+			foreach ( array_keys( $cf['*']['lib']['submenu'] ) as $id ) {
 				$menu_slug = $cf['lca'].'-'.$id;
 				self::delete_metabox_pagehook( $user_id, $menu_slug, $parent_slug );
 			}

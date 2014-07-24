@@ -101,7 +101,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[] = $this->p->util->th( 'Default Image URL', null, 'og_def_img_url' ).
 					'<td>'.( empty( $this->p->options['og_def_img_id'] ) ? 
 						$this->form->get_input( 'og_def_img_url', 'wide' ) :
-						$this->form->get_fake_input( 'og_def_img_url', 'wide' ) ).'</td>';
+						$this->form->get_no_input( 'og_def_img_url', 'wide' ) ).'</td>';
 	
 					break;
 

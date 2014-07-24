@@ -870,20 +870,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 					}
 					break;
-
 				case 'tooltip-site-use':
 					$text = 'Individual sites/blogs may use this option value as a default (when the plugin is first activated),
 					if the current site/blog value is blank, or force every site/blog to use this value (disabling the option).';
-					break;
-
-				case 'pro-feature-msg':
-					/*
-					if ( $this->p->is_avail['aop'] == true )
-						$text = '<p class="pro-feature-msg"><a href="'.$urls['purchase'].'" target="_blank">Purchase Pro version licence(s) 
-							to access the following options and enable Pro addon features</a></p>';
-					else $text = '<p class="pro-feature-msg"><a href="'.$urls['purchase'].'" target="_blank">Purchase the Pro version plugin 
-						to access the following options and enable Pro addon features</a></p>';
-					*/
 					break;
 				case 'pro-activate-nag':
 					if ( ! is_multisite() ) {

@@ -54,12 +54,13 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$menus[] = 'sitesubmenu';
 			foreach ( $menus as $sub ) {
 				foreach ( $this->p->cf['plugin'] as $lca => $info ) {
-					if ( ! isset( $info['lib'][$sub] ) )
-						continue;
-					foreach ( $info['lib'][$sub] as $id => $name ) {
-						$classname = apply_filters( $lca.'_load_lib', false, $sub.'/'.$id );
-						if ( $classname !== false && class_exists( $classname ) )
-							$this->submenu[$id] = new $classname( $this->p, $id, $name );
+					if ( isset( $info['lib'][$sub] ) ) {
+						foreach ( $info['lib'][$sub] as $id => $name ) {
+							if ( strpos( $id, 'separator' ) !== false ) continue;
+							$classname = apply_filters( $lca.'_load_lib', false, $sub.'/'.$id );
+							if ( $classname !== false && class_exists( $classname ) )
+								$this->submenu[$id] = new $classname( $this->p, $id, $name );
+						}
 					}
 				}
 			}
@@ -111,7 +112,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		public function add_admin_settings() {
-			foreach ( $this->p->cf['lib']['setting'] as $id => $name ) {
+			foreach ( $this->p->cf['*']['lib']['setting'] as $id => $name ) {
 				if ( array_key_exists( $id, $this->submenu ) ) {
 					$parent_slug = 'options-general.php';
 					$this->submenu[$id]->add_submenu_page( $parent_slug );
@@ -120,13 +121,13 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		public function add_network_admin_menus() {
-			$this->add_admin_menus( $this->p->cf['lib']['sitesubmenu'] );
+			$this->add_admin_menus( $this->p->cf['*']['lib']['sitesubmenu'] );
 		}
 
 		public function add_admin_menus( $submenus = false ) {
 
 			if ( ! is_array( $submenus ) )
-				$submenus = $this->p->cf['lib']['submenu'];
+				$submenus = $this->p->cf['*']['lib']['submenu'];
 
 			$this->menu_id = key( $submenus );
 			$this->menu_name = $submenus[ $this->menu_id ];
@@ -242,7 +243,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		public function save_site_options() {
 			$page = empty( $_POST['page'] ) ? 
-				key( $this->p->cf['lib']['sitesubmenu'] ) : $_POST['page'];
+				key( $this->p->cf['*']['lib']['sitesubmenu'] ) : $_POST['page'];
 
 			if ( empty( $_POST[ WPSSO_NONCE ] ) ) {
 				$this->p->debug->log( 'Nonce token validation post field missing.' );
@@ -437,17 +438,17 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		protected function show_form_content() {
-			if ( ! empty( $this->p->cf['lib']['submenu'][$this->menu_id] ) ) {
+			if ( ! empty( $this->p->cf['*']['lib']['submenu'][$this->menu_id] ) ) {
 				echo '<form name="wpsso" id="setting" method="post" action="options.php">';
 				echo $this->form->get_hidden( 'options_version', $this->p->cf['opt']['version'] );
-				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['version'] );
+				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['*']['version'] );
 				settings_fields( $this->p->cf['lca'].'_setting' ); 
 
-			} elseif ( ! empty( $this->p->cf['lib']['sitesubmenu'][$this->menu_id] ) ) {
+			} elseif ( ! empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) ) {
 				echo '<form name="wpsso" id="setting" method="post" action="edit.php?action='.WPSSO_SITE_OPTIONS_NAME.'">';
 				echo '<input type="hidden" name="page" value="'.$this->menu_id.'">';
 				echo $this->form->get_hidden( 'options_version', $this->p->cf['opt']['version'] );
-				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['version'] );
+				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['*']['version'] );
 			}
 			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
 			wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
@@ -508,7 +509,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 			echo '<table class="sucom-setting">';
 			echo '<tr><th class="side">'.__( 'Installed', WPSSO_TEXTDOM ).':</th>';
-			echo '<td colspan="2">'.$this->p->cf['version'].' (';
+			echo '<td colspan="2">'.$this->p->cf['plugin'][$this->p->cf['lca']]['version'].' (';
 			if ( $this->p->is_avail['aop'] ) 
 				echo __( 'Pro', WPSSO_TEXTDOM );
 			else echo __( 'Free', WPSSO_TEXTDOM );
@@ -545,8 +546,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$features = array();
 			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
 				foreach ( $info['lib']['pro'] as $sub => $libs ) {
-					if ( $sub === 'admin' )	// skip status for admin menus and tabs
-						continue;
+					if ( $sub === 'admin' ) continue;	// skip status for admin menus and tabs
 					foreach ( $libs as $id => $name ) {
 						$off = $this->p->is_avail[$sub][$id] ? 'rec' : 'off';
 						$features[$name] = array( 
@@ -566,12 +566,12 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						}
 					}
 				}
-				$features = apply_filters( $lca.'_'.$metabox.'_pro_features', $features );
-				$this->show_plugin_status( $features, ( $this->p->check->is_aop( $lca ) ? '' : 'blank' ) );
 			}
+			$features = apply_filters( $lca.'_'.$metabox.'_pro_features', $features );
+			$this->show_plugin_status( $features, ( $this->p->check->is_aop( $lca ) ? '' : 'blank' ) );
 	
 			$action_buttons = '';
-			if ( empty( $this->p->cf['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
+			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
 				$action_buttons .= $this->form->get_button( __( 'Clear All Cache', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_all_cache' ),
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';
@@ -581,7 +581,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=check_for_updates' ), 
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';
 
-			if ( empty( $this->p->cf['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
+			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
 				$action_buttons .= $this->form->get_button( __( 'Reset Metaboxes', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_metabox_prefs' ),
 						$this->get_nonce(), WPSSO_NONCE ) ).' ';

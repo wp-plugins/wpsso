@@ -112,7 +112,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			}
 
 			foreach ( SucomUtil::array_merge_recursive_distinct( 
-				$this->p->cf['lib']['pro'], self::$mac ) as $sub => $lib ) {
+				$this->p->cf['*']['lib']['pro'], self::$mac ) as $sub => $lib ) {
 
 				$ret[$sub] = array();
 				$ret[$sub]['*'] = false;

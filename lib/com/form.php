@@ -49,7 +49,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
-		public function get_fake_checkbox( $name, $check = array( 1, 0 ), $class = '', $id = '' ) {
+		public function get_no_checkbox( $name, $check = array( 1, 0 ), $class = '', $id = '' ) {
 			return $this->get_checkbox( $name, $check, $class, $id, true );
 		}
 
@@ -76,7 +76,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
-		public function get_fake_radio( $name, $values = array(), $class = '', $id = '', $is_assoc = false ) {
+		public function get_no_radio( $name, $values = array(), $class = '', $id = '', $is_assoc = false ) {
 			return $this->get_radio( $name, $values, $class, $id, $is_assoc, true );
 		}
 
@@ -160,7 +160,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			if ( empty( $name ) ) return;	// just in case
 			if ( $this->in_options( $name.':is' ) && 
 				$this->options[$name.':is'] === 'disabled' )
-					return $this->get_fake_input( $name, $class, $id );
+					return $this->get_no_input( $name, $class, $id );
 			$html = '';
 			$value = $this->in_options( $name ) ? $this->options[$name] : '';
 			if ( ! empty( $len ) && ! empty( $id ) )
@@ -177,7 +177,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
-		public function get_fake_input( $name, $class = '', $id = '' ) {
+		public function get_no_input( $name, $class = '', $id = '' ) {
 			$value = $this->in_options( $name ) ? $this->options[$name] : '';
 			$html = $this->get_hidden( $name ).
 				'<input type="text" disabled="disabled"'.
