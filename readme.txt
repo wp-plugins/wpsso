@@ -202,7 +202,7 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 	<li><strong>0.0108</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.5.5</li>
 	<li><strong>0.0117</strong> secs - All in One SEO Pack v2.1.4</li>
 	<li><strong>0.0130</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
-	<li><strong>0.0176</strong> secs - NextGEN Facebook (NGFB) v7.5.5</li>
+	<li><strong>0.0161</strong> secs - NextGEN Facebook (NGFB) v7.5.6</li>
 	<li><strong>0.0189</strong> secs - Contact Form 7 v3.7.2</li>
 	<li><strong>0.0230</strong> secs - Easy Digital Downloads v1.9.8 (No Products)</li>
 	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
@@ -211,7 +211,7 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 	<li><strong>0.0572</strong> secs - SEO Ultimate v7.6.2</li>
 	<li><strong>0.0579</strong> secs - Facebook v1.5.5</li>
 	<li><strong>0.0656</strong> secs - BuddyPress v1.9.2 (<em>No Activities</em>)</li>
-	<li><strong>0.1051</strong> secs - WordPress SEO by Yoast v1.5.3.3</li>
+	<li><strong>0.1105</strong> secs - WordPress SEO by Yoast v1.5.4.2</li>
 	<li><strong>0.1980</strong> secs - JetPack by WordPress.com v2.9.2</li>
 </ul>
 
@@ -333,6 +333,19 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 21. Screenshot 21 : Post / Page SSO Custom Settings
 
 == Changelog ==
+
+= Version 2.5.6 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Added a new Licenses settings sub-menu page, for both single and network admin menus.
+	* Renamed the 'Network' multisite sub-menu to 'Advanced'.
+	* Modified the 'wpsso_load_lib' filter to return a class name.
+	* Modified the `SucomUpdate` class construct to receive an *array* of plugin options (as the second argument).
+	* Renamed the 'plugin_tid' option to 'plugin_wpsso_tid'.
+	* Renamed all GPL and Pro class names to start with  'WpssoGpl' or 'WpssoPro'.
+	* Re-structured the `NgfbConfig::$cf` array to support multiple plugin configs (for future WPSSO extension plugins).
 
 = Version 2.5.5 =
 
