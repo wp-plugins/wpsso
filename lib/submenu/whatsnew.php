@@ -33,8 +33,11 @@ if ( ! class_exists( 'WpssoSubmenuWhatsnew' ) && class_exists( 'WpssoAdmin' ) ) 
 		public function show_metabox_whatsnew() {
 			echo '<table class="sucom-setting whatsnew-metabox"><tr><td>';
 			echo $this->p->msgs->get( 'info-review' );
-			echo $this->p->util->get_remote_content( '', 
-				constant( $this->p->cf['uca'].'_PLUGINDIR' ).'whatsnew.html' );
+			echo $this->p->util->get_remote_content( 
+				'', 
+				constant( $this->p->cf['uca'].'_PLUGINDIR' ).'whatsnew.html',
+				$this->p->cf['*']['version']
+			);
 			echo '</td></tr></table>';
 		}
 	}

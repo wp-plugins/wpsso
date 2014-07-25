@@ -199,19 +199,19 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 <strong><em>How Fast is WPSSO Compared to Other Plugins?</em></strong> Very Fast. A few examples from the [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a some well known plugins:
 
 <ul>
-	<li><strong>0.0117</strong> secs - <strong>WordPress Social Sharing Optimization</strong> (WPSSO) v2.5.6</li>
+	<li><strong>0.0117</strong> secs - <em><strong>WordPress Social Sharing Optimization (WPSSO) v2.6</strong></em></li>
 	<li><strong>0.0155</strong> secs - All in One SEO Pack v2.2.1</li>
-	<li><strong>0.0157</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (<em>No Products</em>)</li>
+	<li><strong>0.0157</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (No Products)</li>
 	<li><strong>0.0186</strong> secs - NextGEN Facebook (NGFB) v7.5.6</li>
 	<li><strong>0.0230</strong> secs - Easy Digital Downloads v1.9.8 (No Products)</li>
-	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (<em>No Products</em>)</li>
-	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (<em>No Forums or Topics</em>)</li>
-	<li><strong>0.0407</strong> secs - <em>WordPress Twenty Fourteen Theme</em>
-	<li><strong>0.0425</strong> secs - WooCommerce v2.1.5 (<em>No Products</em>)</li>
-	<li><strong>0.0513</strong> secs - <em>WordPress Core</em> v3.9.1
+	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (No Products)</li>
+	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (No Forums or Topics)</li>
+	<li><strong>0.0407</strong> secs - <strong>WordPress Twenty Fourteen Theme</strong></li>
+	<li><strong>0.0425</strong> secs - WooCommerce v2.1.5 (No Products)</li>
+	<li><strong>0.0513</strong> secs - <strong>WordPress Core v3.9.1</strong><li>
 	<li><strong>0.0572</strong> secs - SEO Ultimate v7.6.2</li>
 	<li><strong>0.0579</strong> secs - Facebook v1.5.5</li>
-	<li><strong>0.0656</strong> secs - BuddyPress v1.9.2 (<em>No Activities</em>)</li>
+	<li><strong>0.0656</strong> secs - BuddyPress v1.9.2 (No Activities)</li>
 	<li><strong>0.1055</strong> secs - WordPress SEO by Yoast v1.5.4.2</li>
 	<li><strong>0.1980</strong> secs - JetPack by WordPress.com v2.9.2</li>
 </ul>
@@ -335,105 +335,22 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
-= Version 2.5.6 =
+= Version 2.6 =
 
 * Bugfixes
 	* *None*
 * Enhancements
 	* Added a new Licenses settings sub-menu page, for both single and network admin menus.
 	* Renamed the 'Network' multisite sub-menu to 'Advanced'.
-	* Modified the 'wpsso_load_lib' filter to return a class name.
+	* Modified the 'wpsso_load_lib' filter to return a class name or false, instead of just true or false.
 	* Modified the `SucomUpdate` class construct to receive an *array* of plugin options (as the second argument).
 	* Renamed the 'plugin_tid' option to 'plugin_wpsso_tid'.
 	* Renamed all GPL and Pro class names to start with  'WpssoGpl' or 'WpssoPro'.
 	* Re-structured the `NgfbConfig::$cf` array to support multiple plugin configs (for future WPSSO extension plugins).
 
-= Version 2.5.5 =
-
-* Bugfixes
-	* Fixed the Basic / All Options switching feature on the settings pages, to save the new display preference upon switching.
-	* Added the missing schema 'itemscope' / 'itemtype' value in the &lt;html&gt; tag for Google+.
-* Enhancements
-	* Added a new 'G+ / Schema Description Length' option on the "Google+ and Search" settings tab.
-	* Added a new 'G+ / Schema Description' field in the Social Settings metabox.
-	* Renamed the 'Default Description' field in the Social Settings metabox to 'Default / OG Description'.
-	* Renamed the 'Google / SEO Description' field in the Social Settings metabox to 'Search / SEO Description'.
-	* Renamed the (not yet documented) 'wpsso_meta_og' filter to 'wpsso_meta_name'.
-	* Added the `$encode` and `$custom` variables to the 'wpsso_title_seed' and 'wpsso_description_seed' filter parameters.
-
-= Version 2.5.4.1 =
-
-* Bugfixes
-	* Added an `is_array()` test for values returned by the WordPress `get_the_terms()` function in the EDD and WooCommerce addons (Pro version).
-* Enhancements
-	* *None*
-
-= Version 2.5.4 =
-
-* Bugfixes
-	* *None*
-* Enhancements
-	* Added the "Read Me", "Setup Guide", and "What's New" setting pages to the Network Admin menu.
-	* Added a new 'Plugin Settings to Display' option to select between a set of 'Basic Plugin Options' and 'All Plugin Options'.
-	* Improved the CSS to add more space between the various plugin option fields (props patrickd his suggestion).
-	* Moved the management of several non-essential options to the Pro version.
-
-= Version 2.5.3 =
-
-* Bugfixes
-	* *None*
-* Enhancements
-	* Added an 'Image Dimensions' option in the Pinterest publisher settings tab.
-	* Added an additional check for images sizes returned by WordPress to validate the aspect ratio of uncropped images. WordPress has an unfortunate habit of returning images that are "close enough" and may return cropped images when an uncropped image was requested.
-
-= Version 2.5.2 =
-
-* Bugfixes
-	* Fixed the post ID reference for header transient objects.
-* Enhancements
-	* Renamed the 'About' settings page to 'Read Me'.
-	* Added a new 'Setup Guide' settings page with [configuration hints and suggestions](http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/).
-	* Added a new 'Welcome' dashboard page, displayed only once, when the options are updated or the plugin is activated.
-	
-= Version 2.5.0 =
-
-* Bugfixes
-	* *None*
-* Enhancements
-	* Renamed the 'Custom Settings' metabox to 'Social Settings'.
-	* Renamed the `$this->p->user` object variable to `$this->p->addons['util']['user']`.
-	* Changed several `is_author()` checks to include support for admin side user profile pages.
-	* Added an `WpssoUtilUser` addon class that extends `WpssoUser`.
-	* Added a 'Gravatar Images for Author Indexes' option on the General settings page.
-	* Added a 'Force Default Image on Author Index' option on the General settings page.
-	* Added a 'Force Default Video on Author Index' option on the General settings page.
-	* Added a 'Show Social Settings on: User Profile' option on the Advanced settings page.
-	* Added a `get_author_image()` method to the `WpssoMedia` class.
-	* Added a `get_author_object()` method to the `SucomUtil` class.
-	* Added the `lib/gpl/admin/user.php` and `lib/gpl/util/user.php` library files.
-	* Added the `lib/pro/admin/user.php`, `lib/pro/util/user.php`, and `lib/pro/media/gravatar.php` library files (Pro version).
-	* Added an 'Author Gravatar' addon to include Gravatar images in author index pages (Pro version).
-	* Added a new 'Social Settings' metabox to the user profile page (Pro version).
-
 == Upgrade Notice ==
 
-= 2.5.5 =
+= 2.6 =
 
-Fixed the option display switching to save current view, missing schema itemtype value for the webpage, and added a 'G+ / Schema Description' field to the Social Settings metabox.
-
-= 2.5.4.1 =
-
-Version 2.5.4 simplifies the settings pages by adding a new 'Plugin Settings to Display' option on the SSO Advanced settings page.
-
-= 2.5.3 =
-
-Adds a new 'Image Dimensions' option on the Pinterest publisher settings tab.
-
-= 2.5.2 =
-
-Added a new 'Setup Guide' settings page and 'Welcome' dashboard page (displayed only once, when options are updated or the plugin is activated).
-
-= 2.5.0 =
-
-Added a new 'Social Settings' metabox to the user profile page, and added support for author Gravatar images (Pro version).
+Added a new 'Licenses' settings page to allow for future plugin extensions, and renamed the 'Network' multisite settings page to 'Advanced'.
 
