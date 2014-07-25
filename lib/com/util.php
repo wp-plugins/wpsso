@@ -393,12 +393,12 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return trim( $text );
 		}
 
-		public function get_remote_content( $url = '', $file = '', $expire_secs = 86400 ) {
+		public function get_remote_content( $url = '', $file = '', $version = '', $expire_secs = 86400 ) {
 			$content = false;
 			$get_remote = empty( $url ) ? false : true;
 
 			if ( $this->p->is_avail['cache']['transient'] ) {
-				$cache_salt = __METHOD__.'(url:'.$url.'_file:'.$file.')';
+				$cache_salt = __METHOD__.'(url:'.$url.'_file:'.$file.'_version:'.$version.')';
 				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
 				$content = get_transient( $cache_id );

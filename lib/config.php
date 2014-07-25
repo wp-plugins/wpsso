@@ -21,7 +21,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.5.6',		// plugin version
+					'version' => '2.6',		// plugin version
 					'name' => 'WordPress Social Sharing Optimization (WPSSO) Pro',
 					'slug' => 'wpsso',
 					'base' => 'wpsso/wpsso.php',
@@ -122,7 +122,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => '294',		// increment when changing default options
+				'version' => '295',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',

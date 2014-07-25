@@ -49,15 +49,19 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 			switch ( $metabox.'-'.$key ) {
 				case 'welcome-whatsnew':
 					$content = $this->p->msgs->get( 'info-review' ).
-						$this->p->util->get_remote_content( '',
-							constant( $this->p->cf['uca'].'_PLUGINDIR' ).'whatsnew.html' );
+						$this->p->util->get_remote_content( 
+							'',
+							constant( $this->p->cf['uca'].'_PLUGINDIR' ).'whatsnew.html',
+							$this->p->cf['*']['version']
+						);
 					$rows[] = '<td>'.$content.'</td>';
 					break;
 				case 'welcome-setup':
-					$setup_url = $this->p->cf['plugin'][$this->p->cf['lca']]['url']['setup'];
 					$content = $this->p->msgs->get( 'info-review' ).
-						$this->p->util->get_remote_content( $setup_url,
-							constant( $this->p->cf['uca'].'_PLUGINDIR' ).'setup.html' );
+						$this->p->util->get_remote_content( 
+							$this->p->cf['plugin'][$this->p->cf['lca']]['url']['setup'],
+							constant( $this->p->cf['uca'].'_PLUGINDIR' ).'setup.html'
+						);
 					$rows[] = '<td>'.$content.'</td>';
 					break;
 			}
