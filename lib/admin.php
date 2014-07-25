@@ -213,8 +213,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					if ( ! $this->p->check->is_aop() ) 
 						array_push( $links, '<a href="'.$urls['purchase'].'">'.__( 'Purchase License', WPSSO_TEXTDOM ).'</a>' );
 				} else {
-					array_push( $links, '<a href="'.$url['wp_support'].'">'.__( 'Forum', WPSSO_TEXTDOM ).'</a>' );
-					array_push( $links, '<a href="'.$url['purchase'].'">'.__( 'Purchase Pro', WPSSO_TEXTDOM ).'</a>' );
+					array_push( $links, '<a href="'.$urls['wp_support'].'">'.__( 'Forum', WPSSO_TEXTDOM ).'</a>' );
+					array_push( $links, '<a href="'.$urls['purchase'].'">'.__( 'Purchase Pro', WPSSO_TEXTDOM ).'</a>' );
 				}
 
 			}

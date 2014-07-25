@@ -23,7 +23,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 		private function set_objects() {
 			if ( ! empty( $this->p->options['plugin_shortcodes'] ) ) {
-				foreach ( $this->cf['plugin'] as $lca => $info ) {
+				foreach ( $this->p->cf['plugin'] as $lca => $info ) {
 					if ( isset( $info['lib']['shortcode'] ) && is_array( $info['lib']['shortcode'] ) ) {
 						foreach ( $info['lib']['shortcode'] as $id => $name ) {
 							$classname = apply_filters( $lca.'_load_lib', false, 'shortcode/'.$id );
