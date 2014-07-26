@@ -202,20 +202,25 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 <ul>
 	<li><strong><font color="blue">0.0075</font></strong> secs - WPSSO Social Sharing Buttons v1.0</li>
 	<li><strong><font color="blue">0.0117</font></strong> secs - <em><strong>WordPress Social Sharing Optimization (WPSSO) v2.6</strong></em></li>
-	<li><strong><font color="blue">0.0155</font></strong> secs - All in One SEO Pack v2.2.1</li>
+	<li><strong><font color="blue">0.0149</font></strong> secs - All in One SEO Pack v2.2.1</li>
 	<li><strong><font color="blue">0.0157</font></strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (No Products)</li>
 	<li><strong><font color="blue">0.0186</font></strong> secs - NextGEN Facebook (NGFB) v7.5.6</li>
+
 	<li><strong><font color="green">0.0230</font></strong> secs - Easy Digital Downloads v1.9.8 (No Products)</li>
+	<li><strong><font color="green">0.0254</font></strong> secs - MailPoet Newsletters (aka Wysija Newsletters) v2.6.9</li>
 	<li><strong><font color="green">0.0322</font></strong> secs - WP e-Commerce v3.8.13.3 (No Products)</li>
 	<li><strong><font color="green">0.0393</font></strong> secs - bbPress v2.5.3 (No Forums or Topics)</li>
 	<li><strong><font color="green">0.0407</font></strong> secs - <strong>WordPress Twenty Fourteen Theme v1.1</strong></li>
 	<li><strong><font color="green">0.0425</font></strong> secs - WooCommerce v2.1.5 (No Products)</li>
+
 	<li><strong><font color="orange">0.0513</font></strong> secs - <strong>WordPress Core v3.9.1</strong></li>
 	<li><strong><font color="orange">0.0572</font></strong> secs - SEO Ultimate v7.6.2</li>
 	<li><strong><font color="orange">0.0579</font></strong> secs - Facebook v1.5.5</li>
 	<li><strong><font color="orange">0.0656</font></strong> secs - BuddyPress v1.9.2 (No Activities)</li>
+
 	<li><strong><font color="red">0.1055</font></strong> secs - WordPress SEO by Yoast v1.5.4.2</li>
 	<li><strong><font color="red">0.1980</font></strong> secs - JetPack by WordPress.com v2.9.2</li>
+	<li><strong><font color="red">0.2085</font></strong> secs - NextGEN Gallery by Photocrati v2.0.66 (No Galleries or Images)</li>
 </ul>
 
 <p><small><em>Benchmarks were executed on dedicated hardware, using an APC opcode/object cache, WordPress v3.9.1, and P3 v1.5.1 configured with opcode optimization enabled (improves accuracy).</em></small></p>
