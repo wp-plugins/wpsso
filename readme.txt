@@ -205,15 +205,15 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 	<li><strong><font color="green">0.0155</font></strong> secs - All in One SEO Pack v2.2.1</li>
 	<li><strong><font color="green">0.0157</font></strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (No Products)</li>
 	<li><strong><font color="green">0.0186</font></strong> secs - NextGEN Facebook (NGFB) v7.5.6</li>
-	<li><strong>0.0230</strong> secs - Easy Digital Downloads v1.9.8 (No Products)</li>
-	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (No Products)</li>
-	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (No Forums or Topics)</li>
-	<li><strong>0.0407</strong> secs - <strong>WordPress Twenty Fourteen Theme v1.1</strong></li>
-	<li><strong>0.0425</strong> secs - WooCommerce v2.1.5 (No Products)</li>
-	<li><strong>0.0513</strong> secs - <strong>WordPress Core v3.9.1</strong></li>
-	<li><strong>0.0572</strong> secs - SEO Ultimate v7.6.2</li>
-	<li><strong>0.0579</strong> secs - Facebook v1.5.5</li>
-	<li><strong>0.0656</strong> secs - BuddyPress v1.9.2 (No Activities)</li>
+	<li><strong><font color="yellow">0.0230</font></strong> secs - Easy Digital Downloads v1.9.8 (No Products)</li>
+	<li><strong><font color="yellow">0.0322</font></strong> secs - WP e-Commerce v3.8.13.3 (No Products)</li>
+	<li><strong><font color="yellow">0.0393</font></strong> secs - bbPress v2.5.3 (No Forums or Topics)</li>
+	<li><strong><font color="yellow">0.0407</font></strong> secs - <strong>WordPress Twenty Fourteen Theme v1.1</strong></li>
+	<li><strong><font color="yellow">0.0425</font></strong> secs - WooCommerce v2.1.5 (No Products)</li>
+	<li><strong><font color="yellow">0.0513</font></strong> secs - <strong>WordPress Core v3.9.1</strong></li>
+	<li><strong><font color="yellow">0.0572</font></strong> secs - SEO Ultimate v7.6.2</li>
+	<li><strong><font color="yellow">0.0579</font></strong> secs - Facebook v1.5.5</li>
+	<li><strong><font color="yellow">0.0656</font></strong> secs - BuddyPress v1.9.2 (No Activities)</li>
 	<li><strong><font color="red">0.1055</font></strong> secs - WordPress SEO by Yoast v1.5.4.2</li>
 	<li><strong><font color="red">0.1980</font></strong> secs - JetPack by WordPress.com v2.9.2</li>
 </ul>
