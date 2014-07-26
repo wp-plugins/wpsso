@@ -199,10 +199,11 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 <strong><em>How Fast is WPSSO Compared to Other Plugins?</em></strong> Very Fast. A few examples from the [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a some well known plugins:
 
 <ul>
+	<li><strong>0.0075</strong> secs - WPSSO Social Sharing Buttons v1.0</li>
 	<li><strong>0.0117</strong> secs - <em><strong>WordPress Social Sharing Optimization (WPSSO) v2.6</strong></em></li>
 	<li><strong>0.0155</strong> secs - All in One SEO Pack v2.2.1</li>
 	<li><strong>0.0157</strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (No Products)</li>
-	<li><strong>0.0190</strong> secs - NextGEN Facebook (NGFB) v7.5.6</li>
+	<li><strong>0.0186</strong> secs - NextGEN Facebook (NGFB) v7.5.6</li>
 	<li><strong>0.0230</strong> secs - Easy Digital Downloads v1.9.8 (No Products)</li>
 	<li><strong>0.0322</strong> secs - WP e-Commerce v3.8.13.3 (No Products)</li>
 	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (No Forums or Topics)</li>
