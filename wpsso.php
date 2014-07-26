@@ -193,6 +193,9 @@ if ( ! class_exists( 'Wpsso' ) ) {
 					delete_option( WPSSO_OPTIONS_NAME );
 					add_option( WPSSO_OPTIONS_NAME, $this->options, null, 'yes' );
 					$this->debug->log( 'default options have been added to the database' );
+
+					if ( defined( 'WPSSO_RESET_ON_ACTIVATE' ) && WPSSO_RESET_ON_ACTIVATE ) 
+						$this->notice->inf( 'Plugin options have been reset to their default values.', true );
 				}
 				$this->debug->log( 'exiting early: init_plugin() to follow' );
 				return;	// no need to continue, init_plugin() will handle the rest
