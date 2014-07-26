@@ -208,7 +208,7 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 	<li><strong>0.0393</strong> secs - bbPress v2.5.3 (No Forums or Topics)</li>
 	<li><strong>0.0407</strong> secs - <strong>WordPress Twenty Fourteen Theme</strong></li>
 	<li><strong>0.0425</strong> secs - WooCommerce v2.1.5 (No Products)</li>
-	<li><strong>0.0513</strong> secs - <strong>WordPress Core v3.9.1</strong><li>
+	<li><strong>0.0513</strong> secs - <strong>WordPress Core v3.9.1</strong></li>
 	<li><strong>0.0572</strong> secs - SEO Ultimate v7.6.2</li>
 	<li><strong>0.0579</strong> secs - Facebook v1.5.5</li>
 	<li><strong>0.0656</strong> secs - BuddyPress v1.9.2 (No Activities)</li>
