@@ -194,7 +194,8 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 WPSSO is fast and coded for performance, making full use of all available caching techniques (persistent / non-persistent object and disk caching). WPSSO loads only the library files and object classes it needs, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
-<strong><em>How Fast is WPSSO Compared to Other Plugins?</em></strong> Very Fast. A few examples from the [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/), using [WP Test Data](http://wptest.io/) and the default settings of a some well known plugins:
+<blockquote>
+<p><strong><em>How Fast is WPSSO Compared to Other Plugins?</em></strong> Very Fast. A few examples metrics from the [P3 (Plugin Performance Profiler)](http://wordpress.org/plugins/p3-profiler/) plugin, using [WP Test Data](http://wptest.io/) and the default settings of several popular plugins, along with the WordPress Core and Twenty Fourteen theme for reference:</p>
 
 <ul>
 	<li><strong>0.0075</strong> secs - WPSSO Social Sharing Buttons v1.0</li>
@@ -215,7 +216,8 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 	<li><strong>0.1980</strong> secs - JetPack by WordPress.com v2.9.2</li>
 </ul>
 
-<p><small><em>Performance tests were executed on dedicated hardware, using an APC opcode/object cache, WordPress v3.9.1, and P3 v1.5.1 configured with opcode optimization enabled (improves accuracy).</em></small></p>
+<p><small><em>Benchmarks executed on dedicated hardware, using an APC opcode/object cache, WordPress v3.9.1, and P3 v1.5.1 configured with opcode optimization enabled (improves accuracy).</em></small></p>
+</blockquote>
 
 = Clean Uninstall =
 
