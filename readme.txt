@@ -353,4 +353,3 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = 2.6 =
 
 Added a new 'Licenses' settings page to allow for future plugin extensions, and renamed the 'Network' multisite settings page to 'Advanced'.
-
