@@ -58,8 +58,6 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 **Pro / Power-User Version**
 
-<strong>Looking for the WPSSO Pro version?</strong> [Upgrade the Free plugin quickly and easily here.](http://surniaulula.com/extend/plugins/wpsso/)
-
 * Twitter Card meta tags (Summary, Large Image, Photo, Gallery, Player, and Product).
 * Customizable image dimensions for each Twitter Card type.
 * Additional profile contact fields with configurable label and field names.
@@ -84,6 +82,8 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 		* Vimeo Videos
 		* Wistia Videos
 		* Youtube Videos and Playlists
+
+<strong>Looking for the WPSSO Pro version?</strong> [Upgrade the Free plugin quickly and easily here.](http://surniaulula.com/extend/plugins/wpsso/)
 
 = Complete Meta Tags =
 
