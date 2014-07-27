@@ -530,10 +530,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			 */
 			echo '<tr><td><h4 style="margin-top:0;">Standard</h4></td></tr>';
 			$features = array(
-				'Debug Messages' => array( 'class' => 'SucomDebug' ),
+				'Debug Messages' => array( 'classname' => 'SucomDebug' ),
 				'Non-Persistant Cache' => array( 'status' => $this->p->is_avail['cache']['object'] ? 'on' : 'rec' ),
 				'Open Graph / Rich Pin' => array( 'status' => class_exists( $this->p->cf['lca'].'Opengraph' ) ? 'on' : 'rec' ),
-				'Pro Update Check' => array( 'class' => 'SucomUpdate' ),
+				'Pro Update Check' => array( 'classname' => 'SucomUpdate' ),
 				'Transient Cache' => array( 'status' => $this->p->is_avail['cache']['transient'] ? 'on' : 'rec' ),
 			);
 			$features = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_gpl_features', $features );
@@ -546,17 +546,18 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$features = array();
 			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
 				foreach ( $info['lib']['pro'] as $sub => $libs ) {
-					if ( $sub === 'admin' ) continue;	// skip status for admin menus and tabs
+					if ( $sub === 'admin' ) 
+						continue;	// skip status for admin menus and tabs
 					foreach ( $libs as $id => $name ) {
 						$off = $this->p->is_avail[$sub][$id] ? 'rec' : 'off';
 						$features[$name] = array( 
 							'status' => class_exists( $lca.'pro'.$sub.$id ) ? 
-								( $this->p->check->is_aop() ? 'on' : $off ) : $off );
-	
-						$features[$name]['tooltip'] = 'If the '.$name.' plugin is detected, '.
-							$this->p->cf['short_pro'].' will load a specific integration addon for '.$name.
-							' to improve the accuracy of Open Graph, Rich Pin, and Twitter Card meta tag values.';
-	
+								( $this->p->check->is_aop( $lca ) ? 'on' : $off ) : $off,
+							'tooltip' => 'If the '.$name.' plugin is detected, '.$this->p->cf['short_pro'].
+								' will load a specific integration addon for '.$name.
+								' to improve the accuracy of Open Graph, Rich Pin, and Twitter Card meta tag values.',
+							'td_class' => $this->p->check->is_aop( $lca ) ? '' : 'blank',
+						);
 						switch ( $id ) {
 							case 'bbpress':
 							case 'buddypress':
@@ -566,9 +567,9 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						}
 					}
 				}
+				$features = apply_filters( $lca.'_'.$metabox.'_pro_features', $features );
 			}
-			$features = apply_filters( $lca.'_'.$metabox.'_pro_features', $features );
-			$this->show_plugin_status( $features, ( $this->p->check->is_aop( $lca ) ? '' : 'blank' ) );
+			$this->show_plugin_status( $features );
 	
 			$action_buttons = '';
 			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
@@ -591,29 +592,32 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			echo '</table>';
 		}
 
-		private function show_plugin_status( $feature = array(), $class = '' ) {
-			$status_images = array( 
+		private function show_plugin_status( $features = array() ) {
+			$images = array( 
 				'on' => 'green-circle.png',
 				'off' => 'gray-circle.png',
 				'rec' => 'red-circle.png',
 			);
-			foreach ( $status_images as $status => $img )
-				$status_images[$status] = '<td style="min-width:0;text-align:center;"'.
-					( empty( $class ) ? '' : ' class="'.$class.'"' ).'><img src="'.WPSSO_URLPATH.
-					'images/'.$img.'" width="12" height="12" /></td>';
+			uksort( $features, 'strcasecmp' );
+			$first = key( $features );
+			foreach ( $features as $name => $arr ) {
 
-			uksort( $feature, 'strcasecmp' );
-			$first = key( $feature );
-			foreach ( $feature as $name => $arr ) {
-				if ( array_key_exists( 'class', $arr ) )
-					$status = class_exists( $arr['class'] ) ? 'on' : 'off';
+				$td_class = empty( $arr['td_class'] ) ? '' : ' '.$arr['td_class'];
+
+				if ( array_key_exists( 'classname', $arr ) )
+					$status = class_exists( $arr['classname'] ) ? 'on' : 'off';
 				elseif ( array_key_exists( 'status', $arr ) )
 					$status = $arr['status'];
+				else $status = '';
+
 				if ( ! empty( $status ) ) {
 					$tooltip_text = empty( $arr['tooltip'] ) ? '' : $arr['tooltip'];
 					$tooltip_text = $this->p->msgs->get( 'tooltip-side-'.$name, $tooltip_text, 'sucom_tooltip_side' );
-					echo '<tr><td class="side'.( empty( $class ) ? '' : ' '.$class ).'">'.$tooltip_text.
-						( $status == 'rec' ? '<strong>'.$name.'</strong>' : $name ).'</td>'.$status_images[$status].'</tr>';
+
+					echo '<tr><td class="side'.$td_class.'">'.
+					$tooltip_text.( $status == 'rec' ? '<strong>'.$name.'</strong>' : $name ).
+					'</td><td style="min-width:0;text-align:center;" class="'.$td_class.'">
+					<img src="'.WPSSO_URLPATH.'images/'.$images[$status].'" width="12" height="12" /></td></tr>';
 				}
 			}
 		}
