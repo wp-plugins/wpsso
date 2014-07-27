@@ -58,7 +58,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			foreach ( $ext as $lca => $info ) {
 				$tid_name = 'plugin_'.$lca.'_tid';					// plugin_ngfb_tid
 				if ( empty( $this->p->options[$tid_name] ) )
-					$this->p->debug->log( 'empty value for '.$tid_name.' option - skipping update config for '.$lca );
+					$this->p->debug->log( 'empty '.$tid_name.' option - no update config for '.$lca );
 				else self::$c[$lca] = array(
 					'slug' => $info['slug'],					// nextgen-facebook
 					'base' => $info['base'],					// nextgen-facebook/nextgen-facebook.php
