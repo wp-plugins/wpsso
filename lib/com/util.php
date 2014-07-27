@@ -478,7 +478,6 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			$hash = '';
 			$url = '';
 			$lca = empty( $lca ) ? $this->p->cf['lca'] : $lca;
-			$info = $this->p->cf['plugin'][ $lca ];
 
 			if ( strpos( $submenu, '#' ) !== false )
 				list( $submenu, $hash ) = explode( '#', $submenu );
@@ -489,16 +488,16 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$current = $_SERVER['REQUEST_URI'];
 				if ( preg_match( '/^.*\?page='.$lca.'-([^&]*).*$/', $current, $match ) )
 					$submenu = $match[1];
-				else $submenu = key( $info['lib']['submenu'] );
+				else $submenu = key( $this->p->cf['*']['lib']['submenu'] );
 			}
 
-			if ( array_key_exists( $submenu, $info['lib']['setting'] ) ) {
+			if ( array_key_exists( $submenu, $this->p->cf['*']['lib']['setting'] ) ) {
 				$page = 'options-general.php?page='.$lca.'-'.$submenu;
 				$url = admin_url( $page );
-			} elseif ( array_key_exists( $submenu, $info['lib']['submenu'] ) ) {
+			} elseif ( array_key_exists( $submenu, $this->p->cf['*']['lib']['submenu'] ) ) {
 				$page = 'admin.php?page='.$lca.'-'.$submenu;
 				$url = admin_url( $page );
-			} elseif ( array_key_exists( $submenu, $info['lib']['sitesubmenu'] ) ) {
+			} elseif ( array_key_exists( $submenu, $this->p->cf['*']['lib']['sitesubmenu'] ) ) {
 				$page = 'admin.php?page='.$lca.'-'.$submenu;
 				$url = network_admin_url( $page );
 			}

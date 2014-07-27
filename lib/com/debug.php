@@ -43,9 +43,9 @@ if ( ! class_exists( 'SucomDebug' ) ) {
 
 			$stack = debug_backtrace();
 			$log_msg = '';
-			$log_msg .= sprintf( '%-30s:: ', 
+			$log_msg .= sprintf( '%-35s:: ', 
 				( empty( $stack[$backtrace]['class'] ) ? '' : $stack[$backtrace]['class'] ) );
-			$log_msg .= sprintf( '%-24s : ', 
+			$log_msg .= sprintf( '%-25s : ', 
 				( empty( $stack[$backtrace]['function'] ) ? '' : $stack[$backtrace]['function'] ) );
 
 			if ( is_multisite() ) {
