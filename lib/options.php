@@ -98,9 +98,8 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					if ( $options_name == WPSSO_OPTIONS_NAME ) {
 						if ( is_admin() && current_user_can( 'manage_options' ) )
 							$this->save_options( $options_name, $opts );
-						//if ( $update_version === true )
-						//	set_transient( $this->p->cf['lca'].'_update_redirect', true, 60 * 60 );
-
+						if ( $update_version === true )
+							set_transient( $this->p->cf['lca'].'_update_redirect', true, 60 * 60 );
 					} else $this->save_options( $options_name, $opts );
 				}
 
