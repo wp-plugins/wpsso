@@ -212,8 +212,10 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 					if ( ( ! empty( $chk['function'] ) && function_exists( $chk['function'] ) ) || 
 						( ! empty( $chk['class'] ) && class_exists( $chk['class'] ) ) ||
 						( ! empty( $chk['plugin'] ) && in_array( $chk['plugin'], $this->active_plugins ) ) ||
-						( ! empty( $chk['optval'] ) && ! empty( $this->p->options[$chk['optval']] ) ) )
-							$ret[$sub]['*'] = $ret[$sub][$id] = true;
+						( ! empty( $chk['optval'] ) && 
+							! empty( $this->p->options[$chk['optval']] ) && 
+							$this->p->options[$chk['optval']] !== 'none' ) )
+								$ret[$sub]['*'] = $ret[$sub][$id] = true;
 				}
 			}
 
