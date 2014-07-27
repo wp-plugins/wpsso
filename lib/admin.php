@@ -441,14 +441,14 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			if ( ! empty( $this->p->cf['*']['lib']['submenu'][$this->menu_id] ) ) {
 				echo '<form name="wpsso" id="setting" method="post" action="options.php">';
 				echo $this->form->get_hidden( 'options_version', $this->p->cf['opt']['version'] );
-				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['*']['version'] );
+				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['plugin'][$this->p->cf['lca']]['version'] );
 				settings_fields( $this->p->cf['lca'].'_setting' ); 
 
 			} elseif ( ! empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) ) {
 				echo '<form name="wpsso" id="setting" method="post" action="edit.php?action='.WPSSO_SITE_OPTIONS_NAME.'">';
 				echo '<input type="hidden" name="page" value="'.$this->menu_id.'">';
 				echo $this->form->get_hidden( 'options_version', $this->p->cf['opt']['version'] );
-				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['*']['version'] );
+				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['plugin'][$this->p->cf['lca']]['version'] );
 			}
 			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
 			wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
