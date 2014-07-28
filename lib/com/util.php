@@ -609,8 +609,11 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			}
 			if ( is_array( $atts ) && ! empty( $atts['is_locale'] ) )
 				$title .= ' <span style="font-weight:normal;">('.self::get_locale().')</span>';
-			return '<th'.( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? '' : ' id="'.$id.'"' ).'><p>'.$title.
+			return '<th'.
+				( empty( $atts['colspan'] ) ? '' : ' colspan="'.$atts['colspan'].'"' ).
+				( empty( $class ) ? '' : ' class="'.$class.'"' ).
+				( empty( $id ) ? '' : ' id="'.$id.'"' ).
+				'><p>'.$title.
 				( empty( $tooltip_text ) ? '' : $tooltip_text ).'</p></th>';
 		}
 
