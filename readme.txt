@@ -337,9 +337,6 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 16. Screenshot 16 : An Example Twitter 'Photo' Card
 17. Screenshot 17 : An Example Twitter 'Gallery' Card
 18. Screenshot 18 : An Example Twitter 'Product' Card
-19. Screenshot 19 : SSO General Settings Page
-20. Screenshot 20 : SSO Advanced Settings Page
-21. Screenshot 21 : Post / Page SSO Custom Settings
 
 == Changelog ==
 
