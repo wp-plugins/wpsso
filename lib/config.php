@@ -23,9 +23,14 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpsso' => array(
 					'version' => '2.6',		// plugin version
 					'name' => 'WordPress Social Sharing Optimization (WPSSO) Pro',
+					'desc' => 'Display your content in the best possible way on Facebook, Google+, Twitter, Pinterest, etc. - no matter how your webpage is shared!',
 					'slug' => 'wpsso',
 					'base' => 'wpsso/wpsso.php',
+					'img' => array(
+						'logo-125x125' => '//ps.w.org/wpsso/assets/logo-125x125.jpg?rev=',
+					),
 					'url' => array(
+						'download' => 'http://wordpress.org/plugins/wpsso/',
 						'update' => 'http://update.surniaulula.com/extend/plugins/wpsso/update/',
 						'purchase' => 'http://surniaulula.com/extend/plugins/wpsso/',
 						'review' => 'http://wordpress.org/support/view/plugin-reviews/wpsso#postform',

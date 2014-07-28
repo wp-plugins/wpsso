@@ -545,6 +545,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			echo '<tr><td><h4>Pro Addons</h4></td></tr>';
 			$features = array();
 			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
+				if ( ! isset( $info['lib']['pro'] ) )
+					continue;
 				foreach ( $info['lib']['pro'] as $sub => $libs ) {
 					if ( $sub === 'admin' ) 
 						continue;	// skip status for admin menus and tabs
