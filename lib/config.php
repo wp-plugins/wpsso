@@ -125,9 +125,21 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						),
 					),
 				),
+				/*
+				'wpssossb' => array(
+					'name' => 'WPSSO Social Sharing Buttons (SSB) Pro',
+					'desc' => 'Social Sharing Buttons (SSB) extension for the WordPress Social Sharing Optimization (WPSSO) plugin.',
+					'img' => array(
+						'logo-125x125' => '//ps.w.org/wpsso-ssb/assets/logo-125x125.jpg?rev=',
+					),
+					'url' => array(
+						'download' => 'http://wordpress.org/plugins/wpsso-ssb/',
+					),
+				),
+				*/
 			),
 			'opt' => array(				// options
-				'version' => '295',		// increment when changing default options
+				'version' => '296',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
