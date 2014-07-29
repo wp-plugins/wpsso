@@ -341,12 +341,14 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$this->p->addons['util']['user']->reset_metabox_prefs( $this->pagehook, array( 'purchase' ), null, 'side', true );
 			}
 
-			add_meta_box( $this->pagehook.'_info', __( 'Version Information', WPSSO_TEXTDOM ), 
-				array( &$this, 'show_metabox_info' ), $this->pagehook, 'side' );
-			add_meta_box( $this->pagehook.'_status', __( 'Plugin Features', WPSSO_TEXTDOM ), 
-				array( &$this, 'show_metabox_status' ), $this->pagehook, 'side' );
 			add_meta_box( $this->pagehook.'_help', __( 'Help and Support', WPSSO_TEXTDOM ), 
 				array( &$this, 'show_metabox_help' ), $this->pagehook, 'side' );
+
+			add_meta_box( $this->pagehook.'_info', __( 'Version Information', WPSSO_TEXTDOM ), 
+				array( &$this, 'show_metabox_info' ), $this->pagehook, 'side' );
+
+			add_meta_box( $this->pagehook.'_status', __( 'Plugin Features', WPSSO_TEXTDOM ), 
+				array( &$this, 'show_metabox_status' ), $this->pagehook, 'side' );
 		}
 
 		public function show_single_page() {
