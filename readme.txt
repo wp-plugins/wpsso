@@ -200,7 +200,7 @@ WPSSO is fast and coded for performance, making full use of all available cachin
 <p>Very Fast. A few examples metrics from the <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a> plugin, using <a href="http://wptest.io/">WP Test Data</a> and the default settings of several popular plugins, along with the WordPress Core and Twenty Fourteen theme for reference:</p>
 
 <ul>
-	<li><strong><font color="blue">0.0075</font></strong> secs - WPSSO Social Sharing Buttons v1.0</li>
+	<li><strong><font color="blue">0.0075</font></strong> secs - WPSSO Social Sharing Buttons (SSB) v1.0</li>
 	<li><strong><font color="blue">0.0117</font></strong> secs - <em><strong>WordPress Social Sharing Optimization (WPSSO) v2.6</strong></em></li>
 	<li><strong><font color="blue">0.0149</font></strong> secs - All in One SEO Pack v2.2.1</li>
 	<li><strong><font color="blue">0.0157</font></strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (No Products)</li>
