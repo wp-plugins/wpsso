@@ -340,6 +340,14 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.1 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Several changes to the plugin's configuration array to allow for future WPSSO extension plugins.
+	* Added the "WPSSO Social Sharing Buttons (SSB)" extension to WPSSO's configuration array.
+
 = Version 2.6 =
 
 * Bugfixes
