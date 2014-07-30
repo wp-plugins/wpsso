@@ -363,6 +363,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
+= 2.6.1 =
+
+Release of the WPSSO Social Sharing Buttons (SSB) v1.0 extension plugin for WPSSO.
+
 = 2.6 =
 
 Added a new 'Licenses' settings page to allow for future plugin extensions, and renamed the 'Network' multisite settings page to 'Advanced'.
