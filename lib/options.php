@@ -257,9 +257,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			return true;
 		}
 
-		public function filter_option_type( $ret, $key ) {
-			if ( ! empty( $ret ) )
-				return $ret;
+		public function filter_option_type( $type, $key ) {
+			if ( ! empty( $type ) )
+				return $type;
 
 			// remove localization for more generic match
 			if ( strpos( $key, '#' ) !== false )
@@ -271,24 +271,20 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case ( strpos( $key, '_css_' ) === false ? false : true ):
 					return 'code';
 					break;
-
 				// twitter-style usernames (prepend with an at)
 				case 'tc_site':
 					return 'atname';
 					break;
-
 				// strip leading urls off facebook usernames
 				case 'fb_admins':
 					return 'urlbase';
 					break;
-
 				// must be a url
 				case 'link_publisher_url':
 				case 'og_publisher_url':
 				case 'og_def_img_url':
 					return 'url';
 					break;
-
 				// must be numeric (blank or zero is ok)
 				case 'seo_def_author_id':
 				case 'og_desc_hashtags': 
@@ -300,29 +296,24 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'plugin_file_cache_hrs':
 					return 'numeric';
 					break;
-
 				// integer options that must be 1 or more (not zero)
 				case 'plugin_object_cache_exp':
 				case ( preg_match( '/_len$/', $key ) ? true : false ):
 					return 'posnum';
 					break;
-
 				// image dimensions, subject to minimum value (typically, at least 200px)
 				case ( preg_match( '/_img_(width|height)$/', $key ) ? true : false ):
 				case ( preg_match( '/^tc_[a-z]+_(width|height)$/', $key ) ? true : false ):
 					return 'imgdim';
 					break;
-
 				// must be texturized 
 				case 'og_title_sep':
 					return 'textured';
 					break;
-
 				// must be alpha-numeric uppercase (hyphens and periods allowed as well)
 				case ( preg_match( '/_tid$/', $key ) ? true : false ):
 					return 'anucase';
 					break;
-
 				// text strings that can be blank
 				case 'og_art_section':
 				case 'og_title':
@@ -336,7 +327,6 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'plugin_cf_vid_url':
 					return 'okblank';
 					break;
-
 				// options that cannot be blank
 				case 'link_author_field':
 				case 'og_img_id_pre': 
@@ -349,7 +339,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					return 'notblank';
 					break;
 			}
-			return $ret;
+			return $type;
 		}
 	}
 }
