@@ -29,14 +29,20 @@ if ( ! class_exists( 'WpssoSubmenuLicenses' ) && class_exists( 'WpssoAdmin' ) ) 
 			echo '<tr><td colspan="4">'.$this->p->msgs->get( 'info-plugin-tid' ).'</td></tr>'."\n";
 
 			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
+				$url = '';
+				$links = '';
 				$qty_used = class_exists( 'SucomUpdate' ) ?
 					SucomUpdate::get_option( $lca, 'qty_used' ) : false;
 
-				if ( ! empty( $info['url']['purchase'] ) )
-					$url = $info['url']['purchase'];
-				elseif ( ! empty( $info['url']['download'] ) )
+				if ( ! empty( $info['url']['download'] ) ) {
 					$url = $info['url']['download'];
-				else $url = '';
+					$links .= ' | <a href="'.$info['url']['download'].'" target="_blank">Download the Free Version</a>';
+				}
+
+				if ( ! empty( $info['url']['purchase'] ) ) {
+					$url = $info['url']['purchase'];
+					$links .= ' | <a href="'.$info['url']['purchase'].'" target="_blank">Purchase a Pro License</a>';
+				}
 
 				if ( ! empty( $info['img']['logo-125x125'] ) )
 					$img = $info['img']['logo-125x125'];
@@ -50,13 +56,15 @@ if ( ! class_exists( 'WpssoSubmenuLicenses' ) && class_exists( 'WpssoAdmin' ) ) 
 				echo '</td>';
 
 				// plugin name
-				echo '<td colspan="3" style="padding-top:10px;"><p><strong>';
-				if ( ! empty( $url ) )
-					echo '<a href="'.$url.'" target="_blank">'.$info['name'].'</a>';
-				else echo $info['name'];
-				echo '</strong></p>';
+				echo '<td colspan="3" style="padding:10px 0 0 0;">
+					<p><strong>'.$info['name'].'</strong></p>';
+
 				if ( ! empty( $info['desc'] ) )
 					echo '<p>'.$info['desc'].'</p>';
+
+				if ( ! empty( $links ) )
+					echo '<p>'.trim( $links, ' |' ).'</p>';
+
 				echo '</td></tr>'."\n";
 
 				if ( ! empty( $info['url']['purchase'] ) || 
@@ -66,15 +74,11 @@ if ( ! class_exists( 'WpssoSubmenuLicenses' ) && class_exists( 'WpssoAdmin' ) ) 
 					if ( $this->p->cf['lca'] === $lca || $this->p->check->is_aop() )
 						echo '<td class="tid">'.$this->form->get_input( 'plugin_'.$lca.'_tid', 'tid mono' );
 					else echo '<td class="tid blank">'.$this->form->get_no_input( 'plugin_'.$lca.'_tid', 'tid mono' );
-					echo '</td><td>';
-					if ( ! empty( $qty_used ) ) 
-						echo '<p>'.$qty_used.' Licenses Assigned</p>';
-					else echo '<p>&nbsp;</p>';
-					echo '</td></tr>'."\n";
-					echo '<tr><td style="padding-bottom:10px;" colspan="3">&nbsp;</td></tr>'."\n";
+					echo '</td><td><p>'.( empty( $qty_used ) ? '' : $qty_used.' Licenses Assigned' ).'</p></td></tr>'."\n";
+					echo '<tr><td colspan="3">&nbsp;</td></tr>'."\n";
 				} else {
 					echo '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</tr>'."\n";
-					echo '<tr><td style="padding-bottom:10px;" colspan="3">&nbsp;</td></tr>'."\n";
+					echo '<tr><td colspan="3">&nbsp;</td></tr>'."\n";
 				}
 			}
 			echo '</table>'."\n";

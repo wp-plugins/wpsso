@@ -160,7 +160,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			global $wp_version;
 			// add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
 			$this->pagehook = add_menu_page( 
-				$this->p->cf['short'].' '.$this->menu_name, 
+				$this->p->short.' : '.$this->menu_name, 
 				$this->p->cf['menu'], 
 				'manage_options', 
 				$menu_slug, 
@@ -180,7 +180,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			} else {
 				$menu_title = empty ( $menu_name ) ? $this->menu_name : $menu_name;
 				$menu_slug = $this->p->cf['lca'].'-'.( empty( $menu_id ) ? $this->menu_id : $menu_id );
-				$page_title = $this->p->cf['short'].' : '.$menu_title;
+				$page_title = $this->p->short.' : '.$menu_title;
 				$function = array( &$this, 'show_form_page' );
 			}
 			// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
@@ -401,7 +401,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						echo ' | <a href="'.wp_nonce_url( $this->p->util->get_admin_url( '?action=change_display_options&display_options='.$next_key ),
 							$this->get_nonce(), WPSSO_NONCE ).'">Display '.$this->p->cf['form']['display_options'][$next_key].'</a>';
 					echo '</div>';
-					echo $this->p->cf['short'].' &ndash; '.$this->menu_name;
+					echo $this->p->short.' &ndash; '.$this->menu_name;
 					?>
 				</h2>
 				<div id="poststuff" class="metabox-holder has-right-sidebar">
@@ -557,7 +557,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						$features[$name] = array( 
 							'status' => class_exists( $lca.'pro'.$sub.$id ) ? 
 								( $this->p->check->is_aop( $lca ) ? 'on' : $off ) : $off,
-							'tooltip' => 'If the '.$name.' plugin is detected, '.$this->p->cf['short_pro'].
+							'tooltip' => 'If the '.$name.' plugin is detected, '.
+								$this->p->cf['plugin'][$this->p->cf['lca']]['short'].' Pro'.
 								' will load a specific integration addon for '.$name.
 								' to improve the accuracy of Open Graph, Rich Pin, and Twitter Card meta tag values.',
 							'td_class' => $this->p->check->is_aop( $lca ) ? '' : 'blank',
@@ -642,6 +643,27 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		public function show_metabox_help() {
 			echo '<table class="sucom-setting"><tr><td>';
 			echo $this->p->msgs->get( 'side-help' );
+			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
+				if ( $lca === $this->p->cf['lca'] ||
+					empty( $info['url']['purchase'] ) )
+						continue;
+				echo '<p><strong>Need Help with '.$info['short'].
+					( $this->p->check->is_aop( $lca ) ? 
+						' Pro' : '' ).'?</strong></p>';
+				echo '<ul>';
+				if ( ! empty( $info['url']['faq'] ) ) {
+					echo '<li>Review the <a href="'.$info['url']['faq'].'" target="_blank">FAQs</a>';
+					if ( ! empty( $info['url']['notes'] ) )
+						echo ' and <a href="'.$info['url']['notes'].'" target="_blank">Notes</a>';
+					echo '</li>';
+				}
+				if ( $this->p->check->is_aop( $lca ) && 
+					! empty( $info['url']['pro_ticket'] ) )
+						echo '<li><a href="'.$info['url']['pro_ticket'].'" target="_blank">Submit a Support Ticket</a></li>';
+				elseif ( ! empty( $info['url']['wp_support'] ) )
+					echo '<li><a href="'.$info['url']['wp_support'].'" target="_blank">Post in the Support Forum</a></li>';
+				echo '</ul>';
+			}
 			echo '</td></tr></table>';
 		}
 

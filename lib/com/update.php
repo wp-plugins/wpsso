@@ -21,7 +21,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		public function __construct( &$plugin, &$ext, $hours = 24 ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
-			$lca = $this->p->cf['lca'];
+			$lca = $this->p->cf['lca'];						// ngfb
 			$slug = $this->p->cf['plugin'][$lca]['slug'];				// nextgen-facebook
 			$this->cron_hook = 'plugin_updates-'.$slug;				// plugin_updates-nextgen-facebook
 			$this->sched_hours = ( empty( $hours ) ? 0 : $hours );			// 24
@@ -59,6 +59,10 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				$tid_name = 'plugin_'.$lca.'_tid';					// plugin_ngfb_tid
 				if ( empty( $this->p->options[$tid_name] ) )
 					$this->p->debug->log( 'empty '.$tid_name.' option - no update config for '.$lca );
+				elseif ( empty( $info['slug'] ) ||
+					empty( $info['base'] ) || 
+					empty( $info['url']['update'] ) )
+						$this->p->debug->log( 'incomplete config array - no update config for '.$lca );
 				else self::$c[$lca] = array(
 					'slug' => $info['slug'],					// nextgen-facebook
 					'base' => $info['base'],					// nextgen-facebook/nextgen-facebook.php
@@ -94,7 +98,8 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		public function inject_data( $result, $action = null, $args = null ) {
 		    	if ( $action == 'plugin_information' && isset( $args->slug ) ) {
 				foreach ( self::$c as $lca => $info ) {
-					if ( $args->slug === $info['slug'] ) {
+					if ( ! empty( $info['slug'] ) && 
+						$args->slug === $info['slug'] ) {
 						$plugin_data = $this->get_json( $lca );
 						if ( ! empty( $plugin_data ) ) 
 							return $plugin_data->json_to_wp();
@@ -114,7 +119,9 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 
 		public function inject_update( $updates = false ) {
 			foreach ( self::$c as $lca => $info ) {
-
+				if ( empty( $info['slug'] ) )
+					continue;
+				
 				// remove existing plugin information to make sure it is correct
 				if ( isset( $updates->response[$info['base']] ) )
 					unset( $updates->response[$info['base']] );	// nextgen-facebook/nextgen-facebook.php
@@ -152,6 +159,9 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			else $plugins = array();
 
 			foreach ( $plugins as $lca => $info ) {
+				if ( empty( $info['slug'] ) )
+					continue;
+
 				$option_data = get_site_option( $info['opt_name'] );
 				if ( empty( $option_data ) ) {
 					$option_data = new StdClass;
@@ -174,6 +184,9 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 		}
 	
 		public function get_json( $lca, $query = array(), $read_cache = true ) {
+			if ( empty( self::$c[$lca]['slug'] ) )
+				return null;
+
 			global $wp_version;
 			$site_url = get_bloginfo( 'url' );
 			$json_url = empty( self::$c[$lca]['json_url'] ) ? '' : self::$c[$lca]['json_url'];

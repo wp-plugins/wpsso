@@ -39,17 +39,23 @@ if ( ! class_exists( 'WpssoSitesubmenuSitelicenses' ) && class_exists( 'WpssoAdm
 
 		public function show_metabox_licenses() {
 			echo '<table class="sucom-setting licenses-metabox" style="padding-bottom:10px">'."\n";
-			echo '<tr><td colspan="6">'.$this->p->msgs->get( 'info-plugin-tid' ).'</td></tr>'."\n";
+			echo '<tr><td colspan="4">'.$this->p->msgs->get( 'info-plugin-tid' ).'</td></tr>'."\n";
 
 			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
+				$url = '';
+				$links = '';
 				$qty_used = class_exists( 'SucomUpdate' ) ?
 					SucomUpdate::get_option( $lca, 'qty_used' ) : false;
 
-				if ( ! empty( $info['url']['purchase'] ) )
-					$url = $info['url']['purchase'];
-				elseif ( ! empty( $info['url']['download'] ) )
+				if ( ! empty( $info['url']['download'] ) ) {
 					$url = $info['url']['download'];
-				else $url = '';
+					$links .= ' | <a href="'.$info['url']['download'].'" target="_blank">Download the Free Version</a>';
+				}
+
+				if ( ! empty( $info['url']['purchase'] ) ) {
+					$url = $info['url']['purchase'];
+					$links .= ' | <a href="'.$info['url']['purchase'].'" target="_blank">Purchase a Pro License</a>';
+				}
 
 				if ( ! empty( $info['img']['logo-125x125'] ) )
 					$img = $info['img']['logo-125x125'];
@@ -63,13 +69,15 @@ if ( ! class_exists( 'WpssoSitesubmenuSitelicenses' ) && class_exists( 'WpssoAdm
 				echo '</td>';
 
 				// plugin name
-				echo '<td colspan="3" style="padding-top:10px;"><p><strong>';
-				if ( ! empty( $url ) )
-					echo '<a href="'.$url.'" target="_blank">'.$info['name'].'</a>';
-				else echo $info['name'];
-				echo '</strong></p>';
+				echo '<td colspan="3" style="padding:10px 0 0 0;">
+					<p><strong>'.$info['name'].'</strong></p>';
+
 				if ( ! empty( $info['desc'] ) )
 					echo '<p>'.$info['desc'].'</p>';
+
+				if ( ! empty( $links ) )
+					echo '<p>'.trim( $links, ' |' ).'</p>';
+
 				echo '</td></tr>'."\n";
 
 				if ( ! empty( $info['url']['purchase'] ) || 
@@ -79,19 +87,14 @@ if ( ! class_exists( 'WpssoSitesubmenuSitelicenses' ) && class_exists( 'WpssoAdm
 					if ( $this->p->cf['lca'] === $lca || $this->p->check->is_aop() )
 						echo '<td class="tid">'.$this->form->get_input( 'plugin_'.$lca.'_tid', 'tid mono' );
 					else echo '<td class="tid blank">'.$this->form->get_no_input( 'plugin_'.$lca.'_tid', 'tid mono' );
-					echo '</td><td>';
-					if ( ! empty( $qty_used ) ) 
-						echo '<p>'.$qty_used.' Licenses Assigned</p>';
-					else echo '<p>&nbsp;</p>';
-					echo '</td></tr>'."\n";
+					echo '</td><td><p>'.( empty( $qty_used ) ? '' : $qty_used.' Licenses Assigned' ).'</p></td></tr>'."\n";
 
 					echo '<tr>'.$this->p->util->th( 'Site Use', 'medium' );
-					echo '<td>';
-					echo $this->form->get_select( 'plugin_'.$lca.'_tid:use', $this->p->cf['form']['site_option_use'], 'site_use' );
+					echo '<td>'.$this->form->get_select( 'plugin_'.$lca.'_tid:use', $this->p->cf['form']['site_option_use'], 'site_use' );
 					echo '</td><td style="padding-bottom:10px;"><p>&nbsp;</p></td></tr>'."\n";
 				} else {
-					echo '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</tr>'."\n";
-					echo '<tr><td style="padding-bottom:10px;" colspan="3">&nbsp;</td></tr>'."\n";
+					echo '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>'."\n";
+					echo '<tr><td style="padding-bottom:10px;" colspan="3"><p>&nbsp;</p></td></tr>'."\n";
 				}
 			}
 			echo '</table>'."\n";

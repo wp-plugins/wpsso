@@ -25,7 +25,7 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 			add_meta_box( 
 				$this->pagehook.'_welcome', 
-				$this->p->cf['short'].' version '.$this->p->cf['plugin'][$this->p->cf['lca']]['version'], 
+				$this->p->short.' version '.$this->p->cf['plugin'][$this->p->cf['lca']]['version'], 
 				array( &$this, 'show_metabox_welcome' ), 
 				$this->pagehook, 
 				'normal'

@@ -22,7 +22,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 		public function get( $idx = '', $atts = null, $class = '' ) {
 			$text = is_array( $atts ) || is_object( $atts ) ? '' : $atts;
 			$idx = sanitize_title_with_dashes( $idx );
-			$urls = $this->p->cf['plugin'][$this->p->cf['lca']]['url'];
+			$lca = $this->p->cf['lca'];
+			$url = $this->p->cf['plugin'][$lca]['url'];
+			$short = $this->p->short;
+			$short_pro = $this->p->cf['plugin'][$lca]['short'].' Pro';
 
 			if ( strpos( $idx, 'tooltip-' ) !== false && empty( $class ) )
 				$class = $this->p->cf['form']['tooltip_class'];	// default tooltip class
@@ -39,7 +42,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							constants</a> is defined.';
 							break;
 						case 'tooltip-side-non-persistant-cache':
-							$text = $this->p->cf['short'].' saves filtered / rendered content to a non-persistant cache
+							$text = $short.' saves filtered / rendered content to a non-persistant cache
 							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>) 
 							for re-use within the same page load. You can disable the use of non-persistant cache (not recommended)
 							using one of the available <a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" 
@@ -56,7 +59,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							a check is scheduled every 24 hours to see if an update is available.';
 							break;
 						case 'tooltip-side-transient-cache':
-							$text = $this->p->cf['short'].' saves Open Graph, Rich Pin, Twitter Card meta tags, etc. to a persistant
+							$text = $short.' saves Open Graph, Rich Pin, Twitter Card meta tags, etc. to a persistant
 							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
 							$this->p->options['plugin_object_cache_exp'].' seconds (default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).
 							' seconds). You can adjust the Transient / Object Cache expiration value in the '.
@@ -72,7 +75,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							Custom descriptions and images can be entered for Open Graph, Rich Pin, and Twitter Card meta tags.';
 							break;
 						case 'tooltip-side-publisher-language':
-							$text = $this->p->cf['short_pro'].' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
+							$text = $short_pro.' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
 							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
 							'. If your website is available in multiple languages, this can be a useful feature.';
 							break;
@@ -89,25 +92,25 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-side-slideshare-api':
 							$text = 'If the embedded Slideshare Presentations option in the '.
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
-							$this->p->cf['short_pro'].' will load an integration addon for Slideshare, to detect embedded Slideshare 
+							$short_pro.' will load an integration addon for Slideshare, to detect embedded Slideshare 
 							presentations and retrieve information using Slideshare\'s oEmbed API (media dimentions, preview image, etc).';
 							break;
 						case 'tooltip-side-vimeo-video-api':
 							$text = 'If the embedded Vimeo Videos option in the '.
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
-							$this->p->cf['short_pro'].' will load an integration addon for Vimeo, to detect embedded Vimeo 
+							$short_pro.' will load an integration addon for Vimeo, to detect embedded Vimeo 
 							videos and retrieve information using Vimeo\'s oEmbed API (media dimentions, preview image, etc).';
 							break;
 						case 'tooltip-side-wistia-video-api':
 							$text = 'If the embedded Wistia Videos option in the '.
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
-							$this->p->cf['short_pro'].' will load an integration addon for Wistia to detect embedded Wistia 
+							$short_pro.' will load an integration addon for Wistia to detect embedded Wistia 
 							videos, and retrieve information using Wistia\'s oEmbed API (media dimentions, preview image, etc).';
 							break;
 						case 'tooltip-side-youtube-video-playlist-api':
 							$text = 'If the embedded Youtube Videos and Playlists option in the '.
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
-							$this->p->cf['short_pro'].' will detect embedded Youtube 
+							$short_pro.' will detect embedded Youtube 
 							videos and playlists, and retrieve information using Youtube\'s XML and oEmbed APIs
 							(media dimentions, preview image, etc).';
 							break;
@@ -115,7 +118,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_side', $text, $idx );
+							$text = apply_filters( $lca.'_tooltip_side', $text, $idx );
 							break;
 					}
 					break;
@@ -153,7 +156,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_user', $text, $idx, $atts );
+							$text = apply_filters( $lca.'_tooltip_user', $text, $idx, $atts );
 							break;
 					}
 					break;
@@ -232,7 +235,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_postmeta', $text, $idx, $atts );
+							$text = apply_filters( $lca.'_tooltip_postmeta', $text, $idx, $atts );
 							break;
 					}
 					break;
@@ -275,21 +278,21 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							(<strong>non-static</strong> homepage, archives, categories). 
 							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
 							then <strong>no image will be included in the meta tags</strong>.
-							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
+							If the option is <em>unchecked</em>, then '.$short.' 
 							will use image(s) from the first entry on the webpage (default is checked).';
 							break;
 						case 'tooltip-og_def_img_on_author':
 							$text = 'Check this option to force the default image on author index webpages.
 							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
 							then <strong>no image will be included in the meta tags</strong>. 
-							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
+							If the option is <em>unchecked</em>, then '.$short.' 
 							will use image(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_def_img_on_search':
 							$text = 'Check this option to force the default image on search results.
 							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
 							then <strong>no image will be included in the meta tags</strong>. 
-							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
+							If the option is <em>unchecked</em>, then '.$short.' 
 							will use image(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_def_vid_url':
@@ -302,21 +305,21 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							(<strong>non-static</strong> homepage, archives, categories). 
 							If this option is <em>checked</em>, but a Default Video URL has not been defined, then 
 							<strong>no video will be included in the meta tags</strong> (this is usually preferred).
-							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
+							If the option is <em>unchecked</em>, then '.$short.' 
 							will use video(s) from the first entry on the webpage (default is checked).';
 							break;
 						case 'tooltip-og_def_vid_on_author':
 							$text = 'Check this option to force the default video on author index webpages.
 							If this option is <em>checked</em>, but a Default Video URL has not been defined, 
 							then <strong>no video will be included in the meta tags</strong>.
-							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
+							If the option is <em>unchecked</em>, then '.$short.' 
 							will use video(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_def_vid_on_search':
 							$text = 'Check this option to force the default video on search results.
 							If this option is <em>checked</em>, but a Default Video URL has not been defined, 
 							then <strong>no video will be included in the meta tags</strong>.
-							If the option is <em>unchecked</em>, then '.$this->p->cf['short'].' 
+							If the option is <em>unchecked</em>, then '.$short.' 
 							will use video(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_ngg_tags':
@@ -401,7 +404,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-og_author_fallback':
 							$text = 'If the Author Profile URL (and the Author Link URL in the Google Settings below) 
-							is not a valid URL, then '.$this->p->cf['short'].' can fallback to using the author index on this 
+							is not a valid URL, then '.$short.' can fallback to using the author index on this 
 							website (\''.trailingslashit( site_url() ).'author/username\' for example). 
 							Uncheck this option to disable the fallback feature (default is unchecked).';
 							break;
@@ -437,7 +440,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_og', $text, $idx );
+							$text = apply_filters( $lca.'_tooltip_og', $text, $idx );
 							break;
 					}
 					break;
@@ -451,18 +454,18 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Plugin Settings' settings
 						 */
 						case 'tooltip-plugin_display':
-							$text = 'Select the number of options to display on the '.$this->p->cf['short'].' settings pages.
+							$text = 'Select the number of options to display on the '.$short.' settings pages.
 							The basic view shows only the essential options that are most commonly used.';
 							break;
 						case 'tooltip-plugin_preserve':
-							$text = 'Check this option if you would like to preserve all '.$this->p->cf['short'].
+							$text = 'Check this option if you would like to preserve all '.$short.
 							' settings when you <em>uninstall</em> the plugin (default is unchecked).';
 							break;
 						case 'tooltip-plugin_debug':
 							$text = 'Add hidden debug messages to the HTML of webpages (default is unchecked).';
 							break;
 						case 'tooltip-plugin_filter_lang':
-							$text = $this->p->cf['short_pro'].' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
+							$text = $short_pro.' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
 							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
 							'. If your website is available in multiple languages, this can be a useful feature.
 							Uncheck this option to ignore the WordPress locale and always use the configured language.'; 
@@ -472,17 +475,17 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							WordPress Media Library (default is checked).';
 							break;
 						case 'tooltip-plugin_shortcodes':
-							$text = 'Enable the '.$this->p->cf['short'].' shortcode features (default is checked).';
+							$text = 'Enable the '.$short.' shortcode features (default is checked).';
 							break;
 						case 'tooltip-plugin_widgets':
-							$text = 'Enable the '.$this->p->cf['short'].' widget features (default is checked).';
+							$text = 'Enable the '.$short.' widget features (default is checked).';
 							break;
 						/*
 						 * 'Content and Filters' settings
 						 */
 						case 'tooltip-plugin_filter_content':
 							$text = 'Apply the standard WordPress \'the_content\' filter to render the content text (default is checked).
-							This renders all shortcodes, and allows '.$this->p->cf['short'].' to detect images and 
+							This renders all shortcodes, and allows '.$short.' to detect images and 
 							embedded videos that may be provided by these.';
 							break;
 						case 'tooltip-plugin_filter_excerpt':
@@ -490,7 +493,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							Check this option if you use shortcodes in your excerpt, for example.';
 							break;
 						case 'tooltip-plugin_ignore_small_img':
-							$text = $this->p->cf['short'].' will retrieve image URLs from HTML tags in the <strong>content</strong>.
+							$text = $short.' will retrieve image URLs from HTML tags in the <strong>content</strong>.
 							The &amp;amp;lt;img/&amp;amp;gt; HTML tags must have a width and height attribute, 
 							and their size must be equal to (or larger) than the 
 							Image Dimensions you\'ve entered on the General settings page. 
@@ -524,7 +527,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'File and Object Cache' settings
 						 */
 						case 'tooltip-plugin_object_cache_exp':
-							$text = $this->p->cf['short'].' saves filtered and rendered content to a non-persistant cache 
+							$text = $short.' saves filtered and rendered content to a non-persistant cache 
 							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>), 
 							and Open Graph / Rich Pin, Twitter Card meta tags to a persistant 
 							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. 
@@ -532,7 +535,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							and the minimum value is 1 second (such a low value is not recommended).';
 							break;
 						case 'tooltip-plugin_file_cache_hrs':
-							$text = $this->p->cf['short'].' can save social sharing JavaScript and images to a cache folder, 
+							$text = $short.' can save social sharing JavaScript and images to a cache folder, 
 							providing URLs to these cached files instead of the originals. 
 							A value of 0 hours (the default) disables the file caching feature. 
 							If your hosting infrastructure performs reasonably well, this option can improve page load times significantly.
@@ -548,7 +551,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_plugin', $text, $idx );
+							$text = apply_filters( $lca.'_tooltip_plugin', $text, $idx );
 							break;
 					}
 					break;
@@ -584,7 +587,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_fb', $text, $idx );
+							$text = apply_filters( $lca.'_tooltip_fb', $text, $idx );
 							break;
 					}
 					break;
@@ -612,7 +615,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							Debugger, you should set this option to \'Display Name\'. ;-)';
 							break;
 						case 'tooltip-google_author_field':
-							$text = $this->p->cf['short'].' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
+							$text = $short.' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
 							These are not Open Graph / Rich Pin meta property tags &mdash; they are used primarily by Google\'s search engine 
 							to associate Google+ profiles with search results. Select which field to use from the author\'s profile
 							for the <em>author</em> link tag.';
@@ -640,7 +643,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_google', $text, $idx );
+							$text = apply_filters( $lca.'_tooltip_google', $text, $idx );
 							break;
 					}
 					break;
@@ -730,7 +733,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_tc', $text, $idx );
+							$text = apply_filters( $lca.'_tooltip_tc', $text, $idx );
 							break;
 					}
 					break;
@@ -759,7 +762,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_tooltip_rp', $text, $idx );
+							$text = apply_filters( $lca.'_tooltip_rp', $text, $idx );
 							break;
 					}
 					break;
@@ -790,12 +793,12 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							if ( empty( $this->p->is_avail['aop'] ) )
 								$text .= 'The Free version is currently installed &mdash; don\'t forget to 
 								update the plugin after entering your Authentication ID. ';
-							$text .= $this->p->cf['short'].' must be active in order to check for Pro version updates.
+							$text .= '<strong>'.$short.' must be active in order to check for Pro version updates.</strong>
 							If you accidentally de-activate the plugin, update checks will be made against WordPress.org,
-							and update notices will be for the Free version &mdash; 
-							always update the Pro version when '.$this->p->cf['short'].' is active. 
-							If you accidentally re-install the Free version, your Authentication ID 
-							will provide another update for the Pro version.</p>
+							and update notices will be for the Free version &mdash; always update a Pro version when '.
+							$short.' (and/or its Pro extensions) are active. 
+							If you accidentally re-install a Free version - don\'t worry - your Authentication ID 
+							will allow you update back to the Pro version.</p>
 							</blockquote>';
 							break;
 						case 'info-plugin-tid-network':
@@ -815,10 +818,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'info-review':
 							$text = '<blockquote style="margin-top:0;">
 							<p>If you appreciate the features or quality of this plugin, and/or the support we provide, please 
-							<a href="'.$urls['review'].'" target="_blank">take a moment to rate the '.
-							WpssoConfig::get_config( 'short' ).' plugin on WordPress.org</a>.</p>
+							<a href="'.$url['review'].'" target="_blank">take a moment to rate the '.$short.' plugin on WordPress.org</a>.</p>
 							<p><strong>Your rating will help other WordPress users find higher quality and better supported plugins</strong> &mdash; 
-							<em>and encourage us to keep improving '.WpssoConfig::get_config( 'short' ).' as well!</em> :)</p>
+							<em>and encourage us to keep improving '.$short.' as well!</em> :)</p>
 							</blockquote>';
 							break;
 						case 'info-pub-pinterest':
@@ -833,7 +835,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'info-taglist':
 							$text = '<blockquote style="margin-top:0;margin-bottom:0;">
-							<p>'.$this->p->cf['short'].' will add the following Google / SEO, Facebook, Open Graph, Schema, 
+							<p>'.$short.' will add the following Google / SEO, Facebook, Open Graph, Schema, 
 							and Twitter Card HTML tags to the <code>head</code> section of your webpages. 
 							If your theme or another plugin already generates one or more of these HTML tags, you can uncheck them here 
 							to prevent duplicates from being added (as an example, the "meta name description" HTML tag is automatically 
@@ -844,7 +846,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
 							<p>The following options allow you to customize the contact field names and labels shown on the
 							<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.
-							'.$this->p->cf['short'].' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags 
+							'.$short.' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags 
 							(along with the Twitter social sharing button).
 							<strong>You should not modify the Contact Field Name unless you have a very good reason to do so.</strong>
 							The Profile Contact Label on the other hand, is for <strong>display purposes only</strong>, and its text can be changed as you wish.
@@ -866,7 +868,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * Other settings
 						 */
 						default:
-							$text = apply_filters( $this->p->cf['lca'].'_messages_info', $text, $idx );
+							$text = apply_filters( $lca.'_messages_info', $text, $idx );
 							break;
 					}
 					break;
@@ -876,37 +878,35 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 				case 'pro-activate-nag':
 					if ( ! is_multisite() ) {
-						$text = '<p><strong>The '.$this->p->cf['short'].' Authentication ID option value is empty.<br/>
+						$text = '<p><strong>The '.$short.' Authentication ID option value is empty.<br/>
 						To enable Pro version features, and allow the plugin to authenticate itself for updates,<br/>
 						please '.$this->p->util->get_admin_url( 'licenses', 'enter the unique Authentication ID you received 
 						by email in the Licenses settings' ).'.</strong></p>';
 					}
 					break;
 				case 'side-purchase':
-					$text = '<p>'.$this->p->cf['short_pro'].' can be purchased quickly and easily via Paypal
+					$text = '<p>'.$short_pro.' can be purchased quickly and easily via Paypal
 					&ndash; and '.( $this->p->is_avail['aop'] == true ? 'licensed' : 'installed' ).' immediately following your purchase. 
 					Pro version licenses do not expire and there are no recurring or yearly fees for updates and support.';
 					break;
 				case 'side-help':
 					$text = '<p>Individual option boxes (like this one) can be opened / closed by clicking on their title bar, 
 					moved and re-ordered by dragging them, and removed / added from the <em>Screen Options</em> tab (top-right).
-					Values in multiple tabs can be edited before clicking the \'Save All Changes\' button.</p>';
-					if ( $this->p->is_avail['aop'] == true )
-						$text .= '<p><strong>Need help with the Pro version?</strong>
-						Review the <a href="'.$urls['faq'].'" target="_blank">FAQs</a>, 
-						the <a href="'.$urls['notes'].'" target="_blank">Notes</a>,
-						and / or <a href="'.$urls['pro_ticket'].'" target="_blank">Submit a New Support Ticket</a>.</p>';
-					else
-						$text .= '<p><strong>Need help with the Free version?</strong>
-						Review the <a href="'.$urls['faq'].'" target="_blank">FAQs</a>, 
-						the <a href="'.$urls['notes'].'" target="_blank">Notes</a>, 
-						and / or visit the <a href="'.$urls['wp_support'].'" target="_blank">Support Forum</a> on WordPress.org.</p>';
+					Values in multiple tabs can be edited before clicking the \'Save All Changes\' button.</p>
+					<p><strong>Need Help with '.$short.'?</strong></p>
+					<ul>
+					<li>Review the <a href="'.$url['faq'].'" target="_blank">FAQs</a> and 
+						<a href="'.$url['notes'].'" target="_blank">Notes</a></li>';
+					if ( $this->p->check->is_aop() === true )
+						$text .= '<li><a href="'.$url['pro_ticket'].'" target="_blank">Submit a Support Ticket</a></li>';
+					else $text .= '<li><a href="'.$url['wp_support'].'" target="_blank">Post in the Support Forum</a></li>';
+					$text .= '</ul>';
 					break;
 				/*
 				 * Other messages
 				 */
 				default:
-					$text = apply_filters( $this->p->cf['lca'].'_messages', $text, $idx );
+					$text = apply_filters( $lca.'_messages', $text, $idx );
 					break;
 
 			}

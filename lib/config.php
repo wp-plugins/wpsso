@@ -16,13 +16,12 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'lca' => 'wpsso',		// lowercase acronym
 			'uca' => 'WPSSO',		// uppercase acronym
 			'menu' => 'SSO',		// menu item label
-			'short' => 'WPSSO',		// short plugin name
-			'short_pro' => 'WPSSO Pro',
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.6',		// plugin version
-					'name' => 'WordPress Social Sharing Optimization (WPSSO) Pro',
+					'version' => '2.6.1',		// plugin version
+					'short' => 'WPSSO',		// short plugin name
+					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
 					'desc' => 'Display your content in the best possible way on Facebook, Google+, Twitter, Pinterest, etc. - no matter how your webpage is shared!',
 					'slug' => 'wpsso',
 					'base' => 'wpsso/wpsso.php',
@@ -125,9 +124,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						),
 					),
 				),
-				/*
 				'wpssossb' => array(
-					'name' => 'WPSSO Social Sharing Buttons (SSB) Pro',
+					'short' => 'WPSSO SSB',		// short plugin name
+					'name' => 'WPSSO Social Sharing Buttons (SSB)',
 					'desc' => 'Social Sharing Buttons (SSB) extension for the WordPress Social Sharing Optimization (WPSSO) plugin.',
 					'img' => array(
 						'logo-125x125' => '//ps.w.org/wpsso-ssb/assets/logo-125x125.jpg?rev=',
@@ -136,7 +135,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'download' => 'http://wordpress.org/plugins/wpsso-ssb/',
 					),
 				),
-				*/
 			),
 			'opt' => array(				// options
 				'version' => '296',		// increment when changing default options

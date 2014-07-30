@@ -9,7 +9,7 @@
  * Description: Display your content in the best possible way on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc - no matter how your webpage is shared!
  * Requires At Least: 3.0
  * Tested Up To: 3.9.1
- * Version: 2.6
+ * Version: 2.6.1
  * 
  * Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
  */
@@ -48,6 +48,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		public $options = array();	// individual blog/site options
 		public $site_options = array();	// multisite options
 		public $addons = array();	// pro and gpl addons
+		public $short = '';
 
 		/**
 		 * Wpsso Constructor
@@ -137,8 +138,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 
 			$this->check = new WpssoCheck( $this );
 			$this->is_avail = $this->check->get_avail();		// uses $this->options in checks
-			if ( $this->is_avail['aop'] ) 
-				$this->cf['short'] = $this->cf['short_pro'];	// adjust short name if pro libs exist
+			$this->short = $this->cf['plugin'][$this->cf['lca']]['short'];
+			if ( $this->is_avail['aop'] ) $this->short .= ' Pro';
 
 			// configure the debug class
 			$html_debug = ! empty( $this->options['plugin_debug'] ) || 
