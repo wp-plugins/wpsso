@@ -266,6 +266,12 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				$key = preg_replace( '/#.*$/', '', $key );
 
 			switch ( $key ) {
+				// js and css
+				case ( strpos( $key, '_js_' ) === false ? false : true ):
+				case ( strpos( $key, '_css_' ) === false ? false : true ):
+					return 'code';
+					break;
+
 				// twitter-style usernames (prepend with an at)
 				case 'tc_site':
 					return 'atname';
