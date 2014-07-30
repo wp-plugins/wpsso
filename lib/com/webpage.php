@@ -531,7 +531,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			else {
 				$tags = array_slice( $this->get_tags( $post_id ), 0, $this->p->options['og_desc_hashtags'] );
 				if ( ! empty( $tags ) ) {
-					$hashtags = '#'.trim( implode( ' #', preg_replace( '/ /', '', $tags ) ) );
+					$hashtags = '#'.trim( implode( ' #', preg_replace( '/[ \[\]#%!\$\?\\\\\/\.\*\+\^\-]/', '', $tags ) ) );
 					$this->p->debug->log( 'hashtags = "'.$hashtags.'"' );
 				}
 			}
