@@ -484,7 +484,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				case 'sitewhatsnew':
 					break;
 				default:
-					echo $this->get_submit_button();
+					echo $this->get_submit_buttons();
 					break;
 			}
 			echo '</form>', "\n";
@@ -526,7 +526,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		public function show_metabox_status() {
 			$metabox = 'status';
-			echo '<table class="sucom-setting">';
+			echo '<table class="sucom-setting" style="margin-bottom:10px;">';
 			/*
 			 * GPL version features
 			 */
@@ -576,24 +576,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 			$this->show_plugin_status( $features );
 	
-			$action_buttons = '';
-			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
-				$action_buttons .= $this->form->get_button( __( 'Clear All Cache', WPSSO_TEXTDOM ), 
-					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_all_cache' ),
-						$this->get_nonce(), WPSSO_NONCE ) ).' ';
-
-			if ( ! empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) )
-				$action_buttons .= $this->form->get_button( __( 'Update Check', WPSSO_TEXTDOM ), 
-					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=check_for_updates' ), 
-						$this->get_nonce(), WPSSO_NONCE ) ).' ';
-
-			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
-				$action_buttons .= $this->form->get_button( __( 'Reset Metaboxes', WPSSO_TEXTDOM ), 
-					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_metabox_prefs' ),
-						$this->get_nonce(), WPSSO_NONCE ) ).' ';
-
-			if ( ! empty( $action_buttons ) )
-				echo '<tr><td colspan="2" class="actions">'.$action_buttons.'</td></tr>';
 			echo '</table>';
 		}
 
@@ -676,10 +658,27 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			echo '</div>';
 		}
 
-		protected function get_submit_button( $submit_text = '', $class = 'save-all-button' ) {
+		protected function get_submit_buttons( $submit_text = '', $class = 'submit-buttons' ) {
 			if ( empty( $submit_text ) ) 
 				$submit_text = __( 'Save All Changes', WPSSO_TEXTDOM );
-			return '<div class="'.$class.'"><input type="submit" class="button-primary" value="'.$submit_text.'" /></div>'."\n";
+			$action_buttons = '<input type="submit" class="button-primary" value="'.$submit_text.'" />';
+
+			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
+				$action_buttons .= $this->form->get_button( __( 'Clear All Cache', WPSSO_TEXTDOM ), 
+					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_all_cache' ),
+						$this->get_nonce(), WPSSO_NONCE ) );
+
+			if ( ! empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) )
+				$action_buttons .= $this->form->get_button( __( 'Update Check', WPSSO_TEXTDOM ), 
+					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=check_for_updates' ), 
+						$this->get_nonce(), WPSSO_NONCE ) );
+
+			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
+				$action_buttons .= $this->form->get_button( __( 'Reset Metaboxes', WPSSO_TEXTDOM ), 
+					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_metabox_prefs' ),
+						$this->get_nonce(), WPSSO_NONCE ) );
+
+			return '<div class="'.$class.'">'.$action_buttons.'</div>';
 		}
 
 		protected function get_nonce() {

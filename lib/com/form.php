@@ -206,14 +206,16 @@ if ( ! class_exists( 'SucomForm' ) ) {
 		}
 
 		public function get_button( $value, $class = '', $id = '', $url = '', $newtab = false ) {
-			$js = $newtab == true ? 
-				"window.open('".$url."', '_blank');" :
-				"location.href='".$url."';";
+			$js = $newtab === true ? 
+				'window.open(\''.$url.'\', \'_blank\');' :
+				'location.href=\''.$url.'\';';
+
 			$html = '<input type="button" '.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
 				( empty( $id ) ? '' : ' id="'.$id.'"' ).
 				( empty( $url ) ? '' : ' onClick="'.$js.'"' ).
 				' value="'.esc_attr( $value ).'" />';
+
 			return $html;
 		}
 

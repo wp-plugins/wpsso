@@ -442,7 +442,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			define( 'WPSSO_PLUGINBASE', plugin_basename( $plugin_filepath ) );
 			define( 'WPSSO_TEXTDOM', $slug );
 			define( 'WPSSO_URLPATH', trailingslashit( plugins_url( '', $plugin_filepath ) ) );
-			define( 'WPSSO_NONCE', md5( WPSSO_PLUGINDIR.'-'.$version ) );
+			define( 'WPSSO_NONCE', md5( WPSSO_PLUGINDIR.'-'.$version.
+				( defined( 'NONCE_SALT' ) ? NONCE_SALT : '' ) ) );
 
 			/*
 			 * Allow some constants to be pre-defined in wp-config.php
@@ -480,7 +481,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				define( 'WPSSO_DEBUG_FILE_EXP', 300 );
 
 			if ( ! defined( 'WPSSO_CURL_USERAGENT' ) )
-				define( 'WPSSO_CURL_USERAGENT', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:18.0) Gecko/20100101 Firefox/18.0' );
+				define( 'WPSSO_CURL_USERAGENT', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36' );
 
 			if ( ! defined( 'WPSSO_CURL_CAINFO' ) )
 				define( 'WPSSO_CURL_CAINFO', WPSSO_PLUGINDIR.'share/curl/cacert.pem' );
