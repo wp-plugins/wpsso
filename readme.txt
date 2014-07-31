@@ -192,7 +192,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and show / r
 
 = Proven Performance =
 
-WPSSO is fast and coded for performance, making full use of all available caching techniques (persistent / non-persistent object and disk caching). WPSSO loads only the library files and object classes it needs, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
+WPSSO is *fast and coded for performance*, making full use of all available caching techniques (persistent / non-persistent object and disk caching). WPSSO loads only the library files and object classes it needs, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
 <blockquote>
 <h4>How Fast is WPSSO?</h4>
