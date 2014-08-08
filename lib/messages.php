@@ -874,9 +874,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'pro-feature-msg':
 					if ( $this->p->is_avail['aop'] == true )
 						$text = '<p class="pro-feature-msg"><a href="'.$url['purchase'].'" 
-						target="_blank">Purchase Pro version licence(s) to access the following options and enable Pro addon features</a></p>';
+						target="_blank">Purchase '.$short_pro.' licence(s) to modify the following options, and enable Pro addon modules</a></p>';
 					else $text = '<p class="pro-feature-msg"><a href="'.$url['purchase'].'" 
-						target="_blank">Purchase the Pro version plugin to access the following options and enable Pro addon features</a></p>';
+						target="_blank">Purchase '.$short_pro.' to modify the following options, and get the extra Pro addon modules</a></p>';
 					break;
 				case 'pro-activate-nag':
 					if ( ! is_multisite() ) {
