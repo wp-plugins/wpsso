@@ -340,6 +340,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.2 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Minor changes to help popup texts.
+
 = Version 2.6.1 =
 
 * Bugfixes
@@ -362,6 +369,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Re-structured the `NgfbConfig::$cf` array to support multiple plugin configs (for future WPSSO extension plugins).
 
 == Upgrade Notice ==
+
+= 2.6.2 =
+
+Minor changes to help popup texts.
 
 = 2.6.1 =
 
