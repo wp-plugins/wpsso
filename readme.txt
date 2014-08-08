@@ -5,7 +5,7 @@ Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, goog
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
-Tested Up To: 3.9.1
+Tested Up To: 3.9.2
 Stable Tag: 2.6.1
 
 Display your content in the best possible way on Facebook, Google+, Twitter, Pinterest, etc. - no matter how your webpage is shared!
