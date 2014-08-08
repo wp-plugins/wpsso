@@ -345,7 +345,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * Bugfixes
 	* *None*
 * Enhancements
-	* Minor changes to help popup texts.
+	* Small updates to the settings help texts.
 
 = Version 2.6.1 =
 
@@ -372,7 +372,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 = 2.6.2 =
 
-Minor changes to help popup texts.
+Small updates to the settings help texts.
 
 = 2.6.1 =
 
