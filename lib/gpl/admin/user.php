@@ -21,6 +21,8 @@ if ( ! class_exists( 'WpssoGplAdminUser' ) ) {
 
 		public function filter_user_header_rows( $rows, $form, $post_info ) {
 
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
 			$rows[] = $this->p->util->th( 'Default Title', 'medium', 'user-og_title', $post_info ). 
 			'<td class="blank">'.$this->p->webpage->get_title( $this->p->options['og_title_len'], '...', false ).'</td>';
 		

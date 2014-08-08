@@ -22,10 +22,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 		public function get( $idx = '', $atts = null, $class = '' ) {
 			$text = is_array( $atts ) || is_object( $atts ) ? '' : $atts;
 			$idx = sanitize_title_with_dashes( $idx );
-			$lca = $this->p->cf['lca'];
+			$lca = isset( $atts['lca'] ) ? $atts['lca'] : $this->p->cf['lca'];
 			$url = $this->p->cf['plugin'][$lca]['url'];
-			$short = $this->p->short;
-			$short_pro = $this->p->cf['plugin'][$lca]['short'].' Pro';
+			$short = isset( $atts['short'] ) ? $atts['short'] : $this->p->cf['plugin'][$lca]['short'];
+			$short_pro = $short.' Pro';
 
 			if ( strpos( $idx, 'tooltip-' ) !== false && empty( $class ) )
 				$class = $this->p->cf['form']['tooltip_class'];	// default tooltip class
@@ -201,9 +201,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							The default description value is refreshed when the '.$ptn.' is saved.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_id':
-							$text = 'A custom Image ID to include first in the Open Graph, Rich Pin, 
-							and \'Large Image Summary\' Twitter Card meta tags, along with the Pinterest 
-							and Tumblr social sharing buttons.';
+							$text = 'A custom Image ID to include first in the Open Graph, Rich Pin, and \'Large Image Summary\' Twitter Card meta tags'.
+							( empty( $this->p->is_avail['ssb'] ) ? '.' : ', along with the Pinterest and Tumblr social sharing buttons.' );
 						 	break;
 						 case 'tooltip-postmeta-og_img_url':
 							$text = 'A custom image URL (instead of an Image ID) to include first in the Open Graph, Rich Pin, 
@@ -214,8 +213,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 	break;
 						 case 'tooltip-postmeta-og_vid_url':
 							$text = 'A custom Video URL to include first in the Open Graph, Rich Pin, and \'Player\' Twitter Card meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Tumblr social sharing button' ).
-							'. If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred 
+							( empty( $this->p->is_avail['ssb'] ) ? '.' : ', along with the Tumblr social sharing button.' ).
+							' If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred 
 							sharing URL, video dimensions, and video preview image. The '.
 							$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video URL Custom Field' ).
 							' Advanced option also allows a 3rd-party to provide a Video URL value for this option.';
@@ -284,9 +283,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-og_def_img_on_author':
 							$text = 'Check this option to force the default image on author index webpages.
 							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
-							then <strong>no image will be included in the meta tags</strong>. 
-							If the option is <em>unchecked</em>, then '.$short.' 
-							will use image(s) returned in the search results (default is unchecked).';
+							then <strong>no image will be included in the meta tags</strong> (default is unchecked).';
 							break;
 						case 'tooltip-og_def_img_on_search':
 							$text = 'Check this option to force the default image on search results.
@@ -311,9 +308,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-og_def_vid_on_author':
 							$text = 'Check this option to force the default video on author index webpages.
 							If this option is <em>checked</em>, but a Default Video URL has not been defined, 
-							then <strong>no video will be included in the meta tags</strong>.
-							If the option is <em>unchecked</em>, then '.$short.' 
-							will use video(s) returned in the search results (default is unchecked).';
+							then <strong>no video will be included in the meta tags</strong> (default is unchecked).';
 							break;
 						case 'tooltip-og_def_vid_on_search':
 							$text = 'Check this option to force the default video on search results.
@@ -466,8 +461,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-plugin_filter_lang':
 							$text = $short_pro.' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
-							'. If your website is available in multiple languages, this can be a useful feature.
+							( empty( $this->p->is_avail['ssb'] ) ? '.' : ', along with the Google, Facebook, and Twitter social sharing buttons.' ).
+							' If your website is available in multiple languages, this can be a useful feature.
 							Uncheck this option to ignore the WordPress locale and always use the configured language.'; 
 							break;
 						case 'tooltip-plugin_auto_img_resize':
@@ -535,7 +530,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							and the minimum value is 1 second (such a low value is not recommended).';
 							break;
 						case 'tooltip-plugin_file_cache_hrs':
-							$text = $short.' can save social sharing JavaScript and images to a cache folder, 
+							$text = $short_pro.' can save social sharing JavaScript and images to a cache folder, 
 							providing URLs to these cached files instead of the originals. 
 							A value of 0 hours (the default) disables the file caching feature. 
 							If your hosting infrastructure performs reasonably well, this option can improve page load times significantly.
@@ -846,9 +841,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
 							<p>The following options allow you to customize the contact field names and labels shown on the
 							<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.
-							'.$short.' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags 
-							(along with the Twitter social sharing button).
-							<strong>You should not modify the Contact Field Name unless you have a very good reason to do so.</strong>
+							'.$short.' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags'.
+							( empty( $this->p->is_avail['ssb'] ) ? '.' : ', along with the Twitter social sharing button.' ).
+							' <strong>You should not modify the Contact Field Name unless you have a very good reason to do so.</strong>
 							The Profile Contact Label on the other hand, is for <strong>display purposes only</strong>, and its text can be changed as you wish.
 							Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying these
 							contact fields in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
@@ -875,6 +870,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'tooltip-site-use':
 					$text = 'Individual sites/blogs may use this option value as a default (when the plugin is first activated),
 					if the current site/blog value is blank, or force every site/blog to use this value (disabling the option).';
+					break;
+				case 'pro-feature-msg':
+					if ( $this->p->is_avail['aop'] == true )
+						$text = '<p class="pro-feature-msg"><a href="'.$url['purchase'].'" 
+						target="_blank">Purchase Pro version licence(s) to access the following options and enable Pro addon features</a></p>';
+					else $text = '<p class="pro-feature-msg"><a href="'.$url['purchase'].'" 
+						target="_blank">Purchase the Pro version plugin to access the following options and enable Pro addon features</a></p>';
 					break;
 				case 'pro-activate-nag':
 					if ( ! is_multisite() ) {

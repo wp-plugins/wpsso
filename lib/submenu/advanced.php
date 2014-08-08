@@ -88,6 +88,8 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					break;
 
 				case 'cm-custom' :
+					if ( ! $this->p->check->is_aop() )
+						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 					$rows[] = '<td></td>'.
 					$this->p->util->th( 'Show', 'left checkbox' ).
 					$this->p->util->th( 'Contact Field Name', 'left medium', 'custom-cm-field-name' ).
@@ -128,6 +130,8 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					break;
 
 				case 'cm-builtin' :
+					if ( ! $this->p->check->is_aop() )
+						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 					$rows[] = '<td></td>'.
 					$this->p->util->th( 'Show', 'left checkbox' ).
 					$this->p->util->th( 'Contact Field Name', 'left medium', 'wp-cm-field-name' ).

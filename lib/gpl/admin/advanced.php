@@ -27,6 +27,8 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 
+				$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
 				$rows[] = $this->p->util->th( 'Use WP Locale for Language', null, 'plugin_filter_lang' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'plugin_filter_lang' ).'</td>';
 
@@ -47,6 +49,8 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 		}
 
 		public function filter_plugin_content_rows( $rows, $form ) {
+
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Apply Content Filters', null, 'plugin_filter_content' ).
 			'<td class="blank">'.$form->get_no_checkbox( 'plugin_filter_content' ).'</td>';
@@ -72,6 +76,8 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 
 		public function filter_plugin_social_rows( $rows, $form ) {
 
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
 			$checkboxes = '<p>'.$form->get_no_checkbox( 'plugin_add_to_user' ).' User Profile</p>';
 
 			foreach ( $this->p->util->get_post_types( 'plugin' ) as $post_type )
@@ -92,6 +98,8 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 
 		public function filter_plugin_cache_rows( $rows, $form, $network = false ) {
 
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
 			$rows[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
 			'<td nowrap class="blank">'.$form->get_no_input( 'plugin_object_cache_exp', 'short' ).' seconds</td>'.
 			( $network === false ? '' : $this->p->util->th( 'Site Use', 'site_use' ).
@@ -104,6 +112,7 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 		public function filter_taglist_tags_rows( $rows, $form, $tag = '[^_]+' ) {
 
 			$og_cols = 2;
+
 			$cells = array();
 			foreach ( $this->p->opt->get_defaults() as $opt => $val ) {
 				if ( preg_match( '/^add_('.$tag.')_([^_]+)_(.+)$/', $opt, $match ) ) {

@@ -28,6 +28,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 
 		public function filter_og_webpage_rows( $rows, $form ) {
 
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 				$rows[] = $this->p->util->th( 'Title Length', null, 'og_title_len' ).
 				'<td class="blank">'.$this->p->options['og_title_len'].' characters or less</td>';
@@ -56,6 +58,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 		public function filter_og_images_rows( $rows, $form ) {
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 
+				$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
 				$rows[] = $this->p->util->th( 'Force Default Image on Indexes', null, 'og_def_img_on_index' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'og_def_img_on_index' ).'</td>';
 
@@ -77,6 +81,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 
+				$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
 				$rows[] = $this->p->util->th( 'Default Video URL', null, 'og_def_vid_url' ).
 				'<td class="blank">'.$form->options['og_def_vid_url'].'</td>';
 		
@@ -96,6 +102,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 		}
 
 		public function filter_og_author_rows( $rows, $form ) {
+
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Author Profile URL Field', null, 'og_author_field' ).
 			'<td class="blank">'.$form->author_contact_fields[$this->p->options['og_author_field']].'</td>';
@@ -122,6 +130,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 
 		public function filter_pub_facebook_rows( $rows, $form ) {
 
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
 			$rows[] = $this->p->util->th( 'Author Name Format', 'highlight', 'google_author_name' ).
 			'<td class="blank">'.$this->p->cf['form']['user_name_fields'][$this->p->options['seo_author_name']].'</td>';
 
@@ -129,6 +139,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 		}
 
 		public function filter_pub_google_rows( $rows, $form ) {
+
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 				$rows[] = $this->p->util->th( 'Search / SEO Description Length', null, 'google_seo_desc_len' ).
@@ -156,6 +168,9 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 		}
 
 		public function filter_pub_pinterest_rows( $rows, $form ) {
+
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
 			$rows[] = $this->p->util->th( 'Author Name Format', null, 'rp_author_name' ).
 			'<td class="blank">'.$this->p->cf['form']['user_name_fields'][$this->p->options['rp_author_name']].'</td>';
 
@@ -163,6 +178,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 		}
 
 		public function filter_pub_twitter_rows( $rows, $form ) {
+
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Enable Twitter Cards', 'highlight', 'tc_enable' ).
 			'<td class="blank">'.$form->get_hidden( 'tc_enable' ).'<input type="checkbox" disabled="disabled" /></td>';

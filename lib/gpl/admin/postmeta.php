@@ -21,6 +21,8 @@ if ( ! class_exists( 'WpssoGplAdminPostmeta' ) ) {
 
 		public function filter_meta_header_rows( $rows, $form, $post_info ) {
 
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
 			$rows[] = $this->p->util->th( 'Article Topic', 'medium', 'postmeta-og_art_section', $post_info ).
 			'<td class="blank">'.$this->p->options['og_art_section'].'</td>';
 
