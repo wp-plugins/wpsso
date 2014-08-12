@@ -98,7 +98,8 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 
 		public function filter_plugin_cache_rows( $rows, $form, $network = false ) {
 
-			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+			$rows[] = '<td colspan="'.( $network === false ? 2 : 4 ).'" align="center">'.
+				$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Object Cache Expiry', null, 'plugin_object_cache_exp' ).
 			'<td nowrap class="blank">'.$form->get_no_input( 'plugin_object_cache_exp', 'short' ).' seconds</td>'.
