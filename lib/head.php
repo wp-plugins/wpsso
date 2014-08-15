@@ -26,7 +26,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 		public function add_doctype( $doctype ) {
 			$obj = $this->p->util->get_post_object( false );
-			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+			$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 			$post_type = '';
 			$item_type = 'Blog';	// default value for non-singular webpages
 			if ( is_singular() ) {
@@ -123,7 +123,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 				// on singular webpages, show the custom social settings
 				if ( is_singular() && ( $obj = $this->p->util->get_post_object() ) !== false ) {
-					$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+					$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 					if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
 						$post_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
 						$this->p->debug->show_html( $post_opts, 'wpsso post_id '.$post_id.' social settings' );
@@ -143,7 +143,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 		public function get_header_array( $use_post = false, $read_cache = true, &$meta_og = array() ) {
 			$obj = $this->p->util->get_post_object( $use_post );
-			$post_id = empty( $obj->ID ) || 
+			$post_id = empty( $obj->ID ) || empty( $obj->post_type ) || 
 				( ! is_singular() && $use_post === false ) ? 0 : $obj->ID;
 			$sharing_url = $this->p->util->get_sharing_url( $use_post );
 			$author_id = 0;
@@ -253,6 +253,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$this->p->debug->log( count( $tag_array ).' '.$tag.' '.$type.' to process' );
 			$this->p->debug->log( $tag_array );
 			$ret = array();
+			if ( empty( $tag_array ) )
+				return $ret;
 			foreach ( $tag_array as $f_name => $f_val ) {					// 1st-dimension array (associative)
 				if ( is_array( $f_val ) ) {
 					foreach ( $f_val as $s_num => $s_val ) {			// 2nd-dimension array

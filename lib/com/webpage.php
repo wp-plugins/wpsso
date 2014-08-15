@@ -109,7 +109,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return $title;
 				}
-				$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 				if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
 					$title = $this->p->addons['util']['postmeta']->get_options( $post_id, $custom );
 					if ( ! empty( $title ) ) $this->p->debug->log( 'custom postmeta '.$custom.' = "'.$title.'"' );
@@ -261,7 +261,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return $desc;
 				}
-				$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 				if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
 					$desc = $this->p->addons['util']['postmeta']->get_options( $post_id, $custom );
 					if ( ! empty( $desc ) ) $this->p->debug->log( 'custom postmeta '.$custom.' = "'.$desc.'"' );
@@ -400,7 +400,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				$this->p->debug->log( 'exiting early: invalid object type' );
 				return $content;
 			}
-			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+			$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 			$this->p->debug->log( 'using content from object id '.$post_id );
 			$filter_content = $this->p->options['plugin_filter_content'];
 			$filter_name = $filter_content  ? 'filtered' : 'unfiltered';
