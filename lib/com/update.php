@@ -34,7 +34,9 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			if ( ! isset( self::$c[$lca] ) )
 				self::$c[$lca] = array();
 			if ( ! array_key_exists( 'umsg', self::$c[$lca] ) ) {
-				self::$c[$lca]['umsg'] = base64_decode( get_option( $lca.'_umsg' ) );
+				self::$c[$lca]['umsg'] = get_option( $lca.'_umsg' );
+				if ( self::$c[$lca]['umsg'] !== false && self::$c[$lca]['umsg'] !== true )
+					self::$c[$lca]['umsg'] = base64_decode( get_option( $lca.'_umsg' ) );
 				if ( empty( self::$c[$lca]['umsg'] ) )
 					self::$c[$lca]['umsg'] = false;
 			}
@@ -153,7 +155,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 	
 		public function check_for_updates( $lca = '' ) {
 			if ( empty( $lca ) )
-				$plugins =  self::$c;				// check all plugins defined
+				$plugins = self::$c;				// check all plugins defined
 			elseif ( isset( self::$c[$lca] ) )
 				$plugins = array( $lca => self::$c[$lca] );	// check only one specific plugin
 			else $plugins = array();
