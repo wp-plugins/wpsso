@@ -340,6 +340,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.2.1 =
+
+* Bugfixes
+	* Added a check for an empty Polylang post language before returning its locale value (Pro version).
+* Enhancements
+	* Added support for `pll_get_post_language()`, included in Polylang v1.5.4 (Pro version).
+
 = Version 2.6.2 =
 
 * Bugfixes
@@ -369,6 +376,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Re-structured the `NgfbConfig::$cf` array to support multiple plugin configs (for future WPSSO extension plugins).
 
 == Upgrade Notice ==
+
+= 2.6.2.1 =
+
+Fix for an empty Polylang post language, and added support for the new pll_get_post_language() function (Pro version).
 
 = 2.6.2 =
 
