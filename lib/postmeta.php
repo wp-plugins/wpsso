@@ -56,7 +56,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return;
 				}
-				if ( isset( $obj->ID ) && $obj->post_status === 'publish' && $obj->filter === 'edit' ) {
+				if ( isset( $obj->ID ) && isset( $obj->post_type ) && $obj->post_status === 'publish' && $obj->filter === 'edit' ) {
 					$this->header_tags = $this->p->head->get_header_array( $obj->ID );
 					$this->p->debug->show_html( null, 'debug log' );
 					foreach ( $this->header_tags as $tag ) {

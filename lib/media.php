@@ -314,9 +314,10 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
 					$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
 
-			} elseif ( ! empty( $img_url ) ) {
-				$this->p->debug->log( 'found custom user image url = "'.$img_url.'"' );
+			}
 
+			if ( empty( $og_image['og:image'] ) && ! empty( $img_url ) ) {
+				$this->p->debug->log( 'found custom user image url = "'.$img_url.'"' );
 				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
 					$og_image['og:image:cropped'] ) = array( $img_url, -1, -1, -1 );
 			}
@@ -345,7 +346,9 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
 					$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
 
-			} elseif ( ! empty( $img_url ) ) {
+			}
+			
+			if ( empty( $og_image['og:image'] ) && ! empty( $img_url ) ) {
 				$this->p->debug->log( 'found custom meta image url = "'.$img_url.'"' );
 				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
 					$og_image['og:image:cropped'] ) = array( $img_url, -1, -1, -1 );

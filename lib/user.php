@@ -260,7 +260,6 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 					// if empty or not a url, then fallback to the author index page,
 					// if the requested field is the opengraph or link author field
 					if ( empty( $url ) || ! preg_match( '/:\/\//', $url ) ) {
-						$this->p->debug->log( 'url value from author meta is invalid' );
 						if ( ( $field_id == $this->p->options['og_author_field'] || 
 							$field_id == $this->p->options['link_author_field'] ) && 
 							$this->p->options['og_author_fallback'] ) {

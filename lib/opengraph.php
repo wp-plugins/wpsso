@@ -43,7 +43,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 		public function get_array( &$og = array(), $use_post = false ) {
 			$obj = $this->p->util->get_post_object( $use_post );
-			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+			$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 			$post_type = '';
 			$has_video_image = false;
 			$og_max = $this->p->util->get_max_nums( $post_id );

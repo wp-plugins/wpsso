@@ -189,8 +189,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			$obj = false;
 			if ( $use_post === false ) {
 				$obj = get_queried_object();
-				// fallback to $post if object is empty
-				if ( ! isset( $obj->ID ) ) {
+
+				// fallback to $post if object is empty / invalid
+				if ( empty( $obj->ID ) || empty( $obj->post_type ) ) {
 					global $post; 
 					$obj = $post;
 				}
@@ -217,7 +218,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return $url;
 				}
-				$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 				if ( ! empty( $post_id ) ) {
 					if ( isset( $this->p->addons['util']['postmeta'] ) )
 						$url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'sharing_url' );
@@ -239,9 +240,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			} else {
 				if ( is_search() )
 					$url = get_search_link();
-				elseif ( is_front_page() ) {
+				elseif ( is_front_page() )
 					$url = apply_filters( $this->p->cf['lca'].'_home_url', home_url( '/' ) );
-				} elseif ( $this->is_posts_page() )
+				elseif ( $this->is_posts_page() )
 					$url = get_permalink( get_option( 'page_for_posts' ) );
 				elseif ( is_tax() || is_tag() || is_category() ) {
 					$term = get_queried_object();
