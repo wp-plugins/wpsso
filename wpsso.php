@@ -196,7 +196,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 					$this->debug->log( 'default options have been added to the database' );
 
 					if ( defined( 'WPSSO_RESET_ON_ACTIVATE' ) && WPSSO_RESET_ON_ACTIVATE ) 
-						$this->notice->inf( 'WPSSO_RESET_ON_ACTIVATE constant is true - 
+						$this->notice->inf( 'WPSSO_RESET_ON_ACTIVATE constant is true &ndash; 
 							plugin options have been reset to their default values.', true );
 				}
 				$this->debug->log( 'exiting early: init_plugin() to follow' );
@@ -239,6 +239,10 @@ if ( ! class_exists( 'Wpsso' ) ) {
 				$this->util->add_plugin_filters( $this, array( 'installed_version' => 1, 'ua_plugin' => 1 ) );
 				$this->update = new SucomUpdate( $this, $this->cf['plugin'], $this->cf['update_check_hours'] );
 				if ( is_admin() ) {
+					if ( $this->is_avail['aop'] === false )
+						$this->notice->inf( 'An Authentication ID was entered for '.$this->short.', 
+						but the Pro version is not installed yet &ndash; 
+						don\'t forget to update '.$this->short.' to install the Pro version.', true );
 					foreach ( $this->cf['plugin'] as $lca => $info ) {
 						$last_update = get_option( $lca.'_utime' );
 						if ( empty( $last_update ) || 

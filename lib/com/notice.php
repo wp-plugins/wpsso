@@ -86,7 +86,7 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 				$this->trunc( $type );
 				if ( $type === 'err' && class_exists( 'SucomUpdate' ) ) {
 					foreach ( $this->p->cf['plugin'] as $lca => $info ) {
-						if ( ( $umsg = SucomUpdate::get_umsg( $lca ) ) !== false )
+						if ( ( $umsg = SucomUpdate::get_umsg( $lca ) ) !== false && $umsg !== true )
 							$msg_arr[] = $umsg;
 					}
 				}
