@@ -270,8 +270,8 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 					$author_id = empty( $_GET['user_id'] ) ? get_current_user_id() : $_GET['user_id'];
 				else {
 					$author = get_query_var( 'author_name' ) ? 
-						get_userdata( get_query_var( 'author' ) ) : 
-						get_user_by( 'slug', get_query_var( 'author_name' ) );
+						get_user_by( 'slug', get_query_var( 'author_name' ) ) :
+						get_userdata( get_query_var( 'author' ) );
 					$author_id = $author->ID;
 				}
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );

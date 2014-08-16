@@ -22,7 +22,7 @@ if ( ! class_exists( 'WpssoLoader' ) ) {
 
 		private function addons() {
 			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
-				$type = $this->p->check->is_aop( $lca ) ? 'pro' : 'gpl';
+				$type = $this->p->check->aop( $lca ) ? 'pro' : 'gpl';
 				if ( ! isset( $info['lib'][$type] ) )
 					continue;
 				foreach ( $info['lib'][$type] as $sub => $lib ) {

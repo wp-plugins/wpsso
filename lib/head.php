@@ -142,6 +142,9 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		}
 
 		public function get_header_array( $use_post = false, $read_cache = true, &$meta_og = array() ) {
+			$lca = $this->p->cf['lca'];
+			$short_aop = $this->p->cf['plugin'][$lca]['short'].
+				( $this->p->is_avail['aop'] ? ' Pro' : '' );
 			$obj = $this->p->util->get_post_object( $use_post );
 			$post_id = empty( $obj->ID ) || empty( $obj->post_type ) || 
 				( ! is_singular() && $use_post === false ) ? 0 : $obj->ID;
@@ -150,9 +153,9 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 			$header_array = array();
 			if ( $this->p->is_avail['cache']['transient'] ) {
-				$cache_salt = __METHOD__.'('.apply_filters( $this->p->cf['lca'].'_head_cache_salt', 
+				$cache_salt = __METHOD__.'('.apply_filters( $lca.'_head_cache_salt', 
 					'lang:'.SucomUtil::get_locale().'_post:'.$post_id.'_url:'.$sharing_url, $use_post ).')';
-				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
+				$cache_id = $lca.'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
 				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
 				if ( $read_cache ) {
@@ -201,7 +204,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$meta_name['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], 
 				'...', $use_post, true, false, true, 'seo_desc' );	// add_hashtags = false, custom meta = seo_desc
 
-			$meta_name = apply_filters( $this->p->cf['lca'].'_meta_name', $meta_name );
+			$meta_name = apply_filters( $lca.'_meta_name', $meta_name );
 
 			/**
 			 * Link relation tags
@@ -213,7 +216,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			if ( ! empty( $this->p->options['link_publisher_url'] ) )
 				$link_rel['publisher'] = $this->p->options['link_publisher_url'];
 
-			$link_rel = apply_filters( $this->p->cf['lca'].'_link_rel', $link_rel );
+			$link_rel = apply_filters( $lca.'_link_rel', $link_rel );
 
 			/**
 			 * Schema meta tags
@@ -223,15 +226,15 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$meta_schema['description'] = $this->p->webpage->get_description( $this->p->options['og_desc_len'], 
 				'...', $use_post, true, true, true, 'schema_desc' );	// custom meta = schema_desc
 
-			$meta_schema = apply_filters( $this->p->cf['lca'].'_meta_schema', $meta_schema );
+			$meta_schema = apply_filters( $lca.'_meta_schema', $meta_schema );
 
 			/**
 			 * Combine and return all meta tags
 			 */
 			$header_array = array_merge(
 				$this->get_single_tag( 'meta', 'name', 'generator',
-					$this->p->short.' '.$this->p->cf['plugin'][$this->p->cf['lca']]['version'].
-						( $this->p->check->is_aop() ? 'L' : 
+					$short_aop.' '.$this->p->cf['plugin'][$lca]['version'].
+						( $this->p->check->aop() ? 'L' : 
 							( $this->p->is_avail['aop'] ? 'U' : 'G' ) ) ),
 				$this->get_tag_array( 'link', 'rel', $link_rel ),
 				$this->get_tag_array( 'meta', 'name', $meta_name ),

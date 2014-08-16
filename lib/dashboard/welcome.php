@@ -22,10 +22,14 @@ if ( ! class_exists( 'WpssoDashboardWelcome' ) && class_exists( 'WpssoAdmin' ) )
 		}
 
 		protected function add_meta_boxes() {
+			$lca = $this->p->cf['lca'];
+			$short_aop = $this->p->cf['plugin'][$lca]['short'].
+				( $this->p->is_avail['aop'] ? ' Pro' : '' );
+
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
 			add_meta_box( 
 				$this->pagehook.'_welcome', 
-				$this->p->short.' version '.$this->p->cf['plugin'][$this->p->cf['lca']]['version'], 
+				$short_aop.' version '.$this->p->cf['plugin'][$lca]['version'], 
 				array( &$this, 'show_metabox_welcome' ), 
 				$this->pagehook, 
 				'normal'

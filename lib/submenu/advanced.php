@@ -88,7 +88,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					break;
 
 				case 'cm-custom' :
-					if ( ! $this->p->check->is_aop() )
+					if ( ! $this->p->check->aop() )
 						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 					$rows[] = '<td></td>'.
 					$this->p->util->th( 'Show', 'left checkbox' ).
@@ -111,7 +111,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 							case ( $this->p->options['plugin_display'] === 'all' ? true : false ):
 								// not all social websites have a contact method field
 								if ( array_key_exists( $cm_opt.'enabled', $this->p->options ) ) {
-									if ( $this->p->check->is_aop() ) {
+									if ( $this->p->check->aop() ) {
 										$rows[] = $this->p->util->th( $name, 'medium' ).
 										'<td class="checkbox">'.$this->form->get_checkbox( $cm_opt.'enabled' ).'</td>'.
 										'<td>'.$this->form->get_input( $cm_opt.'name', 'medium' ).'</td>'.
@@ -130,7 +130,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					break;
 
 				case 'cm-builtin' :
-					if ( ! $this->p->check->is_aop() )
+					if ( ! $this->p->check->aop() )
 						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 					$rows[] = '<td></td>'.
 					$this->p->util->th( 'Show', 'left checkbox' ).
@@ -141,7 +141,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					foreach ( $sorted_wp_contact as $id => $name ) {
 						$cm_opt = 'wp_cm_'.$id.'_';
 						if ( array_key_exists( $cm_opt.'enabled', $this->p->options ) ) {
-							if ( $this->p->check->is_aop() ) {
+							if ( $this->p->check->aop() ) {
 								$rows[] = $this->p->util->th( $name, 'medium' ).
 								'<td class="checkbox">'.$this->form->get_checkbox( $cm_opt.'enabled' ).'</td>'.
 								'<td>'.$this->form->get_no_input( $cm_opt.'name', 'medium' ).'</td>'.

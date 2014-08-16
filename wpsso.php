@@ -9,7 +9,7 @@
  * Description: Display your content in the best possible way on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc - no matter how your webpage is shared!
  * Requires At Least: 3.0
  * Tested Up To: 3.9.1
- * Version: 2.6.2.1
+ * Version: 2.6.2.2
  * 
  * Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
  */
@@ -48,7 +48,6 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		public $options = array();	// individual blog/site options
 		public $site_options = array();	// multisite options
 		public $addons = array();	// pro and gpl addons
-		public $short = '';
 
 		/**
 		 * Wpsso Constructor
@@ -138,8 +137,6 @@ if ( ! class_exists( 'Wpsso' ) ) {
 
 			$this->check = new WpssoCheck( $this );
 			$this->is_avail = $this->check->get_avail();		// uses $this->options in checks
-			$this->short = $this->cf['plugin'][$this->cf['lca']]['short'];
-			if ( $this->is_avail['aop'] ) $this->short .= ' Pro';
 
 			// configure the debug class
 			$html_debug = ! empty( $this->options['plugin_debug'] ) || 
@@ -214,7 +211,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			 * configure class properties based on plugin settings
 			 */
 			$this->cache->object_expire = $this->options['plugin_object_cache_exp'];
-			if ( ! empty( $this->options['plugin_file_cache_hrs'] ) && $this->check->is_aop() ) {
+			if ( ! empty( $this->options['plugin_file_cache_hrs'] ) && $this->check->aop() ) {
 				if ( $this->debug->is_on( 'wp' ) === true ) 
 					$this->cache->file_expire = WPSSO_DEBUG_FILE_EXP;	// reduce to 300 seconds
 				else $this->cache->file_expire = $this->options['plugin_file_cache_hrs'] * 60 * 60;
@@ -239,10 +236,12 @@ if ( ! class_exists( 'Wpsso' ) ) {
 				$this->util->add_plugin_filters( $this, array( 'installed_version' => 1, 'ua_plugin' => 1 ) );
 				$this->update = new SucomUpdate( $this, $this->cf['plugin'], $this->cf['update_check_hours'] );
 				if ( is_admin() ) {
-					if ( $this->is_avail['aop'] === false )
-						$this->notice->inf( 'An Authentication ID was entered for '.$this->short.', 
+					if ( $this->is_avail['aop'] === false ) {
+						$short = $this->cf['plugin'][$this->cf['lca']]['short'];
+						$this->notice->inf( 'An Authentication ID was entered for '.$short.', 
 						but the Pro version is not installed yet &ndash; 
-						don\'t forget to update the '.$this->short.' plugin to install the Pro version.', true );
+						don\'t forget to update the '.$short.' plugin to install the Pro version.', true );
+					}
 					foreach ( $this->cf['plugin'] as $lca => $info ) {
 						$last_update = get_option( $lca.'_utime' );
 						if ( empty( $last_update ) || 
@@ -261,7 +260,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		}
 
 		public function filter_ua_plugin( $plugin ) {
-			if ( $this->check->is_aop() ) $plugin .= 'L';
+			if ( $this->check->aop() ) $plugin .= 'L';
 			elseif ( $this->is_avail['aop'] ) $plugin .= 'U';
 			else $plugin .= 'G';
 			return $plugin;

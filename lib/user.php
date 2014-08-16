@@ -145,7 +145,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 					}
 				}
 			}
-			if ( $this->p->check->is_aop() && 
+			if ( $this->p->check->aop() && 
 				! empty( $this->p->cf['wp']['cm'] ) && is_array( $this->p->cf['wp']['cm'] ) ) {
 				foreach ( $this->p->cf['wp']['cm'] as $id => $name ) {
 					$cm_opt = 'wp_cm_'.$id.'_';

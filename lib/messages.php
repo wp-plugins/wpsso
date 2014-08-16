@@ -894,15 +894,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'side-help':
 					$text = '<p>Individual option boxes (like this one) can be opened / closed by clicking on their title bar, 
 					moved and re-ordered by dragging them, and removed / added from the <em>Screen Options</em> tab (top-right).
-					Values in multiple tabs can be edited before clicking the \'Save All Changes\' button.</p>
-					<p><strong>Need Help with '.$short.'?</strong></p>
-					<ul>
-					<li>Review the <a href="'.$url['faq'].'" target="_blank">FAQs</a> and 
-						<a href="'.$url['notes'].'" target="_blank">Notes</a></li>';
-					if ( $this->p->check->is_aop() === true )
-						$text .= '<li><a href="'.$url['pro_ticket'].'" target="_blank">Submit a Support Ticket</a></li>';
-					else $text .= '<li><a href="'.$url['wp_support'].'" target="_blank">Post in the Support Forum</a></li>';
-					$text .= '</ul>';
+					Values in multiple tabs can be edited before clicking the \'Save All Changes\' button.</p>';
 					break;
 				/*
 				 * Other messages

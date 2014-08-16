@@ -425,16 +425,22 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $content;
 		}
 
-		public function parse_readme( $expire_secs ) {
-			$this->p->debug->args( array( 'expire_secs' => $expire_secs ) );
-			$readme = '';
-			$get_remote = true;	// fetch readme from wordpress.org by default
+		public function parse_readme( $lca, $expire_secs = 86400 ) {
+			$this->p->debug->args( array( 'lca' => $lca, 'expire_secs' => $expire_secs ) );
 			$plugin_info = array();
-			$readme_url = $this->p->cf['plugin'][$this->p->cf['lca']]['url']['readme'];
+			if ( ! defined( strtoupper( $lca ).'_PLUGINDIR' ) ) {
+				$this->p->debug->log( defined( strtoupper( $lca ).'_PLUGINDIR' ).' is undefined and required for readme.txt path' );
+				return $plugin_info;
+			}
+			$readme_txt = constant( strtoupper( $lca ).'_PLUGINDIR' ).'readme.txt';
+			$readme_url = isset( $this->p->cf['plugin'][$lca]['url']['readme'] ) ? 
+				$this->p->cf['plugin'][$lca]['url']['readme'] : '';
+			$get_remote = empty( $readme_url ) ? false : true;	// fetch readme from wordpress.org by default
+			$content = '';
 
 			if ( $this->p->is_avail['cache']['transient'] ) {
-				$cache_salt = __METHOD__.'(file:'.$readme_url.')';
-				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
+				$cache_salt = __METHOD__.'(url:'.$readme_url.'_txt:'.$readme_txt.')';
+				$cache_id = $lca.'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
 				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
 				$plugin_info = get_transient( $cache_id );
@@ -446,18 +452,18 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 			// get remote readme.txt file
 			if ( $get_remote === true && $expire_secs > 0 )
-				$readme = $this->p->cache->get( $readme_url, 'raw', 'file', $expire_secs );
+				$content = $this->p->cache->get( $readme_url, 'raw', 'file', $expire_secs );
 
 			// fallback to local readme.txt file
-			if ( empty( $readme ) && $fh = @fopen( constant( $this->p->cf['uca'].'_PLUGINDIR' ).'readme.txt', 'rb' ) ) {
+			if ( empty( $content ) && $fh = @fopen( $readme_txt, 'rb' ) ) {
 				$get_remote = false;
-				$readme = fread( $fh, filesize( constant( $this->p->cf['uca'].'_PLUGINDIR' ).'readme.txt' ) );
+				$content = fread( $fh, filesize( $readme_txt ) );
 				fclose( $fh );
 			}
 
-			if ( ! empty( $readme ) ) {
+			if ( ! empty( $content ) ) {
 				$parser = new SuextParseReadme( $this->p->debug );
-				$plugin_info = $parser->parse_readme_contents( $readme );
+				$plugin_info = $parser->parse_readme_contents( $content );
 
 				// remove possibly inaccurate information from local file
 				if ( $get_remote !== true ) {

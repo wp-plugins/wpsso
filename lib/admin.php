@@ -16,7 +16,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		protected $menu_id;
 		protected $menu_name;
 		protected $pagehook;
-		protected $readme;
+		protected $readme_info = array();
 
 		public $form;
 		public $lang = array();
@@ -79,9 +79,11 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			register_setting( $this->p->cf['lca'].'_setting', WPSSO_OPTIONS_NAME, array( &$this, 'sanitize_options' ) );
 		} 
 
-		public function set_readme( $expire_secs ) {
-			if ( empty( $this->readme ) )
-				$this->readme = $this->p->util->parse_readme( $expire_secs );
+		public function set_readme_info( $expire_secs = 86400 ) {
+			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
+				if ( empty( $this->readme_info[$lca] ) )
+					$this->readme_info[$lca] = $this->p->util->parse_readme( $lca, $expire_secs );
+			}
 		}
 
 		public function add_admin_dashboards() {
@@ -158,9 +160,13 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		protected function add_menu_page( $menu_slug ) {
 			global $wp_version;
+			$lca = $this->p->cf['lca'];
+			$short_aop = $this->p->cf['plugin'][$lca]['short'].
+				( $this->p->check->aop( $lca ) ? ' Pro' : '' );
+
 			// add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
 			$this->pagehook = add_menu_page( 
-				$this->p->short.' : '.$this->menu_name, 
+				$short_aop.' : '.$this->menu_name, 
 				$this->p->cf['menu'], 
 				'manage_options', 
 				$menu_slug, 
@@ -172,6 +178,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		protected function add_submenu_page( $parent_slug, $menu_id = '', $menu_name = '' ) {
+			$lca = $this->p->cf['lca'];
+			$short_aop = $this->p->cf['plugin'][$lca]['short'].
+				( $this->p->check->aop( $lca ) ? ' Pro' : '' );
+
 			if ( strpos ( $menu_id, 'separator' ) !== false ) {
 				$menu_title = '<div style="z-index:999;padding:2px 0;margin:0;cursor:default;border-bottom:1px dotted;color:#666;" onclick="return false;"></div>';
 				$menu_slug = '';
@@ -179,8 +189,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$function = '';
 			} else {
 				$menu_title = empty ( $menu_name ) ? $this->menu_name : $menu_name;
-				$menu_slug = $this->p->cf['lca'].'-'.( empty( $menu_id ) ? $this->menu_id : $menu_id );
-				$page_title = $this->p->short.' : '.$menu_title;
+				$menu_slug = $lca.'-'.( empty( $menu_id ) ? $this->menu_id : $menu_id );
+				$page_title = $short_aop.' : '.$menu_title;
 				$function = array( &$this, 'show_form_page' );
 			}
 			// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
@@ -210,7 +220,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				array_push( $links, '<a href="'.$urls['notes'].'">'.__( 'Notes', WPSSO_TEXTDOM ).'</a>' );
 				if ( $this->p->is_avail['aop'] ) {
 					array_push( $links, '<a href="'.$urls['pro_support'].'">'.__( 'Support', WPSSO_TEXTDOM ).'</a>' );
-					if ( ! $this->p->check->is_aop() ) 
+					if ( ! $this->p->check->aop() ) 
 						array_push( $links, '<a href="'.$urls['purchase'].'">'.__( 'Purchase License', WPSSO_TEXTDOM ).'</a>' );
 				} else {
 					array_push( $links, '<a href="'.$urls['wp_support'].'">'.__( 'Forum', WPSSO_TEXTDOM ).'</a>' );
@@ -294,7 +304,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					switch ( $_GET['action'] ) {
 						case 'check_for_updates': 
 							if ( ! empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) ) {
-								$this->readme = '';
+								$this->readme_info = array();
 								$this->p->update->check_for_updates();
 								$this->p->notice->inf( __( 'Plugin update information has been checked and updated.', WPSSO_TEXTDOM ) );
 							}
@@ -328,12 +338,12 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 
 			// the plugin information metabox on all settings pages needs this
-			$this->p->admin->set_readme( $this->feed_cache_expire() );
+			$this->p->admin->set_readme_info( $this->feed_cache_expire() );
 
 			// add child metaboxes first, since they contain the default reset_metabox_prefs()
 			$this->p->admin->submenu[ $this->menu_id ]->add_meta_boxes();
 
-			if ( empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) || ! $this->p->check->is_aop() ) {
+			if ( empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) || ! $this->p->check->aop() ) {
 				add_meta_box( $this->pagehook.'_purchase', __( 'Pro Version', WPSSO_TEXTDOM ), 
 					array( &$this, 'show_metabox_purchase' ), $this->pagehook, 'side' );
 				add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_purchase', 
@@ -380,6 +390,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		public function show_form_page() {
+			$lca = $this->p->cf['lca'];
+			$short_aop = $this->p->cf['plugin'][$lca]['short'].
+				( $this->p->check->aop( $lca ) ? ' Pro' : '' );
+
 			if ( $this->menu_id !== 'contact' )		// the "settings" page displays its own error messages
 				settings_errors( WPSSO_OPTIONS_NAME );	// display "error" and "updated" messages
 			$this->set_form();				// define form for side boxes and show_form_content()
@@ -401,7 +415,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						echo ' | <a href="'.wp_nonce_url( $this->p->util->get_admin_url( '?action=change_display_options&display_options='.$next_key ),
 							$this->get_nonce(), WPSSO_NONCE ).'">Display '.$this->p->cf['form']['display_options'][$next_key].'</a>';
 					echo '</div>';
-					echo $this->p->short.' &ndash; '.$this->menu_name;
+					echo $short_aop.' &ndash; '.$this->menu_name;
 					?>
 				</h2>
 				<div id="poststuff" class="metabox-holder has-right-sidebar">
@@ -496,31 +510,46 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		public function show_metabox_info() {
-			$stable_tag = __( 'N/A', WPSSO_TEXTDOM );
-			$latest_version = __( 'N/A', WPSSO_TEXTDOM );
-			$latest_notice = '';
-			$changelog_url = $this->p->cf['plugin'][$this->p->cf['lca']]['url']['changelog'];
-			if ( ! empty( $this->p->admin->readme['stable_tag'] ) ) {
-				$stable_tag = $this->p->admin->readme['stable_tag'];
-				$upgrade_notice = $this->p->admin->readme['upgrade_notice'];
-				if ( is_array( $upgrade_notice ) ) {
-					reset( $upgrade_notice );
-					$latest_version = key( $upgrade_notice );
-					$latest_notice = $upgrade_notice[$latest_version];
-				}
-			}
 			echo '<table class="sucom-setting">';
-			echo '<tr><th class="side">'.__( 'Installed', WPSSO_TEXTDOM ).':</th>';
-			echo '<td colspan="2">'.$this->p->cf['plugin'][$this->p->cf['lca']]['version'].' (';
-			if ( $this->p->is_avail['aop'] ) 
-				echo __( 'Pro', WPSSO_TEXTDOM );
-			else echo __( 'Free', WPSSO_TEXTDOM );
-			echo ')</td></tr>';
-			echo '<tr><th class="side">'.__( 'Stable', WPSSO_TEXTDOM ).':</th><td colspan="2">'.$stable_tag.'</td></tr>';
-			echo '<tr><th class="side">'.__( 'Latest', WPSSO_TEXTDOM ).':</th><td colspan="2">'.$latest_version.'</td></tr>';
-			echo '<tr><td colspan="3" id="latest_notice"><p>'.$latest_notice.'</p>';
-			echo '<p><a href="'.$changelog_url.'" target="_blank">'.__( 'See the Changelog for more details...', WPSSO_TEXTDOM ).'</a></p>';
-			echo '</td></tr>';
+			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
+				if ( empty( $info['version'] ) )	// filter out extensions that are not installed
+					continue;
+				$stable_version = __( 'N/A', WPSSO_TEXTDOM );
+				$latest_version = __( 'N/A', WPSSO_TEXTDOM );
+				$installed_version = $info['version'];
+				$installed_style = '';
+				$latest_notice = '';
+				$changelog_url = $info['url']['changelog'];
+
+				// the readme_info array is populated by set_readme_info(), which is called from load_form_page()
+				if ( ! empty( $this->p->admin->readme_info[$lca]['stable_tag'] ) ) {
+					$stable_version = $this->p->admin->readme_info[$lca]['stable_tag'];
+					$upgrade_notice = $this->p->admin->readme_info[$lca]['upgrade_notice'];
+					if ( is_array( $upgrade_notice ) ) {
+						reset( $upgrade_notice );
+						$latest_version = key( $upgrade_notice );
+						$latest_notice = $upgrade_notice[$latest_version];
+					}
+					$installed_style = ( $installed_version < $stable_version ) ? 
+						'style="background-color:#f00;"' : 
+						'style="background-color:#0f0;"';
+				}
+
+				//$update_info = class_exists( 'SucomUpdate' ) ?
+				//	SucomUpdate::get_option( $lca ) : false;
+	
+				echo '<tr><td colspan="2"><p><strong>'.$info['short'].
+					( $this->p->check->aop( $lca ) ? ' Pro' : '' ).'</strong></p></td></tr>';
+				echo '<tr><th class="side">'.__( 'Installed', WPSSO_TEXTDOM ).':</th>
+					<td class="side_version" '.$installed_style.'>'.$installed_version.'</td></tr>';
+				echo '<tr><th class="side">'.__( 'Stable', WPSSO_TEXTDOM ).':</th>
+					<td class="side_version">'.$stable_version.'</td></tr>';
+				echo '<tr><th class="side">'.__( 'Latest', WPSSO_TEXTDOM ).':</th>
+					<td class="side_version">'.$latest_version.'</td></tr>';
+				echo '<tr><td colspan="2" id="latest_notice"><p>'.$latest_notice.'</p>'.
+					'<p><a href="'.$changelog_url.'" target="_blank">'.
+						sprintf( __( 'View the %s changelog...', WPSSO_TEXTDOM ), $info['short'] ).'</a></p></td></tr>';
+			}
 			echo '</table>';
 		}
 
@@ -556,12 +585,12 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						$off = $this->p->is_avail[$sub][$id] ? 'rec' : 'off';
 						$features[$name] = array( 
 							'status' => class_exists( $lca.'pro'.$sub.$id ) ? 
-								( $this->p->check->is_aop( $lca ) ? 'on' : $off ) : $off,
+								( $this->p->check->aop( $lca ) ? 'on' : $off ) : $off,
 							'tooltip' => 'If the '.$name.' plugin is detected, '.
 								$this->p->cf['plugin'][$this->p->cf['lca']]['short'].' Pro'.
 								' will load a specific integration addon for '.$name.
 								' to improve the accuracy of Open Graph, Rich Pin, and Twitter Card meta tag values.',
-							'td_class' => $this->p->check->is_aop( $lca ) ? '' : 'blank',
+							'td_class' => $this->p->check->aop( $lca ) ? '' : 'blank',
 						);
 						switch ( $id ) {
 							case 'bbpress':
@@ -626,12 +655,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			echo '<table class="sucom-setting"><tr><td>';
 			echo $this->p->msgs->get( 'side-help' );
 			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
-				if ( $lca === $this->p->cf['lca'] ||
-					empty( $info['url']['purchase'] ) )
-						continue;
+				if ( empty( $info['version'] ) )	// filter out extensions that are not installed
+					continue;
 				echo '<p><strong>Need Help with '.$info['short'].
-					( $this->p->check->is_aop( $lca ) ? 
-						' Pro' : '' ).'?</strong></p>';
+					( $this->p->check->aop( $lca ) ? ' Pro' : '' ).'?</strong></p>';
 				echo '<ul>';
 				if ( ! empty( $info['url']['faq'] ) ) {
 					echo '<li>Review the <a href="'.$info['url']['faq'].'" target="_blank">FAQs</a>';
@@ -639,7 +666,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						echo ' and <a href="'.$info['url']['notes'].'" target="_blank">Notes</a>';
 					echo '</li>';
 				}
-				if ( $this->p->check->is_aop( $lca ) && 
+				if ( $this->p->check->aop( $lca ) && 
 					! empty( $info['url']['pro_ticket'] ) )
 						echo '<li><a href="'.$info['url']['pro_ticket'].'" target="_blank">Submit a Support Ticket</a></li>';
 				elseif ( ! empty( $info['url']['wp_support'] ) )

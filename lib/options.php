@@ -139,7 +139,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 						<a href="'.$url.'">Please review and save the new settings</a>.' );
 				}
 				if ( $options_name == WPSSO_OPTIONS_NAME ) {
-					if ( $this->p->check->is_aop() &&
+					if ( $this->p->check->aop() &&
 						! empty( $this->p->is_avail['ecom']['*'] ) &&
 						$opts['tc_prod_def_l2'] === $this->p->cf['opt']['defaults']['tc_prod_def_l2'] &&
 						$opts['tc_prod_def_d2'] === $this->p->cf['opt']['defaults']['tc_prod_def_d2'] ) {
@@ -193,7 +193,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					$opts['og_def_img_url'] = '';
 
 			if ( isset( $opts['plugin_file_cache_hrs'] ) &&
-				! $this->p->check->is_aop() )
+				! $this->p->check->aop() )
 					$opts['plugin_file_cache_hrs'] = 0;
 
 			if ( isset( $opts['plugin_google_api_key'] ) &&

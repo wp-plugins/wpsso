@@ -71,7 +71,7 @@ if ( ! class_exists( 'WpssoSubmenuLicenses' ) && class_exists( 'WpssoAdmin' ) ) 
 					! empty( $this->p->options['plugin_'.$lca.'_tid'] ) ) {
 
 					echo '<tr>'.$this->p->util->th( 'Authentication ID', 'medium' );
-					if ( $this->p->cf['lca'] === $lca || $this->p->check->is_aop() )
+					if ( $this->p->cf['lca'] === $lca || $this->p->check->aop() )
 						echo '<td class="tid">'.$this->form->get_input( 'plugin_'.$lca.'_tid', 'tid mono' );
 					else echo '<td class="tid blank">'.$this->form->get_no_input( 'plugin_'.$lca.'_tid', 'tid mono' );
 					echo '</td><td><p>'.( empty( $qty_used ) ? '' : $qty_used.' Licenses Assigned' ).'</p></td></tr>'."\n";
