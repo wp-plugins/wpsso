@@ -49,9 +49,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							target="_blank">constants</a>.';
 							break;
 						case 'tooltip-side-open-graph-rich-pin':
-							$text = 'Open Graph and Rich Pin meta tags are added to the head section of all webpages. 
-							You must have a compatible eCommerce plugin installed to add <em>Product</em> Rich Pins, 
-							including product prices, images, and other attributes.';
+							$text = 'Facebook / Open Graph and Pinterest Rich Pin meta tags are added to the head section of all webpages. 
+							You must have a compatible eCommerce plugin installed to add <em>Product</em> Rich Pins, including product prices, 
+							images, and other attributes.';
 							break;
 						case 'tooltip-side-pro-update-check':
 							$text = 'When a Pro version Authentication ID is entered in the '.
@@ -59,7 +59,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							a check is scheduled every 24 hours to see if an update is available.';
 							break;
 						case 'tooltip-side-transient-cache':
-							$text = $short.' saves Open Graph, Rich Pin, Twitter Card meta tags, etc. to a persistant
+							$text = $short.' saves Facebook / Open Graph, Pinterest Rich Pin, Twitter Card meta tags, etc. to a persistant
 							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
 							$this->p->options['plugin_object_cache_exp'].' seconds (default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).
 							' seconds). You can adjust the Transient / Object Cache expiration value in the '.
@@ -68,20 +68,22 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-side-post-social-settings':
 							$text = 'The Post Social Settings feature adds a Social Settings metabox to the Post, Page, and custom post type editing pages.
-							Custom descriptions and images can be entered for Open Graph, Rich Pin, and Twitter Card meta tags.';
+							Custom descriptions and images can be entered for Facebook / Open Graph, Pinterest Rich Pin, and Twitter Card meta tags.';
 							break;
 						case 'tooltip-side-user-social-settings':
 							$text = 'The User Social Settings feature adds a Social Settings metabox to the user profile pages.
-							Custom descriptions and images can be entered for Open Graph, Rich Pin, and Twitter Card meta tags.';
+							Custom descriptions and images can be entered for Facebook / Open Graph, Pinterest Rich Pin, and Twitter Card meta tags.';
 							break;
 						case 'tooltip-side-publisher-language':
-							$text = $short_pro.' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
+							$text = $short_pro.' can use the WordPress locale to select the correct language for the Facebook / Open Graph
+							and Pinterest Rich Pin meta tags'.
 							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).
 							'. If your website is available in multiple languages, this can be a useful feature.';
 							break;
 						case 'tooltip-side-twitter-cards':
-							$text = 'Twitter Cards extend the standard Open Graph and Rich Pin meta tags with content-specific information for image galleries, 
-							photographs, eCommerce products, etc. Twitter Cards are displayed differently on Twitter, either online or from mobile Twitter 
+							$text = 'Twitter Cards extend the standard Facebook / Open Graph and Pinterest Rich Pin meta tags with 
+							content-specific information for image galleries, photographs, eCommerce products, etc. 
+							Twitter Cards are displayed differently on Twitter, either online or from mobile Twitter 
 							clients, allowing you to better feature your content. The Twitter Cards addon can be enabled from the '.
 							$this->p->util->get_admin_url( 'general', 'General settings page' ).'.';
 							break;
@@ -133,13 +135,14 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Header Meta Tags' settings
 						 */
 						 case 'tooltip-user-og_title':
-							$text = 'A custom title for the Open Graph, Rich Pin, Twitter Card meta tags (all Twitter Card formats), 
-							and possibly the Pinterest, Tumblr, and Twitter sharing caption / text, depending on some option 
-							settings.';
+							$text = 'A custom title for the Facebook / Open Graph, Pinterest Rich Pin, Twitter Card meta tags 
+							(all Twitter Card formats), and possibly the Pinterest, Tumblr, and Twitter sharing captions / texts, 
+							depending on some option settings.';
 						 	break;
 						 case 'tooltip-user-og_desc':
-							$text = 'A custom description for the Open Graph, Rich Pin meta tags, and the fallback description 
-							for all other meta tags '.( empty( $this->p->is_avail['ssb'] ) ? '' : ' and social sharing buttons' ).'. '.
+							$text = 'A custom description for the Facebook / Open Graph, Pinterest Rich Pin, 
+							and fallback description for other meta tags'.
+							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with some social sharing buttons' ).'. '.
 							'The default description value is based on the biographical info, if one is available.
 							Update and save this description to change the default value of all other description fields.';
 						 	break;
@@ -171,19 +174,20 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Header Meta Tags' settings
 						 */
 						 case 'tooltip-postmeta-og_art_section':
-							$text = 'A custom topic, different from the default \'Article Topic\' selected in the General settings.
-							The Open Graph \'og:type\' meta tag must be an \'article\' to enable this option.
-							The value will be used in the \'article:section\' Open Graph / Rich Pin meta tag.
+							$text = 'A custom topic, different from the default Article Topic selected in the General settings.
+							The Facebook / Open Graph \'og:type\' meta tag must be an \'article\' to enable this option.
+							The value will be used in the \'article:section\' Facebook / Open Graph and Pinterest Rich Pin meta tags.
 							Select \'[none]\' if you prefer to exclude the \'article:section\' meta tag.';
 						 	break;
 						 case 'tooltip-postmeta-og_title':
-							$text = 'A custom title for the Open Graph, Rich Pin, Twitter Card meta tags (all Twitter Card formats), 
-							and possibly the Pinterest, Tumblr, and Twitter sharing caption / text, depending on some option 
-							settings. The default title value is refreshed when the (draft or published) '.$ptn.' is saved.';
+							$text = 'A custom title for the Facebook / Open Graph, Pinterest Rich Pin, Twitter Card meta tags 
+							(all Twitter Card formats), and possibly the Pinterest, Tumblr, and Twitter sharing caption / text, 
+							depending on some option settings. 
+							The default title value is refreshed when the (draft or published) '.$ptn.' is saved.';
 						 	break;
 						 case 'tooltip-postmeta-og_desc':
-							$text = 'A custom description for the Open Graph, Rich Pin meta tags, and the fallback description 
-							for all other meta tags '.( empty( $this->p->is_avail['ssb'] ) ? '' : ' and social sharing buttons' ).'. '.
+							$text = 'A custom description for the Facebook / Open Graph, Pinterest Rich Pin, and fallback description 
+							for other meta tags'.( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with some social sharing buttons' ).'. '.
 							'The default description value is based on the content, or excerpt if one is available, 
 							and is refreshed when the (draft or published) '.$ptn.' is saved.
 							Update and save this description to change the default value of all other description fields.';
@@ -201,33 +205,35 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							The default description value is refreshed when the '.$ptn.' is saved.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_id':
-							$text = 'A custom Image ID to include first in the Open Graph, Rich Pin, and \'Large Image Summary\' Twitter Card meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? '.' : ', along with the Pinterest and Tumblr social sharing buttons.' );
+							$text = 'A custom Image ID to include first in the Facebook / Open Graph, Pinterest Rich Pin, 
+							and \'Large Image Summary\' Twitter Card meta tags'.
+							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Pinterest and Tumblr social sharing buttons' ).'.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_url':
-							$text = 'A custom image URL (instead of an Image ID) to include first in the Open Graph, Rich Pin, 
-							and \'Large Image Summary\' Twitter Card meta tags. Please make sure your custom image
+							$text = 'A custom image URL (instead of an Image ID) to include first in the Facebook / Open Graph, 
+							Pinterest Rich Pin, and \'Large Image Summary\' Twitter Card meta tags. Please make sure your custom image
 							is large enough, or it may be ignored by the social website(s). Facebook recommends 
-							an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200.
-							This field is disabled if an Image ID has been specified.';
+							an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200 
+							(1200x1200 is recommended). This field is disabled if an Image ID has been specified.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_url':
-							$text = 'A custom Video URL to include first in the Open Graph, Rich Pin, and \'Player\' Twitter Card meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? '.' : ', along with the Tumblr social sharing button.' ).
-							' If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred 
-							sharing URL, video dimensions, and video preview image. The '.
+							$text = 'A custom Video URL to include first in the Facebook / Open Graph, Pinterest Rich Pin, 
+							and \'Player\' Twitter Card meta tags'.
+							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Tumblr social sharing button' ).'. '.
+							'If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the 
+							preferred sharing URL, video dimensions, and video preview image. The '.
 							$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video URL Custom Field' ).
-							' Advanced option also allows a 3rd-party to provide a Video URL value for this option.';
+							' Advanced option also allows a 3rd-party themes to provide a Video URL value for this option.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_max':
-							$text = 'The maximum number of images to include in the Open Graph meta tags for this '.$ptn.'.';
+							$text = 'The maximum number of images to include in the Facebook / Open Graph meta tags for this '.$ptn.'.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_max':
-							$text = 'The maximum number of embedded videos to include in the Open Graph meta tags for this '.$ptn.'.';
+							$text = 'The maximum number of embedded videos to include in the Facebook / Open Graph meta tags for this '.$ptn.'.';
 						 	break;
 						 case 'tooltip-postmeta-sharing_url':
-							$text = 'A custom sharing URL used in the Open Graph, Rich Pin meta tags and social sharing buttons.
-							The default sharing URL may be influenced by settings from supported SEO plugins.
+							$text = 'A custom sharing URL used in the Facebook / Open Graph, Pinterest Rich Pin meta tags 
+							and social sharing buttons. The default sharing URL may be influenced by settings from supported SEO plugins.
 							Please make sure any custom URL you enter here is functional and redirects correctly.';
 						 	break;
 						/*
@@ -248,8 +254,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Image and Video' settings
 						 */
 						case 'tooltip-og_img_dimensions':
-							$text = 'The image dimensions used in the Open Graph / Rich Pin meta tags (defaults is '.
-							$this->p->opt->get_defaults( 'og_img_width' ).'x'.$this->p->opt->get_defaults( 'og_img_height' ).' '.
+							$text = 'The image dimensions used in the Facebook / Open Graph and Pinterest Rich Pin meta tags 
+							(defaults is '.$this->p->opt->get_defaults( 'og_img_width' ).'x'.$this->p->opt->get_defaults( 'og_img_height' ).' '.
 							( $this->p->opt->get_defaults( 'og_img_crop' ) == 0 ? 'un' : '' ).'cropped). 
 							Facebook recommends 1200x630 cropped, and 600x315 as a minimum.
 							<strong>1200x1200 cropped provides the greatest comptibility with all social websites 
@@ -318,68 +324,73 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							will use video(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_ngg_tags':
-							$text = 'If the <em>featured</em> image in a Post or Page is from a NextGEN Gallery, then add that image\'s tags to the 
-							Open Graph / Rich Pin tag list (default is unchecked).';
+							$text = 'If the <em>featured</em> image in a Post or Page is from a NextGEN Gallery, 
+							then add that image\'s tags to the Facebook / Open Graph and Pinterest Rich Pin tag list 
+							(default is unchecked).';
 							break;
 						case 'tooltip-og_img_max':
-							$text = 'The maximum number of images to list in the Open Graph / Rich Pin meta tags -- 
+							$text = 'The maximum number of images to list in the Facebook / Open Graph and Pinterest Rich Pin meta tags -- 
 							this includes the <em>featured</em> or <em>attached</em> images, and any images found in the Post or Page content.
-							If you select \'0\', then no images will be listed in the Open Graph / Rich Pin meta tags (<strong>not recommended</strong>).
-							If no images are listed in your meta tags, then social websites may choose an unsuitable image from your webpage
-							(including headers, sidebars, etc.).';
+							If you select \'0\', then no images will be listed in the facebook / Open Graph and Pinterest Rich Pin meta tags 
+							(<strong>not recommended</strong>). If no images are listed in your meta tags, then social websites may choose an 
+							unsuitable image from your webpage (including headers, sidebars, etc.).';
 							break;
 						case 'tooltip-og_vid_max':
-							$text = 'The maximum number of videos, found in the Post or Page content, to include in the Open Graph / Rich Pin meta tags. 
-							If you select \'0\', then no videos will be listed in the Open Graph / Rich Pin meta tags.';
+							$text = 'The maximum number of videos, found in the Post or Page content, to include in the Facebook / Open Graph 
+							and Pinterest Rich Pin meta tags. If you select \'0\', then no videos will be listed in the facebook / Open Graph 
+							and Pinterest Rich Pin meta tags.';
 							break;
 						case 'tooltip-og_vid_https':
-							$text = 'Use an HTTPS connection whenever possible to retrieve information about videos from YouTube, Vimeo, Wistia, etc. (default is checked).';
+							$text = 'Use an HTTPS connection whenever possible to retrieve information about videos from YouTube, Vimeo, Wistia, 
+							etc. (default is checked).';
 							break;
 						/*
 						 * 'Title and Description' settings
 						 */
 						case 'tooltip-og_art_section':
 							$text = 'The topic that best describes the Posts and Pages on your website.
-							This value will be used in the \'article:section\' Open Graph / Rich Pin meta tag. 
+							This value will be used in the \'article:section\' Facebook / Open Graph and Pinterest Rich Pin meta tags. 
 							Select \'[none]\' if you prefer to exclude the \'article:section\' meta tag.
 							The Pro version also allows you to select a custom Topic for each individual Post and Page.';
 							break;
 						case 'tooltip-og_site_name':
-							$text = 'The WordPress Site Title is used for the Open Graph / Rich Pin site name (og:site_name) meta tag. 
-							You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Site Title</a> value here.';
+							$text = 'The WordPress Site Title is used for the Facebook / Open Graph and Pinterest Rich Pin site name 
+							(og:site_name) meta tag. You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the 
+							default WordPress Site Title value</a>.';
 							break;
 						case 'tooltip-og_site_description':
 							$text = 'The WordPress Tagline is used as a description for the <em>index</em> (non-static) home page, 
-							and as a fallback for the Open Graph / Rich Pin description (og:description) meta tag. 
-							You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Tagline</a> value here
-							to provide a longer and more complete description of your website.';
+							and as a fallback for the Facebook / Open Graph and Pinterest Rich Pin description (og:description) meta tag. 
+							You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Tagline value</a> 
+							here, to provide a longer and more complete description of your website.';
 							break;
 						case 'tooltip-og_title_sep':
 							$text = 'One or more characters used to separate values (category parent names, page numbers, etc.) within the 
-							Open Graph / Rich Pin title string (the default is a hyphen \''.$this->p->opt->get_defaults( 'og_title_sep' ).'\'
-							character).';
+							Facebook / Open Graph and Pinterest Rich Pin title string (the default is the 
+							hyphen \''.$this->p->opt->get_defaults( 'og_title_sep' ).'\' character).';
 							break;
 						case 'tooltip-og_title_len':
-							$text = 'The maximum length of text used in the Open Graph / Rich Pin title tag 
+							$text = 'The maximum length of text used in the Facebook / Open Graph and Rich Pin title tag
 							(default is '.$this->p->opt->get_defaults( 'og_title_len' ).' characters).';
 							break;
 						case 'tooltip-og_desc_len':
-							$text = 'The maximum length of text used in the Open Graph / Rich Pin description tag. 
+							$text = 'The maximum length of text used in the Facebook / Open Graph and Rich Pin description tag. 
 							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more, and the
 							default is '.$this->p->opt->get_defaults( 'og_desc_len' ).' characters.';
 							break;
 						case 'tooltip-og_page_title_tag':
-							$text = 'Add the title of the <em>Page</em> to the Open Graph / Rich Pin article tags and Hashtag list (default is unchecked). 
+							$text = 'Add the title of the <em>Page</em> to the Facebook / Open Graph and Pinterest Rich Pin article tag
+							and Hashtag list (default is unchecked). 
 							If the Add Page Ancestor Tags option is checked, all the titles of the ancestor Pages will be added as well. 
 							This option works well if the title of your Pages are short (one or two words) and subject-oriented.';
 							break;
 						case 'tooltip-og_page_parent_tags':
 							$text = 'Add the WordPress tags from the <em>Page</em> ancestors (parent, parent of parent, etc.) 
-							to the Open Graph / Rich Pin article tags and Hashtag list (default is unchecked).';
+							to the Facebook / Open Graph and Pinterest Rich Pin article tags and Hashtag list (default is unchecked).';
 							break;
 						case 'tooltip-og_desc_hashtags':
 							$text = 'The maximum number of tag names (converted to hashtags) to include in the 
-							Open Graph / Rich Pin description, tweet text, and social captions.
+							Facebook / Open Graph and Pinterest Rich Pin description, tweet text, and social captions.
 							Each tag name is converted to lowercase with whitespaces removed. 
 							Select \'0\' to disable the addition of hashtags.';
 							break;
@@ -394,7 +405,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 */
 						case 'tooltip-og_author_field':
 							$text = 'Select which field to use from the author\'s profile for the 
-							Open Graph / Rich Pin \'article:author\' meta tag(s).
+							Facebook / Open Graph and Pinterest Rich Pin \'article:author\' meta tag(s).
 							The preferred (and default) setting is the Facebook URL field.';
 							break;
 						case 'tooltip-og_author_fallback':
@@ -460,9 +471,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'Add hidden debug messages to the HTML of webpages (default is unchecked).';
 							break;
 						case 'tooltip-plugin_filter_lang':
-							$text = $short_pro.' can use the WordPress locale to select the correct language for the Open Graph / Rich Pin meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? '.' : ', along with the Google, Facebook, and Twitter social sharing buttons.' ).
-							' If your website is available in multiple languages, this can be a useful feature.
+							$text = $short_pro.' can use the WordPress locale to select the correct language for the Facebook / Open Graph 
+							and Pinterest Rich Pin meta tags'.
+							( empty( $this->p->is_avail['ssb'] ) ? 
+								'' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).'. '.
+							'If your website is available in multiple languages, this can be a useful feature.
 							Uncheck this option to ignore the WordPress locale and always use the configured language.'; 
 							break;
 						case 'tooltip-plugin_auto_img_resize':
@@ -506,8 +519,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Social Settings' settings
 						 */
 						case 'tooltip-plugin_add_to':
-							$text = 'The Social Settings metabox, which allows you to enter custom Open Graph values (among other options), 
-							is available on the User, Posts, Pages, Media, and Product admin pages by default. 
+							$text = 'The Social Settings metabox, which allows you to enter custom Facebook / Open Graph values 
+							(among other options), is available on the User, Posts, Pages, Media, and Product admin pages by default. 
 							If your theme (or another plugin) supports additional custom post types, and you would like to 
 							include the Social Settings metabox on their admin pages, check the appropriate option(s) here.';
 							break;
@@ -524,7 +537,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-plugin_object_cache_exp':
 							$text = $short.' saves filtered and rendered content to a non-persistant cache 
 							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>), 
-							and Open Graph / Rich Pin, Twitter Card meta tags to a persistant 
+							and Facebook / Open Graph, Pinterest Rich Pin, and Twitter Card meta tags to a persistant 
 							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. 
 							The default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).' seconds, 
 							and the minimum value is 1 second (such a low value is not recommended).';
@@ -574,9 +587,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							target="_blank">Facebook Insight</a> data for <em>accounts associated with that Application ID</em>.';
 							break;
 						case 'tooltip-fb_lang':
-							$text = 'The default language of your website content, used in the Open Graph and Rich Pin meta tags. 
-							The Pro version can also use the WordPress locale to adjust the language value dynamically
-							(useful for websites with multilingual content).';
+							$text = 'The default language of your website content, used in the Facebook / Open Graph and 
+							Pinterest Rich Pin meta tags. The Pro version can also use the WordPress locale to adjust the language 
+							value dynamically (useful for websites with multilingual content).';
 							break;
 						/*
 						 * Other settings
@@ -611,14 +624,15 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-google_author_field':
 							$text = $short.' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
-							These are not Open Graph / Rich Pin meta property tags &mdash; they are used primarily by Google\'s search engine 
-							to associate Google+ profiles with search results. Select which field to use from the author\'s profile
-							for the <em>author</em> link tag.';
+							These are not Facebook / Open Graph and Pinterest Rich Pin meta property tags &mdash; 
+							they are used primarily by Google\'s search engine to associate Google+ profiles with search results. 
+							Select which field to use from the author\'s profile for the <em>author</em> link tag.';
 							break;
 						case 'tooltip-google_def_author_id':
 							$text = 'A default author for webpages missing authorship information (for example, an index webpage without posts). 
 							If you have several authors on your website, you should probably leave this option set to <em>[none]</em> (the default).
-							This option is similar to the Open Graph / Rich Pin Default Author, except that it\'s applied to the Link meta tag instead.';
+							This option is similar to the Facebook / Open Graph and Pinterest Rich Pin Default Author, 
+							except that it\'s applied to the Link meta tag instead.';
 							break;
 						case 'tooltip-google_def_author_on_index':
 							$text = 'Check this option if you would like to force the Default Author on index webpages 
@@ -740,18 +754,17 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					switch ( $idx ) {
 						case 'tooltip-rp_author_name':
 							$text = 'Pinterest ignores Facebook-style Author Profile URLs in the \'article:author\'
-							Open Graph / Rich Pin meta tags. An <em>additional</em> \'article:author\' meta tag may be included 
-							when the Pinterest crawler is detected. Select an Author Name Format, or \'[none]\' to disable this feature 
-							(the default and recommended value is \'Display Name\').';
+							Open Graph meta tags. An <em>additional</em> \'article:author\' meta tag may be included 
+							when the Pinterest crawler is detected. Select an Author Name Format, 
+							or \'[none]\' to disable this feature (the default and recommended value is \'Display Name\').';
 							break;
 						case 'tooltip-rp_img_dimensions':
 							$text = 'The image dimensions specifically for Rich Pin meta tags when the Pinterest crawler is detected
 							(defaults is '.$this->p->opt->get_defaults( 'rp_img_width' ).'x'.$this->p->opt->get_defaults( 'rp_img_height' ).' '.
 							( $this->p->opt->get_defaults( 'rp_img_crop' ) == 0 ? 'un' : '' ).'cropped). 
-							Images in the Open Graph meta tags are usually cropped, where-as images on Pinterest often look
-							better in their original aspect ratio (aka uncropped).
-							Note that original images in the WordPress Media Library and/or 
-							NextGEN Gallery must be larger than your chosen image dimensions.';
+							Images in the Facebook / Open Graph meta tags are usually cropped, where-as images on Pinterest often look
+							better in their original aspect ratio (aka uncropped). Note that original images in the WordPress Media Library 
+							and/or NextGEN Gallery must be larger than your chosen image dimensions.';
 							break;
 						/*
 						 * Other settings
@@ -824,26 +837,24 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							These options allow you to manage and/or override some Pinterest-specific Open Graph settings.
 							Please note that if you use a full-page caching plugin or front-end caching service, 
 							it should detect the Pinterest crawler user-agent and bypass the cache, 
-							so that different meta tags can be provided to the crawler 
-							(for example, look for a "<em>User-Agent Exclusion Pattern</em>" option and add "Pinterest/" to that list).</p>
-							</blockquote>';
+							so that different meta tags can be provided to the crawler (for example, look for a "<em>User-Agent Exclusion Pattern</em>" 
+							option and add "Pinterest/" to that list).</p></blockquote>';
 							break;
 						case 'info-taglist':
 							$text = '<blockquote style="margin-top:0;margin-bottom:0;">
-							<p>'.$short.' will add the following Google / SEO, Facebook, Open Graph, Schema, 
+							<p>'.$short.' will add the following Google / SEO, Facebook, Open Graph, Rich Pin, Schema, 
 							and Twitter Card HTML tags to the <code>head</code> section of your webpages. 
 							If your theme or another plugin already generates one or more of these HTML tags, you can uncheck them here 
 							to prevent duplicates from being added (as an example, the "meta name description" HTML tag is automatically 
-							unchecked if a known SEO plugin is detected).</p>
-							</blockquote>';
+							unchecked if a known SEO plugin is detected).</p></blockquote>';
 							break;
 						case 'info-cm':
 							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
 							<p>The following options allow you to customize the contact field names and labels shown on the
 							<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.
 							'.$short.' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? '.' : ', along with the Twitter social sharing button.' ).
-							' <strong>You should not modify the Contact Field Name unless you have a very good reason to do so.</strong>
+							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Twitter social sharing button' ).'. '.
+							'<strong>You should not modify the Contact Field Name unless you have a very good reason to do so.</strong>
 							The Profile Contact Label on the other hand, is for <strong>display purposes only</strong>, and its text can be changed as you wish.
 							Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying these
 							contact fields in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
