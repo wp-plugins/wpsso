@@ -776,13 +776,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 
 				/*
-				 * 'Profile Contact Methods' settings
+				 * 'Profile Contact Fields' settings
 				 */
 				case 'tooltip-custom-cm-field-name':
 					$text = '<strong>You should not modify the contact field names unless you have a specific reason to do so.</strong>
 					As an example, to match the contact field name of a theme or other plugin, you might change \'gplus\' to \'googleplus\'.
 					If you change the Facebook or Google+ field names, please make sure to update the Open Graph 
-					Author Profile URL and Google Author Link URL options in the '.
+					<em>Author Profile URL</em> and <em>Google Author Link URL</em> options in the '.
 					$this->p->util->get_admin_url( 'general', 'General settings' ).' as well.';
 					break;
 				case 'tooltip-wp-cm-field-name':
@@ -854,10 +854,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.
 							'.$short.' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags'.
 							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Twitter social sharing button' ).'. '.
-							'<strong>You should not modify the Contact Field Name unless you have a very good reason to do so.</strong>
-							The Profile Contact Label on the other hand, is for <strong>display purposes only</strong>, and its text can be changed as you wish.
-							Although the following contact methods may be shown on user profile pages, your theme is responsible for displaying these
-							contact fields in the appropriate template locations (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
+							'<strong>You should not modify the <em>Contact Field Name</em> unless you have a very good reason to do so.</strong>
+							The <em>Profile Contact Label</em> on the other hand is for <strong>display purposes only</strong>, and its text can be changed as you wish.
+							Although the following contact fields may be shown on user profile pages, your theme is responsible for using 
+							and displaying their values appropriately (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
 							target="_blank">get_the_author_meta()</a> for examples).</p>
 							<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY.</strong><br/>
 							Enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.</p>
