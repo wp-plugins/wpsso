@@ -176,7 +176,7 @@ WPSSO (Pro version) supports [bbPress](http://wordpress.org/plugins/bbpress/) an
 
 = Custom Contacts =
 
-WPSSO (Pro version) allows you to customize the field names, label, and show / remove the following Contact Methods from the user profile page:
+WPSSO (Pro version) allows you to customize the field names, label, and show/remove the following contacts from the user profile page:
 
 * AIM
 * Facebook 
