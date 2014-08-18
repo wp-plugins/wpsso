@@ -83,7 +83,7 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 		* Wistia Videos
 		* Youtube Videos and Playlists
 
-<strong>Looking for the Pro version?</strong> [Purchase a Pro license to update the Free version quickly and easily](http://surniaulula.com/extend/plugins/wpsso/).
+**Looking for the Pro version?** You can [purchase a Pro license](http://surniaulula.com/extend/plugins/wpsso/) to update the Free version quickly and easily.
 
 = Complete Meta Tags =
 
