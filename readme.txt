@@ -12,6 +12,8 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 == Description ==
 
+<img src="//ps.w.org/wpsso/assets/logo-300x300.jpg?rev=" width="300" height="300" style="float:left; margin:0 20px 20px 0;" />
+
 <p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites.</p>
 
 = Advanced Content Management for Publishers =
