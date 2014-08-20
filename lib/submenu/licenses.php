@@ -41,7 +41,9 @@ if ( ! class_exists( 'WpssoSubmenuLicenses' ) && class_exists( 'WpssoAdmin' ) ) 
 
 				if ( ! empty( $info['url']['purchase'] ) ) {
 					$url = $info['url']['purchase'];
-					$links .= ' | <a href="'.$info['url']['purchase'].'" target="_blank">Purchase a Pro License</a>';
+					if ( $this->p->cf['lca'] === $lca || $this->p->check->aop() )
+						$links .= ' | <a href="'.$info['url']['purchase'].'" target="_blank">Purchase a Pro License</a>';
+					else $links .= ' | Purchase a Pro License';
 				}
 
 				if ( ! empty( $info['img']['logo-125x125'] ) )
@@ -69,13 +71,17 @@ if ( ! class_exists( 'WpssoSubmenuLicenses' ) && class_exists( 'WpssoAdmin' ) ) 
 
 				if ( ! empty( $info['url']['purchase'] ) || 
 					! empty( $this->p->options['plugin_'.$lca.'_tid'] ) ) {
-
-					echo '<tr>'.$this->p->util->th( 'Authentication ID', 'medium' );
-					if ( $this->p->cf['lca'] === $lca || $this->p->check->aop() )
-						echo '<td class="tid">'.$this->form->get_input( 'plugin_'.$lca.'_tid', 'tid mono' );
-					else echo '<td class="tid blank">'.$this->form->get_no_input( 'plugin_'.$lca.'_tid', 'tid mono' );
-					echo '</td><td><p>'.( empty( $qty_used ) ? '' : $qty_used.' Licenses Assigned' ).'</p></td></tr>'."\n";
-					echo '<tr><td colspan="3">&nbsp;</td></tr>'."\n";
+					if ( $this->p->cf['lca'] === $lca || $this->p->check->aop() ) {
+						echo '<tr>'.$this->p->util->th( 'Authentication ID', 'medium' );
+						echo '<td class="tid">'.$this->form->get_input( 'plugin_'.$lca.'_tid', 'tid mono' ).'</td>';
+						echo '<td><p>'.( empty( $qty_used ) ? '' : $qty_used.' Licenses Assigned' ).'</p></td></tr>'."\n";
+						echo '<tr><td colspan="3">&nbsp;</td></tr>'."\n";
+					} else {
+						echo '<tr>'.$this->p->util->th( 'Authentication ID', 'medium' );
+						echo '<td class="blank">'.$this->form->get_no_input( 'plugin_'.$lca.'_tid', 'tid mono' ).'</td>';
+						echo '<td>'.$this->p->msgs->get( 'pro-option-msg' ).'</td></tr>'."\n";
+						echo '<tr><td colspan="3">&nbsp;</td></tr>'."\n";
+					}
 				} else {
 					echo '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</tr>'."\n";
 					echo '<tr><td colspan="3">&nbsp;</td></tr>'."\n";
