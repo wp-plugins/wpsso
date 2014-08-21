@@ -13,13 +13,17 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 == Description ==
 
 <table><tr><td valign="top">
+
 <p><img src="//ps.w.org/wpsso/assets/logo-300x300.jpg?rev=" width="300" height="300" style="border:1px solid #ccc; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; margin-right:30px;" /></p>
+
 </td><td valign="top">
+
 <p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites.</p>
 
-= Advanced Social Content Management =
+= Advanced Social Management =
 
 <p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, Pinterest, LinkedIn, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
+
 </td></tr></table>
 
 <blockquote>
@@ -36,7 +40,7 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 <p>"<em>WPSSO Pro provides a handy tool for your marketing team, and improves your content whenever it’s shared by you or your fans. The free version has a lot of great features and makes a good trial version, but I think that eCommerce sites really benefit from the eCommerce plugin and video integrations (as well as the inclusion of Twitter card support) that the Pro version offers.</em>" &mdash; <a href="http://www.sellwithwp.com/optimized-social-media-wpsso-plugin-review/">sellwithwp.com</a></p>
 </blockquote>
 
-**You can download the [Free version of WPSSO on WordPress.org](http://wordpress.org/plugins/wpsso/) and [purchase a Pro license(s) here](http://surniaulula.com/extend/plugins/wpsso/)**.
+<p><strong>You can download the <a href="http://wordpress.org/plugins/wpsso/">Free version of WPSSO on WordPress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) here</a></strong>.</p>
 
 = Quick List of Features =
 
