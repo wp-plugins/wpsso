@@ -215,24 +215,41 @@ class SuextParseReadme {
 				'name' => array(),
 				'href' => array(),
 				'title' => array(),
-				'rel' => array()
+				'rel' => array(),
 			),
-			'blockquote' => array('cite' => array()),
+			'blockquote' => array(
+				'cite' => array(),
+			),
 			'br' => array(),
 			'p' => array(),
 			'code' => array(),
 			'pre' => array(),
 			'em' => array(),
+			'small' => array(),
 			'strong' => array(),
 			'ul' => array(),
 			'ol' => array(),
 			'li' => array(),
 			'h3' => array(),
-			'h4' => array()
+			'h4' => array(),
+			'font' => array(
+				'color' => array(),
+			),
+			'img' => array(
+				'src' => array(),
+				'alt' => array(),
+				'width' => array(),
+				'height' => array(),
+				'style' => array(),
+			),
+			'table' => array(),
+			'tr' => array(),
+			'th' => array(),
+			'td' => array(),
 		);
-		$text = balanceTags($text);
+		$text = balanceTags( $text );
 		$text = wp_kses( $text, $allowed );
-		$text = trim($text);
+		$text = trim( $text );
 		return $text;
 	}
 
