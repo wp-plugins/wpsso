@@ -245,7 +245,9 @@ class SuextParseReadme {
 			'table' => array(),
 			'tr' => array(),
 			'th' => array(),
-			'td' => array(),
+			'td' => array(
+				'valign' => array(),
+			),
 		);
 		$text = balanceTags( $text );
 		$text = wp_kses( $text, $allowed );
