@@ -250,8 +250,7 @@ class SuextParseReadme {
 			),
 		);
 		$text = balanceTags( $text );
-		$text = wp_kses( $text, $allowed );
-		$text = trim( $text );
+		//$text = wp_kses( $text, $allowed );
 		return $text;
 	}
 
