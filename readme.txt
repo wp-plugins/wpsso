@@ -14,7 +14,7 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 <table><tr><td valign="top">
 
-<p><img src="//ps.w.org/wpsso/assets/logo-300x300.jpg?rev=" width="300" height="300" style="max-width:none;border:1px solid #ccc;margin-right:30px;" /></p>
+<p><img src="//ps.w.org/wpsso/assets/logo-300x300.jpg?rev=" width="300" height="300" style="max-width:none;border:1px solid #ddd;margin-right:30px;border-radius:3px;" /></p>
 
 </td><td valign="top">
 
