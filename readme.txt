@@ -12,11 +12,15 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 == Description ==
 
+<table><tr><td>
+<p><img src="//ps.w.org/wpsso/assets/logo-300x300.jpg?rev=" width="300" height="300" style="border:1px solid #ccc; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; margin-right:30px;" /></p>
+</td><td>
 <p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites.</p>
 
 = Advanced Content Management for Publishers =
 
 <p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, Pinterest, LinkedIn, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
+</td></tr></table>
 
 <blockquote>
 <h4>Industry Reviews</h4>
