@@ -130,7 +130,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'name' => 'WPSSO Social Sharing Buttons (SSB)',
 					'desc' => 'The Social Sharing Buttons (SSB) extension for the WordPress Social Sharing Optimization (WPSSO) plugin - Fast and accurate social sharing buttons.',
 					'img' => array(
-						'logo-125x125' => '//ps.w.org/wpsso-ssb/assets/logo-125x125.jpg?rev=',
+						'icon-small' => '//ps.w.org/wpsso-ssb/assets/icon-128x128.jpg?rev=',
+						'icon-medium' => '//ps.w.org/wpsso-ssb/assets/icon-256x256.jpg?rev=',
 					),
 					'url' => array(
 						'download' => 'http://wordpress.org/plugins/wpsso-ssb/',
