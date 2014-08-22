@@ -13,7 +13,7 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 == Description ==
 
 <table><tr><td valign="top">
-<p><img src="//ps.w.org/wpsso/assets/logo-300x300.jpg?rev=" width="300" height="300" style="max-width:none;border:1px solid #ddd;margin-right:30px;border-radius:3px;" /></p>
+<p><img src="//ps.w.org/wpsso/assets/icon-256x256.jpg?rev=" width="256" height="256" style="max-width:none;border:1px solid #ddd;margin-right:30px;border-radius:3px;" /></p>
 </td><td valign="top">
 
 <p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites.</p>
