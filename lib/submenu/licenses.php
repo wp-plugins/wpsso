@@ -46,8 +46,8 @@ if ( ! class_exists( 'WpssoSubmenuLicenses' ) && class_exists( 'WpssoAdmin' ) ) 
 					else $links .= ' | Purchase a Pro License';
 				}
 
-				if ( ! empty( $info['img']['logo-125x125'] ) )
-					$img = $info['img']['logo-125x125'];
+				if ( ! empty( $info['img']['icon-small'] ) )
+					$img = $info['img']['icon-small'];
 				else $img = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
 
 				// logo image
