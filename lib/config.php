@@ -26,7 +26,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'slug' => 'wpsso',
 					'base' => 'wpsso/wpsso.php',
 					'img' => array(
-						'logo-125x125' => '//ps.w.org/wpsso/assets/logo-125x125.jpg?rev=',
+						'icon-small' => '//ps.w.org/wpsso/assets/icon-128x128.jpg?rev=',
+						'icon-medium' => '//ps.w.org/wpsso/assets/icon-256x256.jpg?rev=',
 					),
 					'url' => array(
 						'download' => 'http://wordpress.org/plugins/wpsso/',
