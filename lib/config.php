@@ -128,7 +128,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssossb' => array(
 					'short' => 'WPSSO SSB',		// short plugin name
 					'name' => 'WPSSO Social Sharing Buttons (SSB)',
-					'desc' => 'The Social Sharing Buttons (SSB) extension for the WordPress Social Sharing Optimization (WPSSO) plugin - Fast and accurate social sharing buttons.',
+					'desc' => 'Social Sharing Buttons (SSB) extension for the WordPress Social Sharing Optimization plugin - Fast and accurate social sharing buttons.',
 					'img' => array(
 						'icon-small' => '//ps.w.org/wpsso-ssb/assets/icon-128x128.jpg?rev=',
 						'icon-medium' => '//ps.w.org/wpsso-ssb/assets/icon-256x256.jpg?rev=',
@@ -137,6 +137,20 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'download' => 'http://wordpress.org/plugins/wpsso-ssb/',
 					),
 				),
+				/*
+				'wpssopub' => array(
+					'short' => 'WPSSO Publisher',		// short plugin name
+					'name' => 'WPSSO Publisher',
+					'desc' => 'Automatically publish content to social websites.',
+					'img' => array(
+						'icon-small' => '//ps.w.org/wpsso-publisher/assets/icon-128x128.jpg?rev=',
+						'icon-medium' => '//ps.w.org/wpsso-publisher/assets/icon-256x256.jpg?rev=',
+					),
+					'url' => array(
+						'download' => 'http://wordpress.org/plugins/wpsso-publisher/',
+					),
+				),
+				*/
 			),
 			'opt' => array(				// options
 				'version' => '296',		// increment when changing default options

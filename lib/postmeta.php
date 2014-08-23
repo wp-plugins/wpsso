@@ -33,7 +33,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 
 				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
 				add_action( 'save_post', array( &$this, 'save_options' ), 10 );
-				add_action( 'save_post', array( &$this, 'flush_cache' ), 20 );
+				add_action( 'save_post', array( &$this, 'flush_cache' ), 20 );	// 'save_post' runs after status change
 				add_action( 'edit_attachment', array( &$this, 'save_options' ), 10 );
 				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 20 );
 			}

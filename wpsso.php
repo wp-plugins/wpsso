@@ -23,6 +23,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		/**
 		 * Class Object Variables
 		 */
+		public $p;			// Wpsso
 		public $admin;			// WpssoAdmin (admin menus and page loader)
 		public $cache;			// SucomCache (object and file caching)
 		public $debug;			// SucomDebug or WpssoNoDebug
@@ -118,7 +119,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 				foreach ( array( 'wp_head', 'wp_footer', 'admin_head', 'admin_footer' ) as $action )
 					foreach ( array( 1, 9999 ) as $prio ) {
 						add_action( $action, create_function( '', 
-							'echo "<!-- '.$this->cf['lca'].' add_action( \''.$action.'\' ) priority '.$prio.' test = PASSED -->\n";' ), $prio );
+							'echo "<!-- wpsso add_action( \''.$action.'\' ) priority '.$prio.' test = PASSED -->\n";' ), $prio );
 						add_action( $action, array( &$this, 'show_debug_html' ), $prio );
 					}
 		}
@@ -168,7 +169,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 
 			$this->loader = new WpssoLoader( $this );
 
-			do_action( $this->cf['lca'].'_init_addon' );
+			do_action( 'wpsso_init_addon' );
 
 			/*
 			 * check and create the default options array
@@ -232,12 +233,12 @@ if ( ! class_exists( 'Wpsso' ) ) {
 					__( 'Informational messages are being added to webpages as hidden HTML comments.', WPSSO_TEXTDOM ) );
 			}
 
-			if ( ! empty( $this->options['plugin_'.$this->cf['lca'].'_tid'] ) ) {
+			if ( ! empty( $this->options['plugin_wpsso_tid'] ) ) {
 				$this->util->add_plugin_filters( $this, array( 'installed_version' => 1, 'ua_plugin' => 1 ) );
 				$this->update = new SucomUpdate( $this, $this->cf['plugin'], $this->cf['update_check_hours'] );
 				if ( is_admin() ) {
 					if ( $this->is_avail['aop'] === false ) {
-						$short = $this->cf['plugin'][$this->cf['lca']]['short'];
+						$short = $this->cf['plugin']['wpsso']['short'];
 						$this->notice->inf( 'An Authentication ID was entered for '.$short.', 
 						but the Pro version is not installed yet &ndash; 
 						don\'t forget to update the '.$short.' plugin to install the Pro version.', true );
@@ -321,8 +322,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 					}
 				}
 			}
-			$this->options = apply_filters( $this->cf['lca'].'_get_options', $this->options );
-			$this->site_options = apply_filters( $this->cf['lca'].'_get_site_options', $this->site_options );
+			$this->options = apply_filters( 'wpsso_get_options', $this->options );
+			$this->site_options = apply_filters( 'wpsso_get_site_options', $this->site_options );
 		}
 	}
 

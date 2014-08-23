@@ -160,9 +160,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		protected function add_menu_page( $menu_slug ) {
 			global $wp_version;
-			$lca = $this->p->cf['lca'];
-			$short_aop = $this->p->cf['plugin'][$lca]['short'].
-				( $this->p->check->aop( $lca ) ? ' Pro' : '' );
+			$short_aop = $this->p->cf['plugin'][$this->p->cf['lca']]['short'].
+				( $this->p->check->aop( $this->p->cf['lca'] ) ? ' Pro' : '' );
 
 			// add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
 			$this->pagehook = add_menu_page( 
@@ -178,9 +177,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		protected function add_submenu_page( $parent_slug, $menu_id = '', $menu_name = '' ) {
-			$lca = $this->p->cf['lca'];
-			$short_aop = $this->p->cf['plugin'][$lca]['short'].
-				( $this->p->check->aop( $lca ) ? ' Pro' : '' );
+			$short_aop = $this->p->cf['plugin'][$this->p->cf['lca']]['short'].
+				( $this->p->check->aop( $this->p->cf['lca'] ) ? ' Pro' : '' );
 
 			if ( strpos ( $menu_id, 'separator' ) !== false ) {
 				$menu_title = '<div style="z-index:999;padding:2px 0;margin:0;cursor:default;border-bottom:1px dotted;color:#666;" onclick="return false;"></div>';
@@ -189,7 +187,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$function = '';
 			} else {
 				$menu_title = empty ( $menu_name ) ? $this->menu_name : $menu_name;
-				$menu_slug = $lca.'-'.( empty( $menu_id ) ? $this->menu_id : $menu_id );
+				$menu_slug = $this->p->cf['lca'].'-'.( empty( $menu_id ) ? $this->menu_id : $menu_id );
 				$page_title = $short_aop.' : '.$menu_title;
 				$function = array( &$this, 'show_form_page' );
 			}
@@ -390,9 +388,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		public function show_form_page() {
-			$lca = $this->p->cf['lca'];
-			$short_aop = $this->p->cf['plugin'][$lca]['short'].
-				( $this->p->check->aop( $lca ) ? ' Pro' : '' );
+			$short_aop = $this->p->cf['plugin'][$this->p->cf['lca']]['short'].
+				( $this->p->check->aop( $this->p->cf['lca'] ) ? ' Pro' : '' );
 
 			if ( $this->menu_id !== 'contact' )		// the "settings" page displays its own error messages
 				settings_errors( WPSSO_OPTIONS_NAME );	// display "error" and "updated" messages
@@ -455,13 +452,13 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		protected function show_form_content() {
 			if ( ! empty( $this->p->cf['*']['lib']['submenu'][$this->menu_id] ) ) {
-				echo '<form name="wpsso" id="setting" method="post" action="options.php">';
+				echo '<form name="'.$this->p->cf['lca'].'" id="setting" method="post" action="options.php">';
 				echo $this->form->get_hidden( 'options_version', $this->p->cf['opt']['version'] );
 				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['plugin'][$this->p->cf['lca']]['version'] );
 				settings_fields( $this->p->cf['lca'].'_setting' ); 
 
 			} elseif ( ! empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) ) {
-				echo '<form name="wpsso" id="setting" method="post" action="edit.php?action='.WPSSO_SITE_OPTIONS_NAME.'">';
+				echo '<form name="'.$this->p->cf['lca'].'" id="setting" method="post" action="edit.php?action='.WPSSO_SITE_OPTIONS_NAME.'">';
 				echo '<input type="hidden" name="page" value="'.$this->menu_id.'">';
 				echo $this->form->get_hidden( 'options_version', $this->p->cf['opt']['version'] );
 				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['plugin'][$this->p->cf['lca']]['version'] );
