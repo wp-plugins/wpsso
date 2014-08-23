@@ -81,6 +81,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			switch ( get_post_status( $post_id ) ) {
 			case 'draft':
 			case 'pending':
+			case 'future':
 			case 'private':
 			case 'publish':
 				$lang = SucomUtil::get_locale();

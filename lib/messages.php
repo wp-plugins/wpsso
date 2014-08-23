@@ -883,11 +883,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					if the current site/blog value is blank, or force every site/blog to use this value (disabling the option).';
 					break;
 				case 'pro-feature-msg':
-					if ( $this->p->is_avail['aop'] == true )
-						$text = '<p class="pro-feature-msg"><a href="'.$url['purchase'].'" 
-						target="_blank">Purchase '.$short_pro.' licence(s) to modify the following options and enable Pro addon modules</a></p>';
-					else $text = '<p class="pro-feature-msg"><a href="'.$url['purchase'].'" 
-						target="_blank">Purchase '.$short_pro.' to modify the following options, and get the extra Pro addon modules</a></p>';
+					if ( $this->p->check->aop( $lca, false ) )
+						$text = '<p class="pro-feature-msg"><a href="'.$url['purchase'].'" target="_blank">Purchase '.
+						$short_pro.' licence(s) to modify the following options (and load its Pro addon modules)</a></p>';
+					else $text = '<p class="pro-feature-msg"><a href="'.$url['purchase'].'" target="_blank">Purchase the '.
+						$short_pro.' plugin to modify the following options (and get its Pro addon modules)</a></p>';
 					break;
 				case 'pro-option-msg':
 					$text = '<p class="pro-option-msg"><a href="'.$url['purchase'].'" 
