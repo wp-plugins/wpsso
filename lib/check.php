@@ -299,6 +299,13 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			// All in One SEO Pack
 			if ( $this->p->is_avail['seo']['aioseop'] === true ) {
 				$opts = get_option( 'aioseop_options' );
+				if ( ! empty( $opts['modules']['aiosp_feature_manager_options']['aiosp_feature_manager_enable_opengraph'] ) ) {
+					$this->p->debug->log( $conflict_log_prefix.'aioseop social meta fetaure is enabled' );
+					$this->p->notice->err( $conflict_err_prefix.
+						sprintf( __( 'Please deactivate the \'<em>Social Meta</em>\' feature in the '.
+							'<a href="%s">All in One SEO Pack Feature Manager</a>.', NGFB_TEXTDOM ), 
+							get_admin_url( null, 'admin.php?page=all-in-one-seo-pack/aioseop_feature_manager.php' ) ) );
+				}
 				if ( array_key_exists( 'aiosp_google_disable_profile', $opts ) && empty( $opts['aiosp_google_disable_profile'] ) ) {
 					$this->p->debug->log( $conflict_log_prefix.'aioseop google plus profile is enabled' );
 					$this->p->notice->err( $conflict_err_prefix.
