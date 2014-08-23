@@ -38,7 +38,7 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 <p>"<em>WPSSO Pro provides a handy tool for your marketing team, and improves your content whenever it’s shared by you or your fans. The free version has a lot of great features and makes a good trial version, but I think that eCommerce sites really benefit from the eCommerce plugin and video integrations (as well as the inclusion of Twitter card support) that the Pro version offers.</em>" &mdash; <a href="http://www.sellwithwp.com/optimized-social-media-wpsso-plugin-review/">sellwithwp.com</a></p>
 </blockquote>
 
-<p><strong>You can download the <a href="http://wordpress.org/plugins/wpsso/">Free version of WPSSO on WordPress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) here</a></strong>.</p>
+<p><strong>You can download the <a href="http://wordpress.org/plugins/wpsso/">Free version of WPSSO on WordPress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) here</a></strong> (includes a <strong>No Risk 30 Day Refund Policy</strong>).</p>
 
 = Quick List of Features =
 
@@ -64,6 +64,7 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 
 **Pro / Power-User Version**
 
+* <strong>No Risk 30 Day Refund Policy</strong>
 * Twitter Card meta tags (Summary, Large Image, Photo, Gallery, Player, and Product).
 * Customizable image dimensions for each Twitter Card type.
 * Additional profile contact fields with configurable label and field names.
