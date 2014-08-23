@@ -127,8 +127,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 				'wpssossb' => array(
 					'short' => 'WPSSO SSB',		// short plugin name
-					'name' => 'WPSSO Social Sharing Buttons (SSB)',
-					'desc' => 'Social Sharing Buttons (SSB) extension for the WordPress Social Sharing Optimization plugin - Fast and accurate social sharing buttons.',
+					'name' => 'WPSSO Social Sharing Buttons (WPSSO SSB)',
+					'desc' => 'Social Sharing Buttons extension for the WordPress Social Sharing Optimization plugin - Fast and accurate social sharing buttons.',
 					'img' => array(
 						'icon-small' => '//ps.w.org/wpsso-ssb/assets/icon-128x128.jpg?rev=',
 						'icon-medium' => '//ps.w.org/wpsso-ssb/assets/icon-256x256.jpg?rev=',
@@ -138,16 +138,16 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					),
 				),
 				/*
-				'wpssopub' => array(
-					'short' => 'WPSSO Publisher',		// short plugin name
-					'name' => 'WPSSO Publisher',
+				'wpssosp' => array(
+					'short' => 'WPSSO SP',		// short plugin name
+					'name' => 'WPSSO Social Publisher (WPSSO SP)',
 					'desc' => 'Automatically publish content to social websites.',
 					'img' => array(
-						'icon-small' => '//ps.w.org/wpsso-publisher/assets/icon-128x128.jpg?rev=',
-						'icon-medium' => '//ps.w.org/wpsso-publisher/assets/icon-256x256.jpg?rev=',
+						'icon-small' => '//ps.w.org/wpsso-sp/assets/icon-128x128.jpg?rev=',
+						'icon-medium' => '//ps.w.org/wpsso-sp/assets/icon-256x256.jpg?rev=',
 					),
 					'url' => array(
-						'download' => 'http://wordpress.org/plugins/wpsso-publisher/',
+						'download' => 'http://wordpress.org/plugins/wpsso-sp/',
 					),
 				),
 				*/
