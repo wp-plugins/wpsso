@@ -153,7 +153,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				*/
 			),
 			'opt' => array(				// options
-				'version' => '296',		// increment when changing default options
+				'version' => '297',		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',

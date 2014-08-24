@@ -659,19 +659,20 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		}
 
 		public function get_tweet_max_len( $long_url, $opt_prefix = 'twitter' ) {
-			$service = isset( $this->p->options['twitter_shortener'] ) ?
-				$this->p->options['twitter_shortener'] : '';
-			
+			$service = isset( $this->p->options['twitter_shortener'] ) ? $this->p->options['twitter_shortener'] : '';
 			$short_url = apply_filters( $this->p->cf['lca'].'_shorten_url', $long_url, $service );
+			$len_adj = strpos( $short_url, 'https:' ) === false ? 1 : 2;
 
-			$cap_len = $this->p->options[$opt_prefix.'_cap_len'] - strlen( $short_url ) - 1;
+			if ( $short_url < $this->p->options['plugin_min_shorten'] )
+				$max_len = $this->p->options[$opt_prefix.'_cap_len'] - strlen( $short_url ) - $len_adj;
+			else $max_len = $this->p->options[$opt_prefix.'_cap_len'] - $this->p->options['plugin_min_shorten'] - $len_adj;
 
 			if ( ! empty( $this->p->options['tc_site'] ) && 
 				! empty( $this->p->options[$opt_prefix.'_via'] ) )
-					$cap_len = $cap_len - strlen( preg_replace( '/^@/', '', 
+					$max_len = $max_len - strlen( preg_replace( '/^@/', '', 
 						$this->p->options['tc_site'] ) ) - 5;	// 5 for 'via' word and 2 spaces
 
-			return $cap_len;
+			return $max_len;
 		}
 
 		public function get_source_id( $src_name, &$atts = array() ) {
