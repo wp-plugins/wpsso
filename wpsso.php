@@ -238,10 +238,10 @@ if ( ! class_exists( 'Wpsso' ) ) {
 				$this->update = new SucomUpdate( $this, $this->cf['plugin'], $this->cf['update_check_hours'] );
 				if ( is_admin() ) {
 					if ( $this->is_avail['aop'] === false ) {
-						$short = $this->cf['plugin']['wpsso']['short'];
-						$this->notice->inf( 'An Authentication ID was entered for '.$short.', 
+						$shortname = $this->cf['plugin']['wpsso']['short'];
+						$this->notice->inf( 'An Authentication ID was entered for '.$shortname.', 
 						but the Pro version is not installed yet &ndash; 
-						don\'t forget to update the '.$short.' plugin to install the Pro version.', true );
+						don\'t forget to update the '.$shortname.' plugin to install the Pro version.', true );
 					}
 					foreach ( $this->cf['plugin'] as $lca => $info ) {
 						$last_update = get_option( $lca.'_utime' );
