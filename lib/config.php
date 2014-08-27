@@ -46,9 +46,11 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'pro_ticket' => 'http://ticket.wpsso.surniaulula.com/',
 					),
 					'lib' => array(			// libraries
+						/*
 						'dashboard' => array (
 							'welcome' => 'Welcome to the WordPress Social Sharing Optimization (WPSSO) plugin!',
 						),
+						*/
 						'setting' => array (
 							'contact' => 'Contact Fields',
 						),
