@@ -46,11 +46,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'pro_ticket' => 'http://ticket.wpsso.surniaulula.com/',
 					),
 					'lib' => array(			// libraries
-						/*
-						'dashboard' => array (
-							'welcome' => 'Welcome to the WordPress Social Sharing Optimization (WPSSO) plugin!',
-						),
-						*/
 						'setting' => array (
 							'contact' => 'Contact Fields',
 						),
@@ -401,13 +396,13 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'tooltip_class' => 'sucom_tooltip',
 				'max_desc_hashtags' => 10,
 				'max_media_items' => 20,
+				'yes_no' => array( '1' => 'Yes', '0' => 'No' ),
 				'file_cache_hours' => array( 0, 1, 3, 6, 9, 12, 24, 36, 48, 72, 168 ),
 				'js_locations' => array( 'none' => '[none]', 'header' => 'Header', 'footer' => 'Footer' ),
 				'caption_types' => array( 'none' => '[none]', 'title' => 'Title Only', 'excerpt' => 'Excerpt Only', 'both' => 'Title and Excerpt' ),
 				'user_name_fields' => array( 'none' => '[none]', 'fullname' => 'First and Last Names', 'display_name' => 'Display Name', 'nickname' => 'Nickname' ),
 				'display_options' => array( 'basic' => 'Basic Plugin Options', 'all' => 'All Plugin Options' ),
 				'site_option_use' => array( 'default' => 'Default Site Value', 'empty' => 'If Value is Empty', 'force' => 'Force This Value' ),
-				'yes_no' => array( '1' => 'Yes', '0' => 'No' ),
 			),
 			'head' => array(
 				'min_img_dim' => 200,

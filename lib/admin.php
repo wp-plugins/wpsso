@@ -31,8 +31,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			add_action( 'admin_init', array( &$this, 'register_setting' ) );
 			add_action( 'admin_menu', array( &$this, 'add_admin_menus' ), -20 );
 			add_action( 'admin_menu', array( &$this, 'add_admin_settings' ), -10 );
-			add_action( 'admin_menu', array( &$this, 'add_admin_dashboards') );
-			add_action( 'admin_head', array( &$this, 'remove_admin_dashboards' ) );
 			add_filter( 'plugin_action_links', array( &$this, 'add_plugin_action_links' ), 10, 2 );
 
 			if ( is_multisite() ) {
@@ -46,7 +44,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		// the id of each submenu item must be unique
 		private function set_objects() {
 			$menus = array( 
-				'dashboard', 
 				'submenu', 
 				'setting'	// setting must be last to extend submenu/advanced
 			);
@@ -86,33 +83,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 		}
 
-		public function add_admin_dashboards() {
-			if ( empty( $_GET['page'] ) )
-				return;
-
-			switch ( $_GET['page'] ) {
-				case $this->p->cf['lca'].'-welcome' :
-					$id = 'welcome';
-					$menu_slug = $this->p->cf['lca'].'-'.$id;
-					if ( array_key_exists( $id, $this->submenu ) )
-						$this->submenu[$id]->add_dashboard_page( $menu_slug );
-					break;
-			}
-		}
-
-		public function remove_admin_dashboards() {
-			if ( empty( $_GET['page'] ) )
-				return;
-
-			switch ( $_GET['page'] ) {
-				case $this->p->cf['lca'].'-welcome' :
-					$id = 'welcome';
-					$menu_slug = $this->p->cf['lca'].'-'.$id;
-					remove_submenu_page( 'index.php', $menu_slug );
-					break;
-			}
-		}
-
 		public function add_admin_settings() {
 			foreach ( $this->p->cf['*']['lib']['setting'] as $id => $name ) {
 				if ( array_key_exists( $id, $this->submenu ) ) {
@@ -145,17 +115,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					$this->submenu[$id]->add_submenu_page( $parent_slug );
 				else $this->add_submenu_page( $parent_slug, $id, $name );
 			}
-		}
-
-		protected function add_dashboard_page( $menu_slug ) {
-			$this->pagehook = add_dashboard_page( 
-				$this->menu_name, 
-				$this->menu_name, 
-				'manage_options', 
-				$menu_slug, 
-				array( &$this, 'show_single_page' )
-			);
-			add_action( 'load-'.$this->pagehook, array( &$this, 'load_single_page' ) );
 		}
 
 		protected function add_menu_page( $menu_slug ) {
