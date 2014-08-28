@@ -29,11 +29,19 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 			add_action( 'all_admin_notices', array( &$this, 'admin_notices' ) );
 		}
 
-		public function nag( $msg = '', $store = false, $user = true ) { $this->log( 'nag', $msg, $store, $user ); }
-		public function err( $msg = '', $store = false, $user = true ) { $this->log( 'err', $msg, $store, $user ); }
-		public function inf( $msg = '', $store = false, $user = true ) { $this->log( 'inf', $msg, $store, $user ); }
+		public function nag( $msg = '', $store = false, $user = true, $cssid = null ) { 
+			$this->log( 'nag', $msg, $store, $user, $cssid );
+		}
 
-		public function log( $type, $msg = '', $store = false, $user = true ) {
+		public function err( $msg = '', $store = false, $user = true, $cssid = null ) {
+			$this->log( 'err', $msg, $store, $user, $cssid );
+		}
+
+		public function inf( $msg = '', $store = false, $user = true, $cssid = null ) {
+			$this->log( 'inf', $msg, $store, $user, $cssid );
+		}
+
+		public function log( $type, $msg = '', $store = false, $user = true, $cssid = null ) {
 			if ( empty( $msg ) ) 
 				return;
 			if ( $store == true ) {						// save the message in the database
@@ -47,15 +55,18 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 				if ( $msg_arr === false ) 
 					$msg_arr = array();				// if the array doesn't already exist, define a new one
 				if ( ! in_array( $msg, $msg_arr ) ) {			// dont't save duplicates
-					$this->p->debug->log( 'storing '.$type.' message'.
-						( $user == true ? ' for user '.$user_id : '' ).': '.$msg );
-					$msg_arr[] = $msg;
+					if ( ! empty( $cssid ) )
+						$msg_arr[$type.'_'.$cssid] = $msg;
+					else $msg_arr[] = $msg;
 				}
 				if ( $user == true )					// update the user option table
 					update_user_option( $user_id, $msg_opt, $msg_arr );
 				else update_option( $msg_opt, $msg_arr );		// update the option table
-			} elseif ( ! in_array( $msg, $this->log[$type] ) )		// dont't save duplicates
-				$this->log[$type][] = $msg;
+			} elseif ( ! in_array( $msg, $this->log[$type] ) ) {		// dont't save duplicates
+				if ( ! empty( $cssid ) )
+					$this->log[$type][$type.'_'.$cssid] = $msg;
+				else $this->log[$type][] = $msg;
+			}
 		}
 
 		public function trunc( $type ) {
@@ -116,20 +127,22 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 							}
 						</style>';
 
-					foreach ( $msg_arr as $msg ) {
-						if ( ! empty( $msg ) )
+					foreach ( $msg_arr as $key => $msg ) {
+						if ( ! empty( $msg ) ) {
+							$cssid = strpos( $key, $type.'_' ) === 0 ? $cssid=' id="'.$key.'"' : '';
 							switch ( $type ) {
-							case 'nag' :
-								$all_nag_msgs .= $msg;
-								break;
-							case 'err' :
-								echo '<div class="error"><div style="float:left;"><p style="white-space:nowrap;"><b>', 
-									$this->p->cf['menu'], ' Warning</b> :</p></div> <p style="text-align:left">', $msg, '</p></div>', "\n";
-								break;
-							case 'inf' :
-								echo '<div class="updated fade"><div style="float:left;"><p style="white-space:nowrap;"><b>', 
-									$this->p->cf['menu'], ' Info</b> :</p></div> <p style="text-align:left">', $msg, '</p></div>', "\n";
-								break;
+								case 'nag':
+									$all_nag_msgs .= $msg;
+									break;
+								case 'err':
+									echo '<div class="error"'.$cssid.'><div style="float:left;"><p style="white-space:nowrap;"><b>'. 
+									$this->p->cf['menu'].' Warning</b> :</p></div> <p style="text-align:left">'.$msg.'</p></div>'."\n";
+									break;
+								case 'inf':
+									echo '<div class="updated fade"'.$cssid.'><div style="float:left;"><p style="white-space:nowrap;"><b>'.
+									$this->p->cf['menu'].' Info</b> :</p></div> <p style="text-align:left">'.$msg.'</p></div>'."\n";
+									break;
+							}
 						}
 					}
 				}

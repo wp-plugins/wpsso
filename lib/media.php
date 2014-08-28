@@ -281,9 +281,11 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					else $rejected_text = 'image id '.$pid.' rejected - '.$img_width.'x'.$img_height.$size_too_small_text;
 				
 					$this->p->debug->log( 'exiting early: '.$rejected_text );
-					if ( is_admin() )
-						$this->p->notice->err( 'Media Library '.$rejected_text.
-							'. Upload a larger image, or adjust the '.$size_name.' image dimensions setting.');
+					if ( is_admin() ) {
+						$this->p->notice->err( 'Media Library '.$rejected_text.'.
+							Upload a larger image, or adjust the '.$size_name.' image dimensions setting.',
+							false, true, 'dim_wp_'.$pid );
+					}
 					return $ret_empty;
 
 				} else $this->p->debug->log( 'returned image dimensions ('.$img_width.'x'.$img_height.') are sufficient' );

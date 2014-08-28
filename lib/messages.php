@@ -895,9 +895,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 				case 'pro-activate-nag':
 					if ( ! is_multisite() ) {
-						$text = '<p><strong>The '.$short.' Authentication ID option value is empty.<br/>
+						$text = '<p><strong>The '.$short.' Authentication ID option value is empty.</strong><br/>
 						To enable Pro version features, and allow the plugin to authenticate itself for updates,<br/>
-						please '.$this->p->util->get_admin_url( 'licenses', 'enter the unique Authentication ID you received 
+						<strong>please '.$this->p->util->get_admin_url( 'licenses', 'enter the unique Authentication ID you received 
 						by email in the Licenses settings' ).'.</strong></p>';
 					}
 					break;
