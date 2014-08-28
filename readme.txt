@@ -347,46 +347,46 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 = Version 2.6.2.3 =
 
-* Bugfixes
+* **Bugfixes**
 	* *None*
-* Enhancements
+* **Enhancements**
 	* Removed display the welcome page on installation/upgrade.
 	* Added a CSS ID to the image dimension warnings.
 
 = Version 2.6.2.2 =
 
-* Bugfixes
+* **Bugfixes**
 	* Fixed retrieval of user ID on author index webpages when using the 'author' or 'author_name' queries.
-* Enhancements
+* **Enhancements**
 	* Refactored code to improve the "Version Information" side metabox (now includes information on any extension plugins as well).
 
 = Version 2.6.2.1 =
 
-* Bugfixes
+* **Bugfixes**
 	* Added a check for an empty Polylang post language before returning its locale value (Pro version).
-* Enhancements
+* **Enhancements**
 	* Added support for `pll_get_post_language()`, included in Polylang v1.5.4 (Pro version).
 
 = Version 2.6.2 =
 
-* Bugfixes
+* **Bugfixes**
 	* *None*
-* Enhancements
+* **Enhancements**
 	* Small updates to the settings help texts.
 
 = Version 2.6.1 =
 
-* Bugfixes
+* **Bugfixes**
 	* *None*
-* Enhancements
+* **Enhancements**
 	* Several changes to the plugin's configuration array to allow for future WPSSO extension plugins.
 	* Added the "WPSSO Social Sharing Buttons (SSB)" extension to WPSSO's configuration array.
 
 = Version 2.6 =
 
-* Bugfixes
+* **Bugfixes**
 	* *None*
-* Enhancements
+* **Enhancements**
 	* Added a new Licenses settings sub-menu page, for both single and network admin menus.
 	* Renamed the 'Network' multisite sub-menu to 'Advanced'.
 	* Modified the 'wpsso_load_lib' filter to return a class name or false, instead of just true or false.
