@@ -350,7 +350,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * Bugfixes
 	* *None*
 * Enhancements
-	* Added a CSS ID to image dimension warnings.
+	* Removed display the welcome page on installation/upgrade.
+	* Added a CSS ID to the image dimension warnings.
 
 = Version 2.6.2.2 =
 
@@ -398,7 +399,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 = 2.6.2.3 =
 
-Added a CSS ID to image dimension warnings.
+Removed display the welcome page on installation/upgrade and added a CSS ID to the image dimension warnings.
 
 = 2.6.2.2 =
 
