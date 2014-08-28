@@ -345,6 +345,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.2.3 =
+
+* Bugfixes
+	* *None*
+* Enhancements
+	* Added a CSS ID to image dimension warnings.
+
 = Version 2.6.2.2 =
 
 * Bugfixes
@@ -388,6 +395,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Re-structured the `NgfbConfig::$cf` array to support multiple plugin configs (for future WPSSO extension plugins).
 
 == Upgrade Notice ==
+
+= 2.6.2.3 =
+
+Added a CSS ID to image dimension warnings.
 
 = 2.6.2.2 =
 
