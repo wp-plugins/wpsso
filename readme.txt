@@ -45,13 +45,14 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 **Free / Basic Version**
 
 * Adds Open Graph / Rich Pin meta tags (Facebook, Google+, Pinterest, LinkedIn, etc.).
-* Configurable image sizes, title and description lengths for different contexts.
+* Configurable image sizes for Open Graph (Facebook, LinkedIn, etc.) and Pinterest.
 * Optional fallback to a default image and video for index and search webpages.
 * Supports featured, attached, gallery shortcode, and/or HTML image tags in content.
 * Validates image dimensions to provide accurate media for social websites.
 * Auto-regeneration of inaccurate / missing WordPress image sizes.
 * Support for embedded videos (iframe and object HTML tags).
 * Fully renders content (including shortcodes) for accurate description texts.
+* Configurable title separator character (hyphen by default).
 * Includes author and publisher profile URLs for Facebook and Google Search.
 * Includes hashtags from Post / Page WordPress Tags.
 * Includes the author's name for Pinterest Rich Pins.
@@ -67,6 +68,7 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 * <strong>No Risk 30 Day Refund Policy</strong>
 * Twitter Card meta tags (Summary, Large Image, Photo, Gallery, Player, and Product).
 * Customizable image dimensions for each Twitter Card type.
+* Configurable title and description lengths for different contexts.
 * Additional profile contact fields with configurable label and field names.
 * Custom settings and meta tag values for each Post, Page, and custom post type.
 * Options to exclude specific Google / SEO, Open Graph, and Twitter Card meta tags.
