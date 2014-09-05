@@ -134,20 +134,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'download' => 'http://wordpress.org/plugins/wpsso-ssb/',
 					),
 				),
-				/*
-				'wpssosp' => array(
-					'short' => 'WPSSO SP',		// short plugin name
-					'name' => 'WPSSO Social Publisher (WPSSO SP)',
-					'desc' => 'Automatically publish content to social websites.',
-					'img' => array(
-						'icon-small' => '//ps.w.org/wpsso-sp/assets/icon-128x128.jpg?rev=',
-						'icon-medium' => '//ps.w.org/wpsso-sp/assets/icon-256x256.jpg?rev=',
-					),
-					'url' => array(
-						'download' => 'http://wordpress.org/plugins/wpsso-sp/',
-					),
-				),
-				*/
 			),
 			'opt' => array(				// options
 				'version' => '297',		// increment when changing default options
