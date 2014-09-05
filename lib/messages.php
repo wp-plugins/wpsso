@@ -645,8 +645,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ business page for your website</a>, 
 							you may use it\'s URL as the Publisher Link URL. For example, the Publisher Link URL for 
 							<a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is 
-							<a href="https://plus.google.com/+SurniaUlula/" target="_blank">https://plus.google.com/+SurniaUlula/</a>.
-							The Publisher Link URL may take precedence over the Author Link URL in Google\'s search results.';
+							<a href="https://plus.google.com/+SurniaUlula/" target="_blank">https://plus.google.com/+SurniaUlula/</a>.';
 							break;
 						/*
 						 * Other settings

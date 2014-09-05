@@ -29,15 +29,15 @@ if ( ! class_exists( 'WpssoGplAdminPostmeta' ) ) {
 			$rows[] = $this->p->util->th( 'Default Title', 'medium', 'postmeta-og_title', $post_info ). 
 			'<td class="blank">'.$this->p->webpage->get_title( $this->p->options['og_title_len'], '...', true ).'</td>';
 		
-			$rows[] = $this->p->util->th( 'Default / OG Description', 'medium', 'postmeta-og_desc', $post_info ).
+			$rows[] = $this->p->util->th( 'Default, Facebook / Open Graph, LinkedIn, Pinterest Rich Pin Description', 'medium', 'postmeta-og_desc', $post_info ).
 			'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['og_desc_len'], 
 				'...', true ).'</td>';
 	
-			$rows[] = $this->p->util->th( 'Search / SEO Description', 'medium', 'postmeta-seo_desc', $post_info ).
+			$rows[] = $this->p->util->th( 'Google Search / SEO Description', 'medium', 'postmeta-seo_desc', $post_info ).
 			'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['seo_desc_len'], 
 				'...', true, true, false ).'</td>';	// no hashtags
 
-			$rows[] = $this->p->util->th( 'G+ / Schema Description', 'medium', 'postmeta-schema_desc', $post_info ).
+			$rows[] = $this->p->util->th( 'Google+ / Schema Description', 'medium', 'postmeta-schema_desc', $post_info ).
 			'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['schema_desc_len'], 
 				'...', true ).'</td>';
 	

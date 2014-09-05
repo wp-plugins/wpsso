@@ -80,7 +80,7 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 
 			$checkboxes = '<p>'.$form->get_no_checkbox( 'plugin_add_to_user' ).' User Profile</p>';
 
-			foreach ( $this->p->util->get_post_types( 'plugin' ) as $post_type )
+			foreach ( $this->p->util->get_post_types( 'backend' ) as $post_type )
 				$checkboxes .= '<p>'.$form->get_no_checkbox( 'plugin_add_to_'.$post_type->name ).' '.
 					$post_type->label.' '.( empty( $post_type->description ) ? '' : '('.$post_type->description.')' ).'</p>';
 

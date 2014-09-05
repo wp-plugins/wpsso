@@ -321,9 +321,9 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				$this->p->debug->log( $conflict_log_prefix.'jetpack photon is enabled' );
 				$this->p->notice->err( $conflict_err_prefix.
 					sprintf( __( 'JetPack Photon cripples the WordPress image size funtions. ', WPSSO_TEXTDOM ).
-						__( 'Please <a href="%s">disable JetPack Photon</a> or <a href="%s">upgrade to the %s version</a> '.
-							'(which includes an addon to fix the crippled functions).', WPSSO_TEXTDOM ), 
-						get_admin_url( null, 'admin.php?page=jetpack' ), $purchase_url, $this->p->cf['short_pro'] ) );
+						__( 'Please <a href="%s">disable JetPack Photon</a>, disable the %s Free version, 
+						or <a href="%s">upgrade to the %s version</a> (that includes a 3rd party addon for Photon).', NGFB_TEXTDOM ), 
+						get_admin_url( null, 'admin.php?page=jetpack' ), $short, $purchase_url, $short_pro ) );
 			}
 
 			/*

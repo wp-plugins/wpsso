@@ -62,19 +62,18 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			return $opts;
 		}
 
-		public function get_post_types( $opt_prefix, $output = 'objects' ) {
+		public function get_post_types( $type = 'frontend', $output = 'objects' ) {
 			$include = false;
-			$post_types = array();
-			switch ( $opt_prefix ) {
-				case 'buttons':
+			switch ( $type ) {
+				case 'frontend':
 					$include = array( 'public' => true );
 					break;
-				case 'plugin':
+				case 'backend':
 					$include = array( 'public' => true, 'show_ui' => true );
 					break;
 			}
-			$post_types = $include !== false ?  get_post_types( $include, $output ) : array();
-			return apply_filters( $this->p->cf['lca'].'_post_types', $post_types, $opt_prefix, $output );
+			$post_types = $include !== false ? get_post_types( $include, $output ) : array();
+			return apply_filters( $this->p->cf['lca'].'_post_types', $post_types, $type, $output );
 		}
 
 		public function flush_post_cache( $post_id ) {

@@ -428,8 +428,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			do_meta_boxes( $this->pagehook, 'normal', null ); 
 
-			// if we're displaying the sharing page, then do the sharing website metaboxes
-			if ( $this->menu_id == 'sharing' ) {
+			if ( isset( $this->p->admin->submenu[ $this->menu_id ]->website ) ) {
 				foreach ( range( 1, ceil( count( $this->p->admin->submenu[ $this->menu_id ]->website ) / 2 ) ) as $row ) {
 					echo '<div class="website-row">', "\n";
 					foreach ( range( 1, 2 ) as $col ) {
