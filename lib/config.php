@@ -19,7 +19,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.6.2.4',		// plugin version
+					'version' => '2.6.2.5',		// plugin version
 					'short' => 'WPSSO',		// short plugin name
 					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
 					'desc' => 'Display your content in the best possible way on Facebook, Google+, Twitter, Pinterest, etc. - no matter how your webpage is shared!',

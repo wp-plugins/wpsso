@@ -272,7 +272,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			return $ret;
 		}
 
-		private function get_single_tag( $tag = 'meta', $type = 'property', $name, $content = '', $comment = '' ) {
+		private function get_single_tag( $tag = 'meta', $type = 'property', $name, $value = '', $comment = '' ) {
 
 			// known exceptions for the 'property' $type
 			if ( $tag === 'meta' && $type === 'property' && 
@@ -280,53 +280,54 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					$type = 'name';
 
 			$ret = array();
+			$attr = $tag === 'link' ? 'href' : 'content';
 			$log_pre = $tag.' '.$type.' '.$name;
 
 			if ( empty( $this->p->options['add_'.$tag.'_'.$type.'_'.$name] ) ) {
 				$this->p->debug->log( $log_pre.' is disabled (skipped)' );
 				return $ret;
 
-			} elseif ( $content === -1 ) {	// -1 is reserved value, meaning use the defaults - exclude, just in case
+			} elseif ( $value === -1 ) {	// -1 is reserved, meaning use the defaults - exclude, just in case
 				$this->p->debug->log( $log_pre.' value is -1 (skipped)' );
 				return $ret;
 
-			} elseif ( $content === '' || $content === null ) {	// allow for 0 value
+			} elseif ( $value === '' || $value === null ) {	// allow for 0
 				$this->p->debug->log( $log_pre.' value is empty (skipped)' );
 				return $ret;
 
-			} elseif ( is_array( $content ) ) {
+			} elseif ( is_array( $value ) ) {
 				$this->p->debug->log( $log_pre.' value is an array (skipped)' );
 				return $ret;
 
-			} elseif ( is_object( $content ) ) {
+			} elseif ( is_object( $value ) ) {
 				$this->p->debug->log( $log_pre.' value is an object (skipped)' );
 				return $ret;
 			}
 
 			$charset = get_bloginfo( 'charset' );
-			$content = htmlentities( $content, ENT_QUOTES, $charset, false );	// double_encode = false
-			$this->p->debug->log( $log_pre.' = "'.$content.'"' );
+			$value = htmlentities( $value, ENT_QUOTES, $charset, false );	// double_encode = false
+			$this->p->debug->log( $log_pre.' = "'.$value.'"' );
 			$comment_html = empty( $comment ) ? '' : '<!-- '.$comment.' -->';
 
 			// add an additional secure_url meta tag for open graph images and videos
 			if ( $tag === 'meta' && $type === 'property' &&
 				( $name === 'og:image' || $name === 'og:video' ) && 
-				strpos( $content, 'https:' ) === 0 && 
+				strpos( $value, 'https:' ) === 0 && 
 				! empty( $this->p->options['add_'.$tag.'_'.$type.'_'.$name.':secure_url'] ) ) {
 
-				$secure_url = $content;
-				$content = preg_replace( '/^https:/', 'http:', $content );
+				$secure_url = $value;
+				$value = preg_replace( '/^https:/', 'http:', $value );
 
 				$ret[] = array( 
-					$comment_html.'<'.$tag.' '.$type.'="'.$name.':secure_url" content="'.$secure_url.'" />'."\n",
-					$tag, $type, $name.':secure_url', 'content', $secure_url, $comment
+					$comment_html.'<'.$tag.' '.$type.'="'.$name.':secure_url" '.$attr.'="'.$secure_url.'" />'."\n",
+					$tag, $type, $name.':secure_url', $attr, $secure_url, $comment
 				);
 
 			} 
 			
 			$ret[] = array( 
-				$comment_html.'<'.$tag.' '.$type.'="'.$name.'" content="'.$content.'" />'."\n",
-				$tag, $type, $name, 'content', $content, $comment
+				$comment_html.'<'.$tag.' '.$type.'="'.$name.'" '.$attr.'="'.$value.'" />'."\n",
+				$tag, $type, $name, $attr, $value, $comment
 			);
 
 			return $ret;

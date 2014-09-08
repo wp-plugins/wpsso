@@ -347,6 +347,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.2.5 =
+
+* **Bugfixes**
+	* Fixed the link rel attribute name (should be 'href', not 'content').
+* **Enhancements**
+	* *None*
+
 = Version 2.6.2.4 =
 
 * **Bugfixes**
@@ -406,6 +413,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Re-structured the `NgfbConfig::$cf` array to support multiple plugin configs (for future WPSSO extension plugins).
 
 == Upgrade Notice ==
+
+= 2.6.2.5 =
+
+Fixed the link rel attribute name (should be 'href', not 'content').
 
 = 2.6.2.4 =
 
