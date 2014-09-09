@@ -54,7 +54,9 @@ if ( ! class_exists( 'WpssoSitesubmenuSitelicenses' ) && class_exists( 'WpssoAdm
 
 				if ( ! empty( $info['url']['purchase'] ) ) {
 					$url = $info['url']['purchase'];
-					$links .= ' | <a href="'.$info['url']['purchase'].'" target="_blank">Purchase a Pro License</a>';
+					if ( $this->p->cf['lca'] === $lca || $this->p->check->aop() )
+						$links .= ' | <a href="'.$info['url']['purchase'].'" target="_blank">Purchase a Pro License</a>';
+					else $links .= ' | <em>Purchase a Pro License</em>';
 				}
 
 				if ( ! empty( $info['img']['icon-small'] ) )
@@ -82,13 +84,15 @@ if ( ! class_exists( 'WpssoSitesubmenuSitelicenses' ) && class_exists( 'WpssoAdm
 
 				if ( ! empty( $info['url']['purchase'] ) || 
 					! empty( $this->p->options['plugin_'.$lca.'_tid'] ) ) {
-
-					echo '<tr>'.$this->p->util->th( 'Authentication ID', 'medium' );
-					if ( $this->p->cf['lca'] === $lca || $this->p->check->aop() )
-						echo '<td class="tid">'.$this->form->get_input( 'plugin_'.$lca.'_tid', 'tid mono' );
-					else echo '<td class="tid blank">'.$this->form->get_no_input( 'plugin_'.$lca.'_tid', 'tid mono' );
-					echo '</td><td><p>'.( empty( $qty_used ) ? '' : $qty_used.' Licenses Assigned' ).'</p></td></tr>'."\n";
-
+					if ( $this->p->cf['lca'] === $lca || $this->p->check->aop() ) {
+						echo '<tr>'.$this->p->util->th( 'Authentication ID', 'medium' );
+						echo '<td class="tid">'.$this->form->get_input( 'plugin_'.$lca.'_tid', 'tid mono' ).'</td>';
+						echo '<td><p>'.( empty( $qty_used ) ? '' : $qty_used.' Licenses Assigned' ).'</p></td></tr>'."\n";
+					} else {
+						echo '<tr>'.$this->p->util->th( 'Authentication ID', 'medium' );
+						echo '<td class="blank">'.$this->form->get_no_input( 'plugin_'.$lca.'_tid', 'tid mono' ).'</td>';
+						echo '<td>'.$this->p->msgs->get( 'pro-option-msg' ).'</td></tr>'."\n";
+					}
 					echo '<tr>'.$this->p->util->th( 'Site Use', 'medium' );
 					echo '<td>'.$this->form->get_select( 'plugin_'.$lca.'_tid:use', $this->p->cf['form']['site_option_use'], 'site_use' );
 					echo '</td><td style="padding-bottom:10px;"><p>&nbsp;</p></td></tr>'."\n";
