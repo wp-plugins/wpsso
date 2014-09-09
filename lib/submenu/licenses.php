@@ -43,7 +43,7 @@ if ( ! class_exists( 'WpssoSubmenuLicenses' ) && class_exists( 'WpssoAdmin' ) ) 
 					$url = $info['url']['purchase'];
 					if ( $this->p->cf['lca'] === $lca || $this->p->check->aop() )
 						$links .= ' | <a href="'.$info['url']['purchase'].'" target="_blank">Purchase a Pro License</a>';
-					else $links .= ' | Purchase a Pro License';
+					else $links .= ' | <em>Purchase a Pro License</em>';
 				}
 
 				if ( ! empty( $info['img']['icon-small'] ) )
