@@ -42,7 +42,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			if ( ! isset( $this->p->cf['opt']['defaults']['options_filtered'] ) ||
 				$this->p->cf['opt']['defaults']['options_filtered'] !== true ) {
 
-				$this->p->cf['opt']['defaults'] = $this->p->util->push_add_to_options( $this->p->cf['opt']['defaults'] );
+				$this->p->cf['opt']['defaults'] = $this->p->util->push_add_to_options( $this->p->cf['opt']['defaults'], array( 'plugin' => 'backend' ) );
 
 				$this->p->cf['opt']['defaults']['link_author_field'] = empty( $this->p->options['plugin_cm_gp_name'] ) ? 
 					$this->p->cf['opt']['defaults']['plugin_cm_gp_name'] : $this->p->options['plugin_cm_gp_name'];
@@ -112,7 +112,8 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				}
 
 				// add any missing 'plugin_add_to' options for current post types
-				$this->p->util->push_add_to_options( $opts );
+				$this->p->util->push_add_to_options( $opts, array( 'plugin' => 'backend' ) );
+
 			} else {
 				if ( $opts === false )
 					$opts_err_msg = 'could not find an entry for '.$options_name.' in';

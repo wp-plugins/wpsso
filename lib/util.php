@@ -38,25 +38,13 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			}
 		}
 
-		public function push_add_to_options( &$opts = array(), $add_to_prefixes = array( 'plugin' ) ) {
-			foreach ( $add_to_prefixes as $prefix ) {
-				foreach ( $this->get_post_types( $prefix ) as $post_type ) {
-					$option_name = $prefix.'_add_to_'.$post_type->name;
+		public function push_add_to_options( &$opts = array(), $add_to_prefixes = array( 'plugin' => 'backend' ) ) {
+			foreach ( $add_to_prefixes as $opt_prefix => $type ) {
+				foreach ( $this->get_post_types( $type ) as $post_type ) {
+					$option_name = $opt_prefix.'_add_to_'.$post_type->name;
 					$filter_name = $this->p->cf['lca'].'_add_to_options_'.$post_type->name;
-					if ( ! isset( $opts[$option_name] ) ) {	
-						switch ( $post_type->name ) {
-							/*
-							case 'download':
-							case 'product':
-								$def_val = 1;
-								break;
-							*/
-							default:
-								$def_val = 1;
-								break;
-						}
-						$opts[$option_name] = apply_filters( $filter_name, $def_val );
-					}
+					if ( ! isset( $opts[$option_name] ) )
+						$opts[$option_name] = apply_filters( $filter_name, 1 );
 				}
 			}
 			return $opts;
