@@ -414,6 +414,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
+= Version 2.6.2.6 =
+
+* **Bugfixes**
+	* *None*
+* **Enhancements**
+	* *None*
+
 = 2.6.2.5 =
 
 Fixed the link rel attribute name (should be 'href', not 'content').
