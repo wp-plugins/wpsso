@@ -419,7 +419,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* *None*
 * **Enhancements**
-	* Improved the 'Plugin Features' side metabox code.
+	* Improved the 'Plugin Features' side metabox code and display layout.
+	* Added the 'Enable Excerpt for Pages' and 'Enable Tags for Pages' Advanced options (enabled by default).
 
 = 2.6.2.5 =
 
