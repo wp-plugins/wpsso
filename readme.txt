@@ -419,7 +419,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* *None*
 * **Enhancements**
-	* *None*
+	* Improved the 'Plugin Features' side metabox code.
 
 = 2.6.2.5 =
 
