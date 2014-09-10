@@ -493,8 +493,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				//$update_info = class_exists( 'SucomUpdate' ) ?
 				//	SucomUpdate::get_option( $lca ) : false;
 	
-				echo '<tr><td colspan="2"><p><strong>'.$info['short'].
-					( $this->p->check->aop( $lca ) ? ' Pro' : '' ).'</strong></p></td></tr>';
+				echo '<tr><td colspan="2"><h4>'.$info['short'].
+					( $this->p->check->aop( $lca ) ? ' Pro' : '' ).'</h4></td></tr>';
 				echo '<tr><th class="side">'.__( 'Installed', WPSSO_TEXTDOM ).':</th>
 					<td class="side_version" '.$installed_style.'>'.$installed_version.'</td></tr>';
 				echo '<tr><th class="side">'.__( 'Stable', WPSSO_TEXTDOM ).':</th>
@@ -514,25 +514,32 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			/*
 			 * GPL version features
 			 */
-			echo '<tr><td><h4 style="margin-top:0;">Standard</h4></td></tr>';
-			$features = array(
-				'Debug Messages' => array( 'classname' => 'SucomDebug' ),
-				'Non-Persistant Cache' => array( 'status' => $this->p->is_avail['cache']['object'] ? 'on' : 'rec' ),
-				'Open Graph / Rich Pin' => array( 'status' => class_exists( $this->p->cf['lca'].'Opengraph' ) ? 'on' : 'rec' ),
-				'Pro Update Check' => array( 'classname' => 'SucomUpdate' ),
-				'Transient Cache' => array( 'status' => $this->p->is_avail['cache']['transient'] ? 'on' : 'rec' ),
-			);
-			$features = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_gpl_features', $features );
-			$this->show_plugin_status( $features );
+			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
+				if ( ! isset( $info['lib']['gpl'] ) )
+					continue;
+				if ( $lca === $this->p->cf['lca'] )
+					$features = array(
+						'Debug Messages' => array( 'classname' => 'SucomDebug' ),
+						'Non-Persistant Cache' => array( 'status' => $this->p->is_avail['cache']['object'] ? 'on' : 'rec' ),
+						'Open Graph / Rich Pin' => array( 'status' => class_exists( $this->p->cf['lca'].'opengraph' ) ? 'on' : 'rec' ),
+						'Pro Update Check' => array( 'classname' => 'SucomUpdate' ),
+						'Transient Cache' => array( 'status' => $this->p->is_avail['cache']['transient'] ? 'on' : 'rec' ),
+					);
+				else $features = array();
+				$features = apply_filters( $lca.'_'.$metabox.'_gpl_features', $features, $lca, $info );
+				if ( ! empty( $features ) ) {
+					echo '<tr><td><h4>'.$this->p->cf['plugin'][$lca]['short'].' Core Features</h4></td></tr>';
+					$this->show_plugin_status( $features );
+				}
+			}
 
 			/*
 			 * Pro version features
 			 */
-			echo '<tr><td><h4>Pro Addons</h4></td></tr>';
-			$features = array();
 			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
 				if ( ! isset( $info['lib']['pro'] ) )
 					continue;
+				$features = array();
 				foreach ( $info['lib']['pro'] as $sub => $libs ) {
 					if ( $sub === 'admin' ) 
 						continue;	// skip status for admin menus and tabs
@@ -541,25 +548,18 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						$features[$name] = array( 
 							'status' => class_exists( $lca.'pro'.$sub.$id ) ? 
 								( $this->p->check->aop( $lca ) ? 'on' : $off ) : $off,
-							'tooltip' => 'If the '.$name.' plugin is detected, '.
-								$this->p->cf['plugin'][$this->p->cf['lca']]['short'].' Pro'.
-								' will load a specific integration addon for '.$name.
-								' to improve the accuracy of Open Graph, Rich Pin, and Twitter Card meta tag values.',
+							'tooltip' => 'If the '.$name.' plugin is detected, '.$this->p->cf['plugin'][$lca]['short'].' Pro '.
+								'will load an integration addon to provide additional support and features for '.$name.'.',
 							'td_class' => $this->p->check->aop( $lca ) ? '' : 'blank',
 						);
-						switch ( $id ) {
-							case 'bbpress':
-							case 'buddypress':
-								$features[$name]['tooltip'] .= ' '.$name.' support also provides social sharing buttons that can be enabled from the '.
-								$this->p->util->get_admin_url( 'sharing', $this->p->cf['menu'].' Sharing settings' ).' page.';
-								break;
-						}
 					}
 				}
-				$features = apply_filters( $lca.'_'.$metabox.'_pro_features', $features );
+				$features = apply_filters( $lca.'_'.$metabox.'_pro_features', $features, $lca, $info );
+				if ( ! empty( $features ) ) {
+					echo '<tr><td><h4>'.$this->p->cf['plugin'][$lca]['short'].' Pro Addons</h4></td></tr>';
+					$this->show_plugin_status( $features );
+				}
 			}
-			$this->show_plugin_status( $features );
-	
 			echo '</table>';
 		}
 

@@ -158,7 +158,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$cache_id = $lca.'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
 				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
-				if ( $read_cache ) {
+				if ( apply_filters( $this->p->cf['lca'].'_header_read_cache', $read_cache ) ) {
 					$header_array = get_transient( $cache_id );
 					if ( $header_array !== false ) {
 						$this->p->debug->log( $cache_type.': header array retrieved from transient '.$cache_id );
@@ -241,8 +241,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->get_tag_array( 'meta', 'itemprop', $meta_schema ),
 				$this->get_tag_array( 'meta', 'property', $meta_og )
 			);
-
-			if ( ! empty( $this->p->is_avail['cache']['transient'] ) ) {
+ 
+			if ( apply_filters( $this->p->cf['lca'].'_header_set_cache', $this->p->is_avail['cache']['transient'] ) ) {
 				set_transient( $cache_id, $header_array, $this->p->cache->object_expire );
 				$this->p->debug->log( $cache_type.': header array saved to transient '.$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
 			}

@@ -509,6 +509,15 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							<strong>Unchecking this option is not advised</strong> - 
 							images that are too small for some social websites may be included in your meta tags.';
 							break;
+						case 'tooltip-plugin_page_excerpt':
+							$text = 'Enable the excerpt editing metabox for Pages. Excerpts are optional hand-crafted summaries 
+							of your content that '.$short.' can use as a default description value.';
+							break;
+						case 'tooltip-plugin_page_tags':
+							$text = 'Enable the tags editing metabox for Pages. Tags are optional keywords that highlight the content
+							subject(s), often used for searches and "tag clouds". '.$short.' converts tags into hashtags for some
+							social websites (Twitter, Facebook, Google+, etc.).';
+							break;
 						case 'tooltip-plugin_embedded_media':
 							$text = 'Check the Post and Page content, along with the custom Social Settings, for embedded media URLs 
 							from supported media providers (Youtube, Wistia, etc.). If a supported URL is found, an API connection 

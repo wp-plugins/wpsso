@@ -9,7 +9,7 @@
  * Description: Display your content in the best possible way on Facebook, Twitter, Pinterest, Google+, LinkedIn, etc - no matter how your webpage is shared!
  * Requires At Least: 3.0
  * Tested Up To: 4.0
- * Version: 2.6.2.5
+ * Version: 2.6.3
  * 
  * Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
  */

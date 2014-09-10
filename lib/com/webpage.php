@@ -33,6 +33,12 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					}
 				}
 			}
+
+			if ( ! empty( $this->p->options['plugin_page_excerpt'] ) )
+				add_post_type_support( 'page', array( 'excerpt' ) );
+
+			if ( ! empty( $this->p->options['plugin_page_tags'] ) )
+				register_taxonomy_for_object_type( 'post_tag', 'page' );
 		}
 
 		// called from Tumblr class

@@ -164,6 +164,10 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 							$chk['class'] = 'All_in_One_SEO_Pack';
 							$chk['plugin'] = 'all-in-one-seo-pack/all-in-one-seo-pack.php';
 							break;
+						case 'seo-headspace2':
+							$chk['class'] = 'HeadSpace_Plugin';
+							$chk['plugin'] = 'headspace2/headspace.php';
+							break;
 						case 'seo-seou':
 							$chk['class'] = 'SEO_Ultimate';
 							$chk['plugin'] = 'seo-ultimate/seo-ultimate.php';

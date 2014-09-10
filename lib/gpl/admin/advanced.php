@@ -55,10 +55,10 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 			$rows[] = $this->p->util->th( 'Apply Content Filters', null, 'plugin_filter_content' ).
 			'<td class="blank">'.$form->get_no_checkbox( 'plugin_filter_content' ).'</td>';
 
-			$rows[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
-			'<td class="blank">'.$form->get_no_checkbox( 'plugin_filter_excerpt' ).'</td>';
-
 			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
+				'<td class="blank">'.$form->get_no_checkbox( 'plugin_filter_excerpt' ).'</td>';
+
 				$rows[] =  $this->p->util->th( 'Ignore Small Images in Content', null, 'plugin_ignore_small_img' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'plugin_ignore_small_img' ).'</td>';
 			}
@@ -70,6 +70,14 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 			'<p>'.$form->get_no_checkbox( 'plugin_wistia_api' ).' Wistia Videos</p>'.
 			'<p>'.$form->get_no_checkbox( 'plugin_youtube_api' ).' YouTube Videos and Playlists</p>'.
 			'</td>';
+
+			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = $this->p->util->th( 'Enable Excerpt for Pages', null, 'plugin_page_excerpt' ).
+				'<td>'.$form->get_no_checkbox( 'plugin_page_excerpt' ).'</td>';
+
+				$rows[] = $this->p->util->th( 'Enable Tags for Pages', null, 'plugin_page_tags' ).
+				'<td>'.$form->get_no_checkbox( 'plugin_page_tags' ).'</td>';
+			}
 
 			return $rows;
 		}
