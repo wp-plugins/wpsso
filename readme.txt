@@ -78,6 +78,7 @@ Display your content in the best possible way on Facebook, Google+, Twitter, Pin
 		* bbPress
 		* BuddyPress
 		* Easy Digital Downloads
+		* HeadSpace2 SEO
 		* JetPack Photon
 		* NextGEN Gallery
 		* MarketPress - WordPress eCommerce
@@ -106,7 +107,7 @@ WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me
 
 **Enhanced SEO**
 
-WPSSO (Pro version) integrates with [WordPress SEO by Yoast](http://wordpress.org/plugins/wordpress-seo/) and [All in One SEO Pack](http://wordpress.org/plugins/all-in-one-seo-pack/), making sure your custom SEO settings are reflected in the Open Graph, Rich Pin, and Twitter Card meta tags.
+WPSSO (Pro version) integrates with [WordPress SEO by Yoast](http://wordpress.org/plugins/wordpress-seo/), [All in One SEO Pack](http://wordpress.org/plugins/all-in-one-seo-pack/), and [HeadSpace2 SEO](http://wordpress.org/plugins/headspace2/) &mdash; making sure your custom SEO settings are reflected in the Open Graph, Rich Pin, and Twitter Card meta tags.
 
 **eCommerce Products**
 
