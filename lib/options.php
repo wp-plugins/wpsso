@@ -212,8 +212,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				if ( isset( $opts['plugin_'.$lca.'_tid'] ) ) {
 					if ( empty( $opts['plugin_'.$lca.'_tid'] ) )
 						delete_option( $lca.'_umsg' );
-					if ( $opts['plugin_'.$lca.'_tid'] !== $this->p->options['plugin_'.$lca.'_tid'] )
-						delete_option( $lca.'_utime' );
+					if ( isset( $this->p->options['plugin_'.$lca.'_tid'] ) && 
+						$opts['plugin_'.$lca.'_tid'] !== $this->p->options['plugin_'.$lca.'_tid'] )
+							delete_option( $lca.'_utime' );
 				}
 			}
 			return $opts;
