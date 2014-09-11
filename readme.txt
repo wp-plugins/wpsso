@@ -356,6 +356,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Improved the 'Plugin Features' side metabox code and display layout.
 	* Added the 'Enable Excerpt for Pages' and 'Enable Tags for Pages' Advanced options (enabled by default).
 	* Added a Pro addon for the HeadSpace2 SEO plugin (Pro version).
+	* Added a filter for 'http_request_host_is_external' to allow the WPSSO update URL to pass `wp_http_validate_url()` checks when 'reject_unsafe_urls' is enabled.
 
 = Version 2.6.2.5 =
 
