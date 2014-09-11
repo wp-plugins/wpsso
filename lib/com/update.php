@@ -82,6 +82,8 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			add_filter( 'transient_update_plugins', array( &$this, 'inject_update' ), 1000, 1 );
 			add_filter( 'site_transient_update_plugins', array( &$this, 'inject_update' ), 1000, 1 );
 			add_filter( 'pre_site_transient_update_plugins', array( &$this, 'enable_update' ), 1000, 1 );
+			add_filter( 'http_headers_useragent', array( &$this, 'check_wpua' ), 9000, 1 );
+			add_filter( 'http_request_host_is_external', array( &$this, 'allow_host' ), 1000, 3 );
 
 			if ( $this->sched_hours > 0 && ! empty( $this->sched_name ) ) {
 				add_filter( 'cron_schedules', array( &$this, 'custom_schedule' ) );
@@ -96,7 +98,27 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 					wp_schedule_event( time(), $this->sched_name, $this->cron_hook );	// since wp 2.1.0
 			} else wp_clear_scheduled_hook( $this->cron_hook );
 		}
+
+		public function check_wpua( $current_wpua ) {
+			global $wp_version;
+			$default_wpua = 'WordPress/'.$wp_version.'; '.get_bloginfo( 'url' );
+			if ( $default_wpua !== $current_wpua ) {
+				$this->p->debug->log( 'incorrect wpua found: '.$current_wpua );
+				return $default_wpua;
+			} else return $current_wpua;
+		}
 	
+		public function allow_host( $ret, $host, $url ) {
+			if ( strpos( $url, '?tid=' ) !== false ) {
+				foreach ( self::$c as $lca => $info ) {
+					$plugin_data = $this->get_json( $lca );
+					if ( $url == $plugin_data->download_url )
+						return true;
+				}
+			}
+			return $ret;
+		}
+
 		public function inject_data( $result, $action = null, $args = null ) {
 		    	if ( $action == 'plugin_information' && isset( $args->slug ) ) {
 				foreach ( self::$c as $lca => $info ) {
@@ -217,15 +239,15 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				}
 			}
 
-			$ua = 'WordPress/'.$wp_version.' ('.( apply_filters( $lca.'_ua_plugin', 
+			$uaplus = 'WordPress/'.$wp_version.' ('.( apply_filters( $lca.'_ua_plugin', 
 				self::$c[$lca]['slug'].'/'.$query['installed_version'] ) ).'); '.$site_url;
 
 			$options = array(
 				'timeout' => 10, 
-				'user-agent' => $ua,
+				'user-agent' => $uaplus,
 				'headers' => array( 
 					'Accept' => 'application/json',
-					'X-WordPress-Id' => $ua,
+					'X-WordPress-Id' => $uaplus,
 				),
 			);
 
