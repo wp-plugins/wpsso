@@ -1,4 +1,4 @@
-=== WordPress Social Sharing Optimization: Advanced SEO for Social Sharing ===
+=== WordPress Social Sharing Optimization: Advanced Social Sharing Features ===
 Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
 Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, easy digital downloads, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube, polylang
@@ -428,36 +428,4 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = 2.6.3 =
 
 Adds the 'Enable Excerpt for Pages' and 'Enable Tags for Pages' options, support for HeadSpace2 SEO, and support for the wp_http_validate_url() function.
-
-= 2.6.2.5 =
-
-Fixed the link rel attribute name (should be 'href', not 'content').
-
-= 2.6.2.4 =
-
-Minor code refactoring and changes to some warning messages and option titles.
-
-= 2.6.2.3 =
-
-Removed display the welcome page on installation/upgrade and added a CSS ID to the image dimension warnings.
-
-= 2.6.2.2 =
-
-Fixed user ID detection on author index webpages, improved the "Version Information" side metabox (now includes extension plugins as well).
-
-= 2.6.2.1 =
-
-Fix for an empty Polylang post language, and added support for the new pll_get_post_language() function (Pro version).
-
-= 2.6.2 =
-
-Small updates to the settings help texts.
-
-= 2.6.1 =
-
-Release of the WPSSO Social Sharing Buttons (SSB) v1.0 extension plugin for WPSSO.
-
-= 2.6 =
-
-Added a new 'Licenses' settings page to allow for future plugin extensions, and renamed the 'Network' multisite settings page to 'Advanced'.
 
