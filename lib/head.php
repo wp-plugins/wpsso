@@ -149,7 +149,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$post_id = empty( $obj->ID ) || empty( $obj->post_type ) || 
 				( ! is_singular() && $use_post === false ) ? 0 : $obj->ID;
 			$sharing_url = $this->p->util->get_sharing_url( $use_post );
-			$author_id = 0;
+			$author_id = false;
 
 			$header_array = array();
 			if ( $this->p->is_avail['cache']['transient'] ) {
@@ -158,7 +158,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$cache_id = $lca.'_'.md5( $cache_salt );
 				$cache_type = 'object cache';
 				$this->p->debug->log( $cache_type.': transient salt '.$cache_salt );
-				if ( apply_filters( $this->p->cf['lca'].'_header_read_cache', $read_cache ) ) {
+				if ( apply_filters( $lca.'_header_read_cache', $read_cache ) ) {
 					$header_array = get_transient( $cache_id );
 					if ( $header_array !== false ) {
 						$this->p->debug->log( $cache_type.': header array retrieved from transient '.$cache_id );
@@ -204,7 +204,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$meta_name['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], 
 				'...', $use_post, true, false, true, 'seo_desc' );	// add_hashtags = false, custom meta = seo_desc
 
-			$meta_name = apply_filters( $lca.'_meta_name', $meta_name );
+			$meta_name = apply_filters( $lca.'_meta_name', $meta_name, $use_post );
 
 			/**
 			 * Link relation tags
@@ -216,7 +216,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			if ( ! empty( $this->p->options['link_publisher_url'] ) )
 				$link_rel['publisher'] = $this->p->options['link_publisher_url'];
 
-			$link_rel = apply_filters( $lca.'_link_rel', $link_rel );
+			$link_rel = apply_filters( $lca.'_link_rel', $link_rel, $use_post );
 
 			/**
 			 * Schema meta tags
@@ -226,7 +226,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$meta_schema['description'] = $this->p->webpage->get_description( $this->p->options['og_desc_len'], 
 				'...', $use_post, true, true, true, 'schema_desc' );	// custom meta = schema_desc
 
-			$meta_schema = apply_filters( $lca.'_meta_schema', $meta_schema );
+			$meta_schema = apply_filters( $lca.'_meta_schema', $meta_schema, $use_post );
 
 			/**
 			 * Combine and return all meta tags
@@ -242,7 +242,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->get_tag_array( 'meta', 'property', $meta_og )
 			);
  
-			if ( apply_filters( $this->p->cf['lca'].'_header_set_cache', $this->p->is_avail['cache']['transient'] ) ) {
+			if ( apply_filters( $lca.'_header_set_cache', $this->p->is_avail['cache']['transient'] ) ) {
 				set_transient( $cache_id, $header_array, $this->p->cache->object_expire );
 				$this->p->debug->log( $cache_type.': header array saved to transient '.$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
 			}

@@ -258,9 +258,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							(defaults is '.$this->p->opt->get_defaults( 'og_img_width' ).'x'.$this->p->opt->get_defaults( 'og_img_height' ).' '.
 							( $this->p->opt->get_defaults( 'og_img_crop' ) == 0 ? 'un' : '' ).'cropped). 
 							Facebook recommends 1200x630 cropped, and 600x315 as a minimum.
-							<strong>1200x1200 cropped provides the greatest comptibility with all social websites 
+							<strong>1200x1200 cropped provides the greatest compatibility with all social websites 
 							(Facebook, Google+, etc.)</strong>. Note that original images in the WordPress Media Library and/or 
-							NextGEN Gallery should be larger than your chosen image dimensions.';
+							NextGEN Gallery must be larger than your chosen image dimensions (a warning message will be displayed
+							on Post/Page editing pages if the original image is too small).';
 							break;
 						case 'tooltip-og_def_img_id':
 							$text = 'The ID number and location of your default image (example: 123). The Default Image ID 
