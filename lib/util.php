@@ -201,7 +201,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					$val = preg_replace( '/(http|https):\/\/[^\/]*?\//', '', $val );
 					break;
 				case 'url':		// must be a url
-					if ( ! empty( $val ) && strpos( $val, '://' ) === false ) {
+					if ( ! empty( $val ) && strpos( $val, '//' ) === false ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' must 
 							be a URL'.' - '.$reset_msg, true );
 						$val = $def_val;
