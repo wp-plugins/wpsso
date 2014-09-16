@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0
-Stable Tag: 2.6.3
+Stable Tag: 2.6.4
 
 Display your content in the best possible way on Facebook, Google+, Twitter, Pinterest, etc. - no matter how your webpage is shared!
 
@@ -353,7 +353,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* Removed encoded HTML tags from excerpts from the WooCommerce short description (aka excerpt) text (Pro version).
 * **Enhancements**
-	* Added the SucomUtil class `get_inline_vars()`, `get_inline_vals()`, and `replace_inline_vars()` methods to retrieve and convert inline variables in meta tag values.
+	* Added the SucomUtil class `get_inline_vars()`, `get_inline_vals()`, and `replace_inline_vars()` methods to retrieve and convert inline variables -- the `%%post_id%%`, `%%request_url%%`, and `%%sharing_url%%` variables will be expanded if/when found in any meta tag value.
 
 = Version 2.6.3 =
 
@@ -432,7 +432,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
-= 2.6.3 =
+= 2.6.4 =
 
-Adds the 'Enable Excerpt for Pages' and 'Enable Tags for Pages' options, support for HeadSpace2 SEO, and support for the wp_http_validate_url() function.
+Fixed HTML encoding from WooCommerce short description, added support for expansion of special inline variables in meta tag values.
 
