@@ -348,6 +348,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.4 =
+
+* **Bugfixes**
+	* Removed encoded HTML tags from excerpts from the WooCommerce short description (aka excerpt) text (Pro version).
+* **Enhancements**
+	* Added the SucomUtil class `get_inline_vars()`, `get_inline_vals()`, and `replace_inline_vars()` methods to retrieve and convert inline variables in meta tag values.
+
 = Version 2.6.3 =
 
 * **Bugfixes**
