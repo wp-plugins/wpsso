@@ -13,14 +13,51 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 	class SucomUtil {
 
 		private static $crawler_name = false;
-
 		private $urls_found = array();	// array to detect duplicate images, etc.
+		private $inline_vars = array(
+			'%%post_id%%',
+			'%%request_url%%',
+			'%%sharing_url%%',
+		);
+		private $inline_vals = array();
 
 		protected $p;
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
+		}
+
+		public function get_inline_vars() {
+			ksort( $this->inline_vars );
+			return $inline_vars;
+		}
+
+		public function get_inline_vals( $use_post = false, $obj = false ) {
+
+			if ( ! is_object( $obj ) ) {
+				if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
+					$this->p->debug->log( 'exiting early: invalid object type' );
+					return $str;
+				}
+				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
+			} else $post_id = $obj->ID;
+
+			$request_url = ( empty( $_SERVER['HTTPS'] ) ? 'http://' : 'https://' ).
+				$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+
+			$this->inline_vals = array(
+				$post_id,				// %%post_id%%
+				$request_url,				// %%request_url%%
+				$this->get_sharing_url( $use_post ),	// %%sharing_url%%
+			);
+
+			ksort( $this->inline_vals );
+			return $this->inline_vals;
+		}
+
+		public function replace_inline_vars( $str, $use_post = false, $obj = false ) {
+			return str_replace( $this->inline_vars, $this->get_inline_vals( $use_post, $obj ), $str );
 		}
 
 		public static function crawler_name( $id = '' ) {
@@ -208,9 +245,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			else return $obj;
 		}
 
-		// use_post = false when used for open graph meta tags and buttons in widget,
+		// "use_post = false" when used for open graph meta tags and buttons in widget,
 		// true when buttons are added to individual posts on an index webpage
-		// most of this code is from yoast wordpress seo, to try and match its canonical url value
 		public function get_sharing_url( $use_post = false, $add_page = true, $source_id = '' ) {
 			$url = false;
 			if ( is_singular() || $use_post !== false ) {
@@ -287,7 +323,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			// fallback for themes and plugins that don't use the standard wordpress functions/variables
 			if ( empty ( $url ) ) {
 				$url = empty( $_SERVER['HTTPS'] ) ? 'http://' : 'https://';
-				$url .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+				$url .= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 				// strip out tracking query arguments by facebook, google, etc.
 				$url = preg_replace( '/([\?&])(fb_action_ids|fb_action_types|fb_source|fb_aggregation_id|utm_source|utm_medium|utm_campaign|utm_term|gclid|pk_campaign|pk_kwd)=[^&]*&?/i', '$1', $url );
 			}
@@ -318,7 +354,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				elseif ( strpos( $url, '/' ) === 0 ) 
 					$url = home_url( $url );
 				else {
-					$base = $prot.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+					$base = $prot.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 					if ( strpos( $base, '?' ) !== false ) {
 						$base_parts = explode( '?', $base );
 						$base = reset( $base_parts );
@@ -362,10 +398,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		public function limit_text_length( $text, $textlen = 300, $trailing = '', $cleanup = true ) {
 			$charset = get_bloginfo( 'charset' );
-			$text = html_entity_decode( self::decode_utf8( $text ), ENT_QUOTES, $charset );
-			$text = preg_replace( '/<\/p>/i', ' ', $text);					// replace end of paragraph with a space
 			if ( $cleanup === true )
 				$text = $this->cleanup_html_tags( $text );				// remove any remaining html tags
+			else $text = html_entity_decode( self::decode_utf8( $text ), ENT_QUOTES, $charset );
 			if ( $textlen > 0 ) {
 				if ( strlen( $trailing ) > $textlen )
 					$trailing = substr( $trailing, 0, $textlen );			// trim the trailing string, if too long
@@ -383,12 +418,14 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		public function cleanup_html_tags( $text, $strip_tags = true ) {
 			$text = strip_shortcodes( $text );							// remove any remaining shortcodes
+			$text = html_entity_decode( $text, ENT_QUOTES, get_bloginfo( 'charset' ) );
 			$text = preg_replace( '/[\r\n\t ]+/s', ' ', $text );					// put everything on one line
 			$text = preg_replace( '/<\?.*\?>/i', ' ', $text);					// remove php
 			$text = preg_replace( '/<script\b[^>]*>(.*?)<\/script>/i', ' ', $text);			// remove javascript
 			$text = preg_replace( '/<style\b[^>]*>(.*?)<\/style>/i', ' ', $text);			// remove inline stylesheets
 			$text = preg_replace( '/<!--'.$this->p->cf['lca'].'-ignore-->(.*?)<!--\/'.
 				$this->p->cf['lca'].'-ignore-->/i', ' ', $text);				// remove text between comment strings
+			$text = preg_replace( '/<\/p>/i', ' ', $text);						// replace end of paragraph with a space
 			if ( $strip_tags == true ) 
 				$text = strip_tags( $text );							// remove remaining html tags
 			$text = preg_replace( '/  +/s', ' ', $text );						// truncate multiple spaces

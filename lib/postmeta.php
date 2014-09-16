@@ -129,7 +129,8 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			validate the Open Graph / Rich Pin meta tags for this '.$post_info['ptn'].'. Facebook, Pinterest, LinkedIn, Google+,
 			and most social websites use these Open Graph meta tags. The Facebook Debugger remains the most stable and reliable 
 			method to verify Open Graph meta tags.</p>
-			<p><strong>Please note that you may have to click the "Debug" button several times to refresh Facebook\'s cache</strong>.</p></td>
+			<p><strong>Please note that you may have to click the "Debug" and "Fetch new scrape Information" button a few times 
+			to refresh Facebook\'s cache</strong>.</p></td>
 
 			<td class="validate">'.$form->get_button( 'Validate Open Graph', 'button-secondary', null, 
 			'https://developers.facebook.com/tools/debug/og/object?q='.urlencode( $this->p->util->get_sharing_url( $post_info['id'] ) ), true ).'</td>';

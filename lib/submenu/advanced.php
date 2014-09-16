@@ -64,7 +64,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			'</td></tr></table>';
 			echo '<table class="sucom-setting" style="margin-bottom:10px;">';
 			foreach ( apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tags_rows', array(), $this->form ) as $num => $row ) 
-				echo '<tr>', $row, '</tr>';
+				echo '<tr>'.$row.'</tr>';
 			echo '</table>';
 		}
 

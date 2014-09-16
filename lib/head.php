@@ -236,10 +236,10 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					$short_aop.' '.$this->p->cf['plugin'][$lca]['version'].
 						( $this->p->check->aop() ? 'L' : 
 							( $this->p->is_avail['aop'] ? 'U' : 'G' ) ) ),
-				$this->get_tag_array( 'link', 'rel', $link_rel ),
-				$this->get_tag_array( 'meta', 'name', $meta_name ),
-				$this->get_tag_array( 'meta', 'itemprop', $meta_schema ),
-				$this->get_tag_array( 'meta', 'property', $meta_og )
+				$this->get_tag_array( 'link', 'rel', $link_rel, $use_post ),
+				$this->get_tag_array( 'meta', 'name', $meta_name, $use_post ),
+				$this->get_tag_array( 'meta', 'itemprop', $meta_schema, $use_post ),
+				$this->get_tag_array( 'meta', 'property', $meta_og, $use_post )
 			);
  
 			if ( apply_filters( $lca.'_header_set_cache', $this->p->is_avail['cache']['transient'] ) ) {
@@ -252,7 +252,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		/**
 		 * Loops through the arrays (1 to 3 dimensions) and calls get_single_tag() for each
 		 */
-		private function get_tag_array( $tag = 'meta', $type = 'property', $tag_array ) {
+		private function get_tag_array( $tag = 'meta', $type = 'property', $tag_array, $use_post = false ) {
 			$this->p->debug->log( count( $tag_array ).' '.$tag.' '.$type.' to process' );
 			$this->p->debug->log( $tag_array );
 			$ret = array();
@@ -264,15 +264,15 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 						if ( SucomUtil::is_assoc( $s_val ) ) {
 							ksort( $s_val );
 							foreach ( $s_val as $t_name => $t_val )		// 3rd-dimension array (associative)
-								$ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $t_name, $t_val, $f_name.':'.( $s_num + 1 ) ) );
-						} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $f_name, $s_val, $f_name.':'.( $s_num + 1 ) ) );
+								$ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $t_name, $t_val, $f_name.':'.( $s_num + 1 ), $use_post ) );
+						} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $f_name, $s_val, $f_name.':'.( $s_num + 1 ), $use_post ) );
 					}
-				} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $f_name, $f_val ) );
+				} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $f_name, $f_val, $use_post ) );
 			}
 			return $ret;
 		}
 
-		private function get_single_tag( $tag = 'meta', $type = 'property', $name, $value = '', $comment = '' ) {
+		private function get_single_tag( $tag = 'meta', $type = 'property', $name, $value = '', $comment = '', $use_post = false ) {
 
 			// known exceptions for the 'property' $type
 			if ( $tag === 'meta' && $type === 'property' && 
@@ -303,6 +303,9 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->p->debug->log( $log_pre.' value is an object (skipped)' );
 				return $ret;
 			}
+
+			if ( strpos( $value, '%%' ) )
+				$value = $this->p->util->replace_inline_vars( $value, $use_post );
 
 			$charset = get_bloginfo( 'charset' );
 			$value = htmlentities( $value, ENT_QUOTES, $charset, false );	// double_encode = false

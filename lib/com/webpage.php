@@ -46,7 +46,9 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			global $post;
 			if ( empty( $post ) ) 
 				return '';
+
 			$quote = apply_filters( $this->p->cf['lca'].'_quote_seed', '' );
+
 			if ( $quote != '' )
 				$this->p->debug->log( 'quote seed = "'.$quote.'"' );
 			else {
@@ -54,6 +56,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$quote = get_the_excerpt( $post->ID );
 				else $quote = $post->post_content;
 			}
+
 			// remove shortcodes, etc., but don't strip html tags
 			$quote = $this->p->util->cleanup_html_tags( $quote, false );
 
@@ -81,7 +84,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$caption = $this->get_description( $length, '...', $use_post, $use_cache, $add_hashtags, false );
 					break;
 				case 'both':
-					$prefix = $this->get_title( null, null, $use_post, $use_cache, false, false ).' '.$separator.' ';
+					$prefix = $this->get_title( 0, '', $use_post, $use_cache, false, false ).' '.$separator.' ';
 					$caption = $prefix.$this->get_description( $length - strlen( $prefix ), '...', $use_post, $use_cache, $add_hashtags, false );
 					break;
 			}
@@ -242,7 +245,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			if ( $encode === true )
 				$title = htmlentities( $title, ENT_QUOTES, get_bloginfo( 'charset' ), false );	// double_encode = false
-			else $title = html_entity_decode( $title, ENT_QUOTES, get_bloginfo( 'charset' ) );	// just in case
 
 			return apply_filters( $this->p->cf['lca'].'_title', $title );
 		}
@@ -374,10 +376,8 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					}
 				}
 			}
-			
-			$desc = $this->p->util->cleanup_html_tags( $desc );
 
-			// apply description filter before adjusting it's length
+			$desc = $this->p->util->cleanup_html_tags( $desc );
 			$desc = apply_filters( $this->p->cf['lca'].'_description_pre_limit', $desc );
 
 			if ( $textlen > 0 ) {
@@ -391,7 +391,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			if ( $encode === true )
 				$desc = htmlentities( $desc, ENT_QUOTES, get_bloginfo( 'charset' ), false );	// double_encode = false
-			else $desc = html_entity_decode( $desc, ENT_QUOTES, get_bloginfo( 'charset' ) );	// just in case
 
 			return apply_filters( $this->p->cf['lca'].'_description', $desc );
 		}
