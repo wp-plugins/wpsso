@@ -80,10 +80,14 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
 
 			$metabox = 'meta';
-			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
-				'header' => 'Header Meta Tags', 
-				'tools' => 'Validation Tools',
-				'tags' => 'Header Tags Preview' ) );
+			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', 
+				array( 
+					'header' => 'Title and Descriptions', 
+					'media' => 'Image and Video', 
+					'tags' => 'Header Preview',
+					'tools' => 'Validation Tools'
+				)
+			);
 
 			if ( empty( $this->p->is_avail['opengraph'] ) )
 				unset( $tabs['tags'] );

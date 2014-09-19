@@ -348,89 +348,21 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.5 =
+
+* **Bugfixes**
+	* *None*
+* **Enhancements**
+	* Added an 'wpsso_buttons_cache_salt' filter to modify the sharing buttons cache salt string.
+	* Renamed / changed the 'Header Tags' tab in the Social Settings metabox for 'Title and Description' and 'Image and Video'.
+	* Moved the 'Google+ / Schema Description' option in the Social Settings to the All Options view (hidden in the Basic Options view).
+
 = Version 2.6.4 =
 
 * **Bugfixes**
 	* Removed encoded HTML tags from excerpts from the WooCommerce short description (aka excerpt) text (Pro version).
 * **Enhancements**
 	* Added the SucomUtil class `get_inline_vars()`, `get_inline_vals()`, and `replace_inline_vars()` methods to retrieve and convert inline variables -- the `%%post_id%%`, `%%request_url%%`, and `%%sharing_url%%` variables will be expanded if/when found in any meta tag value.
-
-= Version 2.6.3 =
-
-* **Bugfixes**
-	* *None*
-* **Enhancements**
-	* Improved the 'Plugin Features' side metabox code and display layout.
-	* Added the 'Enable Excerpt for Pages' and 'Enable Tags for Pages' Advanced options (enabled by default).
-	* Added a Pro addon for the HeadSpace2 SEO plugin (Pro version).
-	* Added a filter for 'http_request_host_is_external' to allow the WPSSO update URL to pass `wp_http_validate_url()` checks when 'reject_unsafe_urls' is enabled.
-
-= Version 2.6.2.5 =
-
-* **Bugfixes**
-	* Fixed the link rel attribute name (should be 'href', not 'content').
-* **Enhancements**
-	* *None*
-
-= Version 2.6.2.4 =
-
-* **Bugfixes**
-	* *None*
-* **Enhancements**
-	* Minor code refactoring and changes to some warning messages and option titles.
-	* Tested on WordPress 4.0 (no changes required).
-
-= Version 2.6.2.3 =
-
-* **Bugfixes**
-	* *None*
-* **Enhancements**
-	* Removed display the welcome page on installation/upgrade.
-	* Added a CSS ID to the image dimension warnings.
-
-= Version 2.6.2.2 =
-
-* **Bugfixes**
-	* Fixed retrieval of user ID on author index webpages when using the 'author' or 'author_name' queries.
-* **Enhancements**
-	* Refactored code to improve the "Version Information" side metabox (now includes information on any extension plugins as well).
-
-= Version 2.6.2.1 =
-
-* **Bugfixes**
-	* Added a check for an empty Polylang post language before returning its locale value (Pro version).
-* **Enhancements**
-	* Added support for `pll_get_post_language()`, included in Polylang v1.5.4 (Pro version).
-
-= Version 2.6.2 =
-
-* **Bugfixes**
-	* *None*
-* **Enhancements**
-	* Small updates to the settings help texts.
-
-= Version 2.6.1 =
-
-* **Bugfixes**
-	* *None*
-* **Enhancements**
-	* Several changes to the plugin's configuration array to allow for future WPSSO extension plugins.
-	* Added the "WPSSO Social Sharing Buttons (SSB)" extension to WPSSO's configuration array.
-
-= Version 2.6 =
-
-* **Bugfixes**
-	* *None*
-* **Enhancements**
-	* Added a new Licenses settings sub-menu page, for both single and network admin menus.
-	* Renamed the 'Network' multisite sub-menu to 'Advanced'.
-	* Modified the 'wpsso_load_lib' filter to return a class name or false, instead of just true or false.
-	* Modified the `SucomUpdate` class construct to receive an *array* of plugin options (as the second argument).
-	* Renamed the 'plugin_tid' option to 'plugin_wpsso_tid'.
-	* Renamed all GPL and Pro class names to start with  'WpssoGpl' or 'WpssoPro'.
-	* Re-structured the `NgfbConfig::$cf` array to support multiple plugin configs (for future WPSSO extension plugins).
-
-== Upgrade Notice ==
 
 = 2.6.4 =
 
