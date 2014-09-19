@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0
-Stable Tag: 2.6.4
+Stable Tag: 2.6.5
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -351,9 +351,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Version 2.6.5 =
 
 * **Bugfixes**
-	* *None*
+	* Added a merge feature for post meta options, to retain any excluded options from the Social Settings form (Pro version).
 * **Enhancements**
-	* Added an 'wpsso_buttons_cache_salt' filter to modify the sharing buttons cache salt string.
 	* Renamed / changed the 'Header Tags' tab in the Social Settings metabox for 'Title and Description' and 'Image and Video'.
 	* Moved the 'Google+ / Schema Description' option in the Social Settings to the All Options view (hidden in the Basic Options view).
 
@@ -365,6 +364,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added the SucomUtil class `get_inline_vars()`, `get_inline_vals()`, and `replace_inline_vars()` methods to retrieve and convert inline variables -- the `%%post_id%%`, `%%request_url%%`, and `%%sharing_url%%` variables will be expanded if/when found in any meta tag value.
 
 == Upgrade Notice ==
+
+= 2.6.5 =
+
+Simplifies the Social Settings metabox, and includes a small fix to retain any excluded options from the Social Settings metabox as well.
 
 = 2.6.4 =
 
