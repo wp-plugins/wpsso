@@ -356,6 +356,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added an 'wpsso_buttons_cache_salt' filter to modify the sharing buttons cache salt string.
 	* Renamed / changed the 'Header Tags' tab in the Social Settings metabox for 'Title and Description' and 'Image and Video'.
 	* Moved the 'Google+ / Schema Description' option in the Social Settings to the All Options view (hidden in the Basic Options view).
+	* Added a merge feature for post meta options, to retain any missing options from the Social Settings form (Pro version).
 
 = Version 2.6.4 =
 
