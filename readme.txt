@@ -364,6 +364,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Enhancements**
 	* Added the SucomUtil class `get_inline_vars()`, `get_inline_vals()`, and `replace_inline_vars()` methods to retrieve and convert inline variables -- the `%%post_id%%`, `%%request_url%%`, and `%%sharing_url%%` variables will be expanded if/when found in any meta tag value.
 
+== Upgrade Notice ==
+
 = 2.6.4 =
 
 Fixed HTML encoding from WooCommerce short description, added support for expansion of special inline variables in meta tag values.
