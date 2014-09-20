@@ -52,12 +52,11 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 
 		public function set_header_tags() {
 			if ( $this->p->is_avail['opengraph'] && empty( $this->header_tags ) ) {
-				if ( ( $obj = $this->p->util->get_post_object() ) === false ) {
-					$this->p->debug->log( 'exiting early: invalid object type' );
+				if ( ( $obj = $this->p->util->get_post_object() ) === false )
 					return;
-				}
-				if ( isset( $obj->ID ) && isset( $obj->post_type ) && $obj->post_status === 'publish' && $obj->filter === 'edit' ) {
-					$this->header_tags = $this->p->head->get_header_array( $obj->ID );
+				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
+				if ( ! empty( $post_id ) && $obj->post_status === 'publish' && $obj->filter === 'edit' ) {
+					$this->header_tags = $this->p->head->get_header_array( $post_id );
 					$this->p->debug->show_html( null, 'debug log' );
 					foreach ( $this->header_tags as $tag ) {
 						if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {
