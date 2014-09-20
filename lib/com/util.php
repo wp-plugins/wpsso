@@ -29,30 +29,32 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		}
 
 		public function get_inline_vars() {
-			ksort( $this->inline_vars );
 			return $inline_vars;
 		}
 
 		public function get_inline_vals( $use_post = false, $obj = false ) {
 
 			if ( ! is_object( $obj ) ) {
-				if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
+				if ( ( $obj = $this->get_post_object( $use_post ) ) === false ) {
 					$this->p->debug->log( 'exiting early: invalid object type' );
 					return $str;
 				}
 				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 			} else $post_id = $obj->ID;
 
-			$request_url = ( empty( $_SERVER['HTTPS'] ) ? 'http://' : 'https://' ).
+			$sharing_url = $this->get_sharing_url( $use_post );
+
+			if ( is_admin() )
+				$request_url = $sharing_url;
+			else $request_url = ( empty( $_SERVER['HTTPS'] ) ? 'http://' : 'https://' ).
 				$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 
 			$this->inline_vals = array(
-				$post_id,				// %%post_id%%
-				$request_url,				// %%request_url%%
-				$this->get_sharing_url( $use_post ),	// %%sharing_url%%
+				$post_id,		// %%post_id%%
+				$request_url,		// %%request_url%%
+				$sharing_url,		// %%sharing_url%%
 			);
 
-			ksort( $this->inline_vals );
 			return $this->inline_vals;
 		}
 
@@ -250,10 +252,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		public function get_sharing_url( $use_post = false, $add_page = true, $source_id = '' ) {
 			$url = false;
 			if ( is_singular() || $use_post !== false ) {
-				if ( ( $obj = $this->get_post_object( $use_post ) ) === false ) {
-					$this->p->debug->log( 'exiting early: invalid object type' );
+				if ( ( $obj = $this->get_post_object( $use_post ) ) === false )
 					return $url;
-				}
 				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 				if ( ! empty( $post_id ) ) {
 					if ( isset( $this->p->addons['util']['postmeta'] ) )

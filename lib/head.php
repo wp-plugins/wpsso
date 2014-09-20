@@ -235,7 +235,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->get_single_tag( 'meta', 'name', 'generator',
 					$short_aop.' '.$this->p->cf['plugin'][$lca]['version'].
 						( $this->p->check->aop() ? 'L' : 
-							( $this->p->is_avail['aop'] ? 'U' : 'G' ) ) ),
+							( $this->p->is_avail['aop'] ? 'U' : 'G' ) ), '', $use_post ),
 				$this->get_tag_array( 'link', 'rel', $link_rel, $use_post ),
 				$this->get_tag_array( 'meta', 'name', $meta_name, $use_post ),
 				$this->get_tag_array( 'meta', 'itemprop', $meta_schema, $use_post ),
@@ -267,7 +267,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 								$ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $t_name, $t_val, $f_name.':'.( $s_num + 1 ), $use_post ) );
 						} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $f_name, $s_val, $f_name.':'.( $s_num + 1 ), $use_post ) );
 					}
-				} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $f_name, $f_val, $use_post ) );
+				} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $f_name, $f_val, '', $use_post ) );
 			}
 			return $ret;
 		}
