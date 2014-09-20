@@ -320,6 +320,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/webpage/">Webpage Filters</a></li>
 		</ul></li>
 	</ul></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/inline-variables/">Inline Variables</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/multisite-network-support/">Multisite / Network Support</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/performance-tuning/">Performance Tuning</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/working-with-image-attachments/">Working with Image Attachments</a></li>
