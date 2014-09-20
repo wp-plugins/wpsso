@@ -351,7 +351,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Version 2.6.5 =
 
 * **Bugfixes**
-	* Added a merge feature for post meta options, to retain any excluded options from the Social Settings form (Pro version).
+	* Added a merge feature for post meta options, to retain hidden / excluded options from the Social Settings form (Pro version).
 * **Enhancements**
 	* Renamed / changed the 'Header Tags' tab in the Social Settings metabox for 'Title and Description' and 'Image and Video'.
 	* Moved the 'Google+ / Schema Description' option in the Social Settings to the All Options view (hidden in the Basic Options view).
@@ -367,7 +367,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 = 2.6.5 =
 
-Simplifies the Social Settings metabox, and includes a small fix to retain any excluded options from the Social Settings metabox as well.
+Simplifies the Social Settings metabox, and includes a small fix to retain hidden / excluded options from the Social Settings metabox as well.
 
 = 2.6.4 =
 
