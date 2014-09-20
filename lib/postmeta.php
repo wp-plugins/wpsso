@@ -40,11 +40,9 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		}
 
 		public function add_metaboxes() {
-			// get the current object / post type
-			if ( ( $obj = $this->p->util->get_post_object() ) === false ) {
-				$this->p->debug->log( 'exiting early: invalid object type' );
-				return;
-			}
+			if ( ( $obj = $this->p->util->get_post_object() ) === false ||
+				empty( $obj->post_type ) )
+					return;
 			$post_type = get_post_type_object( $obj->post_type );
 			if ( ! empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) )
 				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_metabox_postmeta' ), $post_type->name, 'advanced', 'high' );
