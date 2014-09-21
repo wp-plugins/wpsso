@@ -208,11 +208,11 @@ WPSSO is *fast and coded for performance*, making full use of all available cach
 <p>Very Fast. A few example metrics from the <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a> plugin, using <a href="http://wptest.io/">WP Test Data</a>, and the default settings of several popular plugins, along with the WordPress Core and Twenty Fourteen theme for reference:</p>
 
 <ul>
-	<li><strong><font color="blue">0.0050</font></strong> secs - WPSSO Social Sharing Buttons (SSB) v1.0</li>
-	<li><strong><font color="blue">0.0117</font></strong> secs - <em><strong>WordPress Social Sharing Optimization (WPSSO) v2.6</strong></em></li>
+	<li><strong><font color="blue">0.0050</font></strong> secs - WPSSO Social Sharing Buttons (SSB) v1.0.9</li>
+	<li><strong><font color="blue">0.0117</font></strong> secs - <em><strong>WordPress Social Sharing Optimization (WPSSO) v2.6.5</strong></em></li>
 	<li><strong><font color="blue">0.0149</font></strong> secs - All in One SEO Pack v2.2.1</li>
 	<li><strong><font color="blue">0.0157</font></strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (No Products)</li>
-	<li><strong><font color="blue">0.0186</font></strong> secs - NextGEN Facebook (NGFB) v7.6.1</li>
+	<li><strong><font color="blue">0.0186</font></strong> secs - NextGEN Facebook (NGFB) v7.6.8</li>
 
 	<li><strong><font color="green">0.0230</font></strong> secs - Easy Digital Downloads v1.9.8 (No Products)</li>
 	<li><strong><font color="green">0.0254</font></strong> secs - MailPoet Newsletters (aka Wysija Newsletters) v2.6.9</li>
