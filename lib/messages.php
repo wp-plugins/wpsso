@@ -55,8 +55,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-side-pro-update-check':
 							$text = 'When a Pro version Authentication ID is entered in the '.
-							$this->p->util->get_admin_url( 'licenses', 'Licenses settings' ).',
-							a check is scheduled every 24 hours to see if an update is available.';
+							$this->p->util->get_admin_url( 'licenses', 'Pro Licenses' ).',
+							settings, a check is scheduled every 24 hours to see if an update is available.';
 							break;
 						case 'tooltip-side-transient-cache':
 							$text = $short.' saves Facebook / Open Graph, Pinterest Rich Pin, Twitter Card meta tags, etc. to a persistant
@@ -823,7 +823,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							<p>After purchasing Pro version license(s), an email is sent with a unique Authentication 
 							ID and installation / activation instructions. 
 							Enter the Authentication ID here to define a value for all sites within the network, 
-							or enter the Authentication ID(s) individually on each site\'s Licenses settings page.
+							or enter the Authentication ID(s) individually on each site\'s Pro Licenses settings page.
 							<strong>Please note that the <em>default</em> site/blog must be licensed in order to update
 							the plugin from the Network admin interface</strong>. ';
 							if ( empty( $this->p->is_avail['aop'] ) )
@@ -907,7 +907,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						$text = '<p><strong>The '.$short.' Authentication ID option value is empty.</strong><br/>
 						To enable Pro version features, and allow the plugin to authenticate itself for updates,<br/>
 						<strong>please '.$this->p->util->get_admin_url( 'licenses', 'enter the unique Authentication ID you received 
-						by email in the Licenses settings' ).'.</strong></p>';
+						by email in the Pro Licenses settings' ).'.</strong></p>';
 					}
 					break;
 				case 'side-purchase':
