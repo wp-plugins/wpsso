@@ -52,14 +52,14 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'submenu' => array (
 							'general' => 'General',
 							'advanced' => 'Advanced',
-							'licenses' => 'Licenses',
+							'licenses' => 'Pro Licenses',
 							'readme' => 'Read Me',
 							'setup' => 'Setup Guide',
 							'whatsnew' => 'What\'s New',
 						),
 						'sitesubmenu' => array(
 							'siteadvanced' => 'Advanced',
-							'sitelicenses' => 'Licenses',
+							'sitelicenses' => 'Pro Licenses',
 							'sitereadme' => 'Read Me',
 							'sitesetup' => 'Setup Guide',
 							'sitewhatsnew' => 'What\'s New',

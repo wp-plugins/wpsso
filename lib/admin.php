@@ -540,17 +540,17 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				if ( ! isset( $info['lib']['pro'] ) )
 					continue;
 				$features = array();
+				$aop = $this->p->check->aop( $lca );
 				foreach ( $info['lib']['pro'] as $sub => $libs ) {
 					if ( $sub === 'admin' ) 
 						continue;	// skip status for admin menus and tabs
 					foreach ( $libs as $id => $name ) {
 						$off = $this->p->is_avail[$sub][$id] ? 'rec' : 'off';
 						$features[$name] = array( 
-							'status' => class_exists( $lca.'pro'.$sub.$id ) ? 
-								( $this->p->check->aop( $lca ) ? 'on' : $off ) : $off,
+							'status' => class_exists( $lca.'pro'.$sub.$id ) ? ( $aop ? 'on' : $off ) : $off,
 							'tooltip' => 'If the '.$name.' plugin is detected, '.$this->p->cf['plugin'][$lca]['short'].' Pro '.
 								'will load an integration addon to provide additional support and features for '.$name.'.',
-							'td_class' => $this->p->check->aop( $lca ) ? '' : 'blank',
+							'td_class' => $aop ? '' : 'blank',
 						);
 					}
 				}
