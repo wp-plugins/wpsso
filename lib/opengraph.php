@@ -260,6 +260,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				( ! empty( $this->p->options['og_def_img_on_author'] ) && is_author() ) ||
 				( ! empty( $this->p->options['og_def_img_on_search'] ) && is_search() ) ) {
 
+				$this->p->debug->log( 'default image is forced' );
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
 				$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
 				return $og_ret;	// stop here and return the image array
