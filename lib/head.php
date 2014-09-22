@@ -142,6 +142,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		}
 
 		public function get_header_array( $use_post = false, $read_cache = true, &$meta_og = array() ) {
+			$this->p->debug->mark();
 			$lca = $this->p->cf['lca'];
 			$short_aop = $this->p->cf['plugin'][$lca]['short'].
 				( $this->p->is_avail['aop'] ? ' Pro' : '' );
@@ -184,6 +185,9 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				! is_search() && ! empty( $this->p->options['seo_def_author_on_index'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) || 
 				( is_search() && ! empty( $this->p->options['seo_def_author_on_search'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) )
 					$author_id = $this->p->options['seo_def_author_id'];
+
+			if ( $author_id !== false )
+				$this->p->debug->log( 'author_id value set to '.$author_id );
 
 			/**
 			 * Open Graph, Twitter Card

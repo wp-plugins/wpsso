@@ -72,20 +72,24 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		public function show_usermeta( $user ) {
-			$def_opts = $this->get_defaults();
 			$opts = $this->get_options( $user->ID );
+			$def_opts = $this->get_defaults();
 			$screen = get_current_screen();
-			$this->post_info['ptn'] = $page = ucfirst( $screen->id );
+			$this->post_info['ptn'] = ucfirst( $screen->id );
 			$this->post_info['id'] = false;
 
 			$this->form = new SucomForm( $this->p, WPSSO_META_NAME, $opts, $def_opts );
 			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
 
 			$metabox = 'user';
-			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
-				'header' => 'Header Meta Tags',
-				'tools' => 'Validation Tools',
-				'tags' => 'Header Tags Preview' ) );
+			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', 
+				array( 
+					'header' => 'Title and Descriptions', 
+					'media' => 'Image and Video', 
+					'tools' => 'Validation Tools',
+					'tags' => 'Header Tags Preview'
+				)
+			);
 
 			if ( empty( $this->p->is_avail['opengraph'] ) )
 				unset( $tabs['tags'] );
