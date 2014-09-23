@@ -47,7 +47,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			$post_type = '';
 			$has_video_image = false;
 			$og_max = $this->p->util->get_max_nums( $post_id );
-			$og = apply_filters( $this->p->cf['lca'].'_og_seed', $og, $use_post );
+			$og = apply_filters( $this->p->cf['lca'].'_og_seed', $og, $use_post, $obj );
 
 			if ( ! isset( $og['fb:admins'] ) )
 				$og['fb:admins'] = $this->p->options['fb_admins'];
@@ -202,7 +202,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			}
 
 			// twitter cards are hooked into this filter to use existing open graph values
-			return apply_filters( $this->p->cf['lca'].'_og', $og, $use_post );
+			return apply_filters( $this->p->cf['lca'].'_og', $og, $use_post, $obj );
 		}
 
 		public function get_all_videos( $num = 0, $post_id, $check_dupes = true ) {
