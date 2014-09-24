@@ -38,7 +38,7 @@ Make sure social websites present your content correctly, no matter how your web
 <p>"<em>WPSSO Pro provides a handy tool for your marketing team, and improves your content whenever it’s shared by you or your fans. The free version has a lot of great features and makes a good trial version, but I think that eCommerce sites really benefit from the eCommerce plugin and video integrations (as well as the inclusion of Twitter card support) that the Pro version offers.</em>" &mdash; <a href="http://www.sellwithwp.com/optimized-social-media-wpsso-plugin-review/">sellwithwp.com</a></p>
 </blockquote>
 
-<p><strong>You can download the <a href="http://wordpress.org/plugins/wpsso/">Free version of WPSSO on WordPress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) here</a></strong> (includes a <em>No Risk 30 Day Refund Policy</em>).</p>
+<p><strong>You can download the <a href="https://wordpress.org/plugins/wpsso/">Free version of WPSSO on WordPress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) here</a></strong> (includes a <em>No Risk 30 Day Refund Policy</em>).</p>
 
 = Quick List of Features =
 
@@ -103,19 +103,19 @@ Aside from the additional support for Twitter Cards, the main difference between
 
 WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress Media Library image galleries and embedded videos from Slideshare, Vimeo, Wistia, and Youtube (including their preview images). WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized according to their intended audience (Facebook, Twitter, Pinterest, etc).
 
-WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me/support/photon/) and [NextGEN Gallery v1 and v2](http://wordpress.org/plugins/nextgen-gallery/) albums, galleries and images (shortcodes, image tags, album / gallery preview images, etc.).
+WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me/support/photon/) and [NextGEN Gallery v1 and v2](https://wordpress.org/plugins/nextgen-gallery/) albums, galleries and images (shortcodes, image tags, album / gallery preview images, etc.).
 
 **Enhanced SEO**
 
-WPSSO (Pro version) integrates with [WordPress SEO by Yoast](http://wordpress.org/plugins/wordpress-seo/), [All in One SEO Pack](http://wordpress.org/plugins/all-in-one-seo-pack/), and [HeadSpace2 SEO](http://wordpress.org/plugins/headspace2/) &mdash; making sure your custom SEO settings are reflected in the Open Graph, Rich Pin, and Twitter Card meta tags.
+WPSSO (Pro version) integrates with [WordPress SEO by Yoast](https://wordpress.org/plugins/wordpress-seo/), [All in One SEO Pack](https://wordpress.org/plugins/all-in-one-seo-pack/), and [HeadSpace2 SEO](https://wordpress.org/plugins/headspace2/) &mdash; making sure your custom SEO settings are reflected in the Open Graph, Rich Pin, and Twitter Card meta tags.
 
 **eCommerce Products**
 
-WPSSO (Pro version) also supports [Easy Digital Downloads](http://wordpress.org/plugins/easy-digital-downloads/), [MarketPress - WordPress eCommerce](http://wordpress.org/plugins/wordpress-ecommerce/), [WooCommerce v1 and v2](http://wordpress.org/plugins/woocommerce/), and [WP e-Commerce](http://wordpress.org/plugins/wp-e-commerce/) product pages, creating appropriate meta tags for [Facebook Products](https://developers.facebook.com/docs/payments/product/), [Twitter Product Cards](https://dev.twitter.com/docs/cards/types/product-card) and [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), including variations and additional / custom images.
+WPSSO (Pro version) also supports [Easy Digital Downloads](https://wordpress.org/plugins/easy-digital-downloads/), [MarketPress - WordPress eCommerce](https://wordpress.org/plugins/wordpress-ecommerce/), [WooCommerce v1 and v2](https://wordpress.org/plugins/woocommerce/), and [WP e-Commerce](https://wordpress.org/plugins/wp-e-commerce/) product pages, creating appropriate meta tags for [Facebook Products](https://developers.facebook.com/docs/payments/product/), [Twitter Product Cards](https://dev.twitter.com/docs/cards/types/product-card) and [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), including variations and additional / custom images.
 
 **Forums and Social**
 
-WPSSO (Pro version) supports [bbPress](http://wordpress.org/plugins/bbpress/) and [BuddyPress](http://wordpress.org/plugins/buddypress/) (see the [BuddyPress Integration Notes](http://surniaulula.com/codex/plugins/wpsso/notes/buddypress-integration/)), making sure your meta tags reflect the page content, including appropriate titles, descriptions, images, etc.
+WPSSO (Pro version) supports [bbPress](https://wordpress.org/plugins/bbpress/) and [BuddyPress](https://wordpress.org/plugins/buddypress/) (see the [BuddyPress Integration Notes](http://surniaulula.com/codex/plugins/wpsso/notes/buddypress-integration/)), making sure your meta tags reflect the page content, including appropriate titles, descriptions, images, etc.
 
 = Custom Contacts =
 
@@ -205,7 +205,7 @@ WPSSO is *fast and coded for performance*, making full use of all available cach
 <blockquote>
 <h4>How Fast is WPSSO?</h4>
 
-<p>Very Fast. A few example metrics from the <a href="http://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a> plugin, using <a href="http://wptest.io/">WP Test Data</a>, and the default settings of several popular plugins, along with the WordPress Core and Twenty Fourteen theme for reference:</p>
+<p>Very Fast. A few example metrics from the <a href="https://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a> plugin, using <a href="http://wptest.io/">WP Test Data</a>, and the default settings of several popular plugins, along with the WordPress Core and Twenty Fourteen theme for reference:</p>
 
 <ul>
 	<li><strong><font color="blue">0.0050</font></strong> secs - WPSSO Social Sharing Buttons (SSB) v1.0.9</li>
@@ -240,7 +240,7 @@ Try the WPSSO plugin with complete confidence &mdash; when uninstalled, WPSSO re
 
 = Great Support =
 
-WPSSO support and development is on-going. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](http://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
+WPSSO support and development is on-going. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](https://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
 
 **Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula/?rel=author), [Facebook](https://www.facebook.com/SurniaUlulaCom), and [Twitter](https://twitter.com/surniaululacom), and [YouTube](http://www.youtube.com/user/SurniaUlulaCom)**.
 

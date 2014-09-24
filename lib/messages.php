@@ -43,7 +43,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-side-non-persistant-cache':
 							$text = $short.' saves filtered / rendered content to a non-persistant cache
-							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>) 
+							(aka <a href="https://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>) 
 							for re-use within the same page load. You can disable the use of non-persistant cache (not recommended)
 							using one of the available <a href="http://surniaulula.com/codex/plugins/wpsso/notes/constants/" 
 							target="_blank">constants</a>.';
@@ -60,7 +60,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-side-transient-cache':
 							$text = $short.' saves Facebook / Open Graph, Pinterest Rich Pin, Twitter Card meta tags, etc. to a persistant
-							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
+							(aka <a href="https://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache for '.
 							$this->p->options['plugin_object_cache_exp'].' seconds (default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).
 							' seconds). You can adjust the Transient / Object Cache expiration value in the '.
 							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).', or disable it completely using an available
@@ -546,9 +546,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 */
 						case 'tooltip-plugin_object_cache_exp':
 							$text = $short.' saves filtered and rendered content to a non-persistant cache 
-							(aka <a href="http://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>), 
+							(aka <a href="https://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>), 
 							and Facebook / Open Graph, Pinterest Rich Pin, and Twitter Card meta tags to a persistant 
-							(aka <a href="http://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. 
+							(aka <a href="https://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. 
 							The default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).' seconds, 
 							and the minimum value is 1 second (such a low value is not recommended).';
 							break;
@@ -866,7 +866,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							'<strong>You should not modify the <em>Contact Field Name</em> unless you have a very good reason to do so.</strong>
 							The <em>Profile Contact Label</em> on the other hand is for <strong>display purposes only</strong>, and its text can be changed as you wish.
 							Although the following contact fields may be shown on user profile pages, your theme is responsible for using 
-							and displaying their values appropriately (see <a href="http://codex.wordpress.org/Function_Reference/get_the_author_meta" 
+							and displaying their values appropriately (see <a href="https://codex.wordpress.org/Function_Reference/get_the_author_meta" 
 							target="_blank">get_the_author_meta()</a> for examples).</p>
 							<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY.</strong><br/>
 							Enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.</p>
@@ -930,8 +930,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 			}
 			if ( is_array( $atts ) && ! empty( $atts['is_locale'] ) )
 				$text .= ' This option is localized &mdash; you may change the WordPress admin locale with 
-				<a href="http://wordpress.org/plugins/polylang/" target="_blank">Polylang</a>,
-				<a href="http://wordpress.org/plugins/wp-native-dashboard/" target="_blank">WP Native Dashboard</a>, 
+				<a href="https://wordpress.org/plugins/polylang/" target="_blank">Polylang</a>,
+				<a href="https://wordpress.org/plugins/wp-native-dashboard/" target="_blank">WP Native Dashboard</a>, 
 				etc., to define alternate values for different languages.';
 
 			if ( strpos( $idx, 'tooltip-' ) !== false && ! empty( $text ) )
