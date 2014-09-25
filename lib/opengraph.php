@@ -166,7 +166,10 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 						foreach ( $og['og:video'] as $val )
 							if ( is_array( $val ) && ! empty( $val['og:image'] ) )
 								$video_images++;
-						$this->p->debug->log( $video_images.' preview images found in og:video array' );
+						if ( $video_images > 0 ) {
+							$og_max['og_img_max'] -= $video_images;
+							$this->p->debug->log( $video_images.' video preview images found (og_img_max adjusted to '.$og_max['og_img_max'].')' );
+						}
 					}
 				} 
 			}

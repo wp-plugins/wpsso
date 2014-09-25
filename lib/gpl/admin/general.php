@@ -79,9 +79,12 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 
 		public function filter_og_videos_rows( $rows, $form ) {
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
-				$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+			$rows[] = $this->p->util->th( 'Include Video Preview Image', null, 'og_vid_prev_img' ).
+			'<td class="blank">'.$form->get_no_checkbox( 'og_vid_prev_img' ).'</td>';
+
+			if ( $this->p->options['plugin_display'] == 'all' ) {
 
 				$rows[] = $this->p->util->th( 'Default Video URL', null, 'og_def_vid_url' ).
 				'<td class="blank">'.$form->options['og_def_vid_url'].'</td>';

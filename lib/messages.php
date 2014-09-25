@@ -341,6 +341,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							and Pinterest Rich Pin meta tags. If you select \'0\', then no videos will be listed in the facebook / Open Graph 
 							and Pinterest Rich Pin meta tags.';
 							break;
+						case 'tooltip-og_vid_prev_img':
+							$text = 'Include video preview images in the meta tags (default is checked).';
+							break;
 						case 'tooltip-og_vid_https':
 							$text = 'Use an HTTPS connection whenever possible to retrieve information about videos from YouTube, Vimeo, Wistia, 
 							etc. (default is checked).';

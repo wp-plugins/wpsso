@@ -149,7 +149,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => 300,		// increment when changing default options
+				'version' => 301,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -173,6 +173,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_img_crop' => 1,
 					'og_img_max' => 1,
 					'og_vid_max' => 1,
+					'og_vid_prev_img' => 1,
 					'og_vid_https' => 1,
 					'og_def_img_id_pre' => 'wp',
 					'og_def_img_id' => '',
