@@ -135,6 +135,18 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'download' => 'https://wordpress.org/plugins/wpsso-ssb/',
 					),
 				),
+				'wpssoam' => array(
+					'short' => 'WPSSO AM',		// short plugin name
+					'name' => 'WPSSO App Meta (WPSSO AM)',
+					'desc' => 'WPSSO extension to include Apple Store (iTunes) iPhone, iPad, and Google Play App meta tags in your webpage headers.',
+					'img' => array(
+						'icon-small' => '//ps.w.org/wpsso-am/assets/icon-128x128.jpg?rev=',
+						'icon-medium' => '//ps.w.org/wpsso-am/assets/icon-256x256.jpg?rev=',
+					),
+					'url' => array(
+						'download' => 'https://wordpress.org/plugins/wpsso-am/',
+					),
+				),
 			),
 			'opt' => array(				// options
 				'version' => 300,		// increment when changing default options
