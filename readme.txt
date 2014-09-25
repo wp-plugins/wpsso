@@ -349,6 +349,17 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.6 =
+
+* **Bugfixes**
+	* *None*
+* **Enhancements**
+	* Updated URLs to wordpress.org from HTTP to HTTPS.
+	* Added a check for the 'auto-draft' post status when displaying the Social Settings metabox (Free version).
+	* Added the `get_options()` method to the SucomForm class.
+	* Added a counter for the number of video preview images.
+	* Added the WPSSO App Meta (WPSSO AM) extension information in the WPSSO config.
+
 = Version 2.6.5 =
 
 * **Bugfixes**
