@@ -202,15 +202,13 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					break;
 				case 'url':		// must be a url
 					if ( ! empty( $val ) && strpos( $val, '//' ) === false ) {
-						$this->p->notice->inf( 'The value of option \''.$key.'\' must 
-							be a URL'.' - '.$reset_msg, true );
+						$this->p->notice->inf( 'The value of option \''.$key.'\' must be a URL'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
 				case 'numeric':		// must be numeric (blank or zero is ok)
 					if ( ! empty( $val ) && ! is_numeric( $val ) ) {
-						$this->p->notice->inf( 'The value of option \''.$key.'\' must 
-							be numeric'.' - '.$reset_msg, true );
+						$this->p->notice->inf( 'The value of option \''.$key.'\' must be numeric'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
@@ -221,8 +219,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 							200 : $this->p->cf['head']['min_img_dim'];
 					else $min_int = 1;
 					if ( empty( $val ) || ! is_numeric( $val ) || $val < $min_int ) {
-						$this->p->notice->inf( 'The value of option \''.$key.'\' must 
-							be greater or equal to '.$min_int.' - '.$reset_msg, true );
+						$this->p->notice->inf( 'The value of option \''.$key.'\' must be greater or equal to '.$min_int.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
@@ -231,8 +228,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					break;
 				case 'anucase':	// must be alpha-numeric uppercase (hyphens and periods allowed as well)
 					if ( ! empty( $val ) && preg_match( '/[^A-Z0-9\-\.]/', $val ) ) {
-						$this->p->notice->inf( '\''.$val.'\' is not an accepted value 
-							for option \''.$key.'\''.' - '.$reset_msg, true );
+						$this->p->notice->inf( '\''.$val.'\' is not an accepted value for option \''.$key.'\''.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
@@ -243,8 +239,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				case 'code':		// options that cannot be blank
 				case 'notblank':
 					if ( empty( $val ) ) {
-						$this->p->notice->inf( 'The value of option \''.$key.'\' 
-							cannot be empty'.' - '.$reset_msg, true );
+						$this->p->notice->inf( 'The value of option \''.$key.'\' cannot be empty'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;

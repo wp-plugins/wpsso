@@ -45,7 +45,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			$obj = $this->p->util->get_post_object( $use_post );
 			$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 			$post_type = '';
-			$has_video_image = false;
+			$video_images = 0;
 			$og_max = $this->p->util->get_max_nums( $post_id );
 			$og = apply_filters( $this->p->cf['lca'].'_og_seed', $og, $use_post, $obj );
 
@@ -163,12 +163,10 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				else {
 					$og['og:video'] = $this->get_all_videos( $og_max['og_vid_max'], $post_id );
 					if ( is_array( $og['og:video'] ) ) {
-						foreach ( $og['og:video'] as $val ) {
-							if ( is_array( $val ) && ! empty( $val['og:image'] ) ) {
-								$this->p->debug->log( 'og:image found in og:video array (no default image required)' );
-								$has_video_image = true;
-							}
-						}
+						foreach ( $og['og:video'] as $val )
+							if ( is_array( $val ) && ! empty( $val['og:image'] ) )
+								$video_images++;
+						$this->p->debug->log( $video_images.' preview images found in og:video array' );
 					}
 				} 
 			}
@@ -181,7 +179,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 					$og['og:image'] = $this->get_all_images( $og_max['og_img_max'], $this->size_name, $post_id );
 
 					// if there's no image, and no video preview image, then add the default image for non-index webpages
-					if ( empty( $og['og:image'] ) && $has_video_image === false &&
+					if ( empty( $og['og:image'] ) && $video_images === 0 &&
 						( is_singular() || $use_post !== false ) )
 							$og['og:image'] = $this->p->media->get_default_image( $og_max['og_img_max'], $this->size_name );
 				} 

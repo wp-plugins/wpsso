@@ -229,6 +229,14 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
+		public function get_options( $idx, $def_val = false ) {
+			if ( isset( $this->options[$idx] ) )
+				return $this->options[$idx];
+			elseif ( ! empty( $idx ) )
+				return $def_val;
+			else return $this->options;
+		}
+
 		private function in_options( $name ) {
 			return is_array( $this->options ) && 
 				array_key_exists( $name, $this->options ) ? true : false;
