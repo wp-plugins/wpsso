@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0
-Stable Tag: 2.6.5
+Stable Tag: 2.6.6
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -359,7 +359,6 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a check for the number of returned video preview images.
 	* Added a new 'Include Video Preview Image' option in the SSO General settings page (Pro version).
 	* Added a check for the 'auto-draft' post status when displaying the Social Settings metabox (Free version).
-	* Added the WPSSO App Meta (WPSSO AM) extension information in the WPSSO config.
 
 = Version 2.6.5 =
 
