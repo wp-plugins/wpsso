@@ -354,7 +354,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* *None*
 * **Enhancements**
-	* Updated URLs to wordpress.org from HTTP to HTTPS.
+	* Updated the wordpress.org URLs from HTTP to HTTPS.
 	* Added the `get_options()` method to the SucomForm class.
 	* Added a check for the number of returned video preview images.
 	* Added a new 'Include Video Preview Image' option in the SSO General settings page (Pro version).
@@ -369,20 +369,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Renamed / changed the 'Header Tags' tab in the Social Settings metabox for 'Title and Description' and 'Image and Video'.
 	* Moved the 'Google+ / Schema Description' option in the Social Settings to the All Options view (hidden in the Basic Options view).
 
-= Version 2.6.4 =
-
-* **Bugfixes**
-	* Removed encoded HTML tags from excerpts from the WooCommerce short description (aka excerpt) text (Pro version).
-* **Enhancements**
-	* Added the SucomUtil class `get_inline_vars()`, `get_inline_vals()`, and `replace_inline_vars()` methods to retrieve and convert inline variables -- the `%%post_id%%`, `%%request_url%%`, and `%%sharing_url%%` variables will be expanded if/when found in any meta tag value.
-
 == Upgrade Notice ==
+
+= 2.6.6 =
+
+Updates the wordpress.org URLs to HTTPS, adds a check for the number of returned video preview images, and includes a new 'Include Video Preview Image' option.
 
 = 2.6.5 =
 
 Simplifies the Social Settings metabox, and includes a small fix to retain hidden / excluded options from the Social Settings metabox as well.
-
-= 2.6.4 =
-
-Fixed HTML encoding from WooCommerce short description, added support for expansion of special inline variables in meta tag values.
 
