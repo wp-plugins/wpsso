@@ -135,7 +135,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'download' => 'https://wordpress.org/plugins/wpsso-ssb/',
 					),
 				),
-				/*
 				'wpssoam' => array(
 					'short' => 'WPSSO AM',		// short plugin name
 					'name' => 'WPSSO App Meta (WPSSO AM)',
@@ -148,7 +147,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'download' => 'https://wordpress.org/plugins/wpsso-am/',
 					),
 				),
-				*/
 			),
 			'opt' => array(				// options
 				'version' => 301,		// increment when changing default options
