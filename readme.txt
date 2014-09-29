@@ -349,6 +349,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.6.1 =
+
+* **Bugfixes**
+	* Fix to allow the og:image meta tag to be disabled, without disabling the og:image:secure_url meta tag as well.
+* **Enhancements**
+	* *None*
+
 = Version 2.6.6 =
 
 * **Bugfixes**
@@ -369,6 +376,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Moved the 'Google+ / Schema Description' option in the Social Settings to the All Options view (hidden in the Basic Options view).
 
 == Upgrade Notice ==
+
+= 2.6.6.1 =
+
+Fix to allow the og:image meta tag to be disabled, without disabling the og:image:secure_url meta tag as well.
 
 = 2.6.6 =
 
