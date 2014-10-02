@@ -66,7 +66,7 @@ if ( ! class_exists( 'WpssoSitesubmenuSitelicenses' ) && class_exists( 'WpssoAdm
 				// logo image
 				echo '<tr><td style="width:140px;padding:10px 0;" rowspan="3" valign="top" align="left">';
 				if ( ! empty( $url ) ) echo '<a href="'.$url.'" target="_blank">';
-				echo '<img src="'.$img.'" width="125" height="125" class="highlight">';
+				echo '<img src="'.$img.'" width="128" height="128">';
 				if ( ! empty( $url ) ) echo '</a>';
 				echo '</td>';
 
