@@ -26,8 +26,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'slug' => 'wpsso',
 					'base' => 'wpsso/wpsso.php',
 					'img' => array(
-						'icon-small' => '//ps.w.org/wpsso/assets/icon-128x128.jpg?rev=',
-						'icon-medium' => '//ps.w.org/wpsso/assets/icon-256x256.jpg?rev=',
+						'icon-small' => '//ps.w.org/wpsso/assets/icon-128x128.png?rev=',
+						'icon-medium' => '//ps.w.org/wpsso/assets/icon-256x256.png?rev=',
 					),
 					'url' => array(
 						'download' => 'https://wordpress.org/plugins/wpsso/',
@@ -128,8 +128,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'name' => 'WPSSO Social Sharing Buttons (WPSSO SSB)',
 					'desc' => 'Social Sharing Buttons extension for the WordPress Social Sharing Optimization plugin - Fast and accurate social sharing buttons.',
 					'img' => array(
-						'icon-small' => '//ps.w.org/wpsso-ssb/assets/icon-128x128.jpg?rev=',
-						'icon-medium' => '//ps.w.org/wpsso-ssb/assets/icon-256x256.jpg?rev=',
+						'icon-small' => '//ps.w.org/wpsso-ssb/assets/icon-128x128.png?rev=',
+						'icon-medium' => '//ps.w.org/wpsso-ssb/assets/icon-256x256.png?rev=',
 					),
 					'url' => array(
 						'download' => 'https://wordpress.org/plugins/wpsso-ssb/',
@@ -140,8 +140,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'name' => 'WPSSO App Meta (WPSSO AM)',
 					'desc' => 'WPSSO extension to provide Apple Store (iTunes) and Google Play App meta tags for Apple\'s mobile Safari and Twitter\'s App Card.',
 					'img' => array(
-						'icon-small' => '//ps.w.org/wpsso-am/assets/icon-128x128.jpg?rev=',
-						'icon-medium' => '//ps.w.org/wpsso-am/assets/icon-256x256.jpg?rev=',
+						'icon-small' => '//ps.w.org/wpsso-am/assets/icon-128x128.png?rev=',
+						'icon-medium' => '//ps.w.org/wpsso-am/assets/icon-256x256.png?rev=',
 					),
 					'url' => array(
 						'download' => 'https://wordpress.org/plugins/wpsso-am/',
