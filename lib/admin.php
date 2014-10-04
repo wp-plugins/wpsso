@@ -485,7 +485,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						$latest_version = key( $upgrade_notice );
 						$latest_notice = $upgrade_notice[$latest_version];
 					}
-					$installed_style = ( $installed_version < $stable_version ) ? 
+					$installed_style = version_compare( $installed_version, $stable_version, '<' ) ?
 						'style="background-color:#f00;"' : 
 						'style="background-color:#0f0;"';
 				}
