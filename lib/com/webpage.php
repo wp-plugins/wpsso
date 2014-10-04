@@ -377,7 +377,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				}
 			}
 
-			$desc = $this->p->util->cleanup_html_tags( $desc );
+			$desc = $this->p->util->cleanup_html_tags( $desc, true, $this->p->options['og_desc_alt'] );
 			$desc = apply_filters( $this->p->cf['lca'].'_description_pre_limit', $desc );
 
 			if ( $textlen > 0 ) {

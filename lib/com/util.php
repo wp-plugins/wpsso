@@ -416,19 +416,33 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $text;
 		}
 
-		public function cleanup_html_tags( $text, $strip_tags = true ) {
-			$text = strip_shortcodes( $text );							// remove any remaining shortcodes
+		public function cleanup_html_tags( $text, $strip_tags = true, $use_alt = false ) {
+			$alt_text = '';
+			$text = strip_shortcodes( $text );						// remove any remaining shortcodes
 			$text = html_entity_decode( $text, ENT_QUOTES, get_bloginfo( 'charset' ) );
-			$text = preg_replace( '/[\r\n\t ]+/s', ' ', $text );					// put everything on one line
-			$text = preg_replace( '/<\?.*\?>/i', ' ', $text);					// remove php
-			$text = preg_replace( '/<script\b[^>]*>(.*?)<\/script>/i', ' ', $text);			// remove javascript
-			$text = preg_replace( '/<style\b[^>]*>(.*?)<\/style>/i', ' ', $text);			// remove inline stylesheets
+			$text = preg_replace( '/[\r\n\t ]+/s', ' ', $text );				// put everything on one line
+			$text = preg_replace( '/<\?.*\?>/i', ' ', $text);				// remove php
+			$text = preg_replace( '/<script\b[^>]*>(.*?)<\/script>/i', ' ', $text);		// remove javascript
+			$text = preg_replace( '/<style\b[^>]*>(.*?)<\/style>/i', ' ', $text);		// remove inline stylesheets
 			$text = preg_replace( '/<!--'.$this->p->cf['lca'].'-ignore-->(.*?)<!--\/'.
-				$this->p->cf['lca'].'-ignore-->/i', ' ', $text);				// remove text between comment strings
-			$text = preg_replace( '/<\/p>/i', ' ', $text);						// replace end of paragraph with a space
-			if ( $strip_tags == true ) 
-				$text = strip_tags( $text );							// remove remaining html tags
-			$text = preg_replace( '/  +/s', ' ', $text );						// truncate multiple spaces
+				$this->p->cf['lca'].'-ignore-->/i', ' ', $text);			// remove text between comment strings
+			if ( $strip_tags ) {
+				$text = preg_replace( '/<\/p>/i', ' ', $text);				// replace end of paragraph with a space
+				$text_stripped = trim( strip_tags( $text ) );				// remove remaining html tags
+				if ( $text_stripped === '' && $use_alt ) {				// possibly use img alt strings if no text
+					if ( strpos( $text, '<img ' ) !== false &&
+						preg_match_all( '/<img [^>]*alt=["\']([^"\'>]*)["\']/U', 
+							$text, $matches, PREG_PATTERN_ORDER ) ) {
+						foreach ( $matches[1] as $alt ) {
+							$alt = trim( $alt );				// trim to check for period at end of string
+							$alt_text .= ( strpos( $alt, '.' ) + 1 ) === strlen( $alt ) ? $alt.' ' : $alt.'. ';
+						}
+						$this->p->debug->log( 'img alt text: '.$alt_text );
+					}
+					$text = $alt_text;
+				} else $text = $text_stripped;
+			}
+			$text = preg_replace( '/(\xC2\xA0|\s)+/s', ' ', $text );	// convert space-like chars to a single space
 			return trim( $text );
 		}
 

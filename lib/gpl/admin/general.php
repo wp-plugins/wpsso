@@ -15,7 +15,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->util->add_plugin_filters( $this, array( 
-				'og_webpage_rows' => 2,
+				'og_content_rows' => 2,
 				'og_images_rows' => 2,
 				'og_videos_rows' => 2,
 				'og_author_rows' => 2,
@@ -26,7 +26,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			) );
 		}
 
-		public function filter_og_webpage_rows( $rows, $form ) {
+		public function filter_og_content_rows( $rows, $form ) {
 
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
@@ -36,6 +36,12 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 
 				$rows[] = $this->p->util->th( 'Description Length', null, 'og_desc_len' ).
 				'<td class="blank">'.$this->p->options['og_desc_len'].' characters or less</td>';
+
+				$rows[] = $this->p->util->th( 'Content Starts at 1st Paragraph', null, 'og_desc_strip' ).
+				'<td class="blank">'.$form->get_no_checkbox( 'og_desc_strip' ).'</td>';
+
+				$rows[] = $this->p->util->th( 'Use Image(s) Alt if No Content', null, 'og_desc_alt' ).
+				'<td class="blank">'.$form->get_no_checkbox( 'og_desc_alt' ).'</td>';
 			}
 
 			$rows[] = $this->p->util->th( 'Hashtags in Description', null, 'og_desc_hashtags' ).
@@ -47,9 +53,6 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 		
 				$rows[] = $this->p->util->th( 'Add Page Ancestor Tags', null, 'og_page_parent_tags' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'og_page_parent_tags' ).'</td>';
-		
-				$rows[] = $this->p->util->th( 'Content Begins at First Paragraph', null, 'og_desc_strip' ).
-				'<td class="blank">'.$form->get_no_checkbox( 'og_desc_strip' ).'</td>';
 			}
 
 			return $rows;

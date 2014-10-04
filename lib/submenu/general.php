@@ -31,7 +31,8 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 		public function show_metabox_opengraph() {
 			$metabox = 'og';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
-				'webpage' => 'Title and Description',
+				'general' => 'General',
+				'content' => 'Title and Description',
 				'images' => 'Images',
 				'videos' => 'Videos',
 				'author' => 'Authorship' ) );
@@ -63,8 +64,8 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 			$this->form->author_contact_fields = $this->p->addons['util']['user']->get_contact_fields();
 
 			switch ( $metabox.'-'.$key ) {
-				case 'og-webpage':
-					$rows[] = $this->p->util->th( 'Article Topic', 'highlight', 'og_art_section' ).
+				case 'og-general':
+					$rows[] = $this->p->util->th( 'Default Article Topic', 'highlight', 'og_art_section' ).
 					'<td>'.$this->form->get_select( 'og_art_section', $this->p->util->get_topics() ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Site Name', null, 'og_site_name', array( 'is_locale' => true ) ).
@@ -75,6 +76,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_textarea( SucomUtil::get_locale_key( 'og_site_description' ), 
 						null, null, null, get_bloginfo( 'description', 'display' ) ).'</td>';
 
+					break;
+
+				case 'og-content':
 					$rows[] = $this->p->util->th( 'Title Separator', null, 'og_title_sep' ).
 					'<td>'.$this->form->get_input( 'og_title_sep', 'short' ).'</td>';
 

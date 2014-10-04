@@ -404,6 +404,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							If an excerpt exists, then this option is ignored, and the complete text of that 
 							excerpt is used instead.';
 							break;
+						case 'tooltip-og_desc_alt':
+							$text = 'If the content is empty or comprised entirely of HTML tags &mdash; 
+							which must be stripped to create a description &mdash; '.$short.' can extract and use 
+							the text from the image <em>alt=""</em> attributes, instead of returning an empty description.';
+							break;
 						/*
 						 * 'Authorship' settings
 						 */
