@@ -58,30 +58,31 @@ Make sure social websites present your content correctly, no matter how your web
 * Includes the author's name for Pinterest Rich Pins.
 * Uses object and transient caches to provide incredibly fast execution speeds.
 * Includes a Google / SEO description meta tag if a known SEO plugin is not detected.
+* Fallback to the image alt value if the content and except do not include any text.
 * Provides Facebook, Google+ and Twitter URL profile contact fields.
 * Validation tools and special meta tag preview tabs on admin edit pages.
-* Customizable *multilingual* Site Title and (default) Description texts.
+* Customizable *multilingual* Site Title and Site Description texts.
 * Contextual help for *every* plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
 
 **Pro / Power-User Version**
 
-* <strong>No Risk 30 Day Refund Policy</strong>
+* **No Risk 30 Day Refund Policy**
 * Twitter Card meta tags:
-	* Product Card &mdash; Product information from a an e-commerce plugin:
+	* **Product Card** &mdash; Product information from a an e-commerce plugin:
 		* Easy Digital Downloads
 		* MarketPress
 		* WooCommerce
 		* WP e-Commerce
-	* Player Card &mdash; An embedded video in the content:
+	* **Player Card** &mdash; An embedded video in the content:
 		* Slideshare
 		* Vimeo
 		* Wistia
 		* YouTube
-	* Gallery Card &mdash; A WordPress Media Library gallery or NextGEN Gallery shortcode.
-	* Photo Card &mdash; A WordPress Attachment page or NextGEN Gallery ImageBrowser webpage.
-	* Large Image Summary Card &mdash; An image defined in the custom Social Settings metabox, a Featured, Attached, or NextGEN Gallery singlepic image.
-	* App Card &mdash; An Apple Store iPhone, iPad, or Google Play App (provided by the [WPSSO AM](https://wordpress.org/plugins/wpsso-am/) extension).
-	* Summary Card &mdash; All other webpages.  
+	* **Gallery Card** &mdash; A WordPress Media Library gallery or NextGEN Gallery shortcode.
+	* **Photo Card** &mdash; A WordPress Attachment page or NextGEN Gallery ImageBrowser webpage.
+	* **Large Image Summary Card** &mdash; An image defined in the custom Social Settings metabox, a Featured, Attached, or NextGEN Gallery singlepic image.
+	* **App Card** &mdash; An Apple Store iPhone, iPad, or Google Play App (provided by the [WPSSO AM](https://wordpress.org/plugins/wpsso-am/) extension).
+	* **Summary Card** &mdash; All other webpages.  
 * Customizable image dimensions for each Twitter Card type.
 * Configurable title and description lengths for different contexts (Open Graph, Twitter Card, SEO).
 * Additional profile contact fields with configurable label and field names.
