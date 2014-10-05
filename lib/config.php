@@ -22,7 +22,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'version' => '2.6.7',		// plugin version
 					'short' => 'WPSSO',		// short plugin name
 					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
-					'desc' => 'Display your content in the best possible way on Facebook, Google+, Twitter, Pinterest, etc. - no matter how your webpage is shared!',
+					'desc' => 'Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.',
 					'slug' => 'wpsso',
 					'base' => 'wpsso/wpsso.php',
 					'img' => array(
