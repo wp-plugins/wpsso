@@ -434,7 +434,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 						preg_match_all( '/<img [^>]*alt=["\']([^"\'>]*)["\']/U', 
 							$text, $matches, PREG_PATTERN_ORDER ) ) {
 						foreach ( $matches[1] as $alt ) {
-							$alt = trim( $alt );				// trim to check for period at end of string
+							$alt = 'Image: '.trim( $alt );
 							$alt_text .= ( strpos( $alt, '.' ) + 1 ) === strlen( $alt ) ? $alt.' ' : $alt.'. ';
 						}
 						$this->p->debug->log( 'img alt text: '.$alt_text );
