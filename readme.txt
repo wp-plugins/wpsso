@@ -66,7 +66,22 @@ Make sure social websites present your content correctly, no matter how your web
 **Pro / Power-User Version**
 
 * <strong>No Risk 30 Day Refund Policy</strong>
-* Twitter Card meta tags (Summary, Large Image, Photo, Gallery, Player, and Product).
+* Twitter Card meta tags:
+	* Product Card &mdash; Product information from a an e-commerce plugin:
+		* Easy Digital Downloads
+		* MarketPress
+		* WooCommerce
+		* WP e-Commerce
+	* Player Card &mdash; An embedded video in the content:
+		* Slideshare
+		* Vimeo
+		* Wistia
+		* YouTube
+	* Gallery Card &mdash; A WordPress Media Library gallery or NextGEN Gallery shortcode.
+	* Photo Card &mdash; A WordPress Attachment page or NextGEN Gallery ImageBrowser webpage.
+	* Large Image Summary Card &mdash; An image defined in the custom Social Settings metabox, a Featured, Attached, or NextGEN Gallery singlepic image.
+	* App Card &mdash; An Apple Store iPhone, iPad, or Google Play App (provided by the [WPSSO AM](https://wordpress.org/plugins/wpsso-am/) extension).
+	* Summary Card &mdash; All other webpages.  
 * Customizable image dimensions for each Twitter Card type.
 * Configurable title and description lengths for different contexts (Open Graph, Twitter Card, SEO).
 * Additional profile contact fields with configurable label and field names.
@@ -91,7 +106,7 @@ Make sure social websites present your content correctly, no matter how your web
 		* Slideshare Presentations
 		* Vimeo Videos
 		* Wistia Videos
-		* Youtube Videos and Playlists
+		* YouTube Videos and Playlists
 
 **Looking for the Pro version?** You can [purchase Pro license(s) here](http://surniaulula.com/extend/plugins/wpsso/) to update the Free version quickly and easily.
 
