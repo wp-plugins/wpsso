@@ -357,6 +357,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.7.1 =
+
+* **Bugfixes**
+	* Fix to enable the return of individual sharing URLs for BuddyPress activities within an activity loop (Pro version).
+* **Enhancements**
+	* *None*
+
 = Version 2.6.7 =
 
 * **Bugfixes**
