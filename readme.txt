@@ -362,7 +362,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* Fixed the return of individual sharing URLs for BuddyPress activities within an activity loop (Pro version).
 	* Fixed a check for the admin $post->filter attribute value (which is unreliable) for the $post->post_status value instead.
-	* Fixed the action hook return value for post meta and user `save_options()` methods.
+	* Fixed the action hook return value for post meta and user `save_options()` methods (Pro version).
 * **Enhancements**
 	* Added the source_id argument to the SucomWebpage class `get_caption()`, `get_title()`, and `get_description()` methods (and their filters).
 	* Changed the 'xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#"' DOCTYPE attribute to 'prefix="og: http://ogp.me/ns# fb: http://www.facebook.com/2008/fbml"' for HTML5 compliance.
@@ -398,7 +398,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 = 2.6.8 =
 
-Small fixes for BuddyPress and WooCommerce, improved HTML5 compliance, changes to the 'ngfb_title_seed' and 'ngfb_description_seed' filters.
+Small fixes for BuddyPress and WooCommerce, improved HTML5 compliance, changes to the 'wpsso_title_seed' and 'wpsso_description_seed' filters.
 
 = 2.6.7 =
 
