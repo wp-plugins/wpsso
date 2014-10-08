@@ -43,10 +43,10 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 			return self::$c[$lca]['umsg'];
 		}
 
-		public static function get_option( $lca, $idx = '' ) {
+		public static function get_option( $lca, $idx = false ) {
 			if ( ! empty( self::$c[$lca]['opt_name'] ) ) {
 				$option_data = get_site_option( self::$c[$lca]['opt_name'] );
-				if ( ! empty( $idx ) ) {
+				if ( $idx !== false ) {
 					if ( is_object( $option_data->update ) &&
 						isset( $option_data->update->$idx ) )
 							return $option_data->update->$idx;

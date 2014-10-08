@@ -249,7 +249,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		// "use_post = false" when used for open graph meta tags and buttons in widget,
 		// true when buttons are added to individual posts on an index webpage
-		public function get_sharing_url( $use_post = false, $add_page = true, $source_id = '' ) {
+		public function get_sharing_url( $use_post = false, $add_page = true, $source_id = false ) {
 			$url = false;
 			if ( is_singular() || $use_post !== false ) {
 				if ( ( $obj = $this->get_post_object( $use_post ) ) === false )

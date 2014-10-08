@@ -28,9 +28,9 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				add_action( 'show_user_profile', array( &$this, 'show_metabox' ), 20 );
 				add_action( 'edit_user_profile', array( &$this, 'show_metabox' ), 20 );
 				add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ), 5 );
-				add_action( 'edit_user_profile_update', array( &$this, 'save_options' ), 10 );
+				add_action( 'edit_user_profile_update', array( &$this, 'save_options' ), 20 );
 				add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ), 5 ); 
-				add_action( 'personal_options_update', array( &$this, 'save_options' ), 10 ); 
+				add_action( 'personal_options_update', array( &$this, 'save_options' ), 20 ); 
 			}
 		}
 
@@ -336,7 +336,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		static function delete_metabox_prefs( $user_id = false ) {
-			$cf = WpssoConfig::get_config( null, true );
+			$cf = WpssoConfig::get_config( false, true );
 
 			$parent_slug = 'options-general.php';
 			foreach ( array_keys( $cf['*']['lib']['setting'] ) as $id ) {
@@ -362,18 +362,20 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			}
 		}
 
-		public function get_options( $user_id = false, $idx = '' ) {
-			if ( ! empty( $idx ) ) return false;
+		public function get_options( $user_id = false, $idx = false ) {
+			if ( $idx !== false ) 
+				return false;
 			else return array();
 		}
 
-		public function get_defaults( $idx = '' ) {
-			if ( ! empty( $idx ) ) return false;
+		public function get_defaults( $idx = false ) {
+			if ( $idx !== false ) 
+				return false;
 			else return array();
 		}
 
 		public function save_options( $user_id = false ) {
-			return;
+			return $user_id;
 		}
 
 		public function flush_cache( $user_id ) {
@@ -388,6 +390,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			);
 			$transients = apply_filters( $this->p->cf['lca'].'_user_cache_transients', $transients, $post_id, $lang, $sharing_url );
 			$this->p->util->flush_cache_objects( $transients );
+			return $user_id;
 		}
 
 		protected function get_nonce() {

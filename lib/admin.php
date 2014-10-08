@@ -238,7 +238,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			// store message in user options table
 			$this->p->notice->inf( __( 'Plugin settings have been updated.', WPSSO_TEXTDOM ), true );
 			wp_redirect( $this->p->util->get_admin_url( $page ).'&settings-updated=true' );
-			exit;
+			exit;	// stop here
 		}
 
 		public function load_single_page() {

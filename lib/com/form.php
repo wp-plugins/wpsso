@@ -229,12 +229,12 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
-		public function get_options( $idx, $def_val = false ) {
-			if ( isset( $this->options[$idx] ) )
-				return $this->options[$idx];
-			elseif ( ! empty( $idx ) )
-				return $def_val;
-			else return $this->options;
+		public function get_options( $idx = false, $def_val = false ) {
+			if ( $idx !== false ) {
+				if ( isset( $this->options[$idx] ) )
+					return $this->options[$idx];
+				else return $def_val;
+			} else return $this->options;
 		}
 
 		private function in_options( $name ) {

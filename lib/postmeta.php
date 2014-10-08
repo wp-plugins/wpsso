@@ -24,18 +24,15 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		protected $post_info = array();
 
 		protected function add_actions() {
-
 			// everything bellow is for the admin interface
-
 			if ( is_admin() ) {
 				if ( $this->p->is_avail['opengraph'] )
 					add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
-
 				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
-				add_action( 'save_post', array( &$this, 'save_options' ), 10 );
-				add_action( 'save_post', array( &$this, 'flush_cache' ), 20 );	// 'save_post' runs after status change
-				add_action( 'edit_attachment', array( &$this, 'save_options' ), 10 );
-				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 20 );
+				add_action( 'save_post', array( &$this, 'save_options' ), 20 );	// allow woocommerce to save first
+				add_action( 'save_post', array( &$this, 'flush_cache' ), 100 );	// save_post action runs after status change
+				add_action( 'edit_attachment', array( &$this, 'save_options' ), 20 );
+				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 100 );
 			}
 		}
 
@@ -53,7 +50,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				if ( ( $obj = $this->p->util->get_post_object() ) === false )
 					return;
 				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
-				if ( ! empty( $post_id ) && $obj->post_status === 'publish' && $obj->filter === 'edit' ) {
+				if ( ! empty( $post_id ) && $obj->post_status === 'publish' ) {
 					$this->header_tags = $this->p->head->get_header_array( $post_id );
 					$this->p->debug->show_html( null, 'debug log' );
 					foreach ( $this->header_tags as $tag ) {
@@ -186,22 +183,25 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			return array( $pid, $video_url );
 		}
 
-                public function get_options( $post_id, $idx = '' ) {
-			if ( ! empty( $idx ) ) return false;
+                public function get_options( $post_id, $idx = false ) {
+			if ( $idx !== false )
+				return false;
 			else return array();
 		}
 
-		public function get_defaults( $idx = '' ) {
-			if ( ! empty( $idx ) ) return false;
+		public function get_defaults( $idx = false ) {
+			if ( $idx !== false )
+				return false;
 			else return array();
 		}
 
 		public function save_options( $post_id ) {
-			return;
+			return $post_id;
 		}
 
 		public function flush_cache( $post_id ) {
 			$this->p->util->flush_post_cache( $post_id );
+			return $post_id;
 		}
 
 		protected function get_nonce() {

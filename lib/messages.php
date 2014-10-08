@@ -19,7 +19,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 			$this->p->debug->mark();
 		}
 
-		public function get( $idx = '', $atts = null, $class = '' ) {
+		public function get( $idx = false, $atts = null, $class = '' ) {
 			$text = is_array( $atts ) || is_object( $atts ) ? '' : $atts;
 			$idx = sanitize_title_with_dashes( $idx );
 			$lca = isset( $atts['lca'] ) ? $atts['lca'] : $this->p->cf['lca'];

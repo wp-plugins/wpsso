@@ -521,9 +521,9 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 						case 'gallery' :
 							$content = do_shortcode( $match[0] );
 							$content = preg_replace( '/\['.$shortcode_type.'[^\]]*\]/', '', $content );	// prevent loops, just in case
-							// provide the expanded content and extract images
-							$og_ret = array_merge( $og_ret, 
-								$this->p->media->get_content_images( $num, $size_name, null, $check_dupes, $content ) );
+							// provide content to the method and extract its images
+							// $use_post argument is null since we're passing the content
+							$og_ret = array_merge( $og_ret, $this->p->media->get_content_images( $num, $size_name, null, $check_dupes, $content ) );
 							if ( ! empty( $og_ret ) ) 
 								return $og_ret;		// return immediately and ignore any other type of image
 							break;
