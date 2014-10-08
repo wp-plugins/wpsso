@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0
-Stable Tag: 2.6.7
+Stable Tag: 2.6.8
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -395,6 +395,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a check for the 'auto-draft' post status when displaying the Social Settings metabox (Free version).
 
 == Upgrade Notice ==
+
+= 2.6.8 =
+
+Small fixes for BuddyPress and WooCommerce, improved HTML5 compliance, changes to the 'ngfb_title_seed' and 'ngfb_description_seed' filters.
 
 = 2.6.7 =
 
