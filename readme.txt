@@ -367,6 +367,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added the source_id argument to the SucomWebpage class `get_caption()`, `get_title()`, and `get_description()` methods (and their filters).
 	* Changed the 'xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#"' DOCTYPE attribute to 'prefix="og: http://ogp.me/ns# fb: http://www.facebook.com/2008/fbml"' for HTML5 compliance.
 	* Modified the 'wpsso_title_seed' and 'wpsso_description_seed' filter arguments (note: the $use_cache and $encode filter arguments have been removed).
+	* Changed the BuddyPress description filter hook from 'wpsso_description_seed' to 'wpsso_content_seed' in order to provide image and video information.
 
 = Version 2.6.7 =
 
