@@ -247,7 +247,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 				if ( $saved === true ) {
 					// if we're just saving a new plugin version string, don't bother showing the upgrade message
-					if ( $prev_opts_version !== $opts['options_version'] ) {
+					if ( $prev_opts_version != $opts['options_version'] ) {
 						$this->p->debug->log( 'upgraded '.$options_name.' settings have been saved' );
 						$this->p->notice->inf( 'Plugin settings ('.$options_name.') have been upgraded and saved.', true );
 					}
