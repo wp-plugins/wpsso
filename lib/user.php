@@ -87,8 +87,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				array( 
 					'header' => 'Title and Descriptions', 
 					'media' => 'Image and Video', 
-					'tools' => 'Validation Tools',
-					'tags' => 'Header Tags Preview'
+					'tags' => 'Header Tags Preview',
+					'tools' => 'Validation Tools'
 				)
 			);
 
