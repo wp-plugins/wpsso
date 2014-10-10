@@ -150,7 +150,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				if ( isset( $updates->response[$info['base']] ) )
 					unset( $updates->response[$info['base']] );	// nextgen-facebook/nextgen-facebook.php
 
-				$option_data = get_site_option( $info['opt_name'] );
+				$option_data = get_site_option( $info['opt_name'], false, false );
 				if ( empty( $option_data ) )
 					$this->p->debug->log( 'update option is empty' );
 				elseif ( empty( $option_data->update ) )

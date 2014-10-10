@@ -25,8 +25,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 					add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
 
 				add_action( 'admin_init', array( &$this, 'add_metaboxes' ) );
-				add_action( 'show_user_profile', array( &$this, 'show_metabox' ), 20 );
-				add_action( 'edit_user_profile', array( &$this, 'show_metabox' ), 20 );
+				add_action( 'show_user_profile', array( &$this, 'show_metaboxes' ), 20 );
+				add_action( 'edit_user_profile', array( &$this, 'show_metaboxes' ), 20 );
 				add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ), 5 );
 				add_action( 'edit_user_profile_update', array( &$this, 'save_options' ), 20 );
 				add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ), 5 ); 
@@ -35,8 +35,9 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		public function add_metaboxes() {
-			if ( ! empty( $this->p->options['plugin_add_to_user'] ) )
-				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_usermeta' ), 'user', 'normal', 'high' );
+			$add_metabox = empty( $this->p->options[ 'plugin_add_to_user' ] ) ? false : true;
+			if ( apply_filters( $this->p->cf['lca'].'_add_metabox_usermeta', $add_metabox ) === true )
+				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_metabox_usermeta' ), 'user', 'normal', 'high' );
 		}
 
 		public function set_header_tags() {
@@ -59,7 +60,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			}
 		}
 
-		public function show_metabox( $user ) {
+		public function show_metaboxes( $user ) {
 			if ( ! current_user_can( 'edit_user', $user->ID ) )
 				return;
 
@@ -71,7 +72,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			echo '</div>';
 		}
 
-		public function show_usermeta( $user ) {
+		public function show_metabox_usermeta( $user ) {
 			$opts = $this->get_options( $user->ID );
 			$def_opts = $this->get_defaults();
 			$screen = get_current_screen();
