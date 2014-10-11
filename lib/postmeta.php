@@ -26,8 +26,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		protected function add_actions() {
 			// everything bellow is for the admin interface
 			if ( is_admin() ) {
-				if ( $this->p->is_avail['opengraph'] )
-					add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
+				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
 				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
 				add_action( 'save_post', array( &$this, 'save_options' ), 20 );	// allow woocommerce to save first
 				add_action( 'save_post', array( &$this, 'flush_cache' ), 100 );	// save_post action runs after status change
@@ -40,28 +39,34 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			if ( ( $obj = $this->p->util->get_post_object() ) === false ||
 				empty( $obj->post_type ) )
 					return;
+			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			$post_type = get_post_type_object( $obj->post_type );
 			$add_metabox = empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ? false : true;
-			if ( apply_filters( $this->p->cf['lca'].'_add_metabox_postmeta', $add_metabox, $obj->ID ) === true )
+			if ( apply_filters( $this->p->cf['lca'].'_add_metabox_postmeta', $add_metabox, $post_id ) === true )
 				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_metabox_postmeta' ), $post_type->name, 'advanced', 'high' );
 		}
 
 		public function set_header_tags() {
-			if ( $this->p->is_avail['opengraph'] && empty( $this->header_tags ) ) {
-				if ( ( $obj = $this->p->util->get_post_object() ) === false )
+			if ( ! empty( $this->header_tags ) )
+				return;
+			if ( ( $obj = $this->p->util->get_post_object() ) === false ||
+				empty( $obj->post_type ) )
 					return;
-				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
-				if ( ! empty( $post_id ) && $obj->post_status === 'publish' ) {
+			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
+			if ( isset( $obj->post_status ) && $obj->post_status === 'publish' ) {
+				$post_type = get_post_type_object( $obj->post_type );
+				$add_metabox = empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ? false : true;
+				if ( apply_filters( $this->p->cf['lca'].'_add_metabox_postmeta', $add_metabox, $post_id ) === true ) {
 					$this->header_tags = $this->p->head->get_header_array( $post_id );
-					$this->p->debug->show_html( null, 'debug log' );
 					foreach ( $this->header_tags as $tag ) {
 						if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {
-							$this->post_info['og_type'] = $tag[5];
+							$this->post_info['og_type'] = $tag[5];	// find and save the og_type value
 							break;
 						}
 					}
 				}
 			}
+			$this->p->debug->show_html( null, 'debug log' );
 		}
 
 		public function show_metabox_postmeta( $post ) {
