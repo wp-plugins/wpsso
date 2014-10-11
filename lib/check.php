@@ -31,7 +31,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			$this->active_plugins = get_option( 'active_plugins', array() ); 
 			if ( is_multisite() ) {
 				$this->network_plugins = array_keys( get_site_option( 'active_sitewide_plugins', array() ) );
-				if ( $this->network_plugins )
+				if ( ! empty( $this->network_plugins ) )
 					$this->active_plugins = array_merge( $this->active_plugins, $this->network_plugins );
 			}
 

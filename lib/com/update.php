@@ -45,7 +45,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 
 		public static function get_option( $lca, $idx = false ) {
 			if ( ! empty( self::$c[$lca]['opt_name'] ) ) {
-				$option_data = get_site_option( self::$c[$lca]['opt_name'] );
+				$option_data = get_site_option( self::$c[$lca]['opt_name'], false, true );	// use_cache = true
 				if ( $idx !== false ) {
 					if ( is_object( $option_data->update ) &&
 						isset( $option_data->update->$idx ) )
@@ -150,7 +150,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				if ( isset( $updates->response[$info['base']] ) )
 					unset( $updates->response[$info['base']] );	// nextgen-facebook/nextgen-facebook.php
 
-				$option_data = get_site_option( $info['opt_name'], false, false );
+				$option_data = get_site_option( $info['opt_name'], false, false );	// use_cache = false
 				if ( empty( $option_data ) )
 					$this->p->debug->log( 'update option is empty' );
 				elseif ( empty( $option_data->update ) )
@@ -186,7 +186,7 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				if ( empty( $info['slug'] ) )
 					continue;
 
-				$option_data = get_site_option( $info['opt_name'] );
+				$option_data = get_site_option( $info['opt_name'], false, false );	// use_cache = false
 				if ( empty( $option_data ) ) {
 					$option_data = new StdClass;
 					$option_data->lastCheck = 0;
