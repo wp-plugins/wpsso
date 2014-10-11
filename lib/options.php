@@ -237,7 +237,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			// update_option() returns false if options are the same or there was an error, 
 			// so check to make sure they need to be updated to avoid throwing a false error
 			if ( $options_name == WPSSO_SITE_OPTIONS_NAME )
-				$opts_current = get_site_option( $options_name, $opts );
+				$opts_current = get_site_option( $options_name, $opts, false );	// use_cache = false
 			else $opts_current = get_option( $options_name, $opts );
 
 			if ( $opts_current !== $opts ) {
