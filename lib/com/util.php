@@ -259,7 +259,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 					if ( isset( $this->p->addons['util']['postmeta'] ) )
 						$url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'sharing_url' );
 					if ( ! empty( $url ) ) 
-						$this->p->debug->log( 'custom postmeta sharing_url = "'.$url.'"' );
+						$this->p->debug->log( 'custom postmeta sharing_url = '.$url );
 					else $url = get_permalink( $post_id );
 
 					if ( $add_page && get_query_var( 'page' ) > 1 ) {
@@ -293,7 +293,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 						if ( isset( $this->p->addons['util']['user'] ) )
 							$url = $this->p->addons['util']['user']->get_options( $author->ID, 'sharing_url' );
 						if ( ! empty( $url ) ) 
-							$this->p->debug->log( 'custom user sharing_url = "'.$url.'"' );
+							$this->p->debug->log( 'custom user sharing_url = '.$url );
 						else $url = get_author_posts_url( $author->ID );
 					}
 				} elseif ( is_archive() ) {
