@@ -65,8 +65,8 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 						}
 					}
 				}
+				$this->p->debug->show_html( null, 'debug log' );
 			}
-			$this->p->debug->show_html( null, 'debug log' );
 		}
 
 		public function show_metabox_postmeta( $post ) {

@@ -21,9 +21,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			add_filter( 'user_contactmethods', array( &$this, 'add_contact_methods' ), 20, 1 );
 
 			if ( is_admin() ) {
-				if ( $this->p->is_avail['opengraph'] )
-					add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
-
+				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
 				add_action( 'admin_init', array( &$this, 'add_metaboxes' ) );
 				add_action( 'show_user_profile', array( &$this, 'show_metaboxes' ), 20 );
 				add_action( 'edit_user_profile', array( &$this, 'show_metaboxes' ), 20 );
@@ -41,32 +39,33 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		public function set_header_tags() {
+			if ( ! empty( $this->header_tags ) )
+				return;
 			$screen = get_current_screen();
 			$page = $screen->id;
-			if ( $this->p->is_avail['opengraph'] && empty( $this->header_tags ) ) {
-				switch ( $page ) {
-					case 'user-edit':
-					case 'profile':
+			switch ( $page ) {
+				case 'user-edit':
+				case 'profile':
+					$add_metabox = empty( $this->p->options[ 'plugin_add_to_user' ] ) ? false : true;
+					if ( apply_filters( $this->p->cf['lca'].'_add_metabox_usermeta', $add_metabox ) === true ) {
 						$this->header_tags = $this->p->head->get_header_array( false );
-						$this->p->debug->show_html( null, 'debug log' );
 						foreach ( $this->header_tags as $tag ) {
 							if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {
-								$this->post_info['og_type'] = $tag[5];
+								$this->post_info['og_type'] = $tag[5];	// find and save the og_type value
 								break;
 							}
 						}
-						break;
-				}
+					}
+					$this->p->debug->show_html( null, 'debug log' );
+					break;
 			}
 		}
 
 		public function show_metaboxes( $user ) {
 			if ( ! current_user_can( 'edit_user', $user->ID ) )
 				return;
-
 			if ( isset( $_GET['updated'] ) )
 				$this->flush_cache( $user_id );
-
 			echo '<div id="poststuff">';
 			do_meta_boxes( 'user', 'normal', $user );
 			echo '</div>';
