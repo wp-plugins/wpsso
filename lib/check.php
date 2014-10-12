@@ -217,8 +217,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 								$ret[$sub]['*'] = $ret[$sub][$id] = true;
 				}
 			}
-
-			return $ret;
+			return apply_filters( $this->p->cf['lca'].'_get_avail', $ret );
 		}
 
 		// called from WpssoAdmin

@@ -57,6 +57,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				$post_type = get_post_type_object( $obj->post_type );
 				$add_metabox = empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ? false : true;
 				if ( apply_filters( $this->p->cf['lca'].'_add_metabox_postmeta', $add_metabox, $post_id ) === true ) {
+					do_action( $this->p->cf['lca'].'_admin_postmeta_header', $post_type->name, $post_id );
 					$this->header_tags = $this->p->head->get_header_array( $post_id );
 					foreach ( $this->header_tags as $tag ) {
 						if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {

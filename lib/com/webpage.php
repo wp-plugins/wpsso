@@ -14,6 +14,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 		private $p;
 		private $shortcode = array();
+		private $saved_title = false;
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
@@ -39,6 +40,16 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			if ( ! empty( $this->p->options['plugin_page_tags'] ) )
 				register_taxonomy_for_object_type( 'post_tag', 'page' );
+		}
+
+		// $title is empty for home page, so don't save/restore empty titles
+		public function wp_title_save( $title, $separator, $location ) {
+			$this->saved_title = $title === '' ? false : $title;
+			return $title;
+		}
+
+		public function wp_title_restore( $title, $separator, $location ) {
+			return ( $this->saved_title === false ? $title : $this->saved_title );
 		}
 
 		// called from Tumblr class
@@ -75,9 +86,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				'custom' => $custom,
 				'source_id' => $source_id ) );
 			$caption = false;
-			$separator = $encode === true ? 
-				$this->p->options['og_title_sep'] : 	// option value is stored encoded
-				html_entity_decode( $this->p->options['og_title_sep'], ENT_QUOTES, get_bloginfo( 'charset' ) );
+			$separator = html_entity_decode( $this->p->options['og_title_sep'], ENT_QUOTES, get_bloginfo( 'charset' ) );
 
 			if ( ! empty( $custom ) && $custom !== 'og' &&
 				( is_singular() || $use_post !== false ) ) {
@@ -134,9 +143,13 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			$paged_suffix = '';
 			$hashtags = '';
 			$post_id = 0;
-			$separator = $encode === true ? 
-				$this->p->options['og_title_sep'] : 	// option value is stored encoded
-				html_entity_decode( $this->p->options['og_title_sep'], ENT_QUOTES, get_bloginfo( 'charset' ) );
+			$separator = html_entity_decode( $this->p->options['og_title_sep'], ENT_QUOTES, get_bloginfo( 'charset' ) );
+
+			// setup filters to save and restore original / pre-filtered title value
+			if ( empty( $this->p->options['plugin_filter_title'] ) ) {
+				add_filter( 'wp_title', array( &$this, 'wp_title_save' ), -9000, 3 );
+				add_filter( 'wp_title', array( &$this, 'wp_title_restore' ), 9000, 3 );
+			}
 
 			if ( is_singular() || $use_post !== false ) {
 				if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
@@ -157,8 +170,9 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$title = $this->p->addons['util']['user']->get_options( $author->ID, $custom );
 						if ( ! empty( $title ) ) 
 							$this->p->debug->log( 'custom user '.$custom.' = "'.$title.'"' );
-					} elseif ( is_admin() )	// re-create default wp title on admin side
-						$title = $author->display_name.' '.$separator.' '.$title;
+					}
+					if ( empty( $title ) && is_admin() )	// re-create default wp title on admin side
+						$title = apply_filters( 'wp_title', $author->display_name.' '.$separator.' ', $separator, 'right' );
 				}
 			}
 
@@ -182,14 +196,14 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			if ( empty( $title ) ) {
 				// $obj and $post_id are defined above, with the same test, so we should be good
 				if ( is_singular() || $use_post !== false ) {
+
 					if ( is_singular() ) {
 						$title = wp_title( $separator, false, 'right' );
-						$this->p->debug->log( 'is_singular: wp_title() = "'.$title.'"' );
+						$this->p->debug->log( 'is_singular wp_title() = "'.$title.'"' );
 					} elseif ( ! empty( $post_id ) ) {
-						$title = get_the_title( $post_id );
-						$this->p->debug->log( 'have post_id: get_the_title() = "'.$title.'"' );
+						$title = apply_filters( 'wp_title', get_the_title( $post_id ).' '.$separator.' ', $separator, 'right' );
+						$this->p->debug->log( 'post_id get_the_title() = "'.$title.'"' );
 					}
-
 					// get the parent's title if no seo package is installed
 					if ( $this->p->is_avail['seo']['*'] == false && ! empty( $obj->post_parent ) )
 						$parent_title = get_the_title( $obj->post_parent );
@@ -199,7 +213,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 					// use separator on right for compatibility with aioseo
 					$title = wp_title( $separator, false, 'right' );
-					$this->p->debug->log( 'have seo: wp_title() = "'.$title.'"' );
+					$this->p->debug->log( 'seo wp_title() = "'.$title.'"' );
 	
 				// category title, with category parents
 				} elseif ( is_category() ) { 
@@ -213,7 +227,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$this->p->debug->log( 'get_category_parents() = "'.$cat_parents.'"' );
 						if ( ! empty( $cat_parents ) ) {
 							$title = $cat_parents;
-							$title = preg_replace( '/\.\.\. \\'.$separator.' /', '... ', $title );
+							$title = preg_replace( '/\.\.\. '.$separator.' /', '... ', $title );
 						}
 					}
 	
@@ -225,18 +239,23 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					 *	author page = the public name of the user 
 					 */
 					$title = wp_title( $separator, false, 'right' );
-					$this->p->debug->log( 'default: wp_title() = "'.$title.'"' );
+					$this->p->debug->log( 'default wp_title() = "'.$title.'"' );
 				}
 	
 				// just in case
 				if ( empty( $title ) ) {
 					$title = get_bloginfo( 'name', 'display' );
-					$this->p->debug->log( 'last resort: get_bloginfo() = "'.$title.'"' );
+					$this->p->debug->log( 'last resort get_bloginfo() = "'.$title.'"' );
 				}
 			}
 
+			if ( empty( $this->p->options['plugin_filter_title'] ) ) {
+				remove_filter( 'wp_title', array( &$this, 'wp_title_save' ), -9000 );
+				remove_filter( 'wp_title', array( &$this, 'wp_title_restore' ), 9000 );
+			}
+
 			$title = $this->p->util->cleanup_html_tags( $title );		// strip html tags before removing separator
-			$title = preg_replace( '/ \\'.$separator.' *$/', '', $title );	// trim excess separator
+			$title = preg_replace( '/ *'.$separator.' *$/', '', $title );	// trim excess separator
 
 			// apply title filter before adjusting it's length
 			$title = apply_filters( $this->p->cf['lca'].'_title_pre_limit', $title );
@@ -258,7 +277,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 					$textlen = $textlen - strlen( $hashtags ) - 1;
 				$title = $this->p->util->limit_text_length( $title, $textlen, $trailing, false );	// don't run cleanup_html_tags()
-				$title = preg_replace( '/ \\'.$separator.' *('.$trailing.')?$/', $trailing, $title );	// just in case
 			}
 
 			if ( ! empty( $parent_title ) ) 
@@ -340,18 +358,11 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					if ( has_excerpt( $post_id ) ) {
 						$desc = $obj->post_excerpt;
 						if ( ! empty( $this->p->options['plugin_filter_excerpt'] ) ) {
-
-							// remove the sharing buttons filter to avoid recursive loops
-							if ( ! empty( $this->p->sharing ) && 
-								is_object( $this->p->sharing ) )
-									$filter_removed = $this->p->sharing->remove_buttons_filter( 'get_the_excerpt' );
-							else $filter_removed = false;
-
+							$filter_removed = apply_filters( $this->p->cf['lca'].'_pre_filter_remove', false, 'get_the_excerpt' );
 							$this->p->debug->log( 'calling apply_filters(\'get_the_excerpt\')' );
 							$desc = apply_filters( 'get_the_excerpt', $desc );
-
 							if ( $filter_removed )
-								$this->p->sharing->add_buttons_filter( 'get_the_excerpt' );
+								$filter_added = apply_filters( $this->p->cf['lca'].'_post_filter_add', false, 'get_the_excerpt' );
 						}
 					} else $this->p->debug->log( 'no post_excerpt for post_id '.$post_id );
 
@@ -480,12 +491,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				$this->p->debug->log( $count.' [singlepic] shortcode(s) removed from content' );
 
 			if ( $filter_content == true ) {
-
-				// remove the sharing buttons filter to avoid recursive loops
-				if ( ! empty( $this->p->sharing ) && 
-					is_object( $this->p->sharing ) )
-						$filter_removed = $this->p->sharing->remove_buttons_filter( 'the_content' );
-				else $filter_removed = false;
+				$filter_removed = apply_filters( $this->p->cf['lca'].'_pre_filter_remove', false, 'the_content' );
 
 				// remove all of our shortcodes
 				if ( isset( $this->p->cf['*']['lib']['shortcode'] ) && 
@@ -495,9 +501,9 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 								is_object( $this->shortcode[$id] ) )
 									$this->shortcode[$id]->remove();
 
-				$this->p->debug->log( 'saving $post and calling apply_filters()' );
 				global $post;
 				$saved_post = $post;	// woocommerce can change the $post, so save and restore
+				$this->p->debug->log( 'saving $post object and calling apply_filters(\'the_content\')' );
 				$content = apply_filters( 'the_content', $content );
 				$post = $saved_post;
 
@@ -505,9 +511,8 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				unset ( $GLOBALS['subalbum'] );
 				unset ( $GLOBALS['nggShowGallery'] );
 
-				// add the sharing buttons filter back, if it was removed
 				if ( $filter_removed )
-					$this->p->sharing->add_buttons_filter( 'the_content' );
+					$filter_added = apply_filters( $this->p->cf['lca'].'_post_filter_add', false, 'the_content' );
 
 				// add our shortcodes back
 				if ( isset( $this->p->cf['*']['lib']['shortcode'] ) && 

@@ -47,7 +47,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				case 'user-edit':
 				case 'profile':
 					$add_metabox = empty( $this->p->options[ 'plugin_add_to_user' ] ) ? false : true;
-					if ( apply_filters( $this->p->cf['lca'].'_add_metabox_usermeta', $add_metabox ) === true ) {
+					if ( apply_filters( $this->p->cf['lca'].'_add_metabox_usermeta', $add_metabox, $page ) === true ) {
+						do_action( $this->p->cf['lca'].'_admin_usermeta_header', $page );
 						$this->header_tags = $this->p->head->get_header_array( false );
 						foreach ( $this->header_tags as $tag ) {
 							if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {
