@@ -357,6 +357,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.9 =
+
+* **Bugfixes**
+	* *None*
+* **Enhancements**
+	* Added the 'Use Filtered (SEO) Titles' option (checked by default) to allow the use of original / unmodified title values.
+	* Added the 'wpsso_add_metabox_postmeta' filter to enable / disable the Social Settings metabox for specific post IDs.
+	* Added the 'wpsso_add_metabox_usermeta' filter to enable / disable the Social Settings metabox for specific user IDs.
+
 = Version 2.6.8 =
 
 * **Bugfixes**
