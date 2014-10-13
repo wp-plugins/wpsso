@@ -15,7 +15,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 		private $p;
 		private $active_plugins;
 		private $network_plugins;
-		private static $aop = false;
 		private static $mac = array(
 			'seo' => array(
 				'seou' => 'SEO Ultimate',
@@ -28,7 +27,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				method_exists( $this->p->debug, 'mark' ) )
 					$this->p->debug->mark();
 
-			$this->active_plugins = get_option( 'active_plugins', array() ); 
+			$this->active_plugins = get_option( 'active_plugins', array() );
 			if ( is_multisite() ) {
 				$this->network_plugins = array_keys( get_site_option( 'active_sitewide_plugins', array() ) );
 				if ( ! empty( $this->network_plugins ) )
@@ -101,7 +100,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) &&
 				class_exists( $this->p->cf['lca'].'opengraph' ) ? true : false;
 
-			$ret['aop'] = self::$aop = ( ! defined( 'WPSSO_PRO_ADDON_DISABLE' ) ||
+			$ret['aop'] = ( ! defined( 'WPSSO_PRO_ADDON_DISABLE' ) ||
 				( defined( 'WPSSO_PRO_ADDON_DISABLE' ) && ! WPSSO_PRO_ADDON_DISABLE ) ) &&
 				file_exists( WPSSO_PLUGINDIR.'lib/pro/head/twittercard.php' ) ? true : false;
 
@@ -122,11 +121,11 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 						 * 3rd Party Plugins
 						 */
 						case 'ecom-edd':
-							$chk['class'] = 'Easy_Digital_Downloads'; 
+							$chk['class'] = 'Easy_Digital_Downloads';
 							$chk['plugin'] = 'easy-digital-downloads/easy-digital-downloads.php';
 							break;
 						case 'ecom-marketpress':
-							$chk['class'] = 'MarketPress'; 
+							$chk['class'] = 'MarketPress';
 							$chk['plugin'] = 'wordpress-ecommerce/marketpress.php';
 							break;
 						case 'ecom-woocommerce':
@@ -138,7 +137,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 							$chk['plugin'] = 'wp-e-commerce/wp-shopping-cart.php';
 							break;
 						case 'forum-bbpress':
-							$chk['class'] = 'bbPress'; 
+							$chk['class'] = 'bbPress';
 							$chk['plugin'] = 'bbpress/bbpress.php';
 							break;
 						case 'lang-polylang':
@@ -168,11 +167,11 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 							$chk['plugin'] = 'seo-ultimate/seo-ultimate.php';
 							break;
 						case 'seo-wpseo':
-							$chk['function'] = 'wpseo_init'; 
+							$chk['function'] = 'wpseo_init';
 							$chk['plugin'] = 'wordpress-seo/wp-seo.php';
 							break;
 						case 'social-buddypress':
-							$chk['class'] = 'BuddyPress'; 
+							$chk['class'] = 'BuddyPress';
 							$chk['plugin'] = 'buddypress/bp-loader.php';
 							break;
 						/*
@@ -226,6 +225,9 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			if ( ! is_admin() ) 
 				return;
 
+			$lca = $this->p->cf['lca'];
+			$short_pro = $this->p->cf['plugin'][$lca]['short'].' Pro';
+			$purchase_url = $this->p->cf['plugin'][$lca]['url']['purchase'];
 			$conflict_log_prefix =  __( 'plugin conflict detected', WPSSO_TEXTDOM ) . ' - ';
 			$conflict_err_prefix =  __( 'Plugin conflict detected', WPSSO_TEXTDOM ) . ' - ';
 
@@ -301,7 +303,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 					$this->p->debug->log( $conflict_log_prefix.'aioseop social meta fetaure is enabled' );
 					$this->p->notice->err( $conflict_err_prefix.
 						sprintf( __( 'Please deactivate the \'<em>Social Meta</em>\' feature in the '.
-							'<a href="%s">All in One SEO Pack Feature Manager</a>.', NGFB_TEXTDOM ), 
+							'<a href="%s">All in One SEO Pack Feature Manager</a>.', WPSSO_TEXTDOM ), 
 							get_admin_url( null, 'admin.php?page=all-in-one-seo-pack/aioseop_feature_manager.php' ) ) );
 				}
 				if ( array_key_exists( 'aiosp_google_disable_profile', $opts ) && empty( $opts['aiosp_google_disable_profile'] ) ) {
@@ -315,12 +317,11 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 			// JetPack Photon
 			if ( $this->p->is_avail['media']['photon'] === true && ! $this->aop() ) {
-				$purchase_url = $this->p->cf['plugin'][$this->p->cf['lca']]['url']['purchase'];
 				$this->p->debug->log( $conflict_log_prefix.'jetpack photon is enabled' );
 				$this->p->notice->err( $conflict_err_prefix.
 					sprintf( __( 'JetPack Photon cripples the WordPress image size funtions. ', WPSSO_TEXTDOM ).
 						__( 'Please <a href="%s">disable JetPack Photon</a>, disable the %s Free version, 
-						or <a href="%s">upgrade to the %s version</a> (that includes a 3rd party addon for Photon).', NGFB_TEXTDOM ), 
+						or <a href="%s">upgrade to the %s version</a> (that includes a 3rd party addon for Photon).', WPSSO_TEXTDOM ), 
 						get_admin_url( null, 'admin.php?page=jetpack' ), $short, $purchase_url, $short_pro ) );
 			}
 

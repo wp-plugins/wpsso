@@ -80,6 +80,10 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $this->get_radio( $name, $values, $class, $id, $is_assoc, true );
 		}
 
+		public function get_no_select( $name, $values = array(), $class = '', $id = '', $is_assoc = false ) {
+			return $this->get_select( $name, $values, $class, $id, $is_assoc, true );
+		}
+
 		public function get_select( $name, $values = array(), $class = '', $id = '', $is_assoc = false, $disabled = false ) {
 			if ( empty( $name ) || ! is_array( $values ) ) 
 				return;

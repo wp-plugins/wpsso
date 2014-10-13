@@ -149,7 +149,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => 304,		// increment when changing default options
+				'version' => 305,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -307,7 +307,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_vimeo_api' => 1,
 					'plugin_wistia_api' => 1,
 					'plugin_youtube_api' => 1,
-					'plugin_cf_vid_url' => '_format_video_embed',
+					'plugin_cf_vid_url' => '_format_video_url',
+					'plugin_cf_vid_embed' => '_format_video_embed',
 					'plugin_add_to_user' => 1,
 					'plugin_add_to_post' => 1,
 					'plugin_add_to_page' => 1,
@@ -420,7 +421,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 		);
 
 		// get_config is called very early, so don't apply filters unless instructed
-		public static function get_config( $idx = '', $filter = false ) { 
+		public static function get_config( $idx = false, $filter = false ) { 
 
 			if ( ! isset( self::$cf['config_filtered'] ) || self::$cf['config_filtered'] !== true ) {
 				if ( $filter === true ) {

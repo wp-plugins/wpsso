@@ -182,7 +182,8 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 
 			// pre-filter most values to remove html
 			switch ( $option_type ) {
-				case 'code':		// don't remove / encode html tags from css, js, etc.
+				case 'html':
+				case 'code':
 					break;
 				default:
 					$val = stripslashes( $val );
@@ -232,6 +233,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 						$val = $def_val;
 					}
 					break;
+				case 'html':		// options that cannot be blank
 				case 'okblank':		// text strings that can be blank
 					if ( ! empty( $val ) )
 						$val = trim( $val );

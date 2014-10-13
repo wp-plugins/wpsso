@@ -217,7 +217,7 @@ WPSSO is *fast and coded for performance*, making full use of all available cach
 
 <ul>
 	<li><strong><font color="blue">0.0050</font></strong> secs - WPSSO Social Sharing Buttons (SSB) v1.0.9</li>
-	<li><strong><font color="blue">0.0117</font></strong> secs - <em><strong>WordPress Social Sharing Optimization (WPSSO) v2.6.5</strong></em></li>
+	<li><strong><font color="blue">0.0116</font></strong> secs - <em><strong>WordPress Social Sharing Optimization (WPSSO) v2.6.9</strong></em></li>
 	<li><strong><font color="blue">0.0149</font></strong> secs - All in One SEO Pack v2.2.1</li>
 	<li><strong><font color="blue">0.0157</font></strong> secs - MarketPress - WordPress eCommerce v2.9.2.1 (No Products)</li>
 	<li><strong><font color="blue">0.0186</font></strong> secs - NextGEN Facebook (NGFB) v7.6.8</li>
@@ -363,8 +363,11 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* *None*
 * **Enhancements**
 	* Added the 'Use Filtered (SEO) Titles' option (checked by default) to allow the use of original / unmodified title values.
-	* Added the 'wpsso_add_metabox_postmeta' filter to enable / disable the Social Settings metabox for specific post IDs.
-	* Added the 'wpsso_add_metabox_usermeta' filter to enable / disable the Social Settings metabox for specific user IDs.
+	* Added a new 'Video Embed HTML Custom Field' option with a default value of '_format_video_embed'.
+	* Changed the 'Video URL Custom Field' default value from '_format_video_embed' to '_format_video_url'.
+	* Added a new 'Video Embed HTML' option to the admin Social Settings metabox.
+	* Added the 'wpsso_add_metabox_postmeta' filter to enable / disable the admin Social Settings metabox for specific post IDs.
+	* Added the 'wpsso_add_metabox_usermeta' filter to enable / disable the admin Social Settings metabox for specific user IDs.
 
 = Version 2.6.8 =
 

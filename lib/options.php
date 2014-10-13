@@ -270,6 +270,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				$key = preg_replace( '/#.*$/', '', $key );
 
 			switch ( $key ) {
+				case 'og_vid_embed':
+					return 'html';
+					break;
 				// js and css
 				case ( strpos( $key, '_js_' ) === false ? false : true ):
 				case ( strpos( $key, '_css_' ) === false ? false : true ):
@@ -287,6 +290,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'link_publisher_url':
 				case 'og_publisher_url':
 				case 'og_def_img_url':
+				case 'og_img_url':
 					return 'url';
 					break;
 				// must be numeric (blank or zero is ok)
@@ -329,12 +333,13 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'fb_app_id':
 				case 'tc_desc':
 				case 'plugin_cf_vid_url':
+				case 'plugin_cf_vid_embed':
 					return 'okblank';
 					break;
 				// options that cannot be blank
 				case 'link_author_field':
-				case 'og_img_id_pre': 
 				case 'og_def_img_id_pre': 
+				case 'og_img_id_pre': 
 				case 'og_author_field':
 				case 'rp_author_name':
 				case 'fb_lang': 
