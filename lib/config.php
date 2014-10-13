@@ -486,6 +486,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			if ( ! defined( 'WPSSO_META_NAME' ) )
 				define( 'WPSSO_META_NAME', '_'.$cf['lca'].'_meta' );
 
+			if ( ! defined( 'WPSSO_META_SAVE_PRIORITY' ) )
+				define( 'WPSSO_META_SAVE_PRIORITY', 20 );
+
 			if ( ! defined( 'WPSSO_MENU_PRIORITY' ) )
 				define( 'WPSSO_MENU_PRIORITY', '99.10' );
 
