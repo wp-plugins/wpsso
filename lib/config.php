@@ -149,7 +149,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => 305,		// increment when changing default options
+				'version' => 306,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -307,8 +307,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_vimeo_api' => 1,
 					'plugin_wistia_api' => 1,
 					'plugin_youtube_api' => 1,
-					'plugin_cf_vid_url' => '_format_video_url',
-					'plugin_cf_vid_embed' => '_format_video_embed',
+					'plugin_cf_img_url' => '_image_url',
+					'plugin_cf_vid_url' => '_video_url',
+					'plugin_cf_vid_embed' => '_video_embed',
 					'plugin_add_to_user' => 1,
 					'plugin_add_to_post' => 1,
 					'plugin_add_to_page' => 1,

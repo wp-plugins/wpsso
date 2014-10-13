@@ -101,6 +101,10 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 			'<td class="blank">'.$checkboxes.'</td>';
 			
 			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = $this->p->util->th( 'Image URL Custom Field', null, 'plugin_cf_img_url' ).
+				'<td class="blank">'.$form->get_hidden( 'plugin_cf_img_url' ).
+					$this->p->options['plugin_cf_img_url'].'</td>';
+
 				$rows[] = $this->p->util->th( 'Video URL Custom Field', null, 'plugin_cf_vid_url' ).
 				'<td class="blank">'.$form->get_hidden( 'plugin_cf_vid_url' ).
 					$this->p->options['plugin_cf_vid_url'].'</td>';

@@ -552,17 +552,23 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							If your theme (or another plugin) supports additional custom post types, and you would like to 
 							include the Social Settings metabox on their admin pages, check the appropriate option(s) here.';
 							break;
+						case 'tooltip-plugin_cf_img_url':
+							$text = 'If your theme or another plugin provides a custom field for image URLs,
+							you may enter its custom field name here.
+							If a custom field matching that name is found, its value will be used for the Image URL option
+							in the Social Settings metabox. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_img_url' ).'".';
+							break;
 						case 'tooltip-plugin_cf_vid_url':
 							$text = 'If your theme or another plugin provides a custom field for video URLs
 							(not embed HTML code), you may enter its custom field name here.
 							If a custom field matching that name is found, its value will be used for the Video URL option
-							in the Social Settings metabox. The default value is \''.$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'\'.';
+							in the Social Settings metabox. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'".';
 							break;
 						case 'tooltip-plugin_cf_vid_embed':
 							$text = 'If your theme or another plugin provides a custom field for video embed HTML code
 							(not simply a URL), you may enter its custom field name here.
 							If a custom field matching that name is found, its value will be used for the Video Embed HTML option
-							in the Social Settings metabox. The default value is \''.$this->p->opt->get_defaults( 'plugin_cf_vid_embed' ).'\'.';
+							in the Social Settings metabox. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_vid_embed' ).'".';
 							break;
 						/*
 						 * 'File and Object Cache' settings
@@ -676,7 +682,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'tooltip-google_publisher_url':
 							$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ business page for your website</a>, 
-							you may use it\'s URL as the Publisher Link URL. For example, the Publisher Link URL for 
+							you may use its URL as the Publisher Link URL. For example, the Publisher Link URL for 
 							<a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is 
 							<a href="https://plus.google.com/+SurniaUlula/" target="_blank">https://plus.google.com/+SurniaUlula/</a>.
 							Google Search may use this information to display publisher details in its search results.';
