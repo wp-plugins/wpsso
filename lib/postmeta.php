@@ -28,9 +28,9 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			if ( is_admin() ) {
 				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
 				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
-				add_action( 'save_post', array( &$this, 'save_options' ), 20 );	// allow woocommerce to save first
+				add_action( 'save_post', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
 				add_action( 'save_post', array( &$this, 'flush_cache' ), 100 );	// save_post action runs after status change
-				add_action( 'edit_attachment', array( &$this, 'save_options' ), 20 );
+				add_action( 'edit_attachment', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
 				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 100 );
 			}
 		}
