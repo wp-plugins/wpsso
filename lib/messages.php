@@ -216,17 +216,22 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200 
 							(1200x1200 is recommended). This field is disabled if an Image ID has been specified.';
 						 	break;
-						 case 'tooltip-postmeta-og_vid_url':
-							$text = 'A custom Video URL to include first in the Facebook / Open Graph, Pinterest Rich Pin, 
-							and \'Player\' Twitter Card meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Tumblr social sharing button' ).'. '.
-							'If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the 
-							preferred sharing URL, video dimensions, and video preview image. The '.
-							$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video URL Custom Field' ).
-							' Advanced option also allows a 3rd-party themes to provide a Video URL value for this option.';
-						 	break;
 						 case 'tooltip-postmeta-og_img_max':
 							$text = 'The maximum number of images to include in the Facebook / Open Graph meta tags for this '.$ptn.'.';
+						 	break;
+						 case 'tooltip-postmeta-og_vid_url':
+							$text = 'A custom Video URL to include first in the Facebook / Open Graph, Pinterest Rich Pin, 
+							and \'Player\' Twitter Card meta tags. If the URL is from Youtube, Vimeo or Wistia, 
+							an API connection will be made to retrieve the preferred sharing URL, video dimensions, and video preview image.
+							The '.$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video URL Custom Field' ).
+							' Advanced option allows a 3rd-party theme or plugin to provide a custom Video URL value for this option.';
+						 	break;
+						 case 'tooltip-postmeta-og_vid_embed':
+							$text = 'Custom Video Embed HTML to use for the first in the Facebook / Open Graph, Pinterest Rich Pin, 
+							and \'Player\' Twitter Card meta tags. If the URL is from Youtube, Vimeo or Wistia, 
+							an API connection will be made to retrieve the preferred sharing URL, video dimensions, and video preview image. 
+							The '.$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video Embed HTML Custom Field' ).
+							' Advanced option also allows a 3rd-party theme or plugin to provide custom Video Embed HTML for this option.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_max':
 							$text = 'The maximum number of embedded videos to include in the Facebook / Open Graph meta tags for this '.$ptn.'.';
@@ -548,11 +553,16 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							include the Social Settings metabox on their admin pages, check the appropriate option(s) here.';
 							break;
 						case 'tooltip-plugin_cf_vid_url':
-							$text = 'If your theme (or another plugin) provides a custom field for embedded video URLs, 
-							you may enter its custom field name (aka, the "post meta option name") here.
-							If a custom field matching that name is found, it\'s value will be used for the Video URL in the
-							Social Settings metabox for Posts and Pages. 
-							The default value is \''.$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'\'.';
+							$text = 'If your theme or another plugin provides a custom field for video URLs
+							(not embed HTML code), you may enter its custom field name here.
+							If a custom field matching that name is found, its value will be used for the Video URL option
+							in the Social Settings metabox. The default value is \''.$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'\'.';
+							break;
+						case 'tooltip-plugin_cf_vid_embed':
+							$text = 'If your theme or another plugin provides a custom field for video embed HTML code
+							(not simply a URL), you may enter its custom field name here.
+							If a custom field matching that name is found, its value will be used for the Video Embed HTML option
+							in the Social Settings metabox. The default value is \''.$this->p->opt->get_defaults( 'plugin_cf_vid_embed' ).'\'.';
 							break;
 						/*
 						 * 'File and Object Cache' settings

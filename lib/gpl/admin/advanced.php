@@ -97,13 +97,17 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 				$checkboxes .= '<p>'.$form->get_no_checkbox( 'plugin_add_to_'.$post_type->name ).' '.
 					$post_type->label.' '.( empty( $post_type->description ) ? '' : '('.$post_type->description.')' ).'</p>';
 
-			$rows[] = $this->p->util->th( 'Show Social Settings on', null, 'plugin_add_to' ).
+			$rows[] = $this->p->util->th( 'Show Custom Social Settings on', null, 'plugin_add_to' ).
 			'<td class="blank">'.$checkboxes.'</td>';
 			
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 				$rows[] = $this->p->util->th( 'Video URL Custom Field', null, 'plugin_cf_vid_url' ).
 				'<td class="blank">'.$form->get_hidden( 'plugin_cf_vid_url' ).
 					$this->p->options['plugin_cf_vid_url'].'</td>';
+
+				$rows[] = $this->p->util->th( 'Video Embed HTML Custom Field', null, 'plugin_cf_vid_embed' ).
+				'<td class="blank">'.$form->get_hidden( 'plugin_cf_vid_embed' ).
+					$this->p->options['plugin_cf_vid_embed'].'</td>';
 			}
 			
 			return $rows;

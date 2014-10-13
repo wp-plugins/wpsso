@@ -165,31 +165,6 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			return $rows;
 		}
 
-		// returns an array of $pid and $video_url
-		public function get_media( $post_id ) {
-			// use get_options() from the extended meta object
-			$pid = $this->get_options( $post_id, 'og_img_id' );
-			$pre = $this->get_options( $post_id, 'og_img_id_pre' );
-			$img_url = $this->get_options( $post_id, 'og_img_url' );
-			$video_url = $this->get_options( $post_id, 'og_vid_url' );
-
-			if ( empty( $pid ) ) {
-				if ( $this->p->is_avail['postthumb'] == true && has_post_thumbnail( $post_id ) )
-					$pid = get_post_thumbnail_id( $post_id );
-				else $pid = $this->p->media->get_first_attached_image_id( $post_id );
-			} elseif ( $pre === 'ngg' )
-				$pid = $pre.'-'.$pid;
-
-			if ( empty( $video_url ) ) {
-				$videos = array();
-				// get the first video, if any - don't check for duplicates
-				$videos = $this->p->media->get_content_videos( 1, $post_id, false );
-				if ( ! empty( $videos[0]['og:video'] ) ) 
-					$video_url = $videos[0]['og:video'];
-			}
-			return array( $pid, $video_url );
-		}
-
                 public function get_options( $post_id, $idx = false ) {
 			if ( $idx !== false )
 				return false;

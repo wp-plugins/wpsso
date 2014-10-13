@@ -33,7 +33,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
 				'settings' => 'Plugin Settings',
 				'content' => 'Content and Filters',
-				'social' => 'Social Settings',
+				'social' => 'Custom Social Settings',
 				'cache' => 'File and Object Cache' ) );
 			$rows = array();
 			foreach ( $tabs as $key => $title )

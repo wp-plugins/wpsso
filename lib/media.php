@@ -395,12 +395,12 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			return $og_ret;
 		}
 
-		public function get_content_images( $num = 0, $size_name = 'thumbnail', $use_post = true, $check_dupes = true, $content = null ) {
+		public function get_content_images( $num = 0, $size_name = 'thumbnail', $use_post = true, $check_dupes = true, $content = '' ) {
 			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'use_post' => $use_post, 'check_dupes' => $check_dupes, 'content' => strlen( $content ).' chars' ) );
 			$og_ret = array();
 			$size_info = $this->get_size_info( $size_name );
 
-			// allow custom content to be passed
+			// allow custom content to be passed as argument
 			if ( empty( $content ) )
 				$content = $this->p->webpage->get_content( $use_post );
 
@@ -548,10 +548,15 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					return $og_ret;
 
 			$url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_vid_url' );
-			if ( ! empty( $url ) && 
-				( $check_dupes == false || $this->p->util->is_uniq_url( $url ) ) ) {
+			$embed = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_vid_embed' );
 
-				$this->p->debug->log( 'found custom meta video url = '.$url );
+			if ( empty( $url ) && ! empty( $embed ) ) {
+				$videos = $this->p->media->get_content_videos( 1, $post_id, false, $embed );
+				if ( ! empty( $videos[0]['og:video'] ) ) 
+					$url = $videos[0]['og:video'];
+			}
+
+			if ( ! empty( $url ) && ( $check_dupes == false || $this->p->util->is_uniq_url( $url ) ) ) {
 				$og_video = $this->get_video_info( $url );
 				if ( empty( $og_video ) )	// fallback to the original custom video URL
 					$og_video['og:video'] = $url;
@@ -579,14 +584,19 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 		}
 
 		/* Purpose: Check the content for generic <iframe|embed/> html tags. Apply wpsso_content_videos filter for more specialized checks. */
-		public function get_content_videos( $num = 0, $use_post = true, $check_dupes = true ) {
-			$this->p->debug->args( array( 'num' => $num, 'check_dupes' => $check_dupes ) );
+		public function get_content_videos( $num = 0, $use_post = true, $check_dupes = true, $content = '' ) {
+			$this->p->debug->args( array( 'num' => $num, 'check_dupes' => $check_dupes, 'content' => strlen( $content ).' chars' ) );
 			$og_ret = array();
-			$content = $this->p->webpage->get_content( $use_post );
+
+			// allow custom content to be passed as argument
+			if ( empty( $content ) )
+				$content = $this->p->webpage->get_content( $use_post );
+
 			if ( empty( $content ) ) { 
 				$this->p->debug->log( 'exiting early: empty post content' ); 
 				return $og_ret; 
 			}
+
 			// detect standard iframe/embed tags - use the wpsso_content_videos filter for additional html5/javascript methods
 			// the src url must contain /embed|embed_code|swf|video/ in its path to be recognized as an embedded video url
 			if ( preg_match_all( '/<(iframe|embed)[^<>]*? src=[\'"]([^\'"<>]+\/(embed|embed_code|swf|video|v)\/[^\'"<>]+)[\'"][^<>]*>/i', $content, $match_all, PREG_SET_ORDER ) ) {
