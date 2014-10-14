@@ -227,7 +227,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 						$min_int = empty( $this->p->cf['head']['min_img_dim'] ) ? 
 							200 : $this->p->cf['head']['min_img_dim'];
 					else $min_int = 1;
-					if ( $val !== '' || ! is_numeric( $val ) || $val < $min_int ) {
+					if ( $val !== '' && ( ! is_numeric( $val ) || $val < $min_int ) ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' must be greater or equal to '.$min_int.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
