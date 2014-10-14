@@ -409,6 +409,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
+= 2.6.9 =
+
+WPSSO has been updated with new options to manage Title and Video settings.
+
 = 2.6.8 =
 
 Small fixes for BuddyPress and WooCommerce, improved HTML5 compliance, changes to the 'wpsso_title_seed' and 'wpsso_description_seed' filters.
