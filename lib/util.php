@@ -193,54 +193,63 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			}
 
 			switch ( $option_type ) {
-				case 'atname':		// twitter-style usernames (prepend with an at)
-					$val = substr( preg_replace( '/[^a-z0-9_]/', '', strtolower( $val ) ), 0, 15 );
-					if ( ! empty( $val ) ) 
-						$val = '@'.$val;
+				case 'at_name':		// twitter-style usernames (prepend with an at)
+					if ( $val !== '' ) {
+						$val = substr( preg_replace( '/[^a-z0-9_]/', '', strtolower( $val ) ), 0, 15 );
+						if ( $val !== '' )
+							$val = '@'.$val;
+					}
 					break;
-				case 'urlbase':		// strip leading urls off facebook usernames
-					$val = preg_replace( '/(http|https):\/\/[^\/]*?\//', '', $val );
+				case 'url_base':	// strip leading urls off facebook usernames
+					if ( $val !== '' ) {
+						$val = $this->cleanup_html_tags( $val );
+						$val = preg_replace( '/(http|https):\/\/[^\/]*?\//', '', $val );
+					}
 					break;
 				case 'url':		// must be a url
-					if ( ! empty( $val ) && strpos( $val, '//' ) === false ) {
-						$this->p->notice->inf( 'The value of option \''.$key.'\' must be a URL'.' - '.$reset_msg, true );
-						$val = $def_val;
+					if ( $val !== '' ) {
+						$val = $this->cleanup_html_tags( $val );
+						if ( strpos( $val, '//' ) === false ) {
+							$this->p->notice->inf( 'The value of option \''.$key.'\' must be a URL'.' - '.$reset_msg, true );
+							$val = $def_val;
+						}
 					}
 					break;
 				case 'numeric':		// must be numeric (blank or zero is ok)
-					if ( ! empty( $val ) && ! is_numeric( $val ) ) {
+					if ( $val !== '' && ! is_numeric( $val ) ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' must be numeric'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
-				case 'posnum':		// integer options that must be 1 or more (not zero)
-				case 'imgdim':		// image dimensions, subject to minimum value (typically, at least 200px)
-					if ( $option_type == 'imgdim' )
+				case 'pos_num':		// integer options that must be 1 or more (not zero)
+				case 'img_dim':		// image dimensions, subject to minimum value (typically, at least 200px)
+					if ( $option_type == 'img_dim' )
 						$min_int = empty( $this->p->cf['head']['min_img_dim'] ) ? 
 							200 : $this->p->cf['head']['min_img_dim'];
 					else $min_int = 1;
-					if ( empty( $val ) || ! is_numeric( $val ) || $val < $min_int ) {
+					if ( $val !== '' || ! is_numeric( $val ) || $val < $min_int ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' must be greater or equal to '.$min_int.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
 				case 'textured':	// must be texturized 
-					$val = trim( wptexturize( ' '.$val.' ' ) );
+					if ( $val !== '' )
+						$val = trim( wptexturize( ' '.$val.' ' ) );
 					break;
-				case 'anucase':	// must be alpha-numeric uppercase (hyphens and periods allowed as well)
-					if ( ! empty( $val ) && preg_match( '/[^A-Z0-9\-\.]/', $val ) ) {
+				case 'anu_case':	// must be alpha-numeric uppercase (hyphens and periods allowed as well)
+					if ( $val !== '' && preg_match( '/[^A-Z0-9\-\.]/', $val ) ) {
 						$this->p->notice->inf( '\''.$val.'\' is not an accepted value for option \''.$key.'\''.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
-				case 'html':		// options that cannot be blank
-				case 'okblank':		// text strings that can be blank
-					if ( ! empty( $val ) )
+				case 'ok_blank':	// text strings that can be blank
+				case 'html':
+					if ( $val !== '' )
 						$val = trim( $val );
 					break;
-				case 'code':		// options that cannot be blank
-				case 'notblank':
-					if ( empty( $val ) ) {
+				case 'not_blank':	// options that cannot be blank
+				case 'code':
+					if ( $val === '' ) {
 						$this->p->notice->inf( 'The value of option \''.$key.'\' cannot be empty'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}

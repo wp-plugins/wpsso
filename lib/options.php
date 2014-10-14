@@ -280,11 +280,11 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					break;
 				// twitter-style usernames (prepend with an at)
 				case 'tc_site':
-					return 'atname';
+					return 'at_name';
 					break;
 				// strip leading urls off facebook usernames
 				case 'fb_admins':
-					return 'urlbase';
+					return 'url_base';
 					break;
 				// must be a url
 				case 'link_publisher_url':
@@ -307,12 +307,12 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				// integer options that must be 1 or more (not zero)
 				case 'plugin_object_cache_exp':
 				case ( preg_match( '/_len$/', $key ) ? true : false ):
-					return 'posnum';
+					return 'pos_num';
 					break;
 				// image dimensions, subject to minimum value (typically, at least 200px)
 				case ( preg_match( '/_img_(width|height)$/', $key ) ? true : false ):
 				case ( preg_match( '/^tc_[a-z]+_(width|height)$/', $key ) ? true : false ):
-					return 'imgdim';
+					return 'img_dim';
 					break;
 				// must be texturized 
 				case 'og_title_sep':
@@ -320,7 +320,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					break;
 				// must be alpha-numeric uppercase (hyphens and periods allowed as well)
 				case ( preg_match( '/_tid$/', $key ) ? true : false ):
-					return 'anucase';
+					return 'anu_case';
 					break;
 				// text strings that can be blank
 				case 'og_art_section':
@@ -334,7 +334,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'tc_desc':
 				case 'plugin_cf_vid_url':
 				case 'plugin_cf_vid_embed':
-					return 'okblank';
+					return 'ok_blank';
 					break;
 				// options that cannot be blank
 				case 'link_author_field':
@@ -345,7 +345,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'fb_lang': 
 				case ( preg_match( '/_tid:use$/', $key ) ? true : false ):
 				case ( preg_match( '/^(plugin|wp)_cm_[a-z]+_(name|label)$/', $key ) ? true : false ):
-					return 'notblank';
+					return 'not_blank';
 					break;
 			}
 			return $type;
