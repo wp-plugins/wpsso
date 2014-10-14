@@ -385,7 +385,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 		public function aop( $lca = '', $active = true ) {
 			$lca = empty( $lca ) ? $this->p->cf['lca'] : $lca;
 			$uca = strtoupper( $lca );
-			$installed = ( defined( $uca.'_PLUGINDIR' ) &&
+			$installed = ( $this->p->is_avail['aop'] && defined( $uca.'_PLUGINDIR' ) &&
 				is_dir( constant( $uca.'_PLUGINDIR' ).'lib/pro/' ) ) ? true : false;
 			return $active === true ? ( ( ! empty( $this->p->options['plugin_'.$lca.'_tid'] ) && 
 				$installed && class_exists( 'SucomUpdate' ) &&
