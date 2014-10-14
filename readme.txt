@@ -257,19 +257,19 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Install and Uninstall =
 
 <ul>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/migrate-from-ngfb/">Migrate from NGFB</a> (if necessary)</li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation-to/install-the-plugin/">Install the Plugin</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/integration/">Integration Notes</a>
 	<ul>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/integration/buddypress-integration/">BuddyPress Integration</a></li>
 	</ul></li>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/migrate-from-ngfb/">Migrate from NGFB</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/uninstall-the-plugin/">Uninstall the Plugin</a></li>
 </ul>
 
-= Setup =
+= Plugin Setup =
 
 <ul>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/">A Setup Guide</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/a-setup-guide/">A Setup Guide for WPSSO</a></li>
 </ul>
 
 == Frequently Asked Questions ==
@@ -307,6 +307,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	<ul>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/author-gravatar/">Author Gravatar</a></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/easy-digital-downloads/">Easy Digital Downloads</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/headspace2-seo/">HeadSpace2 SEO</a></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/jetpack-photon/">Jetpack Photon</a></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a></li>
 		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/woocommerce/">WooCommerce</a></li>
@@ -320,8 +321,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 		<ul>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/">Examples</a>
 			<ul>
-				<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/modify-the-title-value/">Modify the Title Value</a></li>
+				<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/disable-the-social-settings-metabox-by-post-id/">Disable the Social Settings Metabox by Post ID</a></li>
+				<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/modify-the-default-topics-list/">Modify the Default Topics List</a></li>
 			</ul></li>
+			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/head/">Head Filters</a></li>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/media/">Media Filters</a></li>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/open-graph/">Open Graph Filters</a></li>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/twitter-card/">Twitter Card Filters</a></li>
