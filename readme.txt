@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0
-Stable Tag: 2.6.9
+Stable Tag: 2.6.9.1
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -383,31 +383,6 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Modified the 'wpsso_title_seed' and 'wpsso_description_seed' filter arguments (note: the $use_cache and $encode filter arguments have been removed).
 	* Changed the BuddyPress description filter hook from 'wpsso_description_seed' to 'wpsso_content_seed' in order to provide image and video information.
 
-= Version 2.6.7 =
-
-* **Bugfixes**
-	* *None*
-* **Enhancements**
-	* Added a new "Use Image(s) Alt if No Content" option to include img alt text if/when the content text is empty.
-
-= Version 2.6.6.1 =
-
-* **Bugfixes**
-	* Fix to allow the og:image meta tag to be disabled, without disabling the og:image:secure_url meta tag as well.
-* **Enhancements**
-	* *None*
-
-= Version 2.6.6 =
-
-* **Bugfixes**
-	* *None*
-* **Enhancements**
-	* Updated the wordpress.org URLs from HTTP to HTTPS.
-	* Added the `get_options()` method to the SucomForm class.
-	* Added a check for the number of returned video preview images.
-	* Added a new 'Include Video Preview Image' option in the SSO General settings page (Pro version).
-	* Added a check for the 'auto-draft' post status when displaying the Social Settings metabox (Free version).
-
 == Upgrade Notice ==
 
 = 2.6.9.1 =
@@ -417,16 +392,4 @@ WPSSO has been updated with new options to manage Title and Video settings.
 = 2.6.8 =
 
 Small fixes for BuddyPress and WooCommerce, improved HTML5 compliance, changes to the 'wpsso_title_seed' and 'wpsso_description_seed' filters.
-
-= 2.6.7 =
-
-Added a new "Use Image(s) Alt if No Content" option to include img alt text if/when the content text is empty.
-
-= 2.6.6.1 =
-
-Fix to allow the og:image meta tag to be disabled, without disabling the og:image:secure_url meta tag as well.
-
-= 2.6.6 =
-
-Updates the wordpress.org URLs to HTTPS, adds a check for the number of returned video preview images, and includes a new 'Include Video Preview Image' option.
 
