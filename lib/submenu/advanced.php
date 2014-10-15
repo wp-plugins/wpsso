@@ -72,9 +72,6 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
 				case 'plugin-settings':
-					// retrieve information on license use, if any
-					$qty_used = class_exists( 'SucomUpdate' ) ?
-						SucomUpdate::get_option( $this->p->cf['lca'], 'qty_used' ) : false;
 
 					$rows[] = $this->p->util->th( 'Plugin Settings to Display', 'highlight', 'plugin_display' ).
 					'<td>'.$this->form->get_select( 'plugin_display', $this->p->cf['form']['display_options'] ).'</td>';

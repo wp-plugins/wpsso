@@ -15,15 +15,18 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->util->add_plugin_filters( $this, array( 
-				'plugin_settings_rows' => 2,
+				'plugin_settings_rows' => 3,	// supports network options
 				'plugin_content_rows' => 2,
 				'plugin_social_rows' => 2,
-				'plugin_cache_rows' => 3,
-				'taglist_tags_rows' => 2,
+				'plugin_cache_rows' => 3,	// supports network options
+				'taglist_tags_rows' => 3,
 			), 20 );
 		}
 
-		public function filter_plugin_settings_rows( $rows, $form ) {
+		public function filter_plugin_settings_rows( $rows, $form, $network = false ) {
+
+			if ( $network === true )
+				return $rows;
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 
@@ -44,7 +47,7 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 					$rows[] = $this->p->util->th( 'Enable Widget(s)', 'highlight', 'plugin_widgets' ).
 					'<td class="blank">'.$form->get_no_checkbox( 'plugin_widgets' ).'</td>';
 				}
-			}	
+			}
 			return $rows;
 		}
 
@@ -134,7 +137,6 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 		public function filter_taglist_tags_rows( $rows, $form, $tag = '[^_]+' ) {
 
 			$og_cols = 2;
-
 			$cells = array();
 			foreach ( $this->p->opt->get_defaults() as $opt => $val ) {
 				if ( preg_match( '/^add_('.$tag.')_([^_]+)_(.+)$/', $opt, $match ) ) {

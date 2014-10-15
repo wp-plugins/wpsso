@@ -40,6 +40,7 @@ if ( ! class_exists( 'WpssoSitesubmenuSiteadvanced' ) && class_exists( 'WpssoAdm
 		public function show_metabox_plugin() {
 			$metabox = 'plugin';
 			$tabs = apply_filters( $this->p->cf['lca'].'_network_'.$metabox.'_tabs', array( 
+				'settings' => 'Plugin Settings',
 				'cache' => 'File and Object Cache' ) );
 			$rows = array();
 			foreach ( $tabs as $key => $title )
@@ -51,6 +52,19 @@ if ( ! class_exists( 'WpssoSitesubmenuSiteadvanced' ) && class_exists( 'WpssoAdm
 		protected function get_rows( $metabox, $key ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
+				case 'plugin-settings': 
+
+					$rows[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
+					'<td>'.$this->form->get_checkbox( 'plugin_preserve' ).'</td>'.
+					$this->p->util->th( 'Site Use', 'site_use' ).'<td>'.$this->form->get_select( 'plugin_preserve:use',
+						$this->p->cf['form']['site_option_use'], 'site_use' ).'</td>'; 
+					
+					$rows[] = $this->p->util->th( 'Add Hidden Debug Messages', null, 'plugin_debug' ).
+					'<td>'.$this->form->get_checkbox( 'plugin_debug' ).'</td>'.
+					$this->p->util->th( 'Site Use', 'site_use' ).'<td>'.$this->form->get_select( 'plugin_debug:use',
+						$this->p->cf['form']['site_option_use'], 'site_use' ).'</td>';
+						
+					break;
 			}
 			return $rows;
 		}
