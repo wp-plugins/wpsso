@@ -147,8 +147,11 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 					continue;
 				
 				// remove existing plugin information to make sure it is correct
-				if ( isset( $updates->response[$info['base']] ) )
+				if ( isset( $updates->response[$info['base']] ) ) {
+					$this->p->debug->log( 'previous update information found (and removed)' );
+					$this->p->debug->log( $updates->response[$info['base']] );
 					unset( $updates->response[$info['base']] );	// nextgen-facebook/nextgen-facebook.php
+				}
 
 				$option_data = get_site_option( $info['opt_name'], false, false );	// use_cache = false
 				if ( empty( $option_data ) )
@@ -159,7 +162,8 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 					$this->p->debug->log( 'update property is not an object' );
 				elseif ( version_compare( $option_data->update->version, $this->get_installed_version( $lca ), '>' ) ) {
 					$updates->response[$info['base']] = $option_data->update->json_to_wp();
-					$this->p->debug->log( $updates->response[$info['base']], 2 );
+					$this->p->debug->log( 'update version ('.$option_data->update->version.') is newer than installed version ('.$this->get_installed_version( $lca ).')' );
+					$this->p->debug->log( $updates->response[$info['base']], 5 );
 				}
 			}
 			return $updates;
