@@ -403,7 +403,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'max_desc_hashtags' => 10,
 				'max_media_items' => 20,
 				'yes_no' => array( '1' => 'Yes', '0' => 'No' ),
-				'file_cache_hours' => array( 0, 1, 3, 6, 9, 12, 24, 36, 48, 72, 168 ),
+				'file_cache_hrs' => array( 0, 1, 3, 6, 9, 12, 24, 36, 48, 72, 168 ),
 				'js_locations' => array( 'none' => '[none]', 'header' => 'Header', 'footer' => 'Footer' ),
 				'caption_types' => array( 'none' => '[none]', 'title' => 'Title Only', 'excerpt' => 'Excerpt Only', 'both' => 'Title and Excerpt' ),
 				'user_name_fields' => array( 'none' => '[none]', 'fullname' => 'First and Last Names', 'display_name' => 'Display Name', 'nickname' => 'Nickname' ),
