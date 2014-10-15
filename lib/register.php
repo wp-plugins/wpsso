@@ -49,9 +49,18 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 
 		public static function network_uninstall() {
 			$sitewide = true;
-			$lca = WpssoConfig::get_config( 'lca' );
-			delete_site_option( $lca.'_site_options' );
+			$cf = WpssoConfig::get_config();
+
+			// uninstall from the individual blogs first
 			self::do_multisite( $sitewide, array( __CLASS__, 'uninstall_plugin' ) );
+
+			if ( ! defined( 'WPSSO_SITE_OPTIONS_NAME' ) )
+				define( 'WPSSO_SITE_OPTIONS_NAME', $cf['lca'].'_site_options' );
+
+			$opts = get_site_option( WPSSO_SITE_OPTIONS_NAME );
+
+			if ( empty( $opts['plugin_preserve'] ) )
+				delete_site_option( WPSSO_SITE_OPTIONS_NAME );
 		}
 
 		private static function do_multisite( $sitewide, $method, $args = array() ) {
@@ -91,12 +100,19 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 		private static function uninstall_plugin() {
 			global $wpdb;
 			$cf = WpssoConfig::get_config();
-			$slug = $cf['plugin'][$cf['lca']]['slug'];
-			$options = get_option( $cf['lca'].'_options' );
 
-			if ( empty( $options['plugin_preserve'] ) ) {
-				delete_option( $cf['lca'].'_options' );
-				delete_post_meta_by_key( '_'.$cf['lca'].'_meta' );
+			if ( ! defined( 'WPSSO_OPTIONS_NAME' ) )
+				define( 'WPSSO_OPTIONS_NAME', $cf['lca'].'_options' );
+
+			if ( ! defined( 'WPSSO_META_NAME' ) )
+				define( 'WPSSO_META_NAME', '_'.$cf['lca'].'_meta' );
+
+			$slug = $cf['plugin'][$cf['lca']]['slug'];
+			$opts = get_option( WPSSO_OPTIONS_NAME );
+
+			if ( empty( $opts['plugin_preserve'] ) ) {
+				delete_option( WPSSO_OPTIONS_NAME );
+				delete_post_meta_by_key( WPSSO_META_NAME );
 				WpssoUser::delete_metabox_prefs();
 			}
 
@@ -105,7 +121,7 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 			delete_option( $cf['lca'].'_umsg' );
 			delete_option( $cf['lca'].'_utime' );
 
-			// delete stored admin notices
+			// delete stored notices
 			foreach ( array( 'nag', 'err', 'inf' ) as $type ) {
 				$msg_opt = $cf['lca'].'_notices_'.$type;
 				delete_option( $msg_opt );

@@ -611,11 +611,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-fb_admins':
 							$text = 'The Facebook Admin(s) user names are used by Facebook to allow access to 
 							<a href="https://developers.facebook.com/docs/insights/" target="_blank">Facebook Insight</a> data.
-							Note that these are <em>user</em> account names, not Facebook <em>page</em> names.
+							Note that these are <strong><em>user</em> account names, not Facebook <em>Page</em> names</strong>.
 							<p>Enter one or more Facebook user names, separated with commas. 
 							When viewing your own Facebook wall, your user name is located in the URL 
 							(example: https://www.facebook.com/<strong>user_name</strong>). 
-							Enter only the user user name(s), not the URL(s).</p>
+							Enter only the user name(s), not the URL(s).</p>
 							<a href="https://www.facebook.com/settings?tab=account&section=username&view" target="_blank">Update 
 							your user name in the Facebook General Account Settings</a>.';
 							break;

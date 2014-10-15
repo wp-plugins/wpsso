@@ -357,6 +357,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_version' => '',
 					'plugin_wpsso_tid' => '',
 					'plugin_wpsso_tid:use' => 'default',
+					'plugin_preserve' => 1,
+					'plugin_preserve:use' => 'default',
+					'plugin_debug' => 0,
+					'plugin_debug:use' => 'default',
 					'plugin_object_cache_exp' => 21600,	// 6 hours
 					'plugin_object_cache_exp:use' => 'default',
 					'plugin_file_cache_hrs' => 0,
