@@ -314,8 +314,11 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			add_meta_box( $this->pagehook.'_info', __( 'Version Information', WPSSO_TEXTDOM ), 
 				array( &$this, 'show_metabox_info' ), $this->pagehook, 'side' );
 
-			add_meta_box( $this->pagehook.'_status', __( 'Plugin Features', WPSSO_TEXTDOM ), 
-				array( &$this, 'show_metabox_status' ), $this->pagehook, 'side' );
+			add_meta_box( $this->pagehook.'_status_gpl', __( 'Standard Features', WPSSO_TEXTDOM ), 
+				array( &$this, 'show_metabox_status_gpl' ), $this->pagehook, 'side' );
+
+			add_meta_box( $this->pagehook.'_status_pro', __( 'Pro Features', WPSSO_TEXTDOM ), 
+				array( &$this, 'show_metabox_status_pro' ), $this->pagehook, 'side' );
 		}
 
 		public function show_single_page() {
@@ -508,7 +511,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			echo '</table>';
 		}
 
-		public function show_metabox_status() {
+		public function show_metabox_status_gpl() {
 			$metabox = 'status';
 			echo '<table class="sucom-setting" style="margin-bottom:10px;">';
 			/*
@@ -528,11 +531,16 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				else $features = array();
 				$features = apply_filters( $lca.'_'.$metabox.'_gpl_features', $features, $lca, $info );
 				if ( ! empty( $features ) ) {
-					echo '<tr><td><h4>'.$this->p->cf['plugin'][$lca]['short'].' Core Features</h4></td></tr>';
+					echo '<tr><td><h4>'.$this->p->cf['plugin'][$lca]['short'].'</h4></td></tr>';
 					$this->show_plugin_status( $features );
 				}
 			}
+			echo '</table>';
+		}
 
+		public function show_metabox_status_pro() {
+			$metabox = 'status';
+			echo '<table class="sucom-setting" style="margin-bottom:10px;">';
 			/*
 			 * Pro version features
 			 */
@@ -556,7 +564,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				}
 				$features = apply_filters( $lca.'_'.$metabox.'_pro_features', $features, $lca, $info );
 				if ( ! empty( $features ) ) {
-					echo '<tr><td><h4>'.$this->p->cf['plugin'][$lca]['short'].' Pro Addons</h4></td></tr>';
+					echo '<tr><td><h4>'.$this->p->cf['plugin'][$lca]['short'].' Pro</h4></td></tr>';
 					$this->show_plugin_status( $features );
 				}
 			}
