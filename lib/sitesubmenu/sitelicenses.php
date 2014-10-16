@@ -26,7 +26,7 @@ if ( ! class_exists( 'WpssoSitesubmenuSitelicenses' ) && class_exists( 'WpssoAdm
 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-			add_meta_box( $this->pagehook.'_licenses', 'License Network Settings', array( &$this, 'show_metabox_licenses' ), $this->pagehook, 'normal' );
+			add_meta_box( $this->pagehook.'_licenses', 'Network Pro Version Licenses', array( &$this, 'show_metabox_licenses' ), $this->pagehook, 'normal' );
 
 			// add a class to set a minimum width for the network postboxes
 			add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_licenses', array( &$this, 'add_class_postbox_network' ) );
