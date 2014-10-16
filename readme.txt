@@ -179,14 +179,14 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* product:price:amount
 	* product:price:currency
 	* product:availability
-	* place:location:latitude ([free ext](https://wordpress.org/plugins/wpsso-plm/))
-	* place:location:longitude ([free ext](https://wordpress.org/plugins/wpsso-plm/))
-	* place:location:altitude ([free ext](https://wordpress.org/plugins/wpsso-plm/))
-	* place:street_address ([pro ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
-	* place:locality ([pro ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
-	* place:region ([pro ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
-	* place:postal_code ([pro ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
-	* place:country_name ([pro ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
+	* place:location:latitude ([ext](https://wordpress.org/plugins/wpsso-plm/))
+	* place:location:longitude ([ext](https://wordpress.org/plugins/wpsso-plm/))
+	* place:location:altitude ([ext](https://wordpress.org/plugins/wpsso-plm/))
+	* place:street_address ([ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
+	* place:locality ([ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
+	* place:region ([ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
+	* place:postal_code ([ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
+	* place:country_name ([ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
 * **Schema Meta Tags**
 	* description
 * **Twitter Card Meta Tags** (Pro version)
@@ -213,18 +213,18 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* twitter:player:height
 	* twitter:site
 	* twitter:title
-	* twitter:app:country ([pro ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:id:iphone ([pro ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:id:ipad ([pro ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:id:googleplay ([pro ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:name:iphone ([pro ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:name:ipad ([pro ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:name:googleplay ([pro ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:url:iphone ([pro ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:url:ipad ([pro ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:url:googleplay ([pro ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:country ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:id:iphone ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:id:ipad ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:id:googleplay ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:name:iphone ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:name:ipad ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:name:googleplay ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:url:iphone ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:url:ipad ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:url:googleplay ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
 * **Apple mobile Safari Meta Tags**
-	* apple-itunes-app ([free ext](https://wordpress.org/plugins/wpsso-am/))
+	* apple-itunes-app ([ext](https://wordpress.org/plugins/wpsso-am/))
 
 = Proven Performance =
 
