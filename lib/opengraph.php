@@ -35,10 +35,10 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			/*
 			 * HTML5 Compliant
 			 */
-			$html_prefix = array(
+			$html_prefix = apply_filters( $this->p->cf['lca'].'_doctype_prefix_ns', array(
 				'og' => 'http://ogp.me/ns#',
-				'fb' => 'http://www.facebook.com/2008/fbml',
-			);
+				'fb' => 'http://ogp.me/ns/fb#',
+			) );
 	
 			// find and extract an existing prefix attribute value
 			if ( strpos( $doctype, ' prefix=' ) &&
@@ -101,18 +101,20 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 			if ( ! isset( $og['og:type'] ) ) {
 
-				// singular posts / pages are articles by default
-				// check post_type for exceptions (like product pages)
+				/* singular posts / pages are articles by default
+				 * check the post_type for a match with a known open graph type 
+				 */
 				if ( is_singular() || $use_post !== false ) {
 					if ( ! empty( $obj->post_type ) )
 						$post_type = $obj->post_type;
 					switch ( $post_type ) {
 						case 'article':
 						case 'book':
-						case 'music.song':
 						case 'music.album':
 						case 'music.playlist':
 						case 'music.radio_station':
+						case 'music.song':
+						case 'place':			// supported by Facebook and Pinterest
 						case 'product':
 						case 'profile':
 						case 'video.episode':
