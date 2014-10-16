@@ -63,6 +63,10 @@ Make sure social websites present your content correctly, no matter how your web
 * Validation tools and special meta tag preview tabs on admin edit pages.
 * Customizable *multilingual* Site Title and Site Description texts.
 * Contextual help for *every* plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
+* Free plugin extensions:
+	* [WPSSO App Meta (WPSSO AM)](https://wordpress.org/plugins/wpsso-am/)
+	* [WPSSO Place and Location Meta (WPSSO PLM)](https://wordpress.org/plugins/wpsso-plm/)
+	* [WPSSO Social Sharing Buttons (WPSSO SSB)](https://wordpress.org/plugins/wpsso-ssb/)
 
 **Pro / Power-User Version**
 
