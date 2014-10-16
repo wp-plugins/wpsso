@@ -205,18 +205,18 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* twitter:player:height
 	* twitter:site
 	* twitter:title
-	* twitter:app:country (extension)
-	* twitter:app:id:iphone (extension)
-	* twitter:app:id:ipad (extension)
-	* twitter:app:id:googleplay (extension)
-	* twitter:app:name:iphone (extension)
-	* twitter:app:name:ipad (extension)
-	* twitter:app:name:googleplay (extension)
-	* twitter:app:url:iphone (extension)
-	* twitter:app:url:ipad (extension)
-	* twitter:app:url:googleplay (extension)
+	* twitter:app:country (ext)
+	* twitter:app:id:iphone (ext)
+	* twitter:app:id:ipad (ext)
+	* twitter:app:id:googleplay (ext)
+	* twitter:app:name:iphone (ext)
+	* twitter:app:name:ipad (ext)
+	* twitter:app:name:googleplay (ext)
+	* twitter:app:url:iphone (ext)
+	* twitter:app:url:ipad (ext)
+	* twitter:app:url:googleplay (ext)
 * **Apple mobile Safari Meta Tags**
-	* apple-itunes-app (extension)
+	* apple-itunes-app (ext)
 
 = Proven Performance =
 
