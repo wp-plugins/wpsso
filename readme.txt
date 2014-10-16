@@ -372,7 +372,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a new 'Video Embed HTML' option to the admin Social Settings metabox.
 	* Added the 'wpsso_add_metabox_postmeta' filter to enable / disable the admin Social Settings metabox for specific post IDs.
 	* Added the 'wpsso_add_metabox_usermeta' filter to enable / disable the admin Social Settings metabox for specific user IDs.
-	* Added a new 'NGFB_META_SAVE_PRIORITY' constant (with a default value of 20).
+	* Added a new 'WPSSO_META_SAVE_PRIORITY' constant (with a default value of 20).
 
 = Version 2.6.8 =
 
