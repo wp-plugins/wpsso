@@ -182,7 +182,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 
 			// pre-filter most values to remove html
 			switch ( $option_type ) {
-				case 'html':
+				case 'html':	// leave html and css / javascript code blocks as-is
 				case 'code':
 					break;
 				default:
@@ -254,9 +254,9 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 						$val = $def_val;
 					}
 					break;
-				case 'checkbox':	// everything else is a 1/0 checkbox option 
-				default:		// make sure the default option is also 1/0, just in case
-					if ( $def_val === 0 || $def_val === 1 )
+				case 'checkbox':	// everything else is a 1 of 0 checkbox option 
+				default:
+					if ( $def_val === 0 || $def_val === 1 )	// make sure the default option is also a 1 or 0, just in case
 						$val = empty( $val ) ? 0 : 1;
 					break;
 			}
