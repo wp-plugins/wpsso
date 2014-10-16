@@ -205,6 +205,18 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* twitter:player:height
 	* twitter:site
 	* twitter:title
+	* twitter:app:country (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:id:iphone (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:id:ipad  (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:id:googleplay (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:name:iphone (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:name:ipad (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:name:googleplay (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:url:iphone (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:url:ipad (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:url:googleplay (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+* **Apple mobile Safari Meta Tags**
+	* apple-itunes-app (provided [WPSSO AM](https://wordpress.org/plugins/wpsso-am/))
 
 = Proven Performance =
 
