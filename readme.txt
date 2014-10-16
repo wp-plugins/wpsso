@@ -205,18 +205,18 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* twitter:player:height
 	* twitter:site
 	* twitter:title
-	* twitter:app:country (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:id:iphone (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:id:ipad  (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:id:googleplay (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:name:iphone (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:name:ipad (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:name:googleplay (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:url:iphone (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:url:ipad (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:url:googleplay (provided [WPSSO AM Pro](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:country (extension)
+	* twitter:app:id:iphone (extension)
+	* twitter:app:id:ipad (extension)
+	* twitter:app:id:googleplay (extension)
+	* twitter:app:name:iphone (extension)
+	* twitter:app:name:ipad (extension)
+	* twitter:app:name:googleplay (extension)
+	* twitter:app:url:iphone (extension)
+	* twitter:app:url:ipad (extension)
+	* twitter:app:url:googleplay (extension)
 * **Apple mobile Safari Meta Tags**
-	* apple-itunes-app (provided [WPSSO AM](https://wordpress.org/plugins/wpsso-am/))
+	* apple-itunes-app (extension)
 
 = Proven Performance =
 
