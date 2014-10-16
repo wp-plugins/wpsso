@@ -21,7 +21,7 @@ if ( ! class_exists( 'WpssoSubmenuLicenses' ) && class_exists( 'WpssoAdmin' ) ) 
 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-			add_meta_box( $this->pagehook.'_licenses', 'Licenses', array( &$this, 'show_metabox_licenses' ), $this->pagehook, 'normal' );
+			add_meta_box( $this->pagehook.'_licenses', 'Pro Version Licenses', array( &$this, 'show_metabox_licenses' ), $this->pagehook, 'normal' );
 		}
 
 		public function show_metabox_licenses() {
