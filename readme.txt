@@ -367,7 +367,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Version 2.6.9.2 =
 
 * **Bugfixes**
-	* A small fix to escape special title separator values.
+	* Fixed (possible) missing space characters in title values by escaping special separator values.
+	* Fixed the missing default Google+ / Schema Description value on user profile pages. 
 * **Enhancements**
 	* *None*
 
