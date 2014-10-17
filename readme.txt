@@ -364,6 +364,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.9.2 =
+
+* **Bugfixes**
+	* Fixed a condition that could remove spaces from title values when no separator is defined.
+* **Enhancements**
+	* *None*
+
 = Version 2.6.9.1 =
 
 * **Bugfixes**
