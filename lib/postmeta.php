@@ -166,18 +166,21 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		}
 
                 public function get_options( $post_id, $idx = false ) {
+			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
 			if ( $idx !== false )
 				return false;
 			else return array();
 		}
 
 		public function get_defaults( $idx = false ) {
+			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
 			if ( $idx !== false )
 				return false;
 			else return array();
 		}
 
 		public function save_options( $post_id ) {
+			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
 			return $post_id;
 		}
 

@@ -66,7 +66,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			if ( ! current_user_can( 'edit_user', $user->ID ) )
 				return;
 			if ( isset( $_GET['updated'] ) )
-				$this->flush_cache( $user_id );
+				$this->flush_cache( $user->ID );
 			echo '<div id="poststuff">';
 			do_meta_boxes( 'user', 'normal', $user );
 			echo '</div>';
