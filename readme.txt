@@ -400,6 +400,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
+= 2.6.9.2 =
+
+Small fixes to escape special title separator values, and the missing Google+ / Schema Description value on user profile pages.
+
 = 2.6.9.1 =
 
 WPSSO has been updated with new options to manage Title and Video settings.
