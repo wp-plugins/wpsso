@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0
-Stable Tag: 2.6.9.1
+Stable Tag: 2.6.9.2
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -367,7 +367,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Version 2.6.9.2 =
 
 * **Bugfixes**
-	* Fixed (possible) missing space characters in title values by escaping special separator values.
+	* Fixed possible missing space characters in title values by escaping special separator values.
 	* Fixed the missing default Google+ / Schema Description value on user profile pages. 
 * **Enhancements**
 	* *None*
