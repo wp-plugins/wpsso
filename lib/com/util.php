@@ -385,8 +385,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			if ( ! function_exists( 'mb_decode_numericentity' ) )
 				return $encoded;
 
-			$decoded = preg_replace( '/&#\d{2,5};/ue', 
-				'self::decode_utf8_entity( \'$0\' )', $encoded );
+			$decoded = preg_replace( '/&#\d{2,5};/ue', 'self::decode_utf8_entity( \'$0\' )', $encoded );
 
 			return $decoded;
 		}

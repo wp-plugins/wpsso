@@ -205,8 +205,10 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$this->p->debug->log( 'post_id get_the_title() = "'.$title.'"' );
 					}
 					// get the parent's title if no seo package is installed
-					if ( $this->p->is_avail['seo']['*'] == false && ! empty( $obj->post_parent ) )
-						$parent_title = get_the_title( $obj->post_parent );
+					if ( $this->p->is_avail['seo']['*'] === false && 
+						empty( $this->p->options['plugin_filter_title'] ) &&
+						! empty( $obj->post_parent ) )
+							$parent_title = get_the_title( $obj->post_parent );
 
 				// by default, use the wordpress title if an seo plugin is available
 				} elseif ( $this->p->is_avail['seo']['*'] == true ) {
@@ -255,7 +257,8 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			}
 
 			$title = $this->p->util->cleanup_html_tags( $title );		// strip html tags before removing separator
-			$title = preg_replace( '/ *'.$separator.' *$/', '', $title );	// trim excess separator
+			if ( ! empty( $separator ) )
+				$title = preg_replace( '/ *'.$separator.' *$/', ' ', $title );	// trim excess separator
 
 			// apply title filter before adjusting it's length
 			$title = apply_filters( $this->p->cf['lca'].'_title_pre_limit', $title );
