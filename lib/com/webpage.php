@@ -229,7 +229,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$this->p->debug->log( 'get_category_parents() = "'.$cat_parents.'"' );
 						if ( ! empty( $cat_parents ) ) {
 							$title = $cat_parents;
-							$title = preg_replace( '/\.\.\. '.$separator.' /', '... ', $title );
+							$title = preg_replace( '/\.\.\. '.preg_quote( $separator, '/' ).' /', '... ', $title );
 						}
 					}
 	
@@ -256,9 +256,9 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				remove_filter( 'wp_title', array( &$this, 'wp_title_restore' ), 9000 );
 			}
 
-			$title = $this->p->util->cleanup_html_tags( $title );		// strip html tags before removing separator
+			$title = $this->p->util->cleanup_html_tags( $title );	// strip html tags before removing separator
 			if ( ! empty( $separator ) )
-				$title = preg_replace( '/ *'.$separator.' *$/', ' ', $title );	// trim excess separator
+				$title = preg_replace( '/ *'.preg_quote( $separator, '/' ).' *$/', ' ', $title );	// trim excess separator
 
 			// apply title filter before adjusting it's length
 			$title = apply_filters( $this->p->cf['lca'].'_title_pre_limit', $title );
