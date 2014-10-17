@@ -63,7 +63,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Validation tools and special meta tag preview tabs on admin edit pages.
 * Customizable *multilingual* Site Title and Site Description texts.
 * Contextual help for *every* plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
-* Free extension plugins:
+* Free extension plugins for WPSSO:
 	* [WPSSO App Meta](https://wordpress.org/plugins/wpsso-am/)
 	* [WPSSO Place and Location Meta](https://wordpress.org/plugins/wpsso-plm/)
 	* [WPSSO Social Sharing Buttons](https://wordpress.org/plugins/wpsso-ssb/)
@@ -183,14 +183,14 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* product:price:amount
 	* product:price:currency
 	* product:availability
-	* place:location:latitude ([ext](https://wordpress.org/plugins/wpsso-plm/))
-	* place:location:longitude ([ext](https://wordpress.org/plugins/wpsso-plm/))
-	* place:location:altitude ([ext](https://wordpress.org/plugins/wpsso-plm/))
-	* place:street_address ([ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
-	* place:locality ([ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
-	* place:region ([ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
-	* place:postal_code ([ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
-	* place:country_name ([ext](http://surniaulula.com/extend/plugins/wpsso-plm/))
+	* place:location:latitude (extension)
+	* place:location:longitude (extension)
+	* place:location:altitude (extension)
+	* place:street_address (extension)
+	* place:locality (extension)
+	* place:region (extension)
+	* place:postal_code (extension)
+	* place:country_name (extension)
 * **Schema Meta Tags**
 	* description
 * **Twitter Card Meta Tags** (Pro version)
@@ -217,18 +217,18 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* twitter:player:height
 	* twitter:site
 	* twitter:title
-	* twitter:app:country ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:id:iphone ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:id:ipad ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:id:googleplay ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:name:iphone ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:name:ipad ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:name:googleplay ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:url:iphone ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:url:ipad ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
-	* twitter:app:url:googleplay ([ext](http://surniaulula.com/extend/plugins/wpsso-am/))
+	* twitter:app:country (extension)
+	* twitter:app:id:iphone (extension)
+	* twitter:app:id:ipad (extension)
+	* twitter:app:id:googleplay (extension)
+	* twitter:app:name:iphone (extension)
+	* twitter:app:name:ipad (extension)
+	* twitter:app:name:googleplay (extension)
+	* twitter:app:url:iphone (extension)
+	* twitter:app:url:ipad (extension)
+	* twitter:app:url:googleplay (extension)
 * **Apple mobile Safari Meta Tags**
-	* apple-itunes-app ([ext](https://wordpress.org/plugins/wpsso-am/))
+	* apple-itunes-app (extension)
 
 = Proven Performance =
 
