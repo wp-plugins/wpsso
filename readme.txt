@@ -64,9 +64,9 @@ Make sure social websites present your content correctly, no matter how your web
 * Customizable *multilingual* Site Title and Site Description texts.
 * Contextual help for *every* plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
 * Free extension plugins for WPSSO:
-	* [WPSSO App Meta](https://wordpress.org/plugins/wpsso-am/)
-	* [WPSSO Place and Location Meta](https://wordpress.org/plugins/wpsso-plm/)
-	* [WPSSO Social Sharing Buttons](https://wordpress.org/plugins/wpsso-ssb/)
+	* [App Meta](https://wordpress.org/plugins/wpsso-am/) for Apple Store (iTunes) and Google Play App meta tags.
+	* [Place and Location Meta](https://wordpress.org/plugins/wpsso-plm/) for Facebook *Location* and Pinterest Rich Pin *Place* meta tags.
+	* [Social Sharing Buttons](https://wordpress.org/plugins/wpsso-ssb/) for fast and accurate social sharing buttons.
 
 **Pro / Power-User Version**
 
@@ -183,14 +183,6 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* product:price:amount
 	* product:price:currency
 	* product:availability
-	* place:location:latitude (extension)
-	* place:location:longitude (extension)
-	* place:location:altitude (extension)
-	* place:street_address (extension)
-	* place:locality (extension)
-	* place:region (extension)
-	* place:postal_code (extension)
-	* place:country_name (extension)
 * **Schema Meta Tags**
 	* description
 * **Twitter Card Meta Tags** (Pro version)
@@ -217,18 +209,6 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* twitter:player:height
 	* twitter:site
 	* twitter:title
-	* twitter:app:country (extension)
-	* twitter:app:id:iphone (extension)
-	* twitter:app:id:ipad (extension)
-	* twitter:app:id:googleplay (extension)
-	* twitter:app:name:iphone (extension)
-	* twitter:app:name:ipad (extension)
-	* twitter:app:name:googleplay (extension)
-	* twitter:app:url:iphone (extension)
-	* twitter:app:url:ipad (extension)
-	* twitter:app:url:googleplay (extension)
-* **Apple mobile Safari Meta Tags**
-	* apple-itunes-app (extension)
 
 = Proven Performance =
 
