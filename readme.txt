@@ -366,6 +366,16 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.9.3 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Removed auto-appending the parent title to the post title if no SEO plugin is detected.
+	* Added a fallback for all custom title and description values to the Open Graph title and description.
+* **New Features**
+	* *None*
+
 = Version 2.6.9.2 =
 
 * **Bugfixes**
