@@ -50,20 +50,21 @@ Make sure social websites present your content correctly, no matter how your web
 * Supports featured, attached, gallery shortcode, and/or HTML image tags in content.
 * Validates image dimensions to provide accurate media for social websites.
 * Auto-regeneration of inaccurate / missing WordPress image sizes.
-* Support for embedded videos (iframe and object HTML tags).
+* Support for embedded videos in iframe and object HTML tags.
 * Fully renders content (including shortcodes) for accurate description texts.
 * Configurable title separator character (hyphen by default).
+* Support of WordPress and/or SEO titles for Posts and Pages.
 * Includes author and publisher profile URLs for Facebook and Google Search.
-* Includes hashtags from Post / Page WordPress Tags.
+* Includes hashtags from Post and Page WordPress tags.
 * Includes the author's name for Pinterest Rich Pins.
-* Uses object and transient caches to provide incredibly fast execution speeds.
 * Includes a Google / SEO description meta tag if a known SEO plugin is not detected.
 * Fallback to the image alt value if the content and except do not include any text.
 * Provides Facebook, Google+ and Twitter URL profile contact fields.
 * Validation tools and special meta tag preview tabs on admin edit pages.
 * Customizable *multilingual* Site Title and Site Description texts.
 * Contextual help for *every* plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
-* Free extension plugins for WPSSO:
+* Uses object and transient caches to provide incredibly fast execution speeds.
+* Additional **free extension plugins for WPSSO**:
 	* [App Meta](https://wordpress.org/plugins/wpsso-am/) for Apple Store (iTunes) and Google Play App meta tags.
 	* [Place and Location Meta](https://wordpress.org/plugins/wpsso-plm/) for Facebook *Location* and Pinterest Rich Pin *Place* meta tags.
 	* [Social Sharing Buttons](https://wordpress.org/plugins/wpsso-ssb/) for fast and accurate social sharing buttons.
