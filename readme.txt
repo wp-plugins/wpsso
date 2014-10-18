@@ -64,7 +64,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Customizable *multilingual* Site Title and Site Description texts.
 * Contextual help for *every* plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
 * Uses object and transient caches to provide incredibly fast execution speeds.
-* Additional **free extension plugins for WPSSO**:
+* **Additional free extension plugins for WPSSO**:
 	* [App Meta](https://wordpress.org/plugins/wpsso-am/) for Apple Store (iTunes) and Google Play App meta tags.
 	* [Place and Location Meta](https://wordpress.org/plugins/wpsso-plm/) for Facebook *Location* and Pinterest Rich Pin *Place* meta tags.
 	* [Social Sharing Buttons](https://wordpress.org/plugins/wpsso-ssb/) for fast and accurate social sharing buttons.
