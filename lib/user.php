@@ -50,12 +50,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 					if ( apply_filters( $this->p->cf['lca'].'_add_metabox_usermeta', $add_metabox, $page ) === true ) {
 						do_action( $this->p->cf['lca'].'_admin_usermeta_header', $page );
 						$this->header_tags = $this->p->head->get_header_array( false );
-						foreach ( $this->header_tags as $tag ) {
-							if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {
-								$this->post_info['og_type'] = $tag[5];	// find and save the og_type value
-								break;
-							}
-						}
+						$this->post_info = $this->p->head->get_post_info( $this->header_tags );
 					}
 					$this->p->debug->show_html( null, 'debug log' );
 					break;
@@ -87,7 +82,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				array( 
 					'header' => 'Title and Descriptions', 
 					'media' => 'Image and Video', 
-					'tags' => 'Header Tags Preview',
+					'preview' => 'Social Preview',
+					'tags' => 'Header Preview',
 					'tools' => 'Validation Tools'
 				)
 			);
@@ -105,6 +101,10 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		protected function get_rows( $metabox, $key, &$post_info ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
+				case 'user-preview':
+					$rows = $this->p->addons['util']['postmeta']->get_rows_social_preview( $this->form, $post_info );
+					break;
+
 				case 'user-tools':
 					$rows = $this->p->addons['util']['postmeta']->get_rows_validation_tools( $this->form, $post_info );
 					break; 

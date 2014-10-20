@@ -106,8 +106,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			if ( ! empty( $post_id ) && $this->p->is_avail['postthumb'] == true && has_post_thumbnail( $post_id ) ) {
 				$pid = get_post_thumbnail_id( $post_id );
 
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
-					$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
+				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
+					$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
 
 				if ( ! empty( $og_image['og:image'] ) )
 					$this->p->util->push_max( $og_ret, $og_image, $num );
@@ -125,14 +125,38 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			return;
 		}
 
+		public function get_image_preview_html( $og_image, $size_name, $size_info, 
+			$alt_html = '<p>No Image Found</p>',
+			$alt_small = '<p>Image Size Too Small</p>' ) {
+
+			$div_size = 'width:'.$size_info['width'].'px; height:'.$size_info['height'].'px;';
+			$is_sufficient = ( ! empty( $og_image['og:image:width'] ) && 
+				! empty( $og_image['og:image:height'] ) && 
+				$og_image['og:image:width'] >= $size_info['width'] &&
+				$og_image['og:image:height'] >= $size_info['height'] ) ? true : false;
+
+			if ( ! empty( $og_image['og:image:id'] ) && $is_sufficient === true ) {
+				list( $url, $width, $height, $cropped, $pid ) = $this->p->media->get_attachment_image_src( $og_image['og:image:id'], $size_name, false );
+				if ( ! empty( $url ) )
+					return '<div class="preview_img" style="'.$div_size.'"><img src="'.$url.'" width="'.$width.'" height="'.$height.'" /></div>';
+			}
+			if ( empty( $html ) )
+				foreach ( array( 'og:image:secure_url', 'og:image' ) as $key )
+					if ( ! empty( $og_image[$key] ) )
+						return '<div class="preview_img" style="'.$div_size.' 
+							background-size:'.( $is_sufficient === true ? 'cover' : $og_image['og:image:width'].' '.$og_image['og:image:height'] ).'; 
+							background-image:url('.$og_image[$key].');" />'.( $is_sufficient === true ? '' : $alt_small ).'</div>';
+			return '<div class="preview_img" style="'.$div_size.'">'.$alt_html.'</div>';
+		}
+
 		public function get_attachment_image( $num = 0, $size_name = 'thumbnail', $attach_id, $check_dupes = true ) {
 			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'attach_id' => $attach_id, 'check_dupes' => $check_dupes ) );
 			$og_ret = array();
 			if ( ! empty( $attach_id ) ) {
 				if ( wp_attachment_is_image( $attach_id ) ) {	// since wp 2.1.0 
 					$og_image = array();
-					list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'],
-						$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $attach_id, $size_name, $check_dupes );
+					list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
+						$og_image['og:image:id'] ) = $this->get_attachment_image_src( $attach_id, $size_name, $check_dupes );
 					if ( ! empty( $og_image['og:image'] ) &&
 						$this->p->util->push_max( $og_ret, $og_image, $num ) )
 							return $og_ret;
@@ -157,8 +181,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					$attach_ids = apply_filters( $this->p->cf['lca'].'_attached_image_ids', $attach_ids, $post_id );
 					foreach ( $attach_ids as $pid ) {
 						$og_image = array();
-						list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'],
-							$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
+						list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
+							$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
 						if ( ! empty( $og_image['og:image'] ) &&
 							$this->p->util->push_max( $og_ret, $og_image, $num ) )
 								break;	// end foreach and apply filters
@@ -174,7 +198,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$img_width = -1;
 			$img_height = -1;
 			$img_cropped = empty( $size_info['crop'] ) ? 0 : 1;
-			$ret_empty = array( null, null, null, null );
+			$ret_empty = array( null, null, null, null, null );
 
 			if ( $this->p->is_avail['media']['ngg'] === true && strpos( $pid, 'ngg-' ) === 0 ) {
 				if ( ! empty( $this->p->addons['media']['ngg'] ) )
@@ -293,7 +317,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 			if ( $check_dupes == false || $this->p->util->is_uniq_url( $img_url ) )
 				return array( apply_filters( $this->p->cf['lca'].'_rewrite_url', $img_url ), 
-					$img_width, $img_height, $img_cropped );
+					$img_width, $img_height, $img_cropped, $pid );
 
 			return $ret_empty;
 		}
@@ -313,15 +337,15 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			if ( $pid > 0 ) {
 				$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
 				$this->p->debug->log( 'found custom user image id = '.$pid );
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
-					$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
+				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
+					$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
 
 			}
 
 			if ( empty( $og_image['og:image'] ) && ! empty( $img_url ) ) {
 				$this->p->debug->log( 'found custom user image url = "'.$img_url.'"' );
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
-					$og_image['og:image:cropped'] ) = array( $img_url, -1, -1, -1 );
+				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
+					$og_image['og:image:id'] ) = array( $img_url, -1, -1, -1, -1 );
 			}
 
 			if ( ! empty( $og_image['og:image'] ) &&
@@ -345,15 +369,15 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			if ( $pid > 0 ) {
 				$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
 				$this->p->debug->log( 'found custom meta image id = '.$pid );
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
-					$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
+				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
+					$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
 
 			}
 			
 			if ( empty( $og_image['og:image'] ) && ! empty( $img_url ) ) {
 				$this->p->debug->log( 'found custom meta image url = "'.$img_url.'"' );
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
-					$og_image['og:image:cropped'] ) = array( $img_url, -1, -1, -1 );
+				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
+					$og_image['og:image:id'] ) = array( $img_url, -1, -1, -1, -1 );
 			}
 
 			if ( ! empty( $og_image['og:image'] ) &&
@@ -379,8 +403,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			if ( $pid > 0 ) {
 				$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
 				$this->p->debug->log( 'using default img pid = '.$pid );
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'],
-					$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
+				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
+					$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
 			}
 
 			if ( empty( $og_image['og:image'] ) && ! empty( $url ) ) {
@@ -429,15 +453,14 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					$og_image = array();
 					switch ( $attr_name ) {
 						case 'data-wp-pid' :
-							list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
-								$og_image['og:image:cropped'] ) = $this->get_attachment_image_src( $attr_value, $size_name, false );
+							list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
+								$og_image['og:image:id'] ) = $this->get_attachment_image_src( $attr_value, $size_name, false );
 							break;
 						// filter hook for 3rd party addons to return image information
 						case ( preg_match( '/^data-[a-z]+-pid$/', $attr_name ) ? true : false ):
 							$filter_name = $this->p->cf['lca'].'_get_content_'.$tag_name.'_'.( preg_replace( '/-/', '_', $attr_name ) );
-							list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], 
-								$og_image['og:image:cropped'] ) = apply_filters( $filter_name, array( null, null, null, null ), 
-									$attr_value, $size_name, false );
+							list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
+								$og_image['og:image:id'] ) = apply_filters( $filter_name, array( null, null, null, null ), $attr_value, $size_name, false );
 							break;
 						default :
 							// prevent duplicates by silently ignoring ngg images (already processed by the ngg addon)

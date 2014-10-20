@@ -133,11 +133,44 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			}
 		}
 
+		public function get_post_info( &$header_tags, &$post_info = array() ) {
+			$vid = array();
+			$img = array();
+			foreach ( $header_tags as $tag ) {
+				if ( ! isset( $tag[2] ) )
+					continue;
+				switch ( $tag[2] ) {
+					case 'name':
+						if ( isset( $tag[3] ) && $tag[3] === 'author' )
+							$post_info['author'] = $tag[5];
+						break;
+					case 'property':
+						if ( isset( $tag[3] ) && 
+							strpos( $tag[3], 'og:' ) === 0 &&
+							preg_match( '/^og:(description|title|type)$/', $tag[3], $key ) )
+								$post_info[$key[0]] = $tag[5];
+						elseif ( isset( $tag[6] ) && 
+							$tag[6] === 'og:video:1' &&
+							strpos( $tag[3], 'og:image' ) === 0 )
+								$vid[$tag[3]] = $tag[5];
+						elseif ( isset( $tag[6] ) && 
+							$tag[6] === 'og:image:1' &&
+							strpos( $tag[3], 'og:image' ) === 0 )
+								$img[$tag[3]] = $tag[5];
+						break;
+				}
+			}
+			if ( ! empty( $vid ) )
+				$post_info['og_image'] = $vid;
+			else $post_info['og_image'] = $img;
+			return $post_info;
+		}
+
 		public function get_header_html( $use_post = false, $read_cache = true, &$meta_og = array() ) {
 			$html = "\n<!-- ".$this->p->cf['lca']." meta tags begin -->\n";
-			foreach ( $this->get_header_array( $use_post, $read_cache, $meta_og ) as $val )
-				if ( isset( $val[0] ) )
-					$html .= $val[0];
+			foreach ( $this->get_header_array( $use_post, $read_cache, $meta_og ) as $meta )
+				if ( ! empty( $meta[0] ) )	// first element of the meta array is a complete html tag
+					$html .= $meta[0];
 			$html .= "<!-- ".$this->p->cf['lca']." meta tags end -->\n";
 			return $html;
 		}
@@ -311,29 +344,45 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$charset = get_bloginfo( 'charset' );
 			$value = htmlentities( $value, ENT_QUOTES, $charset, false );	// double_encode = false
 			$this->p->debug->log( $log_pre.' = "'.$value.'"' );
-			$comment_html = empty( $comment ) ? '' : '<!-- '.$comment.' -->';
+			$html_prefix = empty( $comment ) ? '' : '<!-- '.$comment.' -->';
 
 			// add an additional secure_url meta tag for open graph images and videos
 			if ( $tag === 'meta' && $type === 'property' && 
 				( $name === 'og:image' || $name === 'og:video' ) && 
 				strpos( $value, 'https:' ) === 0 ) {
 
+				$html_tag = '';
 				$secure_url = $value;
 				$value = preg_replace( '/^https:/', 'http:', $value );
 
 				if ( empty( $this->p->options['add_'.$tag.'_'.$type.'_'.$name.':secure_url'] ) )
 					$this->p->debug->log( $log_pre.':secure_url is disabled (skipped)' );
-				else $ret[] = array( 
-					$comment_html.'<'.$tag.' '.$type.'="'.$name.':secure_url" '.$attr.'="'.$secure_url.'" />'."\n",
-					$tag, $type, $name.':secure_url', $attr, $secure_url, $comment
+				else $html_tag = $html_prefix.'<'.$tag.' '.$type.'="'.$name.':secure_url" '.$attr.'="'.$secure_url.'" />'."\n";
+
+				$ret[] = array( 
+					$html_tag,
+					$tag,
+					$type,
+					$name.':secure_url',
+					$attr,
+					$secure_url,
+					$comment
 				);
-			} 
+			}
 			
+			$html_tag = '';
 			if ( empty( $this->p->options['add_'.$tag.'_'.$type.'_'.$name] ) )
 				$this->p->debug->log( $log_pre.' is disabled (skipped)' );
-			else $ret[] = array( 
-				$comment_html.'<'.$tag.' '.$type.'="'.$name.'" '.$attr.'="'.$value.'" />'."\n",
-				$tag, $type, $name, $attr, $value, $comment
+			else $html_tag = $html_prefix.'<'.$tag.' '.$type.'="'.$name.'" '.$attr.'="'.$value.'" />'."\n";
+			
+			$ret[] = array( 
+				$html_tag,
+				$tag,
+				$type,
+				$name,
+				$attr,
+				$value,
+				$comment
 			);
 
 			return $ret;

@@ -59,12 +59,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				if ( apply_filters( $this->p->cf['lca'].'_add_metabox_postmeta', $add_metabox, $post_id ) === true ) {
 					do_action( $this->p->cf['lca'].'_admin_postmeta_header', $post_type->name, $post_id );
 					$this->header_tags = $this->p->head->get_header_array( $post_id );
-					foreach ( $this->header_tags as $tag ) {
-						if ( isset ( $tag[3] ) && $tag[3] === 'og:type' ) {
-							$this->post_info['og_type'] = $tag[5];	// find and save the og_type value
-							break;
-						}
-					}
+					$this->post_info = $this->p->head->get_post_info( $this->header_tags );
 				}
 				$this->p->debug->show_html( null, 'debug log' );
 			}
@@ -85,6 +80,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				array( 
 					'header' => 'Title and Descriptions', 
 					'media' => 'Image and Video', 
+					'preview' => 'Social Preview',
 					'tags' => 'Header Preview',
 					'tools' => 'Validation Tools'
 				)
@@ -103,6 +99,13 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		protected function get_rows( $metabox, $key, &$post_info ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
+				case 'meta-preview':
+					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
+						$rows = $this->get_rows_social_preview( $this->form, $post_info );
+					} else $rows[] = '<td><p class="centered">The Social Preview will be available when the '
+						.$post_info['ptn'].' is published with public visibility.</p></td>';
+					break;
+
 				case 'meta-tools':
 					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
 						$rows = $this->get_rows_validation_tools( $this->form, $post_info );
@@ -115,7 +118,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 						foreach ( $this->header_tags as $m ) {
 							$rows[] = '<th class="xshort">'.$m[1].'</th>'.
 								'<th class="xshort">'.$m[2].'</th>'.
-								'<td class="short">'.$m[3].'</td>'.
+								'<td class="short">'.( isset( $m[6] ) ? '<!-- '.$m[6].' -->' : '' ).$m[3].'</td>'.
 								'<th class="xshort">'.$m[4].'</th>'.
 								'<td class="wide">'.( strpos( $m[5], 'http' ) === 0 ? '<a href="'.$m[5].'">'.$m[5].'</a>' : $m[5] ).'</td>';
 						}
@@ -125,6 +128,34 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					break; 
 			}
 			return $rows;
+		}
+
+		public function get_rows_social_preview( &$form, &$post_info ) {
+			$rows = array();
+			$size_name = $this->p->cf['lca'].'-preview';
+			$size_info = $this->p->media->get_size_info( $size_name );
+			$alt_html = '<p>No Open Graph Image Found</p>';
+			$alt_small = '<p>Image Dimensions Smaller<br/>
+				Than Suggested '.$size_info['width'].' x '.$size_info['height'].'</p>';
+			$title = empty( $post_info['og:title'] ) ? 'No Title' : $post_info['og:title'];
+			$desc = empty( $post_info['og:description'] ) ? 'No Description' : $post_info['og:description'];
+			$by = $_SERVER['SERVER_NAME'];
+			$by .= empty( $post_info['author'] ) ? '' : ' | By '.$post_info['author'];
+
+			$rows[] = $this->p->util->th( 'Open Graph Social Preview Example', 'medium', 'postmeta-social-preview' ).
+			'<td style="background-color:#e9eaed;">
+			<div class="preview_box" style="width:'.($size_info['width']+40).'px;">
+			<div class="preview_box" style="width:'.$size_info['width'].'px;">'.
+				$this->p->media->get_image_preview_html( $post_info['og_image'], 
+					$size_name, $size_info, $alt_html, $alt_small ).
+			'<div class="preview_txt">
+			<div class="preview_title">'.$title.'</div>
+			<div class="preview_desc">'.$desc.'</div>
+			<div class="preview_by">'.$by.'</div>
+			</div></div></div></td>';
+
+			return $rows;
+
 		}
 
 		public function get_rows_validation_tools( &$form, &$post_info ) {

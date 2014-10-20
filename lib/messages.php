@@ -173,6 +173,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						/*
 						 * 'Header Meta Tags' settings
 						 */
+						 case 'tooltip-postmeta-social-preview':
+						 	$text = 'The Open Graph Social Preview shows an <em>example</em> of a typical share on a social website.
+							Images are displayed using Facebooks suggested minimum image dimensions of 600x315px.
+							Actual shares on social networks may look significantly different than this <em>example</em>.';
+						 	break;
 						 case 'tooltip-postmeta-og_art_section':
 							$text = 'A custom topic, different from the default Article Topic selected in the General settings.
 							The Facebook / Open Graph \'og:type\' meta tag must be an \'article\' to enable this option.

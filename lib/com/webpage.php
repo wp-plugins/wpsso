@@ -104,20 +104,23 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			}
 
 			if ( empty( $caption ) ) {
-				$cap_e = false;
-				$cap_c = preg_replace( '/_(title|desc)$/', '', $custom );
+				$custom_prefix = preg_replace( '/_(title|desc)$/', '', $custom );
 
 				// request all values un-encoded, then encode once we have the complete caption text
 				switch ( strtolower( $type ) ) {
 					case 'title':
-						$caption = $this->get_title( $length, '...', $use_post, $use_cache, $add_hashtags, $cap_e, $cap_c.'_title', $source_id );
+						$caption = $this->get_title( $length, '...', $use_post, $use_cache, 
+							$add_hashtags, false, $custom_prefix.'_title', $source_id );
 						break;
 					case 'excerpt':
-						$caption = $this->get_description( $length, '...', $use_post, $use_cache, $add_hashtags, $cap_e, $cap_c.'_desc', $source_id );
+						$caption = $this->get_description( $length, '...', $use_post, $use_cache, 
+							$add_hashtags, false, $custom_prefix.'_desc', $source_id );
 						break;
 					case 'both':
-						$prefix = $this->get_title( 0, '', $use_post, $use_cache, false, $cap_e, $cap_c.'_title', $source_id ).' '.$separator.' ';
-						$caption = $prefix.$this->get_description( $length - strlen( $prefix ), '...', $use_post, $use_cache, $add_hashtags, $cap_e, $cap_c.'_desc', $source_id );
+						$prefix = $this->get_title( 0, '', $use_post, $use_cache, 
+							false, false, $custom_prefix.'_title', $source_id ).' '.$separator.' ';
+						$caption = $prefix.$this->get_description( $length - strlen( $prefix ), '...', $use_post, $use_cache, 
+							$add_hashtags, false, $custom_prefix.'_desc', $source_id );
 						break;
 				}
 			}
@@ -139,10 +142,9 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				'custom' => $custom,
 				'source_id' => $source_id ) );
 			$title = false;
-			$parent_title = '';
-			$paged_suffix = '';
 			$hashtags = '';
 			$post_id = 0;
+			$paged_suffix = '';
 			$separator = html_entity_decode( $this->p->options['og_title_sep'], ENT_QUOTES, get_bloginfo( 'charset' ) );
 
 			// setup filters to save and restore original / pre-filtered title value
@@ -159,9 +161,15 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 				if ( ! empty( $post_id ) && ! empty( $custom ) && 
 					isset( $this->p->addons['util']['postmeta'] ) ) {
-					$title = $this->p->addons['util']['postmeta']->get_options( $post_id, $custom );
-					if ( ! empty( $title ) ) 
-						$this->p->debug->log( 'custom postmeta '.$custom.' = "'.$title.'"' );
+
+					// always fallback to the custom og_title
+					foreach ( array_unique( array( $custom, 'og_title' ) ) as $meta_key ) {
+						$title = $this->p->addons['util']['postmeta']->get_options( $post_id, $meta_key );
+						if ( ! empty( $title ) ) {
+							$this->p->debug->log( 'custom postmeta '.$meta_key.' = "'.$title.'"' );
+							break;
+						}
+					}
 				}
 			} elseif ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
 				$author = $this->p->util->get_author_object();
@@ -204,11 +212,6 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$title = apply_filters( 'wp_title', get_the_title( $post_id ).' '.$separator.' ', $separator, 'right' );
 						$this->p->debug->log( 'post_id get_the_title() = "'.$title.'"' );
 					}
-					// get the parent's title if no seo package is installed
-					if ( $this->p->is_avail['seo']['*'] === false && 
-						empty( $this->p->options['plugin_filter_title'] ) &&
-						! empty( $obj->post_parent ) )
-							$parent_title = get_the_title( $obj->post_parent );
 
 				// by default, use the wordpress title if an seo plugin is available
 				} elseif ( $this->p->is_avail['seo']['*'] == true ) {
@@ -275,15 +278,10 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$textlen = $textlen - strlen( $paged_suffix ) - 1;
 					}
 				}
-				if ( ! empty( $parent_title ) ) 
-					$textlen = $textlen - strlen( $parent_title ) - 3;
 				if ( $add_hashtags === true && ! empty( $hashtags ) ) 
 					$textlen = $textlen - strlen( $hashtags ) - 1;
 				$title = $this->p->util->limit_text_length( $title, $textlen, $trailing, false );	// don't run cleanup_html_tags()
 			}
-
-			if ( ! empty( $parent_title ) ) 
-				$title .= ' ('.$parent_title.')';
 
 			if ( ! empty( $paged_suffix ) ) 
 				$title .= ' '.$paged_suffix;
@@ -321,9 +319,15 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 				if ( ! empty( $post_id ) && ! empty( $custom ) && 
 					isset( $this->p->addons['util']['postmeta'] ) ) {
-					$desc = $this->p->addons['util']['postmeta']->get_options( $post_id, $custom );
-					if ( ! empty( $desc ) ) 
-						$this->p->debug->log( 'custom postmeta '.$custom.' = "'.$desc.'"' );
+
+					// always fallback to the custom og_desc
+					foreach ( array_unique( array( $custom, 'og_desc' ) ) as $meta_key ) {
+						$desc = $this->p->addons['util']['postmeta']->get_options( $post_id, $meta_key );
+						if ( ! empty( $desc ) ) {
+							$this->p->debug->log( 'custom postmeta '.$meta_key.' = "'.$desc.'"' );
+							break;
+						}
+					}
 				}
 			} elseif ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
 				$author = $this->p->util->get_author_object();
