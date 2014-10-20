@@ -374,7 +374,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Removed auto-appending the parent title to the post title if no SEO plugin is detected.
 	* Added a fallback for all custom title and description values to the Open Graph title and description.
 * **New Features**
-	* *None*
+	* Added a 'Social Preview' tab to the Social Settings metabox.
+	* Added a WpssoHead::get_post_info() method to get basic information about the Post from the meta tag array.
 
 = Version 2.6.9.2 =
 
