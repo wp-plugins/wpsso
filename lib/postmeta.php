@@ -106,13 +106,6 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 						.$post_info['ptn'].' is published with public visibility.</p></td>';
 					break;
 
-				case 'meta-tools':
-					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
-						$rows = $this->get_rows_validation_tools( $this->form, $post_info );
-					} else $rows[] = '<td><p class="centered">The Validation Tools will be available when the '
-						.$post_info['ptn'].' is published with public visibility.</p></td>';
-					break; 
-
 				case 'meta-tags':	
 					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
 						foreach ( $this->header_tags as $m ) {
@@ -123,8 +116,15 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 								'<td class="wide">'.( strpos( $m[5], 'http' ) === 0 ? '<a href="'.$m[5].'">'.$m[5].'</a>' : $m[5] ).'</td>';
 						}
 						sort( $rows );
-					} else $rows[] = '<td><p class="centered">The Header Tags Preview will be available when the '.$post_info['ptn'].
-						' is published with public visibility.</p></td>';
+					} else $rows[] = '<td><p class="centered">The Header Tags Preview will be available when the '.
+						$post_info['ptn'].' is published with public visibility.</p></td>';
+					break; 
+
+				case 'meta-tools':
+					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
+						$rows = $this->get_rows_validation_tools( $this->form, $post_info );
+					} else $rows[] = '<td><p class="centered">The Validation Tools will be available when the '
+						.$post_info['ptn'].' is published with public visibility.</p></td>';
 					break; 
 			}
 			return $rows;
