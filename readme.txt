@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0
-Stable Tag: 2.6.9.2
+Stable Tag: 2.6.10
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -412,6 +412,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Changed the BuddyPress description filter hook from 'wpsso_description_seed' to 'wpsso_content_seed' in order to provide image and video information.
 
 == Upgrade Notice ==
+
+= 2.6.10 =
+
+Adds a new 'Social Preview' tab to the Social Settings metabox, improved title and description handling in some special cases.
 
 = 2.6.9.2 =
 
