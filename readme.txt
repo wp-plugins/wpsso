@@ -68,7 +68,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Uses object and transient caches to provide incredibly fast execution speeds.
 * **Additional free extension plugins for WPSSO**:
 	* [App Meta](https://wordpress.org/plugins/wpsso-am/) for Apple Store (iTunes) and Google Play App meta tags.
-	* [Place and Location Meta](https://wordpress.org/plugins/wpsso-plm/) for Facebook *Location* and Pinterest Rich Pin *Place* meta tags.
+	* [Place and Location Meta](https://wordpress.org/plugins/wpsso-plm/) for Facebook *Location* and Pinterest *Place* Rich Pin meta tags.
 	* [Social Sharing Buttons](https://wordpress.org/plugins/wpsso-ssb/) for fast and accurate social sharing buttons.
 
 **Pro / Power-User Version**
