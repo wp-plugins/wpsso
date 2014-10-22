@@ -123,22 +123,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						),
 					),
 				),
-				'wpssossb' => array(
-					'short' => 'WPSSO SSB',		// short plugin name
-					'name' => 'WPSSO Social Sharing Buttons (WPSSO SSB)',
-					'desc' => 'Social Sharing Buttons extension for the WordPress Social Sharing Optimization plugin - Fast and accurate social sharing buttons.',
-					'img' => array(
-						'icon-small' => '//ps.w.org/wpsso-ssb/assets/icon-128x128.png?rev=',
-						'icon-medium' => '//ps.w.org/wpsso-ssb/assets/icon-256x256.png?rev=',
-					),
-					'url' => array(
-						'download' => 'https://wordpress.org/plugins/wpsso-ssb/',
-					),
-				),
 				'wpssoam' => array(
 					'short' => 'WPSSO AM',		// short plugin name
 					'name' => 'WPSSO App Meta (WPSSO AM)',
-					'desc' => 'WPSSO extension to provide Apple Store (iTunes) and Google Play App meta tags for Apple\'s mobile Safari and Twitter\'s App Card.',
+					'desc' => 'WPSSO extension to provide Apple Store / iTunes and Google Play App meta tags for Apple\'s mobile Safari and Twitter\'s App Card.',
 					'img' => array(
 						'icon-small' => '//ps.w.org/wpsso-am/assets/icon-128x128.png?rev=',
 						'icon-medium' => '//ps.w.org/wpsso-am/assets/icon-256x256.png?rev=',
@@ -150,13 +138,25 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssoplm' => array(
 					'short' => 'WPSSO PLM',		// short plugin name
 					'name' => 'WPSSO Place and Location Meta (WPSSO PLM)',
-					'desc' => 'WPSSO extension to provide Open Graph / Facebook Location and Pinterest Place Rich Pin meta tags.',
+					'desc' => 'WPSSO extension to provide Facebook / Open Graph Location and Pinterest Place Rich Pin meta tags.',
 					'img' => array(
 						'icon-small' => '//ps.w.org/wpsso-plm/assets/icon-128x128.png?rev=',
 						'icon-medium' => '//ps.w.org/wpsso-plm/assets/icon-256x256.png?rev=',
 					),
 					'url' => array(
 						'download' => 'https://wordpress.org/plugins/wpsso-plm/',
+					),
+				),
+				'wpssossb' => array(
+					'short' => 'WPSSO SSB',		// short plugin name
+					'name' => 'WPSSO Social Sharing Buttons (WPSSO SSB)',
+					'desc' => 'WPSSO extension to provide fast and accurate Social Sharing Buttons - with support for hashtags, shortening, bbPress, and BuddyPress.',
+					'img' => array(
+						'icon-small' => '//ps.w.org/wpsso-ssb/assets/icon-128x128.png?rev=',
+						'icon-medium' => '//ps.w.org/wpsso-ssb/assets/icon-256x256.png?rev=',
+					),
+					'url' => array(
+						'download' => 'https://wordpress.org/plugins/wpsso-ssb/',
 					),
 				),
 			),
