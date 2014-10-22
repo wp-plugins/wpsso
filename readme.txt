@@ -375,7 +375,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Improvements**
 	* *None*
 * **New Features**
-	* Added a new 'Report Cache Flush Count' option on the Advanced settings page (enabled by default).
+	* Added a new 'Report Cache Purge Count' option on the Advanced settings page (enabled by default).
 
 = Version 2.6.10 =
 
