@@ -368,6 +368,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.6.10.1 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* *None*
+* **New Features**
+	* Added a new 'Report Cache Flush Count' option on the Advanced settings page (enabled by default).
+
 = Version 2.6.10 =
 
 * **Bugfixes**
