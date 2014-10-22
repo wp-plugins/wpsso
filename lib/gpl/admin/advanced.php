@@ -32,6 +32,9 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 
 				$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
+				$rows[] = $this->p->util->th( 'Report Cache Flush Count', null, 'plugin_cache_info' ).
+				'<td class="blank">'.$form->get_no_checkbox( 'plugin_cache_info' ).'</td>';
+
 				$rows[] = $this->p->util->th( 'Use WP Locale for Language', null, 'plugin_filter_lang' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'plugin_filter_lang' ).'</td>';
 

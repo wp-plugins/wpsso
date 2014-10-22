@@ -489,6 +489,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-plugin_debug':
 							$text = 'Add hidden debug messages to the HTML of webpages (default is unchecked).';
 							break;
+						case 'tooltip-plugin_cache_info':
+							$text = 'Report the number of objects removed from the cache when updating Posts and Pages.';
+							break;
 						case 'tooltip-plugin_filter_lang':
 							$text = $short_pro.' can use the WordPress locale to select the correct language for the Facebook / Open Graph 
 							and Pinterest Rich Pin meta tags'.

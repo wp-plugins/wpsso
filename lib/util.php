@@ -127,8 +127,8 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					}
 				}
 			}
-			if ( $this->p->debug->is_on() )
-				$this->p->notice->inf( $deleted.' items flushed from object and transient cache', true );
+			if ( ! empty( $this->p->options['plugin_cache_info'] ) )
+				$this->p->notice->inf( $deleted.' items removed from the WordPress object and transient caches.', true );
 		}
 
 		public function get_topics() {
