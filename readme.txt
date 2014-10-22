@@ -1,4 +1,4 @@
-=== WordPress Social Sharing Optimization - Social SEO for Videos, Galleries, Products & More ===
+=== WordPress Social Sharing Optimization - Maximize your social engagement! ===
 Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
 Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, easy digital downloads, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube, polylang
@@ -21,6 +21,8 @@ Make sure social websites present your content correctly, no matter how your web
 = Advanced Social Management =
 
 <p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, Pinterest, LinkedIn, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
+
+<p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons only submit URLs to social websites &mdash; WPSSO then provides all the information those social websites need to know about your shared content. Use WPSSO by itself, or with any of your favorite social sharing buttons.</p>
 
 </td></tr></table>
 
