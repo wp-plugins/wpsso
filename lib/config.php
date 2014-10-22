@@ -147,9 +147,21 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'download' => 'https://wordpress.org/plugins/wpsso-am/',
 					),
 				),
+				'wpssoplm' => array(
+					'short' => 'WPSSO PLM',		// short plugin name
+					'name' => 'WPSSO Place and Location Meta (WPSSO PLM)',
+					'desc' => 'WPSSO extension to provide Open Graph / Facebook Location and Pinterest Place Rich Pin meta tags.',
+					'img' => array(
+						'icon-small' => '//ps.w.org/wpsso-plm/assets/icon-128x128.png?rev=',
+						'icon-medium' => '//ps.w.org/wpsso-plm/assets/icon-256x256.png?rev=',
+					),
+					'url' => array(
+						'download' => 'https://wordpress.org/plugins/wpsso-plm/',
+					),
+				),
 			),
 			'opt' => array(				// options
-				'version' => 306,		// increment when changing default options
+				'version' => 307,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -291,6 +303,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_wpsso_tid' => '',
 					'plugin_display' => 'basic',
 					'plugin_preserve' => 0,
+					'plugin_cache_info' => 1,
 					'plugin_debug' => 0,
 					'plugin_filter_title' => 1,
 					'plugin_filter_excerpt' => 0,
