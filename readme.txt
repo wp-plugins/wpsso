@@ -424,6 +424,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
+= 2.6.10.1 =
+
+A new 'Report Cache Purge Count' option, and 'Social Preview' and 'Header Preview' tabs enabled for Drafts as well.
+
 = 2.6.10 =
 
 Adds a new 'Social Preview' tab to the Social Settings metabox, improved title and description handling in some special cases.
