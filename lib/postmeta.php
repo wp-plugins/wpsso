@@ -53,7 +53,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				empty( $obj->post_type ) )
 					return;
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
-			if ( isset( $obj->post_status ) && $obj->post_status === 'publish' ) {
+			if ( isset( $obj->post_status ) && $obj->post_status !== 'auto-draft' ) {
 				$post_type = get_post_type_object( $obj->post_type );
 				$add_metabox = empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ? false : true;
 				if ( apply_filters( $this->p->cf['lca'].'_add_metabox_postmeta', $add_metabox, $post_id ) === true ) {
@@ -100,28 +100,29 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
 				case 'meta-preview':
-					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
+					if ( get_post_status( $post_info['id'] ) !== 'auto-draft' ) {
 						$rows = $this->get_rows_social_preview( $this->form, $post_info );
-					} else $rows[] = '<td><p class="centered">The Social Preview will be available when the '
-						.$post_info['ptn'].' is published with public visibility.</p></td>';
+					} else $rows[] = '<td><p class="centered">Save a draft version or publish the '.
+						$post_info['ptn'].' to display the Social Preview.</p></td>';
 					break;
 
 				case 'meta-tags':	
-					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
+					if ( get_post_status( $post_info['id'] ) !== 'auto-draft' ) {
 						foreach ( $this->header_tags as $m ) {
-							$rows[] = '<th class="xshort">'.$m[1].'</th>'.
+							if ( ! empty( $m[0] ) )
+								$rows[] = '<th class="xshort">'.$m[1].'</th>'.
 								'<th class="xshort">'.$m[2].'</th>'.
 								'<td class="short">'.( isset( $m[6] ) ? '<!-- '.$m[6].' -->' : '' ).$m[3].'</td>'.
 								'<th class="xshort">'.$m[4].'</th>'.
 								'<td class="wide">'.( strpos( $m[5], 'http' ) === 0 ? '<a href="'.$m[5].'">'.$m[5].'</a>' : $m[5] ).'</td>';
 						}
 						sort( $rows );
-					} else $rows[] = '<td><p class="centered">The Header Tags Preview will be available when the '.
-						$post_info['ptn'].' is published with public visibility.</p></td>';
+					} else $rows[] = '<td><p class="centered">Save a draft version or publish the '.
+						$post_info['ptn'].' to display the Header Preview.</p></td>';
 					break; 
 
 				case 'meta-tools':
-					if ( get_post_status( $post_info['id'] ) == 'publish' ) {
+					if ( get_post_status( $post_info['id'] ) === 'publish' ) {
 						$rows = $this->get_rows_validation_tools( $this->form, $post_info );
 					} else $rows[] = '<td><p class="centered">The Validation Tools will be available when the '
 						.$post_info['ptn'].' is published with public visibility.</p></td>';

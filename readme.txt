@@ -1,4 +1,4 @@
-=== WordPress Social Sharing Optimization - Maximize your social engagement! ===
+=== WordPress Social Sharing Optimization - Including Videos, Galleries, Products &amp; More ===
 Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
 Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, easy digital downloads, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube, polylang
@@ -22,9 +22,9 @@ Make sure social websites present your content correctly, no matter how your web
 
 <p>WordPress Social Sharing Optimization (WPSSO) gives you <strong>total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, Pinterest, LinkedIn, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
 
-<p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO can then provide everything those social websites need to know about your shared content. Use WPSSO by itself, or in combination with any of your favorite social sharing buttons.</p>
-
 </td></tr></table>
+
+<p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO can then provide everything those social websites need to know about your shared content. Use WPSSO by itself, or in combination with any of your favorite social sharing buttons.</p>
 
 <blockquote>
 <h4>Industry Reviews</h4>
@@ -67,7 +67,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Contextual help for *every* plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
 * Uses object and transient caches to provide incredibly fast execution speeds.
 * **Additional free extension plugins for WPSSO**:
-	* [App Meta](https://wordpress.org/plugins/wpsso-am/) for Apple Store (iTunes) and Google Play App meta tags.
+	* [App Meta](https://wordpress.org/plugins/wpsso-am/) for Apple Store / iTunes and Google Play App meta tags.
 	* [Place and Location Meta](https://wordpress.org/plugins/wpsso-plm/) for Facebook *Location* and Pinterest *Place* Rich Pin meta tags.
 	* [Social Sharing Buttons](https://wordpress.org/plugins/wpsso-ssb/) for fast and accurate social sharing buttons.
 
@@ -373,7 +373,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* *None*
 * **Improvements**
-	* *None*
+	* Enabled the Social Settings 'Social Preview' and 'Header Preview' tabs for Drafts as well.
 * **New Features**
 	* Added a new 'Report Cache Purge Count' option on the Advanced settings page (enabled by default).
 
