@@ -150,7 +150,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssossb' => array(
 					'short' => 'WPSSO SSB',		// short plugin name
 					'name' => 'WPSSO Social Sharing Buttons (WPSSO SSB)',
-					'desc' => 'WPSSO extension to provide fast and accurate Social Sharing Buttons - with support for hashtags, shortening, bbPress, and BuddyPress.',
+					'desc' => 'WPSSO extension to provide fast and accurate Social Sharing Buttons with support for hashtags, shortening, bbPress, BuddyPress, and WooCommerce.',
 					'img' => array(
 						'icon-small' => '//ps.w.org/wpsso-ssb/assets/icon-128x128.png?rev=',
 						'icon-medium' => '//ps.w.org/wpsso-ssb/assets/icon-256x256.png?rev=',

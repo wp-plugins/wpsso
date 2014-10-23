@@ -71,7 +71,7 @@ if ( ! class_exists( 'WpssoGplAdminPostmeta' ) ) {
 					'<td class="blank">'.$this->p->util->get_sharing_url( true ).'</td>';
 				else
 					$rows[] = $this->p->util->th( 'Sharing URL', 'medium', 'postmeta-sharing_url', $post_info ).
-					'<td class="blank"><em>The Sharing URL will be displayed when the '.$post_info['ptn'].' is published.</em></td>';
+					'<td class="blank"><em>The Sharing URL permalink will be available when the '.$post_info['ptn'].' is published.</em></td>';
 			}
 
 			return $rows;
