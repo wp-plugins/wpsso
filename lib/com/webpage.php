@@ -261,7 +261,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 			$title = $this->p->util->cleanup_html_tags( $title );	// strip html tags before removing separator
 			if ( ! empty( $separator ) )
-				$title = preg_replace( '/ *'.preg_quote( $separator, '/' ).' *$/', ' ', $title );	// trim excess separator
+				$title = preg_replace( '/ *'.preg_quote( $separator, '/' ).' *$/', '', $title );	// trim excess separator
 
 			// apply title filter before adjusting it's length
 			$title = apply_filters( $this->p->cf['lca'].'_title_pre_limit', $title );
