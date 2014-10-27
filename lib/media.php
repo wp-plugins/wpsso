@@ -701,8 +701,9 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				);
 			}
 
-			if ( empty( $og_video['og:video'] ) && empty( $og_video['og:image'] ) ) 
-				return array();
+			if ( empty( $og_video['og:video'] ) && 
+				empty( $og_video['og:image'] ) ) 
+					return array();
 			else return $og_video;
 		}
 	}
