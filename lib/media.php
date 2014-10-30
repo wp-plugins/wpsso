@@ -464,11 +464,11 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 							break;
 						default :
 							// prevent duplicates by silently ignoring ngg images (already processed by the ngg addon)
-							if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->addons['media']['ngg'] ) &&
-								( strpos( $tag_value, " class='ngg-" ) !== false || 
-									preg_match( '/^'.$this->p->addons['media']['ngg']->img_src_preg.'$/', $attr_value ) ) ) {
-								break;
-							}
+							if ( $this->p->is_avail['media']['ngg'] === true && 
+								! empty( $this->p->addons['media']['ngg'] ) &&
+									( strpos( $tag_value, " class='ngg-" ) !== false || 
+										preg_match( '/^'.$this->p->addons['media']['ngg']->img_src_preg.'$/', $attr_value ) ) )
+											break;
 	
 							// recognize gravatar images in the content
 							if ( preg_match( '/^https?:\/\/([^\.]+\.)?gravatar\.com\/avatar\/[a-zA-Z0-9]+/', $attr_value, $match) ) {
@@ -537,7 +537,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					$this->p->debug->log( 'exiting early: empty post content' ); 
 					return $og_ret;
 				}
-				if ( preg_match( '/\[(gallery)[^\]]*\]/im', $post->post_content, $match ) ) {
+				if ( preg_match( '/\[(gallery|justified_image_grid)[^\]]*\]/im', $post->post_content, $match ) ) {
 					$shortcode_type = strtolower( $match[1] );
 					$this->p->debug->log( '['.$shortcode_type.'] shortcode found' );
 					switch ( $shortcode_type ) {
@@ -551,7 +551,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 								return $og_ret;		// return immediately and ignore any other type of image
 							break;
 					}
-				} else $this->p->debug->log( '[gallery] shortcode not found' );
+				} else $this->p->debug->log( '[gallery|justified_image_grid] shortcode(s) not found' );
 			}
 			// check for ngg gallery
 			if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->addons['media']['ngg'] ) ) {
