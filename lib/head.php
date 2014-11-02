@@ -79,6 +79,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			// hook into wpsso_is_functions to extend the default array of function names
 			if ( $this->p->debug->is_on() ) {
 				$is_functions = array( 
+					'is_multisite',
 					'is_author',
 					'is_archive',
 					'is_category',
