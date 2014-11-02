@@ -200,7 +200,13 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				$option_data->lastCheck = time();
 				$option_data->checkedVersion = $this->get_installed_version( $lca );
 				$option_data->update = $this->get_update_data( $lca );
-				update_site_option( $info['opt_name'], $option_data );
+				$saved = update_site_option( $info['opt_name'], $option_data );
+				if ( $this->p->debug->is_on() ) {
+					if ( $saved === true )
+						$this->p->debug->log( 'update information saved in the \''.$info['opt_name'].'\' option' );
+					else $this->p->debug->log( 'failed saving update information in the \''.$info['opt_name'].'\' option' );
+					$this->p->debug->log( $option_data );
+				}
 			}
 		}
 	
