@@ -264,7 +264,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						case 'check_for_updates': 
 							if ( ! empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) ) {
 								$this->readme_info = array();
-								$this->p->update->check_for_updates();
+								$this->p->update->check_for_updates( null, true );
 							}
 							break;
 
