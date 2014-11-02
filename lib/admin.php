@@ -265,7 +265,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 							if ( ! empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) ) {
 								$this->readme_info = array();
 								$this->p->update->check_for_updates();
-								$this->p->notice->inf( __( 'Plugin update information has been checked and updated.', WPSSO_TEXTDOM ) );
 							}
 							break;
 

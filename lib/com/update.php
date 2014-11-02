@@ -202,9 +202,13 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 				$option_data->update = $this->get_update_data( $lca );
 				$saved = update_site_option( $info['opt_name'], $option_data );
 				if ( $this->p->debug->is_on() ) {
-					if ( $saved === true )
+					if ( $saved === true ) {
 						$this->p->debug->log( 'update information saved in the \''.$info['opt_name'].'\' option' );
-					else $this->p->debug->log( 'failed saving update information in the \''.$info['opt_name'].'\' option' );
+						$this->p->notice->inf( 'Plugin update information has been retrieved and saved.', true );
+					} else {
+						$this->p->debug->log( 'failed saving update information in the \''.$info['opt_name'].'\' option' );
+						$this->p->notice->err( 'WordPress returned an error when trying to save the plugin update information to the options database table.', true );
+					}
 					$this->p->debug->log( $option_data );
 				}
 			}
