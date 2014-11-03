@@ -390,7 +390,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				),
 			);
 			$transients = apply_filters( $this->p->cf['lca'].'_user_cache_transients', $transients, $post_id, $lang, $sharing_url );
-			$this->p->util->flush_cache_objects( $transients );
+			$deleted = $this->p->util->flush_cache_objects( $transients );
 			return $user_id;
 		}
 

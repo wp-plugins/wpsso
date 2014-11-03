@@ -94,7 +94,9 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				);
 				$objects = apply_filters( $this->p->cf['lca'].'_post_cache_objects', $objects, $post_id, $lang, $sharing_url );
 
-				$this->flush_cache_objects( $transients, $objects );
+				$deleted = $this->flush_cache_objects( $transients, $objects );
+				if ( ! empty( $this->p->options['plugin_cache_info'] ) )
+					$this->p->notice->inf( $deleted.' items removed from the WordPress object and transient caches.', true );
 				break;
 			}
 		}
@@ -127,8 +129,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					}
 				}
 			}
-			if ( ! empty( $this->p->options['plugin_cache_info'] ) )
-				$this->p->notice->inf( $deleted.' items removed from the WordPress object and transient caches.', true );
+			return $deleted;
 		}
 
 		public function get_topics() {
