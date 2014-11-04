@@ -419,14 +419,14 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			return $og_ret;
 		}
 
-		public function get_content_images( $num = 0, $size_name = 'thumbnail', $use_post = true, $check_dupes = true, $content = '' ) {
-			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'use_post' => $use_post, 'check_dupes' => $check_dupes, 'content' => strlen( $content ).' chars' ) );
+		public function get_content_images( $num = 0, $size_name = 'thumbnail', $post_id = 0, $check_dupes = true, $content = '' ) {
+			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'post_id' => $post_id, 'check_dupes' => $check_dupes, 'content' => strlen( $content ).' chars' ) );
 			$og_ret = array();
 			$size_info = $this->get_size_info( $size_name );
 
 			// allow custom content to be passed as argument
 			if ( empty( $content ) )
-				$content = $this->p->webpage->get_content( $use_post );
+				$content = $this->p->webpage->get_content( $post_id, false );	// use_post = false
 
 			if ( empty( $content ) ) { 
 				$this->p->debug->log( 'exiting early: empty post content' ); 
@@ -545,8 +545,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 							$content = do_shortcode( $match[0] );
 							$content = preg_replace( '/\['.$shortcode_type.'[^\]]*\]/', '', $content );	// prevent loops, just in case
 							// provide content to the method and extract its images
-							// $use_post argument is null since we're passing the content
-							$og_ret = array_merge( $og_ret, $this->p->media->get_content_images( $num, $size_name, null, $check_dupes, $content ) );
+							// $post_id argument is 0 since we're passing the content
+							$og_ret = array_merge( $og_ret, $this->p->media->get_content_images( $num, $size_name, 0, $check_dupes, $content ) );
 							if ( ! empty( $og_ret ) ) 
 								return $og_ret;		// return immediately and ignore any other type of image
 							break;
@@ -607,13 +607,13 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 		}
 
 		/* Purpose: Check the content for generic <iframe|embed/> html tags. Apply wpsso_content_videos filter for more specialized checks. */
-		public function get_content_videos( $num = 0, $use_post = true, $check_dupes = true, $content = '' ) {
-			$this->p->debug->args( array( 'num' => $num, 'check_dupes' => $check_dupes, 'content' => strlen( $content ).' chars' ) );
+		public function get_content_videos( $num = 0, $post_id = 0, $check_dupes = true, $content = '' ) {
+			$this->p->debug->args( array( 'num' => $num, 'post_id' => $post_id, 'check_dupes' => $check_dupes, 'content' => strlen( $content ).' chars' ) );
 			$og_ret = array();
 
 			// allow custom content to be passed as argument
 			if ( empty( $content ) )
-				$content = $this->p->webpage->get_content( $use_post );
+				$content = $this->p->webpage->get_content( $post_id, false );	// use_post = false
 
 			if ( empty( $content ) ) { 
 				$this->p->debug->log( 'exiting early: empty post content' ); 

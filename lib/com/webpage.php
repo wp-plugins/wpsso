@@ -375,7 +375,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 
 					// if there's no excerpt, then fallback to the content
 					if ( empty( $desc ) )
-						$desc = $this->get_content( $post_id, $use_cache );
+						$desc = $this->get_content( $post_id, $use_post, $use_cache, $custom, $source_id );
 			
 					// ignore everything until the first paragraph tag if $this->p->options['og_desc_strip'] is true
 					if ( $this->p->options['og_desc_strip'] ) 
@@ -443,13 +443,17 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			return apply_filters( $this->p->cf['lca'].'_description', $desc, $use_post, $add_hashtags, $custom, $source_id );
 		}
 
-		public function get_content( $use_post = true, $use_cache = true ) {
+		public function get_content( $post_id = 0, $use_post = true, $use_cache = true, $custom = '', $source_id = '' ) {
 			$this->p->debug->args( array( 
+				'post_id' => $post_id, 
 				'use_post' => $use_post, 
-				'use_cache' => $use_cache ) );
+				'use_cache' => $use_cache,
+				'custom' => $custom,
+				'source_id' => $source_id ) );
 			$content = false;
 
-			if ( ( $obj = $this->p->util->get_post_object( $use_post ) ) === false ) {
+			// if $post_id is 0, then pass the $use_post (true/false) value instead
+			if ( ( $obj = $this->p->util->get_post_object( ( empty( $post_id ) ? $use_post : $post_id ) ) ) === false ) {
 				$this->p->debug->log( 'exiting early: invalid object type' );
 				return $content;
 			}
@@ -465,7 +469,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				if ( $this->p->is_avail['cache']['object'] ) {
 					// if the post id is 0, then add the sharing url to ensure a unique salt string
 					$cache_salt = __METHOD__.'(lang:'.SucomUtil::get_locale().'_post:'.$post_id.'_'.$filter_name.
-						( empty( $post_id ) ? '_url:'.$this->p->util->get_sharing_url( $use_post ) : '' ).')';
+						( empty( $post_id ) ? '_url:'.$this->p->util->get_sharing_url( $use_post, true, $source_id ) : '' ).')';
 					$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
 					$cache_type = 'object cache';
 					if ( $use_cache === true ) {
@@ -479,7 +483,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				}
 			}
 
-			$content = apply_filters( $this->p->cf['lca'].'_content_seed', '', $use_post );
+			$content = apply_filters( $this->p->cf['lca'].'_content_seed', '', $post_id, $use_post, $custom, $source_id );
 			if ( ! empty( $content ) )
 				$this->p->debug->log( 'content seed = "'.$content.'"' );
 			elseif ( ! empty( $obj->post_content ) )
