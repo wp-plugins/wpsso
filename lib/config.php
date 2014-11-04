@@ -303,7 +303,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_wpsso_tid' => '',
 					'plugin_display' => 'basic',
 					'plugin_preserve' => 0,
-					'plugin_cache_info' => 1,
+					'plugin_cache_info' => 0,
 					'plugin_debug' => 0,
 					'plugin_filter_title' => 1,
 					'plugin_filter_excerpt' => 0,
