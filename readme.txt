@@ -373,8 +373,11 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 * **Bugfixes**
 	* Fixed WooCommerce v2.2.7 shortcodes in the admin interface by loading the WooCommerce template functions ourselves (Pro version).
+	* Fixed the `og:description` value for BuddyPress activities by improving the `WpssoProSocialBuddypress::filter_content_seed()` method (Pro version).
 * **Improvements**
 	* Added more detail to the error message when WordPress fails to save the upgraded plugin settings.
+	* Extended the `SucomWebpage::get_content()` method arguments to include the `$post_id`, `$use_post`, `$use_cache`, `$custom`, and `$source_id` variables.
+	* Extended the 'wpsso_content_seed' filter arguments to include the `$post_id`, `$use_post`, `$custom`, and `$source_id` variables.
 * **New Features**
 	* *None*
 
