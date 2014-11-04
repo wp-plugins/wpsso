@@ -1,4 +1,4 @@
-=== WordPress Social Sharing Optimization - for Content, Photos, Videos, Products &amp; More ===
+=== WordPress Social Sharing Optimization - An Essential Plugin to Improve Social Shares ===
 Contributors: jsmoriss
 Donate Link: http://surniaulula.com/extend/plugins/wpsso/
 Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, easy digital downloads, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube, polylang
@@ -373,8 +373,11 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 * **Bugfixes**
 	* Fixed WooCommerce v2.2.7 shortcodes in the admin interface by loading the WooCommerce template functions ourselves (Pro version).
+	* Fixed the `og:description` value for BuddyPress activities by improving the `WpssoProSocialBuddypress::filter_content_seed()` method (Pro version).
 * **Improvements**
 	* Added more detail to the error message when WordPress fails to save the upgraded plugin settings.
+	* Extended the `SucomWebpage::get_content()` method arguments to include the `$post_id`, `$use_post`, `$use_cache`, `$custom`, and `$source_id` variables.
+	* Extended the 'wpsso_content_seed' filter arguments to include the `$post_id`, `$use_post`, `$custom`, and `$source_id` variables.
 * **New Features**
 	* *None*
 
