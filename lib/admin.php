@@ -229,7 +229,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 
 			$def_opts = $this->p->opt->get_site_defaults();
-			$opts = empty( $_POST[WPSSO_SITE_OPTIONS_NAME] ) ?  $def_opts : 
+			$opts = empty( $_POST[WPSSO_SITE_OPTIONS_NAME] ) ? $def_opts : 
 				SucomUtil::restore_checkboxes( $_POST[WPSSO_SITE_OPTIONS_NAME] );
 			$opts = array_merge( $this->p->site_options, $opts );
 			$opts = $this->p->opt->sanitize( $opts, $def_opts );	// cleanup excess options and sanitize
