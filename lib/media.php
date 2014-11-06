@@ -682,26 +682,26 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$this->p->debug->log( 'image = '.$og_video['og:image'].' ('.$og_video['og:image:width'].'x'.$og_video['og:image:height'].')' );
 
 			// cleanup any extra video meta tags - just in case
-			if ( empty( $og_video['og:video'] ) ) {
-				unset ( 
-					$og_video['og:video'],
-					$og_video['og:video:type'],
-					$og_video['og:video:width'],
-					$og_video['og:video:height']
-				);
-			}
+			if ( empty( $og_video['og:video'] ) || 
+				( $check_dupes && ! $this->p->util->is_uniq_url( $og_video['og:video'] ) ) )
+					unset ( 
+						$og_video['og:video'],
+						$og_video['og:video:type'],
+						$og_video['og:video:width'],
+						$og_video['og:video:height']
+					);
 
 			// cleanup any extra image meta tags, or remove the preview image 
 			// if 'Include Video Preview Image' is not checked
-			if ( empty( $og_video['og:image'] ) || 
-				empty( $this->p->options['og_vid_prev_img'] ) ) {
-				unset ( 
-					$og_video['og:image'],
-					$og_video['og:image:secure_url'],
-					$og_video['og:image:width'],
-					$og_video['og:image:height']
-				);
-			}
+			if ( empty( $this->p->options['og_vid_prev_img'] ) ||
+				empty( $og_video['og:image'] ) || 
+					( $check_dupes && ! $this->p->util->is_uniq_url( $og_video['og:image'] ) ) )
+						unset ( 
+							$og_video['og:image'],
+							$og_video['og:image:secure_url'],
+							$og_video['og:image:width'],
+							$og_video['og:image:height']
+						);
 
 			if ( empty( $og_video['og:video'] ) && 
 				empty( $og_video['og:image'] ) ) 
