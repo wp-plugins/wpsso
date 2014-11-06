@@ -29,6 +29,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 			$post_type = '';
 			$item_type = 'Blog';	// default value for non-singular webpages
+
 			if ( is_singular() ) {
 				if ( ! empty( $obj->post_type ) )
 					$post_type = $obj->post_type;
@@ -56,7 +57,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				( is_search() && ! empty( $this->p->options['og_def_author_on_search'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) )
 					$item_type = 'Article';
 
-			$item_type = apply_filters( $this->p->cf['lca'].'_doctype_schema_type', $item_type );
+			$item_type = apply_filters( $this->p->cf['lca'].'_doctype_schema_type', $item_type, $post_id, $obj );
 
 			if ( strpos( $doctype, ' itemscope itemtype="http://schema.org/' ) === false )
 				$doctype .= ' itemscope itemtype="http://schema.org/'.$item_type.'"';
