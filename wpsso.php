@@ -105,16 +105,10 @@ if ( ! class_exists( 'Wpsso' ) ) {
 
 		// runs at init priority 12 (by default)
 		public function init_plugin() {
-			if ( is_feed() ) 
-				return;	// nothing to do in the feeds
-
 			if ( ! empty( $_SERVER['WPSSO_DISABLE'] ) ) 
 				return;
-
 			load_plugin_textdomain( WPSSO_TEXTDOM, false, dirname( WPSSO_PLUGINBASE ).'/languages/' );
-
 			$this->set_objects();	// define the class object variables
-
 			if ( $this->debug->is_on() === true )
 				foreach ( array( 'wp_head', 'wp_footer', 'admin_head', 'admin_footer' ) as $action )
 					foreach ( array( 1, 9999 ) as $prio ) {
