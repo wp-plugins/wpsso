@@ -211,15 +211,16 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 	break;
 						 case 'tooltip-postmeta-og_img_id':
 							$text = 'A custom Image ID to include first in the Facebook / Open Graph, Pinterest Rich Pin, 
-							and \'Large Image Summary\' Twitter Card meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Pinterest and Tumblr social sharing buttons' ).'.';
+							and \'Large Image Summary\' Twitter Card meta tags, '.
+							( empty( $this->p->is_avail['ssb'] ) ? '' : 'along with the Pinterest and Tumblr social sharing buttons, ' ).
+							'before any featured, attached, or content images.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_url':
 							$text = 'A custom image URL (instead of an Image ID) to include first in the Facebook / Open Graph, 
 							Pinterest Rich Pin, and \'Large Image Summary\' Twitter Card meta tags. Please make sure your custom image
 							is large enough, or it may be ignored by the social website(s). Facebook recommends 
 							an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200 
-							(1200x1200 is recommended). This field is disabled if an Image ID has been specified.';
+							(1200x1200 is recommended). <em>This field is disabled if an Image ID has been specified</em>.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_max':
 							$text = 'The maximum number of images to include in the Facebook / Open Graph meta tags for this '.$ptn.'.';
@@ -246,6 +247,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							and social sharing buttons. The default sharing URL may be influenced by settings from supported SEO plugins.
 							Please make sure any custom URL you enter here is functional and redirects correctly.';
 						 	break;
+						 case 'tooltip-postmeta-rp_img_id':
+							$text = 'A custom Image ID to include first when the Pinterest crawler is detected.';
+						 	break;
+						 case 'tooltip-postmeta-rp_img_url':
+							$text = 'A custom image URL (instead of an Image ID) to include first when the Pinterest 
+							crawler is detected. <em>This field is disabled if an Image ID has been specified</em>.';
+						 	break;
 						/*
 						 * Other settings
 						 */
@@ -261,17 +269,16 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case ( strpos( $idx, 'tooltip-og_' ) !== false ? true : false ):
 					switch ( $idx ) {
 						/*
-						 * 'Image and Video' settings
+						 * 'Priority Media' settings
 						 */
 						case 'tooltip-og_img_dimensions':
-							$text = 'The image dimensions used in the Facebook / Open Graph and Pinterest Rich Pin meta tags 
+							$text = 'The image dimensions used in the Facebook / Open Graph meta tags 
 							(defaults is '.$this->p->opt->get_defaults( 'og_img_width' ).'x'.$this->p->opt->get_defaults( 'og_img_height' ).' '.
 							( $this->p->opt->get_defaults( 'og_img_crop' ) == 0 ? 'un' : '' ).'cropped). 
 							Facebook recommends 1200x630 cropped, and 600x315 as a minimum.
 							<strong>1200x1200 cropped provides the greatest compatibility with all social websites 
-							(Facebook, Google+, etc.)</strong>. Note that original images in the WordPress Media Library and/or 
-							NextGEN Gallery must be larger than your chosen image dimensions (a warning message will be displayed
-							on Post/Page editing pages if the original image is too small).';
+							(Facebook, Google+, LinkedIn, etc.)</strong>. Note that original images in the WordPress Media Library and/or 
+							NextGEN Gallery must be larger than your chosen image dimensions.';
 							break;
 						case 'tooltip-og_def_img_id':
 							$text = 'The ID number and location of your default image (example: 123). The Default Image ID 

@@ -128,6 +128,37 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
+		public function get_img_dim_input( $name, $use_opt_defs = false ) {
+			$def_width = '';
+			$def_height = '';
+			if ( $use_opt_defs === true ) {
+				$def_width = empty( $this->p->options[$name.'_width'] ) ? '' : $this->p->options[$name.'_width'];
+				$def_height = empty( $this->p->options[$name.'_height'] ) ? '' : $this->p->options[$name.'_height'];
+				if ( ! $this->in_options( $name.'_crop' ) && $this->in_defaults( $name.'_crop' ) )
+					$this->options[$name.'_crop'] = $this->defaults[$name.'_crop'];
+			}
+			return 'Width '.$this->get_input( $name.'_width', 'short', null, null, $def_width ).' x '.
+				'Height '.$this->get_input( $name.'_height', 'short', null, null, $def_height ).' &nbsp; '.
+				'Crop '.$this->get_checkbox( $name.'_crop' );
+		}
+
+		public function get_img_dim_text( $name, $use_opt_defs = false ) {
+			if ( ! empty( $this->options[$name.'_width'] ) && 
+				! empty( $this->options[$name.'_height'] ) ) {
+				return $this->options[$name.'_width'].' x '.
+					$this->options[$name.'_height'].
+					( $this->options[$name.'_crop'] ? ', cropped' : '' );
+			} elseif ( $use_opt_defs === true ) {
+				if ( ! empty( $this->p->options[$name.'_width'] ) &&
+					! empty( $this->p->options[$name.'_height'] ) ) {
+					return $this->p->options[$name.'_width'].' x '.
+						$this->p->options[$name.'_height'].
+						( $this->p->options[$name.'_crop'] ? ', cropped' : '' );
+				}
+			}
+			return;
+		}
+
 		public function get_select_img_size( $name, $name_preg = '//', $invert = false ) {
 			if ( empty( $name ) ) 
 				return;	// just in case

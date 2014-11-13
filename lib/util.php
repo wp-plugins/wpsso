@@ -12,6 +12,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 
 	class WpssoUtil extends SucomUtil {
 
+		private $size_labels = array();	// reference array for image size labels
 		private $urls_found = array();	// array to detect duplicate images, etc.
 
 		protected $p;
@@ -23,18 +24,68 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		}
 
 		protected function add_actions() {
+			add_action( 'wp', array( &$this, 'add_plugin_image_sizes' ), 10, 0 );
 			add_action( 'wp_scheduled_delete', array( &$this, 'delete_expired_transients' ) );
 			add_action( 'wp_scheduled_delete', array( &$this, 'delete_expired_file_cache' ) );
 		}
 
-		// add filters to this plugin
-		public function add_plugin_filters( &$class, $filters, $prio = 10, $prefix = '' ) {
-			$prefix = $prefix === '' ? $this->p->cf['lca'] : $prefix;
+		// called from several class __construct() methods to hook their filters
+		public function add_plugin_filters( &$class, $filters, $prio = 10, $lca = '' ) {
+			$lca = $lca === '' ? $this->p->cf['lca'] : $lca;
 			foreach ( $filters as $name => $num ) {
-				$filter = $prefix.'_'.$name;
+				$filter = $lca.'_'.$name;
 				$method = 'filter_'.$name;
 				add_filter( $filter, array( &$class, $method ), $prio, $num );
 				$this->p->debug->log( 'filter for '.$filter.' added', 2 );
+			}
+		}
+
+		public function get_image_size_label( $size_name ) {
+			if ( ! empty( $this->size_labels[$size_name] ) )
+				return $this->size_labels[$size_name];
+			else return $size_name;
+		}
+
+		public function add_plugin_image_sizes( $post_id = false ) {
+			$sizes = apply_filters( $this->p->cf['lca'].'_plugin_image_sizes', array() );
+			$meta_opts = array();
+
+			// allow custom post meta to override the image size options
+			if ( isset( $this->p->addons['util']['postmeta'] ) ) {
+				if ( ! is_numeric( $post_id ) && is_singular() ) {
+					$obj = $this->get_post_object();
+					$post_id = empty( $obj->ID ) || 
+						empty( $obj->post_type ) ? 0 : $obj->ID;
+				}
+				if ( ! empty( $post_id ) )
+					$meta_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
+			}
+
+			foreach( $sizes as $opt_prefix => $attr ) {
+
+				// check for custom meta sizes first
+				if ( ! empty( $meta_opts[$opt_prefix.'_width'] ) && $meta_opts[$opt_prefix.'_width'] > 0 && 
+					! empty( $meta_opts[$opt_prefix.'_height'] ) && $meta_opts[$opt_prefix.'_height'] > 0 ) {
+					$width = $meta_opts[$opt_prefix.'_width'];
+					$height = $meta_opts[$opt_prefix.'_height'];
+					$crop = empty( $meta_opts[$opt_prefix.'_crop'] ) ? false : true;
+					$this->p->debug->log( 'found custom meta '.$opt_prefix.' size ('.$width.'x'.$height.( $crop === true ? ' cropped' : '' ).')' );
+				} else {
+					$width = empty( $this->p->options[$opt_prefix.'_width'] ) ? 0 : $this->p->options[$opt_prefix.'_width'];
+					$height = empty( $this->p->options[$opt_prefix.'_height'] ) ? 0 : $this->p->options[$opt_prefix.'_height'];
+					$crop = empty( $this->p->options[$opt_prefix.'_crop'] ) ? false : true;
+				}
+
+				if ( $width > 0 && $height > 0 ) {
+					if ( is_array( $attr ) ) {
+						$name = empty( $attr['name'] ) ? $opt_prefix : $attr['name'];
+						$label = empty( $attr['label'] ) ? $opt_prefix : $attr['label'];
+					} else $name = $label = $attr;
+					$this->size_labels[$this->p->cf['lca'].'-'.$name] = $label;	// setup reference array for image size labels
+					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$name.
+						' ('.$width.'x'.$height.( $crop === true ? ' cropped' : '' ).') added' );
+					add_image_size( $this->p->cf['lca'].'-'.$name, $width, $height, $crop );
+				}
 			}
 		}
 
@@ -158,23 +209,6 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				$this->p->debug->log( $cache_type.': topics array saved to transient '.$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
 			}
 			return $topics;
-		}
-
-		public function add_img_sizes_from_opts( $sizes ) {
-			foreach( $sizes as $opt_prefix => $size_suffix ) {
-				if ( ! empty( $this->p->options[$opt_prefix.'_width'] ) &&
-					! empty( $this->p->options[$opt_prefix.'_height'] ) ) {
-
-					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$size_suffix.
-						' ('.$this->p->options[$opt_prefix.'_width'].'x'.$this->p->options[$opt_prefix.'_height'].
-						( empty( $this->p->options[$opt_prefix.'_crop'] ) ? '' : ' cropped' ).') added', 2 );
-
-					add_image_size( $this->p->cf['lca'].'-'.$size_suffix, 
-						$this->p->options[$opt_prefix.'_width'], 
-						$this->p->options[$opt_prefix.'_height'], 
-						( empty( $this->p->options[$opt_prefix.'_crop'] ) ? false : true ) );
-				}
-			}
 		}
 
 		public function sanitize_option_value( $key, $val, $def_val ) {

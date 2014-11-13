@@ -79,12 +79,14 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			return $remains;
 		}
 
-		public function get_post_images( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true ) {
-			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'post_id' => $post_id, 'check_dupes' => $check_dupes ) );
+		public function get_post_images( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true, $meta_pre = 'og' ) {
+			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'post_id' => $post_id, 'check_dupes' => $check_dupes, 'meta_pre' => $meta_pre ) );
 			$og_ret = array();
 
-			$num_remains = $this->num_remains( $og_ret, $num );
-			$og_ret = array_merge( $og_ret, $this->get_meta_image( $num_remains, $size_name, $post_id, $check_dupes ) );
+			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
+				$num_remains = $this->num_remains( $og_ret, $num );
+				$og_ret = array_merge( $og_ret, $this->p->addons['util']['postmeta']->get_og_image( $num_remains, $size_name, $post_id, $check_dupes, $meta_pre ) );
+			}
 
 			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
 				$num_remains = $this->num_remains( $og_ret, $num );
@@ -105,10 +107,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$og_image = array();
 			if ( ! empty( $post_id ) && $this->p->is_avail['postthumb'] == true && has_post_thumbnail( $post_id ) ) {
 				$pid = get_post_thumbnail_id( $post_id );
-
 				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
 					$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
-
 				if ( ! empty( $og_image['og:image'] ) )
 					$this->p->util->push_max( $og_ret, $og_image, $num );
 			}
@@ -293,22 +293,23 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				if ( ( empty( $size_info['crop'] ) && ( ! $is_sufficient_width && ! $is_sufficient_height ) ) ||
 					( ! empty( $size_info['crop'] ) && ( ! $is_sufficient_width || ! $is_sufficient_height ) ) ) {
 
-					$size_too_small_text = ' too small for '.$size_name.' dimensions ('.$size_info['width'].'x'.$size_info['height'].
-						( empty( $size_info['crop'] ) ? '' : ' cropped' ).')';
+					$size_too_small_text = ' is too small for '.$size_name.
+						' ('.$size_info['width'].'x'.$size_info['height'].
+							( empty( $size_info['crop'] ) ? '' : ' cropped' ).')';
 
 					$img_meta = wp_get_attachment_metadata( $pid );
 
 					if ( ! empty( $img_meta['width'] ) && ! empty( $img_meta['height'] ) &&
 						$img_meta['width'] < $size_info['width'] && $img_meta['height'] < $size_info['height'] )
-							$rejected_text = 'image id '.$pid.' rejected - original image '.
-								$img_meta['width'].'x'.$img_meta['height'].$size_too_small_text;
+							$rejected_text = 'image id '.$pid.' rejected - full size image ('.
+								$img_meta['width'].'x'.$img_meta['height'].')'.$size_too_small_text;
 					else $rejected_text = 'image id '.$pid.' rejected - '.$img_width.'x'.$img_height.$size_too_small_text;
 				
 					$this->p->debug->log( 'exiting early: '.$rejected_text );
 					if ( is_admin() ) {
 						$this->p->notice->err( 'Media Library '.$rejected_text.'.
-							Upload a larger image, or adjust the '.$size_name.' image dimensions setting.',
-							false, true, 'dim_wp_'.$pid );
+							Upload a larger image or adjust the "'.$this->p->util->get_image_size_label( $size_name ).
+								'" option.', false, true, 'dim_wp_'.$pid );
 					}
 					return $ret_empty;
 
@@ -345,38 +346,6 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			if ( empty( $og_image['og:image'] ) && ! empty( $img_url ) ) {
 				$this->p->debug->log( 'found custom user image url = "'.$img_url.'"' );
 				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
-					$og_image['og:image:id'] ) = array( $img_url, -1, -1, -1, -1 );
-			}
-
-			if ( ! empty( $og_image['og:image'] ) &&
-				$this->p->util->push_max( $og_ret, $og_image, $num ) )
-					return $og_ret;
-			return $og_ret;
-		}
-
-		public function get_meta_image( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true ) {
-			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'post_id' => $post_id, 'check_dupes' => $check_dupes ) );
-			$og_ret = array();
-			$og_image = array();
-
-			if ( empty( $post_id ) || ! isset( $this->p->addons['util']['postmeta'] ) )
-				return $og_ret;
-
-			$pid = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_img_id' );
-			$pre = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_img_id_pre' );
-			$img_url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_img_url' );
-
-			if ( $pid > 0 ) {
-				$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
-				$this->p->debug->log( 'found custom meta image id = '.$pid );
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
-					$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes );
-
-			}
-			
-			if ( empty( $og_image['og:image'] ) && ! empty( $img_url ) ) {
-				$this->p->debug->log( 'found custom meta image url = "'.$img_url.'"' );
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
 					$og_image['og:image:id'] ) = array( $img_url, -1, -1, -1, -1 );
 			}
 
@@ -560,34 +529,6 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					return $og_ret;
 			}
 			$this->p->util->slice_max( $og_ret, $num );
-			return $og_ret;
-		}
-
-		public function get_meta_video( $num = 0, $post_id, $check_dupes = true ) {
-			$this->p->debug->args( array( 'num' => $num, 'post_id' => $post_id, 'check_dupes' => $check_dupes ) );
-			$og_ret = array();
-
-			if ( empty( $post_id ) || 
-				! isset( $this->p->addons['util']['postmeta'] ) )
-					return $og_ret;
-
-			$url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_vid_url' );
-			$embed = $this->p->addons['util']['postmeta']->get_options( $post_id, 'og_vid_embed' );
-
-			if ( ! empty( $embed ) ) {
-				$this->p->debug->log( 'fetching content videos from embed code' );
-				$og_ret = $this->p->media->get_content_videos( $num, $post_id, $check_dupes, $embed );
-			}
-
-			if ( ! empty( $url ) && ( $check_dupes == false || $this->p->util->is_uniq_url( $url ) ) ) {
-				$this->p->debug->log( 'fetching video info for '.$url );
-				$og_video = $this->get_video_info( $url, 0, 0, $check_dupes );
-				if ( empty( $og_video ) )	// fallback to the original custom video URL
-					$og_video['og:video'] = $url;
-				if ( $this->p->util->push_max( $og_ret, $og_video, $num ) ) 
-					return $og_ret;
-			}
-
 			return $og_ret;
 		}
 

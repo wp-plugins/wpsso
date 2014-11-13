@@ -27,7 +27,7 @@ if ( ! class_exists( 'WpssoGplAdminUser' ) ) {
 			$rows[] = $this->p->util->th( 'Default Title', 'medium', 'user-og_title', $post_info ). 
 			'<td class="blank">'.$this->p->webpage->get_title( $this->p->options['og_title_len'], '...', false ).'</td>';
 		
-			$rows[] = $this->p->util->th( 'Default, Facebook / Open Graph, LinkedIn, Pinterest Rich Pin Description', 'medium', 'user-og_desc', $post_info ).
+			$rows[] = $this->p->util->th( 'Default (Facebook / Open Graph, LinkedIn, Pinterest Rich Pin) Description', 'medium', 'user-og_desc', $post_info ).
 			'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['og_desc_len'], '...', false ).'</td>';
 	
 			if ( $this->p->options['plugin_display'] == 'all' ) {

@@ -12,23 +12,29 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 	class WpssoOpengraph extends SucomOpengraph {
 
+		protected $meta_pre = '';
 		protected $size_name = '';
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
-			$this->p->util->add_img_sizes_from_opts( array( 
-				'og_img' => 'opengraph',
-				'rp_img' => 'opengraph-rp',
-			) );
 			switch ( SucomUtil::crawler_name() ) {
 				case 'pinterest':
-					$this->size_name = $this->p->cf['lca'].'-opengraph-rp';
+					$this->meta_pre = 'rp';
+					$this->size_name = $this->p->cf['lca'].'-richpin';
 					break;
 				default:
+					$this->meta_pre = 'og';
 					$this->size_name = $this->p->cf['lca'].'-opengraph';
 					break;
 			}
+			$this->p->util->add_plugin_filters( $this, array( 'plugin_image_sizes' => 1 ) );
 			add_filter( 'language_attributes', array( &$this, 'add_doctype' ) );
+		}
+
+		public function filter_plugin_image_sizes( $sizes ) {
+			$sizes['rp_img'] = array( 'name' => 'richpin', 'label' => 'Rich Pin Image Dimensions' );
+			$sizes['og_img'] = array( 'name' => 'opengraph', 'label' => 'Open Graph Image Dimensions' );
+			return $sizes;
 		}
 
 		public function add_doctype( $doctype ) {
@@ -196,7 +202,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 				if ( empty( $og_max['og_img_max'] ) ) 
 					$this->p->debug->log( 'images disabled: maximum images = 0' );
 				else {
-					$og['og:image'] = $this->get_all_images( $og_max['og_img_max'], $this->size_name, $post_id );
+					$og['og:image'] = $this->get_all_images( $og_max['og_img_max'], $this->size_name, $post_id, true, $this->meta_pre );
 
 					// if there's no image, and no video preview image, then add the default image for non-index webpages
 					if ( empty( $og['og:image'] ) && $video_images === 0 &&
@@ -223,7 +229,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			return apply_filters( $this->p->cf['lca'].'_og', $og, $use_post, $obj );
 		}
 
-		public function get_all_videos( $num = 0, $post_id, $check_dupes = true ) {
+		public function get_all_videos( $num = 0, $post_id, $check_dupes = true, $meta_pre = 'og' ) {
 			$this->p->debug->args( array( 'num' => $num, 'post_id' => $post_id, 'check_dupes' => $check_dupes ) );
 			$og_ret = array();
 
@@ -240,22 +246,20 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 
 			if ( ! empty( $post_id ) ) {	// post id should be > 0 for post meta
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				$og_ret = array_merge( $og_ret, 
-					$this->p->media->get_meta_video( $num_remains, $post_id, $check_dupes ) );
+				$og_ret = array_merge( $og_ret, $this->p->addons['util']['postmeta']->get_og_video( $num_remains, $post_id, $check_dupes, $meta_pre ) );
 			}
 
 			// if we haven't reached the limit of videos yet, keep going
 			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				$og_ret = array_merge( $og_ret, 
-					$this->p->media->get_content_videos( $num_remains, $post_id, $check_dupes ) );
+				$og_ret = array_merge( $og_ret, $this->p->media->get_content_videos( $num_remains, $post_id, $check_dupes ) );
 			}
 			$this->p->util->slice_max( $og_ret, $num );
 			return $og_ret;
 		}
 
-		public function get_all_images( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true ) {
-			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'post_id' => $post_id, 'check_dupes' => $check_dupes ) );
+		public function get_all_images( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true, $meta_pre = 'og' ) {
+			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'post_id' => $post_id, 'check_dupes' => $check_dupes, 'meta_pre' => $meta_pre ) );
 			$og_ret = array();
 
 			// check for an attachment page
@@ -300,8 +304,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 			// check for custom meta, featured, or attached image(s)
 			if ( ! empty( $post_id ) ) {	// post id should be > 0
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				$og_ret = array_merge( $og_ret, 
-					$this->p->media->get_post_images( $num_remains, $size_name, $post_id, $check_dupes ) );
+				$og_ret = array_merge( $og_ret, $this->p->media->get_post_images( $num_remains, $size_name, $post_id, $check_dupes, $meta_pre ) );
 
 				// keep going to find more images
 				// the featured / attached image(s) will be listed first in the open graph meta property tags

@@ -152,7 +152,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 				$rows[] = $this->p->util->th( 'Search / SEO Description Length', null, 'google_seo_desc_len' ).
 				'<td class="blank">'.$form->options['seo_desc_len'].' characters or less</td>';
 
-				$rows[] = $this->p->util->th( 'G+ / Schema Description Length', null, 'google_schema_desc_len' ).
+				$rows[] = $this->p->util->th( 'Schema Description Length', null, 'google_schema_desc_len' ).
 				'<td class="blank">'.$form->options['schema_desc_len'].' characters or less</td>';
 			}
 
@@ -202,23 +202,23 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 				$rows[] = $this->p->util->th( '<em>Summary</em> Card Image Dimensions', null, 'tc_sum_dimensions' ).
-				'<td class="blank">'.$this->get_img_dims( 'tc_sum', $form ).'</td>';
+				'<td class="blank">'.$form->get_img_dim_text( 'tc_sum' ).'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Large Image</em> Card Image Dimensions', null, 'tc_lrgimg_dimensions' ).
-				'<td class="blank">'.$this->get_img_dims( 'tc_lrgimg', $form ).'</td>';
+				'<td class="blank">'.$form->get_img_dim_text( 'tc_lrgimg' ).'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Photo</em> Card Image Dimensions', 'highlight', 'tc_photo_dimensions' ).
-				'<td class="blank">'.$this->get_img_dims( 'tc_photo', $form ).'</td>';
+				'<td class="blank">'.$form->get_img_dim_text( 'tc_photo' ).'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Gallery</em> Card Minimum Images', null, 'tc_gal_minimum' ).
 				'<td class="blank">'.$form->get_hidden( 'tc_gal_min' ).
 				$this->p->options['tc_gal_min'].'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Gallery</em> Card Image Dimensions', null, 'tc_gal_dimensions' ).
-				'<td class="blank">'.$this->get_img_dims( 'tc_gal', $form ).'</td>';
+				'<td class="blank">'.$form->get_img_dim_text( 'tc_gal' ).'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Product</em> Card Image Dimensions', null, 'tc_prod_dimensions' ).
-				'<td class="blank">'.$this->get_img_dims( 'tc_prod', $form ).'</td>';
+				'<td class="blank">'.$form->get_img_dim_text( 'tc_prod' ).'</td>';
 			}
 
 			if ( $this->p->options['plugin_display'] == 'all' || $this->p->is_avail['ecom']['*'] === true ) {
@@ -230,15 +230,6 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			}
 
 			return $rows;
-		}
-
-		private function get_img_dims( $name, &$form ) {
-			return $form->get_hidden( $name.'_width' ).
-				$form->get_hidden( $name.'_height' ).
-				$form->get_hidden( $name.'_crop' ).
-				$this->p->options[$name.'_height'].' x '.
-				$this->p->options[$name.'_height'].
-				( $this->p->options[$name.'_crop'] ? ', cropped' : '' );
 		}
 	}
 }

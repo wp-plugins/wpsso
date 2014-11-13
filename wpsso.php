@@ -9,7 +9,7 @@
  * Description: Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
  * Requires At Least: 3.0
  * Tested Up To: 4.0
- * Version: 2.6.10.2
+ * Version: 2.7
  * 
  * Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
  */
@@ -129,7 +129,6 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			 * basic plugin setup (settings, check, debug, notices, utils)
 			 */
 			$this->set_options();	// filter and define the $this->options and $this->site_options properties
-
 			$this->check = new WpssoCheck( $this );
 			$this->is_avail = $this->check->get_avail();		// uses $this->options in checks
 

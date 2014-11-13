@@ -36,10 +36,10 @@ if ( ! class_exists( 'WpssoGplAdminPostmeta' ) ) {
 				'<td class="blank">'.$this->p->webpage->get_title( $this->p->options['og_title_len'], '...', true ).'</td>';
 		
 			if ( $post_status == 'auto-draft' )
-				$rows[] = $this->p->util->th( 'Default, Facebook / Open Graph, LinkedIn, Pinterest Rich Pin Description', 'medium', 'postmeta-og_desc', $post_info ).
+				$rows[] = $this->p->util->th( 'Default (Facebook / Open Graph, LinkedIn, Pinterest Rich Pin) Description', 'medium', 'postmeta-og_desc', $post_info ).
 				'<td class="blank"><em>Save a draft version or publish the '.$post_info['ptn'].' to update and display this value.</em></td>';
 			else
-				$rows[] = $this->p->util->th( 'Default, Facebook / Open Graph, LinkedIn, Pinterest Rich Pin Description', 'medium', 'postmeta-og_desc', $post_info ).
+				$rows[] = $this->p->util->th( 'Default (Facebook / Open Graph, LinkedIn, Pinterest Rich Pin) Description', 'medium', 'postmeta-og_desc', $post_info ).
 				'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['og_desc_len'], '...', true ).'</td>';
 	
 			if ( $this->p->options['plugin_display'] == 'all' ) {
@@ -81,6 +81,11 @@ if ( ! class_exists( 'WpssoGplAdminPostmeta' ) ) {
 
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
+			$rows[] = '<td colspan="2" class="subsection"><h4 style="margin-top:0;">All Social Websites (Open Graph)</h4></td>';
+
+			$rows[] = $this->p->util->th( 'Image Dimensions', 'medium', 'og_img_dimensions' ).
+			'<td class="blank">'.$form->get_img_dim_text( 'og_img', true ).'</td>';
+
 			$rows[] = $this->p->util->th( 'Image ID', 'medium', 'postmeta-og_img_id', $post_info ).
 			'<td class="blank">&nbsp;</td>';
 
@@ -101,6 +106,19 @@ if ( ! class_exists( 'WpssoGplAdminPostmeta' ) ) {
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 				$rows[] = $this->p->util->th( 'Maximum Videos', 'medium', 'postmeta-og_vid_max', $post_info ).
 				'<td class="blank">'.$this->p->options['og_vid_max'].'</td>';
+			}
+
+			if ( $this->p->options['plugin_display'] == 'all' ) {
+				$rows[] = '<td colspan="2" class="subsection"><h4>Pinterest (Rich Pin)</h4></td>';
+
+				$rows[] = $this->p->util->th( 'Image Dimensions', 'medium', 'rp_img_dimensions' ).
+				'<td class="blank">'.$form->get_img_dim_text( 'rp_img', true ).'</td>';
+
+				$rows[] = $this->p->util->th( 'Image ID', 'medium', 'postmeta-rp_img_id', $post_info ).
+				'<td class="blank">&nbsp;</td>';
+
+				$rows[] = $this->p->util->th( 'Image URL', 'medium', 'postmeta-rp_img_url', $post_info ).
+				'<td class="blank">&nbsp;</td>';
 			}
 
 			return $rows;

@@ -57,6 +57,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				$post_type = get_post_type_object( $obj->post_type );
 				$add_metabox = empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ? false : true;
 				if ( apply_filters( $this->p->cf['lca'].'_add_metabox_postmeta', $add_metabox, $post_id ) === true ) {
+					$this->p->util->add_plugin_image_sizes( $post_id );
 					do_action( $this->p->cf['lca'].'_admin_postmeta_header', $post_type->name, $post_id );
 					$this->header_tags = $this->p->head->get_header_array( $post_id );
 					$this->post_info = $this->p->head->get_post_info( $this->header_tags );
@@ -79,7 +80,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', 
 				array( 
 					'header' => 'Title and Descriptions', 
-					'media' => 'Image and Video', 
+					'media' => 'Priority Media', 
 					'preview' => 'Social Preview',
 					'tags' => 'Header Preview',
 					'tools' => 'Validation Tools'
@@ -197,7 +198,17 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			return $rows;
 		}
 
-                public function get_options( $post_id, $idx = false ) {
+		public function get_og_video( $num = 0, $post_id, $check_dupes = true, $meta_pre = 'og' ) {
+			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
+			return array();
+		}
+
+		public function get_og_image( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true, $meta_pre = 'og' ) {
+			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
+			return array();
+		}
+
+                public function get_options( $post_id, $idx = false, $attr = array() ) {
 			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
 			if ( $idx !== false )
 				return false;

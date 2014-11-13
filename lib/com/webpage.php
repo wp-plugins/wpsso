@@ -378,8 +378,10 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 						$desc = $this->get_content( $post_id, $use_post, $use_cache, $custom, $source_id );
 			
 					// ignore everything until the first paragraph tag if $this->p->options['og_desc_strip'] is true
-					if ( $this->p->options['og_desc_strip'] ) 
+					if ( $this->p->options['og_desc_strip'] ) {
+						$this->p->debug->log( 'removing all text before first paragraph' );
 						$desc = preg_replace( '/^.*?<p>/i', '', $desc );	// question mark makes regex un-greedy
+					}
 		
 				} elseif ( is_author() ) { 
 					$author = $this->p->util->get_author_object();
@@ -535,13 +537,12 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			}
 
 			$content = preg_replace( '/[\r\n\t ]+/s', ' ', $content );	// put everything on one line
-			$content = preg_replace( '/^.*<!--'.$this->p->cf['lca'].'-content-->(.*)<!--\/'.
-				$this->p->cf['lca'].'-content-->.*$/', '$1', $content );
+			$content = preg_replace( '/^.*<!--'.$this->p->cf['lca'].'-content-->(.*)<!--\/'.$this->p->cf['lca'].'-content-->.*$/', '$1', $content );
 			$content = preg_replace( '/<a +rel="author" +href="" +style="display:none;">Google\+<\/a>/', ' ', $content );
 			$content = str_replace( ']]>', ']]&gt;', $content );
 
 			$content_strlen_after = strlen( $content );
-			$this->p->debug->log( 'content strlen() before = '.$content_strlen_before.', after = '.$content_strlen_after );
+			$this->p->debug->log( 'content strlen before = '.$content_strlen_before.', after = '.$content_strlen_after );
 
 			// apply filters before caching
 			$content = apply_filters( $this->p->cf['lca'].'_content', $content, $use_post );

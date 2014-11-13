@@ -16,7 +16,6 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
-			$this->p->debug->mark();
 			$this->p->util->add_plugin_filters( $this, array( 
 				'head_cache_salt' => 2,		// modify the cache salt for certain crawlers
 			) );
@@ -74,7 +73,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			return $salt;
 		}
 
-		// called by WP wp_head action
+		// called by wp_head action
 		public function add_header() {
 			// add various function test results top-most in the debug log
 			// hook into wpsso_is_functions to extend the default array of function names
@@ -128,8 +127,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				if ( is_singular() && ( $obj = $this->p->util->get_post_object() ) !== false ) {
 					$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 					if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
-						$post_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
-						$this->p->debug->show_html( $post_opts, 'wpsso post_id '.$post_id.' social settings' );
+						$meta_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
+						$this->p->debug->show_html( $meta_opts, 'wpsso post meta options for post id '.$post_id );
 					}
 				}
 			}
@@ -244,29 +243,42 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$meta_name['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], 
 				'...', $use_post, true, false, true, 'seo_desc' );	// add_hashtags = false, custom meta = seo_desc
 
-			$meta_name = apply_filters( $lca.'_meta_name', $meta_name, $use_post );
+			$meta_name = apply_filters( $lca.'_meta_name', $meta_name, $use_post, $obj );
 
 			/**
 			 * Link relation tags
 			 */
 			$link_rel = array();
+
 			if ( ! empty( $author_id ) )
 				$link_rel['author'] = $this->p->addons['util']['user']->get_author_website_url( $author_id, $this->p->options['link_author_field'] );
 
 			if ( ! empty( $this->p->options['link_publisher_url'] ) )
 				$link_rel['publisher'] = $this->p->options['link_publisher_url'];
 
-			$link_rel = apply_filters( $lca.'_link_rel', $link_rel, $use_post );
+			$link_rel = apply_filters( $lca.'_link_rel', $link_rel, $use_post, $obj );
 
 			/**
 			 * Schema meta tags
 			 */
 			$meta_schema = array();
 
-			$meta_schema['description'] = $this->p->webpage->get_description( $this->p->options['og_desc_len'], 
-				'...', $use_post, true, true, true, 'schema_desc' );	// custom meta = schema_desc
+			if ( ! empty( $this->p->options['add_meta_itemprop_image'] ) ) {
+				if ( ! empty( $meta_og['og:image'] ) ) {
+					if ( is_array( $meta_og['og:image'] ) &&
+						count( $meta_og['og:image'] ) > 0 ) {
+						$image = reset( $meta_og['og:image'] );
+						$meta_schema['image'] = $image['og:image'];
+					} else $meta_schema['image'] = $meta_og['og:image'];
+				}
+			}
 
-			$meta_schema = apply_filters( $lca.'_meta_schema', $meta_schema, $use_post );
+			if ( ! empty( $this->p->options['add_meta_itemprop_description'] ) ) {
+				$meta_schema['description'] = $this->p->webpage->get_description( $this->p->options['og_desc_len'], 
+					'...', $use_post, true, true, true, 'schema_desc' );	// custom meta = schema_desc
+			}
+
+			$meta_schema = apply_filters( $lca.'_meta_schema', $meta_schema, $use_post, $obj );
 
 			/**
 			 * Combine and return all meta tags

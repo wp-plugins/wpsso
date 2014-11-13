@@ -38,7 +38,7 @@ if ( ! class_exists( 'SucomCache' ) ) {
 				$this->ignore_urls = array();
 		}
 
-		public function get( $url, $return = 'url', $cache_name = 'file', $expire_secs = false, $curl_userpwd = '' ) {
+		public function get( $url, $return = 'url', $cache_name = 'file', $expire_secs = false, $curl_userpwd = false, $url_ext = '' ) {
 
 			$file_expire = $expire_secs === false ? $this->file_expire : $expire_secs;
 
@@ -57,9 +57,11 @@ if ( ! class_exists( 'SucomCache' ) ) {
 			$get_url = preg_replace( '/#.*$/', '', $url );	// remove the fragment
 			$url_path = parse_url( $get_url, PHP_URL_PATH );
 
-			$url_ext = pathinfo( $url_path, PATHINFO_EXTENSION );
-			if ( ! empty( $url_ext ) ) 
-				$url_ext = '.'.$url_ext;
+			if ( $url_ext === '' ) {
+				$url_ext = pathinfo( $url_path, PATHINFO_EXTENSION );
+				if ( ! empty( $url_ext ) ) 
+					$url_ext = '.'.$url_ext;
+			}
 
 			$url_frag = parse_url( $url, PHP_URL_FRAGMENT );
 			if ( ! empty( $url_frag ) ) 
@@ -148,7 +150,7 @@ if ( ! class_exists( 'SucomCache' ) ) {
 						constant( $this->p->cf['uca'].'_CURL_CAINFO' ) );
 			}
 
-			if ( ! empty( $curl_userpwd ) )
+			if ( $curl_userpwd !== false )
 				curl_setopt( $ch, CURLOPT_USERPWD, $curl_userpwd );
 
 			$this->p->debug->log( 'curl: fetching cache_data from '.$get_url );

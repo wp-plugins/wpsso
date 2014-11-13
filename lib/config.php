@@ -19,7 +19,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.6.10.2',		// plugin version
+					'version' => '2.7',		// plugin version
 					'short' => 'WPSSO',		// short plugin name
 					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
 					'desc' => 'Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.',
@@ -55,14 +55,12 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 							'licenses' => 'Pro Licenses',
 							'readme' => 'Read Me',
 							'setup' => 'Setup Guide',
-							'whatsnew' => 'What\'s New',
 						),
 						'sitesubmenu' => array(
 							'siteadvanced' => 'Advanced',
 							'sitelicenses' => 'Pro Licenses',
 							'sitereadme' => 'Read Me',
 							'sitesetup' => 'Setup Guide',
-							'sitewhatsnew' => 'What\'s New',
 						),
 						'gpl' => array(
 							'admin' => array(
@@ -161,7 +159,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => 307,		// increment when changing default options
+				'version' => 310,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -209,7 +207,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_title_len' => 70,
 					'og_desc_len' => 300,
 					'og_desc_hashtags' => 3,
-					'og_desc_strip' => 1,
+					'og_desc_strip' => 0,
 					'og_desc_alt' => 1,
 					'rp_author_name' => 'display_name',	// rich-pin specific article:author
 					'rp_img_width' => 800,
@@ -298,6 +296,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'add_meta_name_author' => 1,
 					'add_meta_name_description' => 0,
 					'add_meta_itemprop_description' => 1,
+					'add_meta_itemprop_image' => 1,
 					// advanced plugin options
 					'plugin_version' => '',
 					'plugin_wpsso_tid' => '',
@@ -428,6 +427,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'site_option_use' => array( 'default' => 'Default Site Value', 'empty' => 'If Value is Empty', 'force' => 'Force This Value' ),
 			),
 			'head' => array(
+				'max_img_ratio' => 3,
 				'min_img_dim' => 200,
 				'min_desc_len' => 156,
 			),
