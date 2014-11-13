@@ -265,6 +265,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Install and Uninstall =
 
 <ul>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/developer-special-buy-one-get-one-free/">Developer Special – Buy one, Get one Free</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/migrate-from-ngfb/">How-To Migrate from NGFB to WPSSO</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation-to/install-the-plugin/">Install the Plugin</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/installation/integration/">Integration Notes</a>
