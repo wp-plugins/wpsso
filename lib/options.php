@@ -161,7 +161,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 		}
 
 		// sanitize and validate options
-		public function sanitize( $opts = array(), $def_opts = array() ) {
+		public function sanitize( $opts = array(), $def_opts = array(), $opts_type = false ) {
 
 			// make sure we have something to work with
 			if ( empty( $def_opts ) || ! is_array( $def_opts ) )
@@ -178,7 +178,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					unset( $opts[$key] );
 				elseif ( ! empty( $key ) ) {
 					$def_val = array_key_exists( $key, $def_opts ) ? $def_opts[$key] : '';
-					$opts[$key] = $this->p->util->sanitize_option_value( $key, $val, $def_val );
+					$opts[$key] = $this->p->util->sanitize_option_value( $key, $val, $def_val, $opts_type );
 				}
 			}
 
@@ -189,6 +189,26 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			 * all tests to make sure additional / unnecessary
 			 * options are not created.
 			 */
+			foreach ( array( 'og', 'rp' ) as $meta_pre ) {
+				if ( ! empty( $opts[$meta_pre.'_img_width'] ) &&
+					! empty( $opts[$meta_pre.'_img_height'] ) &&
+					! empty( $opts[$meta_pre.'_img_crop'] ) ) {
+
+					$img_width = $opts[$meta_pre.'_img_width'];
+					$img_height = $opts[$meta_pre.'_img_height'];
+					$ratio = $img_width >= $img_height ? $img_width / $img_height : $img_height / $img_width;
+					if ( $ratio >= $this->p->cf['head']['max_img_ratio'] ) {
+						$reset_msg = __( 'resetting the option to its default value.', WPSSO_TEXTDOM );
+						$this->p->notice->err( 'The values for \''.$meta_pre.'_img_width\' and  \''.$meta_pre.'_img_height\' 
+							have an aspect ratio that is equal to / or greater than '.$this->p->cf['head']['max_img_ratio'].':1 - 
+							resetting these options to their default values.', true );
+						$opts[$meta_pre.'_img_width'] = $def_opts[$meta_pre.'_img_width'];
+						$opts[$meta_pre.'_img_height'] = $def_opts[$meta_pre.'_img_height'];
+						$opts[$meta_pre.'_img_crop'] = $def_opts[$meta_pre.'_img_crop'];
+					}
+				}
+			}
+
 			if ( ! empty( $opts['og_def_img_id'] ) &&
 				! empty( $opts['og_def_img_url'] ) )
 					$opts['og_def_img_url'] = '';

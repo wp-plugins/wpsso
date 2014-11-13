@@ -383,6 +383,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added new 'Image Dimensions' options for Open Graph and Pinterest in the custom Social Settings metabox (Pro version).
 	* Added new 'Image ID' and 'Image URL' options for Pinterest in the custom Social Settings metabox (Pro version).
 	* Added an 'image' schema meta tag with the first Open Graph image meta tag.
+	* Added an aspect ratio check for image dimensions that exceed 3:1.
 
 = Version 2.6.10.2 =
 

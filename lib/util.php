@@ -211,8 +211,8 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			return $topics;
 		}
 
-		public function sanitize_option_value( $key, $val, $def_val ) {
-			$option_type = apply_filters( $this->p->cf['lca'].'_option_type', false, $key );
+		public function sanitize_option_value( $key, $val, $def_val, $opts_type = false ) {
+			$option_type = apply_filters( $this->p->cf['lca'].'_option_type', false, $key, $opts_type );
 			$reset_msg = __( 'resetting the option to its default value.', WPSSO_TEXTDOM );
 
 			// pre-filter most values to remove html
@@ -245,14 +245,14 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					if ( $val !== '' ) {
 						$val = $this->cleanup_html_tags( $val );
 						if ( strpos( $val, '//' ) === false ) {
-							$this->p->notice->inf( 'The value of option \''.$key.'\' must be a URL'.' - '.$reset_msg, true );
+							$this->p->notice->err( 'The value of option \''.$key.'\' must be a URL'.' - '.$reset_msg, true );
 							$val = $def_val;
 						}
 					}
 					break;
 				case 'numeric':		// must be numeric (blank or zero is ok)
 					if ( $val !== '' && ! is_numeric( $val ) ) {
-						$this->p->notice->inf( 'The value of option \''.$key.'\' must be numeric'.' - '.$reset_msg, true );
+						$this->p->notice->err( 'The value of option \''.$key.'\' must be numeric'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
@@ -262,8 +262,11 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 						$min_int = empty( $this->p->cf['head']['min_img_dim'] ) ? 
 							200 : $this->p->cf['head']['min_img_dim'];
 					else $min_int = 1;
-					if ( $val !== '' && ( ! is_numeric( $val ) || $val < $min_int ) ) {
-						$this->p->notice->inf( 'The value of option \''.$key.'\' must be greater or equal to '.$min_int.' - '.$reset_msg, true );
+
+					if ( $val === '' && $opts_type !== false )	// custom options allowed to have blanks
+						break;
+					elseif ( ! is_numeric( $val ) || $val < $min_int ) {
+						$this->p->notice->err( 'The value of option \''.$key.'\' must be greater or equal to '.$min_int.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
@@ -273,7 +276,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					break;
 				case 'anu_case':	// must be alpha-numeric uppercase (hyphens and periods allowed as well)
 					if ( $val !== '' && preg_match( '/[^A-Z0-9\-\.]/', $val ) ) {
-						$this->p->notice->inf( '\''.$val.'\' is not an accepted value for option \''.$key.'\''.' - '.$reset_msg, true );
+						$this->p->notice->err( '\''.$val.'\' is not an accepted value for option \''.$key.'\''.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;
@@ -285,7 +288,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				case 'not_blank':	// options that cannot be blank
 				case 'code':
 					if ( $val === '' ) {
-						$this->p->notice->inf( 'The value of option \''.$key.'\' cannot be empty'.' - '.$reset_msg, true );
+						$this->p->notice->err( 'The value of option \''.$key.'\' cannot be empty'.' - '.$reset_msg, true );
 						$val = $def_val;
 					}
 					break;

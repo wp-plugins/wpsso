@@ -293,27 +293,34 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				if ( ( empty( $size_info['crop'] ) && ( ! $is_sufficient_width && ! $is_sufficient_height ) ) ||
 					( ! empty( $size_info['crop'] ) && ( ! $is_sufficient_width || ! $is_sufficient_height ) ) ) {
 
-					$size_too_small_text = ' is too small for '.$size_name.
-						' ('.$size_info['width'].'x'.$size_info['height'].
-							( empty( $size_info['crop'] ) ? '' : ' cropped' ).')';
-
 					$img_meta = wp_get_attachment_metadata( $pid );
 
+					$is_too_small_text = ' is too small for '.$size_name.' ('.$size_info['width'].'x'.$size_info['height'].
+						( empty( $size_info['crop'] ) ? '' : ' cropped' ).')';
 					if ( ! empty( $img_meta['width'] ) && ! empty( $img_meta['height'] ) &&
 						$img_meta['width'] < $size_info['width'] && $img_meta['height'] < $size_info['height'] )
 							$rejected_text = 'image id '.$pid.' rejected - full size image ('.
-								$img_meta['width'].'x'.$img_meta['height'].')'.$size_too_small_text;
-					else $rejected_text = 'image id '.$pid.' rejected - '.$img_width.'x'.$img_height.$size_too_small_text;
-				
+								$img_meta['width'].'x'.$img_meta['height'].')'.$is_too_small_text;
+					else $rejected_text = 'image id '.$pid.' rejected - '.$img_width.'x'.$img_height.$is_too_small_text;
 					$this->p->debug->log( 'exiting early: '.$rejected_text );
-					if ( is_admin() ) {
-						$this->p->notice->err( 'Media Library '.$rejected_text.'.
-							Upload a larger image or adjust the "'.$this->p->util->get_image_size_label( $size_name ).
-								'" option.', false, true, 'dim_wp_'.$pid );
-					}
+					if ( is_admin() )
+						$this->p->notice->err( 'Media Library '.$rejected_text.'. Upload a larger / different image or adjust the "'.
+							$this->p->util->get_image_size_label( $size_name ).'" option.', false, true, 'dim_wp_'.$pid );
 					return $ret_empty;
 
-				} else $this->p->debug->log( 'returned image dimensions ('.$img_width.'x'.$img_height.') are sufficient' );
+				} else {
+					$ratio = $img_width >= $img_height ? $img_width / $img_height : $img_height / $img_width;
+					if ( $ratio >= $this->p->cf['head']['max_img_ratio'] ) {
+						$rejected_text = 'image id '.$pid.' rejected - '.$img_width.'x'.$img_height.
+							' aspect ratio is equal to / or greater than '.$this->p->cf['head']['max_img_ratio'].':1';
+						$this->p->debug->log( 'exiting early: '.$rejected_text );
+						if ( is_admin() )
+							$this->p->notice->err( 'Media Library '.$rejected_text.'. Upload a larger / different image or adjust the "'.
+								$this->p->util->get_image_size_label( $size_name ).'" option.', false, true, 'dim_wp_'.$pid );
+						return $ret_empty;
+					}
+					$this->p->debug->log( 'returned image dimensions ('.$img_width.'x'.$img_height.') are sufficient' );
+				}
 			}
 
 			if ( $check_dupes == false || $this->p->util->is_uniq_url( $img_url ) )
