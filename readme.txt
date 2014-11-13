@@ -376,8 +376,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* *None*
 * **Improvements**
-	* Removed the 'What's New' settings page.
-	* Added a new 'wpsso_plugin_image_sizes' action hook to load all option-based image sizes.
+	* Removed the 'What's New' settings page (see the 'Read Me' changelog instead).
+	* Added a new 'wpsso_plugin_image_sizes' action hook to load all plugin image sizes.
 	* Renamed the 'Image and Video' tab in the custom Social Settings metabox to 'Priority Media'.
 * **New Features**
 	* Added new 'Image Dimensions' options for Open Graph and Pinterest in the custom Social Settings metabox (Pro version).
