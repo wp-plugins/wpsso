@@ -375,7 +375,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Version 2.7.0.1 =
 
 * **Bugfixes**
-	* Changed `NgfbMedia::get_video_info()` method from 'private' to 'public' to fetch custom meta videos (Pro version).
+	* Small fix to change the `WpssoMedia::get_video_info()` method from 'private' to 'public' to fetch custom meta video information (Pro version).
 * **Improvements**
 	* *None*
 * **New Features**
@@ -428,6 +428,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a WpssoHead::get_post_info() method to get basic information about the Post from the meta tag array.
 
 == Upgrade Notice ==
+
+= 2.7.0.1 =
+
+Small fix to change the NgfbMedia::get_video_info() method from 'private' to 'public' to fetch custom meta video information (Pro version).
 
 = 2.7 =
 
