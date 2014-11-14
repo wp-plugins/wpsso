@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0
-Stable Tag: 2.7
+Stable Tag: 2.7.0.1
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -371,6 +371,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 18. An Example Twitter 'Product' Card
 
 == Changelog ==
+
+= Version 2.7.0.1 =
+
+* **Bugfixes**
+	* Changed `NgfbMedia::get_video_info()` method from 'private' to 'public' to fetch custom meta videos (Pro version).
+* **Improvements**
+	* *None*
+* **New Features**
+	* *None*
 
 = Version 2.7 =
 
