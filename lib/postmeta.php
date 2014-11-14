@@ -136,9 +136,6 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			$rows = array();
 			$size_name = $this->p->cf['lca'].'-preview';
 			$size_info = $this->p->media->get_size_info( $size_name );
-			$alt_html = '<p>No Open Graph Image Found</p>';
-			$alt_small = '<p>Image Dimensions Smaller<br/>
-				Than Suggested '.$size_info['width'].' x '.$size_info['height'].'</p>';
 			$title = empty( $post_info['og:title'] ) ? 'No Title' : $post_info['og:title'];
 			$desc = empty( $post_info['og:description'] ) ? 'No Description' : $post_info['og:description'];
 			$by = $_SERVER['SERVER_NAME'];
@@ -148,8 +145,11 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			'<td style="background-color:#e9eaed;">
 			<div class="preview_box" style="width:'.($size_info['width']+40).'px;">
 			<div class="preview_box" style="width:'.$size_info['width'].'px;">'.
-				$this->p->media->get_image_preview_html( $post_info['og_image'], 
-					$size_name, $size_info, $alt_html, $alt_small ).
+			$this->p->media->get_image_preview_html( $post_info['og_image'], $size_name, $size_info, array(
+				'not_found' => '<p>No Open Graph Image Found</p>',
+				'too_small' => '<p>Image Dimensions Smaller<br/>than Suggested Minimum<br/>of '.$size_info['width'].' x '.$size_info['height'].'px</p>',
+				'no_size' => '<p>Image Dimensions Unknown<br/>or Not Available</p>',
+			) ).
 			'<div class="preview_txt">
 			<div class="preview_title">'.$title.'</div>
 			<div class="preview_desc">'.$desc.'</div>
