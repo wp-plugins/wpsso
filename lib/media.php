@@ -125,28 +125,45 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			return;
 		}
 
-		public function get_image_preview_html( $og_image, $size_name, $size_info, 
-			$alt_html = '<p>No Image Found</p>',
-			$alt_small = '<p>Image Size Too Small</p>' ) {
-
+		public function get_image_preview_html( $og_image, $size_name, $size_info, $msgs = array() ) {
+			if ( ! isset( $msgs['not_found'] ) )
+				$msgs['not_found'] = '<p>No Image Found</p>';
+			if ( ! isset( $msgs['too_small'] ) )
+				$msgs['too_small'] = '<p>Image Dimensions Too Small</p>';
+			if ( ! isset( $msgs['no_size'] ) )
+				$msgs['no_size'] = '<p>Image Dimensions Unknown</p>';
+			$html = '';
 			$div_size = 'width:'.$size_info['width'].'px; height:'.$size_info['height'].'px;';
-			$is_sufficient = ( ! empty( $og_image['og:image:width'] ) && 
-				! empty( $og_image['og:image:height'] ) && 
+			$have_sizes = ( ! empty( $og_image['og:image:width'] ) && 
+				! empty( $og_image['og:image:height'] ) ) ? true : false;
+			$is_sufficient = ( $have_sizes === true &&
 				$og_image['og:image:width'] >= $size_info['width'] &&
 				$og_image['og:image:height'] >= $size_info['height'] ) ? true : false;
 
+			// get a smaller preview size if original is large enough
 			if ( ! empty( $og_image['og:image:id'] ) && $is_sufficient === true ) {
 				list( $url, $width, $height, $cropped, $pid ) = $this->p->media->get_attachment_image_src( $og_image['og:image:id'], $size_name, false );
 				if ( ! empty( $url ) )
-					return '<div class="preview_img" style="'.$div_size.'"><img src="'.$url.'" width="'.$width.'" height="'.$height.'" /></div>';
+					$html = '<div class="preview_img" style="'.$div_size.'"><img src="'.$url.'" width="'.$width.'" height="'.$height.'" /></div>';
+			}
+			if ( empty( $html ) ) {
+				foreach ( array( 'og:image:secure_url', 'og:image' ) as $key ) {
+					if ( ! empty( $og_image[$key] ) ) {
+						if ( $have_sizes === true ) {
+							$html = '<div class="preview_img" style="'.$div_size.' 
+							background-size:'.( $is_sufficient === true ? 'cover' : $og_image['og:image:width'].' '.$og_image['og:image:height'] ).'; 
+							background-image:url('.$og_image[$key].');" />'.( $is_sufficient === true ? '' : $msgs['too_small'] ).'</div>';
+						} else {
+							$html = '<div class="preview_img" style="'.$div_size.' 
+							background-image:url('.$og_image[$key].');" />'.$msgs['no_size'].'</div>';
+						}
+						break;
+					}
+				}
 			}
 			if ( empty( $html ) )
-				foreach ( array( 'og:image:secure_url', 'og:image' ) as $key )
-					if ( ! empty( $og_image[$key] ) )
-						return '<div class="preview_img" style="'.$div_size.' 
-							background-size:'.( $is_sufficient === true ? 'cover' : $og_image['og:image:width'].' '.$og_image['og:image:height'] ).'; 
-							background-image:url('.$og_image[$key].');" />'.( $is_sufficient === true ? '' : $alt_small ).'</div>';
-			return '<div class="preview_img" style="'.$div_size.'">'.$alt_html.'</div>';
+				$html = '<div class="preview_img" style="'.$div_size.'">'.$msgs['not_found'].'</div>';
+			return $html;
 		}
 
 		public function get_attachment_image( $num = 0, $size_name = 'thumbnail', $attach_id, $check_dupes = true ) {
