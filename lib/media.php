@@ -628,7 +628,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			return $og_ret;
 		}
 
-		private function get_video_info( $embed_url, $embed_width = 0, $embed_height = 0, $check_dupes = true ) {
+		public function get_video_info( $embed_url, $embed_width = 0, $embed_height = 0, $check_dupes = true ) {
 			if ( empty( $embed_url ) ) 
 				return array();
 
