@@ -89,6 +89,24 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			}
 		}
 
+		// deprecated function
+		public function add_img_sizes_from_opts( $sizes ) {
+			foreach( $sizes as $opt_prefix => $size_suffix ) {
+				if ( ! empty( $this->p->options[$opt_prefix.'_width'] ) &&
+					! empty( $this->p->options[$opt_prefix.'_height'] ) ) {
+
+					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$size_suffix.
+						' ('.$this->p->options[$opt_prefix.'_width'].'x'.$this->p->options[$opt_prefix.'_height'].
+						( empty( $this->p->options[$opt_prefix.'_crop'] ) ? '' : ' cropped' ).') added', 2 );
+
+					add_image_size( $this->p->cf['lca'].'-'.$size_suffix, 
+						$this->p->options[$opt_prefix.'_width'], 
+						$this->p->options[$opt_prefix.'_height'], 
+						( empty( $this->p->options[$opt_prefix.'_crop'] ) ? false : true ) );
+				}
+			}
+		}
+
 		public function push_add_to_options( &$opts = array(), $add_to_prefixes = array( 'plugin' => 'backend' ) ) {
 			foreach ( $add_to_prefixes as $opt_prefix => $type ) {
 				foreach ( $this->get_post_types( $type ) as $post_type ) {
