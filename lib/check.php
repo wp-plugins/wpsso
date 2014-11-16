@@ -226,7 +226,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				return;
 
 			$lca = $this->p->cf['lca'];
-			$short_pro = $this->p->cf['plugin'][$lca]['short'].' Pro';
+			$short = $this->p->cf['plugin'][$lca]['short'];
+			$short_pro = $short.' Pro';
 			$purchase_url = $this->p->cf['plugin'][$lca]['url']['purchase'];
 			$conflict_log_prefix =  __( 'plugin conflict detected', WPSSO_TEXTDOM ) . ' - ';
 			$conflict_err_prefix =  __( 'Plugin conflict detected', WPSSO_TEXTDOM ) . ' - ';
@@ -318,11 +319,12 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			// JetPack Photon
 			if ( $this->p->is_avail['media']['photon'] === true && ! $this->aop() ) {
 				$this->p->debug->log( $conflict_log_prefix.'jetpack photon is enabled' );
-				$this->p->notice->err( $conflict_err_prefix.
-					sprintf( __( 'JetPack Photon cripples the WordPress image size funtions. ', WPSSO_TEXTDOM ).
-						__( 'Please <a href="%s">disable JetPack Photon</a>, disable the %s Free version, 
-						or <a href="%s">upgrade to the %s version</a> (that includes a 3rd party addon for Photon).', WPSSO_TEXTDOM ), 
-						get_admin_url( null, 'admin.php?page=jetpack' ), $short, $purchase_url, $short_pro ) );
+				$this->p->notice->err( $conflict_err_prefix.'<strong>'.
+					 __( 'JetPack Photon cripples the WordPress image size functions.', WPSSO_TEXTDOM ).'</strong> '.
+					sprintf( __( 'Please <a href="%s">disable JetPack Photon</a> or disable the %s Free version plugin.', WPSSO_TEXTDOM ),
+						get_admin_url( null, 'admin.php?page=jetpack' ), $short ).' '.
+					sprintf( __( 'You may also upgrade to the <a href="%s">%s version</a>, which includes an <a href="%s">addon for JetPack Photon</a>.', WPSSO_TEXTDOM ), 
+						$purchase_url, $short_pro, 'http://surniaulula.com/codex/plugins/iwpsso/notes/addons/jetpack-photon/' ) );
 			}
 
 			/*
@@ -336,6 +338,17 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 					sprintf( __( 'Please <a href="%s">deactivate the NextGEN Facebook (NGFB) plugin</a> to prevent duplicate and conflicting features.', WPSSO_TEXTDOM ), 
 						get_admin_url( null, 'plugins.php' ) ) );
                         }
+
+			// WooCommerce
+			if ( class_exists( 'Woocommerce' ) && ! $this->aop() && ! empty( $this->p->options['plugin_filter_content'] ) ) {
+				$this->p->debug->log( $conflict_log_prefix.'woocommerce shortcode support not available in the admin interface' );
+				$this->p->notice->err( $conflict_err_prefix.'<strong>'.
+					__( 'WooCommerce does not include shortcode support in the admin interface.', WPSSO_TEXTDOM ).'</strong> '.
+					sprintf( __( 'Please uncheck the \'<em>Apply Content Filters</em>\' option on the <a href="%s">%s Advanced settings page</a>.', WPSSO_TEXTDOM ),  
+						$this->p->util->get_admin_url( 'advanced' ), $this->p->cf['menu'] ).' '.
+					sprintf( __( 'You may also upgrade to the <a href="%s">%s version</a>, which includes an <a href="%s">addon for WooCommerce</a>.', WPSSO_TEXTDOM ), 
+						$purchase_url, $short_pro, 'http://surniaulula.com/codex/plugins/wpsso/notes/addons/woocommerce/' ) );
+			}
 
 			// WooCommerce ShareYourCart Extension
 			if ( class_exists( 'ShareYourCartWooCommerce' ) ) {
