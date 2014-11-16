@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0
-Stable Tag: 2.7.0.1
+Stable Tag: 2.7.0.2
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -438,6 +438,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a WpssoHead::get_post_info() method to get basic information about the Post from the meta tag array.
 
 == Upgrade Notice ==
+
+= 2.7.0.2 =
+
+Small improvements for BuddyPress and additional Advanced options for the Free version.
 
 = 2.7.0.1 =
 
