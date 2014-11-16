@@ -375,7 +375,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Version 2.7.0.2 =
 
 * **Bugfixes**
-	* *None*
+	* Fixed a call to the `WpssoMedia::get_meta_image()` method, which has been replaced with `WpssoProUtilPostmeta::get_og_image()` (Pro version).
 * **Improvements**
 	* Changed the BuddyPress members/activity/groups index page description for a more generic text, instead of using the latest activity text (Pro version).
 	* Added the 'Use Filtered (SEO) Titles', 'Apply Excerpt Filters', and 'Apply Content Filters' Advanced options to the Free version as well.
@@ -441,7 +441,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 = 2.7.0.2 =
 
-Small improvements for BuddyPress and additional Advanced options for the Free version.
+Fix for WooCommerce, small improvements for BuddyPress, and additional Advanced options for the Free version.
 
 = 2.7.0.1 =
 
