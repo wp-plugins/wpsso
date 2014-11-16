@@ -84,6 +84,21 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 
 					break;
 
+				case 'plugin-content':
+
+					$rows[] = $this->p->util->th( 'Use Filtered (SEO) Titles', 'highlight', 'plugin_filter_title' ).
+					'<td>'.$this->form->get_checkbox( 'plugin_filter_title' ).'</td>';
+			
+					if ( $this->p->options['plugin_display'] == 'all' ) {
+						$rows[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
+						'<td>'.$this->form->get_checkbox( 'plugin_filter_excerpt' ).'</td>';
+					}
+
+					$rows[] = $this->p->util->th( 'Apply Content Filters', null, 'plugin_filter_content' ).
+					'<td>'.$this->form->get_checkbox( 'plugin_filter_content' ).'</td>';
+
+					break;
+					
 				case 'cm-custom' :
 					if ( ! $this->p->check->aop() )
 						$rows[] = '<td colspan="4" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
