@@ -545,7 +545,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			$this->p->debug->log( 'content strlen before = '.$content_strlen_before.', after = '.$content_strlen_after );
 
 			// apply filters before caching
-			$content = apply_filters( $this->p->cf['lca'].'_content', $content, $use_post );
+			$content = apply_filters( $this->p->cf['lca'].'_content', $content, $post_id, $use_post, $custom, $source_id );
 
 			if ( $filter_content == true && ! empty( $cache_id ) ) {
 				// only some caching plugins implement this function

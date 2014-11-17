@@ -378,6 +378,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* *None*
 * **Improvements**
 	* Added all Open Graph images as schema itemprop 'image' meta tags (instead of just one).
+	* Moved the BuddyPress member avatar image from first to last (as fallback) when retrieving images from the activity content (Pro version).
 * **New Features**
 	* Added the schema itemprop 'url' meta tag.
 
