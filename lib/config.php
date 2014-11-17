@@ -19,7 +19,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.7.0.2',		// plugin version
+					'version' => '2.7.0.3',		// plugin version
 					'short' => 'WPSSO',		// short plugin name
 					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
 					'desc' => 'Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.',
@@ -159,7 +159,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => 310,		// increment when changing default options
+				'version' => 311,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -296,6 +296,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'add_meta_name_author' => 1,
 					'add_meta_name_description' => 0,
 					'add_meta_itemprop_description' => 1,
+					'add_meta_itemprop_url' => 1,
 					'add_meta_itemprop_image' => 1,
 					// advanced plugin options
 					'plugin_version' => '',

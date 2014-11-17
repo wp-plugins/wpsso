@@ -372,6 +372,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.7.0.3 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Added all Open Graph images as schema itemprop 'image' meta tags (instead of just one).
+* **New Features**
+	* Added the schema itemprop 'url' meta tag.
+
 = Version 2.7.0.2 =
 
 * **Bugfixes**

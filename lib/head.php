@@ -263,19 +263,23 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 */
 			$meta_schema = array();
 
-			if ( ! empty( $this->p->options['add_meta_itemprop_image'] ) ) {
-				if ( ! empty( $meta_og['og:image'] ) ) {
-					if ( is_array( $meta_og['og:image'] ) &&
-						count( $meta_og['og:image'] ) > 0 ) {
-						$image = reset( $meta_og['og:image'] );
-						$meta_schema['image'] = $image['og:image'];
-					} else $meta_schema['image'] = $meta_og['og:image'];
-				}
-			}
-
 			if ( ! empty( $this->p->options['add_meta_itemprop_description'] ) ) {
 				$meta_schema['description'] = $this->p->webpage->get_description( $this->p->options['og_desc_len'], 
 					'...', $use_post, true, true, true, 'schema_desc' );	// custom meta = schema_desc
+			}
+
+			if ( ! empty( $this->p->options['add_meta_itemprop_url'] ) ) {
+				if ( ! empty( $meta_og['og:url'] ) )
+					$meta_schema['url'] = $meta_og['og:url'];
+			}
+
+			if ( ! empty( $this->p->options['add_meta_itemprop_image'] ) ) {
+				if ( ! empty( $meta_og['og:image'] ) ) {
+					if ( is_array( $meta_og['og:image'] ) )
+						foreach ( $meta_og['og:image'] as $image )
+							$meta_schema['image'][] = $image['og:image'];
+					else $meta_schema['image'] = $meta_og['og:image'];
+				}
 			}
 
 			$meta_schema = apply_filters( $lca.'_meta_schema', $meta_schema, $use_post, $obj );
