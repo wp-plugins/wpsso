@@ -133,7 +133,7 @@ if ( ! class_exists( 'SucomDebug' ) ) {
 						$val = 'false';
 					elseif ( $val === true )
 						$val = 'true';
-					$line .= $key.' = '.$val.', ';
+					$line .= $key.'='.$val.', ';
 				}
 				return '('.trim( $line, ', ' ).')'; 
 			} else return $input;
