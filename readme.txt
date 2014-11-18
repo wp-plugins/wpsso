@@ -372,7 +372,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
-= Version 2.7.0.3 =
+= Version 2.7.0.4 =
 
 * **Bugfixes**
 	* *None*
