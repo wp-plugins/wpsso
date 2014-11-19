@@ -41,7 +41,7 @@ Make sure social websites present your content correctly, no matter how your web
 </blockquote></p>
 
 <p><blockquote>
-<h4>Industry Reviews</h4>
+<h4>Articles About WPSSO</h4>
 
 <ul>
 <li><a href="http://www.wpsuperstars.net/optimize-content-for-social-networks/">How To Optimize Your Content For Social Networks Using WordPress</a></li>
