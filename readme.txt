@@ -1,4 +1,4 @@
-=== WordPress Social Sharing Optimization - Next Generation SEO for Social Sharing ===
+=== WordPress Social Sharing Optimization - The Next Generation "SEO" for Social Sharing ===
 Contributors: jsmoriss
 Donate Link: https://surniaulula.com/extend/plugins/wpsso/
 Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, easy digital downloads, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube, polylang
