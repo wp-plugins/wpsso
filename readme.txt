@@ -26,7 +26,7 @@ Make sure social websites present your content correctly, no matter how your web
 
 <p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO can then provide everything those social websites need to know about your shared content. Use WPSSO by itself, or in combination with any of your favorite social sharing buttons.</p>
 
-<blockquote>
+<p><blockquote>
 <h4>Industry Reviews</h4>
 
 <p>"<em>If you want to make every tweet, like, share, pin, and +1 count, then you should definitely start using WPSSO on your WordPress site.</em>" &mdash; <a href="http://www.indexwp.com/wordpress-social-sharing-optimization-pro-review/">indexwp.com</a></p>
@@ -38,7 +38,16 @@ Make sure social websites present your content correctly, no matter how your web
 <p>"<em>If you want to get the most out of the social shares your content receives, ensure your content stands out when it is posted on the various social networks, and listed in the search engines, then this plugin is a great choice that covers all the bases.</em>" &mdash; <a href="http://www.wpmayor.com/wordpress-social-sharing-optimization-pro-plugin-review/">wpmayor.com</a></p>
 
 <p>"<em>WPSSO Pro provides a handy tool for your marketing team, and improves your content whenever it’s shared by you or your fans. The free version has a lot of great features and makes a good trial version, but I think that eCommerce sites really benefit from the eCommerce plugin and video integrations (as well as the inclusion of Twitter card support) that the Pro version offers.</em>" &mdash; <a href="http://www.sellwithwp.com/optimized-social-media-wpsso-plugin-review/">sellwithwp.com</a></p>
-</blockquote>
+</blockquote></p>
+
+<p><blockquote>
+<h4>Industry Reviews</h4>
+
+<ul>
+<li><a href="http://www.wpsuperstars.net/optimize-content-for-social-networks/">How To Optimize Your Content For Social Networks Using WordPress</a></li>
+<li><a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">Social SEO: WordPress SEO by Yoast vs WPSSO</a></li>
+</ul>
+</blockquote></p>
 
 <p>You can download the <a href="https://wordpress.org/plugins/wpsso/">Free version of WPSSO on WordPress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) on SurniaUlula.com</a> (includes a <em>No Risk 30 Day Refund Policy</em>).</p>
 
