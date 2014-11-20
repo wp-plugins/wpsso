@@ -1,4 +1,4 @@
-=== WordPress Social Sharing Optimization - Improve Your Social Shares ===
+=== WordPress Social Sharing Optimization - Improve Social Shares for More Clicks and Likes ===
 Contributors: jsmoriss
 Donate Link: https://surniaulula.com/extend/plugins/wpsso/
 Tags: nextgen gallery, featured, attached, open graph, meta tags, facebook, google, google+, g+, twitter, linkedin, social, seo, pinterest, rich pins, multilingual, object cache, transient cache, wp_cache, nggalbum, nggallery, singlepic, imagebrowser, gallery, twitter cards, photo card, gallery card, player card, summary card, easy digital downloads, woocommerce, marketpress, e-commerce, multisite, hashtags, bbpress, buddypress, jetpack, photon, slideshare, vimeo, wistia, youtube, polylang
@@ -381,6 +381,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 18. An Example Twitter 'Product' Card
 
 == Changelog ==
+
+= Version 2.7.1 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Updated jquery-qtip.js from v1.0.0-rc3 to v2.2.1.
+* **New Features**
+	* *None*
 
 = Version 2.7.0.4 =
 
