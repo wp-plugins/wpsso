@@ -25,21 +25,27 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 		public function admin_enqueue_styles( $hook ) {
 			$url_path = constant( $this->p->cf['uca'].'_URLPATH' );
 			wp_register_style(
-				'sucom_setting_pages',
+				'jquery-qtip.js',
+				$url_path.'css/ext/jquery-qtip.min.css',
+				array(),
+				'2.2.1'
+			);
+			wp_register_style(
+				'sucom-setting-pages',
 				$url_path.'css/com/setting-pages.min.css',
-				false,
+				array(),
 				$this->p->cf['plugin'][$this->p->cf['lca']]['version']
 			);
 			wp_register_style( 
-				'sucom_table_setting', 
+				'sucom-table-setting', 
 				$url_path.'css/com/table-setting.min.css', 
-				false, 
+				array(), 
 				$this->p->cf['plugin'][$this->p->cf['lca']]['version']
 			);
 			wp_register_style( 
-				'sucom_metabox_tabs', 
+				'sucom-metabox-tabs', 
 				$url_path.'css/com/metabox-tabs.min.css', 
-				false, 
+				array(), 
 				$this->p->cf['plugin'][$this->p->cf['lca']]['version']
 			);
 
@@ -48,13 +54,15 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 				case 'profile.php' :
 				case 'post.php' :
 				case 'post-new.php' :
-					wp_enqueue_style( 'sucom_table_setting' );
-					wp_enqueue_style( 'sucom_metabox_tabs' );
+					wp_enqueue_style( 'jquery-qtip.js' );
+					wp_enqueue_style( 'sucom-table-setting' );
+					wp_enqueue_style( 'sucom-metabox-tabs' );
 					break;
 				case ( preg_match( '/_page_'.$this->p->cf['lca'].'-/', $hook ) ? true : false ) :
-					wp_enqueue_style( 'sucom_setting_pages' );
-					wp_enqueue_style( 'sucom_table_setting' );
-					wp_enqueue_style( 'sucom_metabox_tabs' );
+					wp_enqueue_style( 'jquery-qtip.js' );
+					wp_enqueue_style( 'sucom-setting-pages' );
+					wp_enqueue_style( 'sucom-table-setting' );
+					wp_enqueue_style( 'sucom-metabox-tabs' );
 					break;
 			}
 		}

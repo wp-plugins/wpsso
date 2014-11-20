@@ -27,18 +27,18 @@ if ( ! class_exists( 'SucomScript' ) ) {
 				'jquery-qtip', 
 				$url_path.'js/ext/jquery-qtip.min.js', 
 				array( 'jquery' ), 
-				'1.0.0-RC3',
+				'2.2.1',
 				true
 			);
 			wp_register_script( 
-				'sucom_tooltips', 
+				'sucom-tooltips', 
 				$url_path.'js/com/jquery-tooltips.min.js', 
 				array( 'jquery' ), 
 				$this->p->cf['plugin'][$this->p->cf['lca']]['version'], 
 				true
 			);
 			wp_register_script( 
-				'sucom_postmeta', 
+				'sucom-postmeta', 
 				$url_path.'js/com/jquery-postmeta.min.js',
 				array( 'jquery' ),
 				$this->p->cf['plugin'][$this->p->cf['lca']]['version'],
@@ -53,8 +53,8 @@ if ( ! class_exists( 'SucomScript' ) ) {
 				case ( preg_match( '/_page_'.$this->p->cf['lca'].'-/', $hook ) ? true : false ) :
 					wp_enqueue_script( 'jquery' );
 					wp_enqueue_script( 'jquery-qtip' );
-					wp_enqueue_script( 'sucom_tooltips' );
-					wp_enqueue_script( 'sucom_postmeta' );
+					wp_enqueue_script( 'sucom-tooltips' );
+					wp_enqueue_script( 'sucom-postmeta' );
 					break;
 			}
 		}

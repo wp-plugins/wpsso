@@ -25,6 +25,10 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			$this->defaults =& $def_opts;
 		}
 
+		public function get_image_upload() {
+			return '<input type="button" class="image_upload_button button" value="Select or Upload an Image" />';
+		}
+
 		public function get_hidden( $name, $value = '' ) {
 			if ( empty( $name ) ) return;	// just in case
 			// hide the current options value, unless one is given as an argument to the method

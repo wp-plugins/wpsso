@@ -100,7 +100,8 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 	
 					$rows[] = $this->p->util->th( 'Default Image ID', 'highlight', 'og_def_img_id' ).
 					'<td>'.$this->form->get_input( 'og_def_img_id', 'short' ).'&nbsp;in&nbsp;'.
-					$this->form->get_select( 'og_def_img_id_pre', $img_id_pre ).'</td>';
+					$this->form->get_select( 'og_def_img_id_pre', $img_id_pre ).'&nbsp;&nbsp;'.
+					$this->form->get_image_upload().'</td>';
 	
 					$rows[] = $this->p->util->th( 'Default Image URL', null, 'og_def_img_url' ).
 					'<td>'.( empty( $this->p->options['og_def_img_id'] ) ? 
