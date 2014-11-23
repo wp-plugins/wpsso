@@ -387,9 +387,9 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* Minor fix for missing array key when checking for available addons when WordPress SEO is detected.
 * **Improvements**
-	* Updated jquery-qtip.js from v1.0.0-rc3 to v2.2.1.
+	* Updated jQuery qTip from v1.0.0-RC3 to v2.2.1.
 * **New Features**
-	* Added a "Select or Upload Image" button for the Image ID options.
+	* Added a "Select or Upload Image" button for all Image ID options.
 
 = Version 2.7.0.4 =
 
@@ -468,6 +468,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a WpssoHead::get_post_info() method to get basic information about the Post from the meta tag array.
 
 == Upgrade Notice ==
+
+= 2.7.1 =
+
+Added a "Select or Upload Image" button for all Image ID options. Updated jQuery qTip from v1.0.0-RC3 to v2.2.1.
 
 = 2.7.0.4 =
 
