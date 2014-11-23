@@ -28,7 +28,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
 					break;
 			}
 			$this->p->util->add_plugin_filters( $this, array( 'plugin_image_sizes' => 1 ) );
-			add_filter( 'language_attributes', array( &$this, 'add_doctype' ) );
+			add_filter( 'language_attributes', array( &$this, 'add_doctype' ), 100, 1 );
 		}
 
 		public function filter_plugin_image_sizes( $sizes ) {

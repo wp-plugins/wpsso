@@ -84,7 +84,7 @@ if ( ! class_exists( 'WpssoGplAdminPostmeta' ) ) {
 			$rows[] = '<td colspan="2" class="subsection"><h4 style="margin-top:0;">All Social Websites (Open Graph)</h4></td>';
 
 			$rows[] = $this->p->util->th( 'Image Dimensions', 'medium', 'og_img_dimensions' ).
-			'<td class="blank">'.$form->get_img_dim_text( 'og_img', true ).'</td>';
+			'<td class="blank">'.$form->get_image_dimensions_text( 'og_img', true ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Image ID', 'medium', 'postmeta-og_img_id', $post_info ).
 			'<td class="blank">&nbsp;</td>';
@@ -112,7 +112,7 @@ if ( ! class_exists( 'WpssoGplAdminPostmeta' ) ) {
 				$rows[] = '<td colspan="2" class="subsection"><h4>Pinterest (Rich Pin)</h4></td>';
 
 				$rows[] = $this->p->util->th( 'Image Dimensions', 'medium', 'rp_img_dimensions' ).
-				'<td class="blank">'.$form->get_img_dim_text( 'rp_img', true ).'</td>';
+				'<td class="blank">'.$form->get_image_dimensions_text( 'rp_img', true ).'</td>';
 
 				$rows[] = $this->p->util->th( 'Image ID', 'medium', 'postmeta-rp_img_id', $post_info ).
 				'<td class="blank">&nbsp;</td>';

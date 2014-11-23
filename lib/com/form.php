@@ -25,8 +25,21 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			$this->defaults =& $def_opts;
 		}
 
-		public function get_image_upload() {
-			return '<input type="button" class="image_upload_button button" value="Select or Upload an Image" />';
+		public function get_image_upload_input( $name_prefix ) {
+			$media_libs = array( 'wp' => 'Media Library' );
+			if ( $this->p->is_avail['media']['ngg'] === true ) 
+				$media_libs['ngg'] = 'NextGEN Gallery';
+
+			return $this->get_input( $name_prefix.'_id', 'short' ).'&nbsp;in&nbsp;'.
+				$this->get_select( $name_prefix.'_id_pre', $media_libs ).'&nbsp;&nbsp;'.
+				'<input type="button" class="sucom_image_upload_button button" 
+					id="'.$name_prefix.'_button" value="Select or Upload Image" />';
+		}
+
+		public function get_image_url_input( $name_prefix ) {
+			return empty( $this->options[$name_prefix.'_id'] ) ? 
+				$this->get_input( $name_prefix.'_url', 'wide' ) :
+				$this->get_no_input( $name_prefix.'_url', 'wide' );
 		}
 
 		public function get_hidden( $name, $value = '' ) {
@@ -95,7 +108,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				$is_assoc = SucomUtil::is_assoc( $values );
 			$html = '<select name="'.$this->options_name.'['.$name.']"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? '' : ' id="'.$id.'"' ).
+				( empty( $id ) ? ' id="'.$name.'"' : ' id="'.$id.'"' ).
 				( $disabled === true ? ' disabled="disabled"' : '' ).'>';
 			foreach ( $values as $val => $desc ) {
 				// if the array is NOT associative (so regular numered array), 
@@ -132,7 +145,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
-		public function get_img_dim_input( $name, $use_opt_defs = false ) {
+		public function get_image_dimensions_input( $name, $use_opt_defs = false ) {
 			$def_width = '';
 			$def_height = '';
 			if ( $use_opt_defs === true ) {
@@ -146,7 +159,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				'Crop '.$this->get_checkbox( $name.'_crop' );
 		}
 
-		public function get_img_dim_text( $name, $use_opt_defs = false ) {
+		public function get_image_dimensions_text( $name, $use_opt_defs = false ) {
 			if ( ! empty( $this->options[$name.'_width'] ) && 
 				! empty( $this->options[$name.'_height'] ) ) {
 				return $this->options[$name.'_width'].' x '.
@@ -207,7 +220,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			
 			$html .= '<input type="text" name="'.$this->options_name.'['.$name.']"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? '' : ' id="'.$id.'"' ).
+				( empty( $id ) ? ' id="'.$name.'"' : ' id="'.$id.'"' ).
 				( empty( $len ) ? '' : ' maxLength="'.$len.'"' ).
 				( empty( $placeholder ) ? '' : ' placeholder="'.$placeholder.'"'.
 					' onFocus="if ( this.value == \'\' ) this.value = \''.esc_js( $placeholder ).'\';"'.

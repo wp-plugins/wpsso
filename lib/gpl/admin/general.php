@@ -202,23 +202,23 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 				$rows[] = $this->p->util->th( '<em>Summary</em> Card Image Dimensions', null, 'tc_sum_dimensions' ).
-				'<td class="blank">'.$form->get_img_dim_text( 'tc_sum' ).'</td>';
+				'<td class="blank">'.$form->get_image_dimensions_text( 'tc_sum' ).'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Large Image</em> Card Image Dimensions', null, 'tc_lrgimg_dimensions' ).
-				'<td class="blank">'.$form->get_img_dim_text( 'tc_lrgimg' ).'</td>';
+				'<td class="blank">'.$form->get_image_dimensions_text( 'tc_lrgimg' ).'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Photo</em> Card Image Dimensions', 'highlight', 'tc_photo_dimensions' ).
-				'<td class="blank">'.$form->get_img_dim_text( 'tc_photo' ).'</td>';
+				'<td class="blank">'.$form->get_image_dimensions_text( 'tc_photo' ).'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Gallery</em> Card Minimum Images', null, 'tc_gal_minimum' ).
 				'<td class="blank">'.$form->get_hidden( 'tc_gal_min' ).
 				$this->p->options['tc_gal_min'].'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Gallery</em> Card Image Dimensions', null, 'tc_gal_dimensions' ).
-				'<td class="blank">'.$form->get_img_dim_text( 'tc_gal' ).'</td>';
+				'<td class="blank">'.$form->get_image_dimensions_text( 'tc_gal' ).'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Product</em> Card Image Dimensions', null, 'tc_prod_dimensions' ).
-				'<td class="blank">'.$form->get_img_dim_text( 'tc_prod' ).'</td>';
+				'<td class="blank">'.$form->get_image_dimensions_text( 'tc_prod' ).'</td>';
 			}
 
 			if ( $this->p->options['plugin_display'] == 'all' || $this->p->is_avail['ecom']['*'] === true ) {

@@ -19,7 +19,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$this->p->util->add_plugin_filters( $this, array( 
 				'head_cache_salt' => 2,		// modify the cache salt for certain crawlers
 			) );
-			add_filter( 'language_attributes', array( &$this, 'add_doctype' ) );
+			add_filter( 'language_attributes', array( &$this, 'add_doctype' ), 100, 1 );
 			add_action( 'wp_head', array( &$this, 'add_header' ), WPSSO_HEAD_PRIORITY );
 		}
 

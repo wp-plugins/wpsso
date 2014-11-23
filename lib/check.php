@@ -13,8 +13,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 	class WpssoCheck {
 
 		private $p;
-		private $active_plugins;
-		private $network_plugins;
+		private $active_plugins = array();
+		private $network_plugins = array();
 		private static $mac = array(
 			'seo' => array(
 				'seou' => 'SEO Ultimate',
@@ -81,28 +81,39 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			return $this->active_plugins;
 		}
 
+		private function get_avail_check( $key ) {
+			switch ( $key ) {
+				case 'aop':
+					return ( ! defined( 'WPSSO_PRO_ADDON_DISABLE' ) ||
+					( defined( 'WPSSO_PRO_ADDON_DISABLE' ) && ! WPSSO_PRO_ADDON_DISABLE ) ) &&
+					file_exists( WPSSO_PLUGINDIR.'lib/pro/head/twittercard.php' ) ? true : false;
+					break;
+				case 'og':
+				case 'opengraph':
+					return ( ! defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) || 
+					( defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) && ! WPSSO_OPEN_GRAPH_DISABLE ) ) &&
+					empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) &&
+					file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) &&
+					class_exists( $this->p->cf['lca'].'opengraph' ) ? true : false;
+					break;
+				case 'mt':
+				case 'metatags':
+					return ( ! defined( 'WPSSO_META_TAGS_DISABLE' ) || 
+					( defined( 'WPSSO_META_TAGS_DISABLE' ) && ! WPSSO_META_TAGS_DISABLE ) ) &&
+					empty( $_SERVER['WPSSO_META_TAGS_DISABLE'] ) ? true : false;
+					break;
+			}
+		}
+
 		public function get_avail() {
 			$ret = array();
 
 			$ret['curl'] = function_exists( 'curl_init' ) ? true : false;
-
 			$ret['mbdecnum'] = function_exists( 'mb_decode_numericentity' ) ? true : false;
-
 			$ret['postthumb'] = function_exists( 'has_post_thumbnail' ) ? true : false;
-
-			$ret['metatags'] = ( ! defined( 'WPSSO_META_TAGS_DISABLE' ) || 
-				( defined( 'WPSSO_META_TAGS_DISABLE' ) && ! WPSSO_META_TAGS_DISABLE ) ) &&
-				empty( $_SERVER['WPSSO_META_TAGS_DISABLE'] ) ? true : false;
-
-			$ret['opengraph'] = ( ! defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) || 
-				( defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) && ! WPSSO_OPEN_GRAPH_DISABLE ) ) &&
-				empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) &&
-				file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) &&
-				class_exists( $this->p->cf['lca'].'opengraph' ) ? true : false;
-
-			$ret['aop'] = ( ! defined( 'WPSSO_PRO_ADDON_DISABLE' ) ||
-				( defined( 'WPSSO_PRO_ADDON_DISABLE' ) && ! WPSSO_PRO_ADDON_DISABLE ) ) &&
-				file_exists( WPSSO_PLUGINDIR.'lib/pro/head/twittercard.php' ) ? true : false;
+			$ret['metatags'] = $this->get_avail_check( 'mt' );
+			$ret['opengraph'] = $this->get_avail_check( 'og' );
+			$ret['aop'] = $this->get_avail_check( 'aop' );
 
 			foreach ( $this->p->cf['cache'] as $name => $val ) {
 				$constant_name = 'WPSSO_'.strtoupper( $name ).'_CACHE_DISABLE';
@@ -393,12 +404,17 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			}
 		}
 
-		public function is_aop( $lca = '' ) { return $this->aop( $lca ); }
+		public function is_aop( $lca = '' ) { 
+			return $this->aop( $lca );
+		}
 
 		public function aop( $lca = '', $active = true ) {
-			$lca = empty( $lca ) ? $this->p->cf['lca'] : $lca;
+			$lca = empty( $lca ) ? 
+				$this->p->cf['lca'] : $lca;
 			$uca = strtoupper( $lca );
-			$installed = ( $this->p->is_avail['aop'] && defined( $uca.'_PLUGINDIR' ) &&
+			$available = isset( $this->p->is_avail['aop'] ) ? 
+				$this->p->is_avail['aop'] : $this->get_avail_check( 'aop' );
+			$installed = ( $available && defined( $uca.'_PLUGINDIR' ) &&
 				is_dir( constant( $uca.'_PLUGINDIR' ).'lib/pro/' ) ) ? true : false;
 			return $active === true ? ( ( ! empty( $this->p->options['plugin_'.$lca.'_tid'] ) && 
 				$installed && class_exists( 'SucomUpdate' ) &&

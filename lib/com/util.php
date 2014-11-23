@@ -115,7 +115,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return is_numeric( implode( array_keys( $arr ) ) ) ? false : true;
 		}
 
-		// argument can also be a numeric post ID to return the language of that post (from the 'sucom_locale' filter)
+		// argument can also be a numeric post ID to return the language of that post
 		public static function get_locale( $get = 'current' ) {
 			switch ( true ) {
 				case ( $get === 'default' ):

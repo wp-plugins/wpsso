@@ -85,10 +85,6 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					break;
 
 				case 'og-images':
-					$img_id_pre = array( 'wp' => 'Media Library' );
-					if ( $this->p->is_avail['media']['ngg'] == true ) 
-						$img_id_pre['ngg'] = 'NextGEN Gallery';
-
 					$rows[] = $this->p->util->th( 'Max Images to Include', null, 'og_img_max' ).
 					'<td>'.$this->form->get_select( 'og_img_max', 
 						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
@@ -99,14 +95,10 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'Crop '.$this->form->get_checkbox( 'og_img_crop' ).'</td>';
 	
 					$rows[] = $this->p->util->th( 'Default Image ID', 'highlight', 'og_def_img_id' ).
-					'<td>'.$this->form->get_input( 'og_def_img_id', 'short' ).'&nbsp;in&nbsp;'.
-					$this->form->get_select( 'og_def_img_id_pre', $img_id_pre ).'&nbsp;&nbsp;'.
-					$this->form->get_image_upload().'</td>';
+					'<td>'.$this->form->get_image_upload_input( 'og_def_img' ).'</td>';
 	
 					$rows[] = $this->p->util->th( 'Default Image URL', null, 'og_def_img_url' ).
-					'<td>'.( empty( $this->p->options['og_def_img_id'] ) ? 
-						$this->form->get_input( 'og_def_img_url', 'wide' ) :
-						$this->form->get_no_input( 'og_def_img_url', 'wide' ) ).'</td>';
+					'<td>'.$this->form->get_image_url_input( 'og_def_img' ).'</td>';
 	
 					break;
 
