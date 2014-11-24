@@ -24,30 +24,11 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 
 		public function admin_enqueue_styles( $hook ) {
 			$url_path = constant( $this->p->cf['uca'].'_URLPATH' );
-			wp_register_style(
-				'jquery-qtip.js',
-				$url_path.'css/ext/jquery-qtip.min.css',
-				array(),
-				'2.2.1'
-			);
-			wp_register_style(
-				'sucom-setting-pages',
-				$url_path.'css/com/setting-pages.min.css',
-				array(),
-				$this->p->cf['plugin'][$this->p->cf['lca']]['version']
-			);
-			wp_register_style( 
-				'sucom-table-setting', 
-				$url_path.'css/com/table-setting.min.css', 
-				array(), 
-				$this->p->cf['plugin'][$this->p->cf['lca']]['version']
-			);
-			wp_register_style( 
-				'sucom-metabox-tabs', 
-				$url_path.'css/com/metabox-tabs.min.css', 
-				array(), 
-				$this->p->cf['plugin'][$this->p->cf['lca']]['version']
-			);
+			$plugin_version = $this->p->cf['plugin'][$this->p->cf['lca']]['version'];
+			wp_register_style( 'jquery-qtip.js', $url_path.'css/ext/jquery-qtip.min.css', array(), '2.2.1' );
+			wp_register_style( 'sucom-setting-pages', $url_path.'css/com/setting-pages.min.css', array(), $plugin_version );
+			wp_register_style( 'sucom-table-setting', $url_path.'css/com/table-setting.min.css', array(), $plugin_version );
+			wp_register_style( 'sucom-metabox-tabs', $url_path.'css/com/metabox-tabs.min.css', array(), $plugin_version );
 
 			switch ( $hook ) {
 				case 'user-edit.php' :
