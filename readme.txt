@@ -387,7 +387,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* Added a test for `wp_enqueue_media()` (available since WordPress 3.5.0) before including the "Select or Upload Image" button.
 * **Improvements**
-	* *None*
+	* Added unique CSS IDs to all form input fields.
 * **New Features**
 	* *None*
 
@@ -477,6 +477,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a WpssoHead::get_post_info() method to get basic information about the Post from the meta tag array.
 
 == Upgrade Notice ==
+
+= 2.7.1.1 =
+
+Small fix to test for `wp_enqueue_media()` (available since WordPress 3.5.0) before including the "Select or Upload Image" button.
 
 = 2.7.1 =
 
