@@ -542,7 +542,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 			$content = str_replace( ']]>', ']]&gt;', $content );
 
 			$content_strlen_after = strlen( $content );
-			$this->p->debug->log( 'content strlen before = '.$content_strlen_before.', after = '.$content_strlen_after );
+			$this->p->debug->log( 'content strlen before '.$content_strlen_before.', after '.$content_strlen_after );
 
 			// apply filters before caching
 			$content = apply_filters( $this->p->cf['lca'].'_content', $content, $post_id, $use_post, $custom, $source_id );
