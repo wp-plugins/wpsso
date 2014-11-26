@@ -32,8 +32,8 @@ if ( ! class_exists( 'SucomForm' ) ) {
 
 			return $this->get_input( $name_prefix.'_id', 'short' ).'&nbsp;in&nbsp;'.
 				$this->get_select( $name_prefix.'_id_pre', $media_libs ).'&nbsp;&nbsp;'.
-				'<input type="button" class="sucom_image_upload_button button" 
-					id="'.$name_prefix.'_button" value="Select or Upload Image" />';
+				( function_exists( 'wp_enqueue_media' ) ?
+					$this->get_button( 'Select or Upload Image', 'sucom_image_upload_button button', $name_prefix ) : '' );
 		}
 
 		public function get_image_url_input( $name_prefix ) {
@@ -59,7 +59,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			$html .= '<input type="checkbox"'.
 				( $disabled === true ? ' disabled="disabled"' : ' name="'.$this->options_name.'['.$name.']" value="'.esc_attr( $check[0] ).'"' ).
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? '' : ' id="'.$id.'"' ).
+				( empty( $id ) ? '' : ' id="checkbox_'.$id.'"' ).
 				( $this->in_options( $name ) ? checked( $this->options[$name], $check[0], false ) : '' ).
 				' title="default is '.( $this->in_defaults( $name ) && $this->defaults[$name] == $check[0] ? 'checked' : 'unchecked' ).
 				( $disabled === true ? ' (option disabled)' : '' ).'" />';
@@ -85,7 +85,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				$html .= '<input type="radio"'.
 					( $disabled === true ? ' disabled="disabled"' : ' name="'.$this->options_name.'['.$name.']" value="'.esc_attr( $val ).'"' ).
 					( empty( $class ) ? '' : ' class="'.$class.'"' ).
-					( empty( $id ) ? '' : ' id="'.$id.'"' ).
+					( empty( $id ) ? '' : ' id="radio_'.$id.'"' ).
 					( $this->in_options( $name ) ? checked( $this->options[$name], $val, false ) : '' ).
 					( $this->in_defaults( $name ) ? ' title="default is '.$values[$this->defaults[$name]].'"' : '' ).
 					'/> '.$desc.'&nbsp;&nbsp;';
@@ -108,7 +108,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				$is_assoc = SucomUtil::is_assoc( $values );
 			$html = '<select name="'.$this->options_name.'['.$name.']"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? ' id="'.$name.'"' : ' id="'.$id.'"' ).
+				( empty( $id ) ? ' id="select_'.$name.'"' : ' id="select_'.$id.'"' ).
 				( $disabled === true ? ' disabled="disabled"' : '' ).'>';
 			foreach ( $values as $val => $desc ) {
 				// if the array is NOT associative (so regular numered array), 
@@ -220,7 +220,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			
 			$html .= '<input type="text" name="'.$this->options_name.'['.$name.']"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? ' id="'.$name.'"' : ' id="'.$id.'"' ).
+				( empty( $id ) ? ' id="text_'.$name.'"' : ' id="text_'.$id.'"' ).
 				( empty( $len ) ? '' : ' maxLength="'.$len.'"' ).
 				( empty( $placeholder ) ? '' : ' placeholder="'.$placeholder.'"'.
 					' onFocus="if ( this.value == \'\' ) this.value = \''.esc_js( $placeholder ).'\';"'.
@@ -234,7 +234,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			$html = $this->get_hidden( $name ).
 				'<input type="text" disabled="disabled"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? '' : ' id="'.$id.'"' ).
+				( empty( $id ) ? ' id="text_'.$name.'"' : ' id="text_'.$id.'"' ).
 				' value="'.esc_attr( $value ).'" />';
 			return $html;
 		}
@@ -247,7 +247,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				$html .= $this->get_id_jquery( $id );
 			$html .= '<textarea name="'.$this->options_name.'['.$name.']"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? '' : ' id="'.$id.'"' ).
+				( empty( $id ) ? ' id="textarea_'.$name.'"' : ' id="textarea_'.$id.'"' ).
 				( empty( $len ) ? '' : ' maxLength="'.$len.'"' ).
 				( empty( $len ) && empty( $class ) ? '' : ' rows="'.( round( $len / 100 ) + 1 ).'"' ).
 				( empty( $placeholder ) ? '' : ' placeholder="'.$placeholder.'"'.
@@ -261,20 +261,18 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			$js = $newtab === true ? 
 				'window.open(\''.$url.'\', \'_blank\');' :
 				'location.href=\''.$url.'\';';
-
 			$html = '<input type="button" '.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? '' : ' id="'.$id.'"' ).
+				( empty( $id ) ? ' id="button_'.$name.'"' : ' id="button_'.$id.'"' ).
 				( empty( $url ) ? '' : ' onClick="'.$js.'"' ).
 				' value="'.esc_attr( $value ).'" />';
-
 			return $html;
 		}
 
-		public function get_text( $value, $class = '', $id = '' ) {
+		public function get_input_for_copy( $value, $class = '', $id = '' ) {
 			$html = '<input type="text" '.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? '' : ' id="'.$id.'"' ).
+				( empty( $id ) ? '' : ' id="text_'.$id.'"' ).
 				' value="'.esc_attr( $value ).'" 
 				onFocus="this.select();" 
 				onMouseUp="return false;" />';

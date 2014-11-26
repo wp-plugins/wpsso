@@ -31,10 +31,10 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 			wp_register_style( 'sucom-metabox-tabs', $url_path.'css/com/metabox-tabs.min.css', array(), $plugin_version );
 
 			switch ( $hook ) {
-				case 'user-edit.php' :
-				case 'profile.php' :
-				case 'post.php' :
-				case 'post-new.php' :
+				case 'user-edit.php':
+				case 'profile.php':
+				case 'post.php':
+				case 'post-new.php':
 					wp_enqueue_style( 'jquery-qtip.js' );
 					wp_enqueue_style( 'sucom-table-setting' );
 					wp_enqueue_style( 'sucom-metabox-tabs' );

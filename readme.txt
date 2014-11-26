@@ -382,6 +382,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.7.1.1 =
+
+* **Bugfixes**
+	* Added a test for `wp_enqueue_media()` (available since WordPress 3.5.0) before including the "Select or Upload Image" button.
+* **Improvements**
+	* *None*
+* **New Features**
+	* *None*
+
 = Version 2.7.1 =
 
 * **Bugfixes**

@@ -31,17 +31,21 @@ if ( ! class_exists( 'SucomScript' ) ) {
 
 			// don't load our javascript where we don't need it
 			switch ( $hook ) {
-				case 'user-edit.php' :
-				case 'profile.php' :
-				case 'post.php' :
-				case 'post-new.php' :
+				case 'user-edit.php':
+				case 'profile.php':
+				case 'post.php':
+				case 'post-new.php':
 				case ( preg_match( '/_page_'.$this->p->cf['lca'].'-/', $hook ) ? true : false ) :
-					wp_enqueue_media();
+					if ( function_exists( 'wp_enqueue_media' ) ) {	// since wp 3.5.0
+						if ( get_queried_object_id() !== 0 )
+							wp_enqueue_media( array( 'post' => get_queried_object_id() ) );
+						else wp_enqueue_media();
+						wp_enqueue_script( 'sucom-admin-media' );
+					}
 					wp_enqueue_script( 'jquery' );
 					wp_enqueue_script( 'jquery-qtip' );
 					wp_enqueue_script( 'sucom-tooltips' );
 					wp_enqueue_script( 'sucom-postmeta' );
-					wp_enqueue_script( 'sucom-admin-media' );
 					wp_localize_script( 'sucom-admin-media', 'sucomMediaL10n', $this->localize_media_script() );
 					break;
 			}
