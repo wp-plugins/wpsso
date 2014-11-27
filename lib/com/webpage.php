@@ -227,7 +227,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					$title = $term->name;
 					$cat_parents = get_category_parents( $term->term_id, false, ' '.$separator.' ', false );
 					if ( is_wp_error( $cat_parents ) )
-						$this->p->debug->log( 'get_category_parents() returned WP_Error object' );
+						$this->p->debug->log( 'get_category_parents error: '.$cat_parents->get_error_message() );
 					else {
 						$this->p->debug->log( 'get_category_parents() = "'.$cat_parents.'"' );
 						if ( ! empty( $cat_parents ) ) {
