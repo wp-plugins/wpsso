@@ -58,8 +58,18 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 			$item_type = apply_filters( $this->p->cf['lca'].'_doctype_schema_type', $item_type, $post_id, $obj );
 
-			if ( strpos( $doctype, ' itemscope itemtype="http://schema.org/' ) === false )
-				$doctype .= ' itemscope itemtype="http://schema.org/'.$item_type.'"';
+			if ( ! empty( $item_type ) ) {
+				if ( strpos( $doctype, ' itemscope="itemscope" ' ) !== false )
+					$doctype = preg_replace( '/ itemscope="itemscope" /', 
+						' itemscope ', $doctype );
+				elseif ( strpos( $doctype, ' itemscope ' ) === false )
+					$doctype .= ' itemscope ';
+
+				if ( strpos( $doctype, ' itemtype="http://schema.org/' ) !== false )
+					$doctype = preg_replace( '/ itemtype="http:\/\/schema.org\/[^"]+"/',
+						' itemtype="http://schema.org/'.$item_type.'"', $doctype );
+				else $doctype .= ' itemtype="http://schema.org/'.$item_type.'"';
+			}
 
 			return $doctype;
 		}
