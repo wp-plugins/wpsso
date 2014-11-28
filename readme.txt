@@ -488,6 +488,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
+= 2.7.1.2 =
+
+Removed the existing 'itemtype' language attribute before adding our own, moved the is_bbpress() test to each filter for bbPress v2.5.4 (Pro version).
+
 = 2.7.1.1 =
 
 Small fix to test for `wp_enqueue_media()` (available since WordPress 3.5.0) before including the "Select or Upload Image" button.
