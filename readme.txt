@@ -386,6 +386,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 * **Bugfixes**
 	* Removed existing (possibly incorrect) 'itemtype' in the webpage language attribute before adding our own. 
+	* Moved the `is_bbpress()` test from `__construct()` to each filter (Pro version)
 * **Improvements**
 	* *None*
 * **New Features**
