@@ -24,7 +24,9 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		}
 
 		protected function add_actions() {
-			add_action( 'wp', array( &$this, 'add_plugin_image_sizes' ), 10, 0 );
+			// add default image sizes from plugin settings
+			// add_plugin_image_sizes() is also called from WpssoPostmeta::set_header_tags() to set image sizes for the post id
+			add_action( 'wp', array( &$this, 'add_plugin_image_sizes' ), -100 );
 			add_action( 'wp_scheduled_delete', array( &$this, 'delete_expired_transients' ) );
 			add_action( 'wp_scheduled_delete', array( &$this, 'delete_expired_file_cache' ) );
 		}
@@ -46,19 +48,24 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			else return $size_name;
 		}
 
+		// called directly (with or without a post ID), or from the 'wp' action ($post_id will be an object)
 		public function add_plugin_image_sizes( $post_id = false ) {
 			$sizes = apply_filters( $this->p->cf['lca'].'_plugin_image_sizes', array() );
 			$meta_opts = array();
 
 			// allow custom post meta to override the image size options
 			if ( isset( $this->p->addons['util']['postmeta'] ) ) {
+				// $post_id may be false, or an object
 				if ( ! is_numeric( $post_id ) && is_singular() ) {
 					$obj = $this->get_post_object();
 					$post_id = empty( $obj->ID ) || 
 						empty( $obj->post_type ) ? 0 : $obj->ID;
 				}
-				if ( ! empty( $post_id ) )
+				// on non-singular pages, $post_id may be an object here
+				if ( is_numeric( $post_id ) && $post_id > 0 ) {
+					$this->p->debug->log( 'reading custom meta for post id '.$post_id );
 					$meta_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
+				} 
 			}
 
 			foreach( $sizes as $opt_prefix => $attr ) {
@@ -66,6 +73,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				// check for custom meta sizes first
 				if ( ! empty( $meta_opts[$opt_prefix.'_width'] ) && $meta_opts[$opt_prefix.'_width'] > 0 && 
 					! empty( $meta_opts[$opt_prefix.'_height'] ) && $meta_opts[$opt_prefix.'_height'] > 0 ) {
+
 					$width = $meta_opts[$opt_prefix.'_width'];
 					$height = $meta_opts[$opt_prefix.'_height'];
 					$crop = empty( $meta_opts[$opt_prefix.'_crop'] ) ? false : true;
