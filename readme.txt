@@ -387,7 +387,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* *None*
 * **Improvements**
-	* Changed the `add_plugin_image_sizes()` 'wp' hook priority from 10 to -100, and allowed for passing of wp object (which is then ignored).
+	* Changed the `add_plugin_image_sizes()` 'wp' hook priority from 10 to -100, and allowed for passing of wp object or post id.
 * **New Features**
 	* *None*
 
@@ -496,6 +496,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added a WpssoHead::get_post_info() method to get basic information about the Post from the meta tag array.
 
 == Upgrade Notice ==
+
+= 2.7.1.4 =
+
+Changed the add_plugin_image_sizes() 'wp' hook priority from 10 to -100, and allowed for passing of wp object or post id.
 
 = 2.7.1.2 =
 
