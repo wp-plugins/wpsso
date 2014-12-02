@@ -99,9 +99,11 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					'is_search',
 					'is_singular',
 					'is_attachment',
+					'is_page',
 					'is_product',
 					'is_product_category',
 					'is_product_tag',
+					'is_single',
 				);
 				$is_functions = apply_filters( $this->p->cf['lca'].'_is_functions', $is_functions );
 				foreach ( $is_functions as $function ) 
