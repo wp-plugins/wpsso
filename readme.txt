@@ -382,6 +382,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.7.1.4 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Changed the `add_plugin_image_sizes()` 'wp' hook priority from 10 to -100.
+* **New Features**
+	* *None*
+
 = Version 2.7.1.2 =
 
 * **Bugfixes**
