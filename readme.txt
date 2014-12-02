@@ -387,7 +387,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **Bugfixes**
 	* *None*
 * **Improvements**
-	* Changed the `add_plugin_image_sizes()` 'wp' hook priority from 10 to -100.
+	* Changed the `add_plugin_image_sizes()` 'wp' hook priority from 10 to -100, and allowed for passing of wp object (which is then ignored).
 * **New Features**
 	* *None*
 
