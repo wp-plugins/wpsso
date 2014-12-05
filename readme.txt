@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0.1
-Stable Tag: 2.7.1.2
+Stable Tag: 2.7.1.4
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -61,7 +61,6 @@ Make sure social websites present your content correctly, no matter how your web
 * Supports featured, attached, gallery shortcode, and/or HTML image tags in content.
 * Validates image dimensions to provide accurate media for social websites.
 * Auto-regeneration of inaccurate / missing WordPress image sizes.
-* Support for embedded videos in iframe and object HTML tags.
 * Fully renders content (including shortcodes) for accurate description texts.
 * Configurable title separator character (hyphen by default).
 * Support of WordPress and/or SEO titles for Posts and Pages.
@@ -96,6 +95,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Additional profile contact fields with configurable label and field names.
 * Custom settings and meta tag values for each Post, Page, and custom post type.
 * Options to exclude specific Google / SEO, Open Graph, and Twitter Card meta tags.
+* Support for embedded videos in iframe and object HTML tags.
 * **Integrates with 3rd party plugins and services for additional image, video, product, and content information** (see [About Pro Addons](http://surniaulula.com/codex/plugins/wpsso/notes/addons/) and [Integration Notes](http://surniaulula.com/codex/plugins/wpsso/installation/integration/) for details):
 	* Plugins
 		* All in One SEO Pack
@@ -125,7 +125,7 @@ Aside from the additional support for Twitter Cards, the main difference between
 
 **Images and Videos**
 
-WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress Media Library image galleries and embedded videos from Slideshare, Vimeo, Wistia, and Youtube (including their preview images). WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized according to their intended audience (Facebook, Twitter, Pinterest, etc).
+WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress image galleries. WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized according to their intended audience (Facebook, Twitter, Pinterest, etc). The Pro version also detects embedded videos from Slideshare, Vimeo, Wistia, and Youtube (including their preview images).
 
 WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me/support/photon/) and [NextGEN Gallery v1 and v2](https://wordpress.org/plugins/nextgen-gallery/) albums, galleries and images (shortcodes, image tags, album / gallery preview images, etc.).
 
