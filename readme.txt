@@ -382,6 +382,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.7.2 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* *None*
+* **New Features**
+	* Added the 'Check for Header Tag Conflicts' option on the SSO Advanced settings page.
+
 = Version 2.7.1.4 =
 
 * **Bugfixes**
@@ -463,38 +472,6 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added an 'image' schema meta tag with the first Open Graph image meta tag.
 	* Added an aspect ratio check for image dimensions that exceed 3:1.
 
-= Version 2.6.10.2 =
-
-* **Bugfixes**
-	* Fixed WooCommerce v2.2.7 shortcodes in the admin interface by loading the WooCommerce template functions ourselves (Pro version).
-	* Fixed the `og:description` value for BuddyPress activities by improving the `WpssoProSocialBuddypress::filter_content_seed()` method (Pro version).
-* **Improvements**
-	* Added more detail to the error message when WordPress fails to save the upgraded plugin settings.
-	* Extended the `SucomWebpage::get_content()` method arguments to include the `$post_id`, `$use_post`, `$use_cache`, `$custom`, and `$source_id` variables.
-	* Extended the 'wpsso_content_seed' filter arguments to include the `$post_id`, `$use_post`, `$custom`, and `$source_id` variables.
-* **New Features**
-	* *None*
-
-= Version 2.6.10.1 =
-
-* **Bugfixes**
-	* *None*
-* **Improvements**
-	* Enabled the Social Settings 'Social Preview' and 'Header Preview' tabs for Drafts as well.
-* **New Features**
-	* Added a new 'Report Cache Purge Count' option on the Advanced settings page (enabled by default).
-
-= Version 2.6.10 =
-
-* **Bugfixes**
-	* *None*
-* **Improvements**
-	* Removed auto-appending the parent title to the post title if no SEO plugin is detected.
-	* Added a fallback for all custom title and description values to the Open Graph title and description.
-* **New Features**
-	* Added a 'Social Preview' tab to the Social Settings metabox.
-	* Added a WpssoHead::get_post_info() method to get basic information about the Post from the meta tag array.
-
 == Upgrade Notice ==
 
 = 2.7.1.4 =
@@ -528,16 +505,4 @@ Small fix to change the NgfbMedia::get_video_info() method from 'private' to 'pu
 = 2.7 =
 
 New 'Image Dimensions' options for Open Graph and Pinterest in the custom Social Settings metabox (Pro version), plus other new features and improvements.
-
-= 2.6.10.2 =
-
-Fixes for the WooCommerce and BuddyPress support addons (Pro version).
-
-= 2.6.10.1 =
-
-A new 'Report Cache Purge Count' option, and 'Social Preview' and 'Header Preview' tabs enabled for Drafts as well.
-
-= 2.6.10 =
-
-Adds a new 'Social Preview' tab to the Social Settings metabox, improved title and description handling in some special cases.
 
