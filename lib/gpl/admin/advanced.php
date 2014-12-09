@@ -35,6 +35,9 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 				$rows[] = $this->p->util->th( 'Report Cache Purge Count', null, 'plugin_cache_info' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'plugin_cache_info' ).'</td>';
 
+				$rows[] = $this->p->util->th( 'Check for Header Tag Conflicts', null, 'plugin_check_head' ).
+				'<td class="blank">'.$form->get_no_checkbox( 'plugin_check_head' ).'</td>';
+
 				$rows[] = $this->p->util->th( 'Use WP Locale for Language', null, 'plugin_filter_lang' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'plugin_filter_lang' ).'</td>';
 
@@ -59,7 +62,7 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
-				$rows[] =  $this->p->util->th( 'Ignore Small Images in Content', null, 'plugin_ignore_small_img' ).
+				$rows[] =  $this->p->util->th( 'Ignore Thumbnails in Content', null, 'plugin_ignore_small_img' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'plugin_ignore_small_img' ).'</td>';
 			}
 

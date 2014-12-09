@@ -29,7 +29,8 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
 				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
 				add_action( 'save_post', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
-				add_action( 'save_post', array( &$this, 'flush_cache' ), 100 );	// save_post action runs after status change
+				add_action( 'save_post', array( &$this, 'flush_cache' ), 100 );
+				add_action( 'save_post', array( &$this, 'check_head' ), 200 );
 				add_action( 'edit_attachment', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
 				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 100 );
 			}
@@ -52,6 +53,10 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			if ( ( $obj = $this->p->util->get_post_object() ) === false ||
 				empty( $obj->post_type ) )
 					return;
+			$screen = get_current_screen();
+			$page = $screen->id;
+			if ( strpos( $page, 'edit-' ) !== false )	// check for post/page edititing lists
+				return;
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			if ( isset( $obj->post_status ) && $obj->post_status !== 'auto-draft' ) {
 				$post_type = get_post_type_object( $obj->post_type );
@@ -62,7 +67,6 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					$this->header_tags = $this->p->head->get_header_array( $post_id );
 					$this->post_info = $this->p->head->get_post_info( $this->header_tags );
 				}
-				$this->p->debug->show_html( null, 'debug log' );
 			}
 		}
 
@@ -199,36 +203,65 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		}
 
 		public function get_og_video( $num = 0, $post_id, $check_dupes = true, $meta_pre = 'og' ) {
-			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
+			$this->p->debug->log( __METHOD__.' not implemented in free version' );
 			return array();
 		}
 
 		public function get_og_image( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true, $meta_pre = 'og' ) {
-			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
+			$this->p->debug->log( __METHOD__.' not implemented in free version' );
 			return array();
 		}
 
                 public function get_options( $post_id, $idx = false, $attr = array() ) {
-			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
+			$this->p->debug->log( __METHOD__.' not implemented in free version' );
 			if ( $idx !== false )
 				return false;
 			else return array();
 		}
 
 		public function get_defaults( $idx = false ) {
-			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
+			$this->p->debug->log( __METHOD__.' not implemented in free version' );
 			if ( $idx !== false )
 				return false;
 			else return array();
 		}
 
 		public function save_options( $post_id ) {
-			$this->p->debug->log( __METHOD__.' not implemented in GPL version' );
+			$this->p->debug->log( __METHOD__.' not implemented in free version' );
 			return $post_id;
 		}
 
 		public function flush_cache( $post_id ) {
 			$this->p->util->flush_post_cache( $post_id );
+			return $post_id;
+		}
+
+		public function check_head( $post_id ) {
+			if ( empty( $this->p->options['plugin_check_head'] ) )
+				return $post_id;
+
+			if ( get_post_status( $post_id ) !== 'publish' )
+				return $post_id;
+
+			$permalink_no_meta = add_query_arg( array( 'WPSSO_META_TAGS_DISABLE' => 1 ), get_permalink( $post_id ) );
+			if ( ( $metas = $this->p->util->get_head_meta( $permalink_no_meta, '/html/head/link|/html/head/meta' ) ) !== false ) {
+				foreach( array(
+					'link' => array( 'rel' ),
+					'meta' => array( 'name', 'itemprop', 'property' ),
+				) as $tag => $types ) {
+					foreach( $metas[$tag] as $m ) {
+						foreach( $types as $t ) {
+							if ( isset( $m[$t] ) && $m[$t] !== 'generator' && 
+								! empty( $this->p->options['add_'.$tag.'_'.$t.'_'.$m[$t]] ) ) {
+
+								$this->p->notice->err( 'Possible conflict detected - 
+								Your theme or another plugin is adding a <code>'.$tag.' '.$t.'="'.$m[$t].'"</code>
+								HTML tag to the head section of this webpage.', true );
+							}
+						}
+					}
+				}
+			}
 			return $post_id;
 		}
 

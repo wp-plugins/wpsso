@@ -499,6 +499,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-plugin_cache_info':
 							$text = 'Report the number of objects removed from the cache when updating Posts and Pages.';
 							break;
+						case 'tooltip-plugin_check_head':
+							$text = $short.' can check the front-end webpage head section for duplicate HTML tags when editing Posts and Pages.
+							You may uncheck this option if you\'ve edited a few Posts and Pages without seeing any warning messages about
+							duplicate HTML tags.';
+							break;
 						case 'tooltip-plugin_filter_lang':
 							$text = $short_pro.' can use the WordPress locale to select the correct language for the Facebook / Open Graph 
 							and Pinterest Rich Pin meta tags'.

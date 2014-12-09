@@ -474,6 +474,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
+= 2.7.2 =
+
+Added the 'Check for Header Tag Conflicts' option on the SSO Advanced settings page.
+
 = 2.7.1.4 =
 
 Changed the add_plugin_image_sizes() 'wp' hook priority from 10 to -100, and allowed for passing of wp object or post id.

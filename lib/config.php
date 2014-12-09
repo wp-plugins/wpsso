@@ -19,7 +19,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.7.1.4',		// plugin version
+					'version' => '2.7.2',		// plugin version
 					'short' => 'WPSSO',		// short plugin name
 					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
 					'desc' => 'Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.',
@@ -159,7 +159,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => 311,		// increment when changing default options
+				'version' => 312,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -303,8 +303,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_wpsso_tid' => '',
 					'plugin_display' => 'basic',
 					'plugin_preserve' => 0,
-					'plugin_cache_info' => 0,
 					'plugin_debug' => 0,
+					'plugin_cache_info' => 0,
+					'plugin_check_head' => 1,
 					'plugin_filter_title' => 1,
 					'plugin_filter_excerpt' => 0,
 					'plugin_filter_content' => 1,
@@ -541,7 +542,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			require_once( WPSSO_PLUGINDIR.'lib/com/script.php' );
 			require_once( WPSSO_PLUGINDIR.'lib/com/style.php' );
 			require_once( WPSSO_PLUGINDIR.'lib/com/webpage.php' );
-			require_once( WPSSO_PLUGINDIR.'lib/com/opengraph.php' );
 
 			require_once( WPSSO_PLUGINDIR.'lib/check.php' );
 			require_once( WPSSO_PLUGINDIR.'lib/util.php' );
@@ -562,7 +562,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				( defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) && ! WPSSO_OPEN_GRAPH_DISABLE ) ) &&
 				empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) &&
 				file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) )
-					require_once( WPSSO_PLUGINDIR.'lib/opengraph.php' );	// extends lib/com/opengraph.php
+					require_once( WPSSO_PLUGINDIR.'lib/opengraph.php' );
 
 			if ( file_exists( WPSSO_PLUGINDIR.'lib/loader.php' ) )
 				require_once( WPSSO_PLUGINDIR.'lib/loader.php' );

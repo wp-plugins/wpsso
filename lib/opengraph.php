@@ -8,9 +8,9 @@ Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
 if ( ! defined( 'ABSPATH' ) ) 
 	die( 'These aren\'t the droids you\'re looking for...' );
 
-if ( ! class_exists( 'WpssoOpengraph' ) && class_exists( 'SucomOpengraph' ) ) {
+if ( ! class_exists( 'WpssoOpengraph' ) ) {
 
-	class WpssoOpengraph extends SucomOpengraph {
+	class WpssoOpengraph {
 
 		protected $meta_pre = '';
 		protected $size_name = '';

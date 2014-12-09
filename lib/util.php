@@ -143,38 +143,42 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 
 		public function flush_post_cache( $post_id ) {
 			switch ( get_post_status( $post_id ) ) {
-			case 'draft':
-			case 'pending':
-			case 'future':
-			case 'private':
-			case 'publish':
-				$lang = SucomUtil::get_locale();
-				$cache_type = 'object cache';
-				$sharing_url = $this->p->util->get_sharing_url( $post_id );
-
-				$transients = array(
-					'WpssoHead::get_header_array' => array( 
-						'lang:'.$lang.'_post:'.$post_id.'_url:'.$sharing_url,
-						'lang:'.$lang.'_post:'.$post_id.'_url:'.$sharing_url.'_crawler:pinterest',
-					),
-				);
-				$transients = apply_filters( $this->p->cf['lca'].'_post_cache_transients', $transients, $post_id, $lang, $sharing_url );
-
-				$objects = array(
-					'SucomWebpage::get_content' => array(
-						'lang:'.$lang.'_post:'.$post_id.'_filtered',
-						'lang:'.$lang.'_post:'.$post_id.'_unfiltered',
-					),
-					'SucomWebpage::get_hashtags' => array(
-						'lang:'.$lang.'_post:'.$post_id,
-					),
-				);
-				$objects = apply_filters( $this->p->cf['lca'].'_post_cache_objects', $objects, $post_id, $lang, $sharing_url );
-
-				$deleted = $this->flush_cache_objects( $transients, $objects );
-				if ( ! empty( $this->p->options['plugin_cache_info'] ) )
-					$this->p->notice->inf( $deleted.' items removed from the WordPress object and transient caches.', true );
-				break;
+				case 'draft':
+				case 'pending':
+				case 'future':
+				case 'private':
+				case 'publish':
+					$lang = SucomUtil::get_locale();
+					$cache_type = 'object cache';
+					$sharing_url = $this->p->util->get_sharing_url( $post_id );
+					$permalink_no_meta = add_query_arg( array( 'WPSSO_META_TAGS_DISABLE' => 1 ), get_permalink( $post_id ) );
+	
+					$transients = array(
+						'SucomCache::get' => array(
+							'url:'.$permalink_no_meta,
+						),
+						'WpssoHead::get_header_array' => array( 
+							'lang:'.$lang.'_post:'.$post_id.'_url:'.$sharing_url,
+							'lang:'.$lang.'_post:'.$post_id.'_url:'.$sharing_url.'_crawler:pinterest',
+						),
+					);
+					$transients = apply_filters( $this->p->cf['lca'].'_post_cache_transients', $transients, $post_id, $lang, $sharing_url );
+	
+					$objects = array(
+						'SucomWebpage::get_content' => array(
+							'lang:'.$lang.'_post:'.$post_id.'_filtered',
+							'lang:'.$lang.'_post:'.$post_id.'_unfiltered',
+						),
+						'SucomWebpage::get_hashtags' => array(
+							'lang:'.$lang.'_post:'.$post_id,
+						),
+					);
+					$objects = apply_filters( $this->p->cf['lca'].'_post_cache_objects', $objects, $post_id, $lang, $sharing_url );
+	
+					$deleted = $this->flush_cache_objects( $transients, $objects );
+					if ( ! empty( $this->p->options['plugin_cache_info'] ) )
+						$this->p->notice->inf( $deleted.' items removed from the WordPress object and transient caches.', true );
+					break;
 			}
 		}
 
@@ -325,6 +329,28 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					break;
 			}
 			return $val;
+		}
+
+		// query examples:
+		//	/html/head/link|/html/head/meta
+		//	/html/head/meta[starts-with(@property, 'og:video:')]
+		public function get_head_meta( $url, $query = '/html/head/meta' ) {
+			if ( empty( $query ) )
+				return false;
+			if ( ( $html = $this->p->cache->get( $url, 'raw', 'transient' ) ) === false )
+				return false;
+			$doc = new DomDocument();		// since PHP v4.1.0
+			@$doc->loadHTML( $html );		// suppress parsing errors
+			$xpath = new DOMXPath( $doc );
+			$metas = $xpath->query( $query );
+			$ret = array();
+			foreach ( $metas as $m ) {
+				$attrs = array();		// put all attributes in a single array
+				foreach ( $m->attributes as $a )
+					$attrs[$a->name] = $a->value;
+				$ret[$m->tagName][] = $attrs;
+			}
+			return $ret;
 		}
 	}
 }

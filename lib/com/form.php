@@ -263,7 +263,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				'location.href=\''.$url.'\';';
 			$html = '<input type="button" '.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? ' id="button_'.$name.'"' : ' id="button_'.$id.'"' ).
+				( empty( $id ) ? '' : ' id="button_'.$id.'"' ).
 				( empty( $url ) ? '' : ' onClick="'.$js.'"' ).
 				' value="'.esc_attr( $value ).'" />';
 			return $html;

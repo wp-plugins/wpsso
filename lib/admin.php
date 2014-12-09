@@ -215,7 +215,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				key( $this->p->cf['*']['lib']['sitesubmenu'] ) : $_POST['page'];
 
 			if ( empty( $_POST[ WPSSO_NONCE ] ) ) {
-				$this->p->debug->log( 'Nonce token validation post field missing.' );
+				$this->p->debug->log( 'nonce token validation post field missing' );
 				wp_redirect( $this->p->util->get_admin_url( $page ) );
 				exit;
 			} elseif ( ! wp_verify_nonce( $_POST[ WPSSO_NONCE ], $this->get_nonce() ) ) {
@@ -256,7 +256,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			if ( ! empty( $_GET['action'] ) ) {
 				if ( empty( $_GET[ WPSSO_NONCE ] ) )
-					$this->p->debug->log( 'Nonce token validation query field missing.' );
+					$this->p->debug->log( 'nonce token validation query field missing' );
 				elseif ( ! wp_verify_nonce( $_GET[ WPSSO_NONCE ], $this->get_nonce() ) )
 					$this->p->notice->err( __( 'Nonce token validation failed for plugin action (action ignored).', WPSSO_TEXTDOM ) );
 				else {

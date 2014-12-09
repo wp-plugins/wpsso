@@ -111,9 +111,9 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 						$this->p->debug->log( $function.'() = true' );
 			}
 
-			if ( $this->p->is_avail['metatags'] ) {
+			if ( $this->p->is_avail['metatags'] )
 				echo $this->get_header_html();
-			} else echo "\n<!-- ".$this->p->cf['lca']." meta tags are disabled -->\n";
+			else echo "\n<!-- ".$this->p->cf['lca']." meta tags are disabled -->\n";
 
 			// include additional information when debug mode is on
 			if ( $this->p->debug->is_on() ) {
@@ -321,8 +321,10 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		 * Loops through the arrays (1 to 3 dimensions) and calls get_single_tag() for each
 		 */
 		private function get_tag_array( $tag = 'meta', $type = 'property', $tag_array, $use_post = false ) {
-			$this->p->debug->log( count( $tag_array ).' '.$tag.' '.$type.' to process' );
-			$this->p->debug->log( $tag_array );
+			if ( $this->p->debug->is_on() ) {
+				$this->p->debug->log( count( $tag_array ).' '.$tag.' '.$type.' to process' );
+				$this->p->debug->log( $tag_array );
+			}
 			$ret = array();
 			if ( empty( $tag_array ) )
 				return $ret;
