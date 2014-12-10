@@ -273,9 +273,9 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 							$deleted_transient = $this->p->util->delete_expired_transients( true );
 							wp_cache_flush();
 
-							if ( function_exists('w3tc_pgcache_flush') ) 
+							if ( function_exists( 'w3tc_pgcache_flush' ) ) 		// w3 total cache
 								w3tc_pgcache_flush();
-							elseif ( function_exists('wp_cache_clear_cache') ) 
+							elseif ( function_exists( 'wp_cache_clear_cache' ) )	// wp super cache
 								wp_cache_clear_cache();
 
 							$this->p->notice->inf( __( 'Cached files, WP object cache, transient cache, and any additional caches, '.
