@@ -100,7 +100,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				case 'metatags':
 					return ( ! defined( 'WPSSO_META_TAGS_DISABLE' ) || 
 					( defined( 'WPSSO_META_TAGS_DISABLE' ) && ! WPSSO_META_TAGS_DISABLE ) ) &&
-					empty( $_SERVER['WPSSO_META_TAGS_DISABLE'] ) ? true : false;
+					empty( $_SERVER['WPSSO_META_TAGS_DISABLE'] ) &&
+					empty( $_GET['WPSSO_META_TAGS_DISABLE'] ) ? true : false;	// allow meta tags to be disabled with query argument
 					break;
 			}
 		}
