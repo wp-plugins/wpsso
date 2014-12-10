@@ -178,6 +178,12 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					$deleted = $this->flush_cache_objects( $transients, $objects );
 					if ( ! empty( $this->p->options['plugin_cache_info'] ) )
 						$this->p->notice->inf( $deleted.' items removed from the WordPress object and transient caches.', true );
+
+					if ( function_exists( 'w3tc_pgcache_flush_post' ) )	// w3 total cache
+						w3tc_pgcache_flush_post( $post_id );
+					elseif ( function_exists( 'wp_cache_post_change' ) )	// wp super cache
+						wp_cache_post_change( $post_id );
+
 					break;
 			}
 		}

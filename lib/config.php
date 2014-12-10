@@ -31,7 +31,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					),
 					'url' => array(
 						'download' => 'https://wordpress.org/plugins/wpsso/',
-						'update' => 'http://update.surniaulula.com/extend/plugins/wpsso/update/',
+						'update' => 'http://surniaulula.com/extend/plugins/wpsso/update/',
 						'purchase' => 'http://surniaulula.com/extend/plugins/wpsso/',
 						'review' => 'https://wordpress.org/support/view/plugin-reviews/wpsso#postform',
 						'readme' => 'https://plugins.svn.wordpress.org/wpsso/trunk/readme.txt',

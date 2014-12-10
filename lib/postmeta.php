@@ -30,7 +30,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
 				add_action( 'save_post', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
 				add_action( 'save_post', array( &$this, 'flush_cache' ), 100 );
-				add_action( 'save_post', array( &$this, 'check_head' ), 200 );
+				add_action( 'save_post', array( &$this, 'check_head' ), 1000 );
 				add_action( 'edit_attachment', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
 				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 100 );
 			}
