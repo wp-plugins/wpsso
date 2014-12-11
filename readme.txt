@@ -301,6 +301,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/does-linkedin-read-the-open-graph-meta-tags/">Does LinkedIn read the Open Graph meta tags?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/doesnt-an-seo-plugin-cover-that/">Doesn’t an SEO plugin cover that?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/how-can-i-exclude-ignore-certain-parts-of-the-content-text/">How can I exclude / ignore certain parts of the content text?</a></li>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/how-can-i-fix-a-err_too_many_redirects-error/">How can I fix a ERR_TOO_MANY_REDIRECTS error?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/how-can-i-see-what-facebook-sees/">How can I see what Facebook sees?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/how-can-i-share-a-single-nextgen-gallery-image/">How can I share a single NextGEN Gallery image?</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/faq/how-do-i-attach-an-image-without-showing-it-on-the-webpage/">How do I attach an image without showing it on the webpage?</a></li>
