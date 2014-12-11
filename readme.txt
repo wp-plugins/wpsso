@@ -382,6 +382,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.7.2.1 =
+
+* **Bugfixes**
+	* Fixed a query argument check for the header tag conflict feature.
+* **Improvements**
+	* *None*
+* **New Features**
+	* *None*
+
 = Version 2.7.2 =
 
 * **Bugfixes**
@@ -473,6 +482,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added an aspect ratio check for image dimensions that exceed 3:1.
 
 == Upgrade Notice ==
+
+= 2.7.2.1 =
+
+Fixed a query argument check for the header tag conflict feature.
 
 = 2.7.2 =
 
