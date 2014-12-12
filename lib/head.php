@@ -89,21 +89,22 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			// hook into wpsso_is_functions to extend the default array of function names
 			if ( $this->p->debug->is_on() ) {
 				$is_functions = array( 
-					'is_multisite',
-					'is_author',
 					'is_archive',
-					'is_category',
-					'is_tag',
-					'is_tax',
-					'is_home',
-					'is_search',
-					'is_singular',
 					'is_attachment',
+					'is_author',
+					'is_category',
+					'is_front_page',
+					'is_home',
+					'is_multisite',
 					'is_page',
 					'is_product',
 					'is_product_category',
 					'is_product_tag',
+					'is_search',
 					'is_single',
+					'is_singular',
+					'is_tag',
+					'is_tax',
 				);
 				$is_functions = apply_filters( $this->p->cf['lca'].'_is_functions', $is_functions );
 				foreach ( $is_functions as $function ) 
@@ -196,6 +197,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$obj = $this->p->util->get_post_object( $use_post );
 			$post_id = empty( $obj->ID ) || empty( $obj->post_type ) || 
 				( ! is_singular() && $use_post === false ) ? 0 : $obj->ID;
+			$this->p->debug->log( 'post_id value set to '.$post_id );
 			$sharing_url = $this->p->util->get_sharing_url( $use_post );
 			$author_id = false;
 
