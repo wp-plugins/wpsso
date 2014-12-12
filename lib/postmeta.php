@@ -240,8 +240,16 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			if ( empty( $this->p->options['plugin_check_head'] ) )
 				return $post_id;
 
-			if ( get_post_status( $post_id ) !== 'publish' )
+			if ( ( $obj = $this->p->util->get_post_object( $post_id ) ) === false )
 				return $post_id;
+
+			if ( empty( $obj->post_type ) || 
+				$obj->post_type === 'nav_menu_item' )
+					return $post_id;
+
+			if ( ! isset( $obj->post_status ) || 
+				$obj->post_status !== 'publish' )
+					return $post_id;
 
 			$permalink_no_meta = add_query_arg( array( 'WPSSO_META_TAGS_DISABLE' => 1 ), get_permalink( $post_id ) );
 			if ( ( $metas = $this->p->util->get_head_meta( $permalink_no_meta, '/html/head/link|/html/head/meta' ) ) !== false ) {

@@ -9,7 +9,7 @@
  * Description: Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
  * Requires At Least: 3.0
  * Tested Up To: 4.0
- * Version: 2.7.2.1
+ * Version: 2.7.2.2
  * 
  * Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
  */
@@ -136,9 +136,10 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$html_debug = ! empty( $this->options['plugin_debug'] ) || 
 				( defined( 'WPSSO_HTML_DEBUG' ) && WPSSO_HTML_DEBUG ) ? true : false;
 			$wp_debug = defined( 'WPSSO_WP_DEBUG' ) && WPSSO_WP_DEBUG ? true : false;
-			if ( $html_debug || $wp_debug )
-				$this->debug = new SucomDebug( $this, 
-					array( 'html' => $html_debug, 'wp' => $wp_debug ) );
+
+			if ( ( $html_debug || $wp_debug ) && 
+				( $classname = WpssoConfig::load_lib( false, 'com/debug', 'SucomDebug' ) ) !== false )
+					$this->debug = new $classname( $this, array( 'html' => $html_debug, 'wp' => $wp_debug ) );
 			else $this->debug = new WpssoNoDebug();			// fallback to dummy debug class
 
 			$this->notice = new SucomNotice( $this );
