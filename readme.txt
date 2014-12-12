@@ -383,6 +383,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.7.2.2 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Changed the debug library loading to be read only if debug mode is enabled.
+* **New Features**
+	* *None*
+
 = Version 2.7.2.1 =
 
 * **Bugfixes**
