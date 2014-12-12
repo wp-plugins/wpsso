@@ -386,7 +386,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 = Version 2.7.2.2 =
 
 * **Bugfixes**
-	* *None*
+	* Excluded menu items from being checked for duplicate header meta tags.
 * **Improvements**
 	* Changed the debug library loading to be read only if debug mode is enabled.
 * **New Features**
