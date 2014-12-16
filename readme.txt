@@ -346,6 +346,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 				<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/disable-the-social-settings-metabox-by-post-id/">Disable the Social Settings Metabox by Post ID</a></li>
 				<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/force-wistia-videos-to-autoplay-on-facebook/">Force Wistia Videos to Autoplay on Facebook</a></li>
 				<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/modify-the-default-topics-list/">Modify the Default Topics List</a></li>
+				<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/modify-the-home-page-title-for-facebook-open-graph/">Modify the Home Page Title for Facebook / Open Graph</a></li>
 			</ul></li>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/head/">Head Filters</a></li>
 			<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/media/">Media Filters</a></li>
