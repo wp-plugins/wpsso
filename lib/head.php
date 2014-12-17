@@ -85,6 +85,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 		// called by wp_head action
 		public function add_header() {
+			$lca = $this->p->cf['lca'];
+
 			// add various function test results top-most in the debug log
 			// hook into wpsso_is_functions to extend the default array of function names
 			if ( $this->p->debug->is_on() ) {
@@ -106,15 +108,15 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					'is_tag',
 					'is_tax',
 				);
-				$is_functions = apply_filters( $this->p->cf['lca'].'_is_functions', $is_functions );
+				$is_functions = apply_filters( $lca.'_is_functions', $is_functions );
 				foreach ( $is_functions as $function ) 
 					if ( function_exists( $function ) && $function() )
 						$this->p->debug->log( $function.'() = true' );
 			}
 
 			if ( $this->p->is_avail['metatags'] )
-				echo $this->get_header_html();
-			else echo "\n<!-- ".$this->p->cf['lca']." meta tags are disabled -->\n";
+				echo $this->get_header_html( apply_filters( $lca.'_header_use_post', false ) );
+			else echo "\n<!-- ".$lca." meta tags are disabled -->\n";
 
 			// include additional information when debug mode is on
 			if ( $this->p->debug->is_on() ) {
