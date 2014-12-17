@@ -384,6 +384,17 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.7.2.3 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Removed support for the WPSSO_OPEN_GRAPH_DISABLE constant.
+	* Refactored the WpssoUtil::get_post_types() method to improve code logic.
+	* Improved the header tag conflict check by fetching only registered post types (to avoid checking menu items, product variations, etc.).
+* **New Features**
+	* *None*
+
 = Version 2.7.2.2 =
 
 * **Bugfixes**
@@ -448,89 +459,9 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 * **New Features**
 	* Added a "Select or Upload Image" button for all Image ID options.
 
-= Version 2.7.0.4 =
-
-* **Bugfixes**
-	* *None*
-* **Improvements**
-	* Added all Open Graph images as schema itemprop 'image' meta tags (instead of just one).
-	* Moved the BuddyPress member avatar image from first to last (as fallback) when retrieving images from the activity content (Pro version).
-	* Extended the 'wpsso_content' filter arguments to match those of 'wpsso_content_seed'.
-* **New Features**
-	* Added the schema itemprop 'url' meta tag.
-
-= Version 2.7.0.2 =
-
-* **Bugfixes**
-	* Fixed a call to the `WpssoMedia::get_meta_image()` method, which has been replaced with `WpssoProUtilPostmeta::get_og_image()` (Pro version).
-* **Improvements**
-	* Changed the BuddyPress members/activity/groups index page description for a more generic text, instead of using the latest activity text (Pro version).
-	* Added the 'Use Filtered (SEO) Titles', 'Apply Excerpt Filters', and 'Apply Content Filters' Advanced options to the Free version as well.
-* **New Features**
-	* *None*
-
-= Version 2.7.0.1 =
-
-* **Bugfixes**
-	* Small fix to change the `WpssoMedia::get_video_info()` method from 'private' to 'public' to fetch custom meta video information (Pro version).
-* **Improvements**
-	* *None*
-* **New Features**
-	* *None*
-
-= Version 2.7 =
-
-* **Bugfixes**
-	* *None*
-* **Improvements**
-	* Removed the 'What's New' settings page (see the 'Read Me' changelog instead).
-	* Added a new 'wpsso_plugin_image_sizes' action hook to load all plugin image sizes.
-	* Renamed the 'Image and Video' tab in the custom Social Settings metabox to 'Priority Media'.
-* **New Features**
-	* Added new 'Image Dimensions' options for Open Graph and Pinterest in the custom Social Settings metabox (Pro version).
-	* Added new 'Image ID' and 'Image URL' options for Pinterest in the custom Social Settings metabox (Pro version).
-	* Added an 'image' schema meta tag with the first Open Graph image meta tag.
-	* Added an aspect ratio check for image dimensions that exceed 3:1.
-
 == Upgrade Notice ==
 
-= 2.7.2.1 =
+= 2.7.2.2 =
 
-Fixed a query argument check for the header tag conflict feature.
-
-= 2.7.2 =
-
-Added the 'Check for Header Tag Conflicts' option on the SSO Advanced settings page.
-
-= 2.7.1.4 =
-
-Changed the add_plugin_image_sizes() 'wp' hook priority from 10 to -100, and allowed for passing of wp object or post id.
-
-= 2.7.1.2 =
-
-Removed the existing 'itemtype' language attribute before adding our own, moved the is_bbpress() test to each filter for bbPress v2.5.4 (Pro version).
-
-= 2.7.1.1 =
-
-Small fix to test for `wp_enqueue_media()` (available since WordPress 3.5.0) before including the "Select or Upload Image" button.
-
-= 2.7.1 =
-
-Added a "Select or Upload Image" button for all Image ID options. Updated jQuery qTip from v1.0.0-RC3 to v2.2.1.
-
-= 2.7.0.4 =
-
-Added all Open Graph images as schema 'image' meta tags, moved the BuddyPress member avatar image from first to last (as fallback), extended the 'ngfb_content' filter arguments, added the schema 'url' meta tag.
-
-= 2.7.0.2 =
-
-Fix for WooCommerce, small improvements for BuddyPress, and additional Advanced options for the Free version.
-
-= 2.7.0.1 =
-
-Small fix to change the NgfbMedia::get_video_info() method from 'private' to 'public' to fetch custom meta video information (Pro version).
-
-= 2.7 =
-
-New 'Image Dimensions' options for Open Graph and Pinterest in the custom Social Settings metabox (Pro version), plus other new features and improvements.
+Changed the debug library loading to be read only if debug mode is enabled. Excluded menu items from being checked for duplicate header meta tags.
 
