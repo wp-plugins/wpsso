@@ -89,7 +89,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				)
 			);
 
-			if ( empty( $this->p->is_avail['opengraph'] ) )
+			if ( empty( $this->p->is_avail['metatags'] ) )
 				unset( $tabs['tags'] );
 
 			$rows = array();

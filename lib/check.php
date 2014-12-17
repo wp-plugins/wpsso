@@ -88,14 +88,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 					( defined( 'WPSSO_PRO_ADDON_DISABLE' ) && ! WPSSO_PRO_ADDON_DISABLE ) ) &&
 					file_exists( WPSSO_PLUGINDIR.'lib/pro/head/twittercard.php' ) ? true : false;
 					break;
-				case 'og':
-				case 'opengraph':
-					return ( ! defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) || 
-					( defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) && ! WPSSO_OPEN_GRAPH_DISABLE ) ) &&
-					empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) &&
-					file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) &&
-					class_exists( $this->p->cf['lca'].'opengraph' ) ? true : false;
-					break;
 				case 'mt':
 				case 'metatags':
 					return ( ! defined( 'WPSSO_META_TAGS_DISABLE' ) || 
@@ -113,7 +105,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			$ret['mbdecnum'] = function_exists( 'mb_decode_numericentity' ) ? true : false;
 			$ret['postthumb'] = function_exists( 'has_post_thumbnail' ) ? true : false;
 			$ret['metatags'] = $this->get_avail_check( 'mt' );
-			$ret['opengraph'] = $this->get_avail_check( 'og' );
 			$ret['aop'] = $this->get_avail_check( 'aop' );
 
 			foreach ( $this->p->cf['cache'] as $name => $val ) {

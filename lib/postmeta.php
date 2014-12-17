@@ -91,7 +91,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				)
 			);
 
-			if ( empty( $this->p->is_avail['opengraph'] ) )
+			if ( empty( $this->p->is_avail['metatags'] ) )
 				unset( $tabs['tags'] );
 
 			$rows = array();
@@ -243,10 +243,13 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 			if ( ( $obj = $this->p->util->get_post_object( $post_id ) ) === false )
 				return $post_id;
 
+			// only check registered front-end post types (to avoid menu items, product variations, etc.)
+			$post_types = $this->p->util->get_post_types( 'frontend', 'names' );
 			if ( empty( $obj->post_type ) || 
-				$obj->post_type === 'nav_menu_item' )
+				! in_array( $obj->post_type, $post_types ) )
 					return $post_id;
 
+			// only check published posts
 			if ( ! isset( $obj->post_status ) || 
 				$obj->post_status !== 'publish' )
 					return $post_id;

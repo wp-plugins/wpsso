@@ -103,7 +103,8 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					} else $this->save_options( $options_name, $opts );
 				}
 
-				$opts['add_meta_name_generator'] = 1;
+				$opts['add_meta_name_generator'] = ( defined( 'WPSSO_META_GENERATOR_DISABLE' ) && 
+					WPSSO_META_GENERATOR_DISABLE ) ? 0 : 1;
 
 				if ( ! empty( $this->p->is_avail['seo']['*'] ) &&
 					isset( $opts['add_meta_name_description'] ) ) {

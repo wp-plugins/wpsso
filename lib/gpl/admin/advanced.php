@@ -134,7 +134,8 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 			$og_cols = 2;
 			$cells = array();
 			foreach ( $this->p->opt->get_defaults() as $opt => $val ) {
-				if ( preg_match( '/^add_('.$tag.')_([^_]+)_(.+)$/', $opt, $match ) ) {
+				if ( preg_match( '/^add_('.$tag.')_([^_]+)_(.+)$/', $opt, $match ) && 
+					$opt !== 'add_meta_name_generator' ) {
 					$highlight = $opt === 'add_meta_name_description' ? ' highlight' : '';
 					$cells[] = '<!-- '.( implode( ' ', $match ) ).' -->'.
 						'<td class="checkbox blank">'.$form->get_no_checkbox( $opt ).'</td>'.

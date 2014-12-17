@@ -19,7 +19,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.7.2.2',		// plugin version
+					'version' => '2.7.2.3',		// plugin version
 					'short' => 'WPSSO',		// short plugin name
 					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
 					'desc' => 'Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.',
@@ -549,6 +549,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			require_once( WPSSO_PLUGINDIR.'lib/user.php' );
 			require_once( WPSSO_PLUGINDIR.'lib/media.php' );
 			require_once( WPSSO_PLUGINDIR.'lib/head.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/opengraph.php' );
 
 			if ( is_admin() ) {
 				require_once( WPSSO_PLUGINDIR.'lib/messages.php' );
@@ -556,12 +557,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				require_once( WPSSO_PLUGINDIR.'lib/com/form.php' );
 				require_once( WPSSO_PLUGINDIR.'lib/ext/parse-readme.php' );
 			}
-
-			if ( ( ! defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) || 
-				( defined( 'WPSSO_OPEN_GRAPH_DISABLE' ) && ! WPSSO_OPEN_GRAPH_DISABLE ) ) &&
-				empty( $_SERVER['WPSSO_OPEN_GRAPH_DISABLE'] ) &&
-				file_exists( WPSSO_PLUGINDIR.'lib/opengraph.php' ) )
-					require_once( WPSSO_PLUGINDIR.'lib/opengraph.php' );
 
 			if ( file_exists( WPSSO_PLUGINDIR.'lib/loader.php' ) )
 				require_once( WPSSO_PLUGINDIR.'lib/loader.php' );

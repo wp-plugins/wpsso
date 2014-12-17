@@ -128,16 +128,17 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		}
 
 		public function get_post_types( $type = 'frontend', $output = 'objects' ) {
-			$include = false;
 			switch ( $type ) {
 				case 'frontend':
-					$include = array( 'public' => true );
+					$post_types = get_post_types( array( 'public' => true ), $output );
 					break;
 				case 'backend':
-					$include = array( 'public' => true, 'show_ui' => true );
+					$post_types = get_post_types( array( 'public' => true, 'show_ui' => true ), $output );
+					break;
+				default:
+					$post_types = array();
 					break;
 			}
-			$post_types = $include !== false ? get_post_types( $include, $output ) : array();
 			return apply_filters( $this->p->cf['lca'].'_post_types', $post_types, $type, $output );
 		}
 
@@ -176,7 +177,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					$objects = apply_filters( $this->p->cf['lca'].'_post_cache_objects', $objects, $post_id, $lang, $sharing_url );
 	
 					$deleted = $this->flush_cache_objects( $transients, $objects );
-					if ( ! empty( $this->p->options['plugin_cache_info'] ) )
+					if ( ! empty( $this->p->options['plugin_cache_info'] ) && $deleted > 0 )
 						$this->p->notice->inf( $deleted.' items removed from the WordPress object and transient caches.', true );
 
 					if ( function_exists( 'w3tc_pgcache_flush_post' ) )	// w3 total cache
