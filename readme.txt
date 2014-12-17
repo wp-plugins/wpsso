@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.0.1
-Stable Tag: 2.7.2.2
+Stable Tag: 2.7.2.3
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -393,7 +393,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Refactored the WpssoUtil::get_post_types() method to improve code logic.
 	* Improved the header tag conflict check by fetching only registered post types (to avoid checking menu items, product variations, etc.).
 * **New Features**
-	* *None*
+	* Added an 'wpsso_header_use_post' filter to allow custom hooks to provide a post ID for the webpage meta tags.
 
 = Version 2.7.2.2 =
 
