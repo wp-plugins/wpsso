@@ -91,7 +91,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					} else $name = $label = $attr;
 					$this->size_labels[$this->p->cf['lca'].'-'.$name] = $label;	// setup reference array for image size labels
 					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$name.
-						' ('.$width.'x'.$height.( $crop === true ? ' cropped' : '' ).') added' );
+						' '.$width.'x'.$height.( $crop === true ? ' cropped' : '' ).' added' );
 					add_image_size( $this->p->cf['lca'].'-'.$name, $width, $height, $crop );
 				}
 			}
@@ -104,8 +104,8 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					! empty( $this->p->options[$opt_prefix.'_height'] ) ) {
 
 					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$size_suffix.
-						' ('.$this->p->options[$opt_prefix.'_width'].'x'.$this->p->options[$opt_prefix.'_height'].
-						( empty( $this->p->options[$opt_prefix.'_crop'] ) ? '' : ' cropped' ).') added', 2 );
+						' '.$this->p->options[$opt_prefix.'_width'].'x'.$this->p->options[$opt_prefix.'_height'].
+						( empty( $this->p->options[$opt_prefix.'_crop'] ) ? '' : ' cropped' ).' added', 2 );
 
 					add_image_size( $this->p->cf['lca'].'-'.$size_suffix, 
 						$this->p->options[$opt_prefix.'_width'], 
