@@ -384,6 +384,18 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+= Version 2.7.3 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Changed the 'Social Preview' feature to use the first Open Graph image, instead of creating a different image size. 
+	* Added a `$force_regen` argument to WpssoMedia image related methods (get_post_images, get_featured, get_attached_images, etc.).
+	* Refactored the `WpssoUtil::add_plugin_image_sizes()` method to allow 3rd party hooks to modify image sizes. 
+	* Removed the `WpssoMedia::get_image_preview_html()` method.
+* **New Features**
+	* Added a cropping area selection for all Image Dimension options. The cropping area selection is shown only when viewing 'All Plugin Options', and only if you are using WordPress 3.9 and up (previous WordPress versions did not support cropping areas).
+
 = Version 2.7.2.3 =
 
 * **Bugfixes**
@@ -421,43 +433,6 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* *None*
 * **New Features**
 	* Added the 'Check for Header Tag Conflicts' option on the SSO Advanced settings page.
-
-= Version 2.7.1.4 =
-
-* **Bugfixes**
-	* *None*
-* **Improvements**
-	* Changed the `add_plugin_image_sizes()` 'wp' hook priority from 10 to -100, and allowed for passing of wp object or post id.
-* **New Features**
-	* *None*
-
-= Version 2.7.1.2 =
-
-* **Bugfixes**
-	* Removed existing (possibly incorrect) 'itemtype' in the webpage language attribute before adding our own. 
-	* Moved the `is_bbpress()` test from `__construct()` to each filter for bbPress v2.5.4 (Pro version)
-* **Improvements**
-	* *None*
-* **New Features**
-	* *None*
-
-= Version 2.7.1.1 =
-
-* **Bugfixes**
-	* Added a test for `wp_enqueue_media()` (available since WordPress 3.5.0) before including the "Select or Upload Image" button.
-* **Improvements**
-	* Added unique CSS IDs to all form input fields.
-* **New Features**
-	* *None*
-
-= Version 2.7.1 =
-
-* **Bugfixes**
-	* Minor fix for missing array key when checking for available addons when WordPress SEO is detected.
-* **Improvements**
-	* Updated jQuery qTip from v1.0.0-RC3 to v2.2.1.
-* **New Features**
-	* Added a "Select or Upload Image" button for all Image ID options.
 
 == Upgrade Notice ==
 
