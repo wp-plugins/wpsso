@@ -12,21 +12,8 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 
 	class WpssoOpengraph {
 
-		protected $meta_pre = '';
-		protected $size_name = '';
-
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
-			switch ( SucomUtil::crawler_name() ) {
-				case 'pinterest':
-					$this->meta_pre = 'rp';
-					$this->size_name = $this->p->cf['lca'].'-richpin';
-					break;
-				default:
-					$this->meta_pre = 'og';
-					$this->size_name = $this->p->cf['lca'].'-opengraph';
-					break;
-			}
 			$this->p->util->add_plugin_filters( $this, array( 'plugin_image_sizes' => 1 ) );
 			add_filter( 'language_attributes', array( &$this, 'add_doctype' ), 100, 1 );
 		}
@@ -202,12 +189,30 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 				if ( empty( $og_max['og_img_max'] ) ) 
 					$this->p->debug->log( 'images disabled: maximum images = 0' );
 				else {
-					$og['og:image'] = $this->get_all_images( $og_max['og_img_max'], $this->size_name, $post_id, true, $this->meta_pre );
+					if ( is_admin() ) {
+						$img_sizes = array (
+							'rp' => $this->p->cf['lca'].'-richpin',
+							'og' => $this->p->cf['lca'].'-opengraph',	// must be last for meta tags preview
+						);
+					} else {
+						switch ( SucomUtil::crawler_name() ) {
+							case 'pinterest':
+								$img_sizes = array ( 'rp' => $this->p->cf['lca'].'-richpin' );
+								break;
+							default:
+								$img_sizes = array ( 'og' => $this->p->cf['lca'].'-opengraph' );
+								break;
+						}
+					}
+					foreach ( $img_sizes as $meta_pre => $size_name ) {
+						$check_dupes = is_admin() && $meta_pre !== 'og' ? false : true;
+						$og['og:image'] = $this->get_all_images( $og_max['og_img_max'], $size_name, $post_id, $check_dupes, $meta_pre );
 
-					// if there's no image, and no video preview image, then add the default image for non-index webpages
-					if ( empty( $og['og:image'] ) && $video_images === 0 &&
-						( is_singular() || $use_post !== false ) )
-							$og['og:image'] = $this->p->media->get_default_image( $og_max['og_img_max'], $this->size_name );
+						// if there's no image, and no video preview image, then add the default image for non-index webpages
+						if ( empty( $og['og:image'] ) && $video_images === 0 &&
+							( is_singular() || $use_post !== false ) )
+								$og['og:image'] = $this->p->media->get_default_image( $og_max['og_img_max'], $size_name );
+					}
 				} 
 			}
 
@@ -307,8 +312,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 				$og_ret = array_merge( $og_ret, $this->p->media->get_post_images( $num_remains, $size_name, $post_id, $check_dupes, $meta_pre ) );
 
 				// keep going to find more images
-				// the featured / attached image(s) will be listed first in the open graph meta property tags
-				// and duplicates will be filtered out
+				// the featured / attached image(s) will be listed first in the open graph meta property tags and duplicates will be filtered out
 			}
 
 			// check for ngg shortcodes and query vars

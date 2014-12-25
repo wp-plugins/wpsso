@@ -38,8 +38,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				add_action( 'network_admin_edit_'.WPSSO_SITE_OPTIONS_NAME, array( &$this, 'save_site_options' ) );
 				add_filter( 'network_admin_plugin_action_links', array( &$this, 'add_plugin_action_links' ), 10, 2 );
 			}
-
-			add_image_size( $this->p->cf['lca'].'-preview', 600, 315, true );	// social preview tab background image
 		}
 
 		// load all submenu classes into the $this->submenu array

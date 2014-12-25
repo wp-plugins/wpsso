@@ -116,7 +116,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				if ( $is_assoc == false ) 
 					$val = $desc;
 				if ( $val == -1 ) 
-					$desc = '(value from settings)';
+					$desc = '(settings value)';
 				else {
 					switch ( $name ) {
 						case 'og_img_max': 
@@ -134,7 +134,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 					}
 					if ( $this->in_defaults( $name ) && 
 						$val === $this->defaults[$name] )
-							$desc .= ' (default)';
+							$desc .= ' (default)';	// mark default value
 				}
 				$html .= '<option value="'.esc_attr( $val ).'"';
 				if ( $this->in_options( $name ) )
@@ -145,18 +145,37 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
-		public function get_image_dimensions_input( $name, $use_opt_defs = false ) {
+		public function get_image_dimensions_input( $name, $use_opt_defs = false, $narrow = false, $display = 'all' ) {
 			$def_width = '';
 			$def_height = '';
+
 			if ( $use_opt_defs === true ) {
 				$def_width = empty( $this->p->options[$name.'_width'] ) ? '' : $this->p->options[$name.'_width'];
 				$def_height = empty( $this->p->options[$name.'_height'] ) ? '' : $this->p->options[$name.'_height'];
-				if ( ! $this->in_options( $name.'_crop' ) && $this->in_defaults( $name.'_crop' ) )
-					$this->options[$name.'_crop'] = $this->defaults[$name.'_crop'];
+
+				foreach ( array( 'crop', 'crop_x', 'crop_y' ) as $key )
+					if ( ! $this->in_options( $name.'_'.$key ) && $this->in_defaults( $name.'_'.$key ) )
+						$this->options[$name.'_'.$key] = $this->defaults[$name.'_'.$key];
 			}
+
+			if ( $display == 'all' ) {
+				global $wp_version;
+				if ( ! version_compare( $wp_version, 3.9, '<' ) ) {
+					$crop_pos = $narrow === true ? '<div style="margin-top:8px;">' : ' From';
+					foreach ( array( 'crop_x', 'crop_y' ) as $key ) {
+						$pos_vals = $this->options[$name.'_'.$key] == -1 ? 
+							array_merge( array( '-1' => '(settings value)' ), $this->p->cf['form']['position_'.$key] ) : 
+							$this->p->cf['form']['position_'.$key];
+						$crop_pos .= ' '.$this->get_select( $name.'_'.$key, $pos_vals, 'medium' );
+					}
+					$crop_pos .= $narrow === true ? '</div>' : '';
+				}
+			}
+
 			return 'Width '.$this->get_input( $name.'_width', 'short', null, null, $def_width ).' x '.
-				'Height '.$this->get_input( $name.'_height', 'short', null, null, $def_height ).' &nbsp; '.
-				'Crop '.$this->get_checkbox( $name.'_crop' );
+				'Height '.$this->get_input( $name.'_height', 'short', null, null, $def_height ).
+				' &nbsp; Crop '.$this->get_checkbox( $name.'_crop' ).$crop_pos;
+
 		}
 
 		public function get_image_dimensions_text( $name, $use_opt_defs = false ) {
@@ -193,7 +212,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 					$html .= selected( $this->options[$name], $size_name, false );
 				$html .= '>'.$size_name.' [ '.$size['width'].'x'.$size['height'].( $size['crop'] ? ' cropped' : '' ).' ]';
 				if ( $this->in_defaults( $name ) && $size_name == $this->defaults[$name] ) 
-					$html .= ' (default)';
+					$html .= ' (default)';	// mark default value
 				$html .= '</option>';
 			}
 			$html .= '</select>';

@@ -42,18 +42,37 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			}
 		}
 
-		public function get_image_size_label( $size_name ) {
+		public function get_image_size_label( $size_name ) {	// wpsso-opengraph
 			if ( ! empty( $this->size_labels[$size_name] ) )
 				return $this->size_labels[$size_name];
 			else return $size_name;
 		}
 
 		// called directly (with or without a post ID), or from the 'wp' action ($post_id will be an object)
-		public function add_plugin_image_sizes( $post_id = false ) {
-			$sizes = apply_filters( $this->p->cf['lca'].'_plugin_image_sizes', array() );
+		public function add_plugin_image_sizes( $post_id = false, $sizes = array(), $filter = true ) {
+			/*
+			 * allow various plugin extensions to provide their image names, labels, etc.
+			 * the first dimension array key is the option name prefix by default
+			 * you can also include the width, height, crop, crop_x, and crop_y values
+			 *
+			 *	Array (
+			 *		[rp_img] => Array (
+			 *			[name] => richpin
+			 *			[label] => Rich Pin Image Dimensions
+			 *		) 
+			 *		[og_img] => Array (
+			 *			[name] => opengraph
+			 *			[label] => Open Graph Image Dimensions
+			 *		)
+			 *	)
+			 */
+			if ( $filter === true )
+				$sizes = apply_filters( $this->p->cf['lca'].'_plugin_image_sizes', $sizes, $post_id );
+			$def_opts = $this->p->opt->get_defaults();
 			$meta_opts = array();
 
 			// allow custom post meta to override the image size options
+			// get the post meta if we can determine a post_id
 			if ( isset( $this->p->addons['util']['postmeta'] ) ) {
 				// $post_id may be false, or an object
 				if ( ! is_numeric( $post_id ) && is_singular() ) {
@@ -68,31 +87,42 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				} 
 			}
 
-			foreach( $sizes as $opt_prefix => $attr ) {
+			foreach( $sizes as $opt_prefix => $size_info ) {
+				if ( ! is_array( $size_info ) ) {
+					$save_name = empty( $size_info ) ? $opt_prefix : $size_info;
+					$size_info = array( 'name' => $save_name, 'label' => $save_name );
+				} elseif ( ! empty( $size_info['prefix'] ) )					// allow for alternate option prefix
+					$opt_prefix = $size_info['prefix'];
 
-				// check for custom meta sizes first
-				if ( ! empty( $meta_opts[$opt_prefix.'_width'] ) && $meta_opts[$opt_prefix.'_width'] > 0 && 
-					! empty( $meta_opts[$opt_prefix.'_height'] ) && $meta_opts[$opt_prefix.'_height'] > 0 ) {
+				foreach ( array( 'width', 'height', 'crop', 'crop_x', 'crop_y' ) as $key ) {
+					if ( isset( $size_info[$key] ) )					// prefer existing info from filters
+						continue;
+					elseif ( isset( $meta_opts[$opt_prefix.'_'.$key] ) )			// use post meta if available
+						$size_info[$key] = $meta_opts[$opt_prefix.'_'.$key];
+					elseif ( isset( $this->p->options[$opt_prefix.'_'.$key] ) )		// current plugin settings
+						$size_info[$key] = $this->p->options[$opt_prefix.'_'.$key];
+					else $size_info[$key] = $def_opts[$opt_prefix.'_'.$key];		// default settings value
 
-					$width = $meta_opts[$opt_prefix.'_width'];
-					$height = $meta_opts[$opt_prefix.'_height'];
-					$crop = empty( $meta_opts[$opt_prefix.'_crop'] ) ? false : true;
-					$this->p->debug->log( 'found custom meta '.$opt_prefix.' size ('.$width.'x'.$height.( $crop === true ? ' cropped' : '' ).')' );
-				} else {
-					$width = empty( $this->p->options[$opt_prefix.'_width'] ) ? 0 : $this->p->options[$opt_prefix.'_width'];
-					$height = empty( $this->p->options[$opt_prefix.'_height'] ) ? 0 : $this->p->options[$opt_prefix.'_height'];
-					$crop = empty( $this->p->options[$opt_prefix.'_crop'] ) ? false : true;
+					if ( $key === 'crop' )							// make sure crop is true or false
+						$size_info[$key] = empty( $size_info[$key] ) ? false : true;
 				}
+				if ( $size_info['width'] > 0 && $size_info['height'] > 0 ) {
+					// preserve compatibility with older wordpress versions, use true or false when possible
+					if ( $size_info['crop'] === true && ( $size_info['crop_x'] !== 'center' || $size_info['crop_y'] !== 'center' ) ) {
+						global $wp_version;
+						if ( ! version_compare( $wp_version, 3.9, '<' ) )
+							$size_info['crop'] = array( $size_info['crop_x'], $size_info['crop_y'] );
+					}
+					// allow custom function hooks to make changes
+					$size_info = apply_filters( $this->p->cf['lca'].'_size_info_'.$size_info['name'], $size_info, $post_id );
 
-				if ( $width > 0 && $height > 0 ) {
-					if ( is_array( $attr ) ) {
-						$name = empty( $attr['name'] ) ? $opt_prefix : $attr['name'];
-						$label = empty( $attr['label'] ) ? $opt_prefix : $attr['label'];
-					} else $name = $label = $attr;
-					$this->size_labels[$this->p->cf['lca'].'-'.$name] = $label;	// setup reference array for image size labels
-					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$name.
-						' '.$width.'x'.$height.( $crop === true ? ' cropped' : '' ).' added' );
-					add_image_size( $this->p->cf['lca'].'-'.$name, $width, $height, $crop );
+					// a reference array for image size labels, used in image size error messages
+					$this->size_labels[$this->p->cf['lca'].'-'.$size_info['name']] = $size_info['label'];
+
+					add_image_size( $this->p->cf['lca'].'-'.$size_info['name'], $size_info['width'], $size_info['height'], $size_info['crop'] );
+
+					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$size_info['name'].' '.$size_info['width'].'x'.$size_info['height'].
+						( empty( $size_info['crop'] ) ? '' : ' crop '.$size_info['crop_x'].'/'.$size_info['crop_y'] ).' added' );
 				}
 			}
 		}

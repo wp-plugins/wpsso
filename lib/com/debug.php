@@ -29,17 +29,22 @@ if ( ! class_exists( 'SucomDebug' ) ) {
 		}
 
 		public function mark() { 
-			if ( $this->active !== true ) return;
+			if ( $this->active !== true ) 
+				return;
+
 			$this->log( 'mark', 2 ); 
 		}
 
 		public function args( $args = array() ) { 
-			if ( $this->active !== true ) return;
+			if ( $this->active !== true ) 
+				return;
+
 			$this->log( 'args '.$this->fmt_array( $args ), 2 ); 
 		}
 
 		public function log( $input = '', $backtrace = 1 ) {
-			if ( $this->active !== true ) return;
+			if ( $this->active !== true ) 
+				return;
 
 			$stack = debug_backtrace();
 			$log_msg = '';
@@ -69,7 +74,9 @@ if ( ! class_exists( 'SucomDebug' ) ) {
 		}
 
 		public function get_html( $data = null, $title = null, $backtrace = 1 ) {
-			if ( $this->is_on( 'html' ) !== true ) return;
+			if ( $this->is_on( 'html' ) !== true ) 
+				return;
+
 			$from = '';
 			$html = '<!-- '.$this->display_name.' debug';
 			$stack = debug_backtrace();

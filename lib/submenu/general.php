@@ -90,9 +90,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Open Graph Image Dimensions', 'highlight', 'og_img_dimensions' ).
-					'<td>Width '.$this->form->get_input( 'og_img_width', 'short' ).' x '.
-					'Height '.$this->form->get_input( 'og_img_height', 'short' ).' &nbsp; '.
-					'Crop '.$this->form->get_checkbox( 'og_img_crop' ).'</td>';
+					'<td>'.$this->form->get_image_dimensions_input( 'og_img', false, false, $this->p->options['plugin_display'] ).'</td>';
 	
 					$rows[] = $this->p->util->th( 'Default Image ID', 'highlight', 'og_def_img_id' ).
 					'<td>'.$this->form->get_image_upload_input( 'og_def_img' ).'</td>';
@@ -136,9 +134,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$rows[] = '<td colspan="2" style="padding-bottom:10px;">'.$this->p->msgs->get( 'info-pub-pinterest' ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Rich Pin Image Dimensions', 'highlight', 'rp_img_dimensions' ).
-					'<td>Width '.$this->form->get_input( 'rp_img_width', 'short' ).' x '.
-					'Height '.$this->form->get_input( 'rp_img_height', 'short' ).' &nbsp; '.
-					'Crop '.$this->form->get_checkbox( 'rp_img_crop' ).'</td>';
+					'<td>'.$this->form->get_image_dimensions_input( 'rp_img' ).'</td>';
 	
 					break;
 			}
