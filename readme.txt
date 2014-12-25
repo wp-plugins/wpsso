@@ -461,7 +461,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
-= 2.7.2.2 =
+= 2.7.2.3 =
 
-Changed the debug library loading to be read only if debug mode is enabled. Excluded menu items from being checked for duplicate header meta tags.
+Improved the header tag conflict check by fetching only registered post types (to avoid checking menu items, product variations, etc.), and other minor code improvements.
 
