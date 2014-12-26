@@ -436,6 +436,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Upgrade Notice ==
 
+= 2.7.3 =
+
+Added a cropping area selection for all Image Dimension options, changed the 'Social Preview' feature to use the first Open Graph image.
+
 = 2.7.2.3 =
 
 Improved the header tag conflict check by fetching only registered post types (to avoid checking menu items, product variations, etc.), and other minor code improvements.
