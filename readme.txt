@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.1
-Stable Tag: 2.7.2.3
+Stable Tag: 2.7.3
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -435,6 +435,10 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 	* Added the 'Check for Header Tag Conflicts' option on the SSO Advanced settings page.
 
 == Upgrade Notice ==
+
+= 2.7.3 =
+
+Added a cropping area selection for all Image Dimension options, changed the 'Social Preview' feature to use the first Open Graph image.
 
 = 2.7.2.3 =
 
