@@ -114,7 +114,8 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 							$size_info['crop'] = array( $size_info['crop_x'], $size_info['crop_y'] );
 					}
 					// allow custom function hooks to make changes
-					$size_info = apply_filters( $this->p->cf['lca'].'_size_info_'.$size_info['name'], $size_info, $post_id );
+					if ( $filter === true )
+						$size_info = apply_filters( $this->p->cf['lca'].'_size_info_'.$size_info['name'], $size_info, $post_id );
 
 					// a reference array for image size labels, used in image size error messages
 					$this->size_labels[$this->p->cf['lca'].'-'.$size_info['name']] = $size_info['label'];
