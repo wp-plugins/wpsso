@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.1
-Stable Tag: 2.7.3
+Stable Tag: 2.7.3.1
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -392,7 +392,7 @@ This release schedule keeps the code more stable and reliable, at the cost of mo
 = Version 2.7.3.1 =
 
 * **Bugfixes**
-	* Added a check for an empty header check array, to prevent a possible PHP warning message.
+	* Added a check for an empty array when checking for duplicate header tags, to prevent a possible PHP warning message.
 * **Improvements**
 	* *None*
 * **New Features**
@@ -450,11 +450,11 @@ This release schedule keeps the code more stable and reliable, at the cost of mo
 
 == Upgrade Notice ==
 
+= 2.7.3.1 =
+
+Added a check for an empty array when checking for duplicate header tags, to prevent a possible PHP warning message.
+
 = 2.7.3 =
 
 Added a cropping area selection for all Image Dimension options, changed the 'Social Preview' feature to use the first Open Graph image.
-
-= 2.7.2.3 =
-
-Improved the header tag conflict check by fetching only registered post types (to avoid checking menu items, product variations, etc.), and other minor code improvements.
 
