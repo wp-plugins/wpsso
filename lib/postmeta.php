@@ -286,14 +286,15 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					'link' => array( 'rel' ),
 					'meta' => array( 'name', 'itemprop', 'property' ),
 				) as $tag => $types ) {
-					foreach( $metas[$tag] as $m ) {
-						foreach( $types as $t ) {
-							if ( isset( $m[$t] ) && $m[$t] !== 'generator' && 
-								! empty( $this->p->options['add_'.$tag.'_'.$t.'_'.$m[$t]] ) ) {
-
-								$this->p->notice->err( 'Possible conflict detected - 
-								Your theme or another plugin is adding a <code>'.$tag.' '.$t.'="'.$m[$t].'"</code>
-								HTML tag to the head section of this webpage.', true );
+					if ( isset( $metas[$tag] ) ) {
+						foreach( $metas[$tag] as $m ) {
+							foreach( $types as $t ) {
+								if ( isset( $m[$t] ) && $m[$t] !== 'generator' && 
+									! empty( $this->p->options['add_'.$tag.'_'.$t.'_'.$m[$t]] ) ) {
+									$this->p->notice->err( 'Possible conflict detected - 
+									Your theme or another plugin is adding a <code>'.$tag.' '.$t.'="'.$m[$t].'"</code>
+									HTML tag to the head section of this webpage.', true );
+								}
 							}
 						}
 					}
