@@ -384,6 +384,20 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Changelog ==
 
+New versions of the plugin are released approximately every week (more or less). 
+New features are added, tested, and released incrementally, instead of grouping them together in a major version release. 
+When minor bugs fixes and/or code improvements are applied, new versions are also released.
+This release schedule keeps the code more stable and reliable, at the cost of more frequent updates. 
+
+= Version 2.7.3.1 =
+
+* **Bugfixes**
+	* Added a check for an empty header check array, to prevent a possible PHP warning message.
+* **Improvements**
+	* *None*
+* **New Features**
+	* *None*
+
 = Version 2.7.3 =
 
 * **Bugfixes**
