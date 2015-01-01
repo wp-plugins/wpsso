@@ -392,6 +392,16 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.7.4 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Renamed the 'tc_prod_def_l2' and 'tc_prod_def_d2' option keys to 'tc_prod_def_label2' and 'tc_prod_def_data2'.
+* **New Features**
+	* Added the "Product Card Maximum Labels" option. This option allows you to use the current Twitter maximum of 2, or the now deprecated maximum of 4.
+	* (Pro version) Added the `WpssoProHeadTwittercard::insert_prod_label()` method to allow custom filter hooks to manipulate Product Card labels more easily. See http://surniaulula.com/codex/plugins/wpsso/notes/developer/filters/examples/add-availability-to-product-card-for-woocommerce/ for example usage.
+
 = Version 2.7.3.1 =
 
 * **Bugfixes**
