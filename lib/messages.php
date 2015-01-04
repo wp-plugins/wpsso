@@ -788,6 +788,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
 							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
+						case 'tooltip-tc_prod_labels':
+							$text = 'The maximum number of label and data meta tags to include for the <em>Product</em> Twitter Card.';
+							break;
 						case 'tooltip-tc_prod_defaults':
 							$text = 'The <em>Product</em> Twitter Card needs a <strong>minimum of two product attributes</strong>.
 							The first attribute will be the product price, and if your product has additional attribute fields associated with it 

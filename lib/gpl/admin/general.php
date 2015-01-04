@@ -188,17 +188,15 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Enable Twitter Cards', 'highlight', 'tc_enable' ).
-			'<td class="blank">'.$form->get_hidden( 'tc_enable' ).'<input type="checkbox" disabled="disabled" /></td>';
+			'<td class="blank"><input type="checkbox" disabled="disabled" /></td>';
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 				$rows[] = $this->p->util->th( 'Maximum Description Length', null, 'tc_desc_len' ).
-				'<td class="blank">'.$form->get_hidden( 'tc_desc_len' ).
-				$this->p->options['tc_desc_len'].' characters or less</td>';
+				'<td class="blank">'.$this->p->options['tc_desc_len'].' characters or less</td>';
 			}
 
 			$rows[] = $this->p->util->th( 'Website @username to Follow', 'highlight', 'tc_site' ).
-			'<td class="blank">'.$form->get_hidden( 'tc_site' ).
-			$this->p->options['tc_site'].'</td>';
+			'<td class="blank">'.$this->p->options['tc_site'].'</td>';
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 				$rows[] = $this->p->util->th( '<em>Summary</em> Card Image Dimensions', null, 'tc_sum_dimensions' ).
@@ -211,8 +209,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 				'<td class="blank">'.$form->get_image_dimensions_text( 'tc_photo' ).'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Gallery</em> Card Minimum Images', null, 'tc_gal_minimum' ).
-				'<td class="blank">'.$form->get_hidden( 'tc_gal_min' ).
-				$this->p->options['tc_gal_min'].'</td>';
+				'<td class="blank">'.$this->p->options['tc_gal_min'].'</td>';
 	
 				$rows[] = $this->p->util->th( '<em>Gallery</em> Card Image Dimensions', null, 'tc_gal_dimensions' ).
 				'<td class="blank">'.$form->get_image_dimensions_text( 'tc_gal' ).'</td>';
@@ -222,11 +219,12 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			}
 
 			if ( $this->p->options['plugin_display'] == 'all' || $this->p->is_avail['ecom']['*'] === true ) {
-				$rows[] = $this->p->util->th( '<em>Product</em> Card Default 2nd Attribute', null, 'tc_prod_defaults' ).
-				'<td class="blank">'.
-				$form->get_hidden( 'tc_prod_def_l2' ).'Label: '.$this->p->options['tc_prod_def_l2'].' &nbsp; '.
-				$form->get_hidden( 'tc_prod_def_d2' ).'Value: '.$this->p->options['tc_prod_def_d2'].
-				'</td>';
+				$rows[] = $this->p->util->th( '<em>Product</em> Card Maximum Labels', null, 'tc_prod_labels' ).
+				'<td class="blank">'.$this->p->options['tc_prod_labels'].'</td>';
+	
+				$rows[] = $this->p->util->th( '<em>Product</em> Card Default 2nd Label', null, 'tc_prod_defaults' ).
+				'<td class="blank">Label: '.$this->p->options['tc_prod_def_label2'].
+				' &nbsp; Value: '.$this->p->options['tc_prod_def_data2'].'</td>';
 			}
 
 			return $rows;

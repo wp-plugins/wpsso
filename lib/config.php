@@ -19,7 +19,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.7.3.1',		// plugin version
+					'version' => '2.7.4',		// plugin version
 					'short' => 'WPSSO',		// short plugin name
 					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
 					'desc' => 'Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.',
@@ -159,7 +159,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => 315,		// increment when changing default options
+				'version' => 316,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -251,8 +251,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'tc_prod_crop' => 1,   			 // prefers square product images
 					'tc_prod_crop_x' => 'center',
 					'tc_prod_crop_y' => 'center',
-					'tc_prod_def_l2' => 'Location',
-					'tc_prod_def_d2' => 'Unknown',
+					'tc_prod_labels' => 2,
+					'tc_prod_def_label2' => 'Location',
+					'tc_prod_def_data2' => 'Unknown',
 					// enable/disable header html tags
 					'add_link_rel_author' => 1,
 					'add_link_rel_publisher' => 1,
