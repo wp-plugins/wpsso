@@ -96,7 +96,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Custom settings and meta tag values for each Post, Page, and custom post type.
 * Options to exclude specific Google / SEO, Open Graph, and Twitter Card meta tags.
 * Support for embedded videos in iframe and object HTML tags.
-* **Integrates with 3rd party plugins and services for additional image, video, product, and content information** (see [About Pro Addons](http://surniaulula.com/codex/plugins/wpsso/notes/addons/) and [Integration Notes](http://surniaulula.com/codex/plugins/wpsso/installation/integration/) for details):
+* **Integrates with 3rd party plugins and services for additional image, video, product, and content information** (see [About Pro Addons](http://surniaulula.com/codex/plugins/wpsso/notes/addons/) and [Integration Notes](http://surniaulula.com/codex/plugins/wpsso/installation/integration/) for details). All the following addon moduless are included with the Pro version, and are automatically enabled if/when the supported plugins and/or services are detected.
 	* Plugins
 		* All in One SEO Pack
 		* bbPress
