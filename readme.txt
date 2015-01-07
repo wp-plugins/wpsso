@@ -462,11 +462,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
-= 2.7.3.1 =
+= 2.7.4 =
 
-Added a check for an empty array when checking for duplicate header tags, to prevent a possible PHP warning message.
-
-= 2.7.3 =
-
-Added a cropping area selection for all Image Dimension options, changed the 'Social Preview' feature to use the first Open Graph image.
+Added the "Product Card Maximum Labels" option. This option allows you to use the current Twitter maximum of 2, or the now deprecated maximum of 4.
 
