@@ -96,7 +96,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Custom settings and meta tag values for each Post, Page, and custom post type.
 * Options to exclude specific Google / SEO, Open Graph, and Twitter Card meta tags.
 * Support for embedded videos in iframe and object HTML tags.
-* **Integrates with 3rd party plugins and services for additional image, video, product, and content information** (see [About Pro Addons](http://surniaulula.com/codex/plugins/wpsso/notes/addons/) and [Integration Notes](http://surniaulula.com/codex/plugins/wpsso/installation/integration/) for details). All the following addon modules are included with the Pro version, and are automatically enabled if/when the supported plugins and/or services are detected.
+* **Integrates with 3rd party plugins and services for additional image, video, product, and content information** (see [About Pro Modules](http://surniaulula.com/codex/plugins/wpsso/notes/modules/) and [Integration Notes](http://surniaulula.com/codex/plugins/wpsso/installation/integration/) for details). The following modules are included with the Pro version, and are automatically loaded if/when the supported plugins and/or services are detected.
 	* Plugins
 		* All in One SEO Pack
 		* bbPress
@@ -323,14 +323,14 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 == Other Notes ==
 
 <ul>
-	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/">About Pro Addons</a>
+	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/modules/">About Pro Modules</a>
 	<ul>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/author-gravatar/">Author Gravatar</a></li>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/easy-digital-downloads/">Easy Digital Downloads</a></li>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/headspace2-seo/">HeadSpace2 SEO</a></li>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/jetpack-photon/">Jetpack Photon</a></li>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a></li>
-		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/addons/woocommerce/">WooCommerce</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/modules/author-gravatar/">Author Gravatar</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/modules/easy-digital-downloads/">Easy Digital Downloads</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/modules/headspace2-seo/">HeadSpace2 SEO</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/modules/jetpack-photon/">Jetpack Photon</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/modules/slideshare-vimeo-wistia-youtube-apis/">Slideshare, Vimeo, Wistia, Youtube APIs</a></li>
+		<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/modules/woocommerce/">WooCommerce</a></li>
 	</ul></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/contact-information/">Contact Information and Feeds</a></li>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/developer/">Developer Resources</a>
@@ -390,6 +390,15 @@ New features are added, tested, and released incrementally, instead of grouping 
 When minor bugs fixes and/or code improvements are applied, new versions are also released.
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
+
+= Version 2.7.5 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Refactored code to rename the $addons array variable to $mods, in order to clarify that all 'modules' are included in the Pro version.
+* **New Features**
+	* *None*
 
 = Version 2.7.4 =
 
