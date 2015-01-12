@@ -12,8 +12,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 
 	/*
 	 * This class is extended by gpl/util/postmeta.php or pro/util/postmeta.php
-	 * and the class object is created as $this->p->addons['util']['postmeta'] by
-	 * gpl/addons.php or pro/addons.php.
+	 * and the class object is created as $this->p->mods['util']['postmeta']
 	 *
 	 */
 	class WpssoPostmeta {
@@ -281,7 +280,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					return $post_id;
 
 			$permalink_no_meta = add_query_arg( array( 'WPSSO_META_TAGS_DISABLE' => 1 ), get_permalink( $post_id ) );
-			if ( ( $metas = $this->p->util->get_head_meta( $permalink_no_meta, '/html/head/link|/html/head/meta' ) ) !== false ) {
+			if ( ( $metas = $this->p->util->get_head_meta( $permalink_no_meta, '/html/head/link|/html/head/meta', false ) ) !== false ) {
 				foreach( array(
 					'link' => array( 'rel' ),
 					'meta' => array( 'name', 'itemprop', 'property' ),

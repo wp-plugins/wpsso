@@ -84,8 +84,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 		private function get_avail_check( $key ) {
 			switch ( $key ) {
 				case 'aop':
-					return ( ! defined( 'WPSSO_PRO_ADDON_DISABLE' ) ||
-					( defined( 'WPSSO_PRO_ADDON_DISABLE' ) && ! WPSSO_PRO_ADDON_DISABLE ) ) &&
+					return ( ! defined( 'WPSSO_PRO_MODULE_DISABLE' ) ||
+					( defined( 'WPSSO_PRO_MODULE_DISABLE' ) && ! WPSSO_PRO_MODULE_DISABLE ) ) &&
 					file_exists( WPSSO_PLUGINDIR.'lib/pro/head/twittercard.php' ) ? true : false;
 					break;
 				case 'mt':
@@ -326,8 +326,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 					 __( 'JetPack Photon cripples the WordPress image size functions.', WPSSO_TEXTDOM ).'</strong> '.
 					sprintf( __( 'Please <a href="%s">disable JetPack Photon</a> or disable the %s Free version plugin.', WPSSO_TEXTDOM ),
 						get_admin_url( null, 'admin.php?page=jetpack' ), $short ).' '.
-					sprintf( __( 'You may also upgrade to the <a href="%s">%s version</a>, which includes an <a href="%s">addon for JetPack Photon</a>.', WPSSO_TEXTDOM ), 
-						$purchase_url, $short_pro, 'http://surniaulula.com/codex/plugins/iwpsso/notes/addons/jetpack-photon/' ) );
+					sprintf( __( 'You may also upgrade to the <a href="%s">%s version</a>, which includes a <a href="%s">module for JetPack Photon</a>.', WPSSO_TEXTDOM ), 
+						$purchase_url, $short_pro, 'http://surniaulula.com/codex/plugins/iwpsso/notes/modules/jetpack-photon/' ) );
 			}
 
 			/*
@@ -349,8 +349,8 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 					__( 'WooCommerce does not include shortcode support in the admin interface.', WPSSO_TEXTDOM ).'</strong> '.
 					sprintf( __( 'Please uncheck the \'<em>Apply Content Filters</em>\' option on the <a href="%s">%s Advanced settings page</a>.', WPSSO_TEXTDOM ),  
 						$this->p->util->get_admin_url( 'advanced' ), $this->p->cf['menu'] ).' '.
-					sprintf( __( 'You may also upgrade to the <a href="%s">%s version</a>, which includes an <a href="%s">addon for WooCommerce</a>.', WPSSO_TEXTDOM ), 
-						$purchase_url, $short_pro, 'http://surniaulula.com/codex/plugins/wpsso/notes/addons/woocommerce/' ) );
+					sprintf( __( 'You may also upgrade to the <a href="%s">%s version</a>, which includes a <a href="%s">module for WooCommerce</a>.', WPSSO_TEXTDOM ), 
+						$purchase_url, $short_pro, 'http://surniaulula.com/codex/plugins/wpsso/notes/modules/woocommerce/' ) );
 			}
 
 			// WooCommerce ShareYourCart Extension

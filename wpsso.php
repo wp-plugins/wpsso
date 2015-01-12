@@ -9,7 +9,7 @@
  * Description: Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
  * Requires At Least: 3.0
  * Tested Up To: 4.0
- * Version: 2.7.4
+ * Version: 2.7.5
  * 
  * Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
  */
@@ -42,31 +42,21 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		public $webpage;		// SucomWebpage (title, desc, etc., plus shortcodes)
 
 		/**
-		 * Reference Variables (config, options, addon objects, etc.)
+		 * Reference Variables (config, options, modules, etc.)
 		 */
 		public $cf = array();		// config array defined in construct method
 		public $is_avail = array();	// assoc array for other plugin checks
 		public $options = array();	// individual blog/site options
 		public $site_options = array();	// multisite options
-		public $addons = array();	// pro and gpl addons
+		public $mods = array();		// pro and gpl modules
+		public $addons;			// addons variable is deprecated
 
 		/**
 		 * Wpsso Constructor
-		 *
-		 * Uses WpssoConfig's static methods to read configuration
-		 * values into the $cf array, define constants, and require
-		 * essential library files. Instantiates the WpssoRegister
-		 * class, to register the activation / deactivation /
-		 * uninstall hooks, along with adding the wpmu_new_blog and
-		 * wpmu_activate_blog action hooks.
-		 *
-		 * set_config() is hooked into 'init' at -1 to allow other
-		 * plugins to extend the $cf array as early as possible.
-		 *
-		 * @access public
-		 * @return Wpsso
 		 */
 		public function __construct() {
+			$this->addons =& $this->mods;			// addons variable is deprecated
+
 			require_once( dirname( __FILE__ ).'/lib/config.php' );
 			require_once( dirname( __FILE__ ).'/lib/register.php' );
 
@@ -116,6 +106,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 							'echo "<!-- wpsso add_action( \''.$action.'\' ) priority '.$prio.' test = PASSED -->\n";' ), $prio );
 						add_action( $action, array( &$this, 'show_debug_html' ), $prio );
 					}
+			do_action( 'wpsso_init_plugin' );
 		}
 
 		public function show_debug_html() { 
@@ -159,8 +150,6 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			}
 
 			$this->loader = new WpssoLoader( $this );
-
-			do_action( 'wpsso_init_addon' );
 
 			/*
 			 * check and create the default options array

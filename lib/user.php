@@ -103,11 +103,11 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
 				case 'user-preview':
-					$rows = $this->p->addons['util']['postmeta']->get_rows_social_preview( $this->form, $post_info );
+					$rows = $this->p->mods['util']['postmeta']->get_rows_social_preview( $this->form, $post_info );
 					break;
 
 				case 'user-tools':
-					$rows = $this->p->addons['util']['postmeta']->get_rows_validation_tools( $this->form, $post_info );
+					$rows = $this->p->mods['util']['postmeta']->get_rows_validation_tools( $this->form, $post_info );
 					break; 
 
 				case 'user-tags':	

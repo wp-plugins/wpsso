@@ -250,7 +250,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		public function load_form_page() {
 			wp_enqueue_script( 'postbox' );
 			$upload_dir = wp_upload_dir();	// returns assoc array with path info
-			$user_opts = $this->p->addons['util']['user']->get_options();
+			$user_opts = $this->p->mods['util']['user']->get_options();
 
 			if ( ! empty( $_GET['action'] ) ) {
 				if ( empty( $_GET[ WPSSO_NONCE ] ) )
@@ -304,7 +304,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					array( &$this, 'show_metabox_purchase' ), $this->pagehook, 'side' );
 				add_filter( 'postbox_classes_'.$this->pagehook.'_'.$this->pagehook.'_purchase', 
 					array( &$this, 'add_class_postbox_highlight_side' ) );
-				$this->p->addons['util']['user']->reset_metabox_prefs( $this->pagehook, array( 'purchase' ), null, 'side', true );
+				$this->p->mods['util']['user']->reset_metabox_prefs( $this->pagehook, array( 'purchase' ), null, 'side', true );
 			}
 
 			add_meta_box( $this->pagehook.'_help', __( 'Help and Support', WPSSO_TEXTDOM ), 
@@ -554,7 +554,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 						$features[$name] = array( 
 							'status' => class_exists( $lca.'pro'.$sub.$id ) ? ( $aop ? 'on' : $off ) : $off,
 							'tooltip' => 'If the '.$name.' plugin is detected, '.$this->p->cf['plugin'][$lca]['short'].' Pro '.
-								'will load an integration addon to provide additional support and features for '.$name.'.',
+								'will load an integration modules to provide additional support and features for '.$name.'.',
 							'td_class' => $aop ? '' : 'blank',
 						);
 					}

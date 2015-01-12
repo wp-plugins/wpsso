@@ -141,8 +141,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				// on singular webpages, show the custom social settings
 				if ( is_singular() && ( $obj = $this->p->util->get_post_object() ) !== false ) {
 					$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
-					if ( ! empty( $post_id ) && isset( $this->p->addons['util']['postmeta'] ) ) {
-						$meta_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
+					if ( ! empty( $post_id ) && isset( $this->p->mods['util']['postmeta'] ) ) {
+						$meta_opts = $this->p->mods['util']['postmeta']->get_options( $post_id );
 						$this->p->debug->show_html( $meta_opts, 'wpsso post meta options for post id '.$post_id );
 					}
 				}
@@ -253,7 +253,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$meta_name = array();
 			if ( isset( $this->p->options['seo_author_name'] ) && 
 				$this->p->options['seo_author_name'] !== 'none' )
-					$meta_name['author'] = $this->p->addons['util']['user']->get_author_name( $author_id, $this->p->options['seo_author_name'] );
+					$meta_name['author'] = $this->p->mods['util']['user']->get_author_name( $author_id, $this->p->options['seo_author_name'] );
 
 			$meta_name['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], 
 				'...', $use_post, true, false, true, 'seo_desc' );	// add_hashtags = false, custom meta = seo_desc
@@ -266,7 +266,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$link_rel = array();
 
 			if ( ! empty( $author_id ) )
-				$link_rel['author'] = $this->p->addons['util']['user']->get_author_website_url( $author_id, $this->p->options['link_author_field'] );
+				$link_rel['author'] = $this->p->mods['util']['user']->get_author_website_url( $author_id, $this->p->options['link_author_field'] );
 
 			if ( ! empty( $this->p->options['link_publisher_url'] ) )
 				$link_rel['publisher'] = $this->p->options['link_publisher_url'];

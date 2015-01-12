@@ -129,7 +129,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 	
 					$og['og:type'] = 'article';
 					if ( ! isset( $og['article:author'] ) )
-						$og['article:author'] = $this->p->addons['util']['user']->get_article_author( $this->p->options['og_def_author_id'] );
+						$og['article:author'] = $this->p->mods['util']['user']->get_article_author( $this->p->options['og_def_author_id'] );
 
 				// default for everything else is 'website'
 				} else $og['og:type'] = 'website';
@@ -143,9 +143,9 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 				if ( ! isset( $og['article:author'] ) ) {
 					if ( is_singular() || $use_post !== false ) {
 						if ( ! empty( $obj->post_author ) )
-							$og['article:author'] = $this->p->addons['util']['user']->get_article_author( $obj->post_author );
+							$og['article:author'] = $this->p->mods['util']['user']->get_article_author( $obj->post_author );
 						elseif ( ! empty( $this->p->options['og_def_author_id'] ) )
-							$og['article:author'] = $this->p->addons['util']['user']->get_article_author( $this->p->options['og_def_author_id'] );
+							$og['article:author'] = $this->p->mods['util']['user']->get_article_author( $this->p->options['og_def_author_id'] );
 					}
 				}
 
@@ -251,7 +251,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 
 			if ( ! empty( $post_id ) ) {	// post id should be > 0 for post meta
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				$og_ret = array_merge( $og_ret, $this->p->addons['util']['postmeta']->get_og_video( $num_remains, $post_id, $check_dupes, $meta_pre ) );
+				$og_ret = array_merge( $og_ret, $this->p->mods['util']['postmeta']->get_og_video( $num_remains, $post_id, $check_dupes, $meta_pre ) );
 			}
 
 			// if we haven't reached the limit of videos yet, keep going
@@ -317,14 +317,14 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 
 			// check for ngg shortcodes and query vars
 			if ( $this->p->is_avail['media']['ngg'] === true && 
-				! empty( $this->p->addons['media']['ngg'] ) &&
+				! empty( $this->p->mods['media']['ngg'] ) &&
 				! $this->p->util->is_maxed( $og_ret, $num ) ) {
 
 				// ngg pre-v2 used query arguments
 				$ngg_query_og_ret = array();
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				if ( version_compare( $this->p->addons['media']['ngg']->ngg_version, '2.0.0', '<' ) )
-					$ngg_query_og_ret = $this->p->addons['media']['ngg']->get_query_images( $num_remains, $size_name, $check_dupes );
+				if ( version_compare( $this->p->mods['media']['ngg']->ngg_version, '2.0.0', '<' ) )
+					$ngg_query_og_ret = $this->p->mods['media']['ngg']->get_query_images( $num_remains, $size_name, $check_dupes );
 
 				// if we found images in the query, skip content shortcodes
 				if ( count( $ngg_query_og_ret ) > 0 ) {
@@ -335,7 +335,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 				} elseif ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
 					$num_remains = $this->p->media->num_remains( $og_ret, $num );
 					$og_ret = array_merge( $og_ret, 
-						$this->p->addons['media']['ngg']->get_shortcode_images( $num_remains, $size_name, $check_dupes ) );
+						$this->p->mods['media']['ngg']->get_shortcode_images( $num_remains, $size_name, $check_dupes ) );
 				}
 			} // end of check for ngg shortcodes and query vars
 

@@ -107,7 +107,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
 				$num_remains = $this->num_remains( $og_ret, $num );
-				$og_ret = array_merge( $og_ret, $this->p->addons['util']['postmeta']->get_og_image( $num_remains, 
+				$og_ret = array_merge( $og_ret, $this->p->mods['util']['postmeta']->get_og_image( $num_remains, 
 					$size_name, $post_id, $check_dupes, $force_regen, $meta_pre ) );
 			}
 
@@ -225,12 +225,12 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$ret_empty = array( null, null, null, null, null );
 
 			if ( $this->p->is_avail['media']['ngg'] === true && strpos( $pid, 'ngg-' ) === 0 ) {
-				if ( ! empty( $this->p->addons['media']['ngg'] ) )
-					return $this->p->addons['media']['ngg']->get_image_src( $pid, $size_name, $check_dupes );
+				if ( ! empty( $this->p->mods['media']['ngg'] ) )
+					return $this->p->mods['media']['ngg']->get_image_src( $pid, $size_name, $check_dupes );
 				else {
 					if ( is_admin() )
-						$this->p->notice->err( 'The NextGEN Gallery addon is not available: image id '.$pid.' ignored.' ); 
-					$this->p->debug->log( 'ngg addon is not available: image id '.$attr_value.' ignored' ); 
+						$this->p->notice->err( 'The NextGEN Gallery module is not available: image id '.$pid.' ignored.' ); 
+					$this->p->debug->log( 'ngg module is not available: image id '.$attr_value.' ignored' ); 
 					return $ret_empty; 
 				}
 			} elseif ( ! wp_attachment_is_image( $pid ) ) {
@@ -364,12 +364,12 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$og_ret = array();
 			$og_image = array();
 
-			if ( empty( $author_id ) || ! isset( $this->p->addons['util']['user'] ) )
+			if ( empty( $author_id ) || ! isset( $this->p->mods['util']['user'] ) )
 				return $og_ret;
 
-			$pid = $this->p->addons['util']['user']->get_options( $author_id, 'og_img_id' );
-			$pre = $this->p->addons['util']['user']->get_options( $author_id, 'og_img_id_pre' );
-			$img_url = $this->p->addons['util']['user']->get_options( $author_id, 'og_img_url', array( 'size_name' => $size_name ) );
+			$pid = $this->p->mods['util']['user']->get_options( $author_id, 'og_img_id' );
+			$pre = $this->p->mods['util']['user']->get_options( $author_id, 'og_img_id_pre' );
+			$img_url = $this->p->mods['util']['user']->get_options( $author_id, 'og_img_url', array( 'size_name' => $size_name ) );
 
 			if ( $pid > 0 ) {
 				$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
@@ -444,7 +444,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			}
 
 			// img attributes in order of preference
-			// data_tags_preg provides a filter hook for 3rd party addons like ngg to return image information
+			// data_tags_preg provides a filter hook for 3rd party modules like ngg to return image information
 			if ( preg_match_all( '/<('.$this->data_tags_preg.'[^>]*? '.$this->data_attr_preg.'=[\'"]([0-9]+)[\'"]|'.
 				'(img)[^>]*? (data-share-src|src)=[\'"]([^\'"]+)[\'"])[^>]*>/s', $content, $match, PREG_SET_ORDER ) ) {
 				$this->p->debug->log( count( $match ).' x matching <'.$this->data_tags_preg.'/> html tag(s) found' );
@@ -466,18 +466,18 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 							list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
 								$og_image['og:image:id'] ) = $this->get_attachment_image_src( $attr_value, $size_name, false );
 							break;
-						// filter hook for 3rd party addons to return image information
+						// filter hook for 3rd party modules to return image information
 						case ( preg_match( '/^data-[a-z]+-pid$/', $attr_name ) ? true : false ):
 							$filter_name = $this->p->cf['lca'].'_get_content_'.$tag_name.'_'.( preg_replace( '/-/', '_', $attr_name ) );
 							list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
 								$og_image['og:image:id'] ) = apply_filters( $filter_name, array( null, null, null, null ), $attr_value, $size_name, false );
 							break;
 						default :
-							// prevent duplicates by silently ignoring ngg images (already processed by the ngg addon)
+							// prevent duplicates by silently ignoring ngg images (already processed by the ngg module)
 							if ( $this->p->is_avail['media']['ngg'] === true && 
-								! empty( $this->p->addons['media']['ngg'] ) &&
+								! empty( $this->p->mods['media']['ngg'] ) &&
 									( strpos( $tag_value, " class='ngg-" ) !== false || 
-										preg_match( '/^'.$this->p->addons['media']['ngg']->img_src_preg.'$/', $attr_value ) ) )
+										preg_match( '/^'.$this->p->mods['media']['ngg']->img_src_preg.'$/', $attr_value ) ) )
 											break;
 	
 							// recognize gravatar images in the content
@@ -564,8 +564,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				} else $this->p->debug->log( '[gallery] shortcode(s) not found' );
 			}
 			// check for ngg gallery
-			if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->addons['media']['ngg'] ) ) {
-				$og_ret = $this->p->addons['media']['ngg']->get_gallery_images( $num , $size_name, $get, $check_dupes );
+			if ( $this->p->is_avail['media']['ngg'] === true && ! empty( $this->p->mods['media']['ngg'] ) ) {
+				$og_ret = $this->p->mods['media']['ngg']->get_gallery_images( $num , $size_name, $get, $check_dupes );
 				if ( $this->p->util->is_maxed( $og_ret, $num ) )
 					return $og_ret;
 			}

@@ -84,7 +84,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'Twitter Cards extend the standard Facebook / Open Graph and Pinterest Rich Pin meta tags with 
 							content-specific information for image galleries, photographs, eCommerce products, etc. 
 							Twitter Cards are displayed differently on Twitter, either online or from mobile Twitter 
-							clients, allowing you to better feature your content. The Twitter Cards addon can be enabled from the '.
+							clients, allowing you to highlight your content. The Twitter Cards meta tags can be enabled from the '.
 							$this->p->util->get_admin_url( 'general', 'General settings page' ).'.';
 							break;
 						case 'tooltip-side-author-gravatar':
@@ -92,28 +92,31 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$this->p->util->get_admin_url( 'general#sucom-tab_og_author', 'General settings page' ).'.';
 							break;
 						case 'tooltip-side-slideshare-api':
-							$text = 'If the embedded Slideshare Presentations option in the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
-							$short_pro.' will load an integration addon for Slideshare, to detect embedded Slideshare 
-							presentations and retrieve information using Slideshare\'s oEmbed API (media dimentions, preview image, etc).';
+							$text = 'If the embedded Slideshare Presentations option on the '.
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
+							$short_pro.' will load an integration module for Slideshare, to detect embedded Slideshare 
+							presentations and retrieve slide information using Slideshare\'s oEmbed API
+							(media dimentions, preview image, etc).';
 							break;
 						case 'tooltip-side-vimeo-video-api':
 							$text = 'If the embedded Vimeo Videos option in the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
-							$short_pro.' will load an integration addon for Vimeo, to detect embedded Vimeo 
-							videos and retrieve information using Vimeo\'s oEmbed API (media dimentions, preview image, etc).';
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
+							$short_pro.' will load an integration module for Vimeo, to detect embedded Vimeo 
+							videos and retrieve video information using Vimeo\'s oEmbed API
+							(media dimentions, preview image, etc).';
 							break;
 						case 'tooltip-side-wistia-video-api':
 							$text = 'If the embedded Wistia Videos option in the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
-							$short_pro.' will load an integration addon for Wistia to detect embedded Wistia 
-							videos, and retrieve information using Wistia\'s oEmbed API (media dimentions, preview image, etc).';
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
+							$short_pro.' will load an integration module for Wistia to detect embedded Wistia 
+							videos, and retrieve video information using Wistia\'s oEmbed API
+							(media dimentions, preview image, etc).';
 							break;
 						case 'tooltip-side-youtube-video-playlist-api':
 							$text = 'If the embedded Youtube Videos and Playlists option in the '.
-							$this->p->util->get_admin_url( 'advanced', 'Advanced settings' ).' is checked, '.
-							$short_pro.' will detect embedded Youtube 
-							videos and playlists, and retrieve information using Youtube\'s XML and oEmbed APIs
+							$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.
+							$short_pro.' will load an integration module for YouTube to detect embedded YouTube 
+							videos and playlists, and retrieve video information using Youtube\'s XML and oEmbed APIs
 							(media dimentions, preview image, etc).';
 							break;
 						/*
@@ -947,9 +950,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case 'pro-feature-msg':
 					if ( $this->p->check->aop( $lca, false ) )
 						$text = '<p class="pro-feature-msg"><a href="'.$url['purchase'].'" target="_blank">Purchase '.
-						$short_pro.' licence(s) to modify the following options (and load its Pro addon modules)</a></p>';
+						$short_pro.' licence(s) to modify the following options (and load its Pro modules)</a></p>';
 					else $text = '<p class="pro-feature-msg"><a href="'.$url['purchase'].'" target="_blank">Purchase the '.
-						$short_pro.' plugin to modify the following options (and get its Pro addon modules)</a></p>';
+						$short_pro.' plugin to modify the following options (and get its Pro modules)</a></p>';
 					break;
 				case 'pro-option-msg':
 					$text = '<p class="pro-option-msg"><a href="'.$url['purchase'].'" 

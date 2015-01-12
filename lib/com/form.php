@@ -148,6 +148,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 		public function get_image_dimensions_input( $name, $use_opt_defs = false, $narrow = false, $display = 'all' ) {
 			$def_width = '';
 			$def_height = '';
+			$crop_select = '';
 
 			if ( $use_opt_defs === true ) {
 				$def_width = empty( $this->p->options[$name.'_width'] ) ? '' : $this->p->options[$name.'_width'];
@@ -161,20 +162,20 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			if ( $display == 'all' ) {
 				global $wp_version;
 				if ( ! version_compare( $wp_version, 3.9, '<' ) ) {
-					$crop_pos = $narrow === true ? '<div style="margin-top:8px;">' : ' From';
+					$crop_select .= $narrow === true ? '<div style="margin-top:8px;">' : ' From';
 					foreach ( array( 'crop_x', 'crop_y' ) as $key ) {
 						$pos_vals = $this->options[$name.'_'.$key] == -1 ? 
 							array_merge( array( '-1' => '(settings value)' ), $this->p->cf['form']['position_'.$key] ) : 
 							$this->p->cf['form']['position_'.$key];
-						$crop_pos .= ' '.$this->get_select( $name.'_'.$key, $pos_vals, 'medium' );
+						$crop_select .= ' '.$this->get_select( $name.'_'.$key, $pos_vals, 'medium' );
 					}
-					$crop_pos .= $narrow === true ? '</div>' : '';
+					$crop_select .= $narrow === true ? '</div>' : '';
 				}
 			}
 
 			return 'Width '.$this->get_input( $name.'_width', 'short', null, null, $def_width ).' x '.
 				'Height '.$this->get_input( $name.'_height', 'short', null, null, $def_height ).
-				' &nbsp; Crop '.$this->get_checkbox( $name.'_crop' ).$crop_pos;
+				' &nbsp; Crop '.$this->get_checkbox( $name.'_crop' ).$crop_select;
 
 		}
 

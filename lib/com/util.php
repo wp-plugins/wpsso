@@ -256,8 +256,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 					return $url;
 				$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
 				if ( ! empty( $post_id ) ) {
-					if ( isset( $this->p->addons['util']['postmeta'] ) )
-						$url = $this->p->addons['util']['postmeta']->get_options( $post_id, 'sharing_url' );
+					if ( isset( $this->p->mods['util']['postmeta'] ) )
+						$url = $this->p->mods['util']['postmeta']->get_options( $post_id, 'sharing_url' );
 					if ( ! empty( $url ) ) 
 						$this->p->debug->log( 'custom postmeta sharing_url = '.$url );
 					else $url = get_permalink( $post_id );
@@ -290,8 +290,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				elseif ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
 					$author = $this->get_author_object();
 					if ( ! empty( $author->ID ) ) {
-						if ( isset( $this->p->addons['util']['user'] ) )
-							$url = $this->p->addons['util']['user']->get_options( $author->ID, 'sharing_url' );
+						if ( isset( $this->p->mods['util']['user'] ) )
+							$url = $this->p->mods['util']['user']->get_options( $author->ID, 'sharing_url' );
 						if ( ! empty( $url ) ) 
 							$this->p->debug->log( 'custom user sharing_url = '.$url );
 						else $url = get_author_posts_url( $author->ID );
@@ -622,8 +622,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			foreach ( array( 'og_vid_max', 'og_img_max' ) as $max_name ) {
 				$num_meta = false;
 				if ( ! empty( $post_id ) && 
-					array_key_exists( 'postmeta', $this->p->addons['util'] ) )
-						$num_meta = $this->p->addons['util']['postmeta']->get_options( $post_id, $max_name );
+					array_key_exists( 'postmeta', $this->p->mods['util'] ) )
+						$num_meta = $this->p->mods['util']['postmeta']->get_options( $post_id, $max_name );
 				if ( $num_meta !== false ) {
 					$og_max[$max_name] = $num_meta;
 					$this->p->debug->log( 'found custom meta '.$max_name.' = '.$num_meta );

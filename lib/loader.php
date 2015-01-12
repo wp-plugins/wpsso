@@ -17,10 +17,10 @@ if ( ! class_exists( 'WpssoLoader' ) ) {
 		public function __construct( &$plugin ) {
 			$this->p =& $plugin;
 			$this->p->debug->mark();
-			$this->addons();
+			$this->modules();
 		}
 
-		private function addons() {
+		private function modules() {
 			foreach ( $this->p->cf['plugin'] as $lca => $info ) {
 				$type = $this->p->check->aop( $lca ) ? 'pro' : 'gpl';
 				if ( ! isset( $info['lib'][$type] ) )
@@ -32,7 +32,7 @@ if ( ! class_exists( 'WpssoLoader' ) ) {
 						if ( $this->p->is_avail[$sub][$id] ) {
 							$classname = apply_filters( $lca.'_load_lib', false, "$type/$sub/$id" );
 							if ( $classname !== false && class_exists( $classname ) )
-								$this->p->addons[$sub][$id] = new $classname( $this->p );
+								$this->p->mods[$sub][$id] = new $classname( $this->p );
 						}
 					}
 				}

@@ -73,7 +73,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 
 			// allow custom post meta to override the image size options
 			// get the post meta if we can determine a post_id
-			if ( isset( $this->p->addons['util']['postmeta'] ) ) {
+			if ( isset( $this->p->mods['util']['postmeta'] ) ) {
 				// $post_id may be false, or an object
 				if ( ! is_numeric( $post_id ) && is_singular() ) {
 					$obj = $this->get_post_object();
@@ -83,7 +83,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				// on non-singular pages, $post_id may be an object here
 				if ( is_numeric( $post_id ) && $post_id > 0 ) {
 					$this->p->debug->log( 'reading custom meta for post id '.$post_id );
-					$meta_opts = $this->p->addons['util']['postmeta']->get_options( $post_id );
+					$meta_opts = $this->p->mods['util']['postmeta']->get_options( $post_id );
 				} 
 			}
 
@@ -372,11 +372,15 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		// query examples:
 		//	/html/head/link|/html/head/meta
 		//	/html/head/meta[starts-with(@property, 'og:video:')]
-		public function get_head_meta( $url, $query = '/html/head/meta' ) {
+		public function get_head_meta( $url, $query = '/html/head/meta', $include_self = true ) {
 			if ( empty( $query ) )
 				return false;
 			if ( ( $html = $this->p->cache->get( $url, 'raw', 'transient' ) ) === false )
 				return false;
+			if ( $include_self !== true &&
+				strpos( $html, '<!-- '.$this->p->cf['lca'].' meta tags begin -->' ) !== false )
+					$html = preg_replace( '/<!-- '.$this->p->cf['lca'].' meta tags begin -->.*<!-- '.
+						$this->p->cf['lca'].' meta tags end -->/ms', '', $html );
 			$doc = new DomDocument();		// since PHP v4.1.0
 			@$doc->loadHTML( $html );		// suppress parsing errors
 			$xpath = new DOMXPath( $doc );
