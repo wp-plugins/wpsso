@@ -397,6 +397,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* *None*
 * **Improvements**
 	* Refactored code to rename the $addons array variable to $mods, in order to clarify that all 'modules' are included in the Pro version.
+	* When checking for duplicate meta tags, added extra validation to (potentially) remove our own meta tags, for cases where a caching plugin or webserver is badly configured (ie. query arguments are ignored or removed).
 * **New Features**
 	* *None*
 
