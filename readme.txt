@@ -472,6 +472,10 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
+= 2.7.5 =
+
+Refactored code to rename the $addons array variable to $mods, added extra validation to remove our own meta tags (for cases where a caching plugin or webserver is badly configured).
+
 = 2.7.4 =
 
 Added the "Product Card Maximum Labels" option. This option allows you to use the current Twitter maximum of 2, or the now deprecated maximum of 4.
