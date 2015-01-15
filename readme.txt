@@ -391,6 +391,15 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.7.5.1 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Added a sanity check for an empty media array returned by the YouTube API XML (Pro version).
+* **New Features**
+	* *None*
+
 = Version 2.7.5 =
 
 * **Bugfixes**
