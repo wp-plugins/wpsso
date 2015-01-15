@@ -363,24 +363,26 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 == Screenshots ==
 
 1. The Plugin General Settings Page
-2. An Example Facebook Link Share
-3. An Example Facebook Video Share
-4. An Example Google+ Link Share
-5. An Example Google+ Video Share
-6. An Example Google Search Result showing Author Profile Info
-7. An Example LinkedIn Share
-8. An Example Pinterest Image Pin
-9. An Example Pinterest Product Pin
-10. An Example Pinterest Product Pin (Zoomed)
-11. An Example StumbleUpon Share
-12. An Example Tumblr 'Link' Share
-13. An Example Tumblr 'Photo' Share
-14. An Example Tumblr 'Video' Share
-15. An Example Twitter 'Summary' Card
-16. An Example Twitter 'Large Image Summary' Card
-17. An Example Twitter 'Photo' Card
-18. An Example Twitter 'Gallery' Card
-19. An Example Twitter 'Product' Card
+2. The Plugin Advanced Settings Page
+3. The Plugin Social Settings on Posts and Pages
+4. An Example Facebook Link Share
+5. An Example Facebook Video Share
+6. An Example Google+ Link Share
+7. An Example Google+ Video Share
+8. An Example Google Search Result showing Author Profile Info
+9. An Example LinkedIn Share
+10. An Example Pinterest Image Pin
+11. An Example Pinterest Product Pin
+12. An Example Pinterest Product Pin (Zoomed)
+13. An Example StumbleUpon Share
+14. An Example Tumblr 'Link' Share
+15. An Example Tumblr 'Photo' Share
+16. An Example Tumblr 'Video' Share
+17. An Example Twitter 'Summary' Card
+18. An Example Twitter 'Large Image Summary' Card
+19. An Example Twitter 'Photo' Card
+20. An Example Twitter 'Gallery' Card
+21. An Example Twitter 'Product' Card
 
 == Changelog ==
 
