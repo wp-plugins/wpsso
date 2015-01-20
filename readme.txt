@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.1
-Stable Tag: 2.7.5
+Stable Tag: 2.7.5.1
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -398,7 +398,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 * **Bugfixes**
 	* *None*
 * **Improvements**
-	* Added a sanity check for an empty media array returned by the YouTube API XML (Pro version).
+	* Added an extra sanity check for empty media arrays returned by the YouTube API XML (Pro version).
 * **New Features**
 	* *None*
 
@@ -482,6 +482,10 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* Added the 'Check for Header Tag Conflicts' option on the SSO Advanced settings page.
 
 == Upgrade Notice ==
+
+= 2.7.5.1 =
+
+Added an extra sanity check for empty media arrays returned by the YouTube API XML (Pro version).
 
 = 2.7.5 =
 
