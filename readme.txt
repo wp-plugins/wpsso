@@ -384,6 +384,7 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 19. An Example Twitter 'Photo' Card
 20. An Example Twitter 'Gallery' Card
 21. An Example Twitter 'Product' Card
+22. An Example Twitter 'Player' Card
 
 == Changelog ==
 
