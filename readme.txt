@@ -363,15 +363,15 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Screenshots ==
 
-1. The Plugin General Settings Page
-2. The Plugin Advanced Settings Page
-3. The Plugin Social Settings on Posts and Pages
-4. An Example Facebook Link Share
-5. An Example Facebook Video Share
-6. An Example Google+ Link Share
-7. An Example Google+ Video Share
-8. An Example Google Search Result showing Author Profile Info
-9. An Example LinkedIn Share
+01. The Plugin General Settings Page
+02. The Plugin Advanced Settings Page
+03. The Plugin Social Settings on Posts and Pages
+04. An Example Facebook Link Share
+05. An Example Facebook Video Share
+06. An Example Google+ Link Share
+07. An Example Google+ Video Share
+08. An Example Google Search Result showing Author Profile Info
+09. An Example LinkedIn Share
 10. An Example Pinterest Image Pin
 11. An Example Pinterest Product Pin
 12. An Example Pinterest Product Pin (Zoomed)
