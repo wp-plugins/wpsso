@@ -395,6 +395,15 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.7.5.2 =
+
+* **Bugfixes**
+	* Added a extra check for the attachment post type, in order to override the featured image and "published" post status checks.
+* **Improvements**
+	* *None*
+* **New Features**
+	* *None*
+
 = Version 2.7.5.1 =
 
 * **Bugfixes**
