@@ -136,8 +136,14 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			) );
 			$og_ret = array();
 			$og_image = array();
-			if ( ! empty( $post_id ) && $this->p->is_avail['postthumb'] == true && has_post_thumbnail( $post_id ) ) {
-				$pid = get_post_thumbnail_id( $post_id );
+			if ( ! empty( $post_id ) ) {
+				// check for an attachment page, just in case
+				if ( is_attachment( $post_id ) || get_post_type( $post_id ) === 'attachment' ) {
+					$this->p->debug->log( 'post_type is an attachment - using post_id '.$post_id. ' as the image id' );
+					$pid = $post_id;
+				} elseif ( $this->p->is_avail['postthumb'] == true && has_post_thumbnail( $post_id ) )
+					$pid = get_post_thumbnail_id( $post_id );
+
 				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
 					$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes, $force_regen );
 				if ( ! empty( $og_image['og:image'] ) )

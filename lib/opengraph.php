@@ -268,7 +268,10 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 			$og_ret = array();
 
 			// check for an attachment page
-			if ( ! empty( $post_id ) && is_attachment( $post_id ) ) {	// post id should be > 0 for attachment pages
+			// is_attachment() only works on the front-end, so check the post_type as well
+			if ( ! empty( $post_id ) && 
+				( is_attachment( $post_id ) || get_post_type( $post_id ) === 'attachment' ) ) {
+
 				$og_image = array();
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
 				$og_image = $this->p->media->get_attachment_image( $num_remains, $size_name, $post_id, $check_dupes );

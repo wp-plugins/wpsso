@@ -126,7 +126,9 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					break; 
 
 				case 'meta-tools':
-					if ( get_post_status( $post_info['id'] ) === 'publish' ) {
+					if ( get_post_status( $post_info['id'] ) === 'publish' ||
+						get_post_type( $post_info['id'] ) === 'attachment' ) {
+
 						$rows = $this->get_rows_validation_tools( $this->form, $post_info );
 					} else $rows[] = '<td><p class="centered">The Validation Tools will be available when the '
 						.$post_info['ptn'].' is published with public visibility.</p></td>';
