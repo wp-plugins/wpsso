@@ -197,10 +197,14 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 					} else {
 						switch ( SucomUtil::crawler_name() ) {
 							case 'pinterest':
-								$img_sizes = array ( 'rp' => $this->p->cf['lca'].'-richpin' );
+								$img_sizes = array (
+									'rp' => $this->p->cf['lca'].'-richpin'
+								);
 								break;
 							default:
-								$img_sizes = array ( 'og' => $this->p->cf['lca'].'-opengraph' );
+								$img_sizes = array (
+									'og' => $this->p->cf['lca'].'-opengraph'
+								);
 								break;
 						}
 					}
@@ -277,7 +281,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 				$og_image = $this->p->media->get_attachment_image( $num_remains, $size_name, $post_id, $check_dupes );
 
 				// if an attachment is not an image, then use the default image instead
-				if ( empty( $og_ret ) ) {
+				if ( empty( $og_image ) ) {
 					$num_remains = $this->p->media->num_remains( $og_ret, $num );
 					$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
 				} else $og_ret = array_merge( $og_ret, $og_image );
