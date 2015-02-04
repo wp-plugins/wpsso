@@ -399,6 +399,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 * **Bugfixes**
 	* Added a extra check for the attachment post type, in order to override the featured image and "published" post status checks.
+	* Fixed an empty array test for attachment images that would caused the plugin to always return the default image.
 * **Improvements**
 	* *None*
 * **New Features**
