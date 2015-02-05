@@ -26,7 +26,9 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 		protected function add_actions() {
 			// add default image sizes from plugin settings
 			// add_plugin_image_sizes() is also called from WpssoPostmeta::set_header_tags() to set image sizes for the post id
-			add_action( 'wp', array( &$this, 'add_plugin_image_sizes' ), -100 );
+			add_action( 'wp', array( &$this, 'add_plugin_image_sizes' ), -100 );	// runs everytime a posts query is triggered from an url
+			add_action( 'admin_init', array( &$this, 'add_plugin_image_sizes' ), -100 );
+
 			add_action( 'wp_scheduled_delete', array( &$this, 'delete_expired_transients' ) );
 			add_action( 'wp_scheduled_delete', array( &$this, 'delete_expired_file_cache' ) );
 		}
