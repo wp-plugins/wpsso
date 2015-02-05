@@ -495,7 +495,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
-= 2.7.5.1 =
+= 2.7.5.2 =
 
-Added an extra sanity check for empty media arrays returned by the YouTube API XML (Pro version).
+Added checks for an "attachment" page, to use the information for the attachment itself, and not the attached post/page.
 
