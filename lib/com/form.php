@@ -159,18 +159,16 @@ if ( ! class_exists( 'SucomForm' ) ) {
 						$this->options[$name.'_'.$key] = $this->defaults[$name.'_'.$key];
 			}
 
-			if ( $display == 'all' ) {
-				global $wp_version;
-				if ( ! version_compare( $wp_version, 3.9, '<' ) ) {
-					$crop_select .= $narrow === true ? '<div style="margin-top:8px;">' : ' From';
-					foreach ( array( 'crop_x', 'crop_y' ) as $key ) {
-						$pos_vals = $this->options[$name.'_'.$key] == -1 ? 
-							array_merge( array( '-1' => '(settings value)' ), $this->p->cf['form']['position_'.$key] ) : 
-							$this->p->cf['form']['position_'.$key];
-						$crop_select .= ' '.$this->get_select( $name.'_'.$key, $pos_vals, 'medium' );
-					}
-					$crop_select .= $narrow === true ? '</div>' : '';
+			global $wp_version;
+			if ( ! version_compare( $wp_version, 3.9, '<' ) ) {
+				$crop_select .= $narrow === true ? '<div style="margin-top:8px;">' : ' From';
+				foreach ( array( 'crop_x', 'crop_y' ) as $key ) {
+					$pos_vals = $this->options[$name.'_'.$key] == -1 ? 
+						array_merge( array( '-1' => '(settings value)' ), $this->p->cf['form']['position_'.$key] ) : 
+						$this->p->cf['form']['position_'.$key];
+					$crop_select .= ' '.$this->get_select( $name.'_'.$key, $pos_vals, 'medium' );
 				}
+				$crop_select .= $narrow === true ? '</div>' : '';
 			}
 
 			return 'Width '.$this->get_input( $name.'_width', 'short', null, null, $def_width ).' x '.
