@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.1
-Stable Tag: 2.7.5.2
+Stable Tag: 2.7.5.4
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -398,7 +398,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 = Version 2.7.5.4 =
 
 * **Bugfixes**
-	* Added a missing test for a valid image ID when checking for featured images.
+	* Added a test for a valid image ID when checking for featured images.
 * **Improvements**
 	* Added a `wp_attachment_is_image()` check for attachment page media.
 * **New Features**
@@ -434,6 +434,10 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* *None*
 
 == Upgrade Notice ==
+
+= 2.7.5.4 =
+
+Added a test for a valid image ID when checking for featured images, wp_attachment_is_image() check for attachment page media.
 
 = 2.7.5.2 =
 

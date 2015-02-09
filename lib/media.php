@@ -146,7 +146,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 					$pid = get_post_thumbnail_id( $post_id );
 				else $pid = false;
 
-				if ( $pid !== false ) {
+				if ( ! empty( $pid ) ) {
 					list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
 						$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes, $force_regen );
 					if ( ! empty( $og_image['og:image'] ) )
