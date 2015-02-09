@@ -395,6 +395,15 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.7.5.4 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Added a `wp_attachment_is_image()` check for attachment page media.
+* **New Features**
+	* *None*
+
 = Version 2.7.5.2 =
 
 * **Bugfixes**
