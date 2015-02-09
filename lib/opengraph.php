@@ -273,20 +273,22 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 
 			// check for an attachment page
 			// is_attachment() only works on the front-end, so check the post_type as well
-			if ( ! empty( $post_id ) && 
-				( is_attachment( $post_id ) || get_post_type( $post_id ) === 'attachment' ) ) {
+			if ( ! empty( $post_id ) ) {
+				if ( ( is_attachment( $post_id ) || get_post_type( $post_id ) === 'attachment' ) &&
+					wp_attachment_is_image( $post_id ) ) {
 
-				$og_image = array();
-				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				$og_image = $this->p->media->get_attachment_image( $num_remains, $size_name, $post_id, $check_dupes );
-
-				// if an attachment is not an image, then use the default image instead
-				if ( empty( $og_image ) ) {
+					$og_image = array();
 					$num_remains = $this->p->media->num_remains( $og_ret, $num );
-					$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
-				} else $og_ret = array_merge( $og_ret, $og_image );
-
-				return $og_ret;
+					$og_image = $this->p->media->get_attachment_image( $num_remains, $size_name, $post_id, $check_dupes );
+	
+					// if an attachment is not an image, then use the default image instead
+					if ( empty( $og_image ) ) {
+						$num_remains = $this->p->media->num_remains( $og_ret, $num );
+						$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
+					} else $og_ret = array_merge( $og_ret, $og_image );
+	
+					return $og_ret;
+				}
 			}
 
 			// check for index webpages with og_def_img_on_index or og_def_img_on_search enabled to force a default image

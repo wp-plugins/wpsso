@@ -138,28 +138,38 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$og_image = array();
 			if ( ! empty( $post_id ) ) {
 				// check for an attachment page, just in case
-				if ( is_attachment( $post_id ) || get_post_type( $post_id ) === 'attachment' ) {
+				if ( ( is_attachment( $post_id ) || get_post_type( $post_id ) === 'attachment' ) &&
+					wp_attachment_is_image( $post_id ) ) {
 					$this->p->debug->log( 'post_type is an attachment - using post_id '.$post_id. ' as the image id' );
 					$pid = $post_id;
 				} elseif ( $this->p->is_avail['postthumb'] == true && has_post_thumbnail( $post_id ) )
 					$pid = get_post_thumbnail_id( $post_id );
+				else $pid = false;
 
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
-					$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes, $force_regen );
-				if ( ! empty( $og_image['og:image'] ) )
-					$this->p->util->push_max( $og_ret, $og_image, $num );
+				if ( $pid !== false ) {
+					list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
+						$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes, $force_regen );
+					if ( ! empty( $og_image['og:image'] ) )
+						$this->p->util->push_max( $og_ret, $og_image, $num );
+				}
 			}
 			return apply_filters( $this->p->cf['lca'].'_og_featured', $og_ret, $num, $size_name, $post_id, $check_dupes, $force_regen );
 		}
 
 		public function get_first_attached_image_id( $post_id ) {
 			if ( ! empty( $post_id ) ) {
-				$images = get_children( array( 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image' ) );
-				$attach = reset( $images );
-				if ( ! empty( $attach->ID ) )
-					return $attach->ID;
+				// check for an attachment page, just in case
+				if ( ( is_attachment( $post_id ) || get_post_type( $post_id ) === 'attachment' ) &&
+					wp_attachment_is_image( $post_id ) )
+						return $post_id;
+				else {
+					$images = get_children( array( 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image' ) );
+					$attach = reset( $images );
+					if ( ! empty( $attach->ID ) )
+						return $attach->ID;
+				}
 			}
-			return;
+			return false;
 		}
 
 		public function get_attachment_image( $num = 0, $size_name = 'thumbnail', $attach_id, $check_dupes = true, $force_regen = false ) {
