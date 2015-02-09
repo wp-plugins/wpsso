@@ -398,7 +398,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 = Version 2.7.5.4 =
 
 * **Bugfixes**
-	* Added a missing test for a valid image ID when checking for featured images.
+	* Added a test for a valid image ID when checking for featured images.
 * **Improvements**
 	* Added a `wp_attachment_is_image()` check for attachment page media.
 * **New Features**
@@ -434,6 +434,10 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* *None*
 
 == Upgrade Notice ==
+
+= 2.7.5.4 =
+
+Added a test for a valid image ID when checking for featured images, wp_attachment_is_image() check for attachment page media.
 
 = 2.7.5.2 =
 
