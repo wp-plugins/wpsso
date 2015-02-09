@@ -401,6 +401,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* Added a test for a valid image ID when checking for featured images.
 * **Improvements**
 	* Added a `wp_attachment_is_image()` check for attachment page media.
+	* Added support for WordPress SEO's `WPSEO_Taxonomy_Meta::get_term_meta()` static class method (Pro version).
 * **New Features**
 	* *None*
 
