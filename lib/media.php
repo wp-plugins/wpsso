@@ -94,6 +94,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				'meta_pre' => $meta_pre,
 			) );
 			$og_ret = array();
+			$force_regen = false;
 
 			if ( empty( $post_id ) )
 				return $og_ret;
@@ -103,7 +104,7 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 				$force_regen = get_transient( $force_regen_transient_id );
 				if ( $force_regen !== false )
 					delete_transient( $force_regen_transient_id );
-			} else $force_regen = false;
+			} 
 
 			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
 				$num_remains = $this->num_remains( $og_ret, $num );
