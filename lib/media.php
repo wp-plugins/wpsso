@@ -96,22 +96,23 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			$og_ret = array();
 			$force_regen = false;
 
-			if ( empty( $post_id ) )
-				return $og_ret;
+			if ( ! empty( $post_id ) ) {
 
-			if ( ! empty( $this->p->options['plugin_auto_img_resize'] ) ) {
-				$force_regen_transient_id = $this->p->cf['lca'].'_post_'.$post_id.'_regen_'.$meta_pre;
-				$force_regen = get_transient( $force_regen_transient_id );
-				if ( $force_regen !== false )
-					delete_transient( $force_regen_transient_id );
-			} 
-
-			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
-				$num_remains = $this->num_remains( $og_ret, $num );
-				$og_ret = array_merge( $og_ret, $this->p->mods['util']['postmeta']->get_og_image( $num_remains, 
-					$size_name, $post_id, $check_dupes, $force_regen, $meta_pre ) );
+				if ( ! empty( $this->p->options['plugin_auto_img_resize'] ) ) {
+					$force_regen_transient_id = $this->p->cf['lca'].'_post_'.$post_id.'_regen_'.$meta_pre;
+					$force_regen = get_transient( $force_regen_transient_id );
+					if ( $force_regen !== false )
+						delete_transient( $force_regen_transient_id );
+				} 
+	
+				if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
+					$num_remains = $this->num_remains( $og_ret, $num );
+					$og_ret = array_merge( $og_ret, $this->p->mods['util']['postmeta']->get_og_image( $num_remains, 
+						$size_name, $post_id, $check_dupes, $force_regen, $meta_pre ) );
+				}
 			}
-
+	
+			// allow for empty post_id in order to execute featured/attached image filters for modules
 			if ( ! $this->p->util->is_maxed( $og_ret, $num ) ) {
 				$num_remains = $this->num_remains( $og_ret, $num );
 				$og_ret = array_merge( $og_ret, $this->get_featured( $num_remains, 
@@ -154,7 +155,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 						$this->p->util->push_max( $og_ret, $og_image, $num );
 				}
 			}
-			return apply_filters( $this->p->cf['lca'].'_og_featured', $og_ret, $num, $size_name, $post_id, $check_dupes, $force_regen );
+			return apply_filters( $this->p->cf['lca'].'_og_featured', $og_ret, $num, 
+				$size_name, $post_id, $check_dupes, $force_regen );
 		}
 
 		public function get_first_attached_image_id( $post_id ) {
@@ -224,7 +226,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 								break;	// end foreach and apply filters
 					}
 			}
-			return apply_filters( $this->p->cf['lca'].'_attached_images', $og_ret, $num, $size_name, $post_id, $check_dupes );
+			return apply_filters( $this->p->cf['lca'].'_attached_images', $og_ret, $num, 
+				$size_name, $post_id, $check_dupes );
 		}
 
 		public function get_attachment_image_src( $pid, $size_name = 'thumbnail', $check_dupes = true, $force_regen = false ) {
