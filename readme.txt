@@ -395,6 +395,15 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.7.5.5 =
+
+* **Bugfixes**
+	* Allowed the WpssoMedia::get_post_images() method to be called with an empty post ID value, in order to execute the featured and attached images filters (used by some Pro modules).
+* **Improvements**
+	* *None*
+* **New Features**
+	* *None*
+
 = Version 2.7.5.4 =
 
 * **Bugfixes**
