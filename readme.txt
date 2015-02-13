@@ -398,7 +398,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 = Version 2.7.5.5 =
 
 * **Bugfixes**
-	* Allowed the WpssoMedia::get_post_images() method to be called, even with an empty post ID, so it's filters can be executed.
+	* Allowed the WpssoMedia::get_post_images() method to be called with an empty post ID value, in order to execute the featured and attached images filters (used by some Pro modules).
 * **Improvements**
 	* *None*
 * **New Features**

@@ -268,7 +268,13 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 		}
 
 		public function get_all_images( $num = 0, $size_name = 'thumbnail', $post_id, $check_dupes = true, $meta_pre = 'og' ) {
-			$this->p->debug->args( array( 'num' => $num, 'size_name' => $size_name, 'post_id' => $post_id, 'check_dupes' => $check_dupes, 'meta_pre' => $meta_pre ) );
+			$this->p->debug->args( array(
+				'num' => $num,
+				'size_name' => $size_name,
+				'post_id' => $post_id,
+				'check_dupes' => $check_dupes,
+				'meta_pre' => $meta_pre,
+			) );
 			$og_ret = array();
 
 			// check for an attachment page
@@ -279,12 +285,14 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 
 					$og_image = array();
 					$num_remains = $this->p->media->num_remains( $og_ret, $num );
-					$og_image = $this->p->media->get_attachment_image( $num_remains, $size_name, $post_id, $check_dupes );
+					$og_image = $this->p->media->get_attachment_image( $num_remains, 
+						$size_name, $post_id, $check_dupes );
 	
 					// if an attachment is not an image, then use the default image instead
 					if ( empty( $og_image ) ) {
 						$num_remains = $this->p->media->num_remains( $og_ret, $num );
-						$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
+						$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, 
+							$size_name, $check_dupes ) );
 					} else $og_ret = array_merge( $og_ret, $og_image );
 	
 					return $og_ret;
@@ -298,11 +306,13 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 
 				$this->p->debug->log( 'default image is forced' );
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, $size_name, $check_dupes ) );
+				$og_ret = array_merge( $og_ret, $this->p->media->get_default_image( $num_remains, 
+					$size_name, $check_dupes ) );
 				return $og_ret;	// stop here and return the image array
 			}
 
-			if ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
+			if ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && 
+				( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
 				if ( is_admin() )
 					$author_id = empty( $_GET['user_id'] ) ? get_current_user_id() : $_GET['user_id'];
 				else {
@@ -312,14 +322,15 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 					$author_id = $author->ID;
 				}
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				$og_ret = array_merge( $og_ret, $this->p->media->get_author_image( $num_remains, $size_name, $author_id, $check_dupes ) );
+				$og_ret = array_merge( $og_ret, $this->p->media->get_author_image( $num_remains, 
+					$size_name, $author_id, $check_dupes ) );
 			}
 
 			// check for custom meta, featured, or attached image(s)
-			// allow this method to be called even with an empty $post_id, so featured/attached filter scan be executed
-			// the buddypress module, for example, hooks into the 'wpsso_attached_images' filter
+			// allow for empty post_id in order to execute featured/attached image filters for modules
 			$num_remains = $this->p->media->num_remains( $og_ret, $num );
-			$og_ret = array_merge( $og_ret, $this->p->media->get_post_images( $num_remains, $size_name, $post_id, $check_dupes, $meta_pre ) );
+			$og_ret = array_merge( $og_ret, $this->p->media->get_post_images( $num_remains, 
+				$size_name, $post_id, $check_dupes, $meta_pre ) );
 
 			// check for ngg shortcodes and query vars
 			if ( $this->p->is_avail['media']['ngg'] === true && 
@@ -330,7 +341,8 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 				$ngg_query_og_ret = array();
 				$num_remains = $this->p->media->num_remains( $og_ret, $num );
 				if ( version_compare( $this->p->mods['media']['ngg']->ngg_version, '2.0.0', '<' ) )
-					$ngg_query_og_ret = $this->p->mods['media']['ngg']->get_query_images( $num_remains, $size_name, $check_dupes );
+					$ngg_query_og_ret = $this->p->mods['media']['ngg']->get_query_images( $num_remains, 
+						$size_name, $check_dupes );
 
 				// if we found images in the query, skip content shortcodes
 				if ( count( $ngg_query_og_ret ) > 0 ) {
