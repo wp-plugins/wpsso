@@ -316,13 +316,10 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 			}
 
 			// check for custom meta, featured, or attached image(s)
-			if ( ! empty( $post_id ) ) {	// post id should be > 0
-				$num_remains = $this->p->media->num_remains( $og_ret, $num );
-				$og_ret = array_merge( $og_ret, $this->p->media->get_post_images( $num_remains, $size_name, $post_id, $check_dupes, $meta_pre ) );
-
-				// keep going to find more images
-				// the featured / attached image(s) will be listed first in the open graph meta property tags and duplicates will be filtered out
-			}
+			// allow this method to be called even with an empty $post_id, so featured/attached filter scan be executed
+			// the buddypress module, for example, hooks into the 'wpsso_attached_images' filter
+			$num_remains = $this->p->media->num_remains( $og_ret, $num );
+			$og_ret = array_merge( $og_ret, $this->p->media->get_post_images( $num_remains, $size_name, $post_id, $check_dupes, $meta_pre ) );
 
 			// check for ngg shortcodes and query vars
 			if ( $this->p->is_avail['media']['ngg'] === true && 
