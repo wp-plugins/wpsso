@@ -395,6 +395,16 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.7.5.6 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Minor CSS tweeks to adjust options layout for smaller displays.
+	* Changed the priority for BuddyPress member (user) pages to include the avatar image before any image from the latest activity content.
+* **New Features**
+	* *None*
+
 = Version 2.7.5.5 =
 
 * **Bugfixes**
@@ -445,11 +455,11 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
+= 2.7.5.5 =
+
+Minor fix to allow the WpssoMedia::get_post_images() method to be called with an empty post ID value.
+
 = 2.7.5.4 =
 
 Added a test for a valid image ID when checking for featured images, and a wp_attachment_is_image() check for attachment page media.
-
-= 2.7.5.2 =
-
-Added checks for an "attachment" page, to use the information for the attachment itself, and not the attached post/page.
 
