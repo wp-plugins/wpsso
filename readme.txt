@@ -45,7 +45,7 @@ Make sure social websites present your content correctly, no matter how your web
 
 <ul>
 <li><a href="http://www.wpsuperstars.net/optimize-content-for-social-networks/">How To Optimize Your Content For Social Networks Using WordPress</a></li>
-<li><a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">Social SEO: WordPress SEO by Yoast vs WPSSO</a></li>
+<li><a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">Social SEO: WordPress SEO by Yoast vs WPSSO</a> &mdash; read about the differences between WordPress SEO by Yoast and WPSSO when used for social sharing.</li>
 </ul>
 </blockquote></p>
 
