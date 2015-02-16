@@ -400,8 +400,8 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 * **Bugfixes**
 	* *None*
 * **Improvements**
-	* Minor CSS tweeks to adjust options layout for smaller displays.
-	* Changed the priority for BuddyPress member (user) pages to include the avatar image before any image from the latest activity content.
+	* Minor admin CSS tweeks to adjust the settings page layout for lower resolution displays.
+	* Changed the priority for BuddyPress member pages to include the avatar image before any image from the latest activity content.
 * **New Features**
 	* *None*
 
@@ -454,6 +454,10 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* *None*
 
 == Upgrade Notice ==
+
+= 2.7.5.6 =
+
+Changed the priority for BuddyPress member images (Pro version). Admin CSS tweeks for lower resolution displays.
 
 = 2.7.5.5 =
 

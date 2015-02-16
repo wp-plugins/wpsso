@@ -30,10 +30,11 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			if ( $this->p->is_avail['media']['ngg'] === true ) 
 				$media_libs['ngg'] = 'NextGEN Gallery';
 
-			return $this->get_input( $name_prefix.'_id', 'short' ).'&nbsp;in&nbsp;'.
-				$this->get_select( $name_prefix.'_id_pre', $media_libs ).'&nbsp;&nbsp;'.
-				( function_exists( 'wp_enqueue_media' ) ?
-					$this->get_button( 'Select or Upload Image', 'sucom_image_upload_button button', $name_prefix ) : '' );
+			return '<div class="img_upload">'.$this->get_input( $name_prefix.'_id', 'short' ).'&nbsp;in&nbsp;'.
+				$this->get_select( $name_prefix.'_id_pre', $media_libs ).'&nbsp;'.
+				( function_exists( 'wp_enqueue_media' ) ? $this->get_button( 'Select or Upload Image', 
+					'sucom_image_upload_button button', $name_prefix ) : '' ).'</div>';
+
 		}
 
 		public function get_image_url_input( $name_prefix ) {
@@ -161,14 +162,16 @@ if ( ! class_exists( 'SucomForm' ) ) {
 
 			global $wp_version;
 			if ( ! version_compare( $wp_version, 3.9, '<' ) ) {
-				$crop_select .= $narrow === true ? '<div style="margin-top:8px;">' : ' From';
+				$crop_select .= $narrow === true ? 
+					' <div class="img_crop_from is_narrow">' :
+					' <div class="img_crop_from">From';
 				foreach ( array( 'crop_x', 'crop_y' ) as $key ) {
 					$pos_vals = $this->options[$name.'_'.$key] == -1 ? 
 						array_merge( array( '-1' => '(settings value)' ), $this->p->cf['form']['position_'.$key] ) : 
 						$this->p->cf['form']['position_'.$key];
 					$crop_select .= ' '.$this->get_select( $name.'_'.$key, $pos_vals, 'medium' );
 				}
-				$crop_select .= $narrow === true ? '</div>' : '';
+				$crop_select .= '</div>';
 			}
 
 			return 'Width '.$this->get_input( $name.'_width', 'short', null, null, $def_width ).' x '.
