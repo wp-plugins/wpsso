@@ -24,7 +24,7 @@ Make sure social websites present your content correctly, no matter how your web
 
 </td></tr></table>
 
-<p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO can then provide everything those social websites need to know about your shared content. <strong>Use WPSSO by itself, or in combination with any of your favorite social sharing buttons</strong>.</p>
+<p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO can then provide everything those social websites need to know about your shared content. <strong>Use WPSSO by itself or in combination with any of your favorite social sharing buttons</strong>.</p>
 
 <p><blockquote>
 <h4>Industry Reviews</h4>
