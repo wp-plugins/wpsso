@@ -16,15 +16,15 @@ Make sure social websites present your content correctly, no matter how your web
 <p><img src="https://ps.w.org/wpsso/assets/icon-256x256.png?rev=" width="256" height="256" style="max-width:none;margin-right:40px;" /></p>
 </td><td valign="top">
 
-<p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social websites.</p>
+<p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social website timeslines and private messages.</p>
 
 = Advanced Social Management =
 
-<p>WordPress Social Sharing Optimization (WPSSO) gives you <strong>total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, Pinterest, LinkedIn, StumbleUpon, Tumblr and and many more &mdash; no sharing buttons required!</p>
+<p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, Pinterest, LinkedIn, StumbleUpon, Tumblr and and many more &mdash; NO SHARING BUTTONS REQUIRED!</p>
 
 </td></tr></table>
 
-<p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO can then provide everything those social websites need to know about your shared content. Use WPSSO by itself, or in combination with any of your favorite social sharing buttons.</p>
+<p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO can then provide everything those social websites need to know about your shared content. <strong>Use WPSSO by itself, or in combination with any of your favorite social sharing buttons</strong>.</p>
 
 <p><blockquote>
 <h4>Industry Reviews</h4>
