@@ -134,7 +134,7 @@ WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me
 WPSSO (Pro version) integrates with [WordPress SEO by Yoast](https://wordpress.org/plugins/wordpress-seo/), [All in One SEO Pack](https://wordpress.org/plugins/all-in-one-seo-pack/), and [HeadSpace2 SEO](https://wordpress.org/plugins/headspace2/) &mdash; making sure your custom SEO settings are reflected in the Open Graph, Rich Pin, and Twitter Card meta tags.
 
 <blockquote>
-<p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between WordPress SEO by Yoast and WPSSO</a> when used for social sharing.</p>
+<p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between WordPress SEO by Yoast and WPSSO</a> &mdash; the features each one provides for social sharing, and how WPSSO can extend the basic social features of WordPress SEO by Yoast.</p>
 </blockquote>
 
 **eCommerce Products**
@@ -462,12 +462,4 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 = 2.7.5.6 =
 
 Changed the priority for BuddyPress member images (Pro version). Admin CSS tweeks for lower resolution displays.
-
-= 2.7.5.5 =
-
-Minor fix to allow the WpssoMedia::get_post_images() method to be called with an empty post ID value.
-
-= 2.7.5.4 =
-
-Added a test for a valid image ID when checking for featured images, and a wp_attachment_is_image() check for attachment page media.
 
