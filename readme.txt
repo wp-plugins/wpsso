@@ -399,6 +399,16 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.7.6 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Renamed the `WpssoAdmin::get_form_ref()` method to `get_form_reference()` (update to WPSSO SSB v1.1.7 required).
+* **New Features**
+	* Added a check for the og:image meta tag, and if missing, issue a warning (Facebook requires at least one og:image meta tag).
+	* Added a check for a hard-coded minimum image size of 200x200, which is the minimum allowed by the Facebook / Open Graph standard.
+
 = Version 2.7.5.6 =
 
 * **Bugfixes**
