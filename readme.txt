@@ -26,7 +26,7 @@ Make sure social websites present your content correctly, no matter how your web
 
 <p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO can then provide everything those social websites need to know about your shared content. <strong>Use WPSSO by itself or in combination with any of your favorite social sharing buttons</strong>.</p>
 
-<p>You can download the <a href="https://wordpress.org/plugins/wpsso/">Free version of WPSSO on WordPress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) on SurniaUlula.com</a> (includes a <em>No Risk 30 Day Refund Policy</em>).</p>
+<p>You can download the <a href="https://wordpress.org/plugins/wpsso/">Free version of WPSSO on wordpress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) on surniaulula.com</a> (includes a <em>No Risk 30 Day Refund Policy</em>).</p>
 
 <p><blockquote>
 <h4>Industry Reviews</h4>
