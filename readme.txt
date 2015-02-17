@@ -16,7 +16,7 @@ Make sure social websites present your content correctly, no matter how your web
 <p><img src="https://ps.w.org/wpsso/assets/icon-256x256.png?rev=" width="256" height="256" style="max-width:none;margin-right:40px;" /></p>
 </td><td valign="top">
 
-<p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly in social website timeline posts and private messages.</p>
+<p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or <em>URLs pasted directly in social timeline posts and private messages</em>.</p>
 
 = Advanced Social Management =
 
