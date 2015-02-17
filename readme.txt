@@ -16,7 +16,7 @@ Make sure social websites present your content correctly, no matter how your web
 <p><img src="https://ps.w.org/wpsso/assets/icon-256x256.png?rev=" width="256" height="256" style="max-width:none;margin-right:40px;" /></p>
 </td><td valign="top">
 
-<p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly on social website timeslines and private messages.</p>
+<p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or URLs pasted directly in social website timeline posts and private messages.</p>
 
 = Advanced Social Management =
 
@@ -25,6 +25,8 @@ Make sure social websites present your content correctly, no matter how your web
 </td></tr></table>
 
 <p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO can then provide everything those social websites need to know about your shared content. <strong>Use WPSSO by itself or in combination with any of your favorite social sharing buttons</strong>.</p>
+
+<p>You can download the <a href="https://wordpress.org/plugins/wpsso/">Free version of WPSSO on WordPress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) on SurniaUlula.com</a> (includes a <em>No Risk 30 Day Refund Policy</em>).</p>
 
 <p><blockquote>
 <h4>Industry Reviews</h4>
@@ -48,8 +50,6 @@ Make sure social websites present your content correctly, no matter how your web
 <li><a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">Social SEO: WordPress SEO by Yoast vs WPSSO</a> &mdash; read about the differences between WordPress SEO by Yoast and WPSSO when used for social sharing.</li>
 </ul>
 </blockquote></p>
-
-<p>You can download the <a href="https://wordpress.org/plugins/wpsso/">Free version of WPSSO on WordPress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) on SurniaUlula.com</a> (includes a <em>No Risk 30 Day Refund Policy</em>).</p>
 
 = Quick List of Features =
 
