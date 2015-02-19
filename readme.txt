@@ -407,7 +407,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* Renamed the `WpssoAdmin::get_form_ref()` method to `get_form_reference()` (update to WPSSO SSB v1.1.7 required).
 * **New Features**
 	* Added a check for the og:image meta tag, and if missing, issue a warning (Facebook requires at least one og:image meta tag).
-	* Added a check for a hard-coded minimum image size of 200x200, which is the minimum allowed by the Facebook / Open Graph standard.
+	* Added a check for a minimum image dimension of 200x200px (the minimum allowed by Facebook) for Open Graph meta tags.
 
 = Version 2.7.5.6 =
 
