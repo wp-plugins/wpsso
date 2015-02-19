@@ -469,7 +469,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
-= 2.7.5.6 =
+= 2.7.6 =
 
-Changed the priority for BuddyPress member images (Pro version). Admin CSS tweeks for lower resolution displays.
+Added a check and warming for missing og:image meta tag in the header, and a minimum image dimension of 200x200px.
 
