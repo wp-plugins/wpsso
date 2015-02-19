@@ -409,64 +409,6 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* Added a check for the og:image meta tag, and if missing, issue a warning (Facebook requires at least one og:image meta tag).
 	* Added a check for a minimum image dimension of 200x200px (the minimum allowed by Facebook) for Open Graph meta tags.
 
-= Version 2.7.5.6 =
-
-* **Bugfixes**
-	* *None*
-* **Improvements**
-	* Minor admin CSS tweeks to adjust the settings page layout for lower resolution displays.
-	* Changed the priority for BuddyPress member pages to include the avatar image before any image from the latest activity content.
-* **New Features**
-	* *None*
-
-= Version 2.7.5.5 =
-
-* **Bugfixes**
-	* Allowed the WpssoMedia::get_post_images() method to be called with an empty post ID value, in order to execute the featured and attached images filters (used by some Pro modules).
-* **Improvements**
-	* *None*
-* **New Features**
-	* *None*
-
-= Version 2.7.5.4 =
-
-* **Bugfixes**
-	* Added a test for a valid image ID when checking for featured images.
-* **Improvements**
-	* Added a `wp_attachment_is_image()` check for attachment page media.
-	* Added support for WordPress SEO's `WPSEO_Taxonomy_Meta::get_term_meta()` static class method (Pro version).
-* **New Features**
-	* *None*
-
-= Version 2.7.5.2 =
-
-* **Bugfixes**
-	* Added a extra check for the attachment post type, in order to override the featured image and "published" post status checks.
-	* Fixed an empty array test for attachment images that would caused the plugin to always return the default image.
-* **Improvements**
-	* *None*
-* **New Features**
-	* *None*
-
-= Version 2.7.5.1 =
-
-* **Bugfixes**
-	* *None*
-* **Improvements**
-	* Added an extra sanity check for empty media arrays returned by the YouTube API XML (Pro version).
-* **New Features**
-	* *None*
-
-= Version 2.7.5 =
-
-* **Bugfixes**
-	* *None*
-* **Improvements**
-	* Refactored code to rename the $addons array variable to $mods, in order to clarify that all 'modules' are included in the Pro version.
-	* When checking for duplicate meta tags, added extra validation to remove our own meta tags in cases where a caching plugin or webserver is badly configured (ie. query arguments are ignored or removed).
-* **New Features**
-	* *None*
-
 == Upgrade Notice ==
 
 = 2.7.6 =
