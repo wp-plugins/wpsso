@@ -176,9 +176,10 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 						break;
 				}
 			}
-			if ( ! empty( $vid ) )
+			if ( ! empty( $vid ) )	// video meta tags have precedence
 				$post_info['og_image'] = $vid;
 			else $post_info['og_image'] = $img;
+
 			return $post_info;
 		}
 

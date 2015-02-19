@@ -119,7 +119,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 					if ( $filter === true )
 						$size_info = apply_filters( $this->p->cf['lca'].'_size_info_'.$size_info['name'], $size_info, $post_id );
 
-					// a reference array for image size labels, used in image size error messages
+					// a lookup array for image size labels, used in image size error messages
 					$this->size_labels[$this->p->cf['lca'].'-'.$size_info['name']] = $size_info['label'];
 
 					add_image_size( $this->p->cf['lca'].'-'.$size_info['name'], $size_info['width'], $size_info['height'], $size_info['crop'] );

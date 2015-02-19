@@ -135,12 +135,18 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 									$all_nag_msgs .= $msg;
 									break;
 								case 'err':
-									echo '<div class="error"'.$cssid.'><div style="float:left;"><p style="white-space:nowrap;"><b>'. 
-									$this->p->cf['menu'].' Warning</b> :</p></div> <p style="text-align:left">'.$msg.'</p></div>'."\n";
+									echo '<div class="error"'.$cssid.'>
+										<div style="float:left; margin-right:10px;">
+											<p style="white-space:nowrap;"><b>'. 
+									$this->p->cf['menu'].' Warning</b>:</p></div>
+										<p style="text-align:left">'.$msg.'</p></div>'."\n";
 									break;
 								case 'inf':
-									echo '<div class="updated fade"'.$cssid.'><div style="float:left;"><p style="white-space:nowrap;"><b>'.
-									$this->p->cf['menu'].' Info</b> :</p></div> <p style="text-align:left">'.$msg.'</p></div>'."\n";
+									echo '<div class="updated fade"'.$cssid.'>
+										<div style="float:left; margin-right:10px;">
+											<p style="white-space:nowrap;"><b>'.
+									$this->p->cf['menu'].' Info</b>:</p></div>
+										<p style="text-align:left">'.$msg.'</p></div>'."\n";
 									break;
 							}
 						}

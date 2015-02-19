@@ -46,25 +46,36 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_metabox_postmeta' ), $post_type->name, 'advanced', 'high' );
 		}
 
+		// hooked into the admin_head action
 		public function set_header_tags() {
 			if ( ! empty( $this->header_tags ) )
 				return;
+
 			if ( ( $obj = $this->p->util->get_post_object() ) === false ||
 				empty( $obj->post_type ) )
 					return;
+
 			$screen = get_current_screen();
 			$page = $screen->id;
 			if ( strpos( $page, 'edit-' ) !== false )	// check for post/page edititing lists
 				return;
+
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			if ( isset( $obj->post_status ) && $obj->post_status !== 'auto-draft' ) {
+
 				$post_type = get_post_type_object( $obj->post_type );
 				$add_metabox = empty( $this->p->options[ 'plugin_add_to_'.$post_type->name ] ) ? false : true;
 				if ( apply_filters( $this->p->cf['lca'].'_add_metabox_postmeta', $add_metabox, $post_id ) === true ) {
+
 					$this->p->util->add_plugin_image_sizes( $post_id );
 					do_action( $this->p->cf['lca'].'_admin_postmeta_header', $post_type->name, $post_id );
 					$this->header_tags = $this->p->head->get_header_array( $post_id );
 					$this->post_info = $this->p->head->get_post_info( $this->header_tags );
+
+					if ( $obj->post_status == 'publish' &&
+						! empty( $this->p->options['plugin_check_head'] ) &&
+						empty( $this->post_info['og_image']['og:image'] ) )
+							$this->p->notice->err( 'A Facebook / Open Graph image meta tag for this webpage could not be generated. Facebook and other social websites require at least one image meta tag to render their shared content correctly.', true );
 				}
 			}
 		}
@@ -291,11 +302,8 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 						foreach( $metas[$tag] as $m ) {
 							foreach( $types as $t ) {
 								if ( isset( $m[$t] ) && $m[$t] !== 'generator' && 
-									! empty( $this->p->options['add_'.$tag.'_'.$t.'_'.$m[$t]] ) ) {
-									$this->p->notice->err( 'Possible conflict detected - 
-									Your theme or another plugin is adding a <code>'.$tag.' '.$t.'="'.$m[$t].'"</code>
-									HTML tag to the head section of this webpage.', true );
-								}
+									! empty( $this->p->options['add_'.$tag.'_'.$t.'_'.$m[$t]] ) )
+										$this->p->notice->err( 'Possible conflict detected - your theme or another plugin is adding a <code>'.$tag.' '.$t.'="'.$m[$t].'"</code> HTML tag to the head section of this webpage.', true );
 							}
 						}
 					}

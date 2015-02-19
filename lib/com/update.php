@@ -164,6 +164,9 @@ if ( ! class_exists( 'SucomUpdate' ) ) {
 					$updates->response[$info['base']] = $option_data->update->json_to_wp();
 					$this->p->debug->log( 'update version ('.$option_data->update->version.') is newer than installed version ('.$this->get_installed_version( $lca ).')' );
 					$this->p->debug->log( $updates->response[$info['base']], 5 );
+				} else {
+					$this->p->debug->log( 'installed version is current - no update required' );
+					$this->p->debug->log( $option_data->update->json_to_wp(), 5 );
 				}
 			}
 			return $updates;

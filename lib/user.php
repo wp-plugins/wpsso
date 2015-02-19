@@ -38,9 +38,11 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_metabox_usermeta' ), 'user', 'normal', 'high' );
 		}
 
+		// hooked into the admin_head action
 		public function set_header_tags() {
 			if ( ! empty( $this->header_tags ) )
 				return;
+
 			$screen = get_current_screen();
 			$page = $screen->id;
 			switch ( $page ) {
@@ -48,10 +50,15 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				case 'profile':
 					$add_metabox = empty( $this->p->options[ 'plugin_add_to_user' ] ) ? false : true;
 					if ( apply_filters( $this->p->cf['lca'].'_add_metabox_usermeta', $add_metabox, $page ) === true ) {
+
 						$this->p->util->add_plugin_image_sizes();
 						do_action( $this->p->cf['lca'].'_admin_usermeta_header', $page );
 						$this->header_tags = $this->p->head->get_header_array( false );
 						$this->post_info = $this->p->head->get_post_info( $this->header_tags );
+
+						if ( ! empty( $this->p->options['plugin_check_head'] ) &&
+							empty( $this->post_info['og_image']['og:image'] ) )
+								$this->p->notice->err( 'A Facebook / Open Graph image meta tag for this webpage could not be generated. Facebook and other social websites require at least one image meta tag to render their shared content correctly.', true );
 					}
 					$this->p->debug->show_html( null, 'debug log' );
 					break;
