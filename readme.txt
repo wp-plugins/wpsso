@@ -20,11 +20,11 @@ Make sure social websites present your content correctly, no matter how your web
 
 = Advanced Social Management =
 
-<p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, Pinterest, LinkedIn, StumbleUpon, Tumblr and and many more &mdash; NO SHARING BUTTONS REQUIRED!</p>
+<p>WordPress Social Sharing Optimization (WPSSO) <strong>gives you total control over the information social websites (and their crawlers) need</strong>, improving Google Search ranking, social engagement, and click-through-rates on Facebook, Google+, Twitter, Pinterest, LinkedIn, StumbleUpon, Tumblr and and many more &mdash; NO SHARING BUTTONS REQUIRED!</p>
 
 </td></tr></table>
 
-<p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO can then provide everything those social websites need to know about your shared content. <strong>Use WPSSO by itself or in combination with any of your favorite social sharing buttons</strong>.</p>
+<p><strong>Already have social sharing buttons?</strong> No problem! Sharing buttons <em>only submit URLs to social websites</em> &mdash; WPSSO includes all the information those social website crawlers need in your webpage headers. <strong>Use WPSSO by itself or in combination with any of your favorite social sharing buttons</strong>.</p>
 
 <p>You can download the <a href="https://wordpress.org/plugins/wpsso/">Free version of WPSSO on wordpress.org</a> and <a href="http://surniaulula.com/extend/plugins/wpsso/">purchase Pro license(s) on surniaulula.com</a> (includes a <em>No Risk 30 Day Refund Policy</em>).</p>
 
