@@ -69,7 +69,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Includes hashtags from Post and Page WordPress tags.
 * Includes the author's name for Pinterest Rich Pins.
 * Includes a Google / SEO description meta tag if a known SEO plugin is not detected.
-* Includes author <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles markup for Google Search</a>.
+* Includes author <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles markup in schema.org JSON-LD format for Google Search</a>.
 * Provides Facebook, Google+ and Twitter URL user profile contact fields.
 * Validation tools and special meta tag preview tabs on admin edit pages.
 * Customizable *multilingual* Site Title and Site Description texts.
@@ -412,7 +412,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* Changed the post cache maintenance hook priority from 100 to 9 (using the new NGFB_META_CACHE_PRIORITY contant).
 	* Moved the user profile cache maintenance to an action hook (uses the NGFB_META_CACHE_PRIORITY contant as well).
 * **New Features**
-	* Added author <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles in schema.org JSON-LD markup for Google Search</a>.
+	* Added author <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles markup in schema.org JSON-LD format for Google Search</a>.
 
 = Version 2.7.6 =
 
