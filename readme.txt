@@ -399,7 +399,7 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
-= Version 2.7.6.1 =
+= Version 2.7.7 =
 
 * **Bugfixes**
 	* *None*
