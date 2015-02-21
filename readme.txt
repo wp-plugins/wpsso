@@ -399,6 +399,18 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.7.6.1 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Added a new NGFB_META_CACHE_PRIORITY contant with a default value of 9.
+	* Changed the NGFB_META_SAVE_PRIORITY constant default value from 20 to 6.
+	* Changed the post cache maintenance hook priority from 100 to 9 (using the new NGFB_META_CACHE_PRIORITY contant).
+	* Moved the user profile cache maintenance to an action hook (uses the NGFB_META_CACHE_PRIORITY contant as well).
+* **New Features**
+	* *None*
+
 = Version 2.7.6 =
 
 * **Bugfixes**
