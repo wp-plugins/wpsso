@@ -69,7 +69,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Includes hashtags from Post and Page WordPress tags.
 * Includes the author's name for Pinterest Rich Pins.
 * Includes a Google / SEO description meta tag if a known SEO plugin is not detected.
-* Includes author <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles in schema.org JSON-LD markup for Google Search</a>.
+* Includes author <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles markup for Google Search</a>.
 * Provides Facebook, Google+ and Twitter URL user profile contact fields.
 * Validation tools and special meta tag preview tabs on admin edit pages.
 * Customizable *multilingual* Site Title and Site Description texts.
@@ -135,7 +135,7 @@ WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me
 WPSSO (Pro version) integrates with [WordPress SEO by Yoast](https://wordpress.org/plugins/wordpress-seo/), [All in One SEO Pack](https://wordpress.org/plugins/all-in-one-seo-pack/), and [HeadSpace2 SEO](https://wordpress.org/plugins/headspace2/) &mdash; making sure your custom SEO settings are reflected in the Open Graph, Rich Pin, and Twitter Card meta tags.
 
 <blockquote>
-<p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between WordPress SEO by Yoast and WPSSO</a> &mdash; the features each one provides for social sharing, and how WPSSO can extend the basic social features of WordPress SEO by Yoast.</p>
+<p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between WordPress SEO by Yoast and WPSSO</a> &mdash; the features each provides for social sharing, and how WPSSO can replace the basic social features of WordPress SEO by Yoast.</p>
 </blockquote>
 
 **eCommerce Products**
@@ -148,7 +148,7 @@ WPSSO (Pro version) supports [bbPress](https://wordpress.org/plugins/bbpress/) a
 
 = Custom Contacts =
 
-WPSSO includes <a href="https://developers.google.com/structured-data/customize/social-profiles">author social profiles in schema.org JSON-LD markup for Google Search results</a>, including the author's website URL, image, and all listed contact URLs.
+WPSSO includes <a href="https://developers.google.com/structured-data/customize/social-profiles">author social profiles markup in schema.org JSON-LD format for Google Search results</a>, including the author's website URL, image, and all listed contact URLs.
 
 WPSSO (Pro version) allows you to customize the field names, label, and add/remove the following contacts from the user profile page:
 
