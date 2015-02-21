@@ -410,7 +410,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* Changed the post cache maintenance hook priority from 100 to 9 (using the new NGFB_META_CACHE_PRIORITY contant).
 	* Moved the user profile cache maintenance to an action hook (uses the NGFB_META_CACHE_PRIORITY contant as well).
 * **New Features**
-	* *None*
+	* Added author <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles in schema.org JSON-LD markup for Google Search</a>.
 
 = Version 2.7.6 =
 
