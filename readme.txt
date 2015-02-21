@@ -59,6 +59,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Configurable image sizes for Open Graph (Facebook, LinkedIn, etc.) and Pinterest.
 * Optional fallback to a default image and video for index and search webpages.
 * Supports featured, attached, gallery shortcode, and/or HTML image tags in content.
+* Fallback to the image alt value if the content and except do not include any text.
 * Validates image dimensions to provide accurate media for social websites.
 * Auto-regeneration of inaccurate / missing WordPress image sizes.
 * Fully renders content (including shortcodes) for accurate description texts.
@@ -68,9 +69,8 @@ Make sure social websites present your content correctly, no matter how your web
 * Includes hashtags from Post and Page WordPress tags.
 * Includes the author's name for Pinterest Rich Pins.
 * Includes a Google / SEO description meta tag if a known SEO plugin is not detected.
-* Fallback to the image alt value if the content and except do not include any text.
+* Includes author <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles in schema.org JSON-LD markup for Google Search</a>.
 * Provides Facebook, Google+ and Twitter URL user profile contact fields.
-* Include <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles in schema.org JSON-LD markup for Google Search</a>.
 * Validation tools and special meta tag preview tabs on admin edit pages.
 * Customizable *multilingual* Site Title and Site Description texts.
 * Contextual help for *every* plugin option and [comprehensive online documentation](http://surniaulula.com/codex/plugins/wpsso/).
