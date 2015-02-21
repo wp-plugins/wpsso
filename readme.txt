@@ -69,7 +69,7 @@ Make sure social websites present your content correctly, no matter how your web
 * Includes hashtags from Post and Page WordPress tags.
 * Includes the author's name for Pinterest Rich Pins.
 * Includes a Google / SEO description meta tag if a known SEO plugin is not detected.
-* Includes author <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles markup in schema.org JSON-LD format for Google Search</a>.
+* Includes <a href="https://developers.google.com/structured-data/customize/social-profiles">author social profiles markup in schema.org JSON-LD format for Google Search</a>.
 * Provides Facebook, Google+ and Twitter URL user profile contact fields.
 * Validation tools and special meta tag preview tabs on admin edit pages.
 * Customizable *multilingual* Site Title and Site Description texts.
