@@ -19,62 +19,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$this->p->util->add_plugin_filters( $this, array( 
 				'head_cache_salt' => 2,		// modify the cache salt for certain crawlers
 			) );
-			add_filter( 'language_attributes', array( &$this, 'add_doctype' ), 100, 1 );
 			add_action( 'wp_head', array( &$this, 'add_header' ), WPSSO_HEAD_PRIORITY );
-		}
-
-		public function add_doctype( $doctype ) {
-			$obj = $this->p->util->get_post_object( false );
-			$post_id = empty( $obj->ID ) || empty( $obj->post_type ) ? 0 : $obj->ID;
-			$post_type = '';
-			$item_type = 'Blog';	// default value for non-singular webpages
-
-			if ( is_singular() ) {
-				if ( ! empty( $obj->post_type ) )
-					$post_type = $obj->post_type;
-				switch ( $post_type ) {
-					case 'article':
-					case 'book':
-					case 'blog':
-					case 'event':
-					case 'organization':
-					case 'person':
-					case 'place':
-					case 'product':
-					case 'review':
-					case 'other':
-						$item_type = ucfirst( $post_type );
-						break;
-					case 'local.business':
-						$item_type = 'LocalBusiness';
-						break;
-					default:
-						$item_type = 'Article';
-						break;
-				}
-			} elseif ( ( ! is_search() && 
-				! empty( $this->p->options['og_def_author_on_index'] ) && 
-				! empty( $this->p->options['og_def_author_id'] ) ) || ( is_search() && 
-				! empty( $this->p->options['og_def_author_on_search'] ) && 
-				! empty( $this->p->options['og_def_author_id'] ) ) )
-					$item_type = 'Article';
-
-			$item_type = apply_filters( $this->p->cf['lca'].'_doctype_schema_type', $item_type, $post_id, $obj );
-
-			if ( ! empty( $item_type ) ) {
-				if ( strpos( $doctype, ' itemscope="itemscope" ' ) !== false )
-					$doctype = preg_replace( '/ itemscope="itemscope" /', 
-						' itemscope ', $doctype );
-				elseif ( strpos( $doctype, ' itemscope ' ) === false )
-					$doctype .= ' itemscope ';
-
-				if ( strpos( $doctype, ' itemtype="http://schema.org/' ) !== false )
-					$doctype = preg_replace( '/ itemtype="http:\/\/schema.org\/[^"]+"/',
-						' itemtype="http://schema.org/'.$item_type.'"', $doctype );
-				else $doctype .= ' itemtype="http://schema.org/'.$item_type.'"';
-			}
-
-			return $doctype;
 		}
 
 		public function filter_head_cache_salt( $salt, $use_post = false ) {
@@ -188,11 +133,11 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		}
 
 		public function get_header_html( $use_post = false, $read_cache = true, &$meta_og = array() ) {
-			$html = "\n<!-- ".$this->p->cf['lca']." meta tags begin -->\n";
+			$html = "\n\n<!-- ".$this->p->cf['lca']." meta tags begin -->\n";
 			foreach ( $this->get_header_array( $use_post, $read_cache, $meta_og ) as $meta )
-				if ( ! empty( $meta[0] ) )	// first element of the meta array is a complete html tag
+				if ( ! empty( $meta[0] ) )	// first element of the array should be a complete html tag
 					$html .= $meta[0];
-			$html .= "<!-- ".$this->p->cf['lca']." meta tags end -->\n";
+			$html .= "<!-- ".$this->p->cf['lca']." meta tags end -->\n\n";
 			return $html;
 		}
 
@@ -254,7 +199,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			/**
 			 * Open Graph, Twitter Card
 			 *
-			 * The Twitter Card meta tags are added by the WpssoHeadTwittercard class using an 'wpsso_og' filter hook.
+			 * The Twitter Card meta tags are added by the 
+			 * WpssoHeadTwittercard class using an 'wpsso_og' filter hook.
 			 */
 			$meta_og = $this->p->og->get_array( $meta_og, $use_post );
 
@@ -268,7 +214,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 						$this->p->options['seo_author_name'] );
 
 			$meta_name['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], 
-				'...', $use_post, true, false, true, 'seo_desc' );	// add_hashtags = false, custom meta = seo_desc
+				'...', $use_post, true, false, true, 'seo_desc' );	// add_hashtags = false
 
 			$meta_name = apply_filters( $lca.'_meta_name', $meta_name, $use_post, $obj );
 
@@ -289,28 +235,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			/**
 			 * Schema meta tags
 			 */
-			$meta_schema = array();
-
-			if ( ! empty( $this->p->options['add_meta_itemprop_description'] ) ) {
-				$meta_schema['description'] = $this->p->webpage->get_description( $this->p->options['og_desc_len'], 
-					'...', $use_post, true, true, true, 'schema_desc' );	// custom meta = schema_desc
-			}
-
-			if ( ! empty( $this->p->options['add_meta_itemprop_url'] ) ) {
-				if ( ! empty( $meta_og['og:url'] ) )
-					$meta_schema['url'] = $meta_og['og:url'];
-			}
-
-			if ( ! empty( $this->p->options['add_meta_itemprop_image'] ) ) {
-				if ( ! empty( $meta_og['og:image'] ) ) {
-					if ( is_array( $meta_og['og:image'] ) )
-						foreach ( $meta_og['og:image'] as $image )
-							$meta_schema['image'][] = $image['og:image'];
-					else $meta_schema['image'] = $meta_og['og:image'];
-				}
-			}
-
-			$meta_schema = apply_filters( $lca.'_meta_schema', $meta_schema, $use_post, $obj );
+			$meta_schema = $this->p->schema->get_meta_array( $use_post, $obj, $meta_og );
 
 			/**
 			 * Combine and return all meta tags
@@ -322,45 +247,10 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 							( $this->p->is_avail['aop'] ? 'U' : 'G' ) ), '', $use_post ),
 				$this->get_tag_array( 'link', 'rel', $link_rel, $use_post ),
 				$this->get_tag_array( 'meta', 'name', $meta_name, $use_post ),
+				$this->get_tag_array( 'meta', 'property', $meta_og, $use_post ),
 				$this->get_tag_array( 'meta', 'itemprop', $meta_schema, $use_post ),
-				$this->get_tag_array( 'meta', 'property', $meta_og, $use_post )
+				SucomUtil::a2aa( $this->p->schema->get_json_array( $author_id ) )
 			);
-
-			/**
-			 * Google Social Profile JSON-LD
-			 */
-			if ( ! empty( $this->p->options['schema_author_json'] ) && ! empty( $author_id ) &&
-				( $json = $this->p->mods['util']['user']->get_person_json( $author_id, 
-					$this->p->cf['lca'].'-opengraph' ) ) !== false )
-						$header_array[][] = $json;
-
-			if ( ! empty( $this->p->options['schema_publisher_json'] )&& ! empty( $meta_og['og:url'] ) ) {
-				$website_url = get_site_url();
-				$logo_url = $this->p->options['schema_logo_url'];
-				$og_image = $this->p->media->get_default_image( 1, $this->p->cf['lca'].'-opengraph', false );
-				if ( count( $og_image ) > 0 ) {
-					$image = reset( $og_image );
-					$image_url = $image['og:image'];
-				} else $image_url = '';
-
-				$json = '<!-- publisher (Organization) social profiles -->
-<script type="application/ld+json">{
-	"@context" : "http://schema.org",
-	"@type" : "Organization",
-	"url" : "'.$website_url.'",
-	"logo" : "'.$logo_url.'",
-	"image" : "'.$image_url.'",
-	"sameAs" : ['."\n";
-				foreach ( array(
-					$this->p->options['link_publisher_url'],
-					$this->p->options['og_publisher_url'],
-				) as $sameAs ) {
-					if ( strpos( $sameAs, 'http' ) === 0 )
-						$json .= "\t\t\"".$sameAs."\",\n";
-				}
-				$json = rtrim( $json, ",\n" )."\n\t]\n}</script>\n";
-				$header_array[][] = $json;
-			}
 
 			/**
 			 * Save the header array to the WordPress transient cache
@@ -448,17 +338,11 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 				if ( empty( $this->p->options['add_'.$tag.'_'.$type.'_'.$name.':secure_url'] ) )
 					$this->p->debug->log( $log_pre.':secure_url is disabled (skipped)' );
-				else $html_tag = $html_prefix.'<'.$tag.' '.$type.'="'.$name.':secure_url" '.$attr.'="'.$secure_url.'" />'."\n";
+				else $html_tag = $html_prefix.'<'.$tag.' '.
+					$type.'="'.$name.':secure_url" '.
+					$attr.'="'.$secure_url.'" />'."\n";
 
-				$ret[] = array( 
-					$html_tag,
-					$tag,
-					$type,
-					$name.':secure_url',
-					$attr,
-					$secure_url,
-					$comment
-				);
+				$ret[] = array( $html_tag, $tag, $type, $name.':secure_url', $attr, $secure_url, $comment );
 			}
 			
 			$html_tag = '';
@@ -466,15 +350,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->p->debug->log( $log_pre.' is disabled (skipped)' );
 			else $html_tag = $html_prefix.'<'.$tag.' '.$type.'="'.$name.'" '.$attr.'="'.$value.'" />'."\n";
 			
-			$ret[] = array( 
-				$html_tag,
-				$tag,
-				$type,
-				$name,
-				$attr,
-				$value,
-				$comment
-			);
+			$ret[] = array( $html_tag, $tag, $type, $name, $attr, $value, $comment );
 
 			return $ret;
 		}

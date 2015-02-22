@@ -573,6 +573,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			require_once( WPSSO_PLUGINDIR.'lib/media.php' );
 			require_once( WPSSO_PLUGINDIR.'lib/head.php' );
 			require_once( WPSSO_PLUGINDIR.'lib/opengraph.php' );
+			require_once( WPSSO_PLUGINDIR.'lib/schema.php' );
 
 			if ( is_admin() ) {
 				require_once( WPSSO_PLUGINDIR.'lib/messages.php' );

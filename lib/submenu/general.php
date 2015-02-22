@@ -21,7 +21,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 		protected function add_meta_boxes() {
 			// add_meta_box( $id, $title, $callback, $post_type, $context, $priority, $callback_args );
-			add_meta_box( $this->pagehook.'_opengraph', 'All Publishers / Open Graph Settings', array( &$this, 'show_metabox_opengraph' ), $this->pagehook, 'normal' );
+			add_meta_box( $this->pagehook.'_opengraph', 'Open Graph Settings (All Publishers)', array( &$this, 'show_metabox_opengraph' ), $this->pagehook, 'normal' );
 			add_meta_box( $this->pagehook.'_publishers', 'Publisher Specific Settings', array( &$this, 'show_metabox_publishers' ), $this->pagehook, 'normal' );
 
 			// issues a warning notice if the default image size is too small
@@ -47,7 +47,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 			$metabox = 'pub';
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
 				'facebook' => 'Facebook',
-				'google' => 'Google+ and Search',
+				'google' => 'Google (G+ and Search)',
 				'pinterest' => 'Pinterest Rich Pins',
 				'twitter' => 'Twitter Cards',
 			) );
