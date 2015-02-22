@@ -148,7 +148,7 @@ WPSSO (Pro version) supports [bbPress](https://wordpress.org/plugins/bbpress/) a
 
 = Custom Contacts =
 
-WPSSO includes <a href="https://developers.google.com/structured-data/customize/social-profiles">author social profiles markup in schema.org JSON-LD format for Google Search results</a>, including the author's website URL, image, and all listed contact URLs.
+WPSSO includes <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search</a>. The <em>Person</em> social profile markup includes the author's website URL, their profile image, and all listed contact URLs. The <em>Organization</em> social profile markup includes the website URL, the default image, and the Facebook / Google+ URLs.
 
 WPSSO (Pro version) allows you to customize the field names, label, and add/remove the following contacts from the user profile page:
 
@@ -407,12 +407,14 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 * **Bugfixes**
 	* *None*
 * **Improvements**
-	* Added a new NGFB_META_CACHE_PRIORITY contant with a default value of 9.
-	* Changed the NGFB_META_SAVE_PRIORITY constant default value from 20 to 6.
-	* Changed the post cache maintenance hook priority from 100 to 9 (using the new NGFB_META_CACHE_PRIORITY contant).
-	* Moved the user profile cache maintenance to an action hook (uses the NGFB_META_CACHE_PRIORITY contant as well).
+	* Added a new WPSSO_META_CACHE_PRIORITY contant with a default value of 9.
+	* Changed the WPSSO_META_SAVE_PRIORITY constant default value from 20 to 6.
+	* Changed the post cache maintenance hook priority from 100 to 9 (using the new WPSSO_META_CACHE_PRIORITY contant).
+	* Moved the user profile cache maintenance to an action hook (uses the WPSSO_META_CACHE_PRIORITY contant as well).
+	* Added support for Quick Cache in the "Clear All Cache" feature.
 * **New Features**
-	* Added author <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles markup in schema.org JSON-LD format for Google Search</a>.
+	* Added the "Include Publisher Social JSON" and "Include Author Social JSON" options under the Google+ and Search settings tab.
+	* Added author and publisher <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles markup in schema.org JSON-LD format for Google Search</a>.
 
 = Version 2.7.6 =
 
