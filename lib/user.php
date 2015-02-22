@@ -224,7 +224,10 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			}
 		}
 
-		public function get_person_json( $author_id, $size_name = 'thumbnail' ) {
+		public function get_person_json_script( $author_id, $size_name = 'thumbnail' ) {
+			if ( empty( $author_id ) )
+				return false;
+
 			$website_url = get_the_author_meta( 'url', $author_id );
 			if ( strpos( $website_url, 'http' ) !== 0 )
 				return false;
@@ -237,8 +240,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				$image_url = $image['og:image'];
 			} else $image_url = '';
 
-			$json = '<!-- author (Person) social profiles -->
-<script type="application/ld+json">{
+			$json_script = '<script type="application/ld+json">{
 	"@context" : "http://schema.org",
 	"@type" : "Person",
 	"name" : "'.$this->get_author_name( $author_id, 'fullname' ).'",
@@ -252,10 +254,11 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 						$sameAs = 'https://twitter.com/'.substr( $sameAs, 1);
 				}
 				if ( strpos( $sameAs, 'http' ) === 0 )
-					$json .= "\t\t\"".$sameAs."\",\n";
+					$json_script .= "\t\t\"".$sameAs."\",\n";
 			}
-			$json = rtrim( $json, ",\n" )."\n\t]\n}</script>\n";
-			return $json;
+			$json_script = rtrim( $json_script, ",\n" )."\n\t]\n}</script>\n";
+
+			return $json_script;
 		}
 
 		public function get_article_author( $author_id, $url_field = 'og_author_field' ) {

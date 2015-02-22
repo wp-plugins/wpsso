@@ -62,6 +62,13 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return str_replace( $this->inline_vars, $this->get_inline_vals( $use_post, $obj ), $str );
 		}
 
+		public static function a2aa( $a ) {
+			$aa = array();
+			foreach ( $a as $i )
+				$aa[][] = $i;
+			return $aa;
+		}
+
 		public static function crawler_name( $id = '' ) {
 			if ( self::$crawler_name === false ) {	// optimize perf - only check once
 				$str = $_SERVER['HTTP_USER_AGENT'];

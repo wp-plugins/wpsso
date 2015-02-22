@@ -32,7 +32,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		public $media;			// WpssoMedia (images, videos, etc.)
 		public $msgs;			// WpssoMessages (admin tooltip messages)
 		public $notice;			// SucomNotice
-		public $og;			// WpssoOpenGraph (extends SucomOpengraph)
+		public $og;			// WpssoOpengraph (extends SucomOpengraph)
 		public $opt;			// WpssoOptions
 		public $reg;			// WpssoRegister
 		public $script;			// SucomScript (admin jquery tooltips)
@@ -143,6 +143,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			$this->media = new WpssoMedia( $this );			// images, videos, etc.
 			$this->head = new WpssoHead( $this );			// open graph and twitter card meta tags
 			$this->og = new WpssoOpengraph( $this );		// prepare open graph array
+			$this->schema = new WpssoSchema( $this );
 
 			if ( is_admin() ) {
 				$this->msgs = new WpssoMessages( $this );	// admin tooltip messages
