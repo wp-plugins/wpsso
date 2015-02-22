@@ -329,13 +329,14 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			/**
 			 * Google Social Profile JSON-LD
 			 */
-			if ( ! empty( $this->p->options['seo_author_json'] ) && ! empty( $author_id ) &&
+			if ( ! empty( $this->p->options['schema_author_json'] ) && ! empty( $author_id ) &&
 				( $json = $this->p->mods['util']['user']->get_person_json( $author_id, 
 					$this->p->cf['lca'].'-opengraph' ) ) !== false )
 						$header_array[][] = $json;
 
-			if ( ! empty( $this->p->options['seo_publisher_json'] )&& ! empty( $meta_og['og:url'] ) ) {
+			if ( ! empty( $this->p->options['schema_publisher_json'] )&& ! empty( $meta_og['og:url'] ) ) {
 				$website_url = get_site_url();
+				$logo_url = $this->p->options['schema_logo_url'];
 				$og_image = $this->p->media->get_default_image( 1, $this->p->cf['lca'].'-opengraph', false );
 				if ( count( $og_image ) > 0 ) {
 					$image = reset( $og_image );
@@ -347,6 +348,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 	"@context" : "http://schema.org",
 	"@type" : "Organization",
 	"url" : "'.$website_url.'",
+	"logo" : "'.$logo_url.'",
 	"image" : "'.$image_url.'",
 	"sameAs" : ['."\n";
 				foreach ( array(

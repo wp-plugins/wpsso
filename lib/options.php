@@ -312,6 +312,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					break;
 				// must be a url
 				case 'link_publisher_url':
+				case 'schema_logo_url':
 				case 'og_publisher_url':
 				case 'og_def_img_url':
 				case 'og_img_url':
