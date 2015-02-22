@@ -156,6 +156,9 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 				'<td class="blank">'.$form->options['schema_desc_len'].' characters or less</td>';
 			}
 
+			$rows[] = $this->p->util->th( 'Schema Publisher Logo URL', 'highlight', 'google_schema_logo_url' ).
+			'<td class="blank">'.$form->options['schema_logo_url'].'</td>';
+
 			$rows[] = $this->p->util->th( 'Author Link URL Field', null, 'google_author_field' ).
 			'<td class="blank">'.$form->author_contact_fields[$this->p->options['link_author_field']].'</td>';
 

@@ -684,6 +684,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
 							(the default is '.$this->p->opt->get_defaults( 'schema_desc_len' ).' characters).';
 							break;
+						case 'tooltip-google_schema_logo_url':
+							$text = 'The URL to an image that Google should use as your organization\'s logo in search results and their <em>Knowledge Graph</em>.';
+							break;
 						case 'tooltip-google_author_name':
 							$text = 'Select an Author Name Format for the "author" meta tag, or \'none\' to disable this feature 
 							(the recommended value is \'Display Name\'). Facebook uses the "author" meta tag value to credit the 
