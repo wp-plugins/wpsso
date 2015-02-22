@@ -169,11 +169,11 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 				$rows[] = $this->p->util->th( 'Default Author on Search Results', null, 'google_def_author_on_search' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'seo_def_author_on_search' ).'</td>';
 
-				$rows[] = $this->p->util->th( 'Include Publisher Social JSON in Header', null, 'google_publisher_json' ).
-				'<td class="blank">'.$form->get_no_checkbox( 'seo_publisher_json' ).'</td>';
+				$rows[] = $this->p->util->th( 'Add Schema Publisher Social JSON', null, 'google_schema_publisher_json' ).
+				'<td class="blank">'.$form->get_no_checkbox( 'schema_publisher_json' ).'</td>';
 
-				$rows[] = $this->p->util->th( 'Include Author Social JSON', null, 'google_author_json' ).
-				'<td class="blank">'.$form->get_no_checkbox( 'seo_author_json' ).'</td>';
+				$rows[] = $this->p->util->th( 'Add Schema Author Social JSON', null, 'google_schema_author_json' ).
+				'<td class="blank">'.$form->get_no_checkbox( 'schema_author_json' ).'</td>';
 			}
 
 			return $rows;

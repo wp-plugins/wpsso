@@ -159,18 +159,18 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => 321,		// increment when changing default options
+				'version' => 322,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
 					'schema_desc_len' => 300,		// meta itemprop="description" maximum text length
+					'schema_publisher_json' => 1,
+					'schema_author_json' => 1,
 					'seo_desc_len' => 156,			// meta name="description" maximum text length
 					'seo_author_name' => 'none',		// meta name="author" format
 					'seo_def_author_id' => 0,
 					'seo_def_author_on_index' => 0,
 					'seo_def_author_on_search' => 0,
-					'seo_publisher_json' => 1,
-					'seo_author_json' => 1,
 					'link_author_field' => '',		// default value set by WpssoOptions::get_defaults()
 					'link_publisher_url' => '',
 					'fb_admins' => '',

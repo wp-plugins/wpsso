@@ -667,6 +667,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				 */
 				case ( strpos( $idx, 'tooltip-google_' ) !== false ? true : false ):
 					switch ( $idx ) {
+						case 'tooltip-google_publisher_url':
+							$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ business page for your website</a>, 
+							you may use its URL as the Publisher Link URL. For example, the Publisher Link URL for 
+							<a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is 
+							<a href="https://plus.google.com/+SurniaUlula/" target="_blank">https://plus.google.com/+SurniaUlula/</a>.
+							Google Search may use this information to display publisher details in its search results.';
+							break;
 						case 'tooltip-google_seo_desc_len':
 							$text = 'The maximum length of text used for the Google Search / SEO description meta tag.
 							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
@@ -703,12 +710,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						case 'tooltip-google_def_author_on_search':
 							$text = 'Check this option if you would like to force the Default Author on search result webpages as well.';
 							break;
-						case 'tooltip-google_publisher_url':
-							$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ business page for your website</a>, 
-							you may use its URL as the Publisher Link URL. For example, the Publisher Link URL for 
-							<a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is 
-							<a href="https://plus.google.com/+SurniaUlula/" target="_blank">https://plus.google.com/+SurniaUlula/</a>.
-							Google Search may use this information to display publisher details in its search results.';
+						case 'tooltip-google_schema_author_json':
+							$text = 'Add author (Person) social profiles markup to webpage headers in schema.org JSON-LD format for Google Search. The author must have entered a valid URL in the Website field on their user profile page. All URLs within the various contact method fields will be listed in the social profile markup. The "Twitter @username" field will be used to include a URL for their Twitter profile.';
+							break;
+						case 'tooltip-google_schema_publisher_json':
+							$text = 'Add publisher (Organization) social profiles markup to webpage headers in schema.org JSON-LD format for Google Search. The Open Graph "Article Publisher Page URL" and "Publisher Link URL" will be listed in the social profile markup. The Open Graph Default Image ID / URL will be used as the Organization image.';
 							break;
 						/*
 						 * Other settings
