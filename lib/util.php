@@ -196,7 +196,8 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 							'lang:'.$lang.'_post:'.$post_id.'_url:'.$sharing_url.'_crawler:pinterest',
 						),
 					);
-					$transients = apply_filters( $this->p->cf['lca'].'_post_cache_transients', $transients, $post_id, $lang, $sharing_url );
+					$transients = apply_filters( $this->p->cf['lca'].'_post_cache_transients', 
+						$transients, $post_id, $lang, $sharing_url );
 	
 					$objects = array(
 						'SucomWebpage::get_content' => array(
@@ -207,7 +208,8 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 							'lang:'.$lang.'_post:'.$post_id,
 						),
 					);
-					$objects = apply_filters( $this->p->cf['lca'].'_post_cache_objects', $objects, $post_id, $lang, $sharing_url );
+					$objects = apply_filters( $this->p->cf['lca'].'_post_cache_objects', 
+						$objects, $post_id, $lang, $sharing_url );
 	
 					$deleted = $this->flush_cache_objects( $transients, $objects );
 					if ( ! empty( $this->p->options['plugin_cache_info'] ) && $deleted > 0 )

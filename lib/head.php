@@ -52,8 +52,11 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 						$item_type = 'Article';
 						break;
 				}
-			} elseif ( ( ! is_search() && ! empty( $this->p->options['og_def_author_on_index'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) || 
-				( is_search() && ! empty( $this->p->options['og_def_author_on_search'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) )
+			} elseif ( ( ! is_search() && 
+				! empty( $this->p->options['og_def_author_on_index'] ) && 
+				! empty( $this->p->options['og_def_author_id'] ) ) || ( is_search() && 
+				! empty( $this->p->options['og_def_author_on_search'] ) && 
+				! empty( $this->p->options['og_def_author_id'] ) ) )
 					$item_type = 'Article';
 
 			$item_type = apply_filters( $this->p->cf['lca'].'_doctype_schema_type', $item_type, $post_id, $obj );
@@ -149,7 +152,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			}
 		}
 
-		public function get_post_info( &$header_tags, &$post_info = array() ) {
+		public function extract_post_info( &$header_tags, &$post_info = array() ) {
 			$vid = array();
 			$img = array();
 			foreach ( $header_tags as $tag ) {
@@ -157,8 +160,9 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					continue;
 				switch ( $tag[2] ) {
 					case 'name':
-						if ( isset( $tag[3] ) && $tag[3] === 'author' )
-							$post_info['author'] = $tag[5];
+						if ( isset( $tag[3] ) && 
+							$tag[3] === 'author' )
+								$post_info['author'] = $tag[5];
 						break;
 					case 'property':
 						if ( isset( $tag[3] ) && 
@@ -224,18 +228,24 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 * Define an author_id, if one is available
 			 */
 			if ( is_singular() || $use_post !== false ) {
+
 				if ( ! empty( $obj->post_author ) )
 					$author_id = $obj->post_author;
 				elseif ( ! empty( $this->p->options['seo_def_author_id'] ) )
 					$author_id = $this->p->options['seo_def_author_id'];
 
-			} elseif ( is_author() || ( is_admin() && ( $screen = get_current_screen() ) && ( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
+			} elseif ( is_author() || ( is_admin() && 
+				( $screen = get_current_screen() ) && 
+				( $screen->id === 'user-edit' || $screen->id === 'profile' ) ) ) {
+
 				$author = $this->p->util->get_author_object();
 				$author_id = $author->ID;
 
-			} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
-				! is_search() && ! empty( $this->p->options['seo_def_author_on_index'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) || 
-				( is_search() && ! empty( $this->p->options['seo_def_author_on_search'] ) && ! empty( $this->p->options['seo_def_author_id'] ) ) )
+			} elseif ( ( ! ( is_singular() || $use_post !== false ) && ! is_search() && 
+				! empty( $this->p->options['seo_def_author_on_index'] ) && 
+				! empty( $this->p->options['seo_def_author_id'] ) ) || ( is_search() && 
+				! empty( $this->p->options['seo_def_author_on_search'] ) && 
+				! empty( $this->p->options['seo_def_author_id'] ) ) )
 					$author_id = $this->p->options['seo_def_author_id'];
 
 			if ( $author_id !== false )
@@ -254,7 +264,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$meta_name = array();
 			if ( isset( $this->p->options['seo_author_name'] ) && 
 				$this->p->options['seo_author_name'] !== 'none' )
-					$meta_name['author'] = $this->p->mods['util']['user']->get_author_name( $author_id, $this->p->options['seo_author_name'] );
+					$meta_name['author'] = $this->p->mods['util']['user']->get_author_name( $author_id, 
+						$this->p->options['seo_author_name'] );
 
 			$meta_name['description'] = $this->p->webpage->get_description( $this->p->options['seo_desc_len'], 
 				'...', $use_post, true, false, true, 'seo_desc' );	// add_hashtags = false, custom meta = seo_desc
@@ -267,7 +278,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$link_rel = array();
 
 			if ( ! empty( $author_id ) )
-				$link_rel['author'] = $this->p->mods['util']['user']->get_author_website_url( $author_id, $this->p->options['link_author_field'] );
+				$link_rel['author'] = $this->p->mods['util']['user']->get_author_website_url( $author_id, 
+					$this->p->options['link_author_field'] );
 
 			if ( ! empty( $this->p->options['link_publisher_url'] ) )
 				$link_rel['publisher'] = $this->p->options['link_publisher_url'];
@@ -313,10 +325,48 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$this->get_tag_array( 'meta', 'itemprop', $meta_schema, $use_post ),
 				$this->get_tag_array( 'meta', 'property', $meta_og, $use_post )
 			);
- 
+
+			/**
+			 * Google Social Profile JSON-LD
+			 */
+			if ( ! empty( $this->p->options['seo_author_json'] ) && ! empty( $author_id ) &&
+				( $json = $this->p->mods['util']['user']->get_person_json( $author_id, 
+					$this->p->cf['lca'].'-opengraph' ) ) !== false )
+						$header_array[][] = $json;
+
+			if ( ! empty( $this->p->options['seo_publisher_json'] )&& ! empty( $meta_og['og:url'] ) ) {
+				$website_url = get_site_url();
+				$og_image = $this->p->media->get_default_image( 1, $this->p->cf['lca'].'-opengraph', false );
+				if ( count( $og_image ) > 0 ) {
+					$image = reset( $og_image );
+					$image_url = $image['og:image'];
+				} else $image_url = '';
+
+				$json = '<!-- publisher (Organization) social profiles -->
+<script type="application/ld+json">{
+	"@context" : "http://schema.org",
+	"@type" : "Organization",
+	"url" : "'.$website_url.'",
+	"image" : "'.$image_url.'",
+	"sameAs" : ['."\n";
+				foreach ( array(
+					$this->p->options['link_publisher_url'],
+					$this->p->options['og_publisher_url'],
+				) as $sameAs ) {
+					if ( strpos( $sameAs, 'http' ) === 0 )
+						$json .= "\t\t\"".$sameAs."\",\n";
+				}
+				$json = rtrim( $json, ",\n" )."\n\t]\n}</script>\n";
+				$header_array[][] = $json;
+			}
+
+			/**
+			 * Save the header array to the WordPress transient cache
+			 */
 			if ( apply_filters( $lca.'_header_set_cache', $this->p->is_avail['cache']['transient'] ) ) {
 				set_transient( $cache_id, $header_array, $this->p->cache->object_expire );
-				$this->p->debug->log( $cache_type.': header array saved to transient '.$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
+				$this->p->debug->log( $cache_type.': header array saved to transient '.
+					$cache_id.' ('.$this->p->cache->object_expire.' seconds)');
 			}
 			return $header_array;
 		}
@@ -338,10 +388,13 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 						if ( SucomUtil::is_assoc( $s_val ) ) {
 							ksort( $s_val );
 							foreach ( $s_val as $t_name => $t_val )		// 3rd-dimension array (associative)
-								$ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $t_name, $t_val, $f_name.':'.( $s_num + 1 ), $use_post ) );
-						} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $f_name, $s_val, $f_name.':'.( $s_num + 1 ), $use_post ) );
+								$ret = array_merge( $ret, $this->get_single_tag( $tag, $type, 
+									$t_name, $t_val, $f_name.':'.( $s_num + 1 ), $use_post ) );
+						} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, 
+							$f_name, $s_val, $f_name.':'.( $s_num + 1 ), $use_post ) );
 					}
-				} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, $f_name, $f_val, '', $use_post ) );
+				} else $ret = array_merge( $ret, $this->get_single_tag( $tag, $type, 
+					$f_name, $f_val, '', $use_post ) );
 			}
 			return $ret;
 		}

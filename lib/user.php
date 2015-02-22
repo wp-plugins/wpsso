@@ -18,7 +18,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		protected $post_info = array();
 
 		protected function add_actions() {
-			add_filter( 'user_contactmethods', array( &$this, 'add_contact_methods' ), 20, 1 );
+			add_filter( 'user_contactmethods', array( &$this, 'add_contact_methods' ), 20, 2 );
 
 			if ( is_admin() ) {
 				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
@@ -27,15 +27,18 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				add_action( 'edit_user_profile', array( &$this, 'show_metaboxes' ), 20 );
 				add_action( 'edit_user_profile_update', array( &$this, 'sanitize_contact_methods' ), 5 );
 				add_action( 'edit_user_profile_update', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
+				add_action( 'edit_user_profile_update', array( &$this, 'flush_cache' ), WPSSO_META_CACHE_PRIORITY );
 				add_action( 'personal_options_update', array( &$this, 'sanitize_contact_methods' ), 5 ); 
 				add_action( 'personal_options_update', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY ); 
+				add_action( 'personal_options_update', array( &$this, 'flush_cache' ), WPSSO_META_CACHE_PRIORITY ); 
 			}
 		}
 
 		public function add_metaboxes() {
 			$add_metabox = empty( $this->p->options[ 'plugin_add_to_user' ] ) ? false : true;
 			if ( apply_filters( $this->p->cf['lca'].'_add_metabox_usermeta', $add_metabox ) === true )
-				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_metabox_usermeta' ), 'user', 'normal', 'high' );
+				add_meta_box( WPSSO_META_NAME, 'Social Settings', array( &$this, 'show_metabox_usermeta' ), 
+					'user', 'normal', 'high' );
 		}
 
 		// hooked into the admin_head action
@@ -54,7 +57,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 						$this->p->util->add_plugin_image_sizes();
 						do_action( $this->p->cf['lca'].'_admin_usermeta_header', $page );
 						$this->header_tags = $this->p->head->get_header_array( false );
-						$this->post_info = $this->p->head->get_post_info( $this->header_tags );
+						$this->post_info = $this->p->head->extract_post_info( $this->header_tags );
 
 						if ( ! empty( $this->p->options['plugin_check_head'] ) &&
 							empty( $this->post_info['og_image']['og:image'] ) )
@@ -68,8 +71,6 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		public function show_metaboxes( $user ) {
 			if ( ! current_user_can( 'edit_user', $user->ID ) )
 				return;
-			if ( isset( $_GET['updated'] ) )
-				$this->flush_cache( $user->ID );
 			echo '<div id="poststuff">';
 			do_meta_boxes( 'user', 'normal', $user );
 			echo '</div>';
@@ -102,7 +103,8 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			$rows = array();
 			foreach ( $tabs as $key => $title )
 				$rows[$key] = array_merge( $this->get_rows( $metabox, $key, $this->post_info ), 
-					apply_filters( $this->p->cf['lca'].'_'.$metabox.'_'.$key.'_rows', array(), $this->form, $this->post_info ) );
+					apply_filters( $this->p->cf['lca'].'_'.$metabox.'_'.$key.'_rows', 
+						array(), $this->form, $this->post_info ) );
 			$this->p->util->do_tabs( $metabox, $tabs, $rows );
 		}
 
@@ -119,11 +121,13 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 
 				case 'user-tags':	
 					foreach ( $this->header_tags as $m ) {
-						$rows[] = '<th class="xshort">'.$m[1].'</th>'.
+						if ( ! empty( $m[1] ) )
+							$rows[] = '<th class="xshort">'.$m[1].'</th>'.
 							'<th class="xshort">'.$m[2].'</th>'.
-							'<td class="short">'.$m[3].'</td>'.
+							'<td class="short">'.( isset( $m[6] ) ? '<!-- '.$m[6].' -->' : '' ).$m[3].'</td>'.
 							'<th class="xshort">'.$m[4].'</th>'.
-							'<td class="wide">'.( strpos( $m[5], 'http' ) === 0 ? '<a href="'.$m[5].'">'.$m[5].'</a>' : $m[5] ).'</td>';
+							'<td class="wide">'.( strpos( $m[5], 'http' ) === 0 ? 
+								'<a href="'.$m[5].'">'.$m[5].'</a>' : $m[5] ).'</td>';
 					}
 					sort( $rows );
 					break; 
@@ -143,9 +147,11 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			);
 		}
 
-		public function add_contact_methods( $fields = array() ) { 
+		public function add_contact_methods( $fields = array(), $user = null ) { 
 			// loop through each social website option prefix
-			if ( ! empty( $this->p->cf['opt']['pre'] ) && is_array( $this->p->cf['opt']['pre'] ) ) {
+			if ( ! empty( $this->p->cf['opt']['pre'] ) && 
+				is_array( $this->p->cf['opt']['pre'] ) ) {
+
 				foreach ( $this->p->cf['opt']['pre'] as $id => $pre ) {
 					$cm_opt = 'plugin_cm_'.$pre.'_';
 					// not all social websites have a contact fields, so check
@@ -153,13 +159,17 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 						$enabled = $this->p->options[$cm_opt.'enabled'];
 						$name = $this->p->options[$cm_opt.'name'];
 						$label = $this->p->options[$cm_opt.'label'];
-						if ( ! empty( $enabled ) && ! empty( $name ) && ! empty( $label ) )
-							$fields[$name] = $label;
+						if ( ! empty( $enabled ) && 
+							! empty( $name ) && 
+							! empty( $label ) )
+								$fields[$name] = $label;
 					}
 				}
 			}
 			if ( $this->p->check->aop() && 
-				! empty( $this->p->cf['wp']['cm'] ) && is_array( $this->p->cf['wp']['cm'] ) ) {
+				! empty( $this->p->cf['wp']['cm'] ) && 
+				is_array( $this->p->cf['wp']['cm'] ) ) {
+
 				foreach ( $this->p->cf['wp']['cm'] as $id => $name ) {
 					$cm_opt = 'wp_cm_'.$id.'_';
 					if ( array_key_exists( $cm_opt.'enabled', $this->p->options ) ) {
@@ -214,10 +224,44 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			}
 		}
 
-		public function get_article_author( $author_id ) {
+		public function get_person_json( $author_id, $size_name = 'thumbnail' ) {
+			$website_url = get_the_author_meta( 'url', $author_id );
+			if ( strpos( $website_url, 'http' ) !== 0 )
+				return false;
+
+			$user = get_user_by( 'id', $author_id );
+			$cm = wp_get_user_contact_methods( $user );
+			$og_image = $this->p->media->get_author_image( 1, $size_name, $author_id, false );
+			if ( count( $og_image ) > 0 ) {
+				$image = reset( $og_image );
+				$image_url = $image['og:image'];
+			} else $image_url = '';
+
+			$json = '<!-- author (Person) social profiles -->
+<script type="application/ld+json">{
+	"@context" : "http://schema.org",
+	"@type" : "Person",
+	"name" : "'.$this->get_author_name( $author_id, 'fullname' ).'",
+	"url" : "'.$website_url.'",
+	"image" : "'.$image_url.'",
+	"sameAs" : ['."\n";
+			foreach ( $cm as $id => $label ) {
+				$sameAs = get_the_author_meta( $id, $author_id );
+				if ( strpos( $sameAs, '@' ) === 0 ) {
+					if ( $id === $this->p->options['plugin_cm_twitter_name'] )
+						$sameAs = 'https://twitter.com/'.substr( $sameAs, 1);
+				}
+				if ( strpos( $sameAs, 'http' ) === 0 )
+					$json .= "\t\t\"".$sameAs."\",\n";
+			}
+			$json = rtrim( $json, ",\n" )."\n\t]\n}</script>\n";
+			return $json;
+		}
+
+		public function get_article_author( $author_id, $url_field = 'og_author_field' ) {
 			$ret = array();
 			if ( ! empty( $author_id ) ) {
-				$ret[] = $this->get_author_website_url( $author_id, $this->p->options['og_author_field'] );
+				$ret[] = $this->get_author_website_url( $author_id, $this->p->options[$url_field] );
 
 				// add the author's name if this is the Pinterest crawler
 				if ( SucomUtil::crawler_name( 'pinterest' ) === true )
@@ -273,11 +317,12 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 					// if empty or not a url, then fallback to the author index page,
 					// if the requested field is the opengraph or link author field
 					if ( empty( $url ) || ! preg_match( '/:\/\//', $url ) ) {
-						if ( ( $field_id == $this->p->options['og_author_field'] || 
-							$field_id == $this->p->options['link_author_field'] ) && 
-							$this->p->options['og_author_fallback'] ) {
-								$this->p->debug->log( 'fetching the author index page url as fallback' );
-								$url = get_author_posts_url( $author_id );
+						if ( $this->p->options['og_author_fallback'] && (
+							$field_id === $this->p->options['og_author_field'] || 
+							$field_id === $this->p->options['link_author_field'] ) ) {
+
+							$this->p->debug->log( 'fetching the author index page url as fallback' );
+							$url = get_author_posts_url( $author_id );
 						}
 					}
 					break;
@@ -397,8 +442,11 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 					'lang:'.$lang.'_post:'.$post_id.'_url:'.$sharing_url.'_crawler:pinterest',
 				),
 			);
-			$transients = apply_filters( $this->p->cf['lca'].'_user_cache_transients', $transients, $post_id, $lang, $sharing_url );
+			$transients = apply_filters( $this->p->cf['lca'].'_user_cache_transients', 
+				$transients, $post_id, $lang, $sharing_url );
 			$deleted = $this->p->util->flush_cache_objects( $transients );
+			if ( ! empty( $this->p->options['plugin_cache_info'] ) && $deleted > 0 )
+				$this->p->notice->inf( $deleted.' items removed from the WordPress object and transient caches.', true );
 			return $user_id;
 		}
 

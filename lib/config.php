@@ -19,7 +19,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.7.6',		// plugin version
+					'version' => '2.7.7',		// plugin version
 					'short' => 'WPSSO',		// short plugin name
 					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
 					'desc' => 'Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.',
@@ -159,7 +159,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => 320,		// increment when changing default options
+				'version' => 321,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -169,6 +169,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'seo_def_author_id' => 0,
 					'seo_def_author_on_index' => 0,
 					'seo_def_author_on_search' => 0,
+					'seo_publisher_json' => 1,
+					'seo_author_json' => 1,
 					'link_author_field' => '',		// default value set by WpssoOptions::get_defaults()
 					'link_publisher_url' => '',
 					'fb_admins' => '',
@@ -523,7 +525,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				define( 'WPSSO_META_NAME', '_'.$cf['lca'].'_meta' );
 
 			if ( ! defined( 'WPSSO_META_SAVE_PRIORITY' ) )
-				define( 'WPSSO_META_SAVE_PRIORITY', 20 );
+				define( 'WPSSO_META_SAVE_PRIORITY', 6 );
+
+			if ( ! defined( 'WPSSO_META_CACHE_PRIORITY' ) )
+				define( 'WPSSO_META_CACHE_PRIORITY', 9 );
 
 			if ( ! defined( 'WPSSO_MENU_PRIORITY' ) )
 				define( 'WPSSO_MENU_PRIORITY', '99.10' );

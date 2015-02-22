@@ -28,10 +28,10 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				add_action( 'admin_head', array( &$this, 'set_header_tags' ) );
 				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
 				add_action( 'save_post', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
-				add_action( 'save_post', array( &$this, 'flush_cache' ), 100 );
+				add_action( 'save_post', array( &$this, 'flush_cache' ), WPSSO_META_CACHE_PRIORITY );
 				add_action( 'save_post', array( &$this, 'check_head' ), 1000 );
 				add_action( 'edit_attachment', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
-				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), 100 );
+				add_action( 'edit_attachment', array( &$this, 'flush_cache' ), WPSSO_META_CACHE_PRIORITY );
 			}
 		}
 
@@ -70,7 +70,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					$this->p->util->add_plugin_image_sizes( $post_id );
 					do_action( $this->p->cf['lca'].'_admin_postmeta_header', $post_type->name, $post_id );
 					$this->header_tags = $this->p->head->get_header_array( $post_id );
-					$this->post_info = $this->p->head->get_post_info( $this->header_tags );
+					$this->post_info = $this->p->head->extract_post_info( $this->header_tags );
 
 					if ( $obj->post_status == 'publish' &&
 						! empty( $this->p->options['plugin_check_head'] ) &&
@@ -124,12 +124,13 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 				case 'meta-tags':	
 					if ( get_post_status( $post_info['id'] ) !== 'auto-draft' ) {
 						foreach ( $this->header_tags as $m ) {
-							if ( ! empty( $m[0] ) )
+							if ( ! empty( $m[1] ) )
 								$rows[] = '<th class="xshort">'.$m[1].'</th>'.
 								'<th class="xshort">'.$m[2].'</th>'.
 								'<td class="short">'.( isset( $m[6] ) ? '<!-- '.$m[6].' -->' : '' ).$m[3].'</td>'.
 								'<th class="xshort">'.$m[4].'</th>'.
-								'<td class="wide">'.( strpos( $m[5], 'http' ) === 0 ? '<a href="'.$m[5].'">'.$m[5].'</a>' : $m[5] ).'</td>';
+								'<td class="wide">'.( strpos( $m[5], 'http' ) === 0 ? 
+									'<a href="'.$m[5].'">'.$m[5].'</a>' : $m[5] ).'</td>';
 						}
 						sort( $rows );
 					} else $rows[] = '<td><p class="centered">Save a draft version or publish the '.

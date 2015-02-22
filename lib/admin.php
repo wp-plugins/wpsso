@@ -275,9 +275,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 								w3tc_pgcache_flush();
 							elseif ( function_exists( 'wp_cache_clear_cache' ) )	// wp super cache
 								wp_cache_clear_cache();
+							elseif ( isset( $GLOBALS['quick_cache'] ) )		// quick cache
+								$GLOBALS['quick_cache']->wipe_cache();
 
-							$this->p->notice->inf( __( 'Cached files, WP object cache, transient cache, and any additional caches, '.
-								'like APC, Memcache, Xcache, W3TC, Super Cache, etc. have all been cleared.', WPSSO_TEXTDOM ) );
+							$this->p->notice->inf( __( 'Cached files, WP object cache, transient cache, and additional caches like W3TC, Super Cache, and Quick Cache have been cleared.', WPSSO_TEXTDOM ) );
 							break;
 
 						case 'clear_metabox_prefs': 

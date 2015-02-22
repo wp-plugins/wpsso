@@ -420,15 +420,24 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			if ( $pid > 0 ) {
 				$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
 				$this->p->debug->log( 'found custom user image id = '.$pid );
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
-					$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes, $force_regen );
-
+				list(
+					$og_image['og:image'], 
+					$og_image['og:image:width'], 
+					$og_image['og:image:height'], 
+					$og_image['og:image:cropped'], 
+					$og_image['og:image:id']
+				) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes, $force_regen );
 			}
 
 			if ( empty( $og_image['og:image'] ) && ! empty( $img_url ) ) {
 				$this->p->debug->log( 'found custom user image url = "'.$img_url.'"' );
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'], 
-					$og_image['og:image:id'] ) = array( $img_url, -1, -1, -1, -1 );
+				list(
+					$og_image['og:image'],
+					$og_image['og:image:width'],
+					$og_image['og:image:height'],
+					$og_image['og:image:cropped'], 
+					$og_image['og:image:id']
+				) = array( $img_url, -1, -1, -1, -1 );
 			}
 
 			if ( ! empty( $og_image['og:image'] ) &&
@@ -459,8 +468,13 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			if ( $pid > 0 ) {
 				$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
 				$this->p->debug->log( 'using default img pid = '.$pid );
-				list( $og_image['og:image'], $og_image['og:image:width'], $og_image['og:image:height'], $og_image['og:image:cropped'],
-					$og_image['og:image:id'] ) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes, $force_regen );
+				list(
+					$og_image['og:image'],
+					$og_image['og:image:width'],
+					$og_image['og:image:height'],
+					$og_image['og:image:cropped'],
+					$og_image['og:image:id']
+				) = $this->get_attachment_image_src( $pid, $size_name, $check_dupes, $force_regen );
 			}
 
 			if ( empty( $og_image['og:image'] ) && ! empty( $url ) ) {
