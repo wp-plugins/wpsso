@@ -302,8 +302,8 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			switch ( $option_type ) {
 				case 'at_name':		// twitter-style usernames (prepend with an at)
 					if ( $val !== '' ) {
-						$val = substr( preg_replace( '/[^a-z0-9_]/', '', strtolower( $val ) ), 0, 15 );
-						if ( $val !== '' )
+						$val = substr( preg_replace( '/[^a-zA-Z0-9_]/', '', $val ), 0, 15 );
+						if ( ! empty( $val ) ) 
 							$val = '@'.$val;
 					}
 					break;
