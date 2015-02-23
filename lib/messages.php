@@ -710,7 +710,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'The maximum length of text used for the Twitter Card description. The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more (the default is '.$this->p->opt->get_defaults( 'tc_desc_len' ).' characters).';
 							break;
 						case 'tooltip-tc_site':
-							$text = 'The Twitter username for your website and / or company (not your personal Twitter username). As an example, the Twitter username for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is <a href="https://twitter.com/surniaululacom" target="_blank">@surniaululacom</a>.';
+							$text = 'The Twitter username for your website and / or company (not your personal Twitter username). As an example, the Twitter username for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is <a href="https://twitter.com/surniaululacom" target="_blank">@surniaululacom</a>. The Website @username is also used for the schema publisher (Organization) social JSON. Google Search may use this information to display additional publisher / business details in its search results.';
 							break;
 						case 'tooltip-tc_sum_dimensions':
 							$card = 'sum';

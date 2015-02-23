@@ -148,7 +148,7 @@ WPSSO (Pro version) supports [bbPress](https://wordpress.org/plugins/bbpress/) a
 
 = Custom Contacts =
 
-WPSSO includes <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The <em>Person</em> social profile markup includes the author's website URL, their profile image, and all listed contact URLs. The <em>Organization</em> social profile markup includes the website URL, a corporate logo, a default image, and the website Facebook, Google+, Twitter URLs.
+WPSSO includes <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The author (Person) markup includes the author's website URL, their profile image, and all listed contact URLs. The publisher (Organization) markup includes the website URL, a corporate logo, a default image, and the publisher Facebook, Google+, LinkedIn, Pinterest, and Twitter business pages.
 
 WPSSO (Pro version) allows you to customize the field names, label, and add/remove the following contacts from the user profile page:
 
@@ -407,7 +407,6 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 * **Bugfixes**
 	* *None*
 * **Improvements**
-	* Moved the Open Graph "Article Publisher Page URL" option down to the Facebook publisher settings.
 	* Added a new WPSSO_META_CACHE_PRIORITY contant with a default value of 9.
 	* Changed the WPSSO_META_SAVE_PRIORITY constant default value from 20 to 6.
 	* Changed the update post cache maintenance hook priority from 100 to 9 (using the new WPSSO_META_CACHE_PRIORITY contant).
@@ -415,6 +414,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* Added support for Quick Cache in the "Clear All Cache" feature.
 	* Renamed the 'og_publisher_url' settings option to 'fb_publisher_url'.
 	* Renamed the 'link_publisher_url' settings option to 'seo_publisher_url'.
+	* Moved the Open Graph "Article Publisher Page URL" option down to the Facebook publisher settings.
 * **New Features**
 	* Added a "Publisher Business Page URL" option to the Pinterest publisher settings tab (Pro version).
 	* Added a LinkedIn tab to the publisher settings with a new "Publisher Company Page URL" option (Pro version).
@@ -434,7 +434,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
-= 2.7.6 =
+= 2.8 =
 
-Added a check and warming for missing og:image meta tag in the header, and a minimum image dimension of 200x200px.
+Includes support for Google's author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format.
 
