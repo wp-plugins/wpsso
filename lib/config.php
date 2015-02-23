@@ -178,6 +178,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'fb_admins' => '',
 					'fb_app_id' => '',
 					'fb_lang' => 'en_US',
+					'linkedin_publisher_url' => '',
 					'og_site_name' => '',
 					'og_site_description' => '',
 					'og_art_section' => 'none',
@@ -214,6 +215,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_desc_hashtags' => 3,
 					'og_desc_strip' => 0,
 					'og_desc_alt' => 1,
+					'rp_publisher_url' => '',
 					'rp_author_name' => 'display_name',	// rich-pin specific article:author
 					'rp_img_width' => 800,
 					'rp_img_height' => 800,

@@ -130,21 +130,9 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 					break;
 
-				case 'pub-linkedin':
-					$rows[] = $this->p->util->th( 'Publisher <em>Company Page</em> URL', null, 'linkedin_publisher_url'  ).
-					'<td>'.$this->form->get_input( 'linkedin_publisher_url', 'wide' ).'</td>';
-
-					break;
-
 				case 'pub-pinterest':
 					$rows[] = '<td colspan="2" style="padding-bottom:10px;">'.$this->p->msgs->get( 'info-pub-pinterest' ).'</td>';
 
-					$rows[] = $this->p->util->th( 'Publisher <em>Company Page</em> URL', null, 'rp_publisher_url'  ).
-					'<td>'.$this->form->get_input( 'rp_publisher_url', 'wide' ).'</td>';
-
-					$rows[] = $this->p->util->th( 'Rich Pin Image Dimensions', 'highlight', 'rp_img_dimensions' ).
-					'<td>'.$this->form->get_image_dimensions_input( 'rp_img' ).'</td>';
-	
 					break;
 			}
 			return $rows;

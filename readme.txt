@@ -416,10 +416,10 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* Renamed the 'og_publisher_url' settings option to 'fb_publisher_url'.
 	* Renamed the 'link_publisher_url' settings option to 'seo_publisher_url'.
 * **New Features**
-	* Added a "Publisher Business Page URL" option to the Pinterest publisher settings tab.
-	* Added a LinkedIn tab to the publisher settings with a new "Publisher Company Page URL" option.
+	* Added a "Publisher Business Page URL" option to the Pinterest publisher settings tab (Pro version).
+	* Added a LinkedIn tab to the publisher settings with a new "Publisher Company Page URL" option (Pro version).
 	* Moved all schema related code (meta tags, json scripts, doctype itemscope) from WpssoHead to a new WpssoSchema class.
-	* Added the "Schema Website / Business Logo URL", "Add Schema Publisher Social JSON", and "Add Schema Author Social JSON" options under to the Google (G+ and Search) publisher settings tab.
+	* Added the "Schema Website / Business Logo URL", "Add Schema Publisher Social JSON", and "Add Schema Author Social JSON" options under to the Google (G+ and Search) publisher settings tab (Pro version).
 	* Added author (Person) and publisher (Organization) <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>.
 
 = Version 2.7.6 =

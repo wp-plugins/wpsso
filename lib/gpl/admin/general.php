@@ -21,6 +21,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 				'og_author_rows' => 2,
 				'pub_facebook_rows' => 2,
 				'pub_google_rows' => 2,
+				'pub_linkedin_rows' => 2,
 				'pub_pinterest_rows' => 2,
 				'pub_twitter_rows' => 2,
 			) );
@@ -184,10 +185,26 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			return $rows;
 		}
 
+		public function filter_pub_linkedin_rows( $rows, $form ) {
+
+			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
+
+			$rows[] = $this->p->util->th( 'Publisher <em>Company Page</em> URL', null, 'linkedin_publisher_url'  ).
+			'<td class="blank">'.$this->p->options['linkedin_publisher_url'].'</td>';
+
+			return $rows;
+		}
+
 		public function filter_pub_pinterest_rows( $rows, $form ) {
 
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
+			$rows[] = $this->p->util->th( 'Publisher <em>Company Page</em> URL', null, 'rp_publisher_url'  ).
+			'<td class="blank">'.$this->p->options['rp_publisher_url'].'</td>';
+
+			$rows[] = $this->p->util->th( 'Rich Pin Image Dimensions', 'highlight', 'rp_img_dimensions' ).
+			'<td class="blank">'.$form->get_image_dimensions_text( 'rp_img' ).'</td>';
+	
 			$rows[] = $this->p->util->th( 'Author Name Format', null, 'rp_author_name' ).
 			'<td class="blank">'.$this->p->cf['form']['user_name_fields'][$this->p->options['rp_author_name']].'</td>';
 
@@ -210,6 +227,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			'<td class="blank">'.$this->p->options['tc_site'].'</td>';
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
+
 				$rows[] = $this->p->util->th( '<em>Summary</em> Card Image Dimensions', null, 'tc_sum_dimensions' ).
 				'<td class="blank">'.$form->get_image_dimensions_text( 'tc_sum' ).'</td>';
 	
@@ -230,6 +248,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			}
 
 			if ( $this->p->options['plugin_display'] == 'all' || $this->p->is_avail['ecom']['*'] === true ) {
+
 				$rows[] = $this->p->util->th( '<em>Product</em> Card Maximum Labels', null, 'tc_prod_labels' ).
 				'<td class="blank">'.$this->p->options['tc_prod_labels'].'</td>';
 	
