@@ -322,7 +322,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 					if ( empty( $url ) || ! preg_match( '/:\/\//', $url ) ) {
 						if ( $this->p->options['og_author_fallback'] && (
 							$field_id === $this->p->options['og_author_field'] || 
-							$field_id === $this->p->options['link_author_field'] ) ) {
+							$field_id === $this->p->options['seo_author_field'] ) ) {
 
 							$this->p->debug->log( 'fetching the author index page url as fallback' );
 							$url = get_author_posts_url( $author_id );

@@ -150,7 +150,7 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 				}
 
 				if ( ! isset( $og['article:publisher'] ) )
-					$og['article:publisher'] = $this->p->options['og_publisher_url'];
+					$og['article:publisher'] = $this->p->options['fb_publisher_url'];
 
 				if ( ! isset( $og['article:tag'] ) )
 					$og['article:tag'] = $this->p->webpage->get_tags( $post_id );

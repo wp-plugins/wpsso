@@ -148,21 +148,23 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
+			$rows[] = $this->p->util->th( 'Schema Website / Business Logo URL', null, 'google_schema_logo_url' ).
+			'<td class="blank">'.$form->options['schema_logo_url'].'</td>';
+
 			if ( $this->p->options['plugin_display'] == 'all' ) {
-				$rows[] = $this->p->util->th( 'Search / SEO Description Length', null, 'google_seo_desc_len' ).
-				'<td class="blank">'.$form->options['seo_desc_len'].' characters or less</td>';
 
 				$rows[] = $this->p->util->th( 'Schema Description Length', null, 'google_schema_desc_len' ).
 				'<td class="blank">'.$form->options['schema_desc_len'].' characters or less</td>';
+
+				$rows[] = $this->p->util->th( 'Search / SEO Description Length', null, 'google_seo_desc_len' ).
+				'<td class="blank">'.$form->options['seo_desc_len'].' characters or less</td>';
 			}
 
-			$rows[] = $this->p->util->th( 'Schema Publisher Logo URL', 'highlight', 'google_schema_logo_url' ).
-			'<td class="blank">'.$form->options['schema_logo_url'].'</td>';
-
 			$rows[] = $this->p->util->th( 'Author Link URL Field', null, 'google_author_field' ).
-			'<td class="blank">'.$form->author_contact_fields[$this->p->options['link_author_field']].'</td>';
+			'<td class="blank">'.$form->author_contact_fields[$this->p->options['seo_author_field']].'</td>';
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
+
 				$rows[] = $this->p->util->th( 'Default Author when Missing', null, 'google_def_author_id' ).
 				'<td class="blank">'.$form->user_ids[$this->p->options['seo_def_author_id']].'</td>';
 		

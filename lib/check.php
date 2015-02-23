@@ -54,7 +54,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 						$ret = remove_action( 'wpseo_head', array( $wpseo_twitter, 'twitter' ), $prio );
 				}
 
-				if ( ! empty( $this->p->options['link_publisher_url'] ) ) {
+				if ( ! empty( $this->p->options['seo_publisher_url'] ) ) {
 					global $wpseo_front;
 					if ( is_object( $wpseo_front ) && ( $prio = has_action( 'wpseo_head', array( $wpseo_front, 'publisher' ) ) ) )
 						$ret = remove_action( 'wpseo_head', array( $wpseo_front, 'publisher' ), $prio );
@@ -277,7 +277,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 							'<a href="%s">Yoast WordPress SEO: Social</a> settings.', WPSSO_TEXTDOM ), 
 							get_admin_url( null, 'admin.php?page=wpseo_social' ) ) );
 				}
-				if ( ! empty( $this->p->options['link_publisher_url'] ) && ! empty( $opts['plus-publisher'] ) ) {
+				if ( ! empty( $this->p->options['seo_publisher_url'] ) && ! empty( $opts['plus-publisher'] ) ) {
 					$this->p->debug->log( $conflict_log_prefix.'wpseo google plus publisher option is defined' );
 					$this->p->notice->err( $conflict_err_prefix.
 						sprintf( __( 'Please remove the \'<em>Google Publisher Page</em>\' value entered in the '.

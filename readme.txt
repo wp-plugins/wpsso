@@ -402,19 +402,24 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
-= Version 2.7.7 =
+= Version 2.8 =
 
 * **Bugfixes**
 	* *None*
 * **Improvements**
+	* Moved the Open Graph "Article Publisher Page URL" option down to the Facebook publisher settings.
 	* Added a new WPSSO_META_CACHE_PRIORITY contant with a default value of 9.
 	* Changed the WPSSO_META_SAVE_PRIORITY constant default value from 20 to 6.
-	* Changed the post cache maintenance hook priority from 100 to 9 (using the new WPSSO_META_CACHE_PRIORITY contant).
-	* Moved the user profile cache maintenance to an action hook (uses the WPSSO_META_CACHE_PRIORITY contant as well).
+	* Changed the update post cache maintenance hook priority from 100 to 9 (using the new WPSSO_META_CACHE_PRIORITY contant).
+	* Moved the update user profile cache maintenance to an action hook (uses the WPSSO_META_CACHE_PRIORITY contant as well).
 	* Added support for Quick Cache in the "Clear All Cache" feature.
+	* Renamed the 'og_publisher_url' settings option to 'fb_publisher_url'.
+	* Renamed the 'link_publisher_url' settings option to 'seo_publisher_url'.
 * **New Features**
-	* Moved schema related code (meta tags, json scripts, doctype itemscope) from WpssoHead to a new WpssoSchema class.
-	* Added the "Schema Publisher Logo URL", "Add Schema Publisher Social JSON", and "Add Schema Author Social JSON" options under the "Google+ and Search" settings tab.
+	* Added a "Publisher Business Page URL" option to the Pinterest publisher settings tab.
+	* Added a LinkedIn tab to the publisher settings with a new "Publisher Company Page URL" option.
+	* Moved all schema related code (meta tags, json scripts, doctype itemscope) from WpssoHead to a new WpssoSchema class.
+	* Added the "Schema Website / Business Logo URL", "Add Schema Publisher Social JSON", and "Add Schema Author Social JSON" options under to the Google (G+ and Search) publisher settings tab.
 	* Added author (Person) and publisher (Organization) <a href="https://developers.google.com/structured-data/customize/social-profiles">social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>.
 
 = Version 2.7.6 =

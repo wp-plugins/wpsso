@@ -122,15 +122,20 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 	"image" : "'.$image_url.'",
 	"sameAs" : ['."\n";
 				foreach ( array(
-					'link_publisher_url',
-					'og_publisher_url',
+					'seo_publisher_url',
+					'fb_publisher_url',
+					'linkedin_publisher_url',
 					'tc_site',
 				) as $key ) {
-					$sameAs = $this->p->options[$key];
+					if ( isset( $this->p->options[$key] ) )
+						$sameAs = $this->p->options[$key];
+					else continue;
+
 					if ( strpos( $sameAs, '@' ) === 0 ) {
 						if ( $key === 'tc_site' )
 							$sameAs = 'https://twitter.com/'.substr( $sameAs, 1);
 					}
+
 					if ( strpos( $sameAs, 'http' ) === 0 )
 						$json_script .= "\t\t\"".$sameAs."\",\n";
 				}

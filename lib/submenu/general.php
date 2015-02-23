@@ -48,6 +48,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 			$tabs = apply_filters( $this->p->cf['lca'].'_'.$metabox.'_tabs', array( 
 				'facebook' => 'Facebook',
 				'google' => 'Google (G+ and Search)',
+				'linkedin' => 'LinkedIn',
 				'pinterest' => 'Pinterest Rich Pins',
 				'twitter' => 'Twitter Cards',
 			) );
@@ -90,7 +91,8 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Open Graph Image Dimensions', 'highlight', 'og_img_dimensions' ).
-					'<td>'.$this->form->get_image_dimensions_input( 'og_img', false, false, $this->p->options['plugin_display'] ).'</td>';
+					'<td>'.$this->form->get_image_dimensions_input( 'og_img', 
+						false, false, $this->p->options['plugin_display'] ).'</td>';
 	
 					$rows[] = $this->p->util->th( 'Default Image ID', 'highlight', 'og_def_img_id' ).
 					'<td>'.$this->form->get_image_upload_input( 'og_def_img' ).'</td>';
@@ -107,13 +109,10 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 	
 					break;
 
-				case 'og-author':
-					$rows[] = $this->p->util->th( 'Article Publisher Page URL', 'highlight', 'og_publisher_url' ).
-					'<td>'.$this->form->get_input( 'og_publisher_url', 'wide' ).'</td>';
-
-					break;
-
 				case 'pub-facebook':
+					$rows[] = $this->p->util->th( 'Publisher <em>Business Page</em> URL', 'highlight', 'fb_publisher_url' ).
+					'<td>'.$this->form->get_input( 'fb_publisher_url', 'wide' ).'</td>';
+
 					$rows[] = $this->p->util->th( 'Facebook Admin(s)', 'highlight', 'fb_admins' ).
 					'<td>'.$this->form->get_input( 'fb_admins' ).'</td>';
 
@@ -122,16 +121,26 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 
 					$rows[] = $this->p->util->th( 'Default Language', null, 'fb_lang' ).
 					'<td>'.$this->form->get_select( 'fb_lang', SucomUtil::get_pub_lang( 'facebook' ) ).'</td>';
+
 					break;
 
 				case 'pub-google':
-					$rows[] = $this->p->util->th( 'Publisher Link URL', 'highlight', 'google_publisher_url' ).
-					'<td>'.$this->form->get_input( 'link_publisher_url', 'wide' ).'</td>';
+					$rows[] = $this->p->util->th( 'Publisher <em>Business Page</em> URL', 'highlight', 'google_publisher_url' ).
+					'<td>'.$this->form->get_input( 'seo_publisher_url', 'wide' ).'</td>';
+
+					break;
+
+				case 'pub-linkedin':
+					$rows[] = $this->p->util->th( 'Publisher <em>Company Page</em> URL', null, 'linkedin_publisher_url'  ).
+					'<td>'.$this->form->get_input( 'linkedin_publisher_url', 'wide' ).'</td>';
 
 					break;
 
 				case 'pub-pinterest':
 					$rows[] = '<td colspan="2" style="padding-bottom:10px;">'.$this->p->msgs->get( 'info-pub-pinterest' ).'</td>';
+
+					$rows[] = $this->p->util->th( 'Publisher <em>Company Page</em> URL', null, 'rp_publisher_url'  ).
+					'<td>'.$this->form->get_input( 'rp_publisher_url', 'wide' ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Rich Pin Image Dimensions', 'highlight', 'rp_img_dimensions' ).
 					'<td>'.$this->form->get_image_dimensions_input( 'rp_img' ).'</td>';

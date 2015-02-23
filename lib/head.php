@@ -225,10 +225,10 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 			if ( ! empty( $author_id ) )
 				$link_rel['author'] = $this->p->mods['util']['user']->get_author_website_url( $author_id, 
-					$this->p->options['link_author_field'] );
+					$this->p->options['seo_author_field'] );
 
-			if ( ! empty( $this->p->options['link_publisher_url'] ) )
-				$link_rel['publisher'] = $this->p->options['link_publisher_url'];
+			if ( ! empty( $this->p->options['seo_publisher_url'] ) )
+				$link_rel['publisher'] = $this->p->options['seo_publisher_url'];
 
 			$link_rel = apply_filters( $lca.'_link_rel', $link_rel, $use_post, $obj );
 

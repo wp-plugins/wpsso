@@ -44,7 +44,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 				$this->p->cf['opt']['defaults'] = $this->p->util->push_add_to_options( $this->p->cf['opt']['defaults'], array( 'plugin' => 'backend' ) );
 
-				$this->p->cf['opt']['defaults']['link_author_field'] = empty( $this->p->options['plugin_cm_gp_name'] ) ? 
+				$this->p->cf['opt']['defaults']['seo_author_field'] = empty( $this->p->options['plugin_cm_gp_name'] ) ? 
 					$this->p->cf['opt']['defaults']['plugin_cm_gp_name'] : $this->p->options['plugin_cm_gp_name'];
 
 				$this->p->cf['opt']['defaults']['og_author_field'] = empty( $this->p->options['plugin_cm_fb_name'] ) ? 
@@ -311,9 +311,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					return 'url_base';
 					break;
 				// must be a url
-				case 'link_publisher_url':
+				case 'seo_publisher_url':
+				case 'fb_publisher_url':
 				case 'schema_logo_url':
-				case 'og_publisher_url':
 				case 'og_def_img_url':
 				case 'og_img_url':
 					return 'url';
@@ -362,7 +362,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					return 'ok_blank';
 					break;
 				// options that cannot be blank
-				case 'link_author_field':
+				case 'seo_author_field':
 				case 'og_def_img_id_pre': 
 				case 'og_img_id_pre': 
 				case 'og_author_field':

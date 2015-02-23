@@ -229,33 +229,22 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'The maximum number of images to include in the Facebook / Open Graph meta tags for this '.$ptn.'.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_url':
-							$text = 'A custom Video URL to include first in the Facebook / Open Graph, Pinterest Rich Pin, 
-							and \'Player\' Twitter Card meta tags. If the URL is from Youtube, Vimeo or Wistia, 
-							an API connection will be made to retrieve the preferred sharing URL, video dimensions, and video preview image.
-							The '.$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video URL Custom Field' ).
-							' Advanced option allows a 3rd-party theme or plugin to provide a custom Video URL value for this option.';
+							$text = 'A custom Video URL to include first in the Facebook / Open Graph, Pinterest Rich Pin, and \'Player\' Twitter Card meta tags. If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred sharing URL, video dimensions, and video preview image. The '.$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video URL Custom Field' ).' Advanced option allows a 3rd-party theme or plugin to provide a custom Video URL value for this option.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_embed':
-							$text = 'Custom Video Embed HTML to use for the first in the Facebook / Open Graph, Pinterest Rich Pin, 
-							and \'Player\' Twitter Card meta tags. If the URL is from Youtube, Vimeo or Wistia, 
-							an API connection will be made to retrieve the preferred sharing URL, video dimensions, and video preview image. 
-							The '.$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video Embed HTML Custom Field' ).
-							' Advanced option also allows a 3rd-party theme or plugin to provide custom Video Embed HTML for this option.';
+							$text = 'Custom Video Embed HTML to use for the first in the Facebook / Open Graph, Pinterest Rich Pin, and \'Player\' Twitter Card meta tags. If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred sharing URL, video dimensions, and video preview image. The '.$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video Embed HTML Custom Field' ).' Advanced option also allows a 3rd-party theme or plugin to provide custom Video Embed HTML for this option.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_max':
 							$text = 'The maximum number of embedded videos to include in the Facebook / Open Graph meta tags for this '.$ptn.'.';
 						 	break;
 						 case 'tooltip-postmeta-sharing_url':
-							$text = 'A custom sharing URL used in the Facebook / Open Graph, Pinterest Rich Pin meta tags 
-							and social sharing buttons. The default sharing URL may be influenced by settings from supported SEO plugins.
-							Please make sure any custom URL you enter here is functional and redirects correctly.';
+							$text = 'A custom sharing URL used in the Facebook / Open Graph, Pinterest Rich Pin meta tags and social sharing buttons. The default sharing URL may be influenced by settings from supported SEO plugins. Please make sure any custom URL you enter here is functional and redirects correctly.';
 						 	break;
 						 case 'tooltip-postmeta-rp_img_id':
 							$text = 'A custom Image ID to include first when the Pinterest crawler is detected.';
 						 	break;
 						 case 'tooltip-postmeta-rp_img_url':
-							$text = 'A custom image URL (instead of an Image ID) to include first when the Pinterest 
-							crawler is detected. <em>This field is disabled if an Image ID has been specified</em>.';
+							$text = 'A custom image URL (instead of an Image ID) to include first when the Pinterest crawler is detected. <em>This field is disabled if an Image ID has been specified</em>.';
 						 	break;
 						/*
 						 * Other settings
@@ -464,13 +453,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							If the \'Force Default Image on Author Index\' option is also enabled (on the \'Images\' tab), 
 							that option will take precedence over this one.';
 							break;
-						case 'tooltip-og_publisher_url':
-							$text = 'The URL of your website\'s social page (usually a Facebook page). 
-							For example, the Publisher Page URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
-							is <a href="https://www.facebook.com/SurniaUlulaCom" target="_blank">https://www.facebook.com/SurniaUlulaCom</a>.
-							The Publisher Page URL will be included on <em>article</em> type webpages (not indexes).
-							See the Google Settings below for a Publisher Link URL for Google.';
-							break;
 						/*
 						 * Other settings
 						 */
@@ -631,27 +613,17 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				 */
 				case ( strpos( $idx, 'tooltip-fb_' ) !== false ? true : false ):
 					switch ( $idx ) {
+						case 'tooltip-fb_publisher_url':
+							$text = 'The URL of your website / business Facebook Page (usually a <a href="https://www.facebook.com/business" target="_blank">Facebook Business Page</a>). For example, the Publisher Business Page URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is <a href="https://www.facebook.com/SurniaUlulaCom" target="_blank">https://www.facebook.com/SurniaUlulaCom</a>. The Publisher Business Page URL will be included in Open Graph <em>article</em> type webpages (not index / archive webpages) and schema publisher (Organization) social JSON.';
+							break;
 						case 'tooltip-fb_admins':
-							$text = 'The Facebook Admin(s) user names are used by Facebook to allow access to 
-							<a href="https://developers.facebook.com/docs/insights/" target="_blank">Facebook Insight</a> data.
-							Note that these are <strong><em>user</em> account names, not Facebook <em>Page</em> names</strong>.
-							<p>Enter one or more Facebook user names, separated with commas. 
-							When viewing your own Facebook wall, your user name is located in the URL 
-							(example: https://www.facebook.com/<strong>user_name</strong>). 
-							Enter only the user name(s), not the URL(s).</p>
-							<a href="https://www.facebook.com/settings?tab=account&section=username&view" target="_blank">Update 
-							your user name in the Facebook General Account Settings</a>.';
+							$text = 'The Facebook Admin(s) user names are used by Facebook to allow access to <a href="https://developers.facebook.com/docs/insights/" target="_blank">Facebook Insight</a> data. Note that these are <strong><em>user</em> account names, not Facebook <em>Page</em> names</strong>. <p>Enter one or more Facebook user names, separated with commas. When viewing your own Facebook wall, your user name is located in the URL (example: https://www.facebook.com/<strong>user_name</strong>). Enter only the user name(s), not the URL(s).</p> <a href="https://www.facebook.com/settings?tab=account&section=username&view" target="_blank">Update your user name in the Facebook General Account Settings</a>.';
 							break;
 						case 'tooltip-fb_app_id':
-							$text = 'If you have a <a href="https://developers.facebook.com/apps" target="_blank">Facebook Application</a> 
-							ID for your website, enter it here. The Facebook Application ID will appear in your webpage meta tags,
-							and is used by Facebook to allow access to <a href="https://developers.facebook.com/docs/insights/" 
-							target="_blank">Facebook Insight</a> data for <em>accounts associated with that Application ID</em>.';
+							$text = 'If you have a <a href="https://developers.facebook.com/apps" target="_blank">Facebook Application</a> ID for your website, enter it here. The Facebook Application ID will appear in your webpage meta tags, and is used by Facebook to allow access to <a href="https://developers.facebook.com/docs/insights/" target="_blank">Facebook Insight</a> data for <em>accounts associated with that Application ID</em>.';
 							break;
 						case 'tooltip-fb_lang':
-							$text = 'The default language of your website content, used in the Facebook / Open Graph and 
-							Pinterest Rich Pin meta tags. The Pro version can also use the WordPress locale to adjust the language 
-							value dynamically (useful for websites with multilingual content).';
+							$text = 'The default language of your website content, used in the Facebook / Open Graph and Pinterest Rich Pin meta tags. The Pro version can also use the WordPress locale to adjust the language value dynamically (useful for websites with multilingual content).';
 							break;
 						/*
 						 * Other settings
@@ -668,47 +640,28 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				case ( strpos( $idx, 'tooltip-google_' ) !== false ? true : false ):
 					switch ( $idx ) {
 						case 'tooltip-google_publisher_url':
-							$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ business page for your website</a>, 
-							you may use its URL as the Publisher Link URL. For example, the Publisher Link URL for 
-							<a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is 
-							<a href="https://plus.google.com/+SurniaUlula/" target="_blank">https://plus.google.com/+SurniaUlula/</a>.
-							Google Search may use this information to display publisher details in its search results.';
+							$text = 'If you have a <a href="http://www.google.com/+/business/" target="_blank">Google+ Business Page</a> for your website / business, you may use its URL as the Publisher Business Page URL. For example, the Publisher Business Page URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is <a href="https://plus.google.com/+SurniaUlula/" target="_blank">https://plus.google.com/+SurniaUlula/</a>. The Publisher Business Page URL will be used in a <em>link relation</em> header tag, and the schema publisher (Organization) social JSON. Google Search may use this information to display additional publisher / business details in its search results.';
 							break;
 						case 'tooltip-google_seo_desc_len':
-							$text = 'The maximum length of text used for the Google Search / SEO description meta tag.
-							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
-							(the default is '.$this->p->opt->get_defaults( 'seo_desc_len' ).' characters).';
+							$text = 'The maximum length of text used for the Google Search / SEO description meta tag. The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more (the default is '.$this->p->opt->get_defaults( 'seo_desc_len' ).' characters).';
 							break;
 						case 'tooltip-google_schema_desc_len':
-							$text = 'The maximum length of text used for the Google+ / Schema description meta tag.
-							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
-							(the default is '.$this->p->opt->get_defaults( 'schema_desc_len' ).' characters).';
+							$text = 'The maximum length of text used for the Google+ / Schema description meta tag. The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more (the default is '.$this->p->opt->get_defaults( 'schema_desc_len' ).' characters).';
 							break;
 						case 'tooltip-google_schema_logo_url':
 							$text = 'The URL to an image that Google should use as your organization\'s logo in search results and their <em>Knowledge Graph</em>.';
 							break;
 						case 'tooltip-google_author_name':
-							$text = 'Select an Author Name Format for the "author" meta tag, or \'none\' to disable this feature 
-							(the recommended value is \'Display Name\'). Facebook uses the "author" meta tag value to credit the 
-							author on timeline shares, but the <strong>Facebook Debugger will show a warning</strong>
-							&mdash; thus it is disabled by default. Now that you know about the false warning from the Facebook
-							Debugger, you should set this option to \'Display Name\'. ;-)';
+							$text = 'Select an Author Name Format for the "author" meta tag, or \'none\' to disable this feature (the recommended value is \'Display Name\'). Facebook uses the "author" meta tag value to credit the author on timeline shares, but the <strong>Facebook Debugger will show a warning</strong> &mdash; thus it is disabled by default. Now that you know about the false warning from the Facebook Debugger, you should set this option to \'Display Name\'. ;-)';
 							break;
 						case 'tooltip-google_author_field':
-							$text = $short.' can include an <em>author</em> and <em>publisher</em> link in your webpage headers.
-							These are not Facebook / Open Graph and Pinterest Rich Pin meta property tags &mdash; 
-							they are used primarily by Google\'s search engine to associate Google+ profiles with search results. 
-							Select which field to use from the author\'s profile for the <em>author</em> link tag.';
+							$text = $short.' can include an <em>author</em> and <em>publisher</em> link in your webpage headers. These are not Facebook / Open Graph and Pinterest Rich Pin meta property tags &mdash; they are used primarily by Google\'s search engine to associate Google+ profiles with search results. Select which field to use from the author\'s profile for the <em>author</em> link tag.';
 							break;
 						case 'tooltip-google_def_author_id':
-							$text = 'A default author for webpages missing authorship information (for example, an index webpage without posts). 
-							If you have several authors on your website, you should probably leave this option set to <em>[none]</em> (the default).
-							This option is similar to the Facebook / Open Graph and Pinterest Rich Pin Default Author, 
-							except that it\'s applied to the Link meta tag instead.';
+							$text = 'A default author for webpages missing authorship information (for example, an index webpage without posts). If you have several authors on your website, you should probably leave this option set to <em>[none]</em> (the default). This option is similar to the Facebook / Open Graph and Pinterest Rich Pin Default Author, except that it\'s applied to the Link meta tag instead.';
 							break;
 						case 'tooltip-google_def_author_on_index':
-							$text = 'Check this option if you would like to force the Default Author on index webpages 
-							(<strong>non-static</strong> homepage, archives, categories, author, etc.).';
+							$text = 'Check this option if you would like to force the Default Author on index webpages (<strong>non-static</strong> homepage, archives, categories, author, etc.).';
 							break;
 						case 'tooltip-google_def_author_on_search':
 							$text = 'Check this option if you would like to force the Default Author on search result webpages as well.';
@@ -729,88 +682,64 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					break;
 
 				/*
+				 * Publisher 'LinkedIn' settings
+				 */
+				case ( strpos( $idx, 'tooltip-linkedin_' ) !== false ? true : false ):
+					switch ( $idx ) {
+						case 'tooltip-linkedin_publisher_url':
+							$text = 'If you have a <a href="https://business.linkedin.com/marketing-solutions/company-pages/get-started" target="_blank">LinkedIn Company Page</a> for your website / business, you may use its URL as the Publisher Company Page URL. For example, the Publisher Company Page URL for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is <a href="https://www.linkedin.com/company/surnia-ulula-ltd" target="_blank">https://www.linkedin.com/company/surnia-ulula-ltd</a>. The Publisher Company Page URL will be used in the schema publisher (Organization) social JSON. Google Search may use this information to display additional publisher / business details in its search results.';
+							break;
+						/*
+						 * Other settings
+						 */
+						default:
+							$text = apply_filters( $lca.'_tooltip_google', $text, $idx );
+							break;
+					}
+					break;
+
+				/*
 				 * Publisher 'Twitter Card' settings
 				 */
 				case ( strpos( $idx, 'tooltip-tc_' ) !== false ? true : false ):
 					switch ( $idx ) {
 						case 'tooltip-tc_enable':
-							$text = 'Add Twitter Card meta tags to all webpage headers.
-							<strong>Your website must be "authorized" by Twitter for each type of Twitter Card you support</strong>. 
-							See the FAQ entry titled <a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-dont-my-twitter-cards-show-on-twitter/" 
-							target="_blank">Why don’t my Twitter Cards show on Twitter?</a> for more information on Twitter\'s 
-							authorization process.';
+							$text = 'Add Twitter Card meta tags to all webpage headers. <strong>Your website must be "authorized" by Twitter for each type of Twitter Card you support</strong>. See the FAQ entry titled <a href="http://surniaulula.com/codex/plugins/wpsso/faq/why-dont-my-twitter-cards-show-on-twitter/" target="_blank">Why don’t my Twitter Cards show on Twitter?</a> for more information on Twitter\'s authorization process.';
 							break;
 						case 'tooltip-tc_desc_len':
-							$text = 'The maximum length of text used for the Twitter Card description.
-							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more 
-							(the default is '.$this->p->opt->get_defaults( 'tc_desc_len' ).' characters).';
+							$text = 'The maximum length of text used for the Twitter Card description. The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more (the default is '.$this->p->opt->get_defaults( 'tc_desc_len' ).' characters).';
 							break;
 						case 'tooltip-tc_site':
-							$text = 'The Twitter username for your website and / or company (not your personal Twitter username).
-							As an example, the Twitter username for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> 
-							is <a href="https://twitter.com/surniaululacom" target="_blank">@surniaululacom</a>.';
+							$text = 'The Twitter username for your website and / or company (not your personal Twitter username). As an example, the Twitter username for <a href="http://surniaulula.com/" target="_blank">Surnia Ulula</a> is <a href="https://twitter.com/surniaululacom" target="_blank">@surniaululacom</a>.';
 							break;
 						case 'tooltip-tc_sum_dimensions':
 							$card = 'sum';
-							$text = 'The dimension of content images provided for the
-							<a href="https://dev.twitter.com/docs/cards/types/summary-card" target="_blank">Summary Card</a>
-							(should be at least 120x120, larger than 60x60, and less than 1MB).
-							The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
-							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
-							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
+							$text = 'The dimension of content images provided for the <a href="https://dev.twitter.com/docs/cards/types/summary-card" target="_blank">Summary Card</a> (should be at least 120x120, larger than 60x60, and less than 1MB). The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_lrgimg_dimensions':
 							$card = 'lrgimg';
-							$text = 'The dimension of Post Meta, Featured or Attached images provided for the
-							<a href="https://dev.twitter.com/docs/cards/large-image-summary-card" target="_blank">Large Image Summary Card</a>
-							(must be larger than 280x150 and less than 1MB).
-							The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
-							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
-							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
+							$text = 'The dimension of Post Meta, Featured or Attached images provided for the <a href="https://dev.twitter.com/docs/cards/large-image-summary-card" target="_blank">Large Image Summary Card</a> (must be larger than 280x150 and less than 1MB). The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_photo_dimensions':
 							$card = 'photo';
-							$text = 'The dimension of ImageBrowser or Attachment Page images provided for the 
-							<a href="https://dev.twitter.com/docs/cards/types/photo-card" target="_blank">Photo Card</a> 
-							(should be at least 560x750 and less than 1MB).
-							The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
-							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
-							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
+							$text = 'The dimension of ImageBrowser or Attachment Page images provided for the <a href="https://dev.twitter.com/docs/cards/types/photo-card" target="_blank">Photo Card</a> (should be at least 560x750 and less than 1MB). The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_gal_minimum':
-							$text = 'The minimum number of images found in a gallery to qualify for the
-							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
+							$text = 'The minimum number of images found in a gallery to qualify for the <a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.';
 							break;
 						case 'tooltip-tc_gal_dimensions':
 							$card = 'gal';
-							$text = 'The dimension of gallery images provided for the
-							<a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>.
-							The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
-							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
-							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
+							$text = 'The dimension of gallery images provided for the <a href="https://dev.twitter.com/docs/cards/types/gallery-card" target="_blank">Gallery Card</a>. The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_prod_dimensions':
 							$card = 'prod';
-							$text = 'The dimension of a <em>featured product image</em> for the
-							<a href="https://dev.twitter.com/docs/cards/types/product-card" target="_blank">Product Card</a>.
-							The product card requires an image of size 160 x 160 or greater. A square (aka cropped) image is better, 
-							but Twitter can crop/resize oddly shaped images to fit, as long as both dimensions are greater 
-							than or equal to 160 pixels.
-							The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.
-							$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.
-							( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
+							$text = 'The dimension of a <em>featured product image</em> for the <a href="https://dev.twitter.com/docs/cards/types/product-card" target="_blank">Product Card</a>. The product card requires an image of size 160 x 160 or greater. A square (aka cropped) image is better, but Twitter can crop/resize oddly shaped images to fit, as long as both dimensions are greater than or equal to 160 pixels. The default image dimensions are '.$this->p->opt->get_defaults( 'tc_'.$card.'_width' ).'x'.$this->p->opt->get_defaults( 'tc_'.$card.'_height' ).', '.( $this->p->opt->get_defaults( 'tc_'.$card.'_crop' ) ? '' : 'un' ).'cropped.';
 							break;
 						case 'tooltip-tc_prod_labels':
 							$text = 'The maximum number of label and data meta tags to include for the <em>Product</em> Twitter Card.';
 							break;
 						case 'tooltip-tc_prod_defaults':
-							$text = 'The <em>Product</em> Twitter Card needs a <strong>minimum of two product attributes</strong>.
-							The first attribute will be the product price, and if your product has additional attribute fields associated with it 
-							(weight, size, color, etc), these will be included in the <em>Product</em> Card as well (maximum of 4 attributes). 
-							<strong>If your product does not have additional attributes beyond its price</strong>, then this default second 
-							attribute label and value will be used. 
-							You may modify both the Label <em>and</em> Value for whatever is most appropriate for your website and/or products.
-							Some examples: Promotion / Free Shipping, Ships from / Hong Kong, Made in / China, etc.';
+							$text = 'The <em>Product</em> Twitter Card needs a <strong>minimum of two product attributes</strong>. The first attribute will be the product price, and if your product has additional attribute fields associated with it (weight, size, color, etc), these will be included in the <em>Product</em> Card as well (maximum of 4 attributes). <strong>If your product does not have additional attributes beyond its price</strong>, then this default second attribute label and value will be used. You may modify both the Label <em>and</em> Value for whatever is most appropriate for your website and/or products. Some examples: Promotion / Free Shipping, Ships from / Hong Kong, Made in / China, etc.';
 							break;
 						/*
 						 * Other settings
@@ -826,19 +755,14 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 				 */
 				case ( strpos( $idx, 'tooltip-rp_' ) !== false ? true : false ):
 					switch ( $idx ) {
-						case 'tooltip-rp_author_name':
-							$text = 'Pinterest ignores Facebook-style Author Profile URLs in the \'article:author\'
-							Open Graph meta tags. An <em>additional</em> \'article:author\' meta tag may be included 
-							when the Pinterest crawler is detected. Select an Author Name Format, 
-							or \'[none]\' to disable this feature (the default and recommended value is \'Display Name\').';
+						case 'tooltip-linkedin_publisher_url':
+							$text = 'If you have a <a href="https://business.pinterest.com/" target="_blank">Pinterest Business Page</a> for your website / business, you may use its URL as the Publisher Business Page URL. The Publisher Business Page URL will be used in the schema publisher (Organization) social JSON. Google Search may use this information to display additional publisher / business details in its search results.';
 							break;
 						case 'tooltip-rp_img_dimensions':
-							$text = 'The image dimensions specifically for Rich Pin meta tags when the Pinterest crawler is detected
-							(defaults is '.$this->p->opt->get_defaults( 'rp_img_width' ).'x'.$this->p->opt->get_defaults( 'rp_img_height' ).' '.
-							( $this->p->opt->get_defaults( 'rp_img_crop' ) == 0 ? 'un' : '' ).'cropped). 
-							Images in the Facebook / Open Graph meta tags are usually cropped, where-as images on Pinterest often look
-							better in their original aspect ratio (aka uncropped). Note that original images in the WordPress Media Library 
-							and/or NextGEN Gallery must be larger than your chosen image dimensions.';
+							$text = 'The image dimensions specifically for Rich Pin meta tags when the Pinterest crawler is detected (defaults is '.$this->p->opt->get_defaults( 'rp_img_width' ).'x'.$this->p->opt->get_defaults( 'rp_img_height' ).' '.( $this->p->opt->get_defaults( 'rp_img_crop' ) == 0 ? 'un' : '' ).'cropped). Images in the Facebook / Open Graph meta tags are usually cropped, where-as images on Pinterest often look better in their original aspect ratio (aka uncropped). Note that original images in the WordPress Media Library and/or NextGEN Gallery must be larger than your chosen image dimensions.';
+							break;
+						case 'tooltip-rp_author_name':
+							$text = 'Pinterest ignores Facebook-style Author Profile URLs in the \'article:author\' Open Graph meta tags. An <em>additional</em> \'article:author\' meta tag may be included when the Pinterest crawler is detected. Select an Author Name Format, or \'[none]\' to disable this feature (the default and recommended value is \'Display Name\').';
 							break;
 						/*
 						 * Other settings
@@ -870,78 +794,41 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					switch ( $idx ) {
 						case 'info-plugin-tid':
 							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
-							<p>After purchasing Pro version license(s), an email is sent with a unique Authentication 
-							ID and installation / activation instructions. Enter the Authentication ID here to enable Pro version updates. ';
+							<p>After purchasing Pro version license(s), an email is sent with a unique Authentication ID and installation / activation instructions. Enter the Authentication ID here to enable Pro version updates. ';
 							if ( empty( $this->p->is_avail['aop'] ) )
-								$text .= 'The Free version is currently installed &mdash; don\'t forget to 
-								update the plugin after entering your Authentication ID. ';
-							$text .= '<strong>'.$short.' must be active in order to check for Pro version updates.</strong>
-							If you accidentally de-activate the plugin, update checks will be made against WordPress.org,
-							and update notices will be for the Free version &mdash; always update a Pro version when '.
-							$short.' (and/or its Pro extensions) are active. 
-							If you accidentally re-install a Free version - don\'t worry - your Authentication ID 
-							will allow you update back to the Pro version.</p>
+								$text .= 'The Free version is currently installed &mdash; don\'t forget to update the plugin after entering your Authentication ID. ';
+							$text .= '<strong>'.$short.' must be active in order to check for Pro version updates.</strong> If you accidentally de-activate the plugin, update checks will be made against WordPress.org, and update notices will be for the Free version &mdash; always update a Pro version when '.$short.' (and/or its Pro extensions) are active. If you accidentally re-install a Free version - don\'t worry - your Authentication ID will allow you update back to the Pro version.</p>
 							</blockquote>';
 							break;
 						case 'info-plugin-tid-network':
 							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
-							<p>After purchasing Pro version license(s), an email is sent with a unique Authentication 
-							ID and installation / activation instructions. 
-							Enter the Authentication ID here to define a value for all sites within the network, 
-							or enter the Authentication ID(s) individually on each site\'s Pro Licenses settings page.
-							<strong>Please note that the <em>default</em> site/blog must be licensed in order to update
-							the plugin from the Network admin interface</strong>. ';
+							<p>After purchasing Pro version license(s), an email is sent with a unique Authentication ID and installation / activation instructions. Enter the Authentication ID here to define a value for all sites within the network, or enter the Authentication ID(s) individually on each site\'s Pro Licenses settings page. <strong>Please note that the <em>default</em> site/blog must be licensed in order to update the plugin from the Network admin interface</strong>. ';
 							if ( empty( $this->p->is_avail['aop'] ) )
-								$text .= 'The Free version is currently installed &mdash; don\'t forget to 
-								update the plugin after licensing the <em>default</em> site/blog. ';
+								$text .= 'The Free version is currently installed &mdash; don\'t forget to update the plugin after licensing the <em>default</em> site/blog. ';
 							$text .= '</p>
 							</blockquote>';
 							break;
 						case 'info-review':
 							$text = '<blockquote style="margin-top:0;">
-							<p>If you appreciate the features or quality of this plugin, and/or the support we provide, please 
-							<a href="'.$url['review'].'" target="_blank">take a moment to rate the '.$short.' plugin on WordPress.org</a>.</p>
-							<p><strong>Your rating will help other WordPress users find higher quality and better supported plugins</strong> &mdash; 
-							<em>and encourage us to keep improving '.$short.' as well!</em> :)</p>
+							<p>If you appreciate the features or quality of this plugin, and/or the support we provide, please <a href="'.$url['review'].'" target="_blank">take a moment to rate the '.$short.' plugin on WordPress.org</a>.</p>
+							<p><strong>Your rating will help other WordPress users find higher quality and better supported plugins</strong> &mdash; <em>and encourage us to keep improving '.$short.' as well!</em> :)</p>
 							</blockquote>';
 							break;
 						case 'info-pub-pinterest':
-							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
-							<p>Pinterest uses Open Graph meta tags for their Rich Pins.
-							These options allow you to manage and/or override some Pinterest-specific Open Graph settings.
-							Please note that if you use a full-page caching plugin or front-end caching service, 
-							it should detect the Pinterest crawler user-agent and bypass the cache, 
-							so that different meta tags can be provided to the crawler (for example, look for a "<em>User-Agent Exclusion Pattern</em>" 
-							option and add "Pinterest/" to that list).</p></blockquote>';
+							$text = '<blockquote style="margin-top:0;margin-bottom:10px;"><p>Pinterest uses Open Graph meta tags for their Rich Pins. These options allow you to manage and/or override some Pinterest-specific Open Graph settings. Please note that if you use a full-page caching plugin or front-end caching service, it should detect the Pinterest crawler user-agent and bypass the cache, so that different meta tags can be provided to the Pinterest crawler (for example, look for a "<em>User-Agent Exclusion Pattern</em>" option and add "Pinterest/" to that list).</p></blockquote>';
 							break;
 						case 'info-taglist':
-							$text = '<blockquote style="margin-top:0;margin-bottom:0;">
-							<p>'.$short.' will add the following Google / SEO, Facebook, Open Graph, Rich Pin, Schema, 
-							and Twitter Card HTML tags to the <code>head</code> section of your webpages. 
-							If your theme or another plugin already generates one or more of these HTML tags, you can uncheck them here 
-							to prevent duplicates from being added (as an example, the "meta name description" HTML tag is automatically 
-							unchecked if a known SEO plugin is detected).</p></blockquote>';
+							$text = '<blockquote style="margin-top:0;margin-bottom:0;"><p>'.$short.' will add the following Google / SEO, Facebook, Open Graph, Rich Pin, Schema, and Twitter Card HTML tags to the <code>head</code> section of your webpages. If your theme or another plugin already generates one or more of these HTML tags, you can uncheck them here to prevent duplicates from being added (as an example, the "meta name description" HTML tag is automatically unchecked if a known SEO plugin is detected).</p></blockquote>';
 							break;
 						case 'info-cm':
 							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
-							<p>The following options allow you to customize the contact field names and labels shown on the
-							<a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.
-							'.$short.' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Twitter social sharing button' ).'. '.
-							'<strong>You should not modify the <em>Contact Field Name</em> unless you have a very good reason to do so.</strong>
-							The <em>Profile Contact Label</em> on the other hand is for <strong>display purposes only</strong>, and its text can be changed as you wish.
-							Although the following contact fields may be shown on user profile pages, your theme is responsible for using 
-							and displaying their values appropriately (see <a href="https://codex.wordpress.org/Function_Reference/get_the_author_meta" 
-							target="_blank">get_the_author_meta()</a> for examples).</p>
-							<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY.</strong><br/>
-							Enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.</p>
+							<p>The following options allow you to customize the contact field names and labels shown on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>. '.$short.' uses the Facebook, Google+ and Twitter contact field values for Open Graph and Twitter Card meta tags'.( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Twitter social sharing button' ).'. <strong>You should not modify the <em>Contact Field Name</em> unless you have a very good reason to do so.</strong> The <em>Profile Contact Label</em> on the other hand is for <strong>display purposes only</strong>, and its text can be changed as you wish. Although the following contact fields may be shown on user profile pages, your theme is responsible for using and displaying their values appropriately (see <a href="https://codex.wordpress.org/Function_Reference/get_the_author_meta" target="_blank">get_the_author_meta()</a> for examples).</p>
+							<p><center><strong>DO NOT ENTER YOUR CONTACT INFORMATION HERE &ndash; THESE ARE CONTACT FIELD LABELS ONLY.</strong><br/>Enter your contact information on the <a href="'.get_admin_url( null, 'profile.php' ).'">user profile page</a>.</p>
 							</blockquote>';
 							break;
 						case 'info-sharing-include':
 							$text = '<blockquote style="margin-top:0;margin-bottom:10px;">
-							<p>The buttons enabled bellow (along with those in the widget) can be included or excluded from specific webpage types.
-							This does <em>not</em> apply to the shortcode and function buttons, which are displayed (or not) based on their own
-							parameter options.</p>
+							<p>The buttons enabled bellow (along with those in the widget) can be included or excluded from specific webpage types. This does <em>not</em> apply to the shortcode and function buttons, which are displayed (or not) based on their own parameter options.</p>
 							</blockquote>';
 							break;
 						/*
