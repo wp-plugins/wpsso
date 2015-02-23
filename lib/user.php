@@ -207,8 +207,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 									// no change
 									break;
 								case 'twitter':
-									$val = substr( preg_replace( '/[^a-z0-9_]/', '', 
-										strtolower( $val ) ), 0, 15 );
+									$val = substr( preg_replace( '/[^a-zA-Z0-9_]/', '', $val ), 0, 15 );
 									if ( ! empty( $val ) ) 
 										$val = '@'.$val;
 									break;
