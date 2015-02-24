@@ -229,7 +229,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				return false;
 
 			$website_url = get_the_author_meta( 'url', $author_id );
-			if ( strpos( $website_url, 'http' ) !== 0 )
+			if ( strpos( $website_url, '://' ) === false )
 				return false;
 
 			$user = get_user_by( 'id', $author_id );
@@ -248,12 +248,14 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 	"image" : "'.$image_url.'",
 	"sameAs" : ['."\n";
 			foreach ( $cm as $id => $label ) {
-				$sameAs = get_the_author_meta( $id, $author_id );
-				if ( strpos( $sameAs, '@' ) === 0 ) {
-					if ( $id === $this->p->options['plugin_cm_twitter_name'] )
-						$sameAs = 'https://twitter.com/'.substr( $sameAs, 1);
-				}
-				if ( strpos( $sameAs, 'http' ) === 0 )
+				$sameAs = trim( get_the_author_meta( $id, $author_id ) );
+				if ( empty( $sameAs ) )
+					continue;
+
+				if ( $id === $this->p->options['plugin_cm_twitter_name'] )
+					$sameAs = 'https://twitter.com/'.preg_replace( '/^@/', '', $sameAs );
+
+				if ( strpos( $sameAs, '://' ) !== false )
 					$json_script .= "\t\t\"".$sameAs."\",\n";
 			}
 			$json_script = rtrim( $json_script, ",\n" )."\n\t]\n}</script>\n";

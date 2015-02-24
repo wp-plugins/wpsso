@@ -123,9 +123,11 @@ if ( ! class_exists( 'WpssoOpengraph' ) ) {
 					}
 
 				// check for default author info on indexes and searches
-				} elseif ( ( ! ( is_singular() || $use_post !== false ) && 
-					! is_search() && ! empty( $this->p->options['og_def_author_on_index'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) || 
-					( is_search() && ! empty( $this->p->options['og_def_author_on_search'] ) && ! empty( $this->p->options['og_def_author_id'] ) ) ) {
+				} elseif ( ( ! ( is_singular() || $use_post !== false ) && ! is_search() && 
+					! empty( $this->p->options['og_def_author_on_index'] ) && 
+					! empty( $this->p->options['og_def_author_id'] ) ) || ( is_search() && 
+					! empty( $this->p->options['og_def_author_on_search'] ) && 
+					! empty( $this->p->options['og_def_author_id'] ) ) ) {
 	
 					$og['og:type'] = 'article';
 					if ( ! isset( $og['article:author'] ) )
