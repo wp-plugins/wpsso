@@ -203,15 +203,16 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 						if ( ! empty( $val ) ) {
 							// use the social prefix id to decide on actions
 							switch ( $id ) {
-								case 'skype':
+								case $this->p->options['plugin_cm_skype_name']:
 									// no change
 									break;
-								case 'twitter':
+								case $this->p->options['plugin_cm_twitter_name']:
 									$val = substr( preg_replace( '/[^a-zA-Z0-9_]/', '', $val ), 0, 15 );
 									if ( ! empty( $val ) ) 
 										$val = '@'.$val;
 									break;
 								default:
+									// all other contact methods are assumed to be URLs
 									if ( strpos( $val, '://' ) === false )
 										$val = '';
 									break;
