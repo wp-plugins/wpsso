@@ -127,7 +127,8 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 					'linkedin_publisher_url',
 					'tc_site',
 				) as $key ) {
-					$sameAs = trim( $this->p->options[$key] );
+					$sameAs = isset( $this->p->options[$key] ) ?
+						trim( $this->p->options[$key] ) : '';
 					if ( empty( $sameAs ) )
 						continue;
 
