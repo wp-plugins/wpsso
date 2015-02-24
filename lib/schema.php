@@ -127,16 +127,14 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 					'linkedin_publisher_url',
 					'tc_site',
 				) as $key ) {
-					if ( isset( $this->p->options[$key] ) )
-						$sameAs = $this->p->options[$key];
-					else continue;
+					$sameAs = trim( $this->p->options[$key] );
+					if ( empty( $sameAs ) )
+						continue;
 
-					if ( strpos( $sameAs, '@' ) === 0 ) {
-						if ( $key === 'tc_site' )
-							$sameAs = 'https://twitter.com/'.substr( $sameAs, 1);
-					}
+					if ( $key === 'tc_site' )
+						$sameAs = 'https://twitter.com/'.preg_replace( '/^@/', '', $sameAs );
 
-					if ( strpos( $sameAs, 'http' ) === 0 )
+					if ( strpos( $sameAs, '://' ) !== false )
 						$json_script .= "\t\t\"".$sameAs."\",\n";
 				}
 				$json_array[] = rtrim( $json_script, ",\n" )."\n\t]\n}</script>\n";
