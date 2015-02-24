@@ -93,7 +93,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 				}
 			}
 
-			return apply_filters( $lca.'_meta_schema', $meta_schema, $use_post, $obj );
+			return apply_filters( $this->p->cf['lca'].'_meta_schema', $meta_schema, $use_post, $obj );
 		}
 
 		public function get_json_array( $author_id = false ) {
