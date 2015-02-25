@@ -22,11 +22,13 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			do_action( $this->p->cf['lca'].'_init_options' );
 		}
 
-		public function get_site_defaults( $idx = false ) {
+		public function get_site_defaults( $idx = false, $force_filter = false ) {
 			if ( ! isset( $this->p->cf['opt']['site_defaults']['options_filtered'] ) ||
-				$this->p->cf['opt']['site_defaults']['options_filtered'] !== true ) {
+				$this->p->cf['opt']['site_defaults']['options_filtered'] !== true ||
+				$force_filter === true ) {
 
-				$this->p->cf['opt']['site_defaults'] = apply_filters( $this->p->cf['lca'].'_get_site_defaults', $this->p->cf['opt']['site_defaults'] );
+				$this->p->cf['opt']['site_defaults'] = apply_filters( $this->p->cf['lca'].'_get_site_defaults', 
+					$this->p->cf['opt']['site_defaults'] );
 				$this->p->cf['opt']['site_defaults']['options_filtered'] = true;
 				$this->p->cf['opt']['site_defaults']['options_version'] = $this->p->cf['opt']['version'];
 				$this->p->cf['opt']['site_defaults']['plugin_version'] = $this->p->cf['plugin'][$this->p->cf['lca']]['version'];
@@ -38,11 +40,13 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			} else return $this->p->cf['opt']['site_defaults'];
 		}
 
-		public function get_defaults( $idx = false ) {
+		public function get_defaults( $idx = false, $force_filter = false ) {
 			if ( ! isset( $this->p->cf['opt']['defaults']['options_filtered'] ) ||
-				$this->p->cf['opt']['defaults']['options_filtered'] !== true ) {
+				$this->p->cf['opt']['defaults']['options_filtered'] !== true ||
+				$force_filter === true ) {
 
-				$this->p->cf['opt']['defaults'] = $this->p->util->push_add_to_options( $this->p->cf['opt']['defaults'], array( 'plugin' => 'backend' ) );
+				$this->p->cf['opt']['defaults'] = $this->p->util->push_add_to_options( $this->p->cf['opt']['defaults'], 
+					array( 'plugin' => 'backend' ) );
 
 				$this->p->cf['opt']['defaults']['seo_author_field'] = empty( $this->p->options['plugin_cm_gp_name'] ) ? 
 					$this->p->cf['opt']['defaults']['plugin_cm_gp_name'] : $this->p->options['plugin_cm_gp_name'];
@@ -64,7 +68,8 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 						}
 					}
 				}
-				$this->p->cf['opt']['defaults'] = apply_filters( $this->p->cf['lca'].'_get_defaults', $this->p->cf['opt']['defaults'] );
+				$this->p->cf['opt']['defaults'] = apply_filters( $this->p->cf['lca'].'_get_defaults', 
+					$this->p->cf['opt']['defaults'] );
 				$this->p->cf['opt']['defaults']['options_filtered'] = true;
 				$this->p->cf['opt']['defaults']['options_version'] = $this->p->cf['opt']['version'];
 				$this->p->cf['opt']['defaults']['plugin_version'] = $this->p->cf['plugin'][$this->p->cf['lca']]['version'];

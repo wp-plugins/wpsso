@@ -40,7 +40,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				$filter = $lca.'_'.$name;
 				$method = 'filter_'.$name;
 				add_filter( $filter, array( &$class, $method ), $prio, $num );
-				$this->p->debug->log( 'filter for '.$filter.' added', 2 );
+				//$this->p->debug->log( 'filter for '.$filter.' added', 2 );
 			}
 		}
 
@@ -110,22 +110,28 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 				}
 				if ( $size_info['width'] > 0 && $size_info['height'] > 0 ) {
 					// preserve compatibility with older wordpress versions, use true or false when possible
-					if ( $size_info['crop'] === true && ( $size_info['crop_x'] !== 'center' || $size_info['crop_y'] !== 'center' ) ) {
+					if ( $size_info['crop'] === true && 
+						( $size_info['crop_x'] !== 'center' || $size_info['crop_y'] !== 'center' ) ) {
+
 						global $wp_version;
 						if ( ! version_compare( $wp_version, 3.9, '<' ) )
 							$size_info['crop'] = array( $size_info['crop_x'], $size_info['crop_y'] );
 					}
 					// allow custom function hooks to make changes
 					if ( $filter === true )
-						$size_info = apply_filters( $this->p->cf['lca'].'_size_info_'.$size_info['name'], $size_info, $post_id );
+						$size_info = apply_filters( $this->p->cf['lca'].'_size_info_'.$size_info['name'], 
+							$size_info, $post_id );
 
 					// a lookup array for image size labels, used in image size error messages
 					$this->size_labels[$this->p->cf['lca'].'-'.$size_info['name']] = $size_info['label'];
 
-					add_image_size( $this->p->cf['lca'].'-'.$size_info['name'], $size_info['width'], $size_info['height'], $size_info['crop'] );
+					add_image_size( $this->p->cf['lca'].'-'.$size_info['name'], 
+						$size_info['width'], $size_info['height'], $size_info['crop'] );
 
-					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$size_info['name'].' '.$size_info['width'].'x'.$size_info['height'].
-						( empty( $size_info['crop'] ) ? '' : ' crop '.$size_info['crop_x'].'/'.$size_info['crop_y'] ).' added' );
+					$this->p->debug->log( 'image size '.$this->p->cf['lca'].'-'.$size_info['name'].' '.
+						$size_info['width'].'x'.$size_info['height'].
+						( empty( $size_info['crop'] ) ? '' : ' crop '.
+							$size_info['crop_x'].'/'.$size_info['crop_y'] ).' added' );
 				}
 			}
 		}

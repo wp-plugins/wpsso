@@ -9,7 +9,7 @@
  * Description: Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
  * Requires At Least: 3.0
  * Tested Up To: 4.1
- * Version: 2.8
+ * Version: 2.8.1
  * 
  * Copyright 2012-2014 - Jean-Sebastien Morisset - http://surniaulula.com/
  */
@@ -103,7 +103,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 				foreach ( array( 'wp_head', 'wp_footer', 'admin_head', 'admin_footer' ) as $action )
 					foreach ( array( 1, 9999 ) as $prio ) {
 						add_action( $action, create_function( '', 
-							'echo "<!-- wpsso add_action( \''.$action.'\' ) priority '.$prio.' test = PASSED -->\n";' ), $prio );
+							'echo "<!-- wpsso add_action( \''.$action.'\' ) priority '.
+								$prio.' test = PASSED -->\n";' ), $prio );
 						add_action( $action, array( &$this, 'show_debug_html' ), $prio );
 					}
 			do_action( 'wpsso_init_plugin' );
@@ -115,7 +116,6 @@ if ( ! class_exists( 'Wpsso' ) ) {
 
 		// called by activate_plugin() as well
 		public function set_objects( $activate = false ) {
-
 			/*
 			 * basic plugin setup (settings, check, debug, notices, utils)
 			 */
@@ -151,6 +151,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 			}
 
 			$this->loader = new WpssoLoader( $this );
+
+			do_action( 'wpsso_init_objects' );
 
 			/*
 			 * check and create the default options array
@@ -208,7 +210,8 @@ if ( ! class_exists( 'Wpsso' ) ) {
 						! constant( $constant_name ) ) ? true : false;
 				}
 				$cache_msg = 'object cache '.( $this->is_avail['cache']['object'] ? 'could not be' : 'is' ).
-					' disabled, and transient cache '.( $this->is_avail['cache']['transient'] ? 'could not be' : 'is' ).' disabled.';
+					' disabled, and transient cache '.( $this->is_avail['cache']['transient'] ? 
+						'could not be' : 'is' ).' disabled.';
 				$this->debug->log( 'HTML debug mode active: '.$cache_msg );
 				$this->notice->inf( 'HTML debug mode active &ndash; '.$cache_msg.' '.
 					__( 'Informational messages are being added to webpages as hidden HTML comments.', WPSSO_TEXTDOM ) );

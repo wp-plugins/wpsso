@@ -402,6 +402,15 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.8.1 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Added a new 'wpsso_init_objects' action for WPSSO extension plugins.
+* **New Features**
+	* *None*
+
 = Version 2.8 =
 
 * **Bugfixes**
@@ -434,7 +443,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
-= 2.8 =
+= 2.8.1 =
 
-Includes support for Google's author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format.
+Includes support for Google's Person and Organization social profiles markup in schema.org JSON-LD format. Added a new 'wpsso_init_objects' action for WPSSO extension plugins.
 
