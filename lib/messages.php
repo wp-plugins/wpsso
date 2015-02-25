@@ -177,53 +177,31 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Header Meta Tags' settings
 						 */
 						 case 'tooltip-postmeta-social-preview':
-						 	$text = 'The Open Graph Social Preview shows an <em>example</em> of a typical share on a social website.
-							Images are displayed using Facebooks suggested minimum image dimensions of 600x315px.
-							Actual shares on social networks may look significantly different than this <em>example</em>.';
+						 	$text = 'The Open Graph Social Preview shows an <em>example</em> of a typical share on a social website. Images are displayed using Facebooks suggested minimum image dimensions of 600x315px. Actual shares on social networks may look significantly different than this <em>example</em>.';
 						 	break;
 						 case 'tooltip-postmeta-og_art_section':
-							$text = 'A custom topic, different from the default Article Topic selected in the General settings.
-							The Facebook / Open Graph \'og:type\' meta tag must be an \'article\' to enable this option.
-							The value will be used in the \'article:section\' Facebook / Open Graph and Pinterest Rich Pin meta tags.
-							Select \'[none]\' if you prefer to exclude the \'article:section\' meta tag.';
+							$text = 'A custom topic, different from the default Article Topic selected in the General settings. The Facebook / Open Graph \'og:type\' meta tag must be an \'article\' to enable this option. The value will be used in the \'article:section\' Facebook / Open Graph and Pinterest Rich Pin meta tags. Select \'[none]\' if you prefer to exclude the \'article:section\' meta tag.';
 						 	break;
 						 case 'tooltip-postmeta-og_title':
-							$text = 'A custom title for the Facebook / Open Graph, Pinterest Rich Pin, Twitter Card meta tags 
-							(all Twitter Card formats), and possibly the Pinterest, Tumblr, and Twitter sharing caption / text, 
-							depending on some option settings. 
-							The default title value is refreshed when the (draft or published) '.$ptn.' is saved.';
+							$text = 'A custom title for the Facebook / Open Graph, Pinterest Rich Pin, Twitter Card meta tags (all Twitter Card formats), and possibly the Pinterest, Tumblr, and Twitter sharing caption / text, depending on some option settings. The default title value is refreshed when the (draft or published) '.$ptn.' is saved.';
 						 	break;
 						 case 'tooltip-postmeta-og_desc':
-							$text = 'A custom description for the Facebook / Open Graph, Pinterest Rich Pin, and fallback description 
-							for other meta tags'.( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with some social sharing buttons' ).'. '.
-							'The default description value is based on the content, or excerpt if one is available, 
-							and is refreshed when the (draft or published) '.$ptn.' is saved.
-							Update and save this description to change the default value of all other description fields.';
+							$text = 'A custom description for the Facebook / Open Graph, Pinterest Rich Pin, and fallback description for other meta tags'.( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with some social sharing buttons' ).'. The default description value is based on the content, or excerpt if one is available, and is refreshed when the (draft or published) '.$ptn.' is saved. Update and save this description to change the default value of all other description fields.';
 						 	break;
 						 case 'tooltip-postmeta-seo_desc':
-							$text = 'A custom description for the Google Search / SEO description meta tag.
-							The default description value is refreshed when the '.$ptn.' is saved.';
+							$text = 'A custom description for the Google Search / SEO description meta tag. The default description value is refreshed when the '.$ptn.' is saved.';
 						 	break;
 						 case 'tooltip-postmeta-schema_desc':
-							$text = 'A custom description for the Google+ / Schema description meta tag.
-							The default description value is refreshed when the '.$ptn.' is saved.';
+							$text = 'A custom description for the Google+ / Schema description meta tag. The default description value is refreshed when the '.$ptn.' is saved.';
 						 	break;
 						 case 'tooltip-postmeta-tc_desc':
-							$text = 'A custom description for the Twitter Card description meta tag (all Twitter Card formats).
-							The default description value is refreshed when the '.$ptn.' is saved.';
+							$text = 'A custom description for the Twitter Card description meta tag (all Twitter Card formats). The default description value is refreshed when the '.$ptn.' is saved.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_id':
-							$text = 'A custom Image ID to include first in the Facebook / Open Graph, Pinterest Rich Pin, 
-							and \'Large Image Summary\' Twitter Card meta tags, '.
-							( empty( $this->p->is_avail['ssb'] ) ? '' : 'along with the Pinterest and Tumblr social sharing buttons, ' ).
-							'before any featured, attached, or content images.';
+							$text = 'A custom Image ID to include first in the Facebook / Open Graph, Pinterest Rich Pin, and \'Large Image Summary\' Twitter Card meta tags, '.( empty( $this->p->is_avail['ssb'] ) ? '' : 'along with the Pinterest and Tumblr social sharing buttons, ' ).'before any featured, attached, or content images.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_url':
-							$text = 'A custom image URL (instead of an Image ID) to include first in the Facebook / Open Graph, 
-							Pinterest Rich Pin, and \'Large Image Summary\' Twitter Card meta tags. Please make sure your custom image
-							is large enough, or it may be ignored by the social website(s). Facebook recommends 
-							an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200 
-							(1200x1200 is recommended). <em>This field is disabled if an Image ID has been specified</em>.';
+							$text = 'A custom image URL (instead of an Image ID) to include first in the Facebook / Open Graph, Pinterest Rich Pin, and \'Large Image Summary\' Twitter Card meta tags. Please make sure your custom image is large enough, or it may be ignored by the social website(s). Facebook recommends an image size of 1200x630, 600x315 as a minimum, and will ignore any images less than 200x200 (1200x1200 is recommended). <em>This field is disabled if an Image ID has been specified</em>.';
 						 	break;
 						 case 'tooltip-postmeta-og_img_max':
 							$text = 'The maximum number of images to include in the Facebook / Open Graph meta tags for this '.$ptn.'.';
@@ -264,194 +242,106 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Priority Media' settings
 						 */
 						case 'tooltip-og_img_dimensions':
-							$text = 'The image dimensions used in the Facebook / Open Graph meta tags 
-							(defaults is '.$this->p->opt->get_defaults( 'og_img_width' ).'x'.$this->p->opt->get_defaults( 'og_img_height' ).' '.
-							( $this->p->opt->get_defaults( 'og_img_crop' ) == 0 ? 'un' : '' ).'cropped). 
-							Facebook recommends 1200x630 cropped, and 600x315 as a minimum.
-							<strong>1200x1200 cropped provides the greatest compatibility with all social websites 
-							(Facebook, Google+, LinkedIn, etc.)</strong>. Note that original images in the WordPress Media Library and/or 
-							NextGEN Gallery must be larger than your chosen image dimensions.';
+							$text = 'The image dimensions used in the Facebook / Open Graph meta tags (defaults is '.$this->p->opt->get_defaults( 'og_img_width' ).'x'.$this->p->opt->get_defaults( 'og_img_height' ).' '.( $this->p->opt->get_defaults( 'og_img_crop' ) == 0 ? 'un' : '' ).'cropped). Facebook recommends 1200x630 cropped, and 600x315 as a minimum. <strong>1200x1200 cropped provides the greatest compatibility with all social websites (Facebook, Google+, LinkedIn, etc.)</strong>. Note that original images in the WordPress Media Library and/or NextGEN Gallery must be larger than your chosen image dimensions.';
 							break;
 						case 'tooltip-og_def_img_id':
-							$text = 'The ID number and location of your default image (example: 123). The Default Image ID 
-							will be used as a <strong>fallback for Posts and Pages that do not have any images</strong> <em>featured</em>, 
-							<em>attached</em>, or &lt;img/&gt; HTML tags in their content. The Image ID number for images in the 
-							WordPress Media Library can be found in the URL when editing an image (post=123 in the URL, for example). 
-							The NextGEN Gallery Image IDs are easier to find -- it\'s the number in the first column when viewing a Gallery.';
+							$text = 'The ID number and location of your default image (example: 123). The Default Image ID will be used as a <strong>fallback for Posts and Pages that do not have any images</strong> <em>featured</em>, <em>attached</em>, or &lt;img/&gt; HTML tags in their content. The Image ID number for images in the WordPress Media Library can be found in the URL when editing an image (post=123 in the URL, for example). The NextGEN Gallery Image IDs are easier to find -- it\'s the number in the first column when viewing a Gallery.';
 							break;
 						case 'tooltip-og_def_img_url':
-							$text = 'You can enter a Default Image URL (including the http:// prefix) instead of choosing a 
-							Default Image ID (if a Default Image ID is specified, the Default Image URL option will be disabled).
-							Using an image URL allow you to use an image outside of a managed collection (WordPress Media Library or NextGEN Gallery). 
-							The image should be at least '.$this->p->cf['head']['min_img_dim'].'x'.$this->p->cf['head']['min_img_dim'].' 
-							or more in width and height (1200x1200px is recommended).
-							The Default Image ID or URL is used as a <strong>fallback for Posts and Pages that do not have any images</strong> 
-							<em>featured</em>, <em>attached</em>, or &lt;img/&gt; HTML tags in their content.';
+							$text = 'You can enter a Default Image URL (including the http:// prefix) instead of choosing a Default Image ID (if a Default Image ID is specified, the Default Image URL option is disabled). Using an image URL allows you to use an image outside of a managed collection (WordPress Media Library or NextGEN Gallery), and/or logo-style a smaller image. The image should be at least '.$this->p->cf['head']['min_img_dim'].'x'.$this->p->cf['head']['min_img_dim'].' or more in width and height (1200x1200px is recommended). The Default Image ID or URL is used as a <strong>fallback for Posts and Pages that do not have any images</strong> <em>featured</em>, <em>attached</em>, or &lt;img/&gt; HTML tags in their content.';
 							break;
 						case 'tooltip-og_def_img_on_index':
-							$text = 'Check this option to force the default image on index webpages 
-							(<strong>non-static</strong> homepage, archives, categories). 
-							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
-							then <strong>no image will be included in the meta tags</strong>.
-							If the option is <em>unchecked</em>, then '.$short.' 
-							will use image(s) from the first entry on the webpage (default is checked).';
+							$text = 'Check this option to force the default image on index webpages (<strong>non-static</strong> homepage, archives, categories). If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, then <strong>no image will be included in the meta tags</strong>. If the option is <em>unchecked</em>, then '.$short.' will use image(s) from the first entry on the webpage (default is checked).';
 							break;
 						case 'tooltip-og_def_img_on_author':
-							$text = 'Check this option to force the default image on author index webpages.
-							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
-							then <strong>no image will be included in the meta tags</strong> (default is unchecked).';
+							$text = 'Check this option to force the default image on author index webpages. If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, then <strong>no image will be included in the meta tags</strong> (default is unchecked).';
 							break;
 						case 'tooltip-og_def_img_on_search':
-							$text = 'Check this option to force the default image on search results.
-							If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, 
-							then <strong>no image will be included in the meta tags</strong>. 
-							If the option is <em>unchecked</em>, then '.$short.' 
-							will use image(s) returned in the search results (default is unchecked).';
+							$text = 'Check this option to force the default image on search results. If this option is <em>checked</em>, but a Default Image ID or URL has not been defined, then <strong>no image will be included in the meta tags</strong>. If the option is <em>unchecked</em>, then '.$short.' will use image(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_def_vid_url':
-							$text = 'The Default Video URL is used as a <strong>fallback value for Posts and Pages 
-							that do not have any videos</strong> in their content. Do not specify a Default Video URL
-							<strong>unless you want to include video information in all your Posts and Pages</strong>.';
+							$text = 'The Default Video URL is used as a <strong>fallback value for Posts and Pages that do not have any videos</strong> in their content. Do not specify a Default Video URL <strong>unless you want to include video information in all your Posts and Pages</strong>.';
 							break;
 						case 'tooltip-og_def_vid_on_index':
-							$text = 'Check this option to force the default video on index webpages 
-							(<strong>non-static</strong> homepage, archives, categories). 
-							If this option is <em>checked</em>, but a Default Video URL has not been defined, then 
-							<strong>no video will be included in the meta tags</strong> (this is usually preferred).
-							If the option is <em>unchecked</em>, then '.$short.' 
-							will use video(s) from the first entry on the webpage (default is checked).';
+							$text = 'Check this option to force the default video on index webpages (<strong>non-static</strong> homepage, archives, categories). If this option is <em>checked</em>, but a Default Video URL has not been defined, then <strong>no video will be included in the meta tags</strong> (this is usually preferred). If the option is <em>unchecked</em>, then '.$short.' will use video(s) from the first entry on the webpage (default is checked).';
 							break;
 						case 'tooltip-og_def_vid_on_author':
-							$text = 'Check this option to force the default video on author index webpages.
-							If this option is <em>checked</em>, but a Default Video URL has not been defined, 
-							then <strong>no video will be included in the meta tags</strong> (default is unchecked).';
+							$text = 'Check this option to force the default video on author index webpages. If this option is <em>checked</em>, but a Default Video URL has not been defined, then <strong>no video will be included in the meta tags</strong> (default is unchecked).';
 							break;
 						case 'tooltip-og_def_vid_on_search':
-							$text = 'Check this option to force the default video on search results.
-							If this option is <em>checked</em>, but a Default Video URL has not been defined, 
-							then <strong>no video will be included in the meta tags</strong>.
-							If the option is <em>unchecked</em>, then '.$short.' 
-							will use video(s) returned in the search results (default is unchecked).';
+							$text = 'Check this option to force the default video on search results. If this option is <em>checked</em>, but a Default Video URL has not been defined, then <strong>no video will be included in the meta tags</strong>. If the option is <em>unchecked</em>, then '.$short.' will use video(s) returned in the search results (default is unchecked).';
 							break;
 						case 'tooltip-og_ngg_tags':
-							$text = 'If the <em>featured</em> image in a Post or Page is from a NextGEN Gallery, 
-							then add that image\'s tags to the Facebook / Open Graph and Pinterest Rich Pin tag list 
-							(default is unchecked).';
+							$text = 'If the <em>featured</em> image in a Post or Page is from a NextGEN Gallery, then add that image\'s tags to the Facebook / Open Graph and Pinterest Rich Pin tag list (default is unchecked).';
 							break;
 						case 'tooltip-og_img_max':
-							$text = 'The maximum number of images to list in the Facebook / Open Graph and Pinterest Rich Pin meta tags -- 
-							this includes the <em>featured</em> or <em>attached</em> images, and any images found in the Post or Page content.
-							If you select \'0\', then no images will be listed in the facebook / Open Graph and Pinterest Rich Pin meta tags 
-							(<strong>not recommended</strong>). If no images are listed in your meta tags, then social websites may choose an 
-							unsuitable image from your webpage (including headers, sidebars, etc.).';
+							$text = 'The maximum number of images to list in the Facebook / Open Graph and Pinterest Rich Pin meta tags -- this includes the <em>featured</em> or <em>attached</em> images, and any images found in the Post or Page content. If you select \'0\', then no images will be listed in the facebook / Open Graph and Pinterest Rich Pin meta tags (<strong>not recommended</strong>). If no images are listed in your meta tags, then social websites may choose an unsuitable image from your webpage (including headers, sidebars, etc.).';
 							break;
 						case 'tooltip-og_vid_max':
-							$text = 'The maximum number of videos, found in the Post or Page content, to include in the Facebook / Open Graph 
-							and Pinterest Rich Pin meta tags. If you select \'0\', then no videos will be listed in the facebook / Open Graph 
-							and Pinterest Rich Pin meta tags.';
+							$text = 'The maximum number of videos, found in the Post or Page content, to include in the Facebook / Open Graph and Pinterest Rich Pin meta tags. If you select \'0\', then no videos will be listed in the facebook / Open Graph and Pinterest Rich Pin meta tags.';
 							break;
 						case 'tooltip-og_vid_prev_img':
 							$text = 'Include video preview images in the meta tags (default is checked).';
 							break;
 						case 'tooltip-og_vid_https':
-							$text = 'Use an HTTPS connection whenever possible to retrieve information about videos from YouTube, Vimeo, Wistia, 
-							etc. (default is checked).';
+							$text = 'Use an HTTPS connection whenever possible to retrieve information about videos from YouTube, Vimeo, Wistia, etc. (default is checked).';
 							break;
 						/*
 						 * 'Title and Description' settings
 						 */
 						case 'tooltip-og_art_section':
-							$text = 'The topic that best describes the Posts and Pages on your website.
-							This value will be used in the \'article:section\' Facebook / Open Graph and Pinterest Rich Pin meta tags. 
-							Select \'[none]\' if you prefer to exclude the \'article:section\' meta tag.
-							The Pro version also allows you to select a custom Topic for each individual Post and Page.';
+							$text = 'The topic that best describes the Posts and Pages on your website. This value will be used in the \'article:section\' Facebook / Open Graph and Pinterest Rich Pin meta tags. Select \'[none]\' if you prefer to exclude the \'article:section\' meta tag. The Pro version also allows you to select a custom Topic for each individual Post and Page.';
 							break;
 						case 'tooltip-og_site_name':
-							$text = 'The WordPress Site Title is used for the Facebook / Open Graph and Pinterest Rich Pin site name 
-							(og:site_name) meta tag. You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the 
-							default WordPress Site Title value</a>.';
+							$text = 'The WordPress Site Title is used for the Facebook / Open Graph and Pinterest Rich Pin site name (og:site_name) meta tag. You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Site Title value</a>.';
 							break;
 						case 'tooltip-og_site_description':
-							$text = 'The WordPress Tagline is used as a description for the <em>index</em> (non-static) home page, 
-							and as a fallback for the Facebook / Open Graph and Pinterest Rich Pin description (og:description) meta tag. 
-							You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Tagline value</a> 
-							here, to provide a longer and more complete description of your website.';
+							$text = 'The WordPress Tagline is used as a description for the <em>index</em> (non-static) home page, and as a fallback for the Facebook / Open Graph and Pinterest Rich Pin description (og:description) meta tag. You may override <a href="'.get_admin_url( null, 'options-general.php' ).'">the default WordPress Tagline value</a> here, to provide a longer and more complete description of your website.';
 							break;
 						case 'tooltip-og_title_sep':
-							$text = 'One or more characters used to separate values (category parent names, page numbers, etc.) within the 
-							Facebook / Open Graph and Pinterest Rich Pin title string (the default is the 
-							hyphen \''.$this->p->opt->get_defaults( 'og_title_sep' ).'\' character).';
+							$text = 'One or more characters used to separate values (category parent names, page numbers, etc.) within the Facebook / Open Graph and Pinterest Rich Pin title string (the default is the hyphen \''.$this->p->opt->get_defaults( 'og_title_sep' ).'\' character).';
 							break;
 						case 'tooltip-og_title_len':
-							$text = 'The maximum length of text used in the Facebook / Open Graph and Rich Pin title tag
-							(default is '.$this->p->opt->get_defaults( 'og_title_len' ).' characters).';
+							$text = 'The maximum length of text used in the Facebook / Open Graph and Rich Pin title tag (default is '.$this->p->opt->get_defaults( 'og_title_len' ).' characters).';
 							break;
 						case 'tooltip-og_desc_len':
-							$text = 'The maximum length of text used in the Facebook / Open Graph and Rich Pin description tag. 
-							The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more, and the
-							default is '.$this->p->opt->get_defaults( 'og_desc_len' ).' characters.';
+							$text = 'The maximum length of text used in the Facebook / Open Graph and Rich Pin description tag. The length should be at least '.$this->p->cf['head']['min_desc_len'].' characters or more, and the default is '.$this->p->opt->get_defaults( 'og_desc_len' ).' characters.';
 							break;
 						case 'tooltip-og_page_title_tag':
-							$text = 'Add the title of the <em>Page</em> to the Facebook / Open Graph and Pinterest Rich Pin article tag
-							and Hashtag list (default is unchecked). 
-							If the Add Page Ancestor Tags option is checked, all the titles of the ancestor Pages will be added as well. 
-							This option works well if the title of your Pages are short (one or two words) and subject-oriented.';
+							$text = 'Add the title of the <em>Page</em> to the Facebook / Open Graph and Pinterest Rich Pin article tag and Hashtag list (default is unchecked). If the Add Page Ancestor Tags option is checked, all the titles of the ancestor Pages will be added as well. This option works well if the title of your Pages are short (one or two words) and subject-oriented.';
 							break;
 						case 'tooltip-og_page_parent_tags':
-							$text = 'Add the WordPress tags from the <em>Page</em> ancestors (parent, parent of parent, etc.) 
-							to the Facebook / Open Graph and Pinterest Rich Pin article tags and Hashtag list (default is unchecked).';
+							$text = 'Add the WordPress tags from the <em>Page</em> ancestors (parent, parent of parent, etc.) to the Facebook / Open Graph and Pinterest Rich Pin article tags and Hashtag list (default is unchecked).';
 							break;
 						case 'tooltip-og_desc_hashtags':
-							$text = 'The maximum number of tag names (converted to hashtags) to include in the 
-							Facebook / Open Graph and Pinterest Rich Pin description, tweet text, and social captions.
-							Each tag name is converted to lowercase with whitespaces removed. 
-							Select \'0\' to disable the addition of hashtags.';
+							$text = 'The maximum number of tag names (converted to hashtags) to include in the Facebook / Open Graph and Pinterest Rich Pin description, tweet text, and social captions. Each tag name is converted to lowercase with whitespaces removed.  Select \'0\' to disable the addition of hashtags.';
 							break;
 						case 'tooltip-og_desc_strip':
-							$text = 'For a Page or Post <em>without</em> an excerpt, if this option is checked, 
-							the plugin will ignore all text until the first html paragraph tag in the content. 
-							If an excerpt exists, then this option is ignored, and the complete text of that 
-							excerpt is used instead.';
+							$text = 'For a Page or Post <em>without</em> an excerpt, if this option is checked, the plugin will ignore all text until the first html paragraph tag in the content.  If an excerpt exists, then this option is ignored, and the complete text of that excerpt is used instead.';
 							break;
 						case 'tooltip-og_desc_alt':
-							$text = 'If the content is empty or comprised entirely of HTML tags &mdash; 
-							which must be stripped to create a description &mdash; '.$short.' can extract and use 
-							the text from the image <em>alt=""</em> attributes, instead of returning an empty description.';
+							$text = 'If the content is empty or comprised entirely of HTML tags &mdash; which must be stripped to create a description &mdash; '.$short.' can extract and use the text from the image <em>alt=""</em> attributes, instead of returning an empty description.';
 							break;
 						/*
 						 * 'Authorship' settings
 						 */
 						case 'tooltip-og_author_field':
-							$text = 'Select which field to use from the author\'s profile for the 
-							Facebook / Open Graph and Pinterest Rich Pin \'article:author\' meta tag(s).
-							The preferred (and default) setting is the Facebook URL field.';
+							$text = 'Select which field to use from the author\'s profile for the Facebook / Open Graph and Pinterest Rich Pin \'article:author\' meta tag(s). The preferred (and default) setting is the Facebook URL field.';
 							break;
 						case 'tooltip-og_author_fallback':
-							$text = 'If the Author Profile URL (and the Author Link URL in the Google Settings below) 
-							is not a valid URL, then '.$short.' can fallback to using the author index on this 
-							website (\''.trailingslashit( site_url() ).'author/username\' for example). 
-							Uncheck this option to disable the fallback feature (default is unchecked).';
+							$text = 'If the Author Profile URL (and the Author Link URL in the Google Settings below) is not a valid URL, then '.$short.' can fallback to using the author index on this website (\''.trailingslashit( site_url() ).'author/username\' for example). Uncheck this option to disable the fallback feature (default is unchecked).';
 							break;
 						case 'tooltip-og_def_author_id':
-							$text = 'A default author for webpages <em>missing authorship information</em> (for example, an index webpage without posts). 
-							If you have several authors on your website, you should probably leave this option set to <em>[none]</em> (the default).';
+							$text = 'A default author for webpages <em>missing authorship information</em> (for example, an index webpage without posts). If you have several authors on your website, you should probably leave this option set to <em>[none]</em> (the default).';
 							break;
 						case 'tooltip-og_def_author_on_index':
-							$text = 'Check this option if you would like to force the Default Author on index webpages 
-							(<strong>non-static</strong> homepage, archives, categories, author, etc.). If this option is checked, 
-							index webpages will be labeled as a an \'article\' with authorship attributed to the Default Author
-							(default is unchecked). If the Default Author is <em>[none]</em>, then the index webpages will be 
-							labeled as a \'website\'.';
+							$text = 'Check this option if you would like to force the Default Author on index webpages (<strong>non-static</strong> homepage, archives, categories, author, etc.). If this option is checked, index webpages will be labeled as a an \'article\' with authorship attributed to the Default Author (default is unchecked). If the Default Author is <em>[none]</em>, then the index webpages will be labeled as a \'website\'.';
 							break;
 						case 'tooltip-og_def_author_on_search':
-							$text = 'Check this option if you would like to force the Default Author on search result webpages as well.
-							If this option is checked, search results will be labeled as a an \'article\' with authorship
-							attributed to the Default Author (default is unchecked).';
+							$text = 'Check this option if you would like to force the Default Author on search result webpages as well.  If this option is checked, search results will be labeled as a an \'article\' with authorship attributed to the Default Author (default is unchecked).';
 							break;
 						case 'tooltip-og_author_gravatar':
-							$text = 'Check this option to include Gravatar image URLs in the meta tags for author index webpages.
-							If the \'Force Default Image on Author Index\' option is also enabled (on the \'Images\' tab), 
-							that option will take precedence over this one.';
+							$text = 'Check this option to include Gravatar image URLs in the meta tags for author index webpages.  If the \'Force Default Image on Author Index\' option is also enabled (on the \'Images\' tab), that option will take precedence over this one.';
 							break;
 						/*
 						 * Other settings
@@ -471,12 +361,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Plugin Settings' settings
 						 */
 						case 'tooltip-plugin_display':
-							$text = 'Select the number of options to display on the '.$short.' settings pages.
-							The basic view shows only the essential options that are most commonly used.';
+							$text = 'Select the number of options to display on the '.$short.' settings pages. The basic view shows only the essential options that are most commonly used.';
 							break;
 						case 'tooltip-plugin_preserve':
-							$text = 'Check this option if you would like to preserve all '.$short.
-							' settings when you <em>uninstall</em> the plugin (default is unchecked).';
+							$text = 'Check this option if you would like to preserve all '.$short.' settings when you <em>uninstall</em> the plugin (default is unchecked).';
 							break;
 						case 'tooltip-plugin_debug':
 							$text = 'Add hidden debug messages to the HTML of webpages (default is unchecked).';
@@ -485,21 +373,13 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'Report the number of objects removed from the cache when updating Posts and Pages.';
 							break;
 						case 'tooltip-plugin_check_head':
-							$text = $short.' can check the front-end webpage head section for duplicate HTML tags when editing Posts and Pages.
-							You may uncheck this option if you\'ve edited a few Posts and Pages without seeing any warning messages about
-							duplicate HTML tags.';
+							$text = $short.' can check the front-end webpage head section for duplicate HTML tags when editing Posts and Pages. You may uncheck this option if you\'ve edited a few Posts and Pages without seeing any warning messages about duplicate HTML tags.';
 							break;
 						case 'tooltip-plugin_filter_lang':
-							$text = $short_pro.' can use the WordPress locale to select the correct language for the Facebook / Open Graph 
-							and Pinterest Rich Pin meta tags'.
-							( empty( $this->p->is_avail['ssb'] ) ? 
-								'' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).'. '.
-							'If your website is available in multiple languages, this can be a useful feature.
-							Uncheck this option to ignore the WordPress locale and always use the configured language.'; 
+							$text = $short_pro.' can use the WordPress locale to select the correct language for the Facebook / Open Graph and Pinterest Rich Pin meta tags'.( empty( $this->p->is_avail['ssb'] ) ? '' : ', along with the Google, Facebook, and Twitter social sharing buttons' ).'. If your website is available in multiple languages, this can be a useful feature. Uncheck this option to ignore the WordPress locale and always use the configured language.'; 
 							break;
 						case 'tooltip-plugin_auto_img_resize':
-							$text = 'Automatically generate missing or incorrect image sizes for previously uploaded images in the 
-							WordPress Media Library (default is checked).';
+							$text = 'Automatically generate missing or incorrect image sizes for previously uploaded images in the WordPress Media Library (default is checked).';
 							break;
 						case 'tooltip-plugin_shortcodes':
 							$text = 'Enable the '.$short.' shortcode features (default is checked).';
@@ -511,93 +391,52 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						 * 'Content and Filters' settings
 						 */
 						case 'tooltip-plugin_filter_title':
-							$text = 'By default, '.$short.' uses the title values provided by WordPress, which may include modifications
-							by themes and/or SEO plugins (appending the blog name to all titles, for example, is fairly common practice).
-							If you wish to use the original title value without these modifications, uncheck this option.';
+							$text = 'By default, '.$short.' uses the title values provided by WordPress, which may include modifications by themes and/or SEO plugins (appending the blog name to all titles, for example, is fairly common practice). If you wish to use the original title value without these modifications, uncheck this option.';
 							break;
 						case 'tooltip-plugin_filter_excerpt':
-							$text = 'Apply the standard WordPress \'get_the_excerpt\' filter to render the excerpt text (default is unchecked).
-							Check this option if you use shortcodes in your excerpt, for example.';
+							$text = 'Apply the standard WordPress \'get_the_excerpt\' filter to render the excerpt text (default is unchecked). Check this option if you use shortcodes in your excerpt, for example.';
 							break;
 						case 'tooltip-plugin_filter_content':
-							$text = 'Apply the standard WordPress \'the_content\' filter to render the content text (default is checked).
-							This renders all shortcodes, and allows '.$short.' to detect images and 
-							embedded videos that may be provided by these.';
+							$text = 'Apply the standard WordPress \'the_content\' filter to render the content text (default is checked). This renders all shortcodes, and allows '.$short.' to detect images and embedded videos that may be provided by these.';
 							break;
 						case 'tooltip-plugin_ignore_small_img':
-							$text = $short.' will retrieve image URLs from HTML tags in the <strong>content</strong>.
-							The &amp;amp;lt;img/&amp;amp;gt; HTML tags must have a width and height attribute, 
-							and their size must be equal to (or larger) than the 
-							Image Dimensions you\'ve entered on the General settings page. 
-							Uncheck this option to include smaller images from the content.
-							<strong>Unchecking this option is not advised</strong> - 
-							images that are too small for some social websites may be included in your meta tags.';
+							$text = $short.' will retrieve image URLs from HTML tags in the <strong>content</strong>. The &amp;amp;lt;img/&amp;amp;gt; HTML tags must have a width and height attribute, and their size must be equal to (or larger) than the Image Dimensions you\'ve entered on the General settings page. Uncheck this option to include smaller images from the content. <strong>Unchecking this option is not advised</strong> - images that are too small for some social websites may be included in your meta tags.';
 							break;
 						case 'tooltip-plugin_page_excerpt':
-							$text = 'Enable the excerpt editing metabox for Pages. Excerpts are optional hand-crafted summaries 
-							of your content that '.$short.' can use as a default description value.';
+							$text = 'Enable the excerpt editing metabox for Pages. Excerpts are optional hand-crafted summaries of your content that '.$short.' can use as a default description value.';
 							break;
 						case 'tooltip-plugin_page_tags':
-							$text = 'Enable the tags editing metabox for Pages. Tags are optional keywords that highlight the content
-							subject(s), often used for searches and "tag clouds". '.$short.' converts tags into hashtags for some
-							social websites (Twitter, Facebook, Google+, etc.).';
+							$text = 'Enable the tags editing metabox for Pages. Tags are optional keywords that highlight the content subject(s), often used for searches and "tag clouds". '.$short.' converts tags into hashtags for some social websites (Twitter, Facebook, Google+, etc.).';
 							break;
 						case 'tooltip-plugin_embedded_media':
-							$text = 'Check the Post and Page content, along with the custom Social Settings, for embedded media URLs 
-							from supported media providers (Youtube, Wistia, etc.). If a supported URL is found, an API connection 
-							to the provider will be made to retrieve information about the media (preview image, flash player url,
-							oembed player url, video width / height, etc.).';
+							$text = 'Check the Post and Page content, along with the custom Social Settings, for embedded media URLs from supported media providers (Youtube, Wistia, etc.). If a supported URL is found, an API connection to the provider will be made to retrieve information about the media (preview image, flash player url, oembed player url, video width / height, etc.).';
 							break;
 						/*
 						 * 'Social Settings' settings
 						 */
 						case 'tooltip-plugin_add_to':
-							$text = 'The Social Settings metabox, which allows you to enter custom Facebook / Open Graph values 
-							(among other options), is available on the User, Posts, Pages, Media, and Product admin pages by default. 
-							If your theme (or another plugin) supports additional custom post types, and you would like to 
-							include the Social Settings metabox on their admin pages, check the appropriate option(s) here.';
+							$text = 'The Social Settings metabox, which allows you to enter custom Facebook / Open Graph values (among other options), is available on the User, Posts, Pages, Media, and Product admin pages by default. If your theme (or another plugin) supports additional custom post types, and you would like to include the Social Settings metabox on their admin pages, check the appropriate option(s) here.';
 							break;
 						case 'tooltip-plugin_cf_img_url':
-							$text = 'If your theme or another plugin provides a custom field for image URLs,
-							you may enter its custom field name here.
-							If a custom field matching that name is found, its value will be used for the Image URL option
-							in the Social Settings metabox. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_img_url' ).'".';
+							$text = 'If your theme or another plugin provides a custom field for image URLs, you may enter its custom field name here. If a custom field matching that name is found, its value will be used for the Image URL option in the Social Settings metabox. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_img_url' ).'".';
 							break;
 						case 'tooltip-plugin_cf_vid_url':
-							$text = 'If your theme or another plugin provides a custom field for video URLs
-							(not embed HTML code), you may enter its custom field name here.
-							If a custom field matching that name is found, its value will be used for the Video URL option
-							in the Social Settings metabox. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'".';
+							$text = 'If your theme or another plugin provides a custom field for video URLs (not embed HTML code), you may enter its custom field name here. If a custom field matching that name is found, its value will be used for the Video URL option in the Social Settings metabox. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_vid_url' ).'".';
 							break;
 						case 'tooltip-plugin_cf_vid_embed':
-							$text = 'If your theme or another plugin provides a custom field for video embed HTML code
-							(not simply a URL), you may enter its custom field name here.
-							If a custom field matching that name is found, its value will be used for the Video Embed HTML option
-							in the Social Settings metabox. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_vid_embed' ).'".';
+							$text = 'If your theme or another plugin provides a custom field for video embed HTML code (not simply a URL), you may enter its custom field name here. If a custom field matching that name is found, its value will be used for the Video Embed HTML option in the Social Settings metabox. The default value is "'.$this->p->opt->get_defaults( 'plugin_cf_vid_embed' ).'".';
 							break;
 						/*
 						 * 'File and Object Cache' settings
 						 */
 						case 'tooltip-plugin_object_cache_exp':
-							$text = $short.' saves filtered and rendered content to a non-persistant cache 
-							(aka <a href="https://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>), 
-							and Facebook / Open Graph, Pinterest Rich Pin, and Twitter Card meta tags to a persistant 
-							(aka <a href="https://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. 
-							The default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).' seconds, 
-							and the minimum value is 1 second (such a low value is not recommended).';
+							$text = $short.' saves filtered and rendered content to a non-persistant cache (aka <a href="https://codex.wordpress.org/Class_Reference/WP_Object_Cache" target="_blank">WP Object Cache</a>), and Facebook / Open Graph, Pinterest Rich Pin, and Twitter Card meta tags to a persistant (aka <a href="https://codex.wordpress.org/Transients_API" target="_blank">Transient</a>) cache. The default is '.$this->p->opt->get_defaults( 'plugin_object_cache_exp' ).' seconds, and the minimum value is 1 second (such a low value is not recommended).';
 							break;
 						case 'tooltip-plugin_file_cache_hrs':
-							$text = $short_pro.' can save social sharing JavaScript and images to a cache folder, 
-							providing URLs to these cached files instead of the originals. 
-							A value of 0 hours (the default) disables the file caching feature. 
-							If your hosting infrastructure performs reasonably well, this option can improve page load times significantly.
-							All social sharing images and javascripts will be cached, except for the Facebook JavaScript SDK, 
-							which does not work correctly when cached.';
+							$text = $short_pro.' can save social sharing JavaScript and images to a cache folder, providing URLs to these cached files instead of the originals. A value of 0 hours (the default) disables the file caching feature. If your hosting infrastructure performs reasonably well, this option can improve page load times significantly. All social sharing images and javascripts will be cached, except for the Facebook JavaScript SDK, which does not work correctly when cached.';
 							break;
 						case 'tooltip-plugin_verify_certs':
-							$text = 'Enable verification of peer SSL certificates when fetching content to be cached using HTTPS. 
-							The PHP \'curl\' function will use the '.WPSSO_CURL_CAINFO.' certificate file by default. 
-							You can define a WPSSO_CURL_CAINFO constant in your wp-config.php file to use an alternate certificate file.';
+							$text = 'Enable verification of peer SSL certificates when fetching content to be cached using HTTPS. The PHP \'curl\' function will use the '.WPSSO_CURL_CAINFO.' certificate file by default. You can define a WPSSO_CURL_CAINFO constant in your wp-config.php file to use an alternate certificate file.';
 							break;
 						/*
 						 * Other settings
