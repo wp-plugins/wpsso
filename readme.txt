@@ -404,6 +404,15 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.8.2 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Added a 'View Plugin Details' link on the Pro Licenses settings page and updated its layout
+* **New Features**
+	* *None*
+
 = Version 2.8.1 =
 
 * **Bugfixes**
