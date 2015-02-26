@@ -237,35 +237,6 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 
 WPSSO is *fast and coded for performance*, making full use of all available caching techniques (persistent / non-persistent object and disk caching). WPSSO loads only the library files and object classes it needs, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
-<blockquote>
-<h4>How Fast is WPSSO?</h4>
-
-<p>Very Fast. A few example metrics from the <a href="https://wordpress.org/plugins/p3-profiler/">P3 (Plugin Performance Profiler)</a> plugin, using <a href="http://wptest.io/">WP Test Data</a>, and the default settings of several popular plugins, along with the WordPress Core and Twenty Fourteen theme for reference:</p>
-
-<ul>
-	<li><strong><font color="blue">0.0050</font></strong> secs (5.0 ms) - WPSSO Social Sharing Buttons (SSB) v1.1</li>
-	<li><strong><font color="blue">0.0116</font></strong> secs (11.6 ms) - <em><strong>WordPress Social Sharing Optimization (WPSSO) v2.7.1</strong></em></li>
-	<li><strong><font color="blue">0.0149</font></strong> secs (14.9 ms) - All in One SEO Pack v2.2.1</li>
-	<li><strong><font color="blue">0.0157</font></strong> secs (15.7 ms) - MarketPress - WordPress eCommerce v2.9.2.1 (No Products)</li>
-	<li><strong><font color="blue">0.0186</font></strong> secs (18.6 ms) - NextGEN Facebook (NGFB) v7.7.1</li>
-	<li><strong><font color="green">0.0230</font></strong> secs (23.0 ms) - Easy Digital Downloads v1.9.8 (No Products)</li>
-	<li><strong><font color="green">0.0254</font></strong> secs (25.4 ms) - MailPoet Newsletters (aka Wysija Newsletters) v2.6.9</li>
-	<li><strong><font color="green">0.0322</font></strong> secs (32.2 ms) - WP e-Commerce v3.8.13.3 (No Products)</li>
-	<li><strong><font color="green">0.0345</font></strong> secs (34.5 ms) - <strong>WordPress Twenty Fourteen Theme v1.1</strong></li>
-	<li><strong><font color="green">0.0393</font></strong> secs (39.3 ms) - bbPress v2.5.3 (No Forums or Topics)</li>
-	<li><strong><font color="green">0.0425</font></strong> secs (42.5 ms) - WooCommerce v2.1.5 (No Products)</li>
-	<li><strong><font color="green">0.0488</font></strong> secs (48.8 ms) - <strong>WordPress Core v3.9.1</strong></li>
-	<li><strong><font color="orange">0.0572</font></strong> secs (57.2 ms) - SEO Ultimate v7.6.2</li>
-	<li><strong><font color="orange">0.0579</font></strong> secs (57.9 ms) - Facebook v1.5.5</li>
-	<li><strong><font color="orange">0.0656</font></strong> secs (65.6 ms) - BuddyPress v1.9.2 (No Activities)</li>
-	<li><strong><font color="red">0.1055</font></strong> secs (105.5 ms) - WordPress SEO by Yoast v1.5.4.2</li>
-	<li><strong><font color="red">0.1980</font></strong> secs (198.0 ms) - JetPack by WordPress.com v2.9.2</li>
-	<li><strong><font color="red">0.2085</font></strong> secs (208.5 ms) - NextGEN Gallery by Photocrati v2.0.66 (No Galleries or Images)</li>
-</ul>
-
-<p><small><em>Benchmarks were executed on dedicated hardware, using an APC opcode/object cache, WordPress v3.9.1, and P3 v1.5.1 configured with opcode optimization enabled (improves accuracy).</em></small></p>
-</blockquote>
-
 = Clean Uninstall =
 
 Try the WPSSO plugin with complete confidence &mdash; when uninstalled, WPSSO removes *all* traces of itself from the database (options, site options, user and post meta, transients, etc.).
