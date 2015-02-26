@@ -382,7 +382,8 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 * **Bugfixes**
 	* *None*
 * **Improvements**
-	* Added a 'View Plugin Details' link on the Pro Licenses settings page and updated its layout
+	* Added a 'View Plugin Details' link on the Pro Licenses settings page and updated its layout.
+	* Added the `WpssoUser::get_user_id_contact_methods()` static method to provide `wp_get_user_contact_methods()` for older WordPress installations.
 * **New Features**
 	* *None*
 
