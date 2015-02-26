@@ -94,10 +94,10 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>'.$this->form->get_image_dimensions_input( 'og_img', 
 						false, false, $this->p->options['plugin_display'] ).'</td>';
 	
-					$rows[] = $this->p->util->th( 'Default Image ID', 'highlight', 'og_def_img_id' ).
+					$rows[] = $this->p->util->th( 'Default / Fallback Image ID', 'highlight', 'og_def_img_id' ).
 					'<td>'.$this->form->get_image_upload_input( 'og_def_img' ).'</td>';
 	
-					$rows[] = $this->p->util->th( 'Default Image URL', null, 'og_def_img_url' ).
+					$rows[] = $this->p->util->th( 'Default / Fallback Image URL', null, 'og_def_img_url' ).
 					'<td>'.$this->form->get_image_url_input( 'og_def_img' ).'</td>';
 	
 					break;
