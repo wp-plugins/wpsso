@@ -330,6 +330,8 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 
 == Other Notes ==
 
+= Additional Documentation =
+
 <ul>
 	<li><a href="http://surniaulula.com/codex/plugins/wpsso/notes/modules/">About Pro Modules</a>
 	<ul>
