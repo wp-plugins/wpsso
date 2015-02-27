@@ -146,7 +146,7 @@ WPSSO (Pro version) also supports [Easy Digital Downloads](https://wordpress.org
 
 WPSSO (Pro version) supports [bbPress](https://wordpress.org/plugins/bbpress/) and [BuddyPress](https://wordpress.org/plugins/buddypress/) (see the [BuddyPress Integration Notes](http://surniaulula.com/codex/plugins/wpsso/notes/buddypress-integration/)), making sure your meta tags reflect the page content, including appropriate titles, descriptions, images, etc.
 
-= User Profile Contacts =
+= User Profile Social Contacts =
 
 WPSSO (Pro version) allows you to customize the field names, label, and add / remove the following contacts from the user profile page:
 
