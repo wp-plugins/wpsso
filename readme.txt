@@ -122,7 +122,7 @@ WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me
 WPSSO (Pro version) integrates with [WordPress SEO by Yoast](https://wordpress.org/plugins/wordpress-seo/), [All in One SEO Pack](https://wordpress.org/plugins/all-in-one-seo-pack/), and [HeadSpace2 SEO](https://wordpress.org/plugins/headspace2/) &mdash; making sure your custom SEO settings are reflected in the Open Graph, Rich Pin, and Twitter Card meta tags.
 
 <blockquote>
-<p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between the WordPress SEO by Yoast and WPSSO plugins</a> when used for social sharing.</p>
+<p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between the WordPress SEO by Yoast and WPSSO plugins</a> for social sharing.</p>
 </blockquote>
 
 <strong>eCommerce Products</strong>
