@@ -12,7 +12,7 @@ Make sure social websites present your content correctly, no matter how your web
 
 == Description ==
 
-<p><img src="https://ps.w.org/wpsso/assets/icon-256x256.png?rev=" width="256" height="256" style="width:33%;float:left;margin:0 40px 20px 0;" /><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or <em>URLs pasted directly in social timeline posts and private messages</em>.</p>
+<p><img src="https://ps.w.org/wpsso/assets/icon-256x256.png?rev=" width="256" height="256" style="max-width:33%;float:left;margin:0 40px 20px 0;" /><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or <em>URLs pasted directly in social timeline posts and private messages</em>.</p>
 
 = Advanced Social Management =
 
@@ -45,7 +45,7 @@ Make sure social websites present your content correctly, no matter how your web
 </ul>
 </blockquote></p>
 
-<div style="clear:both;">
+<div style="clear:both;"></div>
 
 = Quick List of Features =
 
@@ -76,7 +76,7 @@ Make sure social websites present your content correctly, no matter how your web
 	* [Place and Location Meta](https://wordpress.org/plugins/wpsso-plm/) for Facebook *Location* and Pinterest *Place* Rich Pin meta tags.
 	* [Social Sharing Buttons](https://wordpress.org/plugins/wpsso-ssb/) for fast and accurate social sharing buttons.
 
-<div style="clear:both;">
+<div style="clear:both;"></div>
 
 **Pro / Power-User Version**
 
@@ -118,7 +118,7 @@ Make sure social websites present your content correctly, no matter how your web
 
 <strong>Looking for the Pro version?</strong> You can [purchase Pro license(s) here](http://surniaulula.com/extend/plugins/wpsso/) to update the Free version quickly and easily.
 
-<div style="clear:both;">
+<div style="clear:both;"></div>
 
 = 3rd Party Integration =
 
@@ -138,7 +138,7 @@ WPSSO (Pro version) integrates with [WordPress SEO by Yoast](https://wordpress.o
 <p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between WordPress SEO by Yoast and WPSSO</a> &mdash; the features each provides for social sharing, and how WPSSO can extend the basic social features of WordPress SEO by Yoast.</p>
 </blockquote>
 
-<div style="clear:both;">
+<div style="clear:both;"></div>
 
 **eCommerce Products**
 
@@ -164,7 +164,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and add / re
 * Yahoo IM
 * YouTube Channel URL
 
-<div style="clear:both;">
+<div style="clear:both;"></div>
 
 = Social Profiles for Google Search =
 
