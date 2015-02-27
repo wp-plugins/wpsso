@@ -122,7 +122,7 @@ Make sure social websites present your content correctly, no matter how your web
 
 = 3rd Party Integration =
 
-<img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />Aside from the additional support for Twitter Cards, the main difference between the Free and Pro versions is the integration of 3rd party plugins and services.
+<img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />Aside from the additional support for Twitter Cards, the main difference between the WPSSO Free and Pro versions is the integration of 3rd party plugins and services.
 
 **Images and Videos**
 
