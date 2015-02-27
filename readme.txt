@@ -135,7 +135,7 @@ WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me
 WPSSO (Pro version) integrates with [WordPress SEO by Yoast](https://wordpress.org/plugins/wordpress-seo/), [All in One SEO Pack](https://wordpress.org/plugins/all-in-one-seo-pack/), and [HeadSpace2 SEO](https://wordpress.org/plugins/headspace2/) &mdash; making sure your custom SEO settings are reflected in the Open Graph, Rich Pin, and Twitter Card meta tags.
 
 <blockquote>
-<p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between WordPress SEO by Yoast and WPSSO</a> &mdash; the features each provides for social sharing, and how WPSSO can replace the basic social features of WordPress SEO by Yoast.</p>
+<p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between WordPress SEO by Yoast and WPSSO</a> &mdash; the features each provides for social sharing, and how WPSSO can extend the basic social features of WordPress SEO by Yoast.</p>
 </blockquote>
 
 **eCommerce Products**
@@ -146,7 +146,7 @@ WPSSO (Pro version) also supports [Easy Digital Downloads](https://wordpress.org
 
 WPSSO (Pro version) supports [bbPress](https://wordpress.org/plugins/bbpress/) and [BuddyPress](https://wordpress.org/plugins/buddypress/) (see the [BuddyPress Integration Notes](http://surniaulula.com/codex/plugins/wpsso/notes/buddypress-integration/)), making sure your meta tags reflect the page content, including appropriate titles, descriptions, images, etc.
 
-= Custom Profile Contacts =
+= User Profile Contacts =
 
 WPSSO (Pro version) allows you to customize the field names, label, and add / remove the following contacts from the user profile page:
 
@@ -162,7 +162,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and add / re
 * Yahoo IM
 * YouTube Channel URL
 
-= Schema JSON-LD Social Profiles  =
+= Social Profiles for Google Search =
 
 WPSSO provides <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The author (Person) markup includes the author's website URL, their profile social sharing image, and all listed contact URLs from their user profile. The publisher (Organization) markup includes the website URL, a corporate logo, a default image, and the publisher Facebook, Google+, LinkedIn, Pinterest, and Twitter business pages.
 
