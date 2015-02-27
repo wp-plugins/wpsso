@@ -173,7 +173,7 @@ WPSSO (Pro version) allows you to customize the field names, label, and add / re
 <div style="clear:both;"></div>
 
 <img src="https://ps.w.org/wpsso/assets/screenshot-23.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />
-<h4>Social Profiles for Google Search<h4>
+<h4>Social Profiles for Google Search</h4>
 
 WPSSO provides <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The author (Person) markup includes the author's website URL, their profile social sharing image, and all listed contact URLs from their user profile. The publisher (Organization) markup includes the website URL, a corporate logo, a default image, and the publisher Facebook, Google+, LinkedIn, Pinterest, and Twitter business pages.
 
