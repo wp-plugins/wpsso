@@ -36,17 +36,6 @@ Make sure social websites present your content correctly, no matter how your web
 <p>"<em>WPSSO Pro provides a handy tool for your marketing team, and improves your content whenever it’s shared by you or your fans. The free version has a lot of great features and makes a good trial version, but I think that eCommerce sites really benefit from the eCommerce plugin and video integrations (as well as the inclusion of Twitter card support) that the Pro version offers.</em>" &mdash; <a href="http://www.sellwithwp.com/optimized-social-media-wpsso-plugin-review/">sellwithwp.com</a></p>
 </blockquote></p>
 
-<p><blockquote>
-<h4>Articles and Tutorials</h4>
-
-<ul>
-<li><a href="http://www.wpsuperstars.net/optimize-content-for-social-networks/">How To Optimize Your Content For Social Networks Using WordPress</a></li>
-<li><a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">Social SEO: WordPress SEO by Yoast vs WPSSO</a> &mdash; read about the differences between WordPress SEO by Yoast and WPSSO when used for social sharing.</li>
-</ul>
-</blockquote></p>
-
-<div style="clear:both;"></div>
-
 = Quick List of Features =
 
 <strong>Free / Basic Version</strong>
@@ -133,10 +122,8 @@ WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me
 WPSSO (Pro version) integrates with [WordPress SEO by Yoast](https://wordpress.org/plugins/wordpress-seo/), [All in One SEO Pack](https://wordpress.org/plugins/all-in-one-seo-pack/), and [HeadSpace2 SEO](https://wordpress.org/plugins/headspace2/) &mdash; making sure your custom SEO settings are reflected in the Open Graph, Rich Pin, and Twitter Card meta tags.
 
 <blockquote>
-<p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between WordPress SEO by Yoast and WPSSO</a> &mdash; the features each provides for social sharing, and how WPSSO can extend the basic social features of WordPress SEO by Yoast.</p>
+<p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between the WordPress SEO by Yoast and WPSSO plugins</a> when used for social sharing.</p>
 </blockquote>
-
-<div style="clear:both;"></div>
 
 <strong>eCommerce Products</strong>
 
@@ -315,6 +302,13 @@ WPSSO support and development is on-going. You can review the [FAQ](http://faq.w
 </ul>
 
 == Other Notes ==
+
+= Articles and Tutorials =
+
+<ul>
+	<li><a href="http://www.wpsuperstars.net/optimize-content-for-social-networks/">How To Optimize Your Content For Social Networks Using WordPress</a></li>
+	<li><a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">Social SEO: WordPress SEO by Yoast vs WPSSO</a> &mdash; read about the differences between WordPress SEO by Yoast and WPSSO when used for social sharing.</li>
+</ul>
 
 = Additional Documentation =
 
