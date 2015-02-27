@@ -107,17 +107,18 @@ Make sure social websites present your content correctly, no matter how your web
 
 <div style="clear:both;"></div>
 
-= 3rd Party Integration =
+<h4>3rd Party Integration</h4>
 
 Aside from the additional support for Twitter Cards, the main difference between the WPSSO Free and Pro versions is the integration of 3rd party plugins and services.
 
-**Images and Videos**
+<img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />
+<strong>Images and Videos</strong>
 
 WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress image galleries. WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized according to their intended audience (Facebook, Twitter, Pinterest, etc). The Pro version also detects embedded videos from Slideshare, Vimeo, Wistia, and Youtube (including their preview images).
 
 WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me/support/photon/) and [NextGEN Gallery v1 and v2](https://wordpress.org/plugins/nextgen-gallery/) albums, galleries and images (shortcodes, image tags, album / gallery preview images, etc.).
 
-**Enhanced SEO**
+<strong>Enhanced SEO</strong>
 
 WPSSO (Pro version) integrates with [WordPress SEO by Yoast](https://wordpress.org/plugins/wordpress-seo/), [All in One SEO Pack](https://wordpress.org/plugins/all-in-one-seo-pack/), and [HeadSpace2 SEO](https://wordpress.org/plugins/headspace2/) &mdash; making sure your custom SEO settings are reflected in the Open Graph, Rich Pin, and Twitter Card meta tags.
 
@@ -153,9 +154,9 @@ WPSSO (Pro version) allows you to customize the field names, label, and add / re
 
 <div style="clear:both;"></div>
 
+<img src="https://ps.w.org/wpsso/assets/screenshot-23.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />
 <h4>Social Profiles for Google Search</h4>
 
-<img src="https://ps.w.org/wpsso/assets/screenshot-23.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />
 WPSSO provides <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The author (Person) markup includes the author's website URL, their profile social sharing image, and all listed contact URLs from their user profile. The publisher (Organization) markup includes the website URL, a corporate logo, a default image, and the publisher Facebook, Google+, LinkedIn, Pinterest, and Twitter business pages.
 
 <div style="clear:both;"></div>
