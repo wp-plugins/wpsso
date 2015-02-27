@@ -119,14 +119,14 @@ Make sure social websites present your content correctly, no matter how your web
 		* YouTube Videos and Playlists
 
 <strong>Looking for the Pro version?</strong> You can [purchase Pro license(s) here](http://surniaulula.com/extend/plugins/wpsso/) to update the Free version quickly and easily.
+ 
+<div style="clear:both;"></div>
 
 = 3rd Party Integration =
 
+<img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />
 Aside from the additional support for Twitter Cards, the main difference between the WPSSO Free and Pro versions is the integration of 3rd party plugins and services.
 
-<div style="clear:both;"></div>
-
-<img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />
 <strong>Images and Videos</strong>
 
 WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress image galleries. WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized according to their intended audience (Facebook, Twitter, Pinterest, etc). The Pro version also detects embedded videos from Slideshare, Vimeo, Wistia, and Youtube (including their preview images).
@@ -172,10 +172,12 @@ WPSSO (Pro version) allows you to customize the field names, label, and add / re
 
 <div style="clear:both;"></div>
 
-<img src="https://ps.w.org/wpsso/assets/screenshot-23.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />
 <h4>Social Profiles for Google Search</h4>
 
+<img src="https://ps.w.org/wpsso/assets/screenshot-23.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />
 WPSSO provides <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The author (Person) markup includes the author's website URL, their profile social sharing image, and all listed contact URLs from their user profile. The publisher (Organization) markup includes the website URL, a corporate logo, a default image, and the publisher Facebook, Google+, LinkedIn, Pinterest, and Twitter business pages.
+
+<div style="clear:both;"></div>
 
 = Complete Social Meta Tags =
 
@@ -244,13 +246,19 @@ WPSSO (Pro version) provides the [Summary](https://dev.twitter.com/docs/cards/ty
 	* twitter:site
 	* twitter:title
 
+<div style="clear:both;"></div>
+
 = Proven Performance =
 
 WPSSO is *fast and coded for performance*, making full use of all available caching techniques (persistent / non-persistent object and disk caching). WPSSO loads only the library files and object classes it needs, keeping it small, fast, and yet still able to support a wide range of 3rd party integration features.
 
+<div style="clear:both;"></div>
+
 = Clean Uninstall =
 
 Try the WPSSO plugin with complete confidence &mdash; when uninstalled, WPSSO removes *all* traces of itself from the database (options, site options, user and post meta, transients, etc.).
+
+<div style="clear:both;"></div>
 
 = Great Support =
 
