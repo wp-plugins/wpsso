@@ -118,8 +118,6 @@ Make sure social websites present your content correctly, no matter how your web
 		* Wistia Videos
 		* YouTube Videos and Playlists
 
-<strong>Looking for the Pro version?</strong> You can [purchase Pro license(s) here](http://surniaulula.com/extend/plugins/wpsso/) to update the Free version quickly and easily.
- 
 <div style="clear:both;"></div>
 
 = 3rd Party Integration =
@@ -127,7 +125,7 @@ Make sure social websites present your content correctly, no matter how your web
 <img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />
 Aside from the additional support for Twitter Cards, the main difference between the WPSSO Free and Pro versions is the integration of 3rd party plugins and services.
 
-<strong>Images and Videos</strong>
+**Images and Videos**
 
 WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress image galleries. WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized according to their intended audience (Facebook, Twitter, Pinterest, etc). The Pro version also detects embedded videos from Slideshare, Vimeo, Wistia, and Youtube (including their preview images).
 
