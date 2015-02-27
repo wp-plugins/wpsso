@@ -57,7 +57,7 @@ Make sure social websites present your content correctly, no matter how your web
 
 **Free / Basic Version**
 
-* Adds Open Graph / Rich Pin meta tags (Facebook, Google+, Pinterest, LinkedIn, etc.).
+* <img src="//ps.w.org/wpsso/assets/screenshot-04.png?rev=9999999" style="max-width:25%;float:right;margin-left:40px;" />Adds Open Graph / Rich Pin meta tags (Facebook, Google+, Pinterest, LinkedIn, etc.).
 * Configurable image sizes for Open Graph (Facebook, LinkedIn, etc.) and Pinterest.
 * Optional fallback to a default image and video for index and search webpages.
 * Supports featured, attached, gallery shortcode, and/or HTML image tags in content.
@@ -164,17 +164,9 @@ WPSSO (Pro version) allows you to customize the field names, label, and add / re
 * Yahoo IM
 * YouTube Channel URL
 
-<table><tr><td valign="top">
-
 = Social Profiles for Google Search =
 
-WPSSO provides <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The author (Person) markup includes the author's website URL, their profile social sharing image, and all listed contact URLs from their user profile. The publisher (Organization) markup includes the website URL, a corporate logo, a default image, and the publisher Facebook, Google+, LinkedIn, Pinterest, and Twitter business pages.
-
-</td><td valign="top">
-
-<p><img src="http://surniaulula.com/wp-content/uploads/2015/02/google_social_profiles-256x149.png" width="256" height="149" style="max-width:none;margin-left:40px;" /></p>
-
-</td></tr></table>
+<img src="//ps.w.org/wpsso/assets/screenshot-23.png?rev=9999999" style="max-width:25%;float:right;margin-left:40px;" />WPSSO provides <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The author (Person) markup includes the author's website URL, their profile social sharing image, and all listed contact URLs from their user profile. The publisher (Organization) markup includes the website URL, a corporate logo, a default image, and the publisher Facebook, Google+, LinkedIn, Pinterest, and Twitter business pages.
 
 = Complete Social Meta Tags =
 
