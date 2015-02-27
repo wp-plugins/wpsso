@@ -112,11 +112,11 @@ Make sure social websites present your content correctly, no matter how your web
 		* Wistia Videos
 		* YouTube Videos and Playlists
 
-**Looking for the Pro version?** You can [purchase Pro license(s) here](http://surniaulula.com/extend/plugins/wpsso/) to update the Free version quickly and easily.
+<img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="max-width:33%;float:right;margin:0 0 20px 40px;" /><strong>Looking for the Pro version?</strong> You can [purchase Pro license(s) here](http://surniaulula.com/extend/plugins/wpsso/) to update the Free version quickly and easily.
 
 = 3rd Party Integration =
 
-<img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="max-width:33%;float:right;margin:0 0 20px 40px;" />Aside from the additional support for Twitter Cards, the main difference between the Free and Pro versions is the integration of 3rd party plugins and services.
+Aside from the additional support for Twitter Cards, the main difference between the Free and Pro versions is the integration of 3rd party plugins and services.
 
 **Images and Videos**
 
