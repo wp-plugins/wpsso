@@ -57,7 +57,7 @@ Make sure social websites present your content correctly, no matter how your web
 
 **Free / Basic Version**
 
-* <img src="https://ps.w.org/wpsso/assets/screenshot-04.png?rev=9999999" style="max-width:33%;float:right;margin-left:40px;" />Adds Open Graph / Rich Pin meta tags (Facebook, Google+, Pinterest, LinkedIn, etc.).
+* <img src="https://ps.w.org/wpsso/assets/screenshot-01.png?rev=9999999" style="max-width:33%;float:right;margin-left:40px;" />Adds Open Graph / Rich Pin meta tags (Facebook, Google+, Pinterest, LinkedIn, etc.).
 * Configurable image sizes for Open Graph (Facebook, LinkedIn, etc.) and Pinterest.
 * Optional fallback to a default image and video for index and search webpages.
 * Supports featured, attached, gallery shortcode, and/or HTML image tags in content.
@@ -84,7 +84,7 @@ Make sure social websites present your content correctly, no matter how your web
 
 **Pro / Power-User Version**
 
-* <img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="max-width:33%;float:right;margin-left:40px;" />**No Risk 30 Day Refund Policy**
+* <img src="https://ps.w.org/wpsso/assets/screenshot-02.png?rev=9999999" style="max-width:33%;float:right;margin-left:40px;" />**No Risk 30 Day Refund Policy**
 * Twitter Card meta tags:
 	* *Product Card* &mdash; Product information from an e-commerce plugin.
 	* *Player Card* &mdash; An embedded video in the Post / Page content.
@@ -128,7 +128,7 @@ Aside from the additional support for Twitter Cards, the main difference between
 
 **Images and Videos**
 
-WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress image galleries. WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized according to their intended audience (Facebook, Twitter, Pinterest, etc). The Pro version also detects embedded videos from Slideshare, Vimeo, Wistia, and Youtube (including their preview images).
+<img src="https://ps.w.org/nextgen-facebook/assets/screenshot-22.png?rev=9999999" style="max-width:33%;float:right;margin-left:40px;" />WPSSO detects and uses all images - associated or included in your Post or Page content - including WordPress image galleries. WordPress Media Library images (and NextGEN Gallery in the Pro version) are resized according to their intended audience (Facebook, Twitter, Pinterest, etc). The Pro version also detects embedded videos from Slideshare, Vimeo, Wistia, and Youtube (including their preview images).
 
 WPSSO (Pro version) also includes support for [JetPack Photon](http://jetpack.me/support/photon/) and [NextGEN Gallery v1 and v2](https://wordpress.org/plugins/nextgen-gallery/) albums, galleries and images (shortcodes, image tags, album / gallery preview images, etc.).
 
@@ -142,7 +142,7 @@ WPSSO (Pro version) integrates with [WordPress SEO by Yoast](https://wordpress.o
 
 **eCommerce Products**
 
-WPSSO (Pro version) also supports [Easy Digital Downloads](https://wordpress.org/plugins/easy-digital-downloads/), [MarketPress - WordPress eCommerce](https://wordpress.org/plugins/wordpress-ecommerce/), [WooCommerce v1 and v2](https://wordpress.org/plugins/woocommerce/), and [WP e-Commerce](https://wordpress.org/plugins/wp-e-commerce/) product pages, creating appropriate meta tags for [Facebook Products](https://developers.facebook.com/docs/payments/product/), [Twitter Product Cards](https://dev.twitter.com/docs/cards/types/product-card) and [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), including variations and additional / custom images.
+<img src="https://ps.w.org/wpsso/assets/screenshot-21.png?rev=9999999" style="max-width:33%;float:right;margin-left:40px;" />WPSSO (Pro version) also supports [Easy Digital Downloads](https://wordpress.org/plugins/easy-digital-downloads/), [MarketPress - WordPress eCommerce](https://wordpress.org/plugins/wordpress-ecommerce/), [WooCommerce v1 and v2](https://wordpress.org/plugins/woocommerce/), and [WP e-Commerce](https://wordpress.org/plugins/wp-e-commerce/) product pages, creating appropriate meta tags for [Facebook Products](https://developers.facebook.com/docs/payments/product/), [Twitter Product Cards](https://dev.twitter.com/docs/cards/types/product-card) and [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), including variations and additional / custom images.
 
 **Forums and Social**
 
