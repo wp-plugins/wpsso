@@ -13,7 +13,9 @@ Make sure social websites present your content correctly, no matter how your web
 == Description ==
 
 <table><tr><td valign="top">
+
 <p><img src="https://ps.w.org/wpsso/assets/icon-256x256.png?rev=" width="256" height="256" style="max-width:none;margin-right:40px;" /></p>
+
 </td><td valign="top">
 
 <p><strong>Make sure social websites present your content in the best possible way, no matter <em>how</em> your webpage is shared</strong> &mdash; from sharing buttons on the webpage, browser add-ons and extensions, or <em>URLs pasted directly in social timeline posts and private messages</em>.</p>
@@ -162,9 +164,17 @@ WPSSO (Pro version) allows you to customize the field names, label, and add / re
 * Yahoo IM
 * YouTube Channel URL
 
+<table><tr><td valign="top">
+
 = Social Profiles for Google Search =
 
 WPSSO provides <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The author (Person) markup includes the author's website URL, their profile social sharing image, and all listed contact URLs from their user profile. The publisher (Organization) markup includes the website URL, a corporate logo, a default image, and the publisher Facebook, Google+, LinkedIn, Pinterest, and Twitter business pages.
+
+</td><td valign="top">
+
+<p><img src="http://surniaulula.com/wp-content/uploads/2015/02/google_social_profiles-256x149.png" width="256" height="149" style="max-width:none;margin-left:40px;" /></p>
+
+</td></tr></table>
 
 = Complete Social Meta Tags =
 
