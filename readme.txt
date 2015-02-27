@@ -45,11 +45,13 @@ Make sure social websites present your content correctly, no matter how your web
 </ul>
 </blockquote></p>
 
+<div style="clear:both;">
+
 = Quick List of Features =
 
 **Free / Basic Version**
 
-* <img src="https://ps.w.org/wpsso/assets/screenshot-01.png?rev=9999999" style="width:33%;float:right;margin:0 0 20px 40px;" />Adds Open Graph / Rich Pin meta tags (Facebook, Google+, Pinterest, LinkedIn, etc.).
+* <img src="https://ps.w.org/wpsso/assets/screenshot-01.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />Adds Open Graph / Rich Pin meta tags (Facebook, Google+, Pinterest, LinkedIn, etc.).
 * Configurable image sizes for Open Graph (Facebook, LinkedIn, etc.) and Pinterest.
 * Optional fallback to a default image and video for index and search webpages.
 * Supports featured, attached, gallery shortcode, and/or HTML image tags in content.
@@ -74,9 +76,11 @@ Make sure social websites present your content correctly, no matter how your web
 	* [Place and Location Meta](https://wordpress.org/plugins/wpsso-plm/) for Facebook *Location* and Pinterest *Place* Rich Pin meta tags.
 	* [Social Sharing Buttons](https://wordpress.org/plugins/wpsso-ssb/) for fast and accurate social sharing buttons.
 
+<div style="clear:both;">
+
 **Pro / Power-User Version**
 
-* <img src="https://ps.w.org/wpsso/assets/screenshot-02.png?rev=9999999" style="width:33%;float:right;margin:0 0 20px 40px;" />**No Risk 30 Day Refund Policy**
+* <img src="https://ps.w.org/wpsso/assets/screenshot-02.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />**No Risk 30 Day Refund Policy**
 * Twitter Card meta tags:
 	* *Product Card* &mdash; Product information from an e-commerce plugin.
 	* *Player Card* &mdash; An embedded video in the Post / Page content.
@@ -112,11 +116,13 @@ Make sure social websites present your content correctly, no matter how your web
 		* Wistia Videos
 		* YouTube Videos and Playlists
 
-<img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="width:33%;float:right;margin:0 0 20px 40px;" /><strong>Looking for the Pro version?</strong> You can [purchase Pro license(s) here](http://surniaulula.com/extend/plugins/wpsso/) to update the Free version quickly and easily.
+<strong>Looking for the Pro version?</strong> You can [purchase Pro license(s) here](http://surniaulula.com/extend/plugins/wpsso/) to update the Free version quickly and easily.
+
+<div style="clear:both;">
 
 = 3rd Party Integration =
 
-Aside from the additional support for Twitter Cards, the main difference between the Free and Pro versions is the integration of 3rd party plugins and services.
+<img src="https://ps.w.org/wpsso/assets/screenshot-22.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />Aside from the additional support for Twitter Cards, the main difference between the Free and Pro versions is the integration of 3rd party plugins and services.
 
 **Images and Videos**
 
@@ -132,9 +138,11 @@ WPSSO (Pro version) integrates with [WordPress SEO by Yoast](https://wordpress.o
 <p>Read about the <a href="http://surniaulula.com/2014/10/25/social-seo-wordpress-seo-vs-wpsso/">differences between WordPress SEO by Yoast and WPSSO</a> &mdash; the features each provides for social sharing, and how WPSSO can extend the basic social features of WordPress SEO by Yoast.</p>
 </blockquote>
 
+<div style="clear:both;">
+
 **eCommerce Products**
 
-<img src="https://ps.w.org/wpsso/assets/screenshot-21.png?rev=9999999" style="width:33%;float:right;margin:0 0 20px 40px;" />WPSSO (Pro version) also supports [Easy Digital Downloads](https://wordpress.org/plugins/easy-digital-downloads/), [MarketPress - WordPress eCommerce](https://wordpress.org/plugins/wordpress-ecommerce/), [WooCommerce v1 and v2](https://wordpress.org/plugins/woocommerce/), and [WP e-Commerce](https://wordpress.org/plugins/wp-e-commerce/) product pages, creating appropriate meta tags for [Facebook Products](https://developers.facebook.com/docs/payments/product/), [Twitter Product Cards](https://dev.twitter.com/docs/cards/types/product-card) and [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), including variations and additional / custom images.
+<img src="https://ps.w.org/wpsso/assets/screenshot-21.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />WPSSO (Pro version) also supports [Easy Digital Downloads](https://wordpress.org/plugins/easy-digital-downloads/), [MarketPress - WordPress eCommerce](https://wordpress.org/plugins/wordpress-ecommerce/), [WooCommerce v1 and v2](https://wordpress.org/plugins/woocommerce/), and [WP e-Commerce](https://wordpress.org/plugins/wp-e-commerce/) product pages, creating appropriate meta tags for [Facebook Products](https://developers.facebook.com/docs/payments/product/), [Twitter Product Cards](https://dev.twitter.com/docs/cards/types/product-card) and [Pinterest Rich Pins](http://developers.pinterest.com/rich_pins/), including variations and additional / custom images.
 
 **Forums and Social**
 
@@ -156,9 +164,11 @@ WPSSO (Pro version) allows you to customize the field names, label, and add / re
 * Yahoo IM
 * YouTube Channel URL
 
+<div style="clear:both;">
+
 = Social Profiles for Google Search =
 
-<img src="https://ps.w.org/wpsso/assets/screenshot-23.png?rev=9999999" style="width:33%;float:right;margin:0 0 20px 40px;" />WPSSO provides <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The author (Person) markup includes the author's website URL, their profile social sharing image, and all listed contact URLs from their user profile. The publisher (Organization) markup includes the website URL, a corporate logo, a default image, and the publisher Facebook, Google+, LinkedIn, Pinterest, and Twitter business pages.
+<img src="https://ps.w.org/wpsso/assets/screenshot-23.png?rev=9999999" style="width:40%;float:right;margin:0 0 20px 40px;" />WPSSO provides <a href="https://developers.google.com/structured-data/customize/social-profiles">author (Person) and publisher (Organization) social profiles markup in schema.org JSON-LD format for Google Search and their <em>Knowledge Graph</em></a>. The author (Person) markup includes the author's website URL, their profile social sharing image, and all listed contact URLs from their user profile. The publisher (Organization) markup includes the website URL, a corporate logo, a default image, and the publisher Facebook, Google+, LinkedIn, Pinterest, and Twitter business pages.
 
 = Complete Social Meta Tags =
 
