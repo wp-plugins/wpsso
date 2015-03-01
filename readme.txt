@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.1.1
-Stable Tag: 2.8.1
+Stable Tag: 2.8.2
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -389,10 +389,10 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 = Version 2.8.2 =
 
 * **Bugfixes**
-	* *None*
+	* Fixed Rich Pin Image Dimensions setting in Free version by inheriting the Open Graph values.
+	* Added a `WpssoUser::get_user_id_contact_methods()` static method to provide `wp_get_user_contact_methods()` for older WordPress versions.
 * **Improvements**
 	* Added a 'View Plugin Details' link on the Pro Licenses settings page and updated its layout.
-	* Added the `WpssoUser::get_user_id_contact_methods()` static method to provide `wp_get_user_contact_methods()` for older WordPress installations.
 * **New Features**
 	* *None*
 
@@ -437,7 +437,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
-= 2.8.1 =
+= 2.8.2 =
 
-Includes support for Google's Person and Organization social profiles markup in schema.org JSON-LD format. Added a new 'wpsso_init_objects' action for WPSSO extension plugins.
+Fixed Rich Pin Image Dimensions values in Free version, added wp_get_user_contact_methods() wrapper for older WordPress versions, new 'View Plugin details' link on Pro Licenses settings page.
 
