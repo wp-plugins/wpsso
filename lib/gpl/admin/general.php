@@ -90,7 +90,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 
 			if ( $this->p->options['plugin_display'] == 'all' ) {
 
-				$rows[] = $this->p->util->th( 'Default Video URL', null, 'og_def_vid_url' ).
+				$rows[] = $this->p->util->th( 'Default / Fallback Video URL', null, 'og_def_vid_url' ).
 				'<td class="blank">'.$form->options['og_def_vid_url'].'</td>';
 		
 				$rows[] = $this->p->util->th( 'Force Default Video on Indexes', null, 'og_def_vid_on_index' ).

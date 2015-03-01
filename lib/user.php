@@ -224,6 +224,24 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			}
 		}
 
+		// provides backwards compatibility for wp 3.0
+		public static function get_user_id_contact_methods( $user_id ) {
+			$user = get_user_by( 'id', $user_id );
+			if ( function_exists( 'wp_get_user_contact_methods' ) )	// since wp 3.7
+				return wp_get_user_contact_methods( $user );
+			else {
+				$methods = array();
+				if ( get_site_option( 'initial_db_version' ) < 23588 ) {
+					$methods = array(
+						'aim'    => __( 'AIM' ),
+						'yim'    => __( 'Yahoo IM' ),
+						'jabber' => __( 'Jabber / Google Talk' )
+					); 
+				}
+				return apply_filters( 'user_contactmethods', $methods, $user );
+			}
+		}
+
 		public function get_person_json_script( $author_id, $size_name = 'thumbnail' ) {
 			if ( empty( $author_id ) )
 				return false;
@@ -232,8 +250,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			if ( strpos( $website_url, '://' ) === false )
 				return false;
 
-			$user = get_user_by( 'id', $author_id );
-			$cm = wp_get_user_contact_methods( $user );
+			$cm = self::get_user_id_contact_methods( $author_id );
 			$og_image = $this->p->media->get_author_image( 1, $size_name, $author_id, false );
 			if ( count( $og_image ) > 0 ) {
 				$image = reset( $og_image );

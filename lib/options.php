@@ -140,10 +140,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					if ( $options_name == WPSSO_SITE_OPTIONS_NAME )
 						$url = $this->p->util->get_admin_url( 'network' );
 					else $url = $this->p->util->get_admin_url( 'general' );
-
-					$this->p->notice->err( 'WordPress '.$opts_err_msg.' the options table. 
-						Plugin settings have been returned to their default values. 
-						<a href="'.$url.'">Please review and save the new settings</a>.' );
+					$this->p->notice->err( 'WordPress '.$opts_err_msg.' the options table. Plugin settings have been returned to their default values. <a href="'.$url.'">Please review and save the new settings</a>.' );
 				}
 				if ( $options_name == WPSSO_OPTIONS_NAME ) {
 					if ( $this->p->check->aop() &&
@@ -151,11 +148,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 						$opts['tc_prod_def_label2'] === $this->p->cf['opt']['defaults']['tc_prod_def_label2'] &&
 						$opts['tc_prod_def_data2'] === $this->p->cf['opt']['defaults']['tc_prod_def_data2'] ) {
 	
-						$this->p->notice->inf( 'An eCommerce plugin has been detected. Please update Twitter\'s
-							<em>Product Card Default 2nd Label</em> option values on the '.
-							$this->p->util->get_admin_url( 'general#sucom-tab_pub_twitter', 'General settings page' ). ' 
-							(to something else than \''.$this->p->cf['opt']['defaults']['tc_prod_def_label2'].
-							'\' and \''.$this->p->cf['opt']['defaults']['tc_prod_def_data2'].'\').' );
+						$this->p->notice->inf( 'An eCommerce plugin has been detected. Please update Twitter\'s <em>Product Card Default 2nd Label</em> option values on the '.$this->p->util->get_admin_url( 'general#sucom-tab_pub_twitter', 'General settings page' ).' (to something else than \''.$this->p->cf['opt']['defaults']['tc_prod_def_label2'].'\' and \''.$this->p->cf['opt']['defaults']['tc_prod_def_data2'].'\').' );
 					}
 				}
 				if ( $this->p->is_avail['aop'] === true && empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) && 
@@ -193,7 +186,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 			 * All options (site and meta as well) are sanitized
 			 * here, so use always isset() or array_key_exists() on
 			 * all tests to make sure additional / unnecessary
-			 * options are not created.
+			 * options are not created in post meta.
 			 */
 			foreach ( array( 'og', 'rp' ) as $meta_pre ) {
 				if ( ! empty( $opts[$meta_pre.'_img_width'] ) &&
@@ -215,14 +208,25 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				}
 			}
 
+			if ( ! $this->p->check->aop() ) {
+				// the free version does not provide editing of rich pin image dimensions
+				foreach( array( 'width', 'height', 'crop', 'crop_x', 'crop_y' ) as $suffix ) {
+					if ( isset( $opts['og_img_'.$suffix] ) &&
+						isset( $opts['rp_img_'.$suffix] ) ) {
+						$opts['rp_img_'.$suffix] = $opts['og_img_'.$suffix];
+					}
+				}
+				// the free version does not provide file caching services
+				if ( ! empty( $opts['plugin_file_cache_hrs'] ) )
+					$opts['plugin_file_cache_hrs'] = 0;
+			}
+
+			// if an image id is being used, remove the image url (only one can be defined)
 			if ( ! empty( $opts['og_def_img_id'] ) &&
 				! empty( $opts['og_def_img_url'] ) )
 					$opts['og_def_img_url'] = '';
 
-			if ( isset( $opts['plugin_file_cache_hrs'] ) &&
-				! $this->p->check->aop() )
-					$opts['plugin_file_cache_hrs'] = 0;
-
+			// if there's no google api key, then disable the shortening service
 			if ( isset( $opts['plugin_google_api_key'] ) &&
 				empty( $opts['plugin_google_api_key'] ) ) {
 				$opts['plugin_google_shorten'] = 0;
@@ -279,10 +283,7 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					}
 				} else {
 					$this->p->debug->log( 'failed to save the upgraded '.$options_name.' settings' );
-					$this->p->notice->err( 'The plugin settings ('.$options_name.') have been upgraded, but WordPress returned an error when saving 
-					them to the options table (WordPress '.( $options_name == WPSSO_SITE_OPTIONS_NAME ? 'update_site_option' : 'update_option' ).
-					'() function did not return true). This is a known issue in some shared hosting environments. The plugin will attempt to upgraded 
-					and save its settings again. Report the issue to your hosting provider if you see this warning message more than once.', true );
+					$this->p->notice->err( 'The plugin settings ('.$options_name.') have been upgraded, but WordPress returned an error when saving them to the options table (WordPress '.( $options_name == WPSSO_SITE_OPTIONS_NAME ? 'update_site_option' : 'update_option' ).'() function did not return true). This is a known issue in some shared hosting environments. The plugin will attempt to upgraded and save its settings again. Report the issue to your hosting provider if you see this warning message more than once.', true );
 					return false;
 				}
 			} else $this->p->debug->log( 'new and old options array is identical' );

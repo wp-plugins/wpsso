@@ -23,8 +23,9 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 		}
 
 		public function admin_enqueue_styles( $hook ) {
+			$lca = $this->p->cf['lca'];
 			$url_path = constant( $this->p->cf['uca'].'_URLPATH' );
-			$plugin_version = $this->p->cf['plugin'][$this->p->cf['lca']]['version'];
+			$plugin_version = $this->p->cf['plugin'][$lca]['version'];
 			wp_register_style( 'jquery-qtip.js', $url_path.'css/ext/jquery-qtip.min.css', array(), '2.2.1' );
 			wp_register_style( 'sucom-setting-pages', $url_path.'css/com/setting-pages.min.css', array(), $plugin_version );
 			wp_register_style( 'sucom-table-setting', $url_path.'css/com/table-setting.min.css', array(), $plugin_version );
@@ -39,7 +40,10 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 					wp_enqueue_style( 'sucom-table-setting' );
 					wp_enqueue_style( 'sucom-metabox-tabs' );
 					break;
-				case ( preg_match( '/_page_'.$this->p->cf['lca'].'-/', $hook ) ? true : false ) :
+				case ( preg_match( '/_page_'.$lca.'-(site)?licenses/', $hook ) ? true : false ) :
+					add_thickbox();
+					// no break
+				case ( preg_match( '/_page_'.$lca.'-/', $hook ) ? true : false ) :
 					wp_enqueue_style( 'jquery-qtip.js' );
 					wp_enqueue_style( 'sucom-setting-pages' );
 					wp_enqueue_style( 'sucom-table-setting' );

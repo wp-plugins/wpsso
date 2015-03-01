@@ -19,7 +19,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.8.1',		// plugin version
+					'version' => '2.8.2',		// plugin version
 					'short' => 'WPSSO',		// short plugin name
 					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
 					'desc' => 'Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.',
@@ -125,6 +125,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'short' => 'WPSSO AM',		// short plugin name
 					'name' => 'WPSSO App Meta (WPSSO AM)',
 					'desc' => 'WPSSO extension to provide Apple Store / iTunes and Google Play App meta tags for Apple\'s mobile Safari and Twitter\'s App Card.',
+					'slug' => 'wpsso-am',
 					'img' => array(
 						'icon-small' => 'https://ps.w.org/wpsso-am/assets/icon-128x128.png?rev=',
 						'icon-medium' => 'https://ps.w.org/wpsso-am/assets/icon-256x256.png?rev=',
@@ -137,6 +138,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'short' => 'WPSSO PLM',		// short plugin name
 					'name' => 'WPSSO Place and Location Meta (WPSSO PLM)',
 					'desc' => 'WPSSO extension to provide Facebook / Open Graph "Location" and Pinterest "Place" Rich Pin meta tags.',
+					'slug' => 'wpsso-plm',
 					'img' => array(
 						'icon-small' => 'https://ps.w.org/wpsso-plm/assets/icon-128x128.png?rev=',
 						'icon-medium' => 'https://ps.w.org/wpsso-plm/assets/icon-256x256.png?rev=',
@@ -149,6 +151,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'short' => 'WPSSO SSB',		// short plugin name
 					'name' => 'WPSSO Social Sharing Buttons (WPSSO SSB)',
 					'desc' => 'WPSSO extension to provide fast and accurate Social Sharing Buttons, including support for hashtags, shortening, bbPress, BuddyPress, and WooCommerce.',
+					'slug' => 'wpsso-ssb',
 					'img' => array(
 						'icon-small' => 'https://ps.w.org/wpsso-ssb/assets/icon-128x128.png?rev=',
 						'icon-medium' => 'https://ps.w.org/wpsso-ssb/assets/icon-256x256.png?rev=',

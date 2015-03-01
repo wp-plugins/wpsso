@@ -56,12 +56,14 @@ if ( ! class_exists( 'WpssoSitesubmenuSiteadvanced' ) && class_exists( 'WpssoAdm
 
 					$rows[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_preserve' ).'</td>'.
-					$this->p->util->th( 'Site Use', 'site_use' ).'<td>'.$this->form->get_select( 'plugin_preserve:use',
+					$this->p->util->th( 'Site Use', 'narrow' ).'<td>'.
+					$this->form->get_select( 'plugin_preserve:use',
 						$this->p->cf['form']['site_option_use'], 'site_use' ).'</td>'; 
 					
 					$rows[] = $this->p->util->th( 'Add Hidden Debug Messages', null, 'plugin_debug' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_debug' ).'</td>'.
-					$this->p->util->th( 'Site Use', 'site_use' ).'<td>'.$this->form->get_select( 'plugin_debug:use',
+					$this->p->util->th( 'Site Use', 'narrow' ).'<td>'.
+					$this->form->get_select( 'plugin_debug:use',
 						$this->p->cf['form']['site_option_use'], 'site_use' ).'</td>';
 						
 					break;

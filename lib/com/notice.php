@@ -104,29 +104,29 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 				if ( ! empty( $msg_arr ) ) {
 					if ( $type == 'nag' ) 
 						echo '<style type="text/css">
-							.'.$this->lca.'-update-nag {
-								display:block;
-								line-height:1.4em;
-								background-image: url("'.constant( $this->p->cf['uca'].'_URLPATH' ).'images/background.jpg");
-								background-position:top;
-								background-size:cover;
-								border:1px dashed #ccc;
-								padding:10px 40px 10px 40px;
-								margin-top:0;
-							}
-							.'.$this->lca.'-update-nag p,
-							.'.$this->lca.'-update-nag ul {
-								max-width:900px;
-								margin:15px auto 15px auto;
-								text-align:center;
-							}
-							.'.$this->lca.'-update-nag li {
-								list-style:circle outside none;
-								text-align:left;
-								margin:5px 0 5px 20px;
-							}
-						</style>';
-
+	.'.$this->lca.'-update-nag {
+		display:block;
+		line-height:1.4em;
+		background-image: url("'.constant( $this->p->cf['uca'].'_URLPATH' ).'images/background.jpg");
+		background-position:top;
+		background-size:cover;
+		border:1px dashed #ccc;
+		padding:10px 40px 10px 40px;
+		margin-top:0;
+	}
+	.'.$this->lca.'-update-nag p,
+	.'.$this->lca.'-update-nag ul {
+		clear:both;
+		max-width:900px;
+		margin:15px auto 15px auto;
+		text-align:center;
+	}
+	.'.$this->lca.'-update-nag li {
+		list-style:circle outside none;
+		text-align:left;
+		margin:5px 0 5px 20px;
+	}
+</style>';
 					foreach ( $msg_arr as $key => $msg ) {
 						if ( ! empty( $msg ) ) {
 							$cssid = strpos( $key, $type.'_' ) === 0 ? $cssid=' id="'.$key.'"' : '';
