@@ -70,7 +70,6 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 			 */
 			if ( $filter === true )
 				$sizes = apply_filters( $this->p->cf['lca'].'_plugin_image_sizes', $sizes, $post_id );
-			$def_opts = $this->p->opt->get_defaults();
 			$meta_opts = array();
 
 			// allow custom post meta to override the image size options
@@ -103,7 +102,11 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 						$size_info[$key] = $meta_opts[$opt_prefix.'_'.$key];
 					elseif ( isset( $this->p->options[$opt_prefix.'_'.$key] ) )		// current plugin settings
 						$size_info[$key] = $this->p->options[$opt_prefix.'_'.$key];
-					else $size_info[$key] = $def_opts[$opt_prefix.'_'.$key];		// default settings value
+					else {
+						if ( ! isset( $def_opts ) )					// only read once if necessary
+							$def_opts = $this->p->opt->get_defaults();
+						$size_info[$key] = $def_opts[$opt_prefix.'_'.$key];		// fallback to default value
+					}
 
 					if ( $key === 'crop' )							// make sure crop is true or false
 						$size_info[$key] = empty( $size_info[$key] ) ? false : true;
