@@ -314,7 +314,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 		}
 
 		protected function get_nonce() {
-			return plugin_basename( __FILE__ );
+			return ( defined( 'NONCE_KEY' ) ? NONCE_KEY : '' ).plugin_basename( __FILE__ );
 		}
 	}
 }
