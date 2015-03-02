@@ -640,7 +640,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			$display_opts_key = SucomUtil::next_key( $this->p->options['plugin_display'], 
 				$this->p->cf['form']['display_options'] );
-			$display_opts_text = __( 'Display '.$this->p->cf['form']['display_options'][$display_opts_key], WPSSO_TEXTDOM );
+			$display_opts_text = __( 'Show '.$this->p->cf['form']['display_options'][$display_opts_key], WPSSO_TEXTDOM );
 			$display_opts_url = $this->p->util->get_admin_url( '?action=change_display_options&display_options='.$display_opts_key );
 
 			$action_buttons .= $this->form->get_button( $display_opts_text, 
@@ -648,17 +648,17 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					$this->get_nonce(), WPSSO_NONCE ) );
 
 			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
-				$action_buttons .= $this->form->get_button( __( 'Clear All Cache', WPSSO_TEXTDOM ), 
+				$action_buttons .= $this->form->get_button( __( 'Clear All Cache(s)', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_all_cache' ),
 						$this->get_nonce(), WPSSO_NONCE ) );
 
 			if ( ! empty( $this->p->options['plugin_'.$this->p->cf['lca'].'_tid'] ) )
-				$action_buttons .= $this->form->get_button( __( 'Update Check', WPSSO_TEXTDOM ), 
+				$action_buttons .= $this->form->get_button( __( 'Check for Pro Update', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=check_for_updates' ), 
 						$this->get_nonce(), WPSSO_NONCE ) );
 
 			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
-				$action_buttons .= $this->form->get_button( __( 'Reset Metaboxes', WPSSO_TEXTDOM ), 
+				$action_buttons .= $this->form->get_button( __( 'Reset Metabox Layout', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_metabox_prefs' ),
 						$this->get_nonce(), WPSSO_NONCE ) );
 
