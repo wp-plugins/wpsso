@@ -363,20 +363,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 			?>
 			<div class="wrap" id="<?php echo $this->pagehook; ?>">
-				<h2>
-					<?php 
-					$this->show_follow_icons();
-					echo '<div class="display_options_info">';
-					echo '<strong>'.$this->p->cf['form']['display_options'][$this->p->options['plugin_display']].'</strong>';
-
-					$next_key = SucomUtil::next_key( $this->p->options['plugin_display'], $this->p->cf['form']['display_options'] );
-					if ( $next_key !== false )
-						echo ' | <a href="'.wp_nonce_url( $this->p->util->get_admin_url( '?action=change_display_options&display_options='.$next_key ),
-							$this->get_nonce(), WPSSO_NONCE ).'">Display '.$this->p->cf['form']['display_options'][$next_key].'</a>';
-					echo '</div>';
-					echo $short_aop.' &ndash; '.$this->menu_name;
-					?>
-				</h2>
+				<h2><?php $this->show_follow_icons(); echo $short_aop.' &ndash; '.$this->menu_name; ?></h2>
 				<div id="poststuff" class="metabox-holder has-right-sidebar">
 					<div id="side-info-column" class="inner-sidebar">
 						<?php do_meta_boxes( $this->pagehook, 'side', null ); ?>
@@ -651,6 +638,15 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$submit_text = __( 'Save All Changes', WPSSO_TEXTDOM );
 			$action_buttons = '<input type="submit" class="button-primary" value="'.$submit_text.'" />';
 
+			$display_opts_key = SucomUtil::next_key( $this->p->options['plugin_display'], 
+				$this->p->cf['form']['display_options'] );
+			$display_opts_text = __( 'Display '.$this->p->cf['form']['display_options'][$display_opts_key], WPSSO_TEXTDOM );
+			$display_opts_url = $this->p->util->get_admin_url( '?action=change_display_options&display_options='.$display_opts_key );
+
+			$action_buttons .= $this->form->get_button( $display_opts_text, 
+				'button-secondary', null, wp_nonce_url( $display_opts_url,
+					$this->get_nonce(), WPSSO_NONCE ) );
+
 			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages
 				$action_buttons .= $this->form->get_button( __( 'Clear All Cache', WPSSO_TEXTDOM ), 
 					'button-secondary', null, wp_nonce_url( $this->p->util->get_admin_url( '?action=clear_all_cache' ),
@@ -670,7 +666,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		protected function get_nonce() {
-			return plugin_basename( __FILE__ );
+			return ( defined( 'NONCE_KEY' ) ? NONCE_KEY : '' ).plugin_basename( __FILE__ );
 		}
 	}
 }
