@@ -386,6 +386,16 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.8.2.1 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Slight performance improvement by preventing default settings from being read (unless necessary) when defining the plugin image sizes.
+	* Moved the "Display Basic Options" and "Display All Options" links to a single button at the bottom of WPSSO settings pages.
+* **New Features**
+	* *None*
+
 = Version 2.8.2 =
 
 * **Bugfixes**
@@ -437,7 +447,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
-= 2.8.2 =
+= 2.8.2.1 =
 
-Fixed Rich Pin Image Dimensions values in Free version, added wp_get_user_contact_methods() wrapper for older WordPress versions, new 'View Plugin details' link on Pro Licenses settings page.
+Slight performance improvement by preventing default settings from being read (unless necessary) when defining the plugin image sizes.
 
