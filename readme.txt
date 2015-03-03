@@ -386,6 +386,15 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 2.8.2.2 =
+
+* **Bugfixes**
+	* *None*
+* **Improvements**
+	* Disabled the loading of meta tags on media upload pages.
+* **New Features**
+	* *None*
+
 = Version 2.8.2.1 =
 
 * **Bugfixes**
