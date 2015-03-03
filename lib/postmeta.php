@@ -48,7 +48,7 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 
 		// hooked into the admin_head action
 		public function set_header_tags() {
-			if ( ! empty( $this->header_tags ) )
+			if ( ! empty( $this->header_tags ) )	// only set header tags once
 				return;
 
 			if ( ( $obj = $this->p->util->get_post_object() ) === false ||
@@ -56,9 +56,11 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 					return;
 
 			$screen = get_current_screen();
-			$page = $screen->id;
-			if ( strpos( $page, 'edit-' ) !== false )	// check for post/page edititing lists
-				return;
+			$this->p->debug->log( 'screen id = '.$screen->id );
+			// check for post/page/media edititing lists
+			if ( strpos( $screen->id, 'edit-' ) !== false ||
+				$screen->id === 'upload' )
+					return;
 
 			$post_id = empty( $obj->ID ) ? 0 : $obj->ID;
 			if ( isset( $obj->post_status ) && $obj->post_status !== 'auto-draft' ) {

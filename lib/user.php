@@ -43,19 +43,19 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 
 		// hooked into the admin_head action
 		public function set_header_tags() {
-			if ( ! empty( $this->header_tags ) )
+			if ( ! empty( $this->header_tags ) )	// only set header tags once
 				return;
 
 			$screen = get_current_screen();
-			$page = $screen->id;
-			switch ( $page ) {
+			$this->p->debug->log( 'screen id = '.$screen->id );
+			switch ( $screen->id ) {
 				case 'user-edit':
 				case 'profile':
 					$add_metabox = empty( $this->p->options[ 'plugin_add_to_user' ] ) ? false : true;
-					if ( apply_filters( $this->p->cf['lca'].'_add_metabox_usermeta', $add_metabox, $page ) === true ) {
+					if ( apply_filters( $this->p->cf['lca'].'_add_metabox_usermeta', $add_metabox, $screen->id ) === true ) {
 
 						$this->p->util->add_plugin_image_sizes();
-						do_action( $this->p->cf['lca'].'_admin_usermeta_header', $page );
+						do_action( $this->p->cf['lca'].'_admin_usermeta_header', $screen->id );
 						$this->header_tags = $this->p->head->get_header_array( false );
 						$this->post_info = $this->p->head->extract_post_info( $this->header_tags );
 
