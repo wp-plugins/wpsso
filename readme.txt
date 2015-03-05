@@ -456,7 +456,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
-= 2.8.2.1 =
+= 2.8.2.2 =
 
-Slight performance improvement by preventing default settings from being read (unless necessary) when defining the plugin image sizes.
+Slight performance improvement by disabled the loading of meta tags for media upload pages.
 
