@@ -598,8 +598,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 						case 'info-review':
 							$text = '<blockquote style="margin-top:0;">
-							<p>If you appreciate the features or quality of this plugin, and/or the support we provide, please <a href="'.$url['review'].'" target="_blank">take a moment to rate the '.$short.' plugin on WordPress.org</a>.</p>
-							<p><strong>Your rating will help other WordPress users find higher quality and better supported plugins</strong> &mdash; <em>and encourage us to keep improving '.$short.' as well!</em> :)</p>
+							<p>If you appreciate the features or quality of this plugin, and/or the support we provide, please <a href="'.$url['review'].'" target="_blank">take a moment to rate the '.$short.' plugin on WordPress.org</a>. Your rating will help other WordPress users find higher quality and better supported plugins &mdash; and <strong>encourage us to keep improving '.$short.'</strong> as well! ;-)</p>
 							</blockquote>';
 							break;
 						case 'info-pub-pinterest':
