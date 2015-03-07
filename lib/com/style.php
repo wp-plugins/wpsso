@@ -54,10 +54,7 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 					$this->thickbox_inline_styles( $hook );
 					break;
 			}
-			$this->menu_inline_styles( $hook );
-		}
-
-		private function menu_inline_styles( $hook ) {
+			$this->admin_inline_styles( $hook );
 		}
 
 		private function thickbox_inline_styles( $hook ) {
@@ -72,6 +69,9 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 		clear:none;
 		display:none;
 </style>';
+		}
+
+		private function admin_inline_styles( $hook ) {
 		}
 	}
 }
