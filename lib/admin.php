@@ -140,7 +140,12 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				( $this->p->check->aop( $this->p->cf['lca'] ) ? ' Pro' : '' );
 
 			if ( strpos ( $menu_id, 'separator' ) !== false ) {
-				$menu_title = '<div style="z-index:999;padding:2px 0;margin:0;cursor:default;border-bottom:1px dotted;color:#666;" onclick="return false;"></div>';
+				$menu_title = '<div style="z-index:999;
+					padding:2px 0;
+					margin:0;
+					cursor:default;
+					border-bottom:1px dotted;
+					color:#666;" onclick="return false;"></div>';
 				$menu_slug = '';
 				$page_title = '';
 				$function = '';

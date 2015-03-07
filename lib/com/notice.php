@@ -107,7 +107,7 @@ if ( ! class_exists( 'SucomNotice' ) ) {
 	.'.$this->lca.'-update-nag {
 		display:block;
 		line-height:1.4em;
-		background-image: url("'.constant( $this->p->cf['uca'].'_URLPATH' ).'images/background.jpg");
+		background-image:url("'.constant( $this->p->cf['uca'].'_URLPATH' ).'images/background.jpg");
 		background-position:top;
 		background-size:cover;
 		border:1px dashed #ccc;
