@@ -20,7 +20,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'update_check_hours' => 24,
 			'plugin' => array(
 				'wpsso' => array(
-					'version' => '2.8.2.2',		// plugin version
+					'version' => '2.8.3',		// plugin version
 					'short' => 'WPSSO',		// short plugin name
 					'name' => 'WordPress Social Sharing Optimization (WPSSO)',
 					'desc' => 'Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.',
@@ -48,7 +48,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					),
 					'lib' => array(			// libraries
 						'setting' => array (
-							'contact' => 'Contact Fields',
+							'contact-fields' => 'Contact Fields',
 						),
 						'submenu' => array (
 							'general' => 'General',
@@ -600,7 +600,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				if ( file_exists( $filepath ) ) {
 					require_once( $filepath );
 					if ( empty( $classname ) )
-						return 'wpsso'.str_replace( '/', '', $filespec );
+						return 'wpsso'.str_replace( array( '/', '-' ), '', $filespec );
 					else return $classname;
 				}
 			}
