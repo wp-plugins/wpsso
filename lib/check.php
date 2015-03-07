@@ -341,7 +341,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
                                 $this->p->debug->log( $conflict_log_prefix.'NGFB plugin is active' );
                                 $this->p->notice->err( $conflict_err_prefix. 
 					sprintf( __( 'Please <a href="%s">deactivate the NextGEN Facebook (NGFB) plugin</a> to prevent duplicate and conflicting features.', WPSSO_TEXTDOM ), 
-						get_admin_url( null, 'plugins.php' ) ) );
+						get_admin_url( null, 'plugins.php?s=nextgen-facebook/nextgen-facebook.php' ) ) );
                         }
 
 			// WooCommerce
@@ -372,7 +372,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
                                 $this->p->debug->log( $conflict_log_prefix.'facebook plugin is active' );
                                 $this->p->notice->err( $conflict_err_prefix. 
 					sprintf( __( 'Please <a href="%s">deactivate the Facebook plugin</a> to prevent duplicate Open Graph meta tags in your webpage headers.', WPSSO_TEXTDOM ), 
-						get_admin_url( null, 'plugins.php' ) ) );
+						get_admin_url( null, 'plugins.php?s=facebook/facebook.php' ) ) );
                         }
 
 			// AddThis Social Bookmarking Widget

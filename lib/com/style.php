@@ -27,10 +27,14 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 			$url_path = constant( $this->p->cf['uca'].'_URLPATH' );
 			$plugin_version = $this->p->cf['plugin'][$lca]['version'];
 
-			wp_register_style( 'jquery-qtip.js', $url_path.'css/ext/jquery-qtip.min.css', array(), '2.2.1' );
-			wp_register_style( 'sucom-setting-pages', $url_path.'css/com/setting-pages.min.css', array(), $plugin_version );
-			wp_register_style( 'sucom-table-setting', $url_path.'css/com/table-setting.min.css', array(), $plugin_version );
-			wp_register_style( 'sucom-metabox-tabs', $url_path.'css/com/metabox-tabs.min.css', array(), $plugin_version );
+			wp_register_style( 'jquery-qtip.js',
+				$url_path.'css/ext/jquery-qtip.min.css', array(), '2.2.1' );
+			wp_register_style( 'sucom-setting-pages',
+				$url_path.'css/com/setting-pages.min.css', array(), $plugin_version );
+			wp_register_style( 'sucom-table-setting',
+				$url_path.'css/com/table-setting.min.css', array(), $plugin_version );
+			wp_register_style( 'sucom-metabox-tabs',
+				$url_path.'css/com/metabox-tabs.min.css', array(), $plugin_version );
 
 			switch ( $hook ) {
 				case 'user-edit.php':
@@ -72,6 +76,16 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 		}
 
 		private function admin_inline_styles( $hook ) {
+			if ( isset( $this->p->cf['color'] ) ) {
+				$menu_slug = $this->p->cf['lca'].'-'.
+					key( $this->p->cf['*']['lib']['submenu'] );
+				echo '
+<style type="text/css">
+	li.menu-top.toplevel_page_'.$menu_slug.' div.wp-menu-image:before {
+		color:#'.$this->p->cf['color'].' !important;
+	}
+</style>';
+			}
 		}
 	}
 }
