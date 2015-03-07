@@ -335,7 +335,9 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			 */
 
 			// NextGEN Facebook (NGFB)
-			if ( class_exists( 'Ngfb' ) || in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) ) {
+			if ( class_exists( 'Ngfb' ) || 
+				in_array( 'nextgen-facebook/nextgen-facebook.php', $this->active_plugins ) ) {
+
                                 $this->p->debug->log( $conflict_log_prefix.'NGFB plugin is active' );
                                 $this->p->notice->err( $conflict_err_prefix. 
 					sprintf( __( 'Please <a href="%s">deactivate the NextGEN Facebook (NGFB) plugin</a> to prevent duplicate and conflicting features.', WPSSO_TEXTDOM ), 
