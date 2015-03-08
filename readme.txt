@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.txt
 Requires At Least: 3.0
 Tested Up To: 4.1.1
-Stable Tag: 2.8.2.2
+Stable Tag: 2.8.3
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
@@ -392,7 +392,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 = Version 2.8.3 =
 
 * **Bugfixes**
-	* Fixed the input field counter in metabox CSS that wasn't appearing properly.
+	* Fixed the Social Settings jQuery / CSS input counters that were not showing.
 * **Improvements**
 	* Renamed all metabox tab CSS ids to allow better parsing of metabox and tab names.
 	* Replaced the "Show Basic / All Options" setting to one which is individual to each user's preference.
@@ -473,7 +473,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 
 == Upgrade Notice ==
 
-= 2.8.2.2 =
+= 2.8.3 =
 
-Slight performance improvement by disabled the loading of meta tags for media upload pages.
+Fixed the Social Settings input counters, moved "Show Basic / All Options" setting to an individual user preference.
 
