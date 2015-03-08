@@ -31,7 +31,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
+
 				$rows[] = $this->p->util->th( 'Title Length', null, 'og_title_len' ).
 				'<td class="blank">'.$this->p->options['og_title_len'].' characters or less</td>';
 
@@ -48,7 +49,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			$rows[] = $this->p->util->th( 'Hashtags in Description', null, 'og_desc_hashtags' ).
 			'<td class="blank">'.$this->p->options['og_desc_hashtags'].' tag names</td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
+
 				$rows[] = $this->p->util->th( 'Add Page Title in Tags', null, 'og_page_title_tag' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'og_page_title_tag' ).'</td>';
 		
@@ -60,7 +62,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 		}
 
 		public function filter_og_images_rows( $rows, $form ) {
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+
+			if ( WpssoUser::show_opts( 'all' ) ) {
 
 				$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
@@ -88,7 +91,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			$rows[] = $this->p->util->th( 'Include Video Preview Image', null, 'og_vid_prev_img' ).
 			'<td class="blank">'.$form->get_no_checkbox( 'og_vid_prev_img' ).'</td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
 
 				$rows[] = $this->p->util->th( 'Default / Fallback Video URL', null, 'og_def_vid_url' ).
 				'<td class="blank">'.$form->options['og_def_vid_url'].'</td>';
@@ -115,7 +118,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			$rows[] = $this->p->util->th( 'Author Profile URL Field', null, 'og_author_field' ).
 			'<td class="blank">'.$form->author_contact_fields[$this->p->options['og_author_field']].'</td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
+
 				$rows[] = $this->p->util->th( 'Fallback to Author Index URL', null, 'og_author_fallback' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'og_author_fallback' ).'</td>';
 
@@ -152,7 +156,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			$rows[] = $this->p->util->th( 'Schema Website / Business Logo URL', null, 'google_schema_logo_url' ).
 			'<td class="blank">'.$form->options['schema_logo_url'].'</td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
 
 				$rows[] = $this->p->util->th( 'Schema Description Length', null, 'google_schema_desc_len' ).
 				'<td class="blank">'.$form->options['schema_desc_len'].' characters or less</td>';
@@ -164,7 +168,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			$rows[] = $this->p->util->th( 'Author Link URL Field', null, 'google_author_field' ).
 			'<td class="blank">'.$form->author_contact_fields[$this->p->options['seo_author_field']].'</td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
 
 				$rows[] = $this->p->util->th( 'Default Author when Missing', null, 'google_def_author_id' ).
 				'<td class="blank">'.$form->user_ids[$this->p->options['seo_def_author_id']].'</td>';
@@ -218,7 +222,8 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			$rows[] = $this->p->util->th( 'Enable Twitter Cards', 'highlight', 'tc_enable' ).
 			'<td class="blank"><input type="checkbox" disabled="disabled" /></td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
+
 				$rows[] = $this->p->util->th( 'Maximum Description Length', null, 'tc_desc_len' ).
 				'<td class="blank">'.$this->p->options['tc_desc_len'].' characters or less</td>';
 			}
@@ -226,7 +231,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 			$rows[] = $this->p->util->th( 'Website @username to Follow', 'highlight', 'tc_site' ).
 			'<td class="blank">'.$this->p->options['tc_site'].'</td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
 
 				$rows[] = $this->p->util->th( '<em>Summary</em> Card Image Dimensions', null, 'tc_sum_dimensions' ).
 				'<td class="blank">'.$form->get_image_dimensions_text( 'tc_sum' ).'</td>';
@@ -247,7 +252,7 @@ if ( ! class_exists( 'WpssoGplAdminGeneral' ) ) {
 				'<td class="blank">'.$form->get_image_dimensions_text( 'tc_prod' ).'</td>';
 			}
 
-			if ( $this->p->options['plugin_display'] == 'all' || $this->p->is_avail['ecom']['*'] === true ) {
+			if ( WpssoUser::show_opts( 'all' ) || $this->p->is_avail['ecom']['*'] === true ) {
 
 				$rows[] = $this->p->util->th( '<em>Product</em> Card Maximum Labels', null, 'tc_prod_labels' ).
 				'<td class="blank">'.$this->p->options['tc_prod_labels'].'</td>';

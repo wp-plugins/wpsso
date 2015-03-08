@@ -208,8 +208,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$opts = $this->p->opt->sanitize( $opts, $def_opts );
 			$opts = apply_filters( $this->p->cf['lca'].'_save_options', $opts, WPSSO_OPTIONS_NAME );
 			$this->p->notice->inf( __( 'Plugin settings have been updated.', WPSSO_TEXTDOM ).' '.
-				sprintf( __( 'Wait %d seconds for cache objects to expire (default) or use the \'Clear All Cache\' button.', WPSSO_TEXTDOM ), 
-					$this->p->options['plugin_object_cache_exp'] ), true );
+				sprintf( __( 'Wait %d seconds for cache objects to expire (default) or use the \'Clear All Cache(s)\' button.', WPSSO_TEXTDOM ), $this->p->options['plugin_object_cache_exp'] ), true );
 			return $opts;
 		}
 
@@ -290,10 +289,9 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 							WpssoUser::delete_metabox_prefs( get_current_user_id() );
 							break;
 
-						case 'change_display_options': 
-							if ( isset( $this->p->cf['form']['display_options'][$_GET['display_options']] ) )
-								$this->p->options['plugin_display'] = $_GET['display_options'];
-							$this->p->opt->save_options( WPSSO_OPTIONS_NAME, $this->p->options );
+						case 'change_show_options': 
+							if ( isset( $this->p->cf['form']['show_options'][$_GET['show_opts']] ) )
+								WpssoUser::save_pref( array( 'show_opts' => $_GET['show_opts'] ) );
 							break;
 					}
 				}
@@ -407,16 +405,24 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		protected function show_form_content() {
 			if ( ! empty( $this->p->cf['*']['lib']['submenu'][$this->menu_id] ) ) {
-				echo '<form name="'.$this->p->cf['lca'].'" id="setting" method="post" action="options.php">';
-				echo $this->form->get_hidden( 'options_version', $this->p->cf['opt']['version'] );
-				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['plugin'][$this->p->cf['lca']]['version'] );
+				echo '<form name="'.$this->p->cf['lca'].'" 
+					id="'.$this->p->cf['lca'].'_settings_form" 
+					method="post" action="options.php">';
+				echo $this->form->get_hidden( 'options_version', 
+					$this->p->cf['opt']['version'] );
+				echo $this->form->get_hidden( 'plugin_version', 
+					$this->p->cf['plugin'][$this->p->cf['lca']]['version'] );
 				settings_fields( $this->p->cf['lca'].'_setting' ); 
 
 			} elseif ( ! empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) ) {
-				echo '<form name="'.$this->p->cf['lca'].'" id="setting" method="post" action="edit.php?action='.WPSSO_SITE_OPTIONS_NAME.'">';
+				echo '<form name="'.$this->p->cf['lca'].'" 
+					id="'.$this->p->cf['lca'].'_settings_form" 
+					method="post" action="edit.php?action='.WPSSO_SITE_OPTIONS_NAME.'">';
 				echo '<input type="hidden" name="page" value="'.$this->menu_id.'">';
-				echo $this->form->get_hidden( 'options_version', $this->p->cf['opt']['version'] );
-				echo $this->form->get_hidden( 'plugin_version', $this->p->cf['plugin'][$this->p->cf['lca']]['version'] );
+				echo $this->form->get_hidden( 'options_version', 
+					$this->p->cf['opt']['version'] );
+				echo $this->form->get_hidden( 'plugin_version', 
+					$this->p->cf['plugin'][$this->p->cf['lca']]['version'] );
 			}
 			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
 			wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
@@ -644,13 +650,12 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$submit_text = __( 'Save All Changes', WPSSO_TEXTDOM );
 			$action_buttons = '<input type="submit" class="button-primary" value="'.$submit_text.'" />';
 
-			$display_opts_key = SucomUtil::next_key( $this->p->options['plugin_display'], 
-				$this->p->cf['form']['display_options'] );
-			$display_opts_text = __( 'Show '.$this->p->cf['form']['display_options'][$display_opts_key], WPSSO_TEXTDOM );
-			$display_opts_url = $this->p->util->get_admin_url( '?action=change_display_options&display_options='.$display_opts_key );
+			$show_opts_next = SucomUtil::next_key( WpssoUser::show_opts(), $this->p->cf['form']['show_options'] );
+			$show_opts_text = 'Show '.$this->p->cf['form']['show_options'][$show_opts_next];
+			$show_opts_url = $this->p->util->get_admin_url( '?action=change_show_options&show_opts='.$show_opts_next );
 
-			$action_buttons .= $this->form->get_button( $display_opts_text, 
-				'button-secondary', null, wp_nonce_url( $display_opts_url,
+			$action_buttons .= $this->form->get_button( $show_opts_text, 
+				'button-secondary', null, wp_nonce_url( $show_opts_url,
 					$this->get_nonce(), WPSSO_NONCE ) );
 
 			if ( empty( $this->p->cf['*']['lib']['sitesubmenu'][$this->menu_id] ) )	// don't show on the network admin pages

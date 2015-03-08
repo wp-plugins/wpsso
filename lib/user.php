@@ -10,12 +10,20 @@ if ( ! defined( 'ABSPATH' ) )
 
 if ( ! class_exists( 'WpssoUser' ) ) {
 
+	/*
+	 * This class is extended by gpl/util/user.php or pro/util/user.php
+	 * and the class object is created as $this->p->mods['util']['user']
+	 */
 	class WpssoUser {
 
 		protected $p;
 		protected $form;
 		protected $header_tags = array();
 		protected $post_info = array();
+
+		protected $opts = array();
+		protected $defs = array();
+		protected static $pref = array();
 
 		protected function add_actions() {
 			add_filter( 'user_contactmethods', array( &$this, 'add_contact_methods' ), 20, 2 );
@@ -452,6 +460,59 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 
 		public function save_options( $user_id = false ) {
 			return $user_id;
+		}
+
+		public static function save_pref( $prefs, $user_id = false ) {
+			$user_id = $user_id === false ? 
+				get_current_user_id() : $user_id;
+			if ( ! current_user_can( 'edit_user', $user_id ) )
+				return false;
+			if ( ! is_array( $prefs ) || empty( $prefs ) )
+				return false;
+
+			$old_prefs = self::get_pref( false, $user_id );	// get all prefs for user
+			$new_prefs = array_merge( $old_prefs, $prefs );
+
+			// don't bother saving unless we have to
+			if ( $old_prefs !== $new_prefs ) {
+				unset( $new_prefs['options_filtered'] );
+				update_user_meta( $user_id, WPSSO_PREF_NAME, $new_prefs );
+				echo '<pre>'.print_r($new_prefs,true).'</pre>';
+				return true;
+			} else return false;
+		}
+
+		public static function show_opts( $test = false, $user_id = false ) {
+			$user_id = $user_id === false ? 
+				get_current_user_id() : $user_id;
+			$value = self::get_pref( 'show_opts' );
+			if ( $test !== false )
+				return $test === $value ? true : false;
+			else return $value;
+		}
+
+		public static function get_pref( $idx = false, $user_id = false ) {
+			$user_id = $user_id === false ? 
+				get_current_user_id() : $user_id;
+			if ( ! isset( self::$pref[$user_id]['options_filtered'] ) || 
+				self::$pref[$user_id]['options_filtered'] !== true ) {
+
+				self::$pref[$user_id] = get_user_meta( $user_id, WPSSO_PREF_NAME, true );
+				if ( ! is_array( self::$pref[$user_id] ) )
+					self::$pref[$user_id] = array();
+
+				$wpsso = Wpsso::get_instance();
+				if ( ! isset( self::$pref[$user_id]['show_opts'] ) )
+					self::$pref[$user_id]['show_opts'] = $wpsso->options['plugin_show_opts'];
+
+				self::$pref[$user_id]['options_filtered'] = true;
+			}
+			if ( $idx !== false ) {
+				if ( isset( self::$pref[$user_id][$idx] ) ) 
+					return self::$pref[$user_id][$idx];
+				else return false;
+			} else return self::$pref[$user_id];
+			return false;	// just in case
 		}
 
 		public function flush_cache( $user_id ) {

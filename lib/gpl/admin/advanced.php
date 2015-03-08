@@ -28,7 +28,7 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 			if ( $network === true )
 				return $rows;
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
 
 				$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
@@ -61,7 +61,8 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 
 			$rows[] = '<td colspan="2" align="center">'.$this->p->msgs->get( 'pro-feature-msg' ).'</td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
+
 				$rows[] =  $this->p->util->th( 'Ignore Thumbnails in Content', null, 'plugin_ignore_small_img' ).
 				'<td class="blank">'.$form->get_no_checkbox( 'plugin_ignore_small_img' ).'</td>';
 			}
@@ -74,7 +75,8 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 			'<p>'.$form->get_no_checkbox( 'plugin_youtube_api' ).' YouTube Videos and Playlists</p>'.
 			'</td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
+
 				$rows[] = $this->p->util->th( 'Enable Excerpt for Pages', null, 'plugin_page_excerpt' ).
 				'<td>'.$form->get_no_checkbox( 'plugin_page_excerpt' ).'</td>';
 
@@ -98,7 +100,8 @@ if ( ! class_exists( 'WpssoGplAdminAdvanced' ) ) {
 			$rows[] = $this->p->util->th( 'Show Custom Social Settings on', null, 'plugin_add_to' ).
 			'<td class="blank">'.$checkboxes.'</td>';
 			
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
+
 				$rows[] = $this->p->util->th( 'Image URL Custom Field', null, 'plugin_cf_img_url' ).
 				'<td class="blank">'.$form->get_hidden( 'plugin_cf_img_url' ).
 					$this->p->options['plugin_cf_img_url'].'</td>';

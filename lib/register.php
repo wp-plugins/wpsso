@@ -107,16 +107,22 @@ if ( ! class_exists( 'WpssoRegister' ) ) {
 			if ( ! defined( 'WPSSO_META_NAME' ) )
 				define( 'WPSSO_META_NAME', '_'.$cf['lca'].'_meta' );
 
+			if ( ! defined( 'WPSSO_PREF_NAME' ) )
+				define( 'WPSSO_PREF_NAME', '_'.$cf['lca'].'_pref' );
+
 			$slug = $cf['plugin'][$cf['lca']]['slug'];
 			$opts = get_option( WPSSO_OPTIONS_NAME );
 
 			if ( empty( $opts['plugin_preserve'] ) ) {
 				delete_option( WPSSO_OPTIONS_NAME );
 				delete_post_meta_by_key( WPSSO_META_NAME );
+				foreach ( array( WPSSO_META_NAME, WPSSO_PREF_NAME ) as $meta_key )
+					foreach ( get_users( array( 'meta_key' => $meta_key ) ) as $user )
+						delete_user_option( $user->ID, $meta_key );
 				WpssoUser::delete_metabox_prefs();
 			}
 
-			// delete update related options
+			// delete update options
 			delete_option( 'external_updates-'.$slug );
 			delete_option( $cf['lca'].'_umsg' );
 			delete_option( $cf['lca'].'_utime' );

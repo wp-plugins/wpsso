@@ -685,32 +685,42 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				( empty( $tooltip_text ) ? '' : $tooltip_text ).'</p></th>';
 		}
 
-		public function do_tabs( $prefix = '', $tabs = array(), $tab_rows = array(), $args = array() ) {
+		public function do_tabs( $metabox = '', $tabs = array(), $tab_rows = array(), $args = array() ) {
+			$metabox = empty( $metabox ) ? '' : '_'.$metabox;	// must start with an underscore
 			$tab_keys = array_keys( $tabs );
-			$default_tab = reset( $tab_keys );
-			$prefix = empty( $prefix ) ? '' : '_'.$prefix;
-			$class_tabs = 'sucom-metabox-tabs'.( empty( $prefix ) ? '' : ' sucom-metabox-tabs'.$prefix );
-			$class_link = 'sucom-tablink'.( empty( $prefix ) ? '' : ' sucom-tablink'.$prefix );
-			$class_tab = 'sucom-tab';
+			$default_tab = '_'.reset( $tab_keys );			// must start with an underscore
+
+			$class_metabox_tabs = 'sucom-metabox-tabs'.
+				( empty( $metabox ) ? '' : ' sucom-metabox-tabs'.$metabox );
+			$class_link = 'sucom-tablink'.
+				( empty( $metabox ) ? '' : ' sucom-tablink'.$metabox );
+			$class_tabset = 'sucom-tabset';
+
 			extract( array_merge( array(
 				'scroll_to' => '',
 			), $args ) );
+
 			echo '<script type="text/javascript">jQuery(document).ready(function(){ 
-				sucomTabs(\'', $prefix, '\', \'', $default_tab, '\', \'', $scroll_to, '\'); });</script>
-			<div class="', $class_tabs, '">
-			<ul class="', $class_tabs, '">';
-			foreach ( $tabs as $key => $title ) {
-				$href_key = $class_tab.$prefix.'_'.$key;
-				echo '<li class="', $href_key, '"><a class="', $class_link, '" href="#', $href_key, '">', $title, '</a></li>';
+				sucomTabs(\''.$metabox.'\', \''.$default_tab.'\', \''.$scroll_to.'\'); });</script>
+			<div class="'.$class_metabox_tabs.'">
+
+			<ul class="'.$class_metabox_tabs.'">';
+			foreach ( $tabs as $tab => $title ) {
+				$href_key = $class_tabset.$metabox.'-tab_'.$tab;
+				echo '<li class="'.$href_key.'"><a class="'.$class_link.'" 
+					href="#'.$href_key.'">'.$title.'</a></li>';
 			}
 			echo '</ul>';
-			foreach ( $tabs as $key => $title ) {
-				$href_key = $class_tab.$prefix.'_'.$key;
-				echo '<div class="display_', $this->p->options['plugin_display'], ' ', $class_tab, 
-					( empty( $prefix ) ? '' : ' '.$class_tab.$prefix ), ' ', $href_key, '">';
+
+			foreach ( $tabs as $tab => $title ) {
+				$href_key = $class_tabset.$metabox.'-tab_'.$tab;
+				// use call_user_func() instead of $classname::show_opts() for PHP 5.2
+				$show_opts = call_user_func( array(  $this->p->cf['lca'].'user', 'show_opts' ) );
+				echo '<div class="display_'.$show_opts.' '.$class_tabset.
+					( empty( $metabox ) ? '' : ' '.$class_tabset.$metabox ).' '.$href_key.'">';
 				echo '<table class="sucom-setting">';
-				if ( ! empty( $tab_rows[$key] ) && is_array( $tab_rows[$key] ) )
-					foreach ( $tab_rows[$key] as $num => $row ) 
+				if ( ! empty( $tab_rows[$tab] ) && is_array( $tab_rows[$tab] ) )
+					foreach ( $tab_rows[$tab] as $num => $row ) 
 						echo '<tr class="alt'.( $num % 2 ).'">'.$row.'</tr>';
 				echo '</table>';
 				echo '</div>';

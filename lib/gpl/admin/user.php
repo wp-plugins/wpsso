@@ -30,7 +30,8 @@ if ( ! class_exists( 'WpssoGplAdminUser' ) ) {
 			$rows[] = $this->p->util->th( 'Default (Facebook / Open Graph, LinkedIn, Pinterest Rich Pin) Description', 'medium', 'user-og_desc', $post_info ).
 			'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['og_desc_len'], '...', false ).'</td>';
 	
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
+
 				$rows[] = $this->p->util->th( 'Google+ / Schema Description', 'medium', 'user-schema_desc', $post_info ).
 				'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['schema_desc_len'], '...', true ).'</td>';
 			}
@@ -41,7 +42,8 @@ if ( ! class_exists( 'WpssoGplAdminUser' ) ) {
 			$rows[] = $this->p->util->th( 'Twitter Card Description', 'medium', 'user-tc_desc', $post_info ).
 			'<td class="blank">'.$this->p->webpage->get_description( $this->p->options['tc_desc_len'], '...', false ).'</td>';
 
-			if ( $this->p->options['plugin_display'] == 'all' ) {
+			if ( WpssoUser::show_opts( 'all' ) ) {
+
 				$rows[] = $this->p->util->th( 'Sharing URL', 'medium', 'postmeta-sharing_url', $post_info ).
 				'<td class="blank">'.$this->p->util->get_sharing_url( false ).'</td>';
 			}

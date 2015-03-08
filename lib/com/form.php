@@ -102,15 +102,36 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $this->get_select( $name, $values, $class, $id, $is_assoc, true );
 		}
 
-		public function get_select( $name, $values = array(), $class = '', $id = '', $is_assoc = false, $disabled = false ) {
+		public function get_select( $name, $values = array(), $class = '', $id = '', 
+			$is_assoc = false, $disabled = false, $selected = false, $reload = false ) {
+
 			if ( empty( $name ) || ! is_array( $values ) ) 
 				return;
+
 			if ( $is_assoc === false ) 
 				$is_assoc = SucomUtil::is_assoc( $values );
-			$html = '<select name="'.$this->options_name.'['.$name.']"'.
-				( empty( $class ) ? '' : ' class="'.$class.'"' ).
-				( empty( $id ) ? ' id="select_'.$name.'"' : ' id="select_'.$id.'"' ).
+
+			$html = '';
+			$select_id = empty( $id ) ? 'select_'.$name : 'select_'.$id;
+
+			if ( $reload === true ) {
+				$url = empty( $_SERVER['HTTPS'] ) ? 'http://' : 'https://';
+				$url .= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+				$url = add_query_arg( array( $name => '%%'.$name.'%%' ), $url );
+				$html .= '
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery("#'.$select_id.'").change(function(){
+			url="'.$url.'"+jQuery(location).attr("hash");
+			window.location=url.replace("%%'.$name.'%%", this.value);
+		});
+	});
+</script>';
+			}
+			$html .= '<select name="'.$this->options_name.'['.$name.']"'.
+				( empty( $class ) ? '' : ' class="'.$class.'"' ).' id="'.$select_id.'"'.
 				( $disabled === true ? ' disabled="disabled"' : '' ).'>';
+
 			foreach ( $values as $val => $desc ) {
 				// if the array is NOT associative (so regular numered array), 
 				// then the description is used as the saved value as well
@@ -137,8 +158,11 @@ if ( ! class_exists( 'SucomForm' ) ) {
 						$val === $this->defaults[$name] )
 							$desc .= ' (default)';	// mark default value
 				}
+
 				$html .= '<option value="'.esc_attr( $val ).'"';
-				if ( $this->in_options( $name ) )
+				if ( $selected !== false )
+					$html .= selected( $selected, $val, false );
+				elseif ( $this->in_options( $name ) )
 					$html .= selected( $this->options[$name], $val, false );
 				$html .= '>'.$desc.'</option>';
 			}
@@ -146,7 +170,8 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
-		public function get_image_dimensions_input( $name, $use_opt_defs = false, $narrow = false, $display = 'all' ) {
+		// $use_opt_defs = true when used for post / user meta forms (to show default values)
+		public function get_image_dimensions_input( $name, $use_opt_defs = false, $narrow = false ) {
 			$def_width = '';
 			$def_height = '';
 			$crop_select = '';
@@ -154,7 +179,6 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			if ( $use_opt_defs === true ) {
 				$def_width = empty( $this->p->options[$name.'_width'] ) ? '' : $this->p->options[$name.'_width'];
 				$def_height = empty( $this->p->options[$name.'_height'] ) ? '' : $this->p->options[$name.'_height'];
-
 				foreach ( array( 'crop', 'crop_x', 'crop_y' ) as $key )
 					if ( ! $this->in_options( $name.'_'.$key ) && $this->in_defaults( $name.'_'.$key ) )
 						$this->options[$name.'_'.$key] = $this->defaults[$name.'_'.$key];
@@ -177,7 +201,6 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return 'Width '.$this->get_input( $name.'_width', 'short', null, null, $def_width ).' x '.
 				'Height '.$this->get_input( $name.'_height', 'short', null, null, $def_height ).
 				' &nbsp; Crop '.$this->get_checkbox( $name.'_crop' ).$crop_select;
-
 		}
 
 		public function get_image_dimensions_text( $name, $use_opt_defs = false ) {
@@ -221,7 +244,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			return $html;
 		}
 
-		private function get_id_jquery( $id ) {
+		private function get_text_len_js( $id ) {
 			return ( empty( $id ) ? '' : '<script type="text/javascript">
 				jQuery(document).ready(function(){
 					jQuery(\'#'.$id.'\').focus(function(){ sucomTextLen(\''.$id.'\'); });
@@ -237,7 +260,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			$html = '';
 			$value = $this->in_options( $name ) ? $this->options[$name] : '';
 			if ( ! empty( $len ) && ! empty( $id ) )
-				$html .= $this->get_id_jquery( $id );
+				$html .= $this->get_text_len_js( 'text_'.$id );
 			
 			$html .= '<input type="text" name="'.$this->options_name.'['.$name.']"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
@@ -246,7 +269,8 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				( empty( $placeholder ) ? '' : ' placeholder="'.$placeholder.'"'.
 					' onFocus="if ( this.value == \'\' ) this.value = \''.esc_js( $placeholder ).'\';"'.
 					' onBlur="if ( this.value == \''.esc_js( $placeholder ).'\' ) this.value = \'\';"' ).
-				' value="'.esc_attr( $value ).'" />';
+				' value="'.esc_attr( $value ).'" />'.
+				( empty( $len ) ? '' : ' <div id="text_'.$id.'-lenMsg"></div>' );
 			return $html;
 		}
 
@@ -265,7 +289,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			$html = '';
 			$value = $this->in_options( $name ) ? $this->options[$name] : '';
 			if ( ! empty( $len ) && ! empty( $id ) )
-				$html .= $this->get_id_jquery( $id );
+				$html .= $this->get_text_len_js( 'textarea_'.$id );
 			$html .= '<textarea name="'.$this->options_name.'['.$name.']"'.
 				( empty( $class ) ? '' : ' class="'.$class.'"' ).
 				( empty( $id ) ? ' id="textarea_'.$name.'"' : ' id="textarea_'.$id.'"' ).
@@ -274,7 +298,8 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				( empty( $placeholder ) ? '' : ' placeholder="'.$placeholder.'"'.
 					' onFocus="if ( this.value == \'\' ) this.value = \''.esc_js( $placeholder ).'\';"'.
 					' onBlur="if ( this.value == \''.esc_js( $placeholder ).'\' ) this.value = \'\';"' ).
-				'>'.stripslashes( esc_attr( $value ) ).'</textarea>';
+				'>'.stripslashes( esc_attr( $value ) ).'</textarea>'.
+				( empty( $len ) ? '' : ' <div id="textarea_'.$id.'-lenMsg"></div>' );
 			return $html;
 		}
 

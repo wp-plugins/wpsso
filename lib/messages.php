@@ -64,7 +64,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'Twitter Cards extend the standard Facebook / Open Graph and Pinterest Rich Pin meta tags with content-specific information for image galleries, photographs, eCommerce products, etc. Twitter Cards are displayed differently on Twitter, either online or from mobile Twitter clients, allowing you to highlight your content. The Twitter Cards meta tags can be enabled from the '.$this->p->util->get_admin_url( 'general', 'General settings page' ).'.';
 							break;
 						case 'tooltip-side-author-gravatar':
-							$text = 'Include Gravatar image URLs in the meta tags for author index webpages. Enable or disable this option from the '.$this->p->util->get_admin_url( 'general#sucom-tab_og_author', 'General settings page' ).'.';
+							$text = 'Include Gravatar image URLs in the meta tags for author index webpages. Enable or disable this option from the '.$this->p->util->get_admin_url( 'general#sucom-tabset_og-tab_author', 'General settings page' ).'.';
 							break;
 						case 'tooltip-side-slideshare-api':
 							$text = 'If the embedded Slideshare Presentations option on the '.$this->p->util->get_admin_url( 'advanced', 'Advanced settings page' ).' is checked, '.$short_pro.' will load an integration module for Slideshare, to detect embedded Slideshare presentations and retrieve slide information using Slideshare\'s oEmbed API (media dimentions, preview image, etc).';
@@ -160,10 +160,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text = 'The maximum number of images to include in the Facebook / Open Graph meta tags for this '.$ptn.'.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_url':
-							$text = 'A custom Video URL to include first in the Facebook / Open Graph, Pinterest Rich Pin, and \'Player\' Twitter Card meta tags. If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred sharing URL, video dimensions, and video preview image. The '.$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video URL Custom Field' ).' Advanced option allows a 3rd-party theme or plugin to provide a custom Video URL value for this option.';
+							$text = 'A custom Video URL to include first in the Facebook / Open Graph, Pinterest Rich Pin, and \'Player\' Twitter Card meta tags. If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred sharing URL, video dimensions, and video preview image. The '.$this->p->util->get_admin_url( 'advanced#sucom-tabset_plugin-tab_social', 'Video URL Custom Field' ).' Advanced option allows a 3rd-party theme or plugin to provide a custom Video URL value for this option.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_embed':
-							$text = 'Custom Video Embed HTML to use for the first in the Facebook / Open Graph, Pinterest Rich Pin, and \'Player\' Twitter Card meta tags. If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred sharing URL, video dimensions, and video preview image. The '.$this->p->util->get_admin_url( 'advanced#sucom-tab_plugin_social', 'Video Embed HTML Custom Field' ).' Advanced option also allows a 3rd-party theme or plugin to provide custom Video Embed HTML for this option.';
+							$text = 'Custom Video Embed HTML to use for the first in the Facebook / Open Graph, Pinterest Rich Pin, and \'Player\' Twitter Card meta tags. If the URL is from Youtube, Vimeo or Wistia, an API connection will be made to retrieve the preferred sharing URL, video dimensions, and video preview image. The '.$this->p->util->get_admin_url( 'advanced#sucom-tabset_plugin-tab_social', 'Video Embed HTML Custom Field' ).' Advanced option also allows a 3rd-party theme or plugin to provide custom Video Embed HTML for this option.';
 						 	break;
 						 case 'tooltip-postmeta-og_vid_max':
 							$text = 'The maximum number of embedded videos to include in the Facebook / Open Graph meta tags for this '.$ptn.'.';
@@ -313,8 +313,8 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						/*
 						 * 'Plugin Settings' settings
 						 */
-						case 'tooltip-plugin_display':
-							$text = 'Select the number of options to display on the '.$short.' settings pages. The basic view shows only the essential options that are most commonly used.';
+						case 'tooltip-plugin_show_opts':
+							$text = 'Select the default number of options to display on the '.$short.' settings pages. The basic view shows only the essential options that are most commonly used.';
 							break;
 						case 'tooltip-plugin_preserve':
 							$text = 'Check this option if you would like to preserve all '.$short.' settings when you <em>uninstall</em> the plugin (default is unchecked).';

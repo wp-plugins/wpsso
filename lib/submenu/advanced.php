@@ -26,7 +26,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			add_meta_box( $this->pagehook.'_contact_fields', 'Profile Contact Fields', 
 				array( &$this, 'show_metabox_contact_fields' ), $this->pagehook, 'normal' );
 
-			if ( $this->p->options['plugin_display'] == 'all' )
+			if ( WpssoUser::show_opts( 'all' ) )
 				add_meta_box( $this->pagehook.'_taglist', 'Header Tags List', 
 					array( &$this, 'show_metabox_taglist' ), $this->pagehook, 'normal' );
 		}
@@ -76,8 +76,8 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			switch ( $metabox.'-'.$key ) {
 				case 'plugin-settings':
 
-					$rows[] = $this->p->util->th( 'Plugin Settings to Display', 'highlight', 'plugin_display' ).
-					'<td>'.$this->form->get_select( 'plugin_display', $this->p->cf['form']['display_options'] ).'</td>';
+					$rows[] = $this->p->util->th( 'Plugin Options to Show by Default', 'highlight', 'plugin_show_opts' ).
+					'<td>'.$this->form->get_select( 'plugin_show_opts', $this->p->cf['form']['show_options'] ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Preserve Settings on Uninstall', 'highlight', 'plugin_preserve' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_preserve' ).'</td>';
@@ -92,7 +92,8 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 					$rows[] = $this->p->util->th( 'Use Filtered (SEO) Titles', 'highlight', 'plugin_filter_title' ).
 					'<td>'.$this->form->get_checkbox( 'plugin_filter_title' ).'</td>';
 			
-					if ( $this->p->options['plugin_display'] == 'all' ) {
+					if ( WpssoUser::show_opts( 'all' ) ) {
+
 						$rows[] = $this->p->util->th( 'Apply Excerpt Filters', null, 'plugin_filter_excerpt' ).
 						'<td>'.$this->form->get_checkbox( 'plugin_filter_excerpt' ).'</td>';
 					}
@@ -123,7 +124,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 							case 'facebook':
 							case 'gplus':
 							case 'twitter':
-							case ( $this->p->options['plugin_display'] === 'all' ? true : false ):
+							case ( WpssoUser::show_opts( 'all' ) ):
 								// not all social websites have a contact method field
 								if ( array_key_exists( $cm_opt.'enabled', $this->p->options ) ) {
 									if ( $this->p->check->aop() ) {

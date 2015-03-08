@@ -13,7 +13,6 @@ if ( ! class_exists( 'WpssoPostmeta' ) ) {
 	/*
 	 * This class is extended by gpl/util/postmeta.php or pro/util/postmeta.php
 	 * and the class object is created as $this->p->mods['util']['postmeta']
-	 *
 	 */
 	class WpssoPostmeta {
 

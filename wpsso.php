@@ -50,6 +50,14 @@ if ( ! class_exists( 'Wpsso' ) ) {
 		public $site_options = array();	// multisite options
 		public $mods = array();		// pro and gpl modules
 
+		protected static $instance = null;
+
+		public static function &get_instance() {
+			if ( self::$instance === null )
+				self::$instance = new self;
+			return self::$instance;
+		}
+
 		/**
 		 * Wpsso Constructor
 		 */
@@ -318,7 +326,7 @@ if ( ! class_exists( 'Wpsso' ) ) {
 	}
 
         global $wpsso;
-	$wpsso = new Wpsso();
+	$wpsso = Wpsso::get_instance();
 }
 
 if ( ! class_exists( 'WpssoNoDebug' ) ) {

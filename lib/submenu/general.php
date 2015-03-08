@@ -93,8 +93,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 						range( 0, $this->p->cf['form']['max_media_items'] ), 'short', null, true ).'</td>';
 
 					$rows[] = $this->p->util->th( 'Open Graph Image Dimensions', 'highlight', 'og_img_dimensions' ).
-					'<td>'.$this->form->get_image_dimensions_input( 'og_img', 
-						false, false, $this->p->options['plugin_display'] ).'</td>';
+					'<td>'.$this->form->get_image_dimensions_input( 'og_img', false, false ).'</td>';
 	
 					$rows[] = $this->p->util->th( 'Default / Fallback Image ID', 'highlight', 'og_def_img_id' ).
 					'<td>'.$this->form->get_image_upload_input( 'og_def_img' ).'</td>';

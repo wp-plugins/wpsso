@@ -163,7 +163,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				),
 			),
 			'opt' => array(				// options
-				'version' => 325,		// increment when changing default options
+				'version' => 326,		// increment when changing default options
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
@@ -325,7 +325,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					// advanced plugin options
 					'plugin_version' => '',
 					'plugin_wpsso_tid' => '',
-					'plugin_display' => 'basic',
+					'plugin_show_opts' => 'basic',
 					'plugin_preserve' => 0,
 					'plugin_debug' => 0,
 					'plugin_cache_info' => 0,
@@ -530,6 +530,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 
 			if ( ! defined( 'WPSSO_META_NAME' ) )
 				define( 'WPSSO_META_NAME', '_'.$cf['lca'].'_meta' );
+
+			if ( ! defined( 'WPSSO_PREF_NAME' ) )
+				define( 'WPSSO_PREF_NAME', '_'.$cf['lca'].'_pref' );
 
 			if ( ! defined( 'WPSSO_META_SAVE_PRIORITY' ) )
 				define( 'WPSSO_META_SAVE_PRIORITY', 6 );
