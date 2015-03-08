@@ -477,7 +477,6 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			if ( $old_prefs !== $new_prefs ) {
 				unset( $new_prefs['options_filtered'] );
 				update_user_meta( $user_id, WPSSO_PREF_NAME, $new_prefs );
-				echo '<pre>'.print_r($new_prefs,true).'</pre>';
 				return true;
 			} else return false;
 		}
