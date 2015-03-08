@@ -77,11 +77,13 @@ if ( ! class_exists( 'SucomStyle' ) ) {
 
 		private function admin_inline_styles( $hook ) {
 			if ( isset( $this->p->cf['color'] ) ) {
-				$menu_slug = $this->p->cf['lca'].'-'.
-					key( $this->p->cf['*']['lib']['submenu'] );
+				$lca = $this->p->cf['lca'];
+				$menu = $lca.'-'.key( $this->p->cf['*']['lib']['submenu'] );
+				$sitemenu = $lca.'-'.key( $this->p->cf['*']['lib']['sitesubmenu'] );
 				echo '
 <style type="text/css">
-	li.menu-top.toplevel_page_'.$menu_slug.' div.wp-menu-image:before {
+	li.menu-top.toplevel_page_'.$menu.' div.wp-menu-image:before,
+	li.menu-top.toplevel_page_'.$sitemenu.' div.wp-menu-image:before {
 		color:#'.$this->p->cf['color'].' !important;
 	}
 </style>';
