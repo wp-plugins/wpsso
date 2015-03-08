@@ -475,6 +475,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 
 			// don't bother saving unless we have to
 			if ( $old_prefs !== $new_prefs ) {
+				self::$pref[$user_id] = $new_prefs;	// update the pref cache
 				unset( $new_prefs['options_filtered'] );
 				update_user_meta( $user_id, WPSSO_PREF_NAME, $new_prefs );
 				return true;
