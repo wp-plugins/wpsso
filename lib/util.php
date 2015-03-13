@@ -356,6 +356,7 @@ if ( ! class_exists( 'WpssoUtil' ) && class_exists( 'SucomUtil' ) ) {
 						$val = trim( wptexturize( ' '.$val.' ' ) );
 					break;
 				case 'anu_case':	// must be alpha-numeric uppercase (hyphens and periods allowed as well)
+					$val = trim( $val );
 					if ( $val !== '' && preg_match( '/[^A-Z0-9\-\.]/', $val ) ) {
 						$this->p->notice->err( '\''.$val.'\' is not an accepted value for option \''.$key.'\''.' - '.$reset_msg, true );
 						$val = $def_val;

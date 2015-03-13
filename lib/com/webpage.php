@@ -597,7 +597,9 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				$this->p->debug->log( 'tags seed = "'.implode( ',', $tags ).'"' );
 			else {
 				if ( is_singular() || ! empty( $post_id ) ) {
+
 					$tags = $this->get_wp_tags( $post_id );
+
 					if ( isset( $this->p->mods['media']['ngg'] ) && 
 						$this->p->options['og_ngg_tags'] && 
 						$this->p->is_avail['postthumb'] && 
@@ -611,7 +613,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				} elseif ( is_search() )
 					$tags = preg_split( '/ *, */', get_search_query( false ) );
 
-				$tags = array_unique( array_map( 'strtolower', $tags ) );
+				$tags = array_unique( array_map( 'sanitize_title', $tags ) );	// convert tags into slugs
 				$this->p->debug->log( 'tags = "'.implode( ',', $tags ).'"' );
 			}
 			return apply_filters( $this->p->cf['lca'].'_tags', $tags, $post_id );
@@ -623,6 +625,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 				$this->p->debug->log( 'wp tags seed = "'.implode( ',', $tags ).'"' );
 			else {
 				$post_ids = array ( $post_id );	// array of one
+
 				// add the parent tags if option is enabled
 				if ( $this->p->options['og_page_parent_tags'] && is_page( $post_id ) )
 					$post_ids = array_merge( $post_ids, get_post_ancestors( $post_id ) );
@@ -632,7 +635,7 @@ if ( ! class_exists( 'SucomWebpage' ) ) {
 					foreach ( wp_get_post_tags( $id, array( 'fields' => 'names') ) as $tag_name )
 						$tags[] = $tag_name;
 				}
-				$tags = array_map( 'strtolower', $tags );
+				$tags = array_map( 'sanitize_title', $tags );
 			}
 			return apply_filters( $this->p->cf['lca'].'_wp_tags', $tags, $post_id );
 		}
