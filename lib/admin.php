@@ -621,16 +621,18 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					( $this->p->check->aop( $lca ) ? ' Pro' : '' ).'?</strong></p>';
 				echo '<ul>';
 				if ( ! empty( $info['url']['faq'] ) ) {
-					echo '<li>Review the <a href="'.$info['url']['faq'].'" target="_blank">FAQs</a>';
+					echo '<li>Review <a href="'.$info['url']['faq'].'" target="_blank">FAQs</a>';
 					if ( ! empty( $info['url']['notes'] ) )
 						echo ' and <a href="'.$info['url']['notes'].'" target="_blank">Notes</a>';
 					echo '</li>';
 				}
 				if ( $this->p->check->aop( $lca ) && 
 					! empty( $info['url']['pro_ticket'] ) )
-						echo '<li><a href="'.$info['url']['pro_ticket'].'" target="_blank">Submit a Support Ticket</a></li>';
+						echo '<li><a href="'.$info['url']['pro_ticket'].'" 
+							target="_blank">Submit a Support Ticket</a></li>';
 				elseif ( ! empty( $info['url']['wp_support'] ) )
-					echo '<li><a href="'.$info['url']['wp_support'].'" target="_blank">Post in the Support Forum</a></li>';
+					echo '<li><a href="'.$info['url']['wp_support'].'" 
+						target="_blank">Post in Support Forum</a></li>';
 				echo '</ul>';
 			}
 			echo '</td></tr></table>';
