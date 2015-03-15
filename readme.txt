@@ -391,6 +391,18 @@ When minor bugs fixes and/or code improvements are applied, new versions are als
 This release schedule keeps the code stable and reliable, at the cost of more frequent updates.</p>
 </blockquote>
 
+= Version 7.8.3.1 =
+
+* **Bugfixes**
+	* Updated the "Google Structured Data Testing Tool" URL.
+	* Changed to WPSEO_Frontend::get_instance() instead of using the $wpseo_front global (Pro version).
+* **Improvements**
+	* Integrated the WordPress SEO and WooCommerce modules to use the WordPress SEO meta description for the shop page (Pro version).
+	* Added a filter for the WooCommerce module to report the post ID of the shop page (Pro version).
+	* Changed to Wpsso::get_instance() instead of using the $ngfb global for functions and widgets.
+* **New Features**
+	* *None*
+
 = Version 2.8.3 =
 
 * **Bugfixes**
