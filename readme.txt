@@ -248,7 +248,7 @@ Try the WPSSO plugin with complete confidence &mdash; when uninstalled, WPSSO re
 
 WPSSO support and development is on-going. You can review the [FAQ](http://faq.wpsso.surniaulula.com/) and [Notes](http://notes.wpsso.surniaulula.com/) pages for additional setup information. If you have any suggestions or comments, post them to the [WordPress support forum](https://wordpress.org/support/plugin/wpsso) or the [Pro version support website](http://support.wpsso.surniaulula.com/).
 
-**We do not ask for WordPress admin access to support the WPSSO plugin** &mdash; All support is provided from the front-end using HTML debugging information within the webpage (see the *Add Hidden Debug Messages* option on the SSO Advanced settings page).
+**We do not require WordPress admin access to support the plugin** &mdash; All support is provided from the front-end using HTML debugging information within the webpage (see the *Add Hidden Debug Messages* option on the SSO Advanced settings page).
 
 Follow Surnia Ulula on [Google+](https://plus.google.com/+SurniaUlula/?rel=author), [Facebook](https://www.facebook.com/SurniaUlulaCom), and [Twitter](https://twitter.com/surniaululacom), and [YouTube](http://www.youtube.com/user/SurniaUlulaCom).
 
@@ -398,7 +398,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 * GitHub: https://github.com/SurniaUlula/wpsso
 * WordPress.org: https://wordpress.org/plugins/wpsso/developers/
 
-= Version 2.8.5 =
+= Version 2.8.5 (2015/03/26) =
 
 * **Bugfixes**
 	* Added a check for `$_SERVER['HTTP_USER_AGENT']` before using its value in the SucomUtil::crawler_name() method.
@@ -531,6 +531,10 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* Added a check for a minimum image dimension of 200x200px (the minimum allowed by Facebook) for Open Graph meta tags.
 
 == Upgrade Notice ==
+
+= 2.8.5 =
+
+Small performance improvement in non-debug mode, fixed a user-agent string check error, added feature to remove false conflict warning from WordPress SEO.
 
 = 2.8.4 =
 
