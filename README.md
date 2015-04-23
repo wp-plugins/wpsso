@@ -8,7 +8,7 @@
 <strong>License URI</strong>: http://www.gnu.org/licenses/gpl.txt<br/>
 <strong>Requires At Least</strong>: 3.0<br/>
 <strong>Tested Up To</strong>: 4.2<br/>
-<strong>Stable Tag</strong>: 3.0.5<br/>
+<strong>Stable Tag</strong>: 3.1<br/>
 </blockquote>
 
 <p>
@@ -409,7 +409,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 * [GitHub](https://github.com/SurniaUlula/wpsso)
 * [WordPress.org](https://wordpress.org/plugins/wpsso/developers/)
 
-<h4>Version 3.1</h4>
+<h4>Version 3.1 (2015/04/24)</h4>
 
 * **New Features**
 	* *None*
