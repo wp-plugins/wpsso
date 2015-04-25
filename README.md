@@ -12,6 +12,7 @@
 </blockquote>
 
 <p>
+<strong>Slug</strong>: wpsso<br/>
 
 Make sure social websites present your content correctly, no matter how your webpage is shared - from buttons, browser add-ons, or pasted URLs.
 
