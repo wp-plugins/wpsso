@@ -220,7 +220,7 @@ if ( ! class_exists( 'WpssoMeta' ) ) {
 			return $this->not_implemented( __METHOD__, $id );
 		}
 
-		private function not_implemented( $method, $ret = true ) {
+		protected function not_implemented( $method, $ret = true ) {
 			if ( $this->p->debug->enabled )
 				$this->p->debug->log( $method.' not implemented in free version',
 					get_class( $this ) );	// log the extended class name
