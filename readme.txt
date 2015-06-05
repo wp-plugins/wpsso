@@ -432,15 +432,19 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* *None*
 * **Improvements**
 	* Added extra Open Graph meta tags for embedded video URLs with an 'og:video:type' of 'text/html'.
+	* Moved the meta description (SEO) HTML tag to the end of the meta tag list.
+	* Removed the meta tag array sort to preserve the original meta tag order.
+	* Changed the maximum schema description length from 300 to 250 characters.
+	* Excluded disabled meta tags from the Head Tags list in the Social Settings metabox.
 * **Bugfixes**
 	* Fixed a CSS class name in the admin stylesheet for the taxonomy Social Settings metabox.
 	* Added support for the custom Social Settings metabox on WooCommerce taxonomy pages (Pro version).
 * **Developer Notes**
 	* **Renamed the 'og:video' meta tag to 'og:video:url'**.
 	* Added three new methods in the WooCommerce module to check for product, category, and tag pages (Pro version). Unlike the original functions provided by WooCommerce, these methods work on both the admin *and* front-end sides.
-		* WpssoProEcomWoocommerce::is_product() 
-		* WpssoProEcomWoocommerce::is_product_category() 
-		* WpssoProEcomWoocommerce::is_product_tag() 
+		* `WpssoProEcomWoocommerce::is_product()`
+		* `WpssoProEcomWoocommerce::is_product_category()`
+		* `WpssoProEcomWoocommerce::is_product_tag()`
 
 = Version 3.3 (2015/04/31) =
 
