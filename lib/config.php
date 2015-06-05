@@ -202,7 +202,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'defaults' => array(
 					'options_filtered' => false,
 					'options_version' => '',
-					'schema_desc_len' => 300,		// meta itemprop="description" maximum text length
+					'schema_desc_len' => 250,		// meta itemprop="description" maximum text length
 					'schema_website_json' => 1,
 					'schema_publisher_json' => 1,
 					'schema_author_json' => 1,

@@ -673,7 +673,9 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			return $og_ret;
 		}
 
-		/* Purpose: Check the content for generic <iframe|embed/> html tags. Apply wpsso_content_videos filter for more specialized checks. */
+		/**
+		 * Purpose: Check the content for generic <iframe|embed/> html tags. Apply wpsso_content_videos filter for more specialized checks.
+		 */
 		public function get_content_videos( $num = 0, $post_id = 0, $check_dupes = true, $content = '' ) {
 
 			if ( $this->p->debug->enabled ) {
