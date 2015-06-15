@@ -16,27 +16,90 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 	 */
 	class WpssoPost extends WpssoMeta {
 
-		protected $term_id = false;
-
 		protected function add_actions() {
 			if ( is_admin() ) {
 				/**
 				 * Hook a minimum number of admin actions to maximize performance.
 				 * The post or post_ID arguments are always present when we're
-				 * editing a post and/or page, so return immediately if they're
-				 * not present.
+				 * editing a post and/or page.
 				 */
-				if ( ( $this->post_id = SucomUtil::get_req_val( 'post_ID', 'POST' ) ) === '' &&
-					( $this->post_id = SucomUtil::get_req_val( 'post', 'GET' ) ) === '' )
-						return;
+				if ( SucomUtil::is_post_page() ) {
+				
+					add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
+					add_action( 'admin_head', array( &$this, 'set_head_meta_tags' ) );
+					add_action( 'save_post', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
+					add_action( 'save_post', array( &$this, 'clear_cache' ), WPSSO_META_CACHE_PRIORITY );
+					add_action( 'edit_attachment', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
+					add_action( 'edit_attachment', array( &$this, 'clear_cache' ), WPSSO_META_CACHE_PRIORITY );
 
-				add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
-				add_action( 'admin_head', array( &$this, 'set_head_meta_tags' ) );
-				add_action( 'save_post', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
-				add_action( 'save_post', array( &$this, 'clear_cache' ), WPSSO_META_CACHE_PRIORITY );
-				add_action( 'edit_attachment', array( &$this, 'save_options' ), WPSSO_META_SAVE_PRIORITY );
-				add_action( 'edit_attachment', array( &$this, 'clear_cache' ), WPSSO_META_CACHE_PRIORITY );
+				} else {
+
+					// only check registered front-end post types (to avoid menu items, product variations, etc.)
+					$post_types = $this->p->util->get_post_types( 'frontend', 'names' );
+
+					if ( is_array( $post_types ) ) {
+						foreach ( $post_types as $ptn ) {
+							add_filter( 'manage_'.$ptn.'_posts_columns', array( $this, 'add_column_headings' ), 10, 1 );
+							add_action( 'manage_'.$ptn.'_posts_custom_column', array( $this, 'show_post_column_content',), 10, 2 );
+						}
+					}
+
+					$this->p->util->add_plugin_filters( $this, array( 
+						'og_image_post_column_content' => 3,
+					) );
+				}
 			}
+		}
+
+		public function show_post_column_content( $column_name, $id ) {
+			echo $this->get_mod_column_content( '', $column_name, $id, 'post' );
+		}
+
+		public function filter_og_image_post_column_content( $value, $column_name, $id ) {
+
+			switch ( $column_name ) {
+
+				case $this->p->cf['lca'].'_og_image':
+
+					// use the open graph image dimensions to reject images that are too small
+					$size_name = $this->p->cf['lca'].'-opengraph';
+					$check_dupes = false;	// using first image we find, so dupe checking is useless
+					$force_regen = false;
+					$meta_pre = 'og';
+					$og_image = array();
+
+					// get video preview images if allowed
+					if ( ! empty( $this->p->options['og_vid_prev_img'] ) ) {
+						// assume the first video will have a preview image
+						$og_video = $this->p->og->get_all_videos( 1, $id, $check_dupes, $meta_pre );
+						if ( ! empty( $og_video ) && is_array( $og_video ) ) {
+							foreach ( $og_video as $video ) {
+								if ( ! empty( $video['og:image'] ) ) {
+									$og_image[] = $video;
+									break;
+								}
+							}
+						}
+					}
+
+					if ( empty( $og_image ) ) {
+						$og_image = $this->p->og->get_all_images( 1, $size_name, $id,
+							$check_dupes, $meta_pre );
+						if ( empty( $og_image ) )
+							$og_image = $this->p->media->get_default_image( 1, $size_name,
+								$check_dupes, $force_regen );
+					}
+
+					if ( ! empty( $og_image ) && is_array( $og_image ) ) {
+						$image = reset( $og_image );
+						if ( ! empty( $image['og:image'] ) )
+							$value = $this->get_og_image_column_html( $image );
+					}
+
+					break;
+			}
+
+			return $value;
 		}
 
 		// hooked into the admin_head action
@@ -44,16 +107,16 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 			if ( ! empty( $this->head_meta_tags ) )	// only set header tags once
 				return;
 
-			if ( $this->p->debug->enabled )
+			$screen_id = SucomUtil::get_screen_id();
+			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark();
+				$this->p->util->log_is_functions();
+				$this->p->debug->log( 'screen id = '.$screen_id );
+			}
 
-			$screen = get_current_screen();
-			if ( $this->p->debug->enabled )
-				$this->p->debug->log( 'screen id = '.$screen->id );
-
-			// check for post/page/media edititing LISTS
-			if ( strpos( $screen->id, 'edit-' ) !== false ||
-				$screen->id === 'upload' )
+			// check for post/page/media editing lists
+			if ( strpos( $screen_id, 'edit-' ) !== false ||
+				$screen_id === 'upload' )
 					return;
 
 			if ( ( $obj = $this->p->util->get_post_object() ) === false ||
@@ -69,9 +132,6 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 				if ( apply_filters( $this->p->cf['lca'].'_add_metabox_post', 
 					$add_metabox, $post_id, $post_type->name ) === true ) {
 
-					// set custom image dimensions for this post id
-					$this->p->util->add_plugin_image_sizes( $post_id, array(), true, 'post' );
-
 					// hook used by woocommerce module to load front-end libraries and start a session
 					do_action( $this->p->cf['lca'].'_admin_post_header', $post_id, $post_type->name );
 
@@ -80,10 +140,9 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 					$this->head_info = $this->p->head->extract_head_info( $this->head_meta_tags );
 
 					if ( $obj->post_status == 'publish' ) {
-						if ( empty( $this->head_info['og_image']['og:image'] ) )
-							$this->p->notice->err( 'A Facebook / Open Graph image meta tag for this webpage could not be generated. Facebook and other social websites require at least one image meta tag to render their shared content correctly.' );
-						// only check for duplicates once the post has been published, 
-						// and we have a functioning permalink
+						if ( empty( $this->head_info['og:image'] ) )
+							$this->p->notice->err( 'An Open Graph image meta tag could not be generated for this webpage. Facebook and other social websites require at least one Open Graph image meta tag to render their shared content correctly.' );
+						// check for duplicates once the post has been published and we have a functioning permalink
 						if ( ! empty( $this->p->options['plugin_check_head'] ) )
 							$this->check_post_header( $post_id, $obj );
 					}
@@ -172,7 +231,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 			$def_opts = $this->get_defaults();
 			$post_type = get_post_type_object( $post->post_type );	// since 3.0
 			$this->head_info['ptn'] = ucfirst( $post_type->name );
-			$this->head_info['id'] = $post->ID;
+			$this->head_info['post_id'] = $post->ID;
 
 			$this->form = new SucomForm( $this->p, WPSSO_META_NAME, $opts, $def_opts );
 			wp_nonce_field( $this->get_nonce(), WPSSO_NONCE );
@@ -194,25 +253,25 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 			$rows = array();
 			switch ( $metabox.'-'.$key ) {
 				case 'post-preview':
-					if ( get_post_status( $head_info['id'] ) !== 'auto-draft' )
+					if ( get_post_status( $head_info['post_id'] ) !== 'auto-draft' )
 						$rows = $this->get_rows_social_preview( $this->form, $head_info );
 					else $rows[] = '<td><p class="centered">Save a draft version or publish the '.
 						$head_info['ptn'].' to display the open graph social preview.</p></td>';
 					break;
 
 				case 'post-tags':	
-					if ( get_post_status( $head_info['id'] ) !== 'auto-draft' ) {
+					if ( get_post_status( $head_info['post_id'] ) !== 'auto-draft' ) {
 						$rows = $this->get_rows_head_tags( $this->head_meta_tags );
 					} else $rows[] = '<td><p class="centered">Save a draft version or publish the '.
 						$head_info['ptn'].' to display the header preview.</p></td>';
 					break; 
 
 				case 'post-validate':
-					if ( get_post_status( $head_info['id'] ) === 'publish' ||
-						get_post_type( $head_info['id'] ) === 'attachment' )
+					if ( get_post_status( $head_info['post_id'] ) === 'publish' ||
+						get_post_type( $head_info['post_id'] ) === 'attachment' )
 							$rows = $this->get_rows_validate( $this->form, $head_info );
-					else $rows[] = '<td><p class="centered">The validation links will be available when the '
-						.$head_info['ptn'].' is published with public visibility.</p></td>';
+					else $rows[] = '<td><p class="centered">The validation links will be available when the '.
+						$head_info['ptn'].' is published with public visibility.</p></td>';
 					break; 
 			}
 			return $rows;

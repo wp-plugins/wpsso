@@ -52,13 +52,12 @@ if ( ! class_exists( 'WpssoMeta' ) ) {
 			$rows = array();
 			$max_width = 600;
 			$max_height = 315;
-			$og_image = $head_info['og_image'];
 			$div_style = 'width:'.$max_width.'px; height:'.$max_height.'px;';
-			$have_sizes = ( ! empty( $og_image['og:image:width'] ) && 
-				! empty( $og_image['og:image:height'] ) ) ? true : false;
+			$have_sizes = ( ! empty( $head_info['og:image:width'] ) && 
+				! empty( $head_info['og:image:height'] ) ) ? true : false;
 			$is_sufficient = ( $have_sizes === true && 
-				$og_image['og:image:width'] >= $max_width && 
-				$og_image['og:image:height'] >= $max_height ) ? true : false;
+				$head_info['og:image:width'] >= $max_width && 
+				$head_info['og:image:height'] >= $max_height ) ? true : false;
 			$msgs = array(
 				'not_found' => '<p>No Open Graph Image Found</p>',
 				'too_small' => '<p>Image Dimensions Smaller<br/>than Suggested Minimum<br/>of '.$max_width.' x '.$max_height.'px</p>',
@@ -66,14 +65,16 @@ if ( ! class_exists( 'WpssoMeta' ) ) {
 			);
 
 			foreach ( array( 'og:image:secure_url', 'og:image' ) as $key ) {
-				if ( ! empty( $og_image[$key] ) ) {
+				if ( ! empty( $head_info[$key] ) ) {
 					if ( $have_sizes === true ) {
 						$image_preview_html = '<div class="preview_img" style="'.$div_style.' 
-						background-size:'.( $is_sufficient === true ? 'cover' : $og_image['og:image:width'].' '.$og_image['og:image:height'] ).'; 
-						background-image:url('.$og_image[$key].');" />'.( $is_sufficient === true ? '' : $msgs['too_small'] ).'</div>';
+						background-size:'.( $is_sufficient === true ? 
+							'cover' : $head_info['og:image:width'].' '.$head_info['og:image:height'] ).'; 
+						background-image:url('.$head_info[$key].');" />'.( $is_sufficient === true ? 
+							'' : $msgs['too_small'] ).'</div>';
 					} else {
 						$image_preview_html = '<div class="preview_img" style="'.$div_style.' 
-						background-image:url('.$og_image[$key].');" />'.$msgs['no_size'].'</div>';
+						background-image:url('.$head_info[$key].');" />'.$msgs['no_size'].'</div>';
 					}
 					break;	// stop after first image
 				}
@@ -120,21 +121,20 @@ if ( ! class_exists( 'WpssoMeta' ) ) {
 		public function get_rows_validate( &$form, &$head_info ) {
 			$rows = array();
 
-			$rows[] = $this->p->util->th( 'Facebook Debugger' ).'<td class="validate"><p>Refresh the Facebook cache and validate the Open Graph / Rich Pin meta tags for this '.$head_info['ptn'].'. Facebook, Pinterest, LinkedIn, Google+, and most social websites use Open Graph meta tags. The Facebook Debugger remains the most stable and reliable method to verify Open Graph meta tags.</p>
-			<p><strong>You may have to click the "Fetch new scrape information" button several times to refresh Facebook\'s cache</strong>.</p></td>
+			$rows[] = $this->p->util->th( 'Facebook Debugger' ).'<td class="validate"><p>Facebook, Pinterest, LinkedIn, Google+, and most social websites use Open Graph meta tags. The Facebook debugger allows you to refresh Facebook\'s cache while also validating the Open Graph / Rich Pin meta tags. The Facebook debugger remains the most stable and reliable method to verify Open Graph meta tags. <strong>You may have to click the "Fetch new scrape information" button several times to refresh Facebook\'s cache</strong>.</p></td>
 			<td class="validate">'.$form->get_button( 'Validate Open Graph', 'button-secondary', null, 
-			'https://developers.facebook.com/tools/debug/og/object?q='.urlencode( $this->p->util->get_sharing_url( $head_info['id'] ) ), true ).'</td>';
+			'https://developers.facebook.com/tools/debug/og/object?q='.urlencode( $this->p->util->get_sharing_url( $head_info['post_id'] ) ), true ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Google Structured Data Testing Tool' ).'<td class="validate"><p>Verify that Google can correctly parse your structured data markup (meta tags, Schema, Microdata, and social JSON-LD markup) for Google Search and Google+.</p></td>
 			<td class="validate">'.$form->get_button( 'Validate Data Markup', 'button-secondary', null, 
-			'https://developers.google.com/structured-data/testing-tool/?url='.urlencode( $this->p->util->get_sharing_url( $head_info['id'] ) ), true ).'</td>';
+			'https://developers.google.com/structured-data/testing-tool/?url='.urlencode( $this->p->util->get_sharing_url( $head_info['post_id'] ) ), true ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Pinterest Rich Pin Validator' ).'<td class="validate"><p>Validate the Open Graph / Rich Pin meta tags, and apply to have them displayed on Pinterest.</p></td>
 			<td class="validate">'.$form->get_button( 'Validate Rich Pins', 'button-secondary', null, 
-			'http://developers.pinterest.com/rich_pins/validator/?link='.urlencode( $this->p->util->get_sharing_url( $head_info['id'] ) ), true ).'</td>';
+			'http://developers.pinterest.com/rich_pins/validator/?link='.urlencode( $this->p->util->get_sharing_url( $head_info['post_id'] ) ), true ).'</td>';
 
 			$rows[] = $this->p->util->th( 'Twitter Card Validator' ).'<td class="validate"><p>The Twitter Card Validator does not accept query arguments &ndash; copy-paste the following sharing URL into the validation input field. To enable the display of Twitter Card information in tweets, you must submit a URL for each type of card you provide (Summary, Summary with Large Image, Photo, Gallery, Player, and/or Product card).</p>
-			<p>'.$form->get_input_for_copy( $this->p->util->get_sharing_url( $head_info['id'] ), 'wide' ).'</p></td>
+			<p>'.$form->get_input_for_copy( $this->p->util->get_sharing_url( $head_info['post_id'] ), 'wide' ).'</p></td>
 			<td class="validate">'.$form->get_button( 'Validate Twitter Card', 'button-secondary', null, 
 			'https://dev.twitter.com/docs/cards/validation/validator', true ).'</td>';
 
@@ -272,36 +272,114 @@ if ( ! class_exists( 'WpssoMeta' ) ) {
 			if ( empty( $opts['buttons_disabled'] ) )
 				unset ( $opts['buttons_disabled'] );
 
-			foreach ( array( 'rp', 'og' ) as $meta_prefix ) {
-				if ( empty( $opts[$meta_prefix.'_img_id'] ) )
-					unset ( $opts[$meta_prefix.'_img_id_pre'] );
+			foreach ( array( 'rp', 'og' ) as $meta_pre ) {
+				if ( empty( $opts[$meta_pre.'_img_id'] ) )
+					unset ( $opts[$meta_pre.'_img_id_pre'] );
 
 				$force_regen = false;
 				foreach ( array( 'width', 'height', 'crop', 'crop_x', 'crop_y' ) as $key ) {
 					// if option is the same as the default, then unset it
-					if ( isset( $opts[$meta_prefix.'_img_'.$key] ) &&
-						isset( $defs[$meta_prefix.'_img_'.$key] ) &&
-							$opts[$meta_prefix.'_img_'.$key] === $defs[$meta_prefix.'_img_'.$key] )
-								unset( $opts[$meta_prefix.'_img_'.$key] );
+					if ( isset( $opts[$meta_pre.'_img_'.$key] ) &&
+						isset( $defs[$meta_pre.'_img_'.$key] ) &&
+							$opts[$meta_pre.'_img_'.$key] === $defs[$meta_pre.'_img_'.$key] )
+								unset( $opts[$meta_pre.'_img_'.$key] );
 
 					if ( $mod !== false ) {
 						if ( ! empty( $this->p->options['plugin_auto_img_resize'] ) ) {
-							$check_current = isset( $opts[$meta_prefix.'_img_'.$key] ) ?
-								$opts[$meta_prefix.'_img_'.$key] : '';
-							$check_previous = isset( $prev[$meta_prefix.'_img_'.$key] ) ?
-								$prev[$meta_prefix.'_img_'.$key] : '';
+							$check_current = isset( $opts[$meta_pre.'_img_'.$key] ) ?
+								$opts[$meta_pre.'_img_'.$key] : '';
+							$check_previous = isset( $prev[$meta_pre.'_img_'.$key] ) ?
+								$prev[$meta_pre.'_img_'.$key] : '';
 							if ( $check_current !== $check_previous )
 								$force_regen = true;
 						}
 					}
 				}
 				if ( $force_regen === true )
-					set_transient( $this->p->cf['lca'].'_'.$mod.'_'.$id.'_regen_'.$meta_prefix, true );
+					set_transient( $this->p->cf['lca'].'_'.$mod.'_'.$id.'_regen_'.$meta_pre, true );
 			}
 			return $opts;
 		}
 
-		public function get_og_image( $num = 0, $size_name = 'thumbnail', $id, $check_dupes = true, $force_regen = false, $meta_prefix = 'og' ) {
+		public function add_column_headings( $columns ) { 
+			return array_merge( $columns, array(
+				$this->p->cf['lca'].'_og_image' => __( 'Social Img', WPSSO_TEXTDOM )
+			) );
+		}
+
+		protected function get_mod_column_content( $value, $column_name, $id, $mod = '' ) {
+
+			// optimize performance and return immediately if this is not our column
+			if ( strpos( $column_name, $this->p->cf['lca'] ) !== 0 )
+				return $value;
+
+			$screen = get_current_screen();
+			$hidden = get_user_option( 'manage'.$screen->id.'columnshidden' );
+			if ( is_array( $hidden ) && 
+				in_array( $column_name, $hidden ) )
+					return 'Reload to View';
+
+			switch ( $column_name ) {
+				case $this->p->cf['lca'].'_og_image':
+					$use_cache = true;
+					break;
+				default:
+					$use_cache = false;
+					break;
+			}
+
+			if ( $use_cache === true && $this->p->is_avail['cache']['transient'] ) {
+				$lang = SucomUtil::get_locale();
+				$cache_salt = __METHOD__.'(mod:'.$mod.'_lang:'.$lang.'_id:'.$id.'_column:'.$column_name.')';
+				$cache_id = $this->p->cf['lca'].'_'.md5( $cache_salt );
+				$value = get_transient( $cache_id );
+				if ( $value !== false )
+					return $value;
+			}
+
+			switch ( $column_name ) {
+				case $this->p->cf['lca'].'_og_image':
+					// set custom image dimensions for this post/term/user id
+					$this->p->util->add_plugin_image_sizes( $id, array(), true, $mod );
+					break;
+			}
+
+			$value = apply_filters( $column_name.'_'.$mod.'_column_content', $value, $column_name, $id  );
+
+			if ( $use_cache === true && $this->p->is_avail['cache']['transient'] )
+				set_transient( $cache_id, $value, $this->p->cache->object_expire );
+
+			return $value;
+		}
+
+		public function get_og_image_column_html( $og_image ) {
+			$value = '';
+			// try and get a smaller thumbnail version if we can
+			if ( isset( $og_image['og:image:id'] ) && 
+				$og_image['og:image:id'] > 0 )
+					list(
+						$og_image['og:image'],
+						$og_image['og:image:width'],
+						$og_image['og:image:height'],
+						$og_image['og:image:cropped'],
+						$og_image['og:image:id']
+					) = $this->p->media->get_attachment_image_src( $og_image['og:image:id'], 'thumbnail', false, false );
+
+			if ( ! empty( $og_image['og:image'] ) )
+				$value .= '<div class="preview_img" style="background-image:url('.$og_image['og:image'].');"></div>';
+			return $value;
+		}
+
+		public function get_og_image( $num = 0, $size_name = 'thumbnail', $id,
+			$check_dupes = true, $force_regen = false, $meta_pre = 'og' ) {
+
+			return $this->get_meta_image( $num, $size_name, $id,
+				$check_dupes, $force_regen, $meta_pre, 'og' );
+		}
+
+		public function get_meta_image( $num = 0, $size_name = 'thumbnail', $id,
+			$check_dupes = true, $force_regen = false, $meta_pre = 'og', $tag_pre = 'og' ) {
+
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->args( array( 
 					'num' => $num,
@@ -309,63 +387,77 @@ if ( ! class_exists( 'WpssoMeta' ) ) {
 					'id' => $id,
 					'check_dupes' => $check_dupes,
 					'force_regen' => $force_regen,
-					'meta_prefix' => $meta_prefix,
+					'meta_pre' => $meta_pre,
+					'tag_pre' => $tag_pre,
 				), get_class( $this ) );
 			}
-			$og_ret = array();
-			$og_image = array();
+
+			$meta_ret = array();
+			$meta_image = SucomUtil::meta_image_tags( $tag_pre );
+
 			if ( empty( $id ) )
-				return $og_ret;
-			foreach( array_unique( array( $meta_prefix, 'og' ) ) as $prefix ) {
+				return $meta_ret;
+
+			foreach( array_unique( array( $meta_pre, 'og' ) ) as $prefix ) {
+
 				$pid = $this->get_options( $id, $prefix.'_img_id' );
 				$pre = $this->get_options( $id, $prefix.'_img_id_pre' );
 				$url = $this->get_options( $id, $prefix.'_img_url' );
+
 				if ( $pid > 0 ) {
 					$pid = $pre === 'ngg' ? 'ngg-'.$pid : $pid;
 					if ( $this->p->debug->enabled )
 						$this->p->debug->log( 'using custom '.$prefix.' image id = "'.$pid.'"',
 							get_class( $this ) );	// log extended class name
 					list( 
-						$og_image['og:image'],
-						$og_image['og:image:width'],
-						$og_image['og:image:height'],
-						$og_image['og:image:cropped'],
-						$og_image['og:image:id']
+						$meta_image[$tag_pre.':image'],
+						$meta_image[$tag_pre.':image:width'],
+						$meta_image[$tag_pre.':image:height'],
+						$meta_image[$tag_pre.':image:cropped'],
+						$meta_image[$tag_pre.':image:id']
 					) = $this->p->media->get_attachment_image_src( $pid, $size_name, $check_dupes, $force_regen );
 				}
-				if ( empty( $og_image['og:image'] ) && ! empty( $url ) ) {
+
+				if ( empty( $meta_image[$tag_pre.':image'] ) && ! empty( $url ) ) {
 					if ( $this->p->debug->enabled )
 						$this->p->debug->log( 'using custom '.$prefix.' image url = "'.$url.'"',
 							get_class( $this ) );	// log extended class name
 					list(
-						$og_image['og:image'],
-						$og_image['og:image:width'],
-						$og_image['og:image:height'],
-						$og_image['og:image:cropped'],
-						$og_image['og:image:id']
+						$meta_image[$tag_pre.':image'],
+						$meta_image[$tag_pre.':image:width'],
+						$meta_image[$tag_pre.':image:height'],
+						$meta_image[$tag_pre.':image:cropped'],
+						$meta_image[$tag_pre.':image:id']
 					) = array( $url, -1, -1, -1, -1 );
 				}
-				if ( ! empty( $og_image['og:image'] ) &&
-					$this->p->util->push_max( $og_ret, $og_image, $num ) )
-						return $og_ret;
+
+				if ( ! empty( $meta_image[$tag_pre.':image'] ) &&
+					$this->p->util->push_max( $meta_ret, $meta_image, $num ) )
+						return $meta_ret;
 			}
-			return $og_ret;
+			return $meta_ret;
 		}
 
-		public function get_og_video( $num = 0, $id, $check_dupes = false, $meta_prefix = 'og' ) {
+		public function get_og_video( $num = 0, $id, 
+			$check_dupes = false, $meta_pre = 'og', $tag_pre = 'og' ) {
+
 			if ( $this->p->debug->enabled ) {
-				$this->p->debug->args( array(
+				$this->p->debug->args( array( 
 					'num' => $num,
 					'id' => $id,
 					'check_dupes' => $check_dupes,
-					'meta_prefix' => $meta_prefix,
+					'meta_pre' => $meta_pre,
+					'tag_pre' => $tag_pre,
 				), get_class( $this ) );
 			}
+
 			$og_ret = array();
 			$og_video = array();
+
 			if ( empty( $id ) )
 				return $og_ret;
-			foreach( array_unique( array( $meta_prefix, 'og' ) ) as $prefix ) {
+
+			foreach( array_unique( array( $meta_pre, 'og' ) ) as $prefix ) {
 				$html = $this->get_options( $id, $prefix.'_vid_embed' );
 				$url = $this->get_options( $id, $prefix.'_vid_url' );
 				if ( ! empty( $html ) ) {
