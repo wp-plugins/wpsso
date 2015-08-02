@@ -411,7 +411,7 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 * [GitHub](https://github.com/SurniaUlula/wpsso)
 * [WordPress.org](https://wordpress.org/plugins/wpsso/developers/)
 
-= Version 3.6.4 =
+= Version 3.6.4 (2015/08/02) =
 
 * **New Features**
 	* Added new `wpsso_get_sharing_url()` and `wpsso_get_short_url()` functions.
@@ -500,6 +500,10 @@ This release schedule keeps the code stable and reliable, at the cost of more fr
 	* Renamed the SucomUtil th() method to get_th().
 
 == Upgrade Notice ==
+
+= 3.6.4 =
+
+Added new wpsso_get_sharing_url() and wpsso_get_short_url() functions.
 
 = 3.6.3.1 =
 
